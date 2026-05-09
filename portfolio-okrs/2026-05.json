@@ -1,0 +1,102 @@
+{
+  "schema_version": "1",
+  "period": "2026-05",
+  "period_label": "May 2026",
+  "generated_at": "2026-05-09",
+  "last_edited_by": "Watson (per Richard 09-May-26)",
+  "portfolio_target_conditions": [
+    {
+      "id": "tc-portfolio-stock-count",
+      "name": "Portfolio stock count",
+      "type": "count",
+      "target": 16,
+      "current": 9,
+      "delta": 7,
+      "note": "Target 16 stocks in portfolio. Currently 9. Need to add 7 (May OKR specifies adding 5 named below; 2 unspecified)."
+    }
+  ],
+  "portfolio_okrs": [
+    {
+      "id": "okr-2026-05-healthcare",
+      "description": "Add 1 healthcare name",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Healthcare",
+      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours healthcare's defensive/recurring revenues."
+    },
+    {
+      "id": "okr-2026-05-utility",
+      "description": "Add 1 utility name",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Utilities",
+      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours regulated utilities' inflation pass-through + dividend safety."
+    },
+    {
+      "id": "okr-2026-05-industrial-capgoods",
+      "description": "Add 2 industrial / capital goods names",
+      "target_count": 2,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Industrials / Capital Goods",
+      "rationale": "Sector exposure gap."
+    },
+    {
+      "id": "okr-2026-05-ai-beneficiary",
+      "description": "Add 1 AI beneficiary (any sector)",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "thematic",
+      "filter_value": "AI (beneficiary)",
+      "rationale": "AI thematic beneficiary alignment \u2014 see thematics dashboard for definition."
+    }
+  ],
+  "summary": {
+    "total_targets": 5,
+    "total_filled": 0,
+    "remaining": 5
+  },
+  "future_tc_placeholders": [
+    {
+      "id": "tc-sector-cap",
+      "name": "Max sector concentration",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-position-size-max",
+      "name": "Max single position %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-position-size-min",
+      "name": "Min single position %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-geographic-concentration",
+      "name": "Max single-country exposure %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-probing-bets-max",
+      "name": "Max number of probing bets",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-conviction-weighted-avg",
+      "name": "Conviction-weighted portfolio average",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-cash-min",
+      "name": "Min cash %",
+      "status": "not_yet_set"
+    }
+  ]
+}

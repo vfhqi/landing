@@ -112,7 +112,7 @@
 <body>
 
 <header>
-  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v3</span></span></h1>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v4</span></span></h1>
   <div class="status-strip">
     <span class="pill">Date <strong id="d-date">—</strong></span>
     <span class="pill">Market regime <strong>risk-off</strong></span>
@@ -176,10 +176,10 @@
     <g class="node">
       <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://github.com/vfhqi/memory/blob/main/context/values-and-behaviours.md" target="_blank" rel="noopener">
         <rect x="560" y="36" width="280" height="116"/>
-        <text class="title" x="700" y="62" text-anchor="middle">Evergreen Target Conditions</text>
-        <text class="sub"   x="700" y="84" text-anchor="middle">Portfolio Target Conditions</text>
-        <text class="sub"   x="700" y="103" text-anchor="middle">Portfolio OKRs</text>
-        <text class="sub"   x="700" y="132" text-anchor="middle" style="font-style:italic">3 perpetual goals — investing · self · business</text>
+        <text class="title" x="700" y="64" text-anchor="middle">Evergreen Target Conditions</text>
+        <text class="title" x="700" y="88" text-anchor="middle">Portfolio Target Conditions</text>
+        <text class="title" x="700" y="112" text-anchor="middle">Portfolio OKRs</text>
+        <text class="sub"   x="700" y="140" text-anchor="middle" style="font-style:italic">3 equal-weight strategic anchors</text>
       </a>
     </g>
   </g>
@@ -189,7 +189,7 @@
     <rect class="cluster c-magenta" x="980" y="20" width="380" height="140"/>
     <text class="cluster-label cl-magenta" x="995" y="14">MARKET &amp; ENVIRONMENT</text>
     <g class="node">
-      <a data-href="local:memory/thematics/active.md" data-href-gh="https://github.com/vfhqi/memory/blob/main/thematics/active.md" target="_blank" rel="noopener">
+      <a data-href="local:databases/thematics-dashboard.html" data-href-gh="https://vfhqi.github.io/landing/thematics-dashboard.html" target="_blank" rel="noopener">
         <rect x="1000" y="36" width="340" height="116"/>
         <text class="title" x="1170" y="64" text-anchor="middle">Market &amp; Environment</text>
         <text class="title" x="1170" y="86" text-anchor="middle">Active Thematics</text>
@@ -199,11 +199,27 @@
     </g>
   </g>
 
-  <!-- GAP marker -->
-  <g aria-label="Unresolved system-design gap between market environment and strategic targets">
-    <line class="flow-line dotted" x1="980" y1="90" x2="860" y2="90" marker-end="url(#arrow-dot)"/>
-    <rect x="893" y="79" width="54" height="20" rx="10" ry="10" fill="#fff" stroke="#7a7a7a" stroke-dasharray="3 3"/>
-    <text class="gap-label" x="920" y="93" text-anchor="middle">GAP?</text>
+  <!-- old GAP marker removed; replaced by GAP node — see GAP cluster below -->
+
+
+  <!-- ============ GAP NODE (D-LP-22) — sits between Strategic Targets, Market & Environment, and Portfolio ============ -->
+  <g aria-label="GAP — what the portfolio needs to add given strategic targets and market environment">
+    <a data-href="local:databases/portfolio-okrs/current.json" data-href-gh="https://vfhqi.github.io/landing/portfolio-okrs/current.json" target="_blank" rel="noopener">
+      <rect x="870" y="180" width="100" height="160" rx="10" ry="10" fill="#fef0d0" stroke="#e0a040" stroke-width="2.4"/>
+      <text x="920" y="200" text-anchor="middle" style="font-size:11px;font-weight:700;fill:#8a5a10;letter-spacing:.5px">GAP</text>
+      <text x="920" y="216" text-anchor="middle" style="font-size:9.5px;fill:#8a5a10;font-style:italic">portfolio shortfall</text>
+      <!-- Live OKR checklist rendered by JS from #okrs script -->
+      <g id="gap-okr-list">
+        <text x="920" y="240" text-anchor="middle" style="font-size:9.5px;fill:#5c4400">(loading OKRs&hellip;)</text>
+      </g>
+    </a>
+    <!-- Three dashed arrows fan IN from feeders -->
+    <!-- From Strategic Targets (yellow, top) -->
+    <path class="flow-line dotted" d="M820,140 C840,160 855,170 880,182" marker-end="url(#arrow-dot)"/>
+    <!-- From Market & Environment (magenta, top-right) -->
+    <path class="flow-line dotted" d="M1000,160 C980,170 970,175 960,182" marker-end="url(#arrow-dot)"/>
+    <!-- From Portfolio (orange-fill, below) -->
+    <path class="flow-line dotted" d="M800,260 C830,260 850,260 875,260" marker-end="url(#arrow-dot)"/>
   </g>
 
   <!-- ============ MIDDLE ROW (y≈190–470) ============ -->
@@ -382,9 +398,158 @@
 </main>
 
 <footer>
-  <span>Built 09-May-26 · v3 mockup · <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span>Built 09-May-26 · v4 mockup · <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
   <span><code id="d-host">file://</code> · <a href="#" id="d-toggle">toggle local / GH mode</a></span>
 </footer>
+
+<script type="application/json" id="okrs">
+{
+  "schema_version": "1",
+  "period": "2026-05",
+  "period_label": "May 2026",
+  "generated_at": "2026-05-09",
+  "last_edited_by": "Watson (per Richard 09-May-26)",
+  "portfolio_target_conditions": [
+    {
+      "id": "tc-portfolio-stock-count",
+      "name": "Portfolio stock count",
+      "type": "count",
+      "target": 16,
+      "current": 9,
+      "delta": 7,
+      "note": "Target 16 stocks in portfolio. Currently 9. Need to add 7 (May OKR specifies adding 5 named below; 2 unspecified)."
+    }
+  ],
+  "portfolio_okrs": [
+    {
+      "id": "okr-2026-05-healthcare",
+      "description": "Add 1 healthcare name",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Healthcare",
+      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours healthcare's defensive/recurring revenues."
+    },
+    {
+      "id": "okr-2026-05-utility",
+      "description": "Add 1 utility name",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Utilities",
+      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours regulated utilities' inflation pass-through + dividend safety."
+    },
+    {
+      "id": "okr-2026-05-industrial-capgoods",
+      "description": "Add 2 industrial / capital goods names",
+      "target_count": 2,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "sector",
+      "filter_value": "Industrials / Capital Goods",
+      "rationale": "Sector exposure gap."
+    },
+    {
+      "id": "okr-2026-05-ai-beneficiary",
+      "description": "Add 1 AI beneficiary (any sector)",
+      "target_count": 1,
+      "filled_count": 0,
+      "filled_with": [],
+      "filter_type": "thematic",
+      "filter_value": "AI (beneficiary)",
+      "rationale": "AI thematic beneficiary alignment \u2014 see thematics dashboard for definition."
+    }
+  ],
+  "summary": {
+    "total_targets": 5,
+    "total_filled": 0,
+    "remaining": 5
+  },
+  "future_tc_placeholders": [
+    {
+      "id": "tc-sector-cap",
+      "name": "Max sector concentration",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-position-size-max",
+      "name": "Max single position %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-position-size-min",
+      "name": "Min single position %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-geographic-concentration",
+      "name": "Max single-country exposure %",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-probing-bets-max",
+      "name": "Max number of probing bets",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-conviction-weighted-avg",
+      "name": "Conviction-weighted portfolio average",
+      "status": "not_yet_set"
+    },
+    {
+      "id": "tc-cash-min",
+      "name": "Min cash %",
+      "status": "not_yet_set"
+    }
+  ]
+}
+</script>
+
+<script>
+  // Render OKR checklist into the GAP node
+  (function(){
+    var data = JSON.parse(document.getElementById('okrs').textContent);
+    var list = document.getElementById('gap-okr-list');
+    if (!list) return;
+    while (list.firstChild) list.removeChild(list.firstChild);
+    var SVG_NS = 'http://www.w3.org/2000/svg';
+    var x0 = 880, y0 = 232, lh = 14;
+    var i = 0;
+    // Portfolio TC line
+    data.portfolio_target_conditions.forEach(function(tc){
+      var t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', 920);
+      t.setAttribute('y', y0 + i*lh);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('style', 'font-size:9px;font-weight:700;fill:#5c4400');
+      t.textContent = 'TC: ' + tc.current + '/' + tc.target + ' stocks';
+      list.appendChild(t);
+      i++;
+    });
+    // OKR checklist
+    data.portfolio_okrs.forEach(function(o){
+      var t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', 880);
+      t.setAttribute('y', y0 + i*lh);
+      t.setAttribute('text-anchor', 'start');
+      t.setAttribute('style', 'font-size:8.5px;fill:#3a3a3a');
+      var box = (o.filled_count >= o.target_count) ? '☑' : '☐';
+      t.textContent = box + ' ' + o.description.replace(/^Add /,'') + ' (' + o.filled_count + '/' + o.target_count + ')';
+      list.appendChild(t);
+      i++;
+    });
+    // Last updated stamp
+    var stamp = document.createElementNS(SVG_NS, 'text');
+    stamp.setAttribute('x', 920);
+    stamp.setAttribute('y', y0 + i*lh + 4);
+    stamp.setAttribute('text-anchor', 'middle');
+    stamp.setAttribute('style', 'font-size:7.5px;font-style:italic;fill:#8a5a10');
+    stamp.textContent = 'OKRs ' + data.period_label;
+    list.appendChild(stamp);
+  })();
+</script>
 
 <script>
   (function(){

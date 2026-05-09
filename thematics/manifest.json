@@ -1,0 +1,70 @@
+{
+  "schema_version": "1",
+  "generated_at": "2026-05-09",
+  "source_doctrine": "memory/thematics/active.md (operational overlay; not an APM report)",
+  "thematics": [
+    {
+      "slug": "ai",
+      "name": "AI",
+      "status": "active",
+      "definition": "AI disruption \u2014 beneficiaries (semiconductors, infrastructure, picks-and-shovels) vs at-risk (legacy SaaS, certain consultancies, jobs-disruption-exposed staffing).",
+      "last_updated": "2026-05-03",
+      "reports": [
+        {
+          "date": "2026-05-03",
+          "title": "AI Thematic Memo v2",
+          "file": "ai/2026-05-03-ai-thematic-memo-v2.docx",
+          "summary": "Second-pass APM thematic memo on AI \u2014 beneficiaries, at-risk, portfolio implications. Supersedes v1 of 02-May.",
+          "author": "APM",
+          "type": "memo"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "AI Thematic Memo v1",
+          "file": "ai/2026-05-02-ai-thematic-memo-v1.docx",
+          "summary": "First-pass APM thematic memo on AI. Superseded by v2 (03-May).",
+          "author": "APM",
+          "type": "memo",
+          "status": "superseded"
+        }
+      ],
+      "raw_research": []
+    },
+    {
+      "slug": "iran-oil",
+      "name": "Iran Oil",
+      "status": "active",
+      "definition": "Iran conflict + oil \u2014 beneficiaries (oil & gas producers with reserves, defence, alternative energy infrastructure) vs at-risk (energy-intensive industrials, consumer discretionary, anything margin-fragile to oil shocks).",
+      "last_updated": "2026-05-04",
+      "reports": [],
+      "raw_research": [
+        {
+          "date": "2026-04-XX",
+          "title": "Iran War \u2014 AlphaSense raw research",
+          "file": "iran-oil/_raw-research/THEMATIC-iran-war-AS-raw.md",
+          "summary": "Raw [AS] thematic research feeder. Pre-APM-memo input.",
+          "author": "AlphaSense Deep Research",
+          "type": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "recession-rollover",
+      "name": "Recession / Bear Market Roll-over",
+      "status": "active",
+      "definition": "Late-cycle bear market roll-over \u2014 beneficiaries (recurring revenues, regulated utilities, fortress balance sheets, healthcare, insurance, deposit-franchise banks) vs at-risk (high-multiple growth, cyclicals, consumer discretionary, leveraged small-caps).",
+      "last_updated": "2026-05-04",
+      "reports": [],
+      "raw_research": [
+        {
+          "date": "2026-04-XX",
+          "title": "Bear Market \u2014 AlphaSense raw research",
+          "file": "recession-rollover/_raw-research/THEMATIC-bear-market-AS-raw.md",
+          "summary": "Raw [AS] thematic research feeder. Pre-APM-memo input.",
+          "author": "AlphaSense Deep Research",
+          "type": "raw"
+        }
+      ]
+    }
+  ]
+}

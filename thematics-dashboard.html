@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viewforth — Thematics Dashboard</title>
+<style>
+  :root{
+    --bg:#fbf9f1;
+    --ink:#1c1c1c;
+    --ink-dim:#5c5c5c;
+    --line:#2a2a2a;
+    --muted:#8a8a8a;
+    --tile:#fffdf6;
+    --tile-hover:#fff8df;
+    --magenta:#c66ab0;
+    --magenta-bg:#fbf2f8;
+    --amber:#e0a040;
+    --green:#5fa05c;
+    --grey:#bdb494;
+    --font-sans:'Aptos','Segoe UI',-apple-system,system-ui,sans-serif;
+    --font-mono:'Aptos Mono','SF Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);}
+  header{padding:12px 24px;border-bottom:1px solid #ebe6d4;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  header h1{margin:0;font-size:18px;font-weight:600;}
+  header h1 .sub{color:var(--ink-dim);font-weight:400;margin-left:6px;font-size:12px;}
+  header .nav{font-size:12px;color:var(--ink-dim);}
+  header .nav a{color:var(--magenta);text-decoration:none;font-weight:600;}
+  header .nav a:hover{text-decoration:underline;}
+  main{padding:18px 24px 60px;max-width:1280px;margin:0 auto;}
+  .thematic{background:var(--tile);border:1.5px solid var(--magenta);border-radius:10px;padding:18px 22px;margin-bottom:24px;}
+  .thematic h2{margin:0 0 4px;font-size:18px;font-weight:700;color:#8a3d77;}
+  .thematic .meta{font-size:11px;color:var(--ink-dim);font-family:var(--font-mono);margin-bottom:10px;display:flex;gap:14px;flex-wrap:wrap;}
+  .thematic .meta .pill{background:#f4efdc;border:1px solid var(--grey);padding:2px 8px;border-radius:9px;}
+  .thematic .meta .status-active{background:#e6f3e4;border-color:var(--green);color:#3a6a36;font-weight:600;}
+  .thematic .definition{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:14px;font-style:italic;border-left:3px solid var(--magenta);padding:6px 12px;background:var(--magenta-bg);}
+  .thematic .reports-section{margin-top:14px;}
+  .thematic .reports-section h3{font-size:11px;font-weight:700;color:var(--ink-dim);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px;}
+  .reports-list{list-style:none;padding:0;margin:0;}
+  .reports-list li{border-top:1px solid #ebe6d4;padding:10px 0;display:flex;align-items:flex-start;gap:14px;}
+  .reports-list li:first-of-type{border-top:none;}
+  .reports-list .date{font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);min-width:90px;padding-top:2px;}
+  .reports-list .body{flex:1;}
+  .reports-list .title{font-weight:600;font-size:13.5px;color:var(--ink);}
+  .reports-list .title a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--magenta);}
+  .reports-list .title a:hover{background:var(--magenta-bg);}
+  .reports-list .title .badge{font-size:10px;font-weight:600;color:#a04920;background:#fff4e6;border:1px solid var(--amber);padding:1px 6px;border-radius:8px;margin-left:8px;}
+  .reports-list .summary{font-size:12px;color:var(--ink-dim);margin-top:4px;line-height:1.4;}
+  .reports-list .author{font-size:10.5px;font-family:var(--font-mono);color:var(--muted);margin-top:3px;}
+  .empty{padding:14px;color:var(--muted);font-style:italic;text-align:center;border:1px dashed var(--grey);border-radius:6px;font-size:12px;}
+  .raw-research-section{background:#fafaf3;border-radius:6px;padding:8px 14px;margin-top:8px;}
+  footer{padding:8px 24px;font-size:11px;color:var(--muted);border-top:1px solid #ebe6d4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;text-align:center;}
+  footer code{font-family:var(--font-mono);background:#f3eedc;padding:1px 5px;border-radius:3px;color:var(--ink-dim);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Viewforth Thematics <span class="sub">— APM portfolio-construction overlay</span></h1>
+  <div class="nav">
+    <a href="#" id="back-link">&larr; Back to landing</a>
+    <span style="margin:0 10px;color:#ddd">|</span>
+    Source doctrine: <code>memory/thematics/active.md</code>
+  </div>
+</header>
+
+<main id="thematics-root"></main>
+
+<footer>
+  <span>Viewforth thematics dashboard &middot; reads from <code>databases/thematics/manifest.json</code></span>
+  <span>Mode <strong id="d-mode">local</strong> &middot; <a href="#" id="d-toggle" style="color:var(--ink-dim)">toggle local/GH mode</a></span>
+</footer>
+
+<script type="application/json" id="manifest">
+{
+  "schema_version": "1",
+  "generated_at": "2026-05-09",
+  "source_doctrine": "memory/thematics/active.md (operational overlay; not an APM report)",
+  "thematics": [
+    {
+      "slug": "ai",
+      "name": "AI",
+      "status": "active",
+      "definition": "AI disruption \u2014 beneficiaries (semiconductors, infrastructure, picks-and-shovels) vs at-risk (legacy SaaS, certain consultancies, jobs-disruption-exposed staffing).",
+      "last_updated": "2026-05-03",
+      "reports": [
+        {
+          "date": "2026-05-03",
+          "title": "AI Thematic Memo v2",
+          "file": "ai/2026-05-03-ai-thematic-memo-v2.docx",
+          "summary": "Second-pass APM thematic memo on AI \u2014 beneficiaries, at-risk, portfolio implications. Supersedes v1 of 02-May.",
+          "author": "APM",
+          "type": "memo"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "AI Thematic Memo v1",
+          "file": "ai/2026-05-02-ai-thematic-memo-v1.docx",
+          "summary": "First-pass APM thematic memo on AI. Superseded by v2 (03-May).",
+          "author": "APM",
+          "type": "memo",
+          "status": "superseded"
+        }
+      ],
+      "raw_research": []
+    },
+    {
+      "slug": "iran-oil",
+      "name": "Iran Oil",
+      "status": "active",
+      "definition": "Iran conflict + oil \u2014 beneficiaries (oil & gas producers with reserves, defence, alternative energy infrastructure) vs at-risk (energy-intensive industrials, consumer discretionary, anything margin-fragile to oil shocks).",
+      "last_updated": "2026-05-04",
+      "reports": [],
+      "raw_research": [
+        {
+          "date": "2026-04-XX",
+          "title": "Iran War \u2014 AlphaSense raw research",
+          "file": "iran-oil/_raw-research/THEMATIC-iran-war-AS-raw.md",
+          "summary": "Raw [AS] thematic research feeder. Pre-APM-memo input.",
+          "author": "AlphaSense Deep Research",
+          "type": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "recession-rollover",
+      "name": "Recession / Bear Market Roll-over",
+      "status": "active",
+      "definition": "Late-cycle bear market roll-over \u2014 beneficiaries (recurring revenues, regulated utilities, fortress balance sheets, healthcare, insurance, deposit-franchise banks) vs at-risk (high-multiple growth, cyclicals, consumer discretionary, leveraged small-caps).",
+      "last_updated": "2026-05-04",
+      "reports": [],
+      "raw_research": [
+        {
+          "date": "2026-04-XX",
+          "title": "Bear Market \u2014 AlphaSense raw research",
+          "file": "recession-rollover/_raw-research/THEMATIC-bear-market-AS-raw.md",
+          "summary": "Raw [AS] thematic research feeder. Pre-APM-memo input.",
+          "author": "AlphaSense Deep Research",
+          "type": "raw"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+  // Read manifest from inline JSON (no fetch — file:// safe)
+  var manifest = JSON.parse(document.getElementById('manifest').textContent);
+  var isGh = location.hostname.endsWith('github.io');
+  document.getElementById('d-mode').textContent = isGh ? 'github pages' : 'local';
+
+  var GH_BASE = 'https://vfhqi.github.io/landing/';
+  var LOCAL_BASE_DASHBOARD = ''; // relative to this file in databases/
+  var LOCAL_BASE_LANDING = '../landing-page.html';
+  var GH_BASE_LANDING = 'https://vfhqi.github.io/landing/';
+
+  document.getElementById('back-link').setAttribute('href', isGh ? GH_BASE_LANDING : LOCAL_BASE_LANDING);
+
+  function rewrite(localPath) {
+    if (isGh) {
+      return GH_BASE + 'thematics/' + localPath;
+    }
+    return 'thematics/' + localPath;
+  }
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) for (var k in attrs) {
+      if (k === 'class') n.className = attrs[k];
+      else if (k === 'href') n.setAttribute('href', attrs[k]);
+      else if (k === 'target') n.setAttribute('target', attrs[k]);
+      else n[k] = attrs[k];
+    }
+    (kids || []).forEach(function(k){
+      if (typeof k === 'string') n.appendChild(document.createTextNode(k));
+      else if (k) n.appendChild(k);
+    });
+    return n;
+  }
+
+  function renderReportRow(r) {
+    var dateCell = el('div', {class:'date'}, [r.date]);
+    var titleEl = el('div', {class:'title'}, [
+      el('a', {href: rewrite(r.file), target:'_blank'}, [r.title])
+    ]);
+    if (r.status === 'superseded') {
+      titleEl.appendChild(el('span', {class:'badge'}, ['superseded']));
+    }
+    if (r.type === 'raw') {
+      titleEl.appendChild(el('span', {class:'badge'}, ['raw research']));
+    }
+    var body = el('div', {class:'body'}, [
+      titleEl,
+      el('div', {class:'summary'}, [r.summary || '']),
+      el('div', {class:'author'}, [r.author || ''])
+    ]);
+    return el('li', null, [dateCell, body]);
+  }
+
+  function renderThematic(t) {
+    var statusClass = t.status === 'active' ? 'pill status-active' : 'pill';
+    var section = el('section', {class:'thematic'}, [
+      el('h2', null, [t.name]),
+      el('div', {class:'meta'}, [
+        el('span', {class:statusClass}, [t.status]),
+        el('span', {class:'pill'}, ['Last updated ' + t.last_updated]),
+        el('span', {class:'pill'}, [(t.reports.length) + ' APM report' + (t.reports.length === 1 ? '' : 's')]),
+        el('span', {class:'pill'}, [(t.raw_research.length) + ' raw research feeder' + (t.raw_research.length === 1 ? '' : 's')])
+      ]),
+      el('div', {class:'definition'}, [t.definition])
+    ]);
+
+    var reportsHeader = el('h3', null, ['APM REPORTS']);
+    section.appendChild(el('div', {class:'reports-section'}, [reportsHeader]));
+    if (t.reports && t.reports.length) {
+      var ul = el('ul', {class:'reports-list'}, t.reports.map(renderReportRow));
+      section.appendChild(ul);
+    } else {
+      section.appendChild(el('div', {class:'empty'}, ['No APM reports yet on this thematic. Awaiting first memo.']));
+    }
+
+    if (t.raw_research && t.raw_research.length) {
+      var rawSection = el('div', {class:'raw-research-section'}, [
+        el('h3', null, ['RAW RESEARCH FEEDERS']),
+        el('ul', {class:'reports-list'}, t.raw_research.map(renderReportRow))
+      ]);
+      section.appendChild(rawSection);
+    }
+
+    return section;
+  }
+
+  var root = document.getElementById('thematics-root');
+  manifest.thematics.forEach(function(t){ root.appendChild(renderThematic(t)); });
+
+  document.getElementById('d-toggle').addEventListener('click', function(e){
+    e.preventDefault();
+    var url = new URL(location.href);
+    var current = location.hostname.endsWith('github.io');
+    if (current) {
+      url.host = 'localhost'; // no-op; user manually opens file:// version
+    }
+    alert('Toggle is per-page. Open https://vfhqi.github.io/landing/thematics-dashboard.html for GH mode, or local file for file:// mode.');
+  });
+</script>
+
+</body>
+</html>
