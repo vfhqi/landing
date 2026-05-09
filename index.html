@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viewforth — Landing</title>
+<style>
+  :root{
+    --bg:#fbf9f1;
+    --ink:#1c1c1c;
+    --ink-dim:#5c5c5c;
+    --line:#2a2a2a;
+    --muted:#8a8a8a;
+    --neutral:#c8c4b6;
+    --gap:#7a7a7a;
+
+    --yellow:#e6b800;
+    --magenta:#c66ab0;
+    --orange-fill:#f0a04b;
+    --cyan:#5fb3c7;
+    --blue:#5481c7;
+    --green:#6aaa64;
+    --pink:#e88aa6;
+    --orange-out:#e07a3c;
+    --substrate:#8b6f47;
+
+    --tile:#fffdf6;
+    --tile-hover:#fff8df;
+
+    --font-sans:'Aptos','Segoe UI',-apple-system,system-ui,sans-serif;
+    --font-mono:'Aptos Mono','SF Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);height:100%;}
+  body{display:flex;flex-direction:column;overflow:hidden;}
+
+  header{
+    padding:6px 18px 4px;
+    border-bottom:1px solid #ebe6d4;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+    flex-shrink:0;
+  }
+  header h1{margin:0;font-size:15px;font-weight:600;letter-spacing:.3px;}
+  header h1 .sub{color:var(--ink-dim);font-weight:400;margin-left:6px;font-size:11px;}
+  .status-strip{
+    display:flex;gap:8px;font-size:10.5px;color:var(--ink-dim);font-family:var(--font-mono);align-items:center;flex-wrap:wrap;
+  }
+  .status-strip .pill{
+    background:var(--tile);border:1px solid #e2dcc6;padding:2px 7px;border-radius:9px;
+  }
+  .status-strip .pill strong{color:var(--ink)}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:4px 13px;font-size:10px;color:var(--ink-dim);
+    padding:4px 18px;border-bottom:1px solid #ebe6d4;flex-shrink:0;
+  }
+  .legend .sw{display:inline-flex;align-items:center;gap:4px;}
+  .legend .sw i{display:inline-block;width:9px;height:9px;border-radius:2px;border:1px solid rgba(0,0,0,.15);}
+
+  main.stage{flex:1 1 auto;min-height:0;padding:4px 8px;overflow:hidden;}
+  svg.flow{display:block;width:100%;height:100%;font-family:var(--font-sans);}
+
+  .node rect{ fill:var(--tile); stroke:var(--line); stroke-width:1.4; rx:6; ry:6; transition:fill .12s ease; }
+  .node:hover rect{ fill:var(--tile-hover); }
+  .node text{ fill:var(--ink); pointer-events:none; }
+  .node .title{ font-size:13px; font-weight:600; }
+  .node .sub{ font-size:10.5px; fill:var(--ink-dim); }
+  .node a{ cursor:pointer; }
+  .node a:focus rect{ outline:2px solid var(--ink); outline-offset:2px; }
+
+  .cluster{ fill:none; stroke-width:2.2; rx:12; ry:12; }
+  .c-yellow      { stroke:var(--yellow); }
+  .c-magenta     { stroke:var(--magenta); }
+  .c-orange-fill { stroke:var(--orange-fill); fill:rgba(240,160,75,.10); stroke-width:2.4;}
+  .c-cyan        { stroke:var(--cyan); }
+  .c-blue        { stroke:var(--blue); }
+  .c-green       { stroke:var(--green); }
+  .c-pink        { stroke:var(--pink); }
+  .c-orange-out  { stroke:var(--orange-out); }
+
+  .cluster-label{ font-size:10.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+  .cl-yellow      { fill:#9a7a00; }
+  .cl-magenta     { fill:#8a3d77; }
+  .cl-cyan        { fill:#1f6f82; }
+  .cl-blue        { fill:#2c5398; }
+  .cl-green       { fill:#3a6a36; }
+  .cl-pink        { fill:#a64869; }
+  .cl-orange-out  { fill:#a04920; }
+
+  .flow-line   { stroke:var(--line); stroke-width:1.4; fill:none; }
+  .flow-line.dotted{ stroke-dasharray:5 4; stroke:var(--gap); }
+
+  .gap-label{ font-size:10px; font-weight:700; fill:var(--gap); letter-spacing:.8px; }
+
+  .substrate-bar{ fill:rgba(139,111,71,.10); stroke:var(--substrate); stroke-width:1.3; rx:7; ry:7; }
+  .substrate-bar:hover{ fill:rgba(139,111,71,.18);}
+  .substrate-label{ font-size:12px; font-weight:600; fill:#5b4727; letter-spacing:.4px;}
+  .substrate-sub  { font-size:10px; fill:#7d6647;}
+
+  .tab-pill rect{ fill:#ffffff; stroke:#3a6a36; stroke-width:1.0; rx:9; ry:9; }
+  .tab-pill:hover rect{ fill:#e8f3e6; }
+  .tab-pill text{ fill:#2e4a2c; font-size:10px; font-weight:600; pointer-events:none; }
+
+  footer{
+    padding:4px 18px 6px;font-size:10px;color:var(--muted);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #ebe6d4;flex-shrink:0;
+  }
+  footer code{font-family:var(--font-mono);background:#f3eedc;padding:1px 5px;border-radius:3px;color:var(--ink-dim);}
+  footer a{color:var(--ink-dim);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v3</span></span></h1>
+  <div class="status-strip">
+    <span class="pill">Date <strong id="d-date">—</strong></span>
+    <span class="pill">Market regime <strong>risk-off</strong></span>
+    <span class="pill">Live positions <strong>9</strong></span>
+    <span class="pill">Active projects <strong>8</strong></span>
+    <span class="pill">Mode <strong id="d-mode">local</strong></span>
+  </div>
+</header>
+
+<div class="legend">
+  <span class="sw"><i style="background:var(--yellow)"></i>Strategic Targets</span>
+  <span class="sw"><i style="background:var(--magenta)"></i>Market &amp; Environment</span>
+  <span class="sw"><i style="background:var(--orange-fill)"></i>Portfolio</span>
+  <span class="sw"><i style="background:var(--cyan)"></i>Position Management</span>
+  <span class="sw"><i style="background:var(--blue)"></i>Workflow Priorities</span>
+  <span class="sw"><i style="background:var(--green)"></i>Master (Technical) Dashboard</span>
+  <span class="sw"><i style="background:var(--pink)"></i>Notes Repository</span>
+  <span class="sw"><i style="background:var(--orange-out)"></i>Ratings Dashboard</span>
+  <span class="sw"><i style="background:var(--substrate)"></i>Stocks Universe (substrate)</span>
+  <span class="sw"><i style="background:var(--gap);opacity:.6"></i>GAP? (non-clickable)</span>
+  <span class="sw"><i style="background:#dcd6c2"></i>Reminder list (non-clickable)</span>
+</div>
+
+<main class="stage">
+<svg class="flow" viewBox="0 0 1500 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2a2a2a"/>
+    </marker>
+    <marker id="arrow-dot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a7a7a"/>
+    </marker>
+  </defs>
+
+  <!-- ============ REMINDER BLOCK (top-left, non-clickable, neutral) ============ -->
+  <!-- Per D-LP-16: large components of the system not yet clickable; surfaces them to Richard. -->
+  <g aria-label="Reminder list of other large system components, non-clickable" pointer-events="none">
+    <rect x="40" y="20" width="490" height="160" rx="10" ry="10" fill="#f4efdc" stroke="#bdb494" stroke-width="1.4" stroke-dasharray="6 4"/>
+    <text x="55" y="42" style="font-size:10.5px;font-weight:700;fill:#7a6f47;letter-spacing:.5px">REMINDER &#8212; OTHER LARGE COMPONENTS (not yet clickable)</text>
+    <text x="60"  y="68"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Wisdom Library</text>
+    <text x="60"  y="86"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Roles (skills, memory, other)</text>
+    <text x="60"  y="104" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;SOPs</text>
+    <text x="60"  y="122" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Principles</text>
+    <text x="60"  y="140" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Frameworks</text>
+    <text x="60"  y="158" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;System architecture</text>
+    <text x="295" y="68"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Auditing</text>
+    <text x="295" y="86"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Backing up</text>
+    <text x="295" y="104" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Coaching / High Performance</text>
+    <text x="295" y="122" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Calibration log + corrections</text>
+    <text x="295" y="140" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Kaizen lessons</text>
+    <text x="295" y="158" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Scheduled protocols</text>
+  </g>
+
+  <!-- ============ TOP ROW (y=10-155) ============ -->
+
+
+  <!-- YELLOW: Strategic Targets -->
+  <g>
+    <rect class="cluster c-yellow" x="540" y="20" width="320" height="140"/>
+    <text class="cluster-label cl-yellow" x="555" y="14">STRATEGIC TARGETS</text>
+    <g class="node">
+      <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://github.com/vfhqi/memory/blob/main/context/values-and-behaviours.md" target="_blank" rel="noopener">
+        <rect x="560" y="36" width="280" height="116"/>
+        <text class="title" x="700" y="62" text-anchor="middle">Evergreen Target Conditions</text>
+        <text class="sub"   x="700" y="84" text-anchor="middle">Portfolio Target Conditions</text>
+        <text class="sub"   x="700" y="103" text-anchor="middle">Portfolio OKRs</text>
+        <text class="sub"   x="700" y="132" text-anchor="middle" style="font-style:italic">3 perpetual goals — investing · self · business</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- MAGENTA: Market & Environment -->
+  <g>
+    <rect class="cluster c-magenta" x="980" y="20" width="380" height="140"/>
+    <text class="cluster-label cl-magenta" x="995" y="14">MARKET &amp; ENVIRONMENT</text>
+    <g class="node">
+      <a data-href="local:memory/thematics/active.md" data-href-gh="https://github.com/vfhqi/memory/blob/main/thematics/active.md" target="_blank" rel="noopener">
+        <rect x="1000" y="36" width="340" height="116"/>
+        <text class="title" x="1170" y="64" text-anchor="middle">Market &amp; Environment</text>
+        <text class="title" x="1170" y="86" text-anchor="middle">Active Thematics</text>
+        <text class="sub"   x="1170" y="110" text-anchor="middle" style="font-style:italic">Fit for fighting · Radar process</text>
+        <text class="sub"   x="1170" y="128" text-anchor="middle" style="font-style:italic">Sector tilts · risk-on/off posture</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- GAP marker -->
+  <g aria-label="Unresolved system-design gap between market environment and strategic targets">
+    <line class="flow-line dotted" x1="980" y1="90" x2="860" y2="90" marker-end="url(#arrow-dot)"/>
+    <rect x="893" y="79" width="54" height="20" rx="10" ry="10" fill="#fff" stroke="#7a7a7a" stroke-dasharray="3 3"/>
+    <text class="gap-label" x="920" y="93" text-anchor="middle">GAP?</text>
+  </g>
+
+  <!-- ============ MIDDLE ROW (y≈190–470) ============ -->
+
+  <!-- ORANGE-FILL: Portfolio -->
+  <g>
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/dashboards/position-manager.html" target="_blank" rel="noopener">
+        <rect class="cluster c-orange-fill" x="600" y="200" width="200" height="86"/>
+        <text class="title" x="700" y="232" text-anchor="middle">Portfolio</text>
+        <text class="sub"   x="700" y="252" text-anchor="middle">9 live positions</text>
+        <text class="sub"   x="700" y="272" text-anchor="middle" style="font-style:italic">current state of the book</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- BLUE: Workflow Priorities -->
+  <g>
+    <rect class="cluster c-blue" x="980" y="200" width="380" height="200"/>
+    <text class="cluster-label cl-blue" x="995" y="194">WORKFLOW PRIORITIES</text>
+    <g class="node">
+      <a data-href="local:memory/projects/pipeline.md" data-href-gh="https://github.com/vfhqi/memory/blob/main/projects/pipeline.md" target="_blank" rel="noopener">
+        <rect x="1000" y="216" width="340" height="174"/>
+        <text class="title" x="1170" y="246" text-anchor="middle">Workflow &amp; Kanban Board</text>
+        <text class="sub" x="1020" y="276">Kanban board (research pipeline)</text>
+        <text class="sub" x="1020" y="296">Lanes: Richard · Researcher · Assistant PM</text>
+        <text class="sub" x="1020" y="326" style="font-style:italic">23 active to-dos · 6 overdue</text>
+        <text class="sub" x="1020" y="348" style="font-style:italic">Priorities flow into PMS execution</text>
+        <text class="sub" x="1020" y="368" style="font-style:italic">and into Ratings Dashboard reads</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- CYAN: Position Management -->
+  <g>
+    <rect class="cluster c-cyan" x="540" y="330" width="320" height="140"/>
+    <text class="cluster-label cl-cyan" x="555" y="324">POSITION MANAGEMENT</text>
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/dashboards/position-manager.html" target="_blank" rel="noopener">
+        <rect x="560" y="346" width="280" height="116"/>
+        <text class="title" x="700" y="376" text-anchor="middle">Position Management System</text>
+        <text class="sub"   x="700" y="402" text-anchor="middle" style="font-style:italic">Stops, grace clocks, at-risk basis points</text>
+        <text class="sub"   x="700" y="422" text-anchor="middle" style="font-style:italic">Slug pyramid &amp; stop-MA enforcement</text>
+        <text class="sub"   x="700" y="446" text-anchor="middle" style="font-style:italic">Per-position invalidation tracking</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- GREEN: Master (Technical) Dashboard -->
+  <g>
+    <rect class="cluster c-green" x="40" y="200" width="490" height="370"/>
+    <text class="cluster-label cl-green" x="55" y="194">MASTER (TECHNICAL) DASHBOARD</text>
+
+    <!-- 8 screens label -->
+    <text class="sub" style="font-weight:700;font-size:10.5px;fill:#3a6a36" x="60" y="226">SCREENS (8)</text>
+
+    <!-- 8 screen tab pills, 2x4 grid -->
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=bp"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=bp"     target="_blank"><rect x="60"  y="234" width="225" height="24"/><text x="172" y="250" text-anchor="middle">Basing Plateau</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=pb"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=pb"     target="_blank"><rect x="293" y="234" width="225" height="24"/><text x="405" y="250" text-anchor="middle">Probing Bet</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=mm99"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=mm99"   target="_blank"><rect x="60"  y="262" width="225" height="24"/><text x="172" y="278" text-anchor="middle">Mark Minervini 99-Point Screen</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=vcp"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=vcp"    target="_blank"><rect x="293" y="262" width="225" height="24"/><text x="405" y="278" text-anchor="middle">Volatility Contraction Pattern</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=utr"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=utr"    target="_blank"><rect x="60"  y="290" width="225" height="24"/><text x="172" y="306" text-anchor="middle">Uptrend Retest</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=ssem"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=ssem"   target="_blank"><rect x="293" y="290" width="225" height="24"/><text x="405" y="306" text-anchor="middle">Sell-Side Earnings Momentum</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=val"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=val"    target="_blank"><rect x="60"  y="318" width="225" height="24"/><text x="172" y="334" text-anchor="middle">Valuation in Range</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=combos" data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=combos" target="_blank"><rect x="293" y="318" width="225" height="24"/><text x="405" y="334" text-anchor="middle">Composite / Combination Screens</text></a></g>
+
+    <!-- Master Dashboard parent -->
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html" data-href-gh="https://vfhqi.github.io/master-dashboard/" target="_blank" rel="noopener">
+        <rect x="120" y="370" width="330" height="80"/>
+        <text class="title" x="285" y="400" text-anchor="middle">Technical (Master) Dashboard</text>
+        <text class="sub"   x="285" y="424" text-anchor="middle" style="font-style:italic">Click any screen above to open at that tab</text>
+      </a>
+    </g>
+
+    <!-- Two quant inputs feeding the Master Dashboard -->
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html#tab=val" data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=val" target="_blank">
+        <rect x="55" y="478" width="220" height="40"/>
+        <text class="sub" x="165" y="495" text-anchor="middle" style="font-weight:600">Valuation in Range</text>
+        <text class="sub" x="165" y="510" text-anchor="middle" style="font-style:italic;font-size:9.5px">quant input feeding the dashboard</text>
+      </a>
+    </g>
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html#tab=ssem" data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=ssem" target="_blank">
+        <rect x="295" y="478" width="220" height="40"/>
+        <text class="sub" x="405" y="495" text-anchor="middle" style="font-weight:600">Sell-Side Estimate Momentum</text>
+        <text class="sub" x="405" y="510" text-anchor="middle" style="font-style:italic;font-size:9.5px">quant input feeding the dashboard</text>
+      </a>
+    </g>
+    <text class="sub" x="285" y="538" text-anchor="middle" style="font-style:italic">↑ feed the Master Dashboard</text>
+  </g>
+
+  <!-- ============ BOTTOM ROW (y≈500–680) ============ -->
+
+  <!-- PINK: Notes Repository -->
+  <g>
+    <rect class="cluster c-pink" x="555" y="500" width="350" height="170"/>
+    <text class="cluster-label cl-pink" x="570" y="494">NOTES REPOSITORY</text>
+    <g class="node">
+      <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/dashboards/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
+        <rect x="575" y="516" width="310" height="146"/>
+        <text class="title" x="730" y="548" text-anchor="middle">Notes Repository</text>
+        <text class="sub"   x="730" y="572" text-anchor="middle">Researcher · Assistant Portfolio Manager</text>
+        <text class="sub"   x="730" y="592" text-anchor="middle" style="font-style:italic">Qualitative IC analysis · per-stock memos</text>
+        <text class="sub"   x="730" y="612" text-anchor="middle" style="font-style:italic">IAJA library (Information · Analysis ·</text>
+        <text class="sub"   x="730" y="628" text-anchor="middle" style="font-style:italic">Judgement · Action chains)</text>
+        <text class="sub"   x="730" y="652" text-anchor="middle" style="font-style:italic">→ feeds Ratings Dashboard</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- ORANGE-OUTLINE: Ratings Dashboard -->
+  <g>
+    <rect class="cluster c-orange-out" x="940" y="430" width="420" height="240"/>
+    <text class="cluster-label cl-orange-out" x="955" y="424">RATINGS DASHBOARD</text>
+    <g class="node">
+      <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/dashboards/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
+        <rect x="960" y="446" width="380" height="216"/>
+        <text class="title" x="1150" y="476" text-anchor="middle">Ratings Dashboard</text>
+        <text class="sub"   x="1150" y="496" text-anchor="middle" style="font-style:italic">Per-stock composite — four columns to build</text>
+        <g pointer-events="none">
+          <rect x="975"  y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1017" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Timeliness</text>
+          <text x="1017" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">how recent</text>
+          <rect x="1067" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1109" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Knowledge</text>
+          <text x="1109" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">depth of work</text>
+          <rect x="1159" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1201" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Interest</text>
+          <text x="1201" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">priority / conviction</text>
+          <rect x="1251" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1293" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Master Rating</text>
+          <text x="1293" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">composite</text>
+        </g>
+        <text class="sub" x="1150" y="582" text-anchor="middle" style="font-style:italic">A–F grading, Six Pillars rollup,</text>
+        <text class="sub" x="1150" y="598" text-anchor="middle" style="font-style:italic">stage-flexed (Triaging / ESA / DD / Live)</text>
+        <text class="sub" x="1150" y="638" text-anchor="middle" style="font-style:italic">One click opens the whole dashboard</text>
+        <text class="sub" x="1150" y="654" text-anchor="middle" style="font-style:italic">(columns are not separately routed)</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- ============ SUBSTRATE GROUND BAR ============ -->
+
+  <g class="node">
+    <a data-href="local:databases/pullback-watchlist.json" data-href-gh="https://vfhqi.github.io/dashboards/pullback-watchlist.json" target="_blank" rel="noopener">
+      <rect class="substrate-bar" x="40" y="700" width="1420" height="50"/>
+      <text class="substrate-label" x="750" y="724" text-anchor="middle">STOCKS UNIVERSE DATABASE</text>
+      <text class="substrate-sub"   x="750" y="740" text-anchor="middle">~1,300 European stocks · pullback-watchlist.json · Notion Stocks Database (substrate everything sits on)</text>
+    </a>
+  </g>
+
+  <!-- ============ FLOW LINES (arrowheads preserved) ============ -->
+
+  <!-- Strategic Targets → Portfolio -->
+  <path class="flow-line" d="M700,160 L700,200" marker-end="url(#arrow)"/>
+  <!-- PMS → Portfolio (state up) -->
+  <path class="flow-line" d="M700,330 L700,286" marker-end="url(#arrow)"/>
+  <!-- Master Dashboard → PMS -->
+  <path class="flow-line" d="M530,400 L540,400" marker-end="url(#arrow)"/>
+  <!-- Workflow → PMS -->
+  <path class="flow-line" d="M980,310 L860,380" marker-end="url(#arrow)"/>
+  <!-- Workflow → Ratings -->
+  <path class="flow-line" d="M1170,400 L1170,430" marker-end="url(#arrow)"/>
+  <!-- Notes Repository → Ratings -->
+  <path class="flow-line" d="M905,580 L940,560" marker-end="url(#arrow)"/>
+  <!-- Stocks Universe → Master Dashboard -->
+  <path class="flow-line" d="M270,700 L270,570" marker-end="url(#arrow)"/>
+  <!-- Stocks Universe → Notes Repository -->
+  <path class="flow-line" d="M730,700 L730,670" marker-end="url(#arrow)"/>
+  <!-- Long bottom feedback line: PMS / Portfolio → Ratings -->
+  <path class="flow-line" d="M860,420 C895,420 905,500 940,500" marker-end="url(#arrow)"/>
+
+</svg>
+</main>
+
+<footer>
+  <span>Built 09-May-26 · v3 mockup · <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span><code id="d-host">file://</code> · <a href="#" id="d-toggle">toggle local / GH mode</a></span>
+</footer>
+
+<script>
+  (function(){
+    var d=new Date();
+    var dd=String(d.getDate()).padStart(2,'0');
+    var mm=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+    var yy=String(d.getFullYear()).slice(-2);
+    document.getElementById('d-date').textContent=dd+'-'+mm+'-'+yy;
+  })();
+
+  function applyMode(forceMode){
+    var host=location.hostname;
+    var isGh=(forceMode==='gh') || (host.endsWith('github.io'));
+    document.getElementById('d-mode').textContent=isGh?'github pages':'local';
+    document.getElementById('d-host').textContent=isGh?(host||'github.io'):'file://';
+    document.querySelectorAll('a[data-href]').forEach(function(a){
+      var local=(a.getAttribute('data-href')||'').replace(/^local:/,'');
+      var gh=a.getAttribute('data-href-gh')||local;
+      var target=isGh?gh:local;
+      a.setAttribute('href',target);
+      try{a.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href',target);}catch(e){}
+    });
+  }
+  applyMode();
+  document.getElementById('d-toggle').addEventListener('click',function(e){
+    e.preventDefault();
+    var cur=document.getElementById('d-mode').textContent;
+    applyMode(cur==='local'?'gh':'local');
+  });
+</script>
+
+</body>
+</html>
