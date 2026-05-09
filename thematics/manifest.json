@@ -1,7 +1,12 @@
 {
-  "schema_version": "1",
+  "schema_version": "2",
   "generated_at": "2026-05-09",
   "source_doctrine": "memory/thematics/active.md (operational overlay; not an APM report)",
+  "doctrine_link": {
+    "title": "Active Thematics \u2014 Portfolio Construction Overlay",
+    "file": "../../memory/thematics/active.md",
+    "summary": "Operational overlay defining beneficiaries, at-risk profiles, and probable setups for each active thematic. Doctrine \u2014 referenced by every thematic memo."
+  },
   "thematics": [
     {
       "slug": "ai",
@@ -9,23 +14,106 @@
       "status": "active",
       "definition": "AI disruption \u2014 beneficiaries (semiconductors, infrastructure, picks-and-shovels) vs at-risk (legacy SaaS, certain consultancies, jobs-disruption-exposed staffing).",
       "last_updated": "2026-05-03",
-      "reports": [
+      "aj_memo": [
         {
           "date": "2026-05-03",
-          "title": "AI Thematic Memo v2",
+          "title": "AI Thematic A&J Memo (v2)",
           "file": "ai/2026-05-03-ai-thematic-memo-v2.docx",
-          "summary": "Second-pass APM thematic memo on AI \u2014 beneficiaries, at-risk, portfolio implications. Supersedes v1 of 02-May.",
+          "summary": "Current canonical APM Analysis & Judgement memo on AI thematic. Supersedes v1.",
           "author": "APM",
-          "type": "memo"
+          "type": "aj_memo",
+          "status": "current"
         },
         {
           "date": "2026-05-02",
-          "title": "AI Thematic Memo v1",
+          "title": "AI Thematic A&J Memo (v1)",
           "file": "ai/2026-05-02-ai-thematic-memo-v1.docx",
-          "summary": "First-pass APM thematic memo on AI. Superseded by v2 (03-May).",
+          "summary": "First-pass A&J memo. Superseded by v2 (03-May).",
           "author": "APM",
-          "type": "memo",
+          "type": "aj_memo",
           "status": "superseded"
+        }
+      ],
+      "source_research": [
+        {
+          "date": "2026-05-02",
+          "title": "Project brief",
+          "file": "ai/_source-research/brief.md",
+          "summary": "Project brief setting scope for the AI thematic research \u2014 the prompt the researcher worked from.",
+          "author": "Researcher",
+          "type": "brief"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "Delta report \u2014 AS findings vs Memo v1",
+          "file": "ai/_source-research/delta-report.md",
+          "summary": "Watson delta analysis: what the AlphaSense findings added/changed/removed vs the v1 memo. Drove the v2 rewrite.",
+          "author": "Watson [W]",
+          "type": "delta"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "Memo draft v1 (markdown)",
+          "file": "ai/_source-research/drafts/memo-v1.md",
+          "summary": "Markdown draft underlying the v1 docx memo (473 lines).",
+          "author": "Researcher",
+          "type": "draft"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "Memo draft v2 (markdown)",
+          "file": "ai/_source-research/drafts/memo-v2.md",
+          "summary": "Markdown draft underlying the v2 docx memo (198 lines, post-AS integration).",
+          "author": "Researcher",
+          "type": "draft"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "Research notes \u2014 consolidated",
+          "file": "ai/_source-research/sources/research-notes-consolidated.md",
+          "summary": "Consolidated research notes \u2014 Claude + AlphaSense intermediate outputs, raw findings (110 lines).",
+          "author": "Researcher / Watson",
+          "type": "notes"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q1 extract \u2014 RELX/Wolters moat",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q1-extract.md",
+          "summary": "AlphaSense Deep Research extract: RELX & Wolters moat durability under AI disruption.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q2 extract \u2014 Mid-tier software disruption",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q2-extract.md",
+          "summary": "AlphaSense Deep Research extract: mid-tier European software exposure to AI disruption.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q3 extract \u2014 Hyperscaler capex / European transmission",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q3-extract.md",
+          "summary": "AlphaSense Deep Research extract: hyperscaler capex implications for European grid/transmission.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q4 extract \u2014 HVDC cables durability",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q4-extract.md",
+          "summary": "AlphaSense Deep Research extract: HVDC cable demand durability under AI buildout.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "AlphaSense submission manifest",
+          "file": "ai/_source-research/sources/alphasense/submission-manifest.md",
+          "summary": "Manifest of which AS prompts were submitted, status, expected return.",
+          "author": "Researcher",
+          "type": "manifest"
         }
       ],
       "raw_research": []
@@ -36,7 +124,8 @@
       "status": "active",
       "definition": "Iran conflict + oil \u2014 beneficiaries (oil & gas producers with reserves, defence, alternative energy infrastructure) vs at-risk (energy-intensive industrials, consumer discretionary, anything margin-fragile to oil shocks).",
       "last_updated": "2026-05-04",
-      "reports": [],
+      "aj_memo": [],
+      "source_research": [],
       "raw_research": [
         {
           "date": "2026-04-XX",
@@ -54,7 +143,8 @@
       "status": "active",
       "definition": "Late-cycle bear market roll-over \u2014 beneficiaries (recurring revenues, regulated utilities, fortress balance sheets, healthcare, insurance, deposit-franchise banks) vs at-risk (high-multiple growth, cyclicals, consumer discretionary, leveraged small-caps).",
       "last_updated": "2026-05-04",
-      "reports": [],
+      "aj_memo": [],
+      "source_research": [],
       "raw_research": [
         {
           "date": "2026-04-XX",

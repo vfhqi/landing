@@ -18,6 +18,12 @@
     --amber:#e0a040;
     --green:#5fa05c;
     --grey:#bdb494;
+    --aj:#a04920;
+    --aj-bg:#fff4e6;
+    --src:#3a6a36;
+    --src-bg:#f0f6ee;
+    --raw:#7a6f47;
+    --raw-bg:#fafaf3;
     --font-sans:'Aptos','Segoe UI',-apple-system,system-ui,sans-serif;
     --font-mono:'Aptos Mono','SF Mono',ui-monospace,Menlo,monospace;
   }
@@ -29,6 +35,9 @@
   header .nav{font-size:12px;color:var(--ink-dim);}
   header .nav a{color:var(--magenta);text-decoration:none;font-weight:600;}
   header .nav a:hover{text-decoration:underline;}
+  .doctrine-banner{padding:8px 24px;background:#f4efdc;border-bottom:1px solid #ebe6d4;font-size:12px;color:var(--ink-dim);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .doctrine-banner strong{color:var(--ink);}
+  .doctrine-banner a{color:var(--magenta);text-decoration:none;border-bottom:1px solid var(--magenta);}
   main{padding:18px 24px 60px;max-width:1280px;margin:0 auto;}
   .thematic{background:var(--tile);border:1.5px solid var(--magenta);border-radius:10px;padding:18px 22px;margin-bottom:24px;}
   .thematic h2{margin:0 0 4px;font-size:18px;font-weight:700;color:#8a3d77;}
@@ -36,21 +45,28 @@
   .thematic .meta .pill{background:#f4efdc;border:1px solid var(--grey);padding:2px 8px;border-radius:9px;}
   .thematic .meta .status-active{background:#e6f3e4;border-color:var(--green);color:#3a6a36;font-weight:600;}
   .thematic .definition{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:14px;font-style:italic;border-left:3px solid var(--magenta);padding:6px 12px;background:var(--magenta-bg);}
-  .thematic .reports-section{margin-top:14px;}
-  .thematic .reports-section h3{font-size:11px;font-weight:700;color:var(--ink-dim);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px;}
+  .reports-section{margin-top:14px;padding:10px 12px;border-radius:6px;}
+  .reports-section.aj-section{background:var(--aj-bg);border:1px solid var(--aj);}
+  .reports-section.source-section{background:var(--src-bg);border:1px solid var(--src);}
+  .reports-section.raw-section{background:var(--raw-bg);border:1px solid var(--grey);}
+  .reports-section h3{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:0 0 8px;}
+  .reports-section.aj-section h3{color:var(--aj);}
+  .reports-section.source-section h3{color:var(--src);}
+  .reports-section.raw-section h3{color:var(--raw);}
   .reports-list{list-style:none;padding:0;margin:0;}
-  .reports-list li{border-top:1px solid #ebe6d4;padding:10px 0;display:flex;align-items:flex-start;gap:14px;}
+  .reports-list li{border-top:1px solid #ebe6d4;padding:8px 0;display:flex;align-items:flex-start;gap:14px;}
   .reports-list li:first-of-type{border-top:none;}
   .reports-list .date{font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);min-width:90px;padding-top:2px;}
   .reports-list .body{flex:1;}
-  .reports-list .title{font-weight:600;font-size:13.5px;color:var(--ink);}
+  .reports-list .title{font-weight:600;font-size:13px;color:var(--ink);}
   .reports-list .title a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--magenta);}
   .reports-list .title a:hover{background:var(--magenta-bg);}
   .reports-list .title .badge{font-size:10px;font-weight:600;color:#a04920;background:#fff4e6;border:1px solid var(--amber);padding:1px 6px;border-radius:8px;margin-left:8px;}
+  .reports-list .title .badge.current{background:#e6f3e4;border-color:var(--green);color:#3a6a36;}
+  .reports-list .title .badge.type{background:#f0f0e8;border-color:var(--grey);color:var(--ink-dim);font-weight:500;}
   .reports-list .summary{font-size:12px;color:var(--ink-dim);margin-top:4px;line-height:1.4;}
   .reports-list .author{font-size:10.5px;font-family:var(--font-mono);color:var(--muted);margin-top:3px;}
-  .empty{padding:14px;color:var(--muted);font-style:italic;text-align:center;border:1px dashed var(--grey);border-radius:6px;font-size:12px;}
-  .raw-research-section{background:#fafaf3;border-radius:6px;padding:8px 14px;margin-top:8px;}
+  .empty{padding:10px;color:var(--muted);font-style:italic;text-align:center;border:1px dashed var(--grey);border-radius:6px;font-size:11.5px;}
   footer{padding:8px 24px;font-size:11px;color:var(--muted);border-top:1px solid #ebe6d4;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;text-align:center;}
   footer code{font-family:var(--font-mono);background:#f3eedc;padding:1px 5px;border-radius:3px;color:var(--ink-dim);}
 </style>
@@ -61,23 +77,33 @@
   <h1>Viewforth Thematics <span class="sub">— APM portfolio-construction overlay</span></h1>
   <div class="nav">
     <a href="#" id="back-link">&larr; Back to landing</a>
-    <span style="margin:0 10px;color:#ddd">|</span>
-    Source doctrine: <code>memory/thematics/active.md</code>
   </div>
 </header>
+
+<div class="doctrine-banner" id="doctrine-banner">
+  <strong>Source doctrine:</strong>
+  <a id="doctrine-link" href="#">Active Thematics — Portfolio Construction Overlay</a>
+  <span style="color:#aaa">|</span>
+  <span>Operational overlay defining beneficiaries, at-risk profiles, and probable setups for each active thematic. Doctrine — referenced by every thematic memo.</span>
+</div>
 
 <main id="thematics-root"></main>
 
 <footer>
   <span>Viewforth thematics dashboard &middot; reads from <code>databases/thematics/manifest.json</code></span>
-  <span>Mode <strong id="d-mode">local</strong> &middot; <a href="#" id="d-toggle" style="color:var(--ink-dim)">toggle local/GH mode</a></span>
+  <span>Mode <strong id="d-mode">local</strong></span>
 </footer>
 
 <script type="application/json" id="manifest">
 {
-  "schema_version": "1",
+  "schema_version": "2",
   "generated_at": "2026-05-09",
   "source_doctrine": "memory/thematics/active.md (operational overlay; not an APM report)",
+  "doctrine_link": {
+    "title": "Active Thematics \u2014 Portfolio Construction Overlay",
+    "file": "../../memory/thematics/active.md",
+    "summary": "Operational overlay defining beneficiaries, at-risk profiles, and probable setups for each active thematic. Doctrine \u2014 referenced by every thematic memo."
+  },
   "thematics": [
     {
       "slug": "ai",
@@ -85,23 +111,106 @@
       "status": "active",
       "definition": "AI disruption \u2014 beneficiaries (semiconductors, infrastructure, picks-and-shovels) vs at-risk (legacy SaaS, certain consultancies, jobs-disruption-exposed staffing).",
       "last_updated": "2026-05-03",
-      "reports": [
+      "aj_memo": [
         {
           "date": "2026-05-03",
-          "title": "AI Thematic Memo v2",
+          "title": "AI Thematic A&J Memo (v2)",
           "file": "ai/2026-05-03-ai-thematic-memo-v2.docx",
-          "summary": "Second-pass APM thematic memo on AI \u2014 beneficiaries, at-risk, portfolio implications. Supersedes v1 of 02-May.",
+          "summary": "Current canonical APM Analysis & Judgement memo on AI thematic. Supersedes v1.",
           "author": "APM",
-          "type": "memo"
+          "type": "aj_memo",
+          "status": "current"
         },
         {
           "date": "2026-05-02",
-          "title": "AI Thematic Memo v1",
+          "title": "AI Thematic A&J Memo (v1)",
           "file": "ai/2026-05-02-ai-thematic-memo-v1.docx",
-          "summary": "First-pass APM thematic memo on AI. Superseded by v2 (03-May).",
+          "summary": "First-pass A&J memo. Superseded by v2 (03-May).",
           "author": "APM",
-          "type": "memo",
+          "type": "aj_memo",
           "status": "superseded"
+        }
+      ],
+      "source_research": [
+        {
+          "date": "2026-05-02",
+          "title": "Project brief",
+          "file": "ai/_source-research/brief.md",
+          "summary": "Project brief setting scope for the AI thematic research \u2014 the prompt the researcher worked from.",
+          "author": "Researcher",
+          "type": "brief"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "Delta report \u2014 AS findings vs Memo v1",
+          "file": "ai/_source-research/delta-report.md",
+          "summary": "Watson delta analysis: what the AlphaSense findings added/changed/removed vs the v1 memo. Drove the v2 rewrite.",
+          "author": "Watson [W]",
+          "type": "delta"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "Memo draft v1 (markdown)",
+          "file": "ai/_source-research/drafts/memo-v1.md",
+          "summary": "Markdown draft underlying the v1 docx memo (473 lines).",
+          "author": "Researcher",
+          "type": "draft"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "Memo draft v2 (markdown)",
+          "file": "ai/_source-research/drafts/memo-v2.md",
+          "summary": "Markdown draft underlying the v2 docx memo (198 lines, post-AS integration).",
+          "author": "Researcher",
+          "type": "draft"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "Research notes \u2014 consolidated",
+          "file": "ai/_source-research/sources/research-notes-consolidated.md",
+          "summary": "Consolidated research notes \u2014 Claude + AlphaSense intermediate outputs, raw findings (110 lines).",
+          "author": "Researcher / Watson",
+          "type": "notes"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q1 extract \u2014 RELX/Wolters moat",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q1-extract.md",
+          "summary": "AlphaSense Deep Research extract: RELX & Wolters moat durability under AI disruption.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q2 extract \u2014 Mid-tier software disruption",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q2-extract.md",
+          "summary": "AlphaSense Deep Research extract: mid-tier European software exposure to AI disruption.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q3 extract \u2014 Hyperscaler capex / European transmission",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q3-extract.md",
+          "summary": "AlphaSense Deep Research extract: hyperscaler capex implications for European grid/transmission.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-03",
+          "title": "AlphaSense Q4 extract \u2014 HVDC cables durability",
+          "file": "ai/_source-research/sources/alphasense/extracts/AS-Q4-extract.md",
+          "summary": "AlphaSense Deep Research extract: HVDC cable demand durability under AI buildout.",
+          "author": "AlphaSense Deep Research",
+          "type": "as_extract"
+        },
+        {
+          "date": "2026-05-02",
+          "title": "AlphaSense submission manifest",
+          "file": "ai/_source-research/sources/alphasense/submission-manifest.md",
+          "summary": "Manifest of which AS prompts were submitted, status, expected return.",
+          "author": "Researcher",
+          "type": "manifest"
         }
       ],
       "raw_research": []
@@ -112,7 +221,8 @@
       "status": "active",
       "definition": "Iran conflict + oil \u2014 beneficiaries (oil & gas producers with reserves, defence, alternative energy infrastructure) vs at-risk (energy-intensive industrials, consumer discretionary, anything margin-fragile to oil shocks).",
       "last_updated": "2026-05-04",
-      "reports": [],
+      "aj_memo": [],
+      "source_research": [],
       "raw_research": [
         {
           "date": "2026-04-XX",
@@ -130,7 +240,8 @@
       "status": "active",
       "definition": "Late-cycle bear market roll-over \u2014 beneficiaries (recurring revenues, regulated utilities, fortress balance sheets, healthcare, insurance, deposit-franchise banks) vs at-risk (high-multiple growth, cyclicals, consumer discretionary, leveraged small-caps).",
       "last_updated": "2026-05-04",
-      "reports": [],
+      "aj_memo": [],
+      "source_research": [],
       "raw_research": [
         {
           "date": "2026-04-XX",
@@ -147,31 +258,34 @@
 </script>
 
 <script>
-  // Read manifest from inline JSON (no fetch — file:// safe)
   var manifest = JSON.parse(document.getElementById('manifest').textContent);
   var isGh = location.hostname.endsWith('github.io');
   document.getElementById('d-mode').textContent = isGh ? 'github pages' : 'local';
 
   var GH_BASE = 'https://vfhqi.github.io/landing/';
-  var LOCAL_BASE_DASHBOARD = ''; // relative to this file in databases/
   var LOCAL_BASE_LANDING = '../landing-page.html';
   var GH_BASE_LANDING = 'https://vfhqi.github.io/landing/';
 
   document.getElementById('back-link').setAttribute('href', isGh ? GH_BASE_LANDING : LOCAL_BASE_LANDING);
 
+  // Doctrine link — points at memory/thematics/active.md (local-only; no GH equivalent yet)
+  var doctrineEl = document.getElementById('doctrine-link');
+  doctrineEl.setAttribute('href', isGh ? '#' : manifest.doctrine_link.file);
+  if (isGh) {
+    doctrineEl.setAttribute('title', 'Local-only file — not published to GitHub Pages');
+    doctrineEl.style.opacity = '0.5';
+    doctrineEl.style.cursor = 'not-allowed';
+  }
+
   function rewrite(localPath) {
-    if (isGh) {
-      return GH_BASE + 'thematics/' + localPath;
-    }
-    return 'thematics/' + localPath;
+    return isGh ? (GH_BASE + 'thematics/' + localPath) : ('thematics/' + localPath);
   }
 
   function el(tag, attrs, kids) {
     var n = document.createElement(tag);
     if (attrs) for (var k in attrs) {
       if (k === 'class') n.className = attrs[k];
-      else if (k === 'href') n.setAttribute('href', attrs[k]);
-      else if (k === 'target') n.setAttribute('target', attrs[k]);
+      else if (k === 'href' || k === 'target' || k === 'title') n.setAttribute(k, attrs[k]);
       else n[k] = attrs[k];
     }
     (kids || []).forEach(function(k){
@@ -186,11 +300,10 @@
     var titleEl = el('div', {class:'title'}, [
       el('a', {href: rewrite(r.file), target:'_blank'}, [r.title])
     ]);
-    if (r.status === 'superseded') {
-      titleEl.appendChild(el('span', {class:'badge'}, ['superseded']));
-    }
-    if (r.type === 'raw') {
-      titleEl.appendChild(el('span', {class:'badge'}, ['raw research']));
+    if (r.status === 'current') titleEl.appendChild(el('span', {class:'badge current'}, ['current']));
+    if (r.status === 'superseded') titleEl.appendChild(el('span', {class:'badge'}, ['superseded']));
+    if (r.type && ['draft','as_extract','notes','manifest','brief','delta','raw'].indexOf(r.type) !== -1) {
+      titleEl.appendChild(el('span', {class:'badge type'}, [r.type.replace('_',' ')]));
     }
     var body = el('div', {class:'body'}, [
       titleEl,
@@ -200,51 +313,44 @@
     return el('li', null, [dateCell, body]);
   }
 
+  function renderSection(title, items, klass, emptyMsg) {
+    var section = el('div', {class:'reports-section ' + klass}, [
+      el('h3', null, [title])
+    ]);
+    if (items && items.length) {
+      section.appendChild(el('ul', {class:'reports-list'}, items.map(renderReportRow)));
+    } else {
+      section.appendChild(el('div', {class:'empty'}, [emptyMsg]));
+    }
+    return section;
+  }
+
   function renderThematic(t) {
     var statusClass = t.status === 'active' ? 'pill status-active' : 'pill';
+    var ajCount = (t.aj_memo||[]).length;
+    var srcCount = (t.source_research||[]).length;
+    var rawCount = (t.raw_research||[]).length;
     var section = el('section', {class:'thematic'}, [
       el('h2', null, [t.name]),
       el('div', {class:'meta'}, [
         el('span', {class:statusClass}, [t.status]),
         el('span', {class:'pill'}, ['Last updated ' + t.last_updated]),
-        el('span', {class:'pill'}, [(t.reports.length) + ' APM report' + (t.reports.length === 1 ? '' : 's')]),
-        el('span', {class:'pill'}, [(t.raw_research.length) + ' raw research feeder' + (t.raw_research.length === 1 ? '' : 's')])
+        el('span', {class:'pill'}, [ajCount + ' A&J memo' + (ajCount === 1 ? '' : 's')]),
+        el('span', {class:'pill'}, [srcCount + ' source research item' + (srcCount === 1 ? '' : 's')]),
+        el('span', {class:'pill'}, [rawCount + ' raw feeder' + (rawCount === 1 ? '' : 's')])
       ]),
-      el('div', {class:'definition'}, [t.definition])
+      el('div', {class:'definition'}, [t.definition]),
+      renderSection('A&J Memo', t.aj_memo, 'aj-section', 'No A&J memo yet on this thematic.'),
+      renderSection('Source Research Reports', t.source_research, 'source-section', 'No source research surfaced yet for this thematic.')
     ]);
-
-    var reportsHeader = el('h3', null, ['APM REPORTS']);
-    section.appendChild(el('div', {class:'reports-section'}, [reportsHeader]));
-    if (t.reports && t.reports.length) {
-      var ul = el('ul', {class:'reports-list'}, t.reports.map(renderReportRow));
-      section.appendChild(ul);
-    } else {
-      section.appendChild(el('div', {class:'empty'}, ['No APM reports yet on this thematic. Awaiting first memo.']));
-    }
-
     if (t.raw_research && t.raw_research.length) {
-      var rawSection = el('div', {class:'raw-research-section'}, [
-        el('h3', null, ['RAW RESEARCH FEEDERS']),
-        el('ul', {class:'reports-list'}, t.raw_research.map(renderReportRow))
-      ]);
-      section.appendChild(rawSection);
+      section.appendChild(renderSection('Raw Research Feeders', t.raw_research, 'raw-section', ''));
     }
-
     return section;
   }
 
   var root = document.getElementById('thematics-root');
   manifest.thematics.forEach(function(t){ root.appendChild(renderThematic(t)); });
-
-  document.getElementById('d-toggle').addEventListener('click', function(e){
-    e.preventDefault();
-    var url = new URL(location.href);
-    var current = location.hostname.endsWith('github.io');
-    if (current) {
-      url.host = 'localhost'; // no-op; user manually opens file:// version
-    }
-    alert('Toggle is per-page. Open https://vfhqi.github.io/landing/thematics-dashboard.html for GH mode, or local file for file:// mode.');
-  });
 </script>
 
 </body>
