@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Memo Header Hierarchy — Current vs Proposed</title>
+<style>
+  /* ============================================================
+     Page shell (same for both columns)
+     ============================================================ */
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #6b6b6b;
+    --rule: #e5e5e5;
+    --rule-strong: #c8c8c8;
+    --panel: #ffffff;
+    --panel-soft: #fafafa;
+    --accent: #2c5282;
+  }
+  html, body { margin:0; padding:0; background:#f3f3f3; color:var(--ink); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .page-title { padding: 20px 24px 4px; font-size: 16px; font-weight: 700; }
+  .page-sub { padding: 0 24px 16px; font-size: 12px; color: var(--ink-mute); }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 0 24px 32px;
+    align-items: start;
+  }
+  .col {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 22px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .col-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--ink-mute);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 16px;
+  }
+  .col-label.proposed { color: var(--accent); }
+
+  /* ============================================================
+     CURRENT header styles (extracted from ic-ratings-dashboard-v2.html)
+     Namespaced under .cur so they don't bleed.
+     ============================================================ */
+  .cur .memo-h1 { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+  .cur .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 12px; }
+  .cur .memo-section-title { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
+  .cur .memo-subsection-header { font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+  .cur .memo-subsection-id { font-size: 11px; font-weight: 400; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-pillar-label { font-size: 13px; font-weight: 700; margin: 8px 0 4px; }
+  .cur .memo-pillar-id { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-mute); margin-right: 6px; }
+  .cur .memo-family-label { font-size: 12px; font-weight: 600; margin: 6px 0 4px; }
+  .cur .memo-family-badge { font-size: 10px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-topic-header { font-size: 12.5px; font-weight: 700; margin: 6px 0 2px; }
+  .cur .memo-topic-id { font-size: 10.5px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-subtopic-header { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+  .cur .memo-prose { font-size: 13px; color: var(--ink); line-height: 1.5; margin: 4px 0; }
+  .cur .memo-para { font-size: 13px; line-height: 1.5; margin: 4px 0; }
+
+  /* ============================================================
+     PROPOSED header ramp — 24 / 19 / 16 / 14.5 / 13.5 / 13
+     ============================================================ */
+  .new .memo-h1 {
+    font-size: 24px; font-weight: 700; line-height: 1.2;
+    margin: 0 0 16px;
+  }
+  .new .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 16px; }
+
+  .new .memo-section-title {
+    font-size: 19px; font-weight: 700; line-height: 1.25;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin: 32px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .new .memo-section-title:first-child { margin-top: 0; }
+
+  .new .memo-subsection-header {
+    font-size: 16px; font-weight: 700; line-height: 1.3;
+    margin: 24px 0 10px;
+    color: var(--ink);
+  }
+  .new .memo-subsection-id {
+    font-size: 13px; font-weight: 600;
+    color: var(--accent); margin-right: 6px;
+  }
+
+  .new .memo-pillar-label {
+    font-size: 14.5px; font-weight: 700; line-height: 1.3;
+    margin: 20px 0 8px;
+    color: var(--ink);
+  }
+  .new .memo-pillar-id {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: var(--accent); margin-right: 6px;
+  }
+
+  .new .memo-family-label {
+    font-size: 13.5px; font-weight: 600; line-height: 1.35;
+    margin: 14px 0 6px;
+    color: var(--ink);
+  }
+  .new .memo-family-badge {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: var(--ink-mute); margin-right: 4px;
+    padding: 1px 5px; background: #f0f0f0; border-radius: 3px;
+  }
+
+  .new .memo-topic-header {
+    font-size: 13px; font-weight: 700; line-height: 1.4;
+    margin: 10px 0 4px;
+    color: var(--ink);
+  }
+  .new .memo-topic-id {
+    font-size: 10.5px; font-weight: 700;
+    color: var(--ink-mute); margin-right: 4px;
+  }
+
+  .new .memo-subtopic-header {
+    font-size: 13px; font-weight: 600; line-height: 1.4;
+    margin: 8px 0 4px;
+    color: var(--ink-soft);
+  }
+
+  .new .memo-prose, .new .memo-para {
+    font-size: 13px; line-height: 1.55; color: var(--ink);
+    margin: 4px 0 6px;
+  }
+
+  /* ============================================================
+     Ramp ruler — little visual aid showing the scale
+     ============================================================ */
+  .ruler {
+    margin: 18px 0 22px;
+    padding: 12px 14px;
+    background: var(--panel-soft);
+    border: 1px dashed var(--rule-strong);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--ink-mute);
+  }
+  .ruler b { color: var(--ink); font-weight: 700; }
+  .ruler .bar {
+    display: inline-block; height: 8px; background: var(--accent);
+    vertical-align: middle; margin: 0 6px; border-radius: 2px;
+  }
+
+  /* Annotation labels so Richard can spot each tier quickly */
+  .tier-tag {
+    display: inline-block;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 9.5px; font-weight: 700;
+    background: #fff3b0; color: #664d00;
+    padding: 1px 4px; border-radius: 3px;
+    margin-right: 6px; vertical-align: middle;
+  }
+  .new .tier-tag { background: #e6eeff; color: var(--accent); }
+  .cur .tier-tag { background: #ffe1e1; color: #8a1f1f; }
+
+  /* Lorem filler paragraphs get muted to let headers dominate */
+  .lorem { color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="page-title">Memo Header Hierarchy — Current vs Proposed</div>
+<div class="page-sub">
+  Same content, same six header tiers, same HTML structure — only font-size / weight / margin / text-transform differ between columns.
+  Sample content is C.II (the bulk of the memo). Yellow tags on the left, blue tags on the right identify each tier.
+</div>
+
+<div class="split">
+
+  <!-- ================= LEFT: CURRENT ================= -->
+  <div class="col cur">
+    <div class="col-label">Current — as rendered today</div>
+
+    <div class="ruler">
+      Sizes currently in use (px): <b>17</b> → <b>13</b> → <b>13</b> → <b>13</b> → <b>12</b> → <b>12.5</b>
+      <br>1px spread across five of six header tiers. Hierarchy relies on weight + indent only.
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 17/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2 13/700</span>C. ATTRIBUTES</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 13/600</span>Fundamental Investment Case (P3+P4)
+    </div>
+    <div class="memo-prose lorem">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio quam, at vestibulum nisl. Praesent libero eros, imperdiet vel rhoncus sit amet, placerat sed erat.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T4 13/700</span>Business quality
+    </div>
+    <div class="memo-prose lorem">
+      Curabitur facilisis tincidunt lacus, vitae faucibus sapien eleifend sed. Suspendisse potenti ac mollis libero tempor eu. Donec bibendum orci velit non rutrum.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T5 12/600</span>Competitive moats
+    </div>
+    <div class="memo-prose lorem">
+      Maecenas eget leo vitae velit elementum suscipit. Phasellus sollicitudin convallis dolor a faucibus. Integer vulputate risus ac nulla hendrerit, nec egestas nunc aliquet.
+    </div>
+
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T6 12.5/700</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.
+    </div>
+
+    <div class="memo-subtopic-header">
+      <span class="tier-tag">T6' 12/600</span>Evidence: long-term LNG contracts
+    </div>
+    <div class="memo-prose lorem">
+      Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T5 12/600</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque habitant morbi tristique senectus et netus.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P4</span>
+      <span class="tier-tag">T4 13/700</span>Management &amp; governance
+    </div>
+    <div class="memo-prose lorem">
+      Fusce vitae ante ac lectus tempus accumsan. Proin sed felis vitae libero dapibus interdum. Vestibulum ante ipsum primis in faucibus orci luctus.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">MG#1</span>
+      <span class="tier-tag">T5 12/600</span>Capital allocation track record
+    </div>
+    <div class="memo-prose lorem">
+      Donec eu est non lacus lacinia semper. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit.
+    </div>
+  </div>
+
+  <!-- ================= RIGHT: PROPOSED ================= -->
+  <div class="col new">
+    <div class="col-label proposed">Proposed — modular ramp</div>
+
+    <div class="ruler">
+      New sizes (px): <b>24</b> → <b>19</b> → <b>16</b> → <b>14.5</b> → <b>13.5</b> → <b>13</b>
+      <br>Each tier demonstrably larger than the one below. Body sits at 13px; tier 6 uses weight alone.
+      <br>Section titles get UPPERCASE + rule underline to separate the A–F spine from the reading hierarchy.
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 24/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2 19/700 UC</span>C. Attributes</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 16/700</span>Fundamental Investment Case (P3+P4)
+    </div>
+    <div class="memo-prose lorem">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio quam, at vestibulum nisl. Praesent libero eros, imperdiet vel rhoncus sit amet, placerat sed erat.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T4 14.5/700</span>Business quality
+    </div>
+    <div class="memo-prose lorem">
+      Curabitur facilisis tincidunt lacus, vitae faucibus sapien eleifend sed. Suspendisse potenti ac mollis libero tempor eu. Donec bibendum orci velit non rutrum.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T5 13.5/600</span>Competitive moats
+    </div>
+    <div class="memo-prose lorem">
+      Maecenas eget leo vitae velit elementum suscipit. Phasellus sollicitudin convallis dolor a faucibus. Integer vulputate risus ac nulla hendrerit, nec egestas nunc aliquet.
+    </div>
+
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T6 13/700</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.
+    </div>
+
+    <div class="memo-subtopic-header">
+      <span class="tier-tag">T6' 13/600</span>Evidence: long-term LNG contracts
+    </div>
+    <div class="memo-prose lorem">
+      Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T5 13.5/600</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque habitant morbi tristique senectus et netus.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P4</span>
+      <span class="tier-tag">T4 14.5/700</span>Management &amp; governance
+    </div>
+    <div class="memo-prose lorem">
+      Fusce vitae ante ac lectus tempus accumsan. Proin sed felis vitae libero dapibus interdum. Vestibulum ante ipsum primis in faucibus orci luctus.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">MG#1</span>
+      <span class="tier-tag">T5 13.5/600</span>Capital allocation track record
+    </div>
+    <div class="memo-prose lorem">
+      Donec eu est non lacus lacinia semper. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

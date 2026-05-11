@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC + BB Target Conditions — Horizontal Tree</title>
+<style>
+:root{--color-background-primary:#fff;--color-background-secondary:#f7f7f5;--color-text-primary:#1a1a1a;--color-text-secondary:#666;--color-text-tertiary:#999;--color-border-secondary:rgba(0,0,0,0.2);--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--border-radius-md:8px;--border-radius-lg:12px}
+@media(prefers-color-scheme:dark){:root{--color-background-primary:#1a1a1a;--color-background-secondary:#2a2a2a;--color-text-primary:#e8e8e8;--color-text-secondary:#aaa;--color-text-tertiary:#777;--color-border-secondary:rgba(255,255,255,0.2)}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);padding:1.5rem;overflow-x:auto}
+h1{font-size:16px;font-weight:500;margin-bottom:12px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--color-text-secondary);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--color-border-secondary)}
+.legend .lp{font-size:9px;padding:1px 5px;border-radius:var(--border-radius-md);display:inline-block}
+.hn{display:flex;align-items:flex-start}
+.hn-label{white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:5px;padding:2px 0;min-height:20px}
+.hn-children{display:flex;flex-direction:column;position:relative;margin-left:0}
+.hn-children::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:1px;background:var(--color-border-secondary)}
+.hn-child{display:flex;align-items:flex-start;position:relative;padding-left:16px}
+.hn-child::before{content:'';position:absolute;left:0;top:10px;width:14px;height:1px;background:var(--color-border-secondary)}
+.hn-connector{width:12px;height:1px;background:var(--color-border-secondary);flex-shrink:0;margin-top:10px}
+.pill{display:inline-block;font-size:9.5px;font-weight:500;padding:1px 6px;border-radius:var(--border-radius-md);white-space:nowrap;flex-shrink:0}
+.p-root{background:var(--color-background-secondary);color:var(--color-text-primary);font-size:11px;padding:2px 8px}
+.p-pil-ic{background:#EEEDFE;color:#3C3489}
+.p-pil-bb{background:#E1F5EE;color:#085041}
+.p-fam-ic{background:#CECBF6;color:#26215C}
+.p-fam-bb{background:#9FE1CB;color:#04342C}
+.p-tc{background:#FAEEDA;color:#633806}
+.p-ra{background:#E6F1FB;color:#0C447C}
+.p-cq{background:#F1EFE8;color:#444441}
+.p-guard{background:#FCEBEB;color:#791F1F}
+.lbl{font-size:11.5px;line-height:1.3;color:var(--color-text-primary);white-space:nowrap}
+.lbl-fam{font-weight:500;font-size:12px}
+.lbl-ra{color:var(--color-text-secondary);font-size:11px}
+.lbl-cq{color:var(--color-text-tertiary);font-size:10.5px}
+.lbl-guard{font-style:italic}
+</style>
+</head>
+<body>
+<h1>Pillar III + IV — Target conditions tree (fully expanded)</h1>
+<div class="legend">
+<span><span class="lp p-pil-ic">P</span> Pillar</span>
+<span><span class="lp p-fam-ic">F</span> Family</span>
+<span><span class="lp p-tc">TC</span> Target condition</span>
+<span><span class="lp p-ra">RA</span> Required attribute</span>
+<span><span class="lp p-cq">CQ</span> Core question</span>
+<span><span class="lp p-guard">G</span> Guardrail</span>
+<span style="margin-left:auto;color:var(--color-text-tertiary)">11 families · 36 TCs · 46 RAs · 161 CQs</span>
+</div>
+<div id="ht"></div>
+
+<script>
+var D=[
+{id:"IC#1",t:"Required case outputs",type:"ic",tcs:[
+{id:"TC1",l:"Strong financial profile",g:0,ras:[
+{id:"RA1",l:"Sufficient longevity of case (baton)?",cqs:["Three-year, mid-term, triple ratchet step-up?"]},
+{id:"RA2",l:"Sufficient growth rate?",cqs:["12-20% EPS growth p.a.?"]},
+{id:"RA3",l:"Sufficient improvement in financials?",cqs:["Margin/growth step-up?"]}]},
+{id:"TC2",l:"Acceptable case setup",g:0,ras:[
+{id:"RA4",l:"Sufficient setup fit?",cqs:["Fit with required setups?"]},
+{id:"RA5",l:"Goldilocks timeliness?",cqs:["Post CfC clearing / SP turn?","Less than 6M after turn?"]}]},
+{id:"TC3",l:"Sufficient case navigatability",g:0,ras:[
+{id:"RA6",l:"Sufficiently trackable, updatable, and invalidatable early?",cqs:["Helpful IR re. operating momentum?","Trackable key leading indicators?"]}]},
+{id:"TC4",l:"Earnings upgrades",g:0,ras:[
+{id:"RA7",l:"Sufficient earnings upgrades / beats?",cqs:["Modal case 18M EPS > guidance > SS?","3:1 SS/G EPS raise/lower skew NFY?"]}]},
+{id:"TC5",l:"Limited drawdown risk",g:0,ras:[
+{id:"RA8",l:"Sufficiently robust / bankable multiple?",cqs:["Multiple more company than exogenously driven?"]},
+{id:"RA9",l:"Sufficient returns?",cqs:["More than 20% 3Y TSR?"]}]}]},
+{id:"IC#2",t:"Required case inputs",type:"ic",tcs:[
+{id:"TC1",l:"Sufficient change forces",g:0,ras:[
+{id:"RA1",l:"Sufficient change forces",cqs:["External change forces / tailwinds?","Internal change forces?"]}]},
+{id:"TC2",l:"Sufficient base (to build a strong case on)",g:0,ras:[
+{id:"RA2",l:"Sufficient base",cqs:["Absence of external headwinds?","(Well-invested base?)","Thesis congruency with past/present?","Large CfC/mispricing?","Low trading multiple?"]}]}]},
+{id:"IC#3",t:"Required case setups",type:"ic",tcs:[
+{id:"TC1",l:"Mechanical EPS upgrades from mis-modelling",g:0,ras:[
+{id:"RA1",l:"Mis-modelled, high-quality EPS upgrader",cqs:["Is EPS consensus >10% below our estimate?","What specific line items are mis-modelled?","Is the modelling gap structural or one-off?"]}]},
+{id:"TC2",l:"Idiosyncratic, exogenous inflection",g:0,ras:[
+{id:"RA2",l:"Big demand change-driven EPSU or EPT",cqs:["Is there a market-wide demand explosion?","Dominant competitive position?","One-to-many scalable?","Oligopoly (structure AND behaviour)?","Fixed cost leverage for margin expansion?"]}]},
+{id:"TC3",l:"Huge internal push/improvement",g:0,ras:[
+{id:"RA3",l:"Strong internal changes driven EPSU / EPT",cqs:["Is management credible on execution?","What is the specific internal change programme?","Track record of delivery so far?"]}]},
+{id:"TC4",l:"Clearing of negative sentiment",g:0,ras:[
+{id:"RA4",l:"Oversold/rebounding quality compounder",cqs:["Sentiment idiosyncratic or sector-wide?","Underlying business quality intact?","What specific catalyst clears the overhang?"]},
+{id:"RA5",l:"Huge CfC clearing event in solid quality",cqs:["Specific clearing event identified?","Business quality sufficient post-clearing?"]}]},
+{id:"TC5",l:"Standard exogenous reversion to mean",g:0,ras:[
+{id:"RA6",l:"Mean-reverting quality post-temporary headwind",cqs:["Is the headwind genuinely temporary?","Normalised earnings level to revert to?","Quality of franchise intact through headwind?"]},
+{id:"RA7",l:"Trough-on-trough turn in solid quality cyclical",cqs:["Are earnings genuinely at trough?","Business quality sufficient for full cycle?","Leading indicators confirm cyclical turn?"]}]},
+{id:"TC6",l:"Does not overlap with unacceptable setup",g:1,ras:[
+{id:"RA8",l:"No unacceptable setup overlap",cqs:["Avoids unacceptable setup patterns?"]}]},
+{id:"TC7",l:"Does not overlap with false friend setup",g:1,ras:[
+{id:"RA9",l:"No false friend setup overlap",cqs:["Avoids false friend setup patterns?"]}]}]},
+{id:"BB#1",t:"Required case simplicity guardrails",type:"bb",tcs:[
+{id:"TC1",l:"Narrowly focused bet",g:0,ras:[{id:"RA1",l:"Narrowly focused bet",cqs:["2 or less FDs and 4 or less KDs?"]}]},
+{id:"TC2",l:"Narrow perimeter",g:0,ras:[{id:"RA2",l:"Narrow perimeter",cqs:["10 or less geographies x BUs?"]}]},
+{id:"TC3",l:"No headwinds",g:0,ras:[{id:"RA3",l:"No headwinds",cqs:["Zero VC headwinds to revenue?"]}]},
+{id:"TC4",l:"Narrow range of issues",g:0,ras:[{id:"RA4",l:"Narrow range of issues",cqs:["2 or less CfCs or problems?"]}]},
+{id:"TC5",l:"Conservative IR",g:0,ras:[{id:"RA5",l:"Conservative IR",cqs:["Company confirms conservative guidance?"]}]},
+{id:"TC6",l:"Clear investment case",g:0,ras:[{id:"RA6",l:"Clear investment case",cqs:["Clear strategy-to-EPS mechanism?"]}]},
+{id:"TC7",l:"Trackable case drivers",g:0,ras:[{id:"RA7",l:"Trackable case drivers",cqs:["Clear VC/Co inputs-to-EPS mechanism?"]}]}]},
+{id:"BB#2",t:"Required business foundations",type:"bb",tcs:[
+{id:"TC1",l:"Great operator?",g:0,ras:[
+{id:"RA1",l:"Right direction",cqs:["Big ambition/vision","Great strategy + bold choices"]},
+{id:"RA2",l:"Right resources",cqs:["Great CEO (action not conjecture)","Hiring well + strong team","Well-resourced/well-invested","Holistic congruent culture","Conservative guidance","Clear communication"]},
+{id:"RA3",l:"Right record/action/behaviour",cqs:["High RONIC capital allocation","Acts not just talks","Track record of delivery","Outlier standards","Shareholders first","Dynamic SBB repurchaser","Prudent governance"]}]},
+{id:"TC2",l:"Advantaged business + widening SRCA?",g:0,ras:[
+{id:"RA4",l:"Strong competitive advantages?",cqs:["Customer moats","Production moats","Scale moats","Regulatory/political moats","Culture/knowledge moats","High relative scale","Large realistic TAM"]},
+{id:"RA5",l:"Strong operational outputs?",cqs:["High SCU","Leading RSCU","High pricing power (2%+)","Scale economies shared"]},
+{id:"RA6",l:"Strong financial outputs?",cqs:["12-20% EPS + revenue growth","20%+ of sales deployable","RONIC 25-30%+","NI to FCF 80%","ROCE 15%+","ROTC 30%+","High gross margins","EBIT margins 20%+","Fixed cost leverage","Low tax rate (<30%)"]},
+{id:"RA7",l:"Gets stronger over time?",cqs:["Gravitational forces 1","Gravitational forces 2"]},
+{id:"RA8",l:"Scope for improvement?",cqs:["Peer precedents","Big savings in few areas","Little savings in many areas","Congruency with strategy"]}]},
+{id:"TC3",l:"Favourable value chain dynamics?",g:0,ras:[
+{id:"RA9",l:"Demand side?",cqs:["Customer demand","Route to market"]},
+{id:"RA10",l:"Competitive supportiveness?",cqs:["Existing competition","Adjacencies entering","Vanilla new entrants","Orthogonal new entrants","Substitutes"]},
+{id:"RA11",l:"Disruption forces?",cqs:["To demand/competition/regulators/suppliers/politics"]},
+{id:"RA12",l:"Political/regulatory?",cqs:["Regulator SWOT","Political actor SWOT"]},
+{id:"RA13",l:"Supportive supplier side?",cqs:["Supplier side SWOT"]}]},
+{id:"TC4",l:"Concentrated industry structure?",g:0,ras:[
+{id:"RA14",l:"Concentrated market?",cqs:["Company #1 or #2?","Top 5 > 30% share?","Steep share distribution?"]},
+{id:"RA15",l:"Concentrating gravitational pull?",cqs:["Stability of share over time?","New entrants' share?","Consolidates to largest?","Consolidates to most advantaged?"]},
+{id:"RA16",l:"Benign competitor attitudes?",cqs:["Benign-ness?","MOL instability?","Shark attack risk?","Volume / ROCE priority?"]},
+{id:"RA17",l:"Competitiveness trends?",cqs:["Positive or negative?"]}]},
+{id:"TC5",l:"High secular growth potential?",g:0,ras:[
+{id:"RA18",l:"High secular growth?",cqs:["Clear adjacencies","Structurally increasing demand","Pricing > costs in LT?","Historical sector growth high?"]}]},
+{id:"TC6",l:"Fit with paradigm/regime/thematic?",g:0,ras:[
+{id:"RA19",l:"Paradigm fit?",cqs:["Summarise C.II.3 answer"]}]}]},
+{id:"BB#3",t:"Fit for this market condition",type:"bb",tcs:[
+{id:"TC1",l:"Exit discipline when negatives manifest",g:0,ras:[{id:"RA1",l:"Exit discipline",cqs:["Market cycle downturn","AI disruption","Input cost inflation (Iran)","No overlap with 10x invalidating ACHs"]}]}]},
+{id:"BB#4",t:"Strenuously seek-to-avoid constraints",type:"bb",tcs:[
+{id:"TC1",l:"Avoiding invalidation at trough SP",g:0,ras:[{id:"RA1",l:"Avoid trough invalidation",cqs:["Fundamental SHMLP risks?","Wide skew in outcomes?"]}]},
+{id:"TC2",l:"Avoiding large MTM risk",g:0,ras:[{id:"RA2",l:"Avoid MTM risk",cqs:["Large downside to trough multiple?","Multiple industry vs company driven?"]}]}]},
+{id:"BB#5",t:"Small size constraints",type:"bb",tcs:[
+{id:"TC1",l:"Minimise large MTM risk",g:0,ras:[{id:"RA1",l:"Minimise MTM risk",cqs:["Sentiment-related SHMLP risks?"]}]}]},
+{id:"BB#6",t:"Invalidating case constraints",type:"bb",tcs:[
+{id:"TC1",l:"Exit discipline when negatives manifest",g:0,ras:[{id:"RA1",l:"Exit discipline",cqs:["No overlap with 10x invalidating ACHs"]}]},
+{id:"TC2",l:"Avoiding issues hidden under-the-surface",g:0,ras:[{id:"RA2",l:"No hidden issues",cqs:["No slowing of core engine","No mediocre CEOs","No big 'Hmmms'"]}]},
+{id:"TC3",l:"Avoiding 'hell yeah' mediocrity",g:0,ras:[{id:"RA3",l:"No mediocrity/red flags",cqs:["No 2+ red flags?","8+ 'Y's?"]}]},
+{id:"TC4",l:"Avoiding tough operating environments",g:0,ras:[{id:"RA4",l:"No tough environments",cqs:["No recent earnings cuts?","No peers having problems?"]}]},
+{id:"TC5",l:"Avoid repeating past mistakes",g:0,ras:[{id:"RA5",l:"No past mistakes",cqs:["No negative lesson overlap?","No false friend fit?"]}]}]},
+{id:"BB#7",t:"Past trend constraints / momentum",type:"bb",tcs:[
+{id:"TC1",l:"Price momentum",g:0,ras:[{id:"RA1",l:"Technicals (MAs, relative, absolute)",cqs:["MM technical momentum Qs"]}]},
+{id:"TC2",l:"Fundamental momentum",g:0,ras:[
+{id:"RA2",l:"SS estimates/ratings/PTs",cqs:["SS earnings momentum Qs"]},
+{id:"RA3",l:"Peers technicals + SS",cqs:["Peers momentum Qs"]},
+{id:"RA4",l:"Company delivery vs guidance",cqs:["Delivery of guidance Qs"]}]}]},
+{id:"BB#8",t:"Nice-to-haves",type:"bb",tcs:[
+{id:"TC1",l:"Additional upside",g:0,ras:[{id:"RA1",l:"Additional upside",cqs:["Big positive optionality beyond modal case?"]}]},
+{id:"TC2",l:"Self-righting behaviour ATM",g:0,ras:[{id:"RA2",l:"Self-righting behaviour",cqs:["Rapid self-righting MMO?"]}]}]}
+];
+
+function b(parent,data,level){
+var h='';
+for(var i=0;i<data.length;i++){
+var item=data[i];
+h+='<div class="hn-child">';
+h+=renderNode(item,level);
+h+='</div>';
+}
+return '<div class="hn-children">'+h+'</div>';
+}
+
+function renderNode(item,level){
+var h='<div class="hn">';
+h+='<div class="hn-label">';
+if(level==='pillar'){
+var cls=item.type==='ic'?'p-pil-ic':'p-pil-bb';
+h+='<span class="pill '+cls+'">'+item.id+'</span>';
+h+='<span class="lbl lbl-fam">'+item.t+'</span>';
+}else if(level==='fam'){
+var cls=item.type==='ic'?'p-fam-ic':'p-fam-bb';
+h+='<span class="pill '+cls+'">'+item.id+'</span>';
+h+='<span class="lbl lbl-fam">'+item.t+'</span>';
+}else if(level==='tc'){
+h+='<span class="pill '+(item.g?'p-guard':'p-tc')+'">'+item.id+'</span>';
+h+='<span class="lbl'+(item.g?' lbl-guard':'')+'">'+item.l+'</span>';
+}else if(level==='ra'){
+h+='<span class="pill p-ra">'+item.id+'</span>';
+h+='<span class="lbl lbl-ra">'+item.l+'</span>';
+}else if(level==='cq'){
+h+='<span class="pill p-cq">CQ</span>';
+h+='<span class="lbl lbl-cq">'+item.l+'</span>';
+}
+h+='</div>';
+h+='<span class="hn-connector"></span>';
+
+if(level==='fam'){
+if(item.tcs&&item.tcs.length>0){h+=b(item,item.tcs,'tc')}
+}else if(level==='tc'){
+if(item.ras&&item.ras.length>0){h+=b(item,item.ras,'ra')}
+}else if(level==='ra'){
+if(item.cqs&&item.cqs.length>0){
+var cqItems=item.cqs.map(function(c){return{l:c}});
+h+=b(item,cqItems,'cq');
+}
+}
+h+='</div>';
+return h;
+}
+
+function buildAll(){
+var el=document.getElementById('ht');
+var icFams=D.filter(function(f){return f.type==='ic'});
+var bbFams=D.filter(function(f){return f.type==='bb'});
+
+var pillars=[
+{id:'PILLAR III',t:"Investment case — what's changing",type:'ic',fams:icFams},
+{id:'PILLAR IV',t:'Building blocks — how bankable',type:'bb',fams:bbFams}
+];
+
+var h='<div class="hn">';
+h+='<div class="hn-label"><span class="pill p-root">IC + BB</span></div>';
+h+='<span class="hn-connector"></span>';
+h+='<div class="hn-children">';
+for(var p=0;p<pillars.length;p++){
+var pil=pillars[p];
+h+='<div class="hn-child">';
+h+='<div class="hn">';
+h+='<div class="hn-label"><span class="pill '+(pil.type==='ic'?'p-pil-ic':'p-pil-bb')+'">'+pil.id+'</span><span class="lbl lbl-fam">'+pil.t+'</span></div>';
+h+='<span class="hn-connector"></span>';
+h+='<div class="hn-children">';
+for(var f=0;f<pil.fams.length;f++){
+h+='<div class="hn-child">';
+h+=renderNode(pil.fams[f],'fam');
+h+='</div>';
+}
+h+='</div></div></div>';
+}
+h+='</div></div>';
+el.innerHTML=h;
+}
+
+buildAll();
+</script>
+</body>
+</html>

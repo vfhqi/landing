@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes">
 <title>Viewforth — Landing</title>
 <style>
   :root{
@@ -57,8 +57,8 @@
   .legend .sw{display:inline-flex;align-items:center;gap:4px;}
   .legend .sw i{display:inline-block;width:9px;height:9px;border-radius:2px;border:1px solid rgba(0,0,0,.15);}
 
-  main.stage{flex:1 1 auto;min-height:0;padding:4px 8px;overflow:hidden;}
-  svg.flow{display:block;width:100%;height:100%;font-family:var(--font-sans);}
+  main.stage{flex:1 1 auto;min-height:0;padding:4px 8px;overflow:auto;}
+  svg.flow{display:block;width:100%;height:100%;font-family:var(--font-sans);min-width:1100px;min-height:560px;}
 
   .node rect{ fill:var(--tile); stroke:var(--line); stroke-width:1.4; rx:6; ry:6; transition:fill .12s ease; }
   .node:hover rect{ fill:var(--tile-hover); }
@@ -68,24 +68,28 @@
   .node a{ cursor:pointer; }
   .node a:focus rect{ outline:2px solid var(--ink); outline-offset:2px; }
 
-  .cluster{ fill:none; stroke-width:2.2; rx:12; ry:12; }
-  .c-yellow      { stroke:var(--yellow); }
-  .c-magenta     { stroke:var(--magenta); }
-  .c-orange-fill { stroke:var(--orange-fill); fill:rgba(240,160,75,.10); stroke-width:2.4;}
-  .c-cyan        { stroke:var(--cyan); }
-  .c-blue        { stroke:var(--blue); }
-  .c-green       { stroke:var(--green); }
-  .c-pink        { stroke:var(--pink); }
-  .c-orange-out  { stroke:var(--orange-out); }
+  /* R6: clusters now use subtle background FILL, no stroke. */
+  .cluster{ stroke:none; rx:14; ry:14; }
+  .c-yellow      { fill:rgba(230,184,0,.12); }
+  .c-magenta     { fill:rgba(198,106,176,.12); }
+  .c-orange-fill { fill:rgba(240,160,75,.14); }
+  .c-cyan        { fill:rgba(95,179,199,.13); }
+  .c-blue        { fill:rgba(84,129,199,.12); }
+  .c-green       { fill:rgba(106,170,100,.13); }
+  .c-pink        { fill:rgba(232,138,166,.13); }
+  .c-orange-out  { fill:rgba(224,122,60,.13); }
 
-  .cluster-label{ font-size:10.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
-  .cl-yellow      { fill:#9a7a00; }
-  .cl-magenta     { fill:#8a3d77; }
-  .cl-cyan        { fill:#1f6f82; }
-  .cl-blue        { fill:#2c5398; }
-  .cl-green       { fill:#3a6a36; }
-  .cl-pink        { fill:#a64869; }
-  .cl-orange-out  { fill:#a04920; }
+  /* R6: cluster-label external titles removed entirely; in-box titles now identify each area. */
+
+  /* In-box cluster titles (R4 + R6): used in clusters that need an internal area title. */
+  .area-title { font-size:14px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+  .at-yellow      { fill:#7a6300; }
+  .at-magenta     { fill:#7a3568; }
+  .at-cyan        { fill:#1f6f82; }
+  .at-blue        { fill:#2c5398; }
+  .at-green       { fill:#3a6a36; }
+  .at-pink        { fill:#a64869; }
+  .at-orange-out  { fill:#a04920; }
 
   .flow-line   { stroke:var(--line); stroke-width:1.4; fill:none; }
   .flow-line.dotted{ stroke-dasharray:5 4; stroke:var(--gap); }
@@ -101,18 +105,54 @@
   .tab-pill:hover rect{ fill:#e8f3e6; }
   .tab-pill text{ fill:#2e4a2c; font-size:10px; font-weight:600; pointer-events:none; }
 
+  /* Cyan cluster sub-pills (R2 + R5b) */
+  .cyan-pill rect{ fill:#ffffff; stroke:#1f6f82; stroke-width:1.0; rx:9; ry:9; }
+  .cyan-pill:hover rect{ fill:#e6f3f6; }
+  .cyan-pill text{ fill:#1f6f82; font-size:10px; font-weight:600; pointer-events:none; }
+  .cyan-pill.placeholder rect{ stroke-dasharray:3 3; }
+
+  /* Reminder block items now clickable (D-LP-16 superseded) */
+  .reminder-link { cursor:pointer; }
+  .reminder-link text { fill:#3a3a3a; font-size:11.5px; }
+  .reminder-link:hover text { fill:#1c1c1c; text-decoration:underline; }
+  .reminder-link.local-only-mode text { fill:#9a9a85; cursor:not-allowed; }
+  .reminder-link.local-only-mode:hover text { text-decoration:none; }
+
   footer{
     padding:4px 18px 6px;font-size:10px;color:var(--muted);
     display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #ebe6d4;flex-shrink:0;
   }
   footer code{font-family:var(--font-mono);background:#f3eedc;padding:1px 5px;border-radius:3px;color:var(--ink-dim);}
   footer a{color:var(--ink-dim);}
+
+  /* ============ RESPONSIVE — phone / tablet ============ */
+  /* Tablet portrait (<=900px): legend wraps tighter; SVG keeps min-width and scrolls horizontally. */
+  @media (max-width: 900px){
+    body{ overflow:auto; }
+    header{ padding:6px 10px 4px; gap:8px; }
+    header h1{ font-size:14px; }
+    .status-strip{ font-size:10px; gap:4px; }
+    .legend{ padding:4px 10px; gap:3px 8px; font-size:9.5px; }
+    main.stage{ padding:4px 4px; }
+    svg.flow{ height:auto; }
+  }
+  /* Phone (<=600px): allow horizontal scroll; legend collapses to one row scroll; status pills compact. */
+  @media (max-width: 600px){
+    header{ flex-direction:column; align-items:flex-start; gap:4px; padding:6px 8px; }
+    header h1 { font-size:13px; }
+    .status-strip { gap:3px; font-size:9.5px; }
+    .status-strip .pill { padding:1px 5px; font-size:9.5px; }
+    .legend{ overflow-x:auto; flex-wrap:nowrap; white-space:nowrap; padding:3px 8px; }
+    main.stage{ padding:2px; overflow:auto; }
+    svg.flow{ min-width:1300px; }
+    footer{ font-size:9px; padding:3px 8px 4px; flex-direction:column; gap:2px; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v5</span></span></h1>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v6</span></span></h1>
   <div class="status-strip">
     <span class="pill">Date <strong id="d-date">—</strong></span>
     <span class="pill">Market regime <strong>risk-off</strong></span>
@@ -123,21 +163,19 @@
 </header>
 
 <div class="legend">
-  <span class="sw"><i style="background:var(--yellow)"></i>Strategic Targets</span>
-  <span class="sw"><i style="background:var(--magenta)"></i>Market &amp; Environment</span>
-  <span class="sw"><i style="background:var(--orange-fill)"></i>Portfolio</span>
-  <span class="sw"><i style="background:var(--cyan)"></i>Position Management</span>
-  <span class="sw"><i style="background:var(--blue)"></i>Workflow Priorities</span>
-  <span class="sw"><i style="background:var(--green)"></i>Master (Technical) Dashboard</span>
-  <span class="sw"><i style="background:var(--pink)"></i>Notes Repository</span>
-  <span class="sw"><i style="background:var(--orange-out)"></i>Ratings Dashboard</span>
+  <span class="sw"><i style="background:rgba(230,184,0,.5)"></i>Strategic Targets</span>
+  <span class="sw"><i style="background:rgba(198,106,176,.5)"></i>Market &amp; Environment</span>
+  <span class="sw"><i style="background:rgba(95,179,199,.55)"></i>Portfolio · Reports · Position Management</span>
+  <span class="sw"><i style="background:rgba(84,129,199,.5)"></i>Workflow Priorities</span>
+  <span class="sw"><i style="background:rgba(106,170,100,.5)"></i>Master (Technical) Dashboard</span>
+  <span class="sw"><i style="background:rgba(232,138,166,.5)"></i>Notes Repository</span>
+  <span class="sw"><i style="background:rgba(224,122,60,.5)"></i>Ratings Dashboard</span>
   <span class="sw"><i style="background:var(--substrate)"></i>Stocks Universe (substrate)</span>
-  <span class="sw"><i style="background:var(--gap);opacity:.6"></i>GAP? (non-clickable)</span>
-  <span class="sw"><i style="background:#dcd6c2"></i>Reminder list (non-clickable)</span>
+  <span class="sw"><i style="background:#fef0d0;border:1px solid #e0a040"></i>GAP (clickable)</span>
 </div>
 
 <main class="stage">
-<svg class="flow" viewBox="0 0 1500 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram">
+<svg class="flow" viewBox="0 0 1500 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v6">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#2a2a2a"/>
@@ -147,129 +185,159 @@
     </marker>
   </defs>
 
-  <!-- ============ REMINDER BLOCK (top-left, non-clickable, neutral) ============ -->
-  <!-- Per D-LP-16: large components of the system not yet clickable; surfaces them to Richard. -->
-  <g aria-label="Reminder list of other large system components, non-clickable" pointer-events="none">
+  <!-- ============ REMINDER BLOCK (top-left) — items now clickable per Richard 11-May-26, supersedes D-LP-16 ============ -->
+  <g aria-label="Reminder list of other large system components, now clickable">
     <rect x="40" y="20" width="490" height="160" rx="10" ry="10" fill="#f4efdc" stroke="#bdb494" stroke-width="1.4" stroke-dasharray="6 4"/>
-    <text x="55" y="42" style="font-size:10.5px;font-weight:700;fill:#7a6f47;letter-spacing:.5px">REMINDER &#8212; OTHER LARGE COMPONENTS (not yet clickable)</text>
-    <text x="60"  y="68"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Wisdom Library</text>
-    <text x="60"  y="86"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Roles (skills, memory, other)</text>
-    <text x="60"  y="104" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;SOPs</text>
-    <text x="60"  y="122" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Principles</text>
-    <text x="60"  y="140" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Frameworks</text>
-    <text x="60"  y="158" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;System architecture</text>
-    <text x="295" y="68"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Auditing</text>
-    <text x="295" y="86"  style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Backing up</text>
-    <text x="295" y="104" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Coaching / High Performance</text>
-    <text x="295" y="122" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Calibration log + corrections</text>
-    <text x="295" y="140" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Kaizen lessons</text>
-    <text x="295" y="158" style="font-size:11.5px;fill:#3a3a3a">&#8226;&#160;&#160;Scheduled protocols</text>
+    <text x="55" y="42" style="font-size:10.5px;font-weight:700;fill:#7a6f47;letter-spacing:.5px">REMINDER &#8212; OTHER LARGE COMPONENTS</text>
+    <g class="reminder-link"><a data-href="local:wisdom-library/INDEX.md" data-href-gh="https://vfhqi.github.io/landing/wisdom-library/INDEX.md" target="_blank" rel="noopener"><text x="60" y="68">&#8226;&#160;&#160;Wisdom Library</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/" data-href-gh="https://vfhqi.github.io/landing/memory/skills/" target="_blank" rel="noopener"><text x="60" y="86">&#8226;&#160;&#160;Roles (skills, memory, other)</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/" data-href-gh="https://vfhqi.github.io/landing/memory/skills/" target="_blank" rel="noopener"><text x="60" y="104">&#8226;&#160;&#160;SOPs</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://vfhqi.github.io/landing/memory/context/values-and-behaviours.md" target="_blank" rel="noopener"><text x="60" y="122">&#8226;&#160;&#160;Principles</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/context/mental-models.md" data-href-gh="https://vfhqi.github.io/landing/memory/context/mental-models.md" target="_blank" rel="noopener"><text x="60" y="140">&#8226;&#160;&#160;Frameworks</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/projects/total-system-map.md" data-href-gh="https://vfhqi.github.io/landing/memory/projects/total-system-map.md" target="_blank" rel="noopener"><text x="60" y="158">&#8226;&#160;&#160;System architecture</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/systems-architect/SKILL.md" data-href-gh="https://vfhqi.github.io/landing/memory/skills/systems-architect/SKILL.md" target="_blank" rel="noopener"><text x="295" y="68">&#8226;&#160;&#160;Auditing</text></a></g>
+    <g class="reminder-link"><a data-href="local:.auto-memory/feedback_structural_backup_protocol.md" data-href-gh="https://vfhqi.github.io/landing/auto-memory/feedback_structural_backup_protocol.md" target="_blank" rel="noopener"><text x="295" y="86">&#8226;&#160;&#160;Backing up</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/high-performance-coach/SKILL.md" data-href-gh="https://vfhqi.github.io/landing/memory/skills/high-performance-coach/SKILL.md" target="_blank" rel="noopener"><text x="295" y="104">&#8226;&#160;&#160;Coaching / High Performance</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/corrections.md" data-href-gh="https://vfhqi.github.io/landing/memory/corrections.md" target="_blank" rel="noopener"><text x="295" y="122">&#8226;&#160;&#160;Calibration log + corrections</text></a></g>
+    <g class="reminder-link"><a data-href="local:PROJECTS/WATSON KAIZEN LESSONS/lessons/INDEX.md" data-href-gh="https://vfhqi.github.io/landing/PROJECTS/WATSON%20KAIZEN%20LESSONS/lessons/INDEX.md" target="_blank" rel="noopener"><text x="295" y="140">&#8226;&#160;&#160;Kaizen lessons</text></a></g>
+    <g class="reminder-link"><a data-href="local:.claude/CLAUDE.md" data-href-gh="https://vfhqi.github.io/landing/claude/CLAUDE.md" target="_blank" rel="noopener"><text x="295" y="158">&#8226;&#160;&#160;Scheduled protocols</text></a></g>
   </g>
 
-  <!-- ============ TOP ROW (y=10-155) ============ -->
+  <!-- ============ TOP ROW (R5a swap: M&E left, Strategic Targets right) ============ -->
 
+  <!-- R6: external cluster-label removed. R4: in-box title used instead. -->
 
-  <!-- YELLOW: Strategic Targets -->
+  <!-- MAGENTA: Market & Environment (was top-right; now top-LEFT-CENTRE per R5a) -->
   <g>
-    <rect class="cluster c-yellow" x="540" y="20" width="320" height="140"/>
-    <text class="cluster-label cl-yellow" x="555" y="14">STRATEGIC TARGETS</text>
-    <g class="node">
-      <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://vfhqi.github.io/landing/" target="_blank" rel="noopener">
-        <rect x="560" y="36" width="280" height="116"/>
-        <text class="title" x="700" y="64" text-anchor="middle">Evergreen Target Conditions</text>
-        <text class="title" x="700" y="88" text-anchor="middle">Portfolio Target Conditions</text>
-        <text class="title" x="700" y="112" text-anchor="middle">Portfolio OKRs</text>
-        <text class="sub"   x="700" y="140" text-anchor="middle" style="font-style:italic">3 equal-weight strategic anchors</text>
-      </a>
-    </g>
-  </g>
-
-  <!-- MAGENTA: Market & Environment -->
-  <g>
-    <rect class="cluster c-magenta" x="980" y="20" width="380" height="140"/>
-    <text class="cluster-label cl-magenta" x="995" y="14">MARKET &amp; ENVIRONMENT</text>
+    <rect class="cluster c-magenta" x="540" y="20" width="380" height="160"/>
     <g class="node">
       <a data-href="local:databases/thematics-dashboard.html" data-href-gh="https://vfhqi.github.io/landing/thematics-dashboard.html" target="_blank" rel="noopener">
-        <rect x="1000" y="36" width="340" height="116"/>
-        <text class="title" x="1170" y="62" text-anchor="middle">Market &amp; Environment</text>
-        <text class="sub"   x="1170" y="82" text-anchor="middle" style="font-style:italic">Fit for fighting &middot; Radar process</text>
-        <text class="title" x="1170" y="105" text-anchor="middle" style="font-size:11.5px;fill:#8a3d77">Active thematics (3)</text>
-        <text class="sub"   x="1170" y="121" text-anchor="middle" style="font-weight:600;font-size:10.5px">AI</text>
-        <text class="sub"   x="1170" y="135" text-anchor="middle" style="font-weight:600;font-size:10.5px">Iran Oil</text>
-        <text class="sub"   x="1170" y="149" text-anchor="middle" style="font-weight:600;font-size:10.5px">Recession / Bear Market Roll-over</text>
+        <rect x="554" y="34" width="352" height="132"/>
+        <text class="area-title at-magenta" x="730" y="56" text-anchor="middle">MARKET &amp; ENVIRONMENT</text>
+        <text class="sub" x="730" y="74" text-anchor="middle" style="font-style:italic">Fit for fighting &middot; Radar process</text>
+        <text class="title" x="730" y="98" text-anchor="middle" style="font-size:11.5px;fill:#8a3d77">Active thematics (3)</text>
+        <text class="sub" x="730" y="116" text-anchor="middle" style="font-weight:600">AI</text>
+        <text class="sub" x="730" y="132" text-anchor="middle" style="font-weight:600">Iran Oil</text>
+        <text class="sub" x="730" y="148" text-anchor="middle" style="font-weight:600">Recession / Bear Market Roll-over</text>
       </a>
     </g>
   </g>
 
-  <!-- old GAP marker removed; replaced by GAP node — see GAP cluster below -->
+  <!-- YELLOW: Strategic Targets (was top-centre; now top-RIGHT per R5a). R4: title in box; ETCs/TCs/OKRs subordinated. -->
+  <g>
+    <rect class="cluster c-yellow" x="940" y="20" width="420" height="160"/>
+    <g class="node">
+      <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://vfhqi.github.io/landing/memory/context/values-and-behaviours.md" target="_blank" rel="noopener">
+        <rect x="954" y="34" width="392" height="132"/>
+        <text class="area-title at-yellow" x="1150" y="56" text-anchor="middle">STRATEGIC TARGETS</text>
+        <text class="sub" x="1150" y="74" text-anchor="middle" style="font-style:italic;font-size:9.5px">3 anchors &middot; broad to narrow time horizon</text>
+        <text class="sub" x="1150" y="100" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Evergreen Target Conditions</text>
+        <text class="sub" x="1150" y="124" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Portfolio Target Conditions</text>
+        <text class="sub" x="1150" y="148" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Portfolio OKRs</text>
+      </a>
+    </g>
+  </g>
 
-
-    <!-- ============ GAP NODE (D-LP-22, v5 formatting fixes per D-LP-31) — sits between Strategic Targets, Market & Environment, and Portfolio ============ -->
+  <!-- ============ GAP NODE — between Portfolio (centre below) and the two top clusters ============ -->
+  <!-- R1: widened + text fits inside box. New box: x=860 width=170 height=190. -->
   <g aria-label="GAP — what the portfolio needs to add given strategic targets and market environment">
     <a data-href="local:databases/portfolio-okrs/2026-05.json" data-href-gh="https://vfhqi.github.io/landing/portfolio-okrs/2026-05.json" target="_blank" rel="noopener">
-      <rect x="830" y="180" width="140" height="170" rx="10" ry="10" fill="#fef0d0" stroke="#e0a040" stroke-width="2.4"/>
-      <text x="900" y="200" text-anchor="middle" style="font-size:11px;font-weight:700;fill:#8a5a10;letter-spacing:.5px">GAP</text>
-      <text x="900" y="215" text-anchor="middle" style="font-size:9px;fill:#8a5a10;font-style:italic">portfolio shortfall</text>
+      <rect x="860" y="200" width="170" height="190" rx="10" ry="10" fill="#fef0d0" stroke="#e0a040" stroke-width="2.4"/>
+      <text x="945" y="220" text-anchor="middle" style="font-size:11.5px;font-weight:700;fill:#8a5a10;letter-spacing:.5px">GAP</text>
+      <text x="945" y="234" text-anchor="middle" style="font-size:9px;fill:#8a5a10;font-style:italic">portfolio shortfall</text>
       <g id="gap-okr-list">
-        <text x="900" y="240" text-anchor="middle" style="font-size:9px;fill:#5c4400">(loading OKRs&hellip;)</text>
+        <text x="945" y="258" text-anchor="middle" style="font-size:9px;fill:#5c4400">(loading OKRs&hellip;)</text>
       </g>
     </a>
-    <path class="flow-line dotted" d="M780,160 C800,170 815,180 828,198" marker-end="url(#arrow-dot)"/>
-    <path class="flow-line dotted" d="M1020,160 C1000,170 985,180 972,198" marker-end="url(#arrow-dot)"/>
-    <path class="flow-line dotted" d="M770,265 C790,265 810,265 828,265" marker-end="url(#arrow-dot)"/>
-  </g>
-    </a>
-    <!-- Three dashed arrows fan IN from feeders -->
-    <!-- From Strategic Targets (yellow, top) -->
-    <path class="flow-line dotted" d="M820,140 C840,160 855,170 880,182" marker-end="url(#arrow-dot)"/>
-    <!-- From Market & Environment (magenta, top-right) -->
-    <path class="flow-line dotted" d="M1000,160 C980,170 970,175 960,182" marker-end="url(#arrow-dot)"/>
-    <!-- From Portfolio (orange-fill, below) -->
-    <path class="flow-line dotted" d="M800,260 C830,260 850,260 875,260" marker-end="url(#arrow-dot)"/>
+    <!-- Three feeder arrows (recomputed for swapped clusters) -->
+    <!-- From M&E (now top-left at x=540-920) -->
+    <path class="flow-line dotted" d="M880,180 C870,188 868,192 870,200" marker-end="url(#arrow-dot)"/>
+    <!-- From Strategic Targets (now top-right at x=940-1360) -->
+    <path class="flow-line dotted" d="M1010,180 C1018,188 1020,192 1020,200" marker-end="url(#arrow-dot)"/>
+    <!-- From combined cluster Portfolio sub-element (below at ~y=290) -->
+    <path class="flow-line dotted" d="M820,330 C840,340 850,350 870,360" marker-end="url(#arrow-dot)"/>
   </g>
 
-  <!-- ============ MIDDLE ROW (y≈190–470) ============ -->
-
-  <!-- ORANGE-FILL: Portfolio -->
+  <!-- ============ CYAN COMBINED CLUSTER (R5c): Portfolio + 3 weekly reports + PMS ============ -->
+  <!-- One cyan area containing 4 sub-elements arranged in a stacked layout. -->
   <g>
+    <rect class="cluster c-cyan" x="540" y="200" width="320" height="470"/>
     <g class="node">
-      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/dashboards/position-manager.html" target="_blank" rel="noopener">
-        <rect class="cluster c-orange-fill" x="600" y="200" width="200" height="86"/>
-        <text class="title" x="700" y="232" text-anchor="middle">Portfolio</text>
-        <text class="sub"   x="700" y="252" text-anchor="middle">9 live positions</text>
-        <text class="sub"   x="700" y="272" text-anchor="middle" style="font-style:italic">current state of the book</text>
+      <!-- In-box cluster title -->
+      <text class="area-title at-cyan" x="700" y="222" text-anchor="middle">PORTFOLIO &middot; REPORTS &middot; POSITION MGMT</text>
+    </g>
+
+    <!-- Sub 1: Portfolio (parent) -->
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
+        <rect x="556" y="234" width="288" height="58" fill="#ffffff" stroke="#1f6f82" stroke-width="1.2"/>
+        <text class="title" x="700" y="256" text-anchor="middle" style="font-size:12.5px">Portfolio</text>
+        <text class="sub" x="700" y="274" text-anchor="middle" style="font-size:10px">9 live positions &middot; current state of the book</text>
+      </a>
+    </g>
+    <!-- Sub 1a + 1b: Portfolio Overview + Charts (R2 — placeholder, no link yet) -->
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="298" width="140" height="22"/>
+        <text x="626" y="313" text-anchor="middle">Portfolio Overview</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="704" y="298" width="140" height="22"/>
+        <text x="774" y="313" text-anchor="middle">Portfolio Charts</text>
+      </a>
+    </g>
+
+    <!-- Sub 2/3/4: 3 weekly report sub-elements (R5b — placeholder, no link yet) -->
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="334" width="288" height="32"/>
+        <text x="700" y="354" text-anchor="middle" style="font-size:10.5px">Weekly Developments &middot; A&amp;J Report</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="372" width="288" height="32"/>
+        <text x="700" y="392" text-anchor="middle" style="font-size:10.5px">Sector / Industry Changes &middot; Research Report</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="410" width="288" height="32"/>
+        <text x="700" y="430" text-anchor="middle" style="font-size:10.5px">Portfolio Changes &middot; Research Report</text>
+      </a>
+    </g>
+
+    <!-- Sub 5: PMS -->
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
+        <rect x="556" y="454" width="288" height="200" fill="#ffffff" stroke="#1f6f82" stroke-width="1.2"/>
+        <text class="title" x="700" y="478" text-anchor="middle">Position Management System</text>
+        <text class="sub" x="700" y="500" text-anchor="middle" style="font-style:italic">Stops, grace clocks, at-risk basis points</text>
+        <text class="sub" x="700" y="520" text-anchor="middle" style="font-style:italic">Slug pyramid &amp; stop-MA enforcement</text>
+        <text class="sub" x="700" y="540" text-anchor="middle" style="font-style:italic">Per-position invalidation tracking</text>
+        <text class="sub" x="700" y="566" text-anchor="middle" style="font-size:9.5px">10 invalidation ACHs monitored live</text>
+        <text class="sub" x="700" y="586" text-anchor="middle" style="font-size:9.5px">Drag-drop reordering &middot; sparklines</text>
+        <text class="sub" x="700" y="612" text-anchor="middle" style="font-style:italic;font-size:9.5px">&rarr; flows back to Portfolio (state up)</text>
+        <text class="sub" x="700" y="632" text-anchor="middle" style="font-style:italic;font-size:9.5px">&rarr; flows out to Ratings Dashboard</text>
       </a>
     </g>
   </g>
 
   <!-- BLUE: Workflow Priorities -->
   <g>
-    <rect class="cluster c-blue" x="980" y="200" width="380" height="200"/>
-    <text class="cluster-label cl-blue" x="995" y="194">WORKFLOW PRIORITIES</text>
+    <rect class="cluster c-blue" x="1060" y="410" width="300" height="260"/>
     <g class="node">
-      <a data-href="local:memory/projects/pipeline.md" data-href-gh="https://vfhqi.github.io/landing/" target="_blank" rel="noopener">
-        <rect x="1000" y="216" width="340" height="174"/>
-        <text class="title" x="1170" y="246" text-anchor="middle">Workflow &amp; Kanban Board</text>
-        <text class="sub" x="1020" y="276">Kanban board (research pipeline)</text>
-        <text class="sub" x="1020" y="296">Lanes: Richard · Researcher · Assistant PM</text>
-        <text class="sub" x="1020" y="326" style="font-style:italic">23 active to-dos · 6 overdue</text>
-        <text class="sub" x="1020" y="348" style="font-style:italic">Priorities flow into PMS execution</text>
-        <text class="sub" x="1020" y="368" style="font-style:italic">and into Ratings Dashboard reads</text>
-      </a>
-    </g>
-  </g>
-
-  <!-- CYAN: Position Management -->
-  <g>
-    <rect class="cluster c-cyan" x="540" y="330" width="320" height="140"/>
-    <text class="cluster-label cl-cyan" x="555" y="324">POSITION MANAGEMENT</text>
-    <g class="node">
-      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/dashboards/position-manager.html" target="_blank" rel="noopener">
-        <rect x="560" y="346" width="280" height="116"/>
-        <text class="title" x="700" y="376" text-anchor="middle">Position Management System</text>
-        <text class="sub"   x="700" y="402" text-anchor="middle" style="font-style:italic">Stops, grace clocks, at-risk basis points</text>
-        <text class="sub"   x="700" y="422" text-anchor="middle" style="font-style:italic">Slug pyramid &amp; stop-MA enforcement</text>
-        <text class="sub"   x="700" y="446" text-anchor="middle" style="font-style:italic">Per-position invalidation tracking</text>
+      <a data-href="local:memory/projects/pipeline.md" data-href-gh="https://vfhqi.github.io/landing/memory/projects/pipeline.md" target="_blank" rel="noopener">
+        <rect x="1074" y="424" width="272" height="232"/>
+        <text class="area-title at-blue" x="1210" y="448" text-anchor="middle">WORKFLOW PRIORITIES</text>
+        <text class="title" x="1210" y="476" text-anchor="middle" style="font-size:12px">Workflow &amp; Kanban Board</text>
+        <text class="sub" x="1090" y="504">Kanban board (research pipeline)</text>
+        <text class="sub" x="1090" y="524">Lanes: Richard &middot; Researcher &middot; Assistant PM</text>
+        <text class="sub" x="1090" y="554" style="font-style:italic">23 active to-dos &middot; 6 overdue</text>
+        <text class="sub" x="1090" y="576" style="font-style:italic">Priorities flow into PMS execution</text>
+        <text class="sub" x="1090" y="596" style="font-style:italic">and into Ratings Dashboard reads</text>
       </a>
     </g>
   </g>
@@ -277,27 +345,29 @@
   <!-- GREEN: Master (Technical) Dashboard -->
   <g>
     <rect class="cluster c-green" x="40" y="200" width="490" height="370"/>
-    <text class="cluster-label cl-green" x="55" y="194">MASTER (TECHNICAL) DASHBOARD</text>
+    <g class="node">
+      <text class="area-title at-green" x="285" y="222" text-anchor="middle">MASTER (TECHNICAL) DASHBOARD</text>
+    </g>
 
     <!-- 8 screens label -->
-    <text class="sub" style="font-weight:700;font-size:10.5px;fill:#3a6a36" x="60" y="226">SCREENS (8)</text>
+    <text class="sub" style="font-weight:700;font-size:10.5px;fill:#3a6a36" x="60" y="246">SCREENS (8)</text>
 
     <!-- 8 screen tab pills, 2x4 grid -->
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=bp"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=bp"     target="_blank"><rect x="60"  y="234" width="225" height="24"/><text x="172" y="250" text-anchor="middle">Basing Plateau</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=pb"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=pb"     target="_blank"><rect x="293" y="234" width="225" height="24"/><text x="405" y="250" text-anchor="middle">Probing Bet</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=mm99"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=mm99"   target="_blank"><rect x="60"  y="262" width="225" height="24"/><text x="172" y="278" text-anchor="middle">Mark Minervini 99-Point Screen</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=vcp"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=vcp"    target="_blank"><rect x="293" y="262" width="225" height="24"/><text x="405" y="278" text-anchor="middle">Volatility Contraction Pattern</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=utr"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=utr"    target="_blank"><rect x="60"  y="290" width="225" height="24"/><text x="172" y="306" text-anchor="middle">Uptrend Retest</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=ssem"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=ssem"   target="_blank"><rect x="293" y="290" width="225" height="24"/><text x="405" y="306" text-anchor="middle">Sell-Side Earnings Momentum</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=val"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=val"    target="_blank"><rect x="60"  y="318" width="225" height="24"/><text x="172" y="334" text-anchor="middle">Valuation in Range</text></a></g>
-    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=combos" data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=combos" target="_blank"><rect x="293" y="318" width="225" height="24"/><text x="405" y="334" text-anchor="middle">Composite / Combination Screens</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=bp"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=bp"     target="_blank"><rect x="60"  y="254" width="225" height="24"/><text x="172" y="270" text-anchor="middle">Basing Plateau</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=pb"     data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=pb"     target="_blank"><rect x="293" y="254" width="225" height="24"/><text x="405" y="270" text-anchor="middle">Probing Bet</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=mm99"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=mm99"   target="_blank"><rect x="60"  y="282" width="225" height="24"/><text x="172" y="298" text-anchor="middle">Mark Minervini 99-Point Screen</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=vcp"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=vcp"    target="_blank"><rect x="293" y="282" width="225" height="24"/><text x="405" y="298" text-anchor="middle">Volatility Contraction Pattern</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=utr"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=utr"    target="_blank"><rect x="60"  y="310" width="225" height="24"/><text x="172" y="326" text-anchor="middle">Uptrend Retest</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=ssem"   data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=ssem"   target="_blank"><rect x="293" y="310" width="225" height="24"/><text x="405" y="326" text-anchor="middle">Sell-Side Earnings Momentum</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=val"    data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=val"    target="_blank"><rect x="60"  y="338" width="225" height="24"/><text x="172" y="354" text-anchor="middle">Valuation in Range</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=combos" data-href-gh="https://vfhqi.github.io/master-dashboard/#tab=combos" target="_blank"><rect x="293" y="338" width="225" height="24"/><text x="405" y="354" text-anchor="middle">Composite / Combination Screens</text></a></g>
 
     <!-- Master Dashboard parent -->
     <g class="node">
       <a data-href="local:master-dashboard/index.html" data-href-gh="https://vfhqi.github.io/master-dashboard/" target="_blank" rel="noopener">
-        <rect x="120" y="370" width="330" height="80"/>
-        <text class="title" x="285" y="400" text-anchor="middle">Technical (Master) Dashboard</text>
-        <text class="sub"   x="285" y="424" text-anchor="middle" style="font-style:italic">Click any screen above to open at that tab</text>
+        <rect x="120" y="380" width="330" height="80"/>
+        <text class="title" x="285" y="410" text-anchor="middle">Technical (Master) Dashboard</text>
+        <text class="sub" x="285" y="434" text-anchor="middle" style="font-style:italic">Click any screen above to open at that tab</text>
       </a>
     </g>
 
@@ -316,55 +386,49 @@
         <text class="sub" x="405" y="510" text-anchor="middle" style="font-style:italic;font-size:9.5px">quant input feeding the dashboard</text>
       </a>
     </g>
-    <text class="sub" x="285" y="538" text-anchor="middle" style="font-style:italic">↑ feed the Master Dashboard</text>
+    <text class="sub" x="285" y="538" text-anchor="middle" style="font-style:italic">&uarr; feed the Master Dashboard</text>
   </g>
 
-  <!-- ============ BOTTOM ROW (y≈500–680) ============ -->
+  <!-- ============ BOTTOM ROW ============ -->
 
-  <!-- PINK: Notes Repository -->
+  <!-- ORANGE-OUTLINE: Ratings Dashboard (kept as orange-out tone for continuity) -->
   <g>
-    <rect class="cluster c-pink" x="555" y="500" width="350" height="170"/>
-    <text class="cluster-label cl-pink" x="570" y="494">NOTES REPOSITORY</text>
+    <rect class="cluster c-orange-out" x="1060" y="200" width="300" height="200"/>
     <g class="node">
       <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/dashboards/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
-        <rect x="575" y="516" width="310" height="146"/>
-        <text class="title" x="730" y="548" text-anchor="middle">Notes Repository</text>
-        <text class="sub"   x="730" y="572" text-anchor="middle">Researcher · Assistant Portfolio Manager</text>
-        <text class="sub"   x="730" y="592" text-anchor="middle" style="font-style:italic">Qualitative IC analysis · per-stock memos</text>
-        <text class="sub"   x="730" y="612" text-anchor="middle" style="font-style:italic">IAJA library (Information · Analysis ·</text>
-        <text class="sub"   x="730" y="628" text-anchor="middle" style="font-style:italic">Judgement · Action chains)</text>
-        <text class="sub"   x="730" y="652" text-anchor="middle" style="font-style:italic">→ feeds Ratings Dashboard</text>
+        <rect x="1074" y="214" width="272" height="172"/>
+        <text class="area-title at-orange-out" x="1210" y="236" text-anchor="middle">RATINGS DASHBOARD</text>
+        <text class="sub" x="1210" y="256" text-anchor="middle" style="font-style:italic">Per-stock composite &middot; four columns to build</text>
+        <g pointer-events="none">
+          <rect x="1080" y="270" width="62" height="34" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1111" y="285" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:#a04920">Timeliness</text>
+          <text x="1111" y="298" text-anchor="middle" style="font-size:8px;fill:#a04920">how recent</text>
+          <rect x="1146" y="270" width="62" height="34" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1177" y="285" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:#a04920">Knowledge</text>
+          <text x="1177" y="298" text-anchor="middle" style="font-size:8px;fill:#a04920">depth of work</text>
+          <rect x="1212" y="270" width="62" height="34" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1243" y="285" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:#a04920">Interest</text>
+          <text x="1243" y="298" text-anchor="middle" style="font-size:8px;fill:#a04920">priority / conviction</text>
+          <rect x="1278" y="270" width="62" height="34" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1309" y="285" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:#a04920">Master</text>
+          <text x="1309" y="298" text-anchor="middle" style="font-size:8px;fill:#a04920">composite</text>
+        </g>
+        <text class="sub" x="1210" y="326" text-anchor="middle" style="font-style:italic;font-size:9.5px">A&ndash;F grading, Six Pillars rollup,</text>
+        <text class="sub" x="1210" y="342" text-anchor="middle" style="font-style:italic;font-size:9.5px">stage-flexed (Triaging / ESA / DD / Live)</text>
+        <text class="sub" x="1210" y="370" text-anchor="middle" style="font-style:italic;font-size:9.5px">One click opens whole dashboard</text>
       </a>
     </g>
   </g>
 
-  <!-- ORANGE-OUTLINE: Ratings Dashboard -->
+  <!-- PINK: Notes Repository (relocated below ratings) -->
   <g>
-    <rect class="cluster c-orange-out" x="940" y="430" width="420" height="240"/>
-    <text class="cluster-label cl-orange-out" x="955" y="424">RATINGS DASHBOARD</text>
+    <rect class="cluster c-pink" x="40" y="585" width="490" height="100"/>
     <g class="node">
       <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/dashboards/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
-        <rect x="960" y="446" width="380" height="216"/>
-        <text class="title" x="1150" y="476" text-anchor="middle">Ratings Dashboard</text>
-        <text class="sub"   x="1150" y="496" text-anchor="middle" style="font-style:italic">Per-stock composite — four columns to build</text>
-        <g pointer-events="none">
-          <rect x="975"  y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
-          <text x="1017" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Timeliness</text>
-          <text x="1017" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">how recent</text>
-          <rect x="1067" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
-          <text x="1109" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Knowledge</text>
-          <text x="1109" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">depth of work</text>
-          <rect x="1159" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
-          <text x="1201" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Interest</text>
-          <text x="1201" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">priority / conviction</text>
-          <rect x="1251" y="514" width="84" height="38" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
-          <text x="1293" y="530" text-anchor="middle" style="font-size:10.5px;font-weight:700;fill:#a04920">Master Rating</text>
-          <text x="1293" y="546" text-anchor="middle" style="font-size:9px;fill:#a04920">composite</text>
-        </g>
-        <text class="sub" x="1150" y="582" text-anchor="middle" style="font-style:italic">A–F grading, Six Pillars rollup,</text>
-        <text class="sub" x="1150" y="598" text-anchor="middle" style="font-style:italic">stage-flexed (Triaging / ESA / DD / Live)</text>
-        <text class="sub" x="1150" y="638" text-anchor="middle" style="font-style:italic">One click opens the whole dashboard</text>
-        <text class="sub" x="1150" y="654" text-anchor="middle" style="font-style:italic">(columns are not separately routed)</text>
+        <rect x="54" y="599" width="462" height="72"/>
+        <text class="area-title at-pink" x="285" y="621" text-anchor="middle">NOTES REPOSITORY</text>
+        <text class="sub" x="285" y="641" text-anchor="middle">Researcher &middot; Assistant Portfolio Manager &middot; Qualitative IC analysis</text>
+        <text class="sub" x="285" y="659" text-anchor="middle" style="font-style:italic">Per-stock memos &middot; IAJA library &middot; feeds Ratings Dashboard</text>
       </a>
     </g>
   </g>
@@ -373,39 +437,41 @@
 
   <g class="node">
     <a data-href="local:databases/pullback-watchlist.json" data-href-gh="https://vfhqi.github.io/dashboards/pullback-watchlist.json" target="_blank" rel="noopener">
-      <rect class="substrate-bar" x="40" y="700" width="1420" height="50"/>
-      <text class="substrate-label" x="750" y="724" text-anchor="middle">STOCKS UNIVERSE DATABASE</text>
-      <text class="substrate-sub"   x="750" y="740" text-anchor="middle">973 stocks · 24 industries · 154 sectors · pullback-watchlist.json (substrate everything sits on)</text>
+      <rect class="substrate-bar" x="40" y="700" width="1320" height="50"/>
+      <text class="substrate-label" x="700" y="724" text-anchor="middle">STOCKS UNIVERSE DATABASE</text>
+      <text class="substrate-sub" x="700" y="740" text-anchor="middle">973 stocks &middot; 24 industries &middot; 154 sectors &middot; pullback-watchlist.json (substrate everything sits on)</text>
     </a>
   </g>
 
-  <!-- ============ FLOW LINES (arrowheads preserved) ============ -->
+  <!-- ============ FLOW LINES ============ -->
 
-  <!-- Strategic Targets → Portfolio -->
-  <path class="flow-line" d="M700,160 L700,200" marker-end="url(#arrow)"/>
-  <!-- PMS → Portfolio (state up) -->
-  <path class="flow-line" d="M700,330 L700,286" marker-end="url(#arrow)"/>
-  <!-- Master Dashboard → PMS -->
-  <path class="flow-line" d="M530,400 L540,400" marker-end="url(#arrow)"/>
-  <!-- Workflow → PMS -->
-  <path class="flow-line" d="M980,310 L860,380" marker-end="url(#arrow)"/>
-  <!-- Workflow → Ratings -->
-  <path class="flow-line" d="M1170,400 L1170,430" marker-end="url(#arrow)"/>
-  <!-- Notes Repository → Ratings -->
-  <path class="flow-line" d="M905,580 L940,560" marker-end="url(#arrow)"/>
-  <!-- Stocks Universe → Master Dashboard -->
+  <!-- Strategic Targets (top-right) -> Portfolio sub-element top -->
+  <path class="flow-line" d="M1010,180 L900,234" marker-end="url(#arrow)"/>
+  <!-- M&E (top-left-centre) -> Portfolio sub-element top -->
+  <path class="flow-line" d="M730,180 L730,234" marker-end="url(#arrow)"/>
+  <!-- Master Dashboard (left) -> PMS (sub-element of cyan cluster) -->
+  <path class="flow-line" d="M530,500 L556,500" marker-end="url(#arrow)"/>
+  <!-- Workflow -> Ratings Dashboard (workflow now below ratings) -->
+  <path class="flow-line" d="M1210,410 L1210,400" marker-end="url(#arrow)"/>
+  <!-- Workflow -> PMS (cross over) -->
+  <path class="flow-line" d="M1060,510 L860,510" marker-end="url(#arrow)"/>
+  <!-- PMS / cyan cluster -> Ratings Dashboard (long feedback) -->
+  <path class="flow-line" d="M860,540 C920,540 1000,440 1060,310" marker-end="url(#arrow)"/>
+  <!-- Notes Repository -> Ratings Dashboard -->
+  <path class="flow-line" d="M530,620 C720,620 900,400 1060,380" marker-end="url(#arrow)"/>
+  <!-- Stocks Universe -> Master Dashboard -->
   <path class="flow-line" d="M270,700 L270,570" marker-end="url(#arrow)"/>
-  <!-- Stocks Universe → Notes Repository -->
-  <path class="flow-line" d="M730,700 L730,670" marker-end="url(#arrow)"/>
-  <!-- Long bottom feedback line: PMS / Portfolio → Ratings -->
-  <path class="flow-line" d="M860,420 C895,420 905,500 940,500" marker-end="url(#arrow)"/>
+  <!-- Stocks Universe -> Notes Repository -->
+  <path class="flow-line" d="M285,700 L285,685" marker-end="url(#arrow)"/>
+  <!-- Stocks Universe -> Cyan cluster (Portfolio area) -->
+  <path class="flow-line" d="M700,700 L700,670" marker-end="url(#arrow)"/>
 
 </svg>
 </main>
 
 <footer>
-  <span>Built 09-May-26 · v5 mockup · <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
-  <span><code id="d-host">file://</code> · <a href="#" id="d-toggle">toggle local / GH mode</a></span>
+  <span>Built 11-May-26 &middot; v6 mockup &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span><code id="d-host">file://</code> &middot; <a href="#" id="d-toggle">toggle local / GH mode</a></span>
 </footer>
 
 <script type="application/json" id="okrs">
@@ -427,109 +493,32 @@
     }
   ],
   "portfolio_okrs": [
-    {
-      "id": "okr-2026-05-healthcare",
-      "description": "Add 1 healthcare name",
-      "target_count": 1,
-      "filled_count": 0,
-      "filled_with": [],
-      "filter_type": "sector",
-      "filter_value": "Healthcare",
-      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours healthcare's defensive/recurring revenues."
-    },
-    {
-      "id": "okr-2026-05-utility",
-      "description": "Add 1 utility name",
-      "target_count": 1,
-      "filled_count": 0,
-      "filled_with": [],
-      "filter_type": "sector",
-      "filter_value": "Utilities",
-      "rationale": "Sector exposure gap \u2014 recession/bear-market thematic favours regulated utilities' inflation pass-through + dividend safety."
-    },
-    {
-      "id": "okr-2026-05-industrial-capgoods",
-      "description": "Add 2 industrial / capital goods names",
-      "target_count": 2,
-      "filled_count": 0,
-      "filled_with": [],
-      "filter_type": "sector",
-      "filter_value": "Industrials / Capital Goods",
-      "rationale": "Sector exposure gap."
-    },
-    {
-      "id": "okr-2026-05-ai-beneficiary",
-      "description": "Add 1 AI beneficiary (any sector)",
-      "target_count": 1,
-      "filled_count": 0,
-      "filled_with": [],
-      "filter_type": "thematic",
-      "filter_value": "AI (beneficiary)",
-      "rationale": "AI thematic beneficiary alignment \u2014 see thematics dashboard for definition."
-    }
+    {"id":"okr-2026-05-healthcare","description":"Add 1 healthcare name","target_count":1,"filled_count":0,"filled_with":[],"filter_type":"sector","filter_value":"Healthcare","rationale":"Sector exposure gap."},
+    {"id":"okr-2026-05-utility","description":"Add 1 utility name","target_count":1,"filled_count":0,"filled_with":[],"filter_type":"sector","filter_value":"Utilities","rationale":"Sector exposure gap."},
+    {"id":"okr-2026-05-industrial-capgoods","description":"Add 2 industrial / capital goods names","target_count":2,"filled_count":0,"filled_with":[],"filter_type":"sector","filter_value":"Industrials / Capital Goods","rationale":"Sector exposure gap."},
+    {"id":"okr-2026-05-ai-beneficiary","description":"Add 1 AI beneficiary","target_count":1,"filled_count":0,"filled_with":[],"filter_type":"thematic","filter_value":"AI (beneficiary)","rationale":"AI thematic beneficiary alignment."}
   ],
-  "summary": {
-    "total_targets": 5,
-    "total_filled": 0,
-    "remaining": 5
-  },
-  "future_tc_placeholders": [
-    {
-      "id": "tc-sector-cap",
-      "name": "Max sector concentration",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-position-size-max",
-      "name": "Max single position %",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-position-size-min",
-      "name": "Min single position %",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-geographic-concentration",
-      "name": "Max single-country exposure %",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-probing-bets-max",
-      "name": "Max number of probing bets",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-conviction-weighted-avg",
-      "name": "Conviction-weighted portfolio average",
-      "status": "not_yet_set"
-    },
-    {
-      "id": "tc-cash-min",
-      "name": "Min cash %",
-      "status": "not_yet_set"
-    }
-  ]
+  "summary": {"total_targets":5,"total_filled":0,"remaining":5}
 }
 </script>
 
 <script>
-  // Render OKR checklist into the GAP node (v5 — repositioned for x=830 box, 140 wide)
+  // R1: GAP card OKR list — fits inside x=860 width=170 (centre x=945, left x=874, right x=1018).
   (function(){
     var data = JSON.parse(document.getElementById('okrs').textContent);
     var list = document.getElementById('gap-okr-list');
     if (!list) return;
     while (list.firstChild) list.removeChild(list.firstChild);
     var SVG_NS = 'http://www.w3.org/2000/svg';
-    var BOX_LEFT = 840, BOX_CENTRE = 900;
-    var y0 = 232, lh = 13;
+    var BOX_LEFT = 874, BOX_CENTRE = 945, BOX_RIGHT = 1018;
+    var y0 = 254, lh = 13;
     var i = 0;
     data.portfolio_target_conditions.forEach(function(tc){
       var t = document.createElementNS(SVG_NS, 'text');
       t.setAttribute('x', BOX_CENTRE);
       t.setAttribute('y', y0 + i*lh);
       t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('style', 'font-size:9px;font-weight:700;fill:#5c4400');
+      t.setAttribute('style', 'font-size:9.5px;font-weight:700;fill:#5c4400');
       t.textContent = 'TC: ' + tc.current + '/' + tc.target + ' stocks';
       list.appendChild(t);
       i++;
@@ -540,10 +529,11 @@
       t.setAttribute('x', BOX_LEFT);
       t.setAttribute('y', y0 + i*lh);
       t.setAttribute('text-anchor', 'start');
-      t.setAttribute('style', 'font-size:8px;fill:#3a3a3a');
-      var box = (o.filled_count >= o.target_count) ? '\u2611' : '\u2610';
+      t.setAttribute('style', 'font-size:8.5px;fill:#3a3a3a');
+      var box = (o.filled_count >= o.target_count) ? '☑' : '☐';
       var label = o.description.replace(/^Add /,'').replace(/ \(any sector\)/,'');
-      if (label.length > 32) label = label.slice(0,30) + '\u2026';
+      // Box is 170px wide, ~22 chars at 8.5px — generous truncation since box is wider now.
+      if (label.length > 26) label = label.slice(0,24) + '…';
       t.textContent = box + ' ' + label + ' (' + o.filled_count + '/' + o.target_count + ')';
       list.appendChild(t);
       i++;
@@ -551,10 +541,10 @@
     i++;
     var stamp = document.createElementNS(SVG_NS, 'text');
     stamp.setAttribute('x', BOX_CENTRE);
-    stamp.setAttribute('y', y0 + i*lh + 4);
+    stamp.setAttribute('y', y0 + i*lh + 6);
     stamp.setAttribute('text-anchor', 'middle');
-    stamp.setAttribute('style', 'font-size:7.5px;font-style:italic;fill:#8a5a10');
-    stamp.textContent = 'OKRs ' + data.period_label + ' \u00b7 click to view JSON';
+    stamp.setAttribute('style', 'font-size:8px;font-style:italic;fill:#8a5a10');
+    stamp.textContent = 'OKRs ' + data.period_label + ' · click to view JSON';
     list.appendChild(stamp);
   })();
 </script>
@@ -580,6 +570,7 @@
       a.setAttribute('href',target);
       try{a.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href',target);}catch(e){}
     });
+    // Placeholders stay href="#" in both modes
   }
   applyMode();
   document.getElementById('d-toggle').addEventListener('click',function(e){

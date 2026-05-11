@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Memo Header Hierarchy V4 — loosened ramp + Option B</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #6b6b6b;
+    --rule: #e5e5e5;
+    --rule-strong: #c8c8c8;
+    --rule-pillar: #c8c8c8;
+    --panel: #ffffff;
+    --panel-soft: #fafafa;
+    --accent: #2c5282;
+  }
+  html, body { margin:0; padding:0; background:#f3f3f3; color:var(--ink); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .page-title { padding: 20px 24px 4px; font-size: 16px; font-weight: 700; }
+  .page-sub { padding: 0 24px 16px; font-size: 12px; color: var(--ink-mute); max-width: 900px; line-height: 1.5; }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 0 24px 32px;
+    align-items: start;
+  }
+  .col {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 22px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .col-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--ink-mute); padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule); margin-bottom: 16px;
+  }
+  .col-label.proposed { color: var(--accent); }
+
+  /* ============================================================
+     CURRENT — as rendered today
+     ============================================================ */
+  .cur .memo-h1 { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+  .cur .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 12px; }
+  .cur .memo-section-title { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
+  .cur .memo-subsection-header { font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+  .cur .memo-subsection-id { font-size: 11px; font-weight: 400; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-pillar-label { font-size: 13px; font-weight: 700; margin: 8px 0 4px; }
+  .cur .memo-pillar-id { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-mute); margin-right: 6px; }
+  .cur .memo-family-label { font-size: 12px; font-weight: 600; margin: 6px 0 4px; }
+  .cur .memo-family-badge { font-size: 10px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-topic-header { font-size: 12.5px; font-weight: 700; margin: 6px 0 2px; }
+  .cur .memo-topic-id { font-size: 10.5px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-subtopic-header { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+  .cur .memo-prose, .cur .memo-para { font-size: 13px; line-height: 1.5; margin: 4px 0; }
+
+  /* ============================================================
+     PROPOSED V4 — loosened ramp, Option B at the bottom
+     Ramp: 28 / 22 / 18 / 15.5 / 14 / 13 (body = 13)
+     All title case. Weights strictly descending: 700 / 700 / 700 / 700 / 700 / 600.
+     Family 700 > topic 600 (the Option B fix).
+     ============================================================ */
+
+  /* Tier 1 — memo title */
+  .new .memo-h1 {
+    font-size: 28px; font-weight: 700; line-height: 1.2;
+    margin: 0 0 20px;
+  }
+  .new .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 20px; }
+
+  /* Tier 2 — section (A–F): 2px black underline */
+  .new .memo-section-title {
+    font-size: 22px; font-weight: 700; line-height: 1.25;
+    margin: 36px 0 16px;
+    padding-bottom: 7px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .new .memo-section-title:first-child { margin-top: 0; }
+
+  /* Tier 3 — subsection (C.II.1–5) */
+  .new .memo-subsection-header {
+    font-size: 18px; font-weight: 700; line-height: 1.3;
+    margin: 26px 0 12px;
+  }
+  .new .memo-subsection-id {
+    font-size: 13.5px; font-weight: 700;
+    color: var(--accent); margin-right: 6px;
+  }
+
+  /* Tier 4 — pillar (P3, P4) — child of subsection. Left accent bar groups its children. */
+  .new .memo-pillar-label {
+    font-size: 15.5px; font-weight: 700; line-height: 1.3;
+    margin: 20px 0 10px;
+    padding: 4px 0 4px 10px;
+    border-left: 3px solid var(--rule-pillar);
+    color: var(--ink);
+  }
+  .new .memo-pillar-id {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.4px;
+    color: var(--accent); margin-right: 6px;
+  }
+
+  /* Tier 5 — family (IC#2, MG#1): OPTION B — weight 700 (heavier than topic) */
+  .new .memo-family-label {
+    font-size: 14px; font-weight: 700; line-height: 1.35;
+    margin: 16px 0 6px;
+    color: var(--ink);
+  }
+  .new .memo-family-badge {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: var(--ink-mute); margin-right: 6px;
+    padding: 1px 5px; background: #f0f0f0; border-radius: 3px;
+    vertical-align: 1.5px;
+  }
+
+  /* Tier 6 — topic: OPTION B — weight 600 (lighter than family), colour muted */
+  .new .memo-topic-header {
+    font-size: 13px; font-weight: 600; line-height: 1.4;
+    margin: 10px 0 4px;
+    color: var(--ink-soft);
+  }
+  .new .memo-topic-id {
+    font-size: 10.5px; font-weight: 700; color: var(--ink-mute);
+    margin-right: 4px;
+  }
+  .new .memo-subtopic-header {
+    font-size: 13px; font-weight: 500; line-height: 1.4;
+    font-style: italic;
+    margin: 8px 0 4px;
+    color: var(--ink-soft);
+  }
+
+  /* Body prose */
+  .new .memo-prose, .new .memo-para {
+    font-size: 13px; font-weight: 400; line-height: 1.55;
+    margin: 4px 0 6px;
+  }
+
+  /* ============================================================
+     Annotation tags
+     ============================================================ */
+  .tier-tag {
+    display: inline-block;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 9.5px; font-weight: 700;
+    padding: 1px 4px; border-radius: 3px;
+    margin-right: 6px; vertical-align: 3px;
+    text-transform: none; letter-spacing: 0;
+  }
+  .new .tier-tag { background: #e6eeff; color: var(--accent); }
+  .cur .tier-tag { background: #ffe1e1; color: #8a1f1f; }
+
+  .ruler {
+    margin: 14px 0 18px;
+    padding: 10px 14px;
+    background: var(--panel-soft);
+    border: 1px dashed var(--rule-strong);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+  .ruler b { color: var(--ink); font-weight: 700; }
+
+  .lorem { color: var(--ink-soft); }
+
+  .note-box {
+    margin-top: 18px;
+    padding: 10px 14px;
+    background: #fff9e6;
+    border: 1px solid #f0e0a0;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #664d00;
+    line-height: 1.5;
+  }
+  .note-box b { color: #3d2d00; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Memo Header Hierarchy V4 — loosened ramp + Option B at family/topic</div>
+<div class="page-sub">
+  Changes from V3: ramp loosened by ~1–1.5px at every tier for more visual breathing room.
+  Family weight raised to 700 (was 600); topic weight dropped to 600 (was 700) + colour muted.
+  Family is now the dominant bucket header; topic is a lighter sub-header.
+  Strict descent on <b>both size and weight</b>: 28/700 → 22/700 → 18/700 → 15.5/700 → 14/700 → 13/600 → body 13/400.
+</div>
+
+<div class="split">
+
+  <!-- ================= LEFT: CURRENT ================= -->
+  <div class="col cur">
+    <div class="col-label">Current — as rendered today</div>
+
+    <div class="ruler">
+      Sizes (px): <b>17 → 13 → 13 → 13 → 12 → 12.5</b>. Topic (12.5/700) heavier than family (12/600) — the Option B inversion.
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 17/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2 13/700</span>C. ATTRIBUTES</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 13/600</span>Fundamental Investment Case (P3+P4)
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T4 13/700</span>Business quality
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T5 12/600</span>Competitive moats
+    </div>
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T6 12.5/700</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum. Duis sed odio sit amet nibh vulputate cursus.
+    </div>
+
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.b</span>
+      <span class="tier-tag">T6 12.5/700</span>Pipeline network advantage
+    </div>
+    <div class="memo-prose lorem">
+      Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T5 12/600</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+    </div>
+  </div>
+
+  <!-- ================= RIGHT: PROPOSED V4 ================= -->
+  <div class="col new">
+    <div class="col-label proposed">Proposed V4 — loosened ramp, family > topic</div>
+
+    <div class="ruler">
+      Sizes (px): <b>28 → 22 → 18 → 15.5 → 14 → 13</b>, body 13. Weights: <b>700 / 700 / 700 / 700 / 700 / 600 / 400</b>.
+      Family is now the rateable-bucket header (heavier, darker). Topic is a lighter sub-header below it (muted colour).
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 28/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2 22/700 · 2px black rule</span>C. Attributes</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 18/700</span>Fundamental Investment Case (P3+P4)
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T4 15.5/700 · left accent</span>Business Quality
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T5 14/700</span>Competitive moats
+    </div>
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T6 13/600 muted</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum. Duis sed odio sit amet nibh vulputate cursus.
+    </div>
+
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.b</span>
+      <span class="tier-tag">T6 13/600 muted</span>Pipeline network advantage
+    </div>
+    <div class="memo-prose lorem">
+      Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T5 14/700</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+    </div>
+
+    <div class="note-box">
+      <b>Option B in action:</b> IC#2 (14/700 dark) is clearly the bucket. 2.a and 2.b (13/600 muted) sit under it as sub-anchors. Topics are no longer competing with their parent for dominance.<br>
+      <b>Ramp loosening:</b> every pair of adjacent tiers now differs by ~1.5–4px. No more 0.5px gaps.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

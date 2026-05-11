@@ -1,0 +1,2217 @@
+{
+  "models": [
+    {
+      "slug": "compounding",
+      "name": "Power of Compounding",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "compounding",
+        "growth",
+        "long-term",
+        "returns",
+        "time"
+      ],
+      "path": "general/investing/compounding.md",
+      "cross_references": [
+        "goldilocks-growth",
+        "flywheel-vs-treadmill"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "sizing-is-superpower",
+      "name": "Sizing Is the Superpower",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "sizing",
+        "position-management",
+        "capital-allocation",
+        "returns",
+        "superpower"
+      ],
+      "path": "general/investing/sizing-is-superpower.md",
+      "cross_references": [
+        "position-sizing-framework",
+        "painful-prudence",
+        "conviction-elements"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "right-to-left-thinking",
+      "name": "Right-to-Left Thinking",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "process",
+        "EPS",
+        "financial-output",
+        "transmission-mechanism",
+        "analysis"
+      ],
+      "path": "general/investing/right-to-left-thinking.md",
+      "cross_references": [
+        "predictability-obsession",
+        "transmission-mechanism"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "predictability-obsession",
+      "name": "Predictability Obsession",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "predictability",
+        "EPS",
+        "forecasting",
+        "tracking",
+        "information-channels"
+      ],
+      "path": "general/investing/predictability-obsession.md",
+      "cross_references": [
+        "right-to-left-thinking",
+        "key-questions-framework",
+        "bayesian-updating"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "painful-prudence",
+      "name": "Painful Prudence (9-10/10 Bar)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "conviction",
+        "entry",
+        "standards",
+        "opportunity-cost",
+        "discipline"
+      ],
+      "path": "general/investing/painful-prudence.md",
+      "cross_references": [
+        "hell-yeah-or-no",
+        "ach-competing-hypotheses",
+        "sizing-is-superpower"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "goldilocks-growth",
+      "name": "Goldilocks Growth (20-30%)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "growth",
+        "forecasting",
+        "sweet-spot",
+        "revenue",
+        "EPS"
+      ],
+      "path": "general/investing/goldilocks-growth.md",
+      "cross_references": [
+        "compounding",
+        "predictability-obsession"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "four-patterns",
+      "name": "Four Patterns (Confluences)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "patterns",
+        "CEO",
+        "corporate-change",
+        "demand",
+        "valuation",
+        "entry",
+        "setup"
+      ],
+      "path": "general/investing/four-patterns.md",
+      "cross_references": [
+        "animal-ceo",
+        "demand-pulse-reversion",
+        "massive-corporate-change"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "conservative-analysis-aggressive-execution",
+      "name": "Conservative Analysis, Aggressive Execution",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "execution",
+        "analysis",
+        "decisiveness",
+        "action",
+        "discipline"
+      ],
+      "path": "general/investing/conservative-analysis-aggressive-execution.md",
+      "cross_references": [
+        "good-plan-executed",
+        "strong-views-weakly-held"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "disprove-dont-prove",
+      "name": "Disprove, Don't Prove (ACH)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "ACH",
+        "inversion",
+        "hypothesis",
+        "disproval",
+        "false-friend",
+        "Popper"
+      ],
+      "path": "general/investing/disprove-dont-prove.md",
+      "cross_references": [
+        "inversion-jacobi",
+        "ach-competing-hypotheses",
+        "false-friends"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "hqi-framework",
+      "name": "High Quality Inflection (HQI)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "quality",
+        "inflection",
+        "growth",
+        "optionality",
+        "framework",
+        "sizing"
+      ],
+      "path": "general/investing/hqi-framework.md",
+      "cross_references": [
+        "four-patterns",
+        "flywheel-vs-treadmill",
+        "revenue-optionality"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "key-questions-framework",
+      "name": "Key Questions Framework",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "KQ",
+        "research",
+        "process",
+        "framing",
+        "direction"
+      ],
+      "path": "general/investing/key-questions-framework.md",
+      "cross_references": [
+        "predictability-obsession",
+        "right-to-left-thinking",
+        "iaja"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "economies-of-scale",
+      "name": "Economies of Scale",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "scale",
+        "cost",
+        "moat",
+        "competitive-advantage",
+        "growth"
+      ],
+      "path": "general/business/economies-of-scale.md",
+      "cross_references": [
+        "network-effects",
+        "flywheel-vs-treadmill",
+        "scale-economies-shared"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "network-effects",
+      "name": "Network Effects",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "network",
+        "moat",
+        "platform",
+        "marketplace",
+        "competitive-advantage",
+        "users"
+      ],
+      "path": "general/business/network-effects.md",
+      "cross_references": [
+        "economies-of-scale",
+        "flywheel-vs-treadmill",
+        "two-sided-marketplace"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "flywheel-vs-treadmill",
+      "name": "Flywheel vs Treadmill vs Fragile",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "flywheel",
+        "treadmill",
+        "fragile",
+        "business-quality",
+        "moat",
+        "effort"
+      ],
+      "path": "general/business/flywheel-vs-treadmill.md",
+      "cross_references": [
+        "economies-of-scale",
+        "network-effects",
+        "compounding"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "moats-and-srca",
+      "name": "Moats & SRCA (Hard + Soft)",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "moat",
+        "SRCA",
+        "competitive-advantage",
+        "pricing-power",
+        "switching-costs",
+        "culture"
+      ],
+      "path": "general/business/moats-and-srca.md",
+      "cross_references": [
+        "network-effects",
+        "economies-of-scale",
+        "one-percent-companies"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "pricing-power",
+      "name": "Pricing Power",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "pricing",
+        "moat",
+        "inflation",
+        "margin",
+        "competitive-advantage"
+      ],
+      "path": "general/business/pricing-power.md",
+      "cross_references": [
+        "moats-and-srca",
+        "mission-critical-products"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "value-chain-analysis",
+      "name": "Value Chain Analysis",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "value-chain",
+        "profit-pools",
+        "positioning",
+        "industry-structure"
+      ],
+      "path": "general/business/value-chain-analysis.md",
+      "cross_references": [
+        "moats-and-srca",
+        "supply-chain-physics"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "mission-critical-products",
+      "name": "Mission-Critical Products",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "mission-critical",
+        "switching-costs",
+        "recurring-revenue",
+        "defensive"
+      ],
+      "path": "general/business/mission-critical-products.md",
+      "cross_references": [
+        "pricing-power",
+        "moats-and-srca"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "incumbent-dilemma",
+      "name": "Incumbent Dilemma",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "disruption",
+        "incumbent",
+        "innovation",
+        "competitive-dynamics"
+      ],
+      "path": "general/business/incumbent-dilemma.md",
+      "cross_references": [
+        "creative-destruction",
+        "punctuated-equilibrium"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "creative-destruction",
+      "name": "Creative Destruction",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "disruption",
+        "innovation",
+        "Schumpeter",
+        "competition"
+      ],
+      "path": "general/business/creative-destruction.md",
+      "cross_references": [
+        "incumbent-dilemma",
+        "s-curve-stacking"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "red-queen-effect",
+      "name": "Red Queen Effect (Running to Stand Still)",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "competition",
+        "effort",
+        "treadmill",
+        "market-share"
+      ],
+      "path": "general/business/red-queen-effect.md",
+      "cross_references": [
+        "flywheel-vs-treadmill",
+        "incumbent-dilemma"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "win-win-win-strategy",
+      "name": "Win-Win-Win Strategy",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "strategy",
+        "ecosystem",
+        "stakeholders",
+        "sustainability"
+      ],
+      "path": "general/business/win-win-win-strategy.md",
+      "cross_references": [
+        "moats-and-srca",
+        "mission-critical-products"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "customer-concentration-risk",
+      "name": "Customer Concentration Risk",
+      "tier": "silver",
+      "category": "general/business",
+      "keywords": [
+        "concentration",
+        "customers",
+        "fragility",
+        "revenue",
+        "risk"
+      ],
+      "path": "general/business/customer-concentration-risk.md",
+      "cross_references": [
+        "fragility-assessment",
+        "revenue-optionality"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "inversion-jacobi",
+      "name": "Inversion (Jacobi / Popper)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "inversion",
+        "Jacobi",
+        "Popper",
+        "disconfirmation",
+        "thinking",
+        "scientific-method"
+      ],
+      "path": "general/decision-making/inversion-jacobi.md",
+      "cross_references": [
+        "disprove-dont-prove",
+        "ach-competing-hypotheses",
+        "pre-mortem"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "bruce-lee-synthesis",
+      "name": "Bruce Lee Synthesis",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "synthesis",
+        "adaptation",
+        "eclecticism",
+        "best-practices"
+      ],
+      "path": "general/decision-making/bruce-lee-synthesis.md",
+      "cross_references": [
+        "inversion-jacobi",
+        "and-not-or"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "and-not-or",
+      "name": "AND Not OR (2x2 Reframing)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "reframing",
+        "2x2",
+        "dimensions",
+        "false-dichotomy",
+        "thinking"
+      ],
+      "path": "general/decision-making/and-not-or.md",
+      "cross_references": [
+        "inversion-jacobi",
+        "bruce-lee-synthesis"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "iaja",
+      "name": "IAJA / IAJ+2DSA",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "process",
+        "analysis",
+        "judgement",
+        "action",
+        "downstream-actions",
+        "loop"
+      ],
+      "path": "general/decision-making/iaja.md",
+      "cross_references": [
+        "mission-command",
+        "strong-views-weakly-held"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "mission-command",
+      "name": "Mission Command (von Moltke)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "delegation",
+        "communication",
+        "intent",
+        "constraints",
+        "leadership"
+      ],
+      "path": "general/decision-making/mission-command.md",
+      "cross_references": [
+        "iaja",
+        "three-gaps-art-of-action"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "three-gaps-art-of-action",
+      "name": "Three Gaps (Art of Action)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "alignment",
+        "understanding",
+        "execution",
+        "delegation",
+        "gaps"
+      ],
+      "path": "general/decision-making/three-gaps-art-of-action.md",
+      "cross_references": [
+        "mission-command",
+        "brief-reception-discipline"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "bayesian-updating",
+      "name": "Bayesian Updating",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "probability",
+        "updating",
+        "evidence",
+        "beliefs",
+        "forecasting"
+      ],
+      "path": "general/decision-making/bayesian-updating.md",
+      "cross_references": [
+        "predictability-obsession",
+        "strong-views-weakly-held"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "second-order-effects",
+      "name": "Second-Order Effects",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "second-order",
+        "consequences",
+        "thinking",
+        "cascading",
+        "systems"
+      ],
+      "path": "general/decision-making/second-order-effects.md",
+      "cross_references": [
+        "complex-systems",
+        "worser-odder-longer-further"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "strong-views-weakly-held",
+      "name": "Strong Views, Weakly Held",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "conviction",
+        "flexibility",
+        "judgement",
+        "decisiveness",
+        "updating"
+      ],
+      "path": "general/decision-making/strong-views-weakly-held.md",
+      "cross_references": [
+        "bayesian-updating",
+        "iaja",
+        "good-plan-executed"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "good-plan-executed",
+      "name": "Good Plan Executed > Great Plan in Drawer",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "execution",
+        "action",
+        "simplicity",
+        "perfectionism",
+        "speed"
+      ],
+      "path": "general/decision-making/good-plan-executed.md",
+      "cross_references": [
+        "conservative-analysis-aggressive-execution",
+        "strong-views-weakly-held"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "pre-mortem",
+      "name": "Pre-Mortem",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "risk",
+        "scenario",
+        "failure",
+        "imagination",
+        "pre-commitment"
+      ],
+      "path": "general/decision-making/pre-mortem.md",
+      "cross_references": [
+        "inversion-jacobi",
+        "ach-competing-hypotheses",
+        "and-not-or"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "complex-systems",
+      "name": "Complex Systems Thinking",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "complexity",
+        "systems",
+        "non-linear",
+        "emergence",
+        "feedback-loops",
+        "collapse"
+      ],
+      "path": "general/decision-making/complex-systems.md",
+      "cross_references": [
+        "second-order-effects",
+        "worser-odder-longer-further",
+        "non-ergodicity"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "non-ergodicity",
+      "name": "Non-Ergodicity Risk",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "risk",
+        "ergodicity",
+        "drawdown",
+        "survival",
+        "regime"
+      ],
+      "path": "general/decision-making/non-ergodicity.md",
+      "cross_references": [
+        "complex-systems",
+        "drawdown-expectations"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "cone-of-outcomes",
+      "name": "Cone of Outcomes (Time Horizon)",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "uncertainty",
+        "forecasting",
+        "time-horizon",
+        "probability"
+      ],
+      "path": "general/decision-making/cone-of-outcomes.md",
+      "cross_references": [
+        "predictability-obsession",
+        "bayesian-updating"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "ooda-loop",
+      "name": "OODA Loop (Boyd)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "speed",
+        "decision-cycle",
+        "observe",
+        "orient",
+        "decide",
+        "act"
+      ],
+      "path": "general/decision-making/ooda-loop.md",
+      "cross_references": [
+        "bayesian-updating",
+        "iaja"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "bill-walsh-playbook",
+      "name": "Bill Walsh Playbook Analogy",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "process",
+        "playbook",
+        "preparation",
+        "execution",
+        "systems"
+      ],
+      "path": "general/decision-making/bill-walsh-playbook.md",
+      "cross_references": [
+        "conservative-analysis-aggressive-execution",
+        "good-plan-executed"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "douglas-five-fears",
+      "name": "Five Fears (Mark Douglas)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "psychology",
+        "fear",
+        "trading",
+        "execution",
+        "emotion"
+      ],
+      "path": "general/decision-making/douglas-five-fears.md",
+      "cross_references": [
+        "chimp-vs-observer",
+        "self-image-performance"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "chimp-vs-observer",
+      "name": "Chimp vs Observer (Peters)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "psychology",
+        "emotional-regulation",
+        "nervous-system",
+        "reactivity"
+      ],
+      "path": "general/decision-making/chimp-vs-observer.md",
+      "cross_references": [
+        "douglas-five-fears",
+        "self-image-performance",
+        "wim-hof-reset"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "self-image-performance",
+      "name": "Self-Image = Performance (Bassham)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "psychology",
+        "self-image",
+        "identity",
+        "visualisation",
+        "performance"
+      ],
+      "path": "general/decision-making/self-image-performance.md",
+      "cross_references": [
+        "douglas-five-fears",
+        "chimp-vs-observer",
+        "cookie-jar"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "p-equals-p-minus-i",
+      "name": "P = p - i (Performance Equation)",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "psychology",
+        "interference",
+        "potential",
+        "performance",
+        "coaching"
+      ],
+      "path": "general/decision-making/p-equals-p-minus-i.md",
+      "cross_references": [
+        "chimp-vs-observer",
+        "self-one-vs-self-two"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "animal-ceo",
+      "name": "Animal CEO (Slootman Archetype)",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "CEO",
+        "leadership",
+        "management",
+        "operator",
+        "ambition",
+        "culture",
+        "pattern"
+      ],
+      "path": "situational/simple-patterns/animal-ceo.md",
+      "cross_references": [
+        "four-patterns",
+        "operator-quality-dimensions",
+        "massive-corporate-change"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "cockroaches-never-alone",
+      "name": "Cockroaches Never Alone",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "deterioration",
+        "exit",
+        "red-flag",
+        "management",
+        "IR",
+        "cockroach",
+        "problems-compound"
+      ],
+      "path": "situational/simple-patterns/cockroaches-never-alone.md",
+      "cross_references": [
+        "worser-odder-longer-further",
+        "30-day-shot-clock",
+        "tip-of-iceberg",
+        "boiling-frog"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "demand-pulse-reversion",
+      "name": "Demand Pulse Reversion",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "demand",
+        "cyclical",
+        "reversion",
+        "growth",
+        "extrapolation"
+      ],
+      "path": "situational/simple-patterns/demand-pulse-reversion.md",
+      "cross_references": [
+        "goldilocks-growth",
+        "s-curve-stacking"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "worser-odder-longer-further",
+      "name": "Worser, Odder, Longer, Further",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "deterioration",
+        "risk",
+        "duration",
+        "severity",
+        "expectations"
+      ],
+      "path": "situational/simple-patterns/worser-odder-longer-further.md",
+      "cross_references": [
+        "cockroaches-never-alone",
+        "complex-systems",
+        "30-day-shot-clock"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "tennis-balls-vs-eggs",
+      "name": "Tennis Balls vs Eggs",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "momentum",
+        "quality",
+        "resilience",
+        "rebound",
+        "fragility"
+      ],
+      "path": "situational/simple-patterns/tennis-balls-vs-eggs.md",
+      "cross_references": [
+        "flywheel-vs-treadmill",
+        "hqi-framework"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "false-friends",
+      "name": "False Friends",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "false-friend",
+        "trap",
+        "setup",
+        "transmission-mechanism",
+        "red-flag"
+      ],
+      "path": "situational/simple-patterns/false-friends.md",
+      "cross_references": [
+        "disprove-dont-prove",
+        "ach-competing-hypotheses",
+        "pret-sandwich-risk"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "pret-sandwich-risk",
+      "name": "Pret Sandwich Risk",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "risk",
+        "accumulation",
+        "minor-issues",
+        "false-friend",
+        "death-by-cuts"
+      ],
+      "path": "situational/simple-patterns/pret-sandwich-risk.md",
+      "cross_references": [
+        "cockroaches-never-alone",
+        "false-friends",
+        "boiling-frog"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "boiling-frog",
+      "name": "Boiling Frog (Paper Cuts Compound)",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "deterioration",
+        "gradual",
+        "cuts",
+        "complacency",
+        "slow-decline"
+      ],
+      "path": "situational/simple-patterns/boiling-frog.md",
+      "cross_references": [
+        "cockroaches-never-alone",
+        "pret-sandwich-risk",
+        "complex-systems"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "s-curve-stacking",
+      "name": "S-Curve Stacking & Co-Evolution",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "disruption",
+        "innovation",
+        "theme",
+        "demand",
+        "S-curve",
+        "technology"
+      ],
+      "path": "situational/simple-patterns/s-curve-stacking.md",
+      "cross_references": [
+        "demand-pulse-reversion",
+        "creative-destruction"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "supply-chain-physics",
+      "name": "Supply Chain Physics (Embedded Positioning)",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "supply-chain",
+        "positioning",
+        "EPSU",
+        "tight-supply",
+        "moat"
+      ],
+      "path": "situational/simple-patterns/supply-chain-physics.md",
+      "cross_references": [
+        "moats-and-srca",
+        "mission-critical-products"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "30-day-shot-clock",
+      "name": "30-Day Shot Clock (Disprove-or-Exit)",
+      "tier": "gold",
+      "category": "situational/position-management/exit",
+      "keywords": [
+        "exit",
+        "deterioration",
+        "discipline",
+        "clock",
+        "default-zero"
+      ],
+      "path": "situational/position-management/exit/30-day-shot-clock.md",
+      "cross_references": [
+        "cockroaches-never-alone",
+        "worser-odder-longer-further"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "alpha-decay-lifecycle",
+      "name": "Alpha Decay Lifecycle (18M)",
+      "tier": "silver",
+      "category": "situational/position-management/management",
+      "keywords": [
+        "holding-period",
+        "lifecycle",
+        "alpha",
+        "timing",
+        "decay"
+      ],
+      "path": "situational/position-management/management/alpha-decay-lifecycle.md",
+      "cross_references": [
+        "cone-of-outcomes",
+        "three-thirds-framework"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "base-counting",
+      "name": "Base Counting (Minervini)",
+      "tier": "silver",
+      "category": "situational/position-management/management",
+      "keywords": [
+        "technical",
+        "base",
+        "Minervini",
+        "sizing",
+        "VCP",
+        "trend-exhaustion"
+      ],
+      "path": "situational/position-management/management/base-counting.md",
+      "cross_references": [
+        "pullback-counting",
+        "stage-analysis"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "love-portfolio-test",
+      "name": "Love Portfolio Test",
+      "tier": "silver",
+      "category": "situational/portfolio-construction",
+      "keywords": [
+        "portfolio",
+        "conviction",
+        "review",
+        "holding",
+        "quality"
+      ],
+      "path": "situational/portfolio-construction/love-portfolio-test.md",
+      "cross_references": [
+        "painful-prudence",
+        "hqi-framework"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "drawdown-expectations",
+      "name": "Drawdown Expectations & Psychology",
+      "tier": "gold",
+      "category": "situational/position-management/management",
+      "keywords": [
+        "drawdown",
+        "volatility",
+        "expectations",
+        "psychology",
+        "resilience"
+      ],
+      "path": "situational/position-management/management/drawdown-expectations.md",
+      "cross_references": [
+        "non-ergodicity",
+        "chimp-vs-observer",
+        "douglas-five-fears"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "consulting-utilisation",
+      "name": "Consulting Business Economics",
+      "tier": "bronze",
+      "category": "situational/industries",
+      "keywords": [
+        "consulting",
+        "utilisation",
+        "margins",
+        "FTE",
+        "professional-services"
+      ],
+      "path": "situational/industries/consulting-utilisation.md",
+      "cross_references": [
+        "red-queen-effect"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "scale-economies-shared",
+      "name": "Scale Economies Shared",
+      "tier": "silver",
+      "category": "situational/chain-patterns",
+      "keywords": [
+        "scale",
+        "sharing",
+        "customers",
+        "pricing",
+        "moat",
+        "chain-pattern"
+      ],
+      "path": "situational/chain-patterns/scale-economies-shared.md",
+      "cross_references": [
+        "economies-of-scale",
+        "pricing-power",
+        "flywheel-vs-treadmill"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "margin-of-safety",
+      "name": "Margin of Safety",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "valuation",
+        "safety",
+        "downside",
+        "risk",
+        "entry"
+      ],
+      "path": "general/investing/margin-of-safety.md",
+      "cross_references": [
+        "painful-prudence",
+        "disprove-dont-prove"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "circle-of-competence",
+      "name": "Circle of Competence",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "competence",
+        "expertise",
+        "knowledge",
+        "edge",
+        "limitations"
+      ],
+      "path": "general/investing/circle-of-competence.md",
+      "cross_references": [
+        "painful-prudence"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "reflexivity",
+      "name": "Reflexivity (Soros)",
+      "tier": "silver",
+      "category": "general/investing",
+      "keywords": [
+        "feedback-loop",
+        "sentiment",
+        "price",
+        "fundamentals",
+        "self-fulfilling"
+      ],
+      "path": "general/investing/reflexivity.md",
+      "cross_references": [
+        "complex-systems",
+        "second-order-effects"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "regression-to-mean",
+      "name": "Regression to the Mean",
+      "tier": "silver",
+      "category": "general/investing",
+      "keywords": [
+        "statistics",
+        "mean-reversion",
+        "expectations",
+        "base-rates"
+      ],
+      "path": "general/investing/regression-to-mean.md",
+      "cross_references": [
+        "demand-pulse-reversion",
+        "goldilocks-growth"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "survivorship-bias",
+      "name": "Survivorship Bias",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "bias",
+        "data",
+        "selection",
+        "analysis",
+        "error"
+      ],
+      "path": "general/decision-making/survivorship-bias.md",
+      "cross_references": [
+        "base-rates-vs-case-rates"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "base-rates-vs-case-rates",
+      "name": "Base Rates vs Case Rates",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "statistics",
+        "base-rate",
+        "probability",
+        "forecasting",
+        "outside-view"
+      ],
+      "path": "general/decision-making/base-rates-vs-case-rates.md",
+      "cross_references": [
+        "bayesian-updating",
+        "regression-to-mean",
+        "superforecasting"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "incentives-drive-behaviour",
+      "name": "Incentives Drive All Behaviour",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "incentives",
+        "compensation",
+        "alignment",
+        "management",
+        "governance"
+      ],
+      "path": "general/business/incentives-drive-behaviour.md",
+      "cross_references": [
+        "operator-quality-dimensions",
+        "animal-ceo"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "operator-quality-dimensions",
+      "name": "Operator Quality (Three Dimensions)",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "management",
+        "operator",
+        "CEO",
+        "quality",
+        "assessment",
+        "leadership"
+      ],
+      "path": "situational/simple-patterns/operator-quality-dimensions.md",
+      "cross_references": [
+        "animal-ceo",
+        "incentives-drive-behaviour"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "revenue-optionality",
+      "name": "Revenue Optionality Framework",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "optionality",
+        "growth",
+        "M&A",
+        "geographic",
+        "product",
+        "pricing",
+        "GTA"
+      ],
+      "path": "general/investing/revenue-optionality.md",
+      "cross_references": [
+        "hqi-framework",
+        "compounding"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "fragility-assessment",
+      "name": "Fragility Assessment (Forces x Fragilities = Movement)",
+      "tier": "gold",
+      "category": "general/investing",
+      "keywords": [
+        "fragility",
+        "risk",
+        "revenue",
+        "margin",
+        "financial",
+        "market-structure"
+      ],
+      "path": "general/investing/fragility-assessment.md",
+      "cross_references": [
+        "complex-systems",
+        "risk-matrix"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "risk-matrix",
+      "name": "Risk Matrix (F x I x R)",
+      "tier": "silver",
+      "category": "general/investing",
+      "keywords": [
+        "risk",
+        "forecastability",
+        "impact",
+        "resource-intensity",
+        "assessment"
+      ],
+      "path": "general/investing/risk-matrix.md",
+      "cross_references": [
+        "fragility-assessment",
+        "complex-systems"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "quality-compounder",
+      "name": "Quality Compounder Pattern",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "quality",
+        "compounder",
+        "recurring-revenue",
+        "moat",
+        "pattern"
+      ],
+      "path": "situational/simple-patterns/quality-compounder.md",
+      "cross_references": [
+        "flywheel-vs-treadmill",
+        "hqi-framework",
+        "compounding"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "transformation-play",
+      "name": "Transformation Play (Q-Turn)",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "transformation",
+        "restructuring",
+        "margin-expansion",
+        "catalyst",
+        "pattern"
+      ],
+      "path": "situational/simple-patterns/transformation-play.md",
+      "cross_references": [
+        "four-patterns",
+        "massive-corporate-change"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "massive-corporate-change",
+      "name": "Massive Corporate Change Plan",
+      "tier": "gold",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "corporate-change",
+        "restructuring",
+        "transformation",
+        "catalyst",
+        "pattern"
+      ],
+      "path": "situational/simple-patterns/massive-corporate-change.md",
+      "cross_references": [
+        "four-patterns",
+        "transformation-play",
+        "animal-ceo"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "emotional-overreaction-chimp",
+      "name": "Emotional Overreaction (Chimp Trading)",
+      "tier": "gold",
+      "category": "situational/position-management/management",
+      "keywords": [
+        "psychology",
+        "chimp",
+        "overreaction",
+        "trimming",
+        "panic",
+        "discipline"
+      ],
+      "path": "situational/position-management/management/emotional-overreaction-chimp.md",
+      "cross_references": [
+        "chimp-vs-observer",
+        "douglas-five-fears",
+        "tennis-balls-vs-eggs"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "founder-led-tiger-risk",
+      "name": "Founder-Led / Owner-Operator Tiger Risk",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "founder",
+        "owner-operator",
+        "alignment",
+        "governance",
+        "minority-shareholder"
+      ],
+      "path": "situational/simple-patterns/founder-led-tiger-risk.md",
+      "cross_references": [
+        "incentives-drive-behaviour",
+        "operator-quality-dimensions"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "turnaround-duration",
+      "name": "Turnarounds Take Longer Than You Think",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "turnaround",
+        "duration",
+        "patience",
+        "expectations",
+        "timing"
+      ],
+      "path": "situational/simple-patterns/turnaround-duration.md",
+      "cross_references": [
+        "worser-odder-longer-further",
+        "alpha-decay-lifecycle"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "event-angle-icing",
+      "name": "Event Angle = Icing, Not Cake",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "event-driven",
+        "catalyst",
+        "icing",
+        "thesis",
+        "setup"
+      ],
+      "path": "situational/simple-patterns/event-angle-icing.md",
+      "cross_references": [
+        "four-patterns",
+        "false-friends"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "management-cant-explain",
+      "name": "Management That Can't Explain",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "management",
+        "communication",
+        "clarity",
+        "red-flag",
+        "conviction"
+      ],
+      "path": "situational/simple-patterns/management-cant-explain.md",
+      "cross_references": [
+        "operator-quality-dimensions",
+        "false-friends"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "peer-and-base-rate-anchoring",
+      "name": "Peer and Base-Rate Anchoring",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "communication",
+        "context",
+        "peer-comparison",
+        "base-rates",
+        "reference-class",
+        "data-derived",
+        "narrative-derived"
+      ],
+      "path": "general/decision-making/peer-and-base-rate-anchoring.md",
+      "cross_references": [
+        "top-decile-top-quartile-grading",
+        "invert-and-call-out-bottom-quartile",
+        "outlier-flagging-rare-data",
+        "quantitative-data-anchor-first",
+        "ss-buy-rating-vs-revisions-divergence"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "judgement-analysis-information-ordering",
+      "name": "Judgement \u2192 Analysis \u2192 Information ordering",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "communication",
+        "ordering",
+        "judgement-first",
+        "BLUF",
+        "layer-cake",
+        "signposting",
+        "bullet-construction"
+      ],
+      "path": "general/decision-making/judgement-analysis-information-ordering.md",
+      "cross_references": [
+        "iaja",
+        "mission-command",
+        "peer-and-base-rate-anchoring",
+        "top-decile-top-quartile-grading"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "stage-gating-bidirectionality",
+      "name": "Stage-Gating Works in Both Directions",
+      "tier": "bronze",
+      "category": "situational/portfolio-construction",
+      "keywords": [
+        "stage-progression",
+        "esa",
+        "dd",
+        "conviction-revision",
+        "depth-of-analysis",
+        "recommendation-flip",
+        "research-process"
+      ],
+      "path": "situational/portfolio-construction/stage-gating-bidirectionality.md",
+      "cross_references": [
+        "judgement-analysis-information-ordering",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "memory-needs-workflow-binding",
+      "name": "Memory Entries Don't Enforce Behaviour Without Workflow Binding",
+      "tier": "bronze",
+      "category": "general/decision-making",
+      "keywords": [
+        "memory",
+        "workflow",
+        "behaviour-change",
+        "sop-design",
+        "uwbs",
+        "pre-action-checklists",
+        "recurrence",
+        "calibration"
+      ],
+      "path": "general/decision-making/memory-needs-workflow-binding.md",
+      "cross_references": [
+        "iaja",
+        "mission-command",
+        "three-gaps-art-of-action"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "outlier-to-cohort-rs-fade",
+      "name": "Outlier-to-Cohort RS Fade",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "technical-analysis",
+        "relative-strength",
+        "sector-strength",
+        "mean-reversion",
+        "rs-rank",
+        "idiosyncratic-isolation",
+        "cohort-effect"
+      ],
+      "path": "situational/simple-patterns/outlier-to-cohort-rs-fade.md",
+      "cross_references": [
+        "outlier-flagging-rare-data",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "bundle-moats-medtech",
+      "name": "Bundle Moats in Fragmented Med-Tech Sub-Sectors",
+      "tier": "bronze",
+      "category": "situational/industries",
+      "keywords": [
+        "medtech",
+        "bundle-moat",
+        "market-share",
+        "varian-elekta",
+        "intuitive-medtronic",
+        "oligopoly",
+        "integration"
+      ],
+      "path": "situational/industries/bundle-moats-medtech.md",
+      "cross_references": [
+        "outlier-flagging-rare-data",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "cable-capacity-overhang-timing",
+      "name": "Cable-Industry Capacity-Overhang Timing",
+      "tier": "bronze",
+      "category": "situational/industries",
+      "keywords": [
+        "cable-industry",
+        "hv-cable",
+        "fibre-optic",
+        "capacity-cycle",
+        "supply-overhang",
+        "lead-time",
+        "prysmian",
+        "nkt"
+      ],
+      "path": "situational/industries/cable-capacity-overhang-timing.md",
+      "cross_references": [
+        "bundle-moats-medtech",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "semicap-wfe-recovery-signal",
+      "name": "Semi-Cap WFE Early-Mid Recovery Signal \u2014 Mid-Cap First",
+      "tier": "silver",
+      "category": "situational/industries",
+      "keywords": [
+        "semi-cap",
+        "wfe",
+        "cycle-inflection",
+        "book-to-bill",
+        "ai-capex",
+        "mid-cap",
+        "comet",
+        "aeis",
+        "mksi",
+        "leadership-vs-cycle"
+      ],
+      "path": "situational/industries/semicap-wfe-recovery-signal.md",
+      "cross_references": [
+        "outlier-flagging-rare-data",
+        "semicap-rd-cap-unwinding"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "semicap-rd-cap-unwinding",
+      "name": "R&D Capitalisation Policy Unwinding \u2014 Persistent Earnings-Quality Drag",
+      "tier": "silver",
+      "category": "situational/business-models",
+      "keywords": [
+        "rd-capitalisation",
+        "accounting-quality",
+        "earnings-quality",
+        "margin-headwind",
+        "gaap-vs-economics",
+        "comet",
+        "semicap",
+        "software",
+        "pharma"
+      ],
+      "path": "situational/business-models/semicap-rd-cap-unwinding.md",
+      "cross_references": [
+        "right-to-left-thinking",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "asset-light-services-pivot-25pct",
+      "name": "Asset-Light Services Pivot \u2014 25% Revenue Threshold",
+      "tier": "bronze",
+      "category": "situational/business-models",
+      "keywords": [
+        "services-pivot",
+        "asset-light",
+        "revenue-mix",
+        "margin-uplift",
+        "multiple-rerating",
+        "hexatronic",
+        "halma",
+        "spirax",
+        "structural-vs-cyclical"
+      ],
+      "path": "situational/business-models/asset-light-services-pivot-25pct.md",
+      "cross_references": [
+        "right-to-left-thinking",
+        "fulcrum-narrowing-pattern"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "cfo-refresh-discipline-signal",
+      "name": "CFO-Refresh as Leading Indicator of Capital-Discipline Reset",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "cfo-refresh",
+        "capital-discipline",
+        "guidance-credibility",
+        "cmd",
+        "lpkf",
+        "getinge",
+        "comet",
+        "cost-discipline-house"
+      ],
+      "path": "situational/simple-patterns/cfo-refresh-discipline-signal.md",
+      "cross_references": [
+        "animal-ceo",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "single-leg-case-downgrade",
+      "name": "Single-Leg Case Downgrade Rule",
+      "tier": "silver",
+      "category": "situational/portfolio-construction",
+      "keywords": [
+        "investment-case",
+        "multi-setup",
+        "fulcrum-narrowing",
+        "conviction-downgrade",
+        "leg-collapse",
+        "optionality-loss",
+        "ekta"
+      ],
+      "path": "situational/portfolio-construction/single-leg-case-downgrade.md",
+      "cross_references": [
+        "stage-gating-bidirectionality",
+        "fulcrum-narrowing-pattern",
+        "judgement-importance-weighted-escalation"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "cockroach-ma-integration",
+      "name": "Cockroach Pattern at M&A Integration Level",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "cockroach",
+        "m-and-a",
+        "integration-failure",
+        "write-down",
+        "serial-acquirer",
+        "ma-discipline",
+        "weterings",
+        "hexatronic",
+        "halma",
+        "diploma"
+      ],
+      "path": "situational/simple-patterns/cockroach-ma-integration.md",
+      "cross_references": [
+        "cockroaches-never-alone",
+        "animal-ceo",
+        "fulcrum-narrowing-pattern"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "binary-trigger-conjunction-risk",
+      "name": "Binary Trigger Conjunction Risk \u2014 Correlated Invalidations",
+      "tier": "bronze",
+      "category": "situational/position-management/management",
+      "keywords": [
+        "invalidation",
+        "binary-trigger",
+        "conjunction-probability",
+        "correlated-risks",
+        "scenario-analysis",
+        "ach",
+        "ekta",
+        "prysmian"
+      ],
+      "path": "situational/position-management/management/binary-trigger-conjunction-risk.md",
+      "cross_references": [
+        "single-leg-case-downgrade",
+        "cockroaches-never-alone",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "fulcrum-narrowing-pattern",
+      "name": "Fulcrum-Narrowing Pattern at ESA",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "fulcrum-narrowing",
+        "demand-driven-epsu",
+        "multi-source-thesis",
+        "esa-recalibration",
+        "conviction",
+        "ekta",
+        "comet",
+        "hexatronic"
+      ],
+      "path": "situational/simple-patterns/fulcrum-narrowing-pattern.md",
+      "cross_references": [
+        "single-leg-case-downgrade",
+        "stage-gating-bidirectionality"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "corporate-change-operator-validation-horizon",
+      "name": "Corporate Change EPSU/EPT \u2014 Operator Validation Horizon",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "corporate-change",
+        "animal-ceo",
+        "operator-quality",
+        "capital-allocation",
+        "validation-horizon",
+        "just-bomholt",
+        "ekta",
+        "getinge",
+        "xvivo"
+      ],
+      "path": "situational/simple-patterns/corporate-change-operator-validation-horizon.md",
+      "cross_references": [
+        "animal-ceo",
+        "cfo-refresh-discipline-signal",
+        "fulcrum-narrowing-pattern"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "earnings-upgrade-consensus-gap-quantification",
+      "name": "Earnings Upgrade Cycle \u2014 Consensus-Gap Quantification Rule",
+      "tier": "bronze",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "earnings-upgrade-cycle",
+        "consensus-gap",
+        "sell-side-revisions",
+        "gap-closing",
+        "prysmian",
+        "monitoring-discipline"
+      ],
+      "path": "situational/simple-patterns/earnings-upgrade-consensus-gap-quantification.md",
+      "cross_references": [
+        "right-to-left-thinking",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "light"
+    },
+    {
+      "slug": "quantitative-data-anchor-first",
+      "name": "Quantitative-Data-Anchor-First (Anti-Pattern)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "anchoring",
+        "narrative-bias",
+        "comp-table",
+        "skeleton-bias",
+        "framework-bias",
+        "data-discipline",
+        "sequencing",
+        "process"
+      ],
+      "path": "general/decision-making/quantitative-data-anchor-first.md",
+      "cross_references": [
+        "peer-and-base-rate-anchoring",
+        "base-rates-vs-case-rates",
+        "strong-views-weakly-held",
+        "bayesian-updating",
+        "p-equals-p-minus-i",
+        "memory-needs-workflow-binding"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "ss-buy-rating-vs-revisions-divergence",
+      "name": "SS Buy Rating vs Revisions Divergence",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "sell-side",
+        "factset",
+        "ssem",
+        "revisions",
+        "buy-rating",
+        "divergence",
+        "conviction-vs-modelling",
+        "channel-signal",
+        "rare-pattern"
+      ],
+      "path": "general/decision-making/ss-buy-rating-vs-revisions-divergence.md",
+      "cross_references": [
+        "outlier-flagging-rare-data",
+        "peer-and-base-rate-anchoring",
+        "false-friends",
+        "management-cant-explain",
+        "bayesian-updating"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "stage-scope-flex-doctrine",
+      "name": "Stage-Scope Flex Doctrine",
+      "tier": "silver",
+      "category": "general/decision-making",
+      "keywords": [
+        "stage-gating",
+        "scope-flex",
+        "triaging-plus",
+        "esa-pre-research",
+        "sop-deviation",
+        "doctrine-discipline",
+        "process-integrity"
+      ],
+      "path": "general/decision-making/stage-scope-flex-doctrine.md",
+      "cross_references": [
+        "stage-gating-bidirectionality",
+        "memory-needs-workflow-binding",
+        "mission-command",
+        "strong-views-weakly-held",
+        "p-equals-p-minus-i"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "sandbagging-precision-management-archetype",
+      "name": "Sandbagging Precision Management Archetype",
+      "tier": "silver",
+      "category": "situational/simple-patterns",
+      "keywords": [
+        "management-quality",
+        "guidance",
+        "sandbagging",
+        "exact-target-delivery",
+        "conservatism",
+        "evidence-anchored",
+        "fulcrum-driver"
+      ],
+      "path": "situational/simple-patterns/sandbagging-precision-management-archetype.md",
+      "cross_references": [
+        "animal-ceo",
+        "operator-quality-dimensions",
+        "management-cant-explain",
+        "cfo-refresh-discipline-signal",
+        "outlier-flagging-rare-data",
+        "peer-and-base-rate-anchoring"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "look-at-the-edges-deliberately-weird",
+      "name": "Look at the Edges / Deliberately Weird",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "edges",
+        "outliers",
+        "cross-roads",
+        "deliberately-weird",
+        "anomalies",
+        "non-consensus",
+        "signal-detection",
+        "things-that-make-me-go-hmmmm"
+      ],
+      "path": "general/decision-making/look-at-the-edges-deliberately-weird.md",
+      "cross_references": [
+        "means-motive-opportunity",
+        "power-of-incentives-munger",
+        "multiple-truths-coexist-six-blind-men",
+        "analysis-of-competing-hypotheses-heuer",
+        "outlier-flagging-rare-data",
+        "disprove-dont-prove",
+        "inversion-jacobi"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "means-motive-opportunity",
+      "name": "Means / Motive / Opportunity",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "means",
+        "motive",
+        "opportunity",
+        "change-detection",
+        "causal-triangulation",
+        "outlier-validation",
+        "edge-detection"
+      ],
+      "path": "general/decision-making/means-motive-opportunity.md",
+      "cross_references": [
+        "look-at-the-edges-deliberately-weird",
+        "power-of-incentives-munger",
+        "analysis-of-competing-hypotheses-heuer",
+        "second-order-effects",
+        "complex-systems",
+        "disprove-dont-prove"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "power-of-incentives-munger",
+      "name": "Power of Incentives (Munger)",
+      "tier": "gold",
+      "category": "general/business",
+      "keywords": [
+        "incentives",
+        "Munger",
+        "behaviour-prediction",
+        "compensation",
+        "agency-cost",
+        "power-of-incentives",
+        "edge-detection",
+        "cui-bono"
+      ],
+      "path": "general/business/power-of-incentives-munger.md",
+      "cross_references": [
+        "incentives-drive-behaviour",
+        "means-motive-opportunity",
+        "look-at-the-edges-deliberately-weird",
+        "animal-ceo",
+        "operator-quality-dimensions",
+        "analysis-of-competing-hypotheses-heuer"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "the-obstacle-is-the-way-marcus-aurelius",
+      "name": "The Obstacle Is the Way (Marcus Aurelius / Stoic)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "obstacle",
+        "friction",
+        "engagement",
+        "agency-under-friction",
+        "stoicism",
+        "Marcus-Aurelius",
+        "Ryan-Holiday",
+        "lean-in",
+        "disconfirming-evidence-as-gift"
+      ],
+      "path": "general/decision-making/the-obstacle-is-the-way-marcus-aurelius.md",
+      "cross_references": [
+        "stewing-and-the-valley-of-despair",
+        "multiple-truths-coexist-six-blind-men",
+        "disprove-dont-prove",
+        "inversion-jacobi",
+        "p-equals-p-minus-i",
+        "complex-systems",
+        "strong-views-weakly-held"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "analysis-of-competing-hypotheses-heuer",
+      "name": "Analysis of Competing Hypotheses (ACH — Heuer)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "ACH",
+        "competing-hypotheses",
+        "Heuer",
+        "intelligence-tradecraft",
+        "disconfirming-evidence",
+        "matrix-method",
+        "hypothesis-discipline",
+        "falsification"
+      ],
+      "path": "general/decision-making/analysis-of-competing-hypotheses-heuer.md",
+      "cross_references": [
+        "inversion-jacobi",
+        "disprove-dont-prove",
+        "pre-mortem",
+        "multiple-truths-coexist-six-blind-men",
+        "strong-views-weakly-held",
+        "the-obstacle-is-the-way-marcus-aurelius",
+        "means-motive-opportunity",
+        "bayesian-updating"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "stewing-and-the-valley-of-despair",
+      "name": "Stewing and the Valley of Despair",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "stewing",
+        "sit-with",
+        "valley-of-despair",
+        "premature-resolution",
+        "slow-thinking",
+        "cognitive-discomfort",
+        "second-mountain",
+        "judgement-maturation"
+      ],
+      "path": "general/decision-making/stewing-and-the-valley-of-despair.md",
+      "cross_references": [
+        "the-obstacle-is-the-way-marcus-aurelius",
+        "multiple-truths-coexist-six-blind-men",
+        "strong-views-weakly-held",
+        "complex-systems",
+        "analysis-of-competing-hypotheses-heuer",
+        "p-equals-p-minus-i",
+        "chimp-vs-observer"
+      ],
+      "depth": "medium"
+    },
+    {
+      "slug": "multiple-truths-coexist-six-blind-men",
+      "name": "Multiple Truths Can Coexist (Six Blind Men and the Elephant)",
+      "tier": "gold",
+      "category": "general/decision-making",
+      "keywords": [
+        "multiple-truths",
+        "six-blind-men-and-the-elephant",
+        "Buddhist-parable",
+        "perspective",
+        "holism",
+        "partial-information",
+        "complementary-views",
+        "contradiction-as-signal"
+      ],
+      "path": "general/decision-making/multiple-truths-coexist-six-blind-men.md",
+      "cross_references": [
+        "the-obstacle-is-the-way-marcus-aurelius",
+        "stewing-and-the-valley-of-despair",
+        "analysis-of-competing-hypotheses-heuer",
+        "complex-systems",
+        "second-order-effects",
+        "strong-views-weakly-held",
+        "look-at-the-edges-deliberately-weird"
+      ],
+      "depth": "medium"
+    }
+  ]
+}

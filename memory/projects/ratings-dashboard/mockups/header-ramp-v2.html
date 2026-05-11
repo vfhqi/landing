@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Memo Header Hierarchy V2 — 5 tiers, pillar = section treatment</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #6b6b6b;
+    --rule: #e5e5e5;
+    --rule-strong: #c8c8c8;
+    --rule-pillar: #9a9a9a;
+    --panel: #ffffff;
+    --panel-soft: #fafafa;
+    --accent: #2c5282;
+  }
+  html, body { margin:0; padding:0; background:#f3f3f3; color:var(--ink); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .page-title { padding: 20px 24px 4px; font-size: 16px; font-weight: 700; }
+  .page-sub { padding: 0 24px 16px; font-size: 12px; color: var(--ink-mute); max-width: 900px; }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 0 24px 32px;
+    align-items: start;
+  }
+  .col {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 22px 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .col-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--ink-mute); padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule); margin-bottom: 16px;
+  }
+  .col-label.proposed { color: var(--accent); }
+
+  /* ============================================================
+     CURRENT — as rendered today
+     ============================================================ */
+  .cur .memo-h1 { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+  .cur .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 12px; }
+  .cur .memo-section-title { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
+  .cur .memo-subsection-header { font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+  .cur .memo-subsection-id { font-size: 11px; font-weight: 400; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-pillar-label { font-size: 13px; font-weight: 700; margin: 8px 0 4px; }
+  .cur .memo-pillar-id { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink-mute); margin-right: 6px; }
+  .cur .memo-family-label { font-size: 12px; font-weight: 600; margin: 6px 0 4px; }
+  .cur .memo-family-badge { font-size: 10px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-topic-header { font-size: 12.5px; font-weight: 700; margin: 6px 0 2px; }
+  .cur .memo-topic-id { font-size: 10.5px; font-weight: 600; color: var(--ink-mute); margin-right: 4px; }
+  .cur .memo-subtopic-header { font-size: 12px; font-weight: 600; margin: 4px 0 2px; }
+  .cur .memo-prose, .cur .memo-para { font-size: 13px; line-height: 1.5; margin: 4px 0; }
+
+  /* ============================================================
+     PROPOSED V2 — 5 tiers, loosened ramp, pillar = section treatment
+     Ramp: 26 / 20.5 / 17 / 14.5 / 13 (body = 13)
+     ============================================================ */
+  /* Tier 1 — memo title */
+  .new .memo-h1 {
+    font-size: 26px; font-weight: 700; line-height: 1.2;
+    margin: 0 0 18px;
+  }
+  .new .memo-h1-meta { font-size: 11px; color: var(--ink-mute); margin-bottom: 18px; }
+
+  /* Tier 2a — section (A–F): title case, 2px BLACK underline */
+  .new .memo-section-title {
+    font-size: 20.5px; font-weight: 700; line-height: 1.25;
+    margin: 32px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .new .memo-section-title:first-child { margin-top: 0; }
+
+  /* Tier 2b — pillar (P3, P4 in C.II.2): same size & weight as section,
+     title case, 1px MUTED underline signals "same importance, different role" */
+  .new .memo-pillar-label {
+    font-size: 20.5px; font-weight: 700; line-height: 1.25;
+    color: var(--ink);
+    margin: 28px 0 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--rule-pillar);
+  }
+  .new .memo-pillar-id {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+    color: var(--accent); margin-right: 8px;
+  }
+
+  /* Tier 3 — subsection (C.II.1–5) */
+  .new .memo-subsection-header {
+    font-size: 17px; font-weight: 700; line-height: 1.3;
+    margin: 24px 0 10px;
+  }
+  .new .memo-subsection-id {
+    font-size: 13px; font-weight: 700;
+    color: var(--accent); margin-right: 6px;
+  }
+
+  /* Tier 4 — family (IC#2, MG#1) */
+  .new .memo-family-label {
+    font-size: 14.5px; font-weight: 600; line-height: 1.35;
+    margin: 16px 0 6px;
+    color: var(--ink);
+  }
+  .new .memo-family-badge {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; color: var(--ink-mute); margin-right: 6px;
+    padding: 1px 5px; background: #f0f0f0; border-radius: 3px;
+    vertical-align: 1.5px;
+  }
+
+  /* Tier 5 — topic (weight-separated from body) */
+  .new .memo-topic-header {
+    font-size: 13px; font-weight: 700; line-height: 1.4;
+    margin: 12px 0 4px;
+    color: var(--ink);
+  }
+  .new .memo-topic-id {
+    font-size: 10.5px; font-weight: 700; color: var(--ink-mute);
+    margin-right: 4px;
+  }
+  .new .memo-subtopic-header {
+    font-size: 13px; font-weight: 600; line-height: 1.4;
+    margin: 8px 0 4px;
+    color: var(--ink-soft);
+  }
+
+  /* Body prose */
+  .new .memo-prose, .new .memo-para {
+    font-size: 13px; line-height: 1.55; margin: 4px 0 6px;
+  }
+
+  /* ============================================================
+     Annotation tags
+     ============================================================ */
+  .tier-tag {
+    display: inline-block;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 9.5px; font-weight: 700;
+    padding: 1px 4px; border-radius: 3px;
+    margin-right: 6px; vertical-align: 3px;
+    text-transform: none; letter-spacing: 0;
+  }
+  .new .tier-tag { background: #e6eeff; color: var(--accent); }
+  .cur .tier-tag { background: #ffe1e1; color: #8a1f1f; }
+
+  .ruler {
+    margin: 14px 0 18px;
+    padding: 10px 14px;
+    background: var(--panel-soft);
+    border: 1px dashed var(--rule-strong);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+  .ruler b { color: var(--ink); font-weight: 700; }
+
+  .lorem { color: var(--ink-soft); }
+
+  .note-box {
+    margin-top: 18px;
+    padding: 10px 14px;
+    background: #fff9e6;
+    border: 1px solid #f0e0a0;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #664d00;
+    line-height: 1.5;
+  }
+  .note-box b { color: #3d2d00; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Memo Header Hierarchy V2 — 5 tiers, pillar raised to section treatment</div>
+<div class="page-sub">
+  Changes from V1: pillar (P3, P4) now shares Tier 2 size &amp; treatment with sections (A–F).
+  All headers in title case (no UPPERCASE anywhere). Section vs pillar distinguished by underline weight only:
+  2px black rule under section, 1px muted rule under pillar — same importance, different role.
+  Single-pillar subsections (C.II.1, .3, .4, .5) suppress the pillar header — subsection header already names it.
+  Ramp: 26 / 20.5 / 17 / 14.5 / 13, body at 13.
+</div>
+
+<div class="split">
+
+  <!-- ================= LEFT: CURRENT ================= -->
+  <div class="col cur">
+    <div class="col-label">Current — as rendered today</div>
+
+    <div class="ruler">
+      Sizes (px): <b>17</b> → <b>13</b> → <b>13</b> → <b>13</b> → <b>12</b> → <b>12.5</b>.
+      All five inner header tiers compressed within 1px. No pillar/section visual equivalence.
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 17/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2 13/700</span>C. ATTRIBUTES</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.1</span>
+      <span class="tier-tag">T3 13/600</span>Technical Strength (P1)
+    </div>
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P1</span>
+      <span class="tier-tag">T4 13/700</span>Technical Strength
+    </div>
+    <div class="memo-prose lorem">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio quam, at vestibulum nisl.
+    </div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 13/600</span>Fundamental Investment Case (P3+P4)
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T4 13/700</span>Business quality
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T5 12/600</span>Competitive moats
+    </div>
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T6 12.5/700</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T5 12/600</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P4</span>
+      <span class="tier-tag">T4 13/700</span>Management &amp; governance
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">MG#1</span>
+      <span class="tier-tag">T5 12/600</span>Capital allocation track record
+    </div>
+    <div class="memo-prose lorem">
+      Donec eu est non lacus lacinia semper. Vivamus suscipit tortor eget felis porttitor volutpat.
+    </div>
+  </div>
+
+  <!-- ================= RIGHT: PROPOSED V2 ================= -->
+  <div class="col new">
+    <div class="col-label proposed">Proposed V2 — 5 tiers, pillar at Tier 2b</div>
+
+    <div class="ruler">
+      Sizes (px): <b>26</b> → <b>20.5</b> → <b>17</b> → <b>14.5</b> → <b>13</b>.
+      Pillar shares Tier 2 size with section; <b>2px black rule</b> under section vs <b>1px muted rule</b> under pillar signals "same importance, different role."
+      Single-pillar subsections (C.II.1) hide the pillar header since subsection already names it.
+    </div>
+
+    <div class="memo-h1"><span class="tier-tag">T1 26/700</span>NVTK — DD memo</div>
+    <div class="memo-h1-meta">Stage: DD · Authored 21-Apr-26 · 18,000w target</div>
+
+    <div class="memo-section-title"><span class="tier-tag">T2a 20.5/700 · title case · 2px black rule</span>C. Attributes</div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.1</span>
+      <span class="tier-tag">T3 17/700</span>Technical Strength (P1)
+    </div>
+    <div class="memo-prose lorem">
+      Lorem ipsum dolor sit amet — no pillar header here, subsection already names P1.
+    </div>
+
+    <div class="memo-subsection-header">
+      <span class="memo-subsection-id">C.II.2</span>
+      <span class="tier-tag">T3 17/700</span>Fundamental Investment Case (P3+P4)
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P3</span>
+      <span class="tier-tag">T2b 20.5/700 · title case · 1px muted rule</span>Business Quality
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#2</span>
+      <span class="tier-tag">T4 14.5/600</span>Competitive moats
+    </div>
+    <div class="memo-topic-header">
+      <span class="memo-topic-id">2.a</span>
+      <span class="tier-tag">T5 13/700</span>Switching costs in gas marketing
+    </div>
+    <div class="memo-prose lorem">
+      Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
+    </div>
+
+    <div class="memo-family-label">
+      <span class="memo-family-badge">IC#3</span>
+      <span class="tier-tag">T4 14.5/600</span>Unit economics / returns on capital
+    </div>
+    <div class="memo-prose lorem">
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra.
+    </div>
+
+    <div class="memo-pillar-label">
+      <span class="memo-pillar-id">P4</span>
+      <span class="tier-tag">T2b 20.5/700 · title case · 1px muted rule</span>Management &amp; Governance
+    </div>
+    <div class="memo-family-label">
+      <span class="memo-family-badge">MG#1</span>
+      <span class="tier-tag">T4 14.5/600</span>Capital allocation track record
+    </div>
+    <div class="memo-prose lorem">
+      Donec eu est non lacus lacinia semper. Vivamus suscipit tortor eget felis porttitor volutpat.
+    </div>
+
+    <div class="note-box">
+      <b>What you're seeing:</b> the two "Tier 2" treatments (black-rule section, muted-rule pillar)
+      carry equal visual weight but different architectural role. <br>
+      <b>C.II.1 demonstrates suppression</b> — no "P1 TECHNICAL STRENGTH" header, subsection carries it.<br>
+      <b>C.II.2 demonstrates full hierarchy</b> — two pillars each with their own families and topics below.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

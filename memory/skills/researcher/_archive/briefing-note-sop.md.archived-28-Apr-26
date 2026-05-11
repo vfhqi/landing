@@ -1,0 +1,172 @@
+# Briefing Note SOP
+<!-- [W] Created 13-Apr-26. Automatic capture of ESA/DD research briefings as tagged Stock Notes pages. -->
+<!-- Referenced by: RESEARCHER role file (SKILL.md) -->
+
+## Purpose
+
+When Richard briefs Watson on ESA or DD research for a stock, Watson **automatically** saves a comprehensive, synthesised note of the briefing exchange to the Stock Notes DB in Notion. This creates a written record of Richard's thinking, priorities, hypotheses, and agreed research direction at the point of briefing — before any research execution begins.
+
+---
+
+## When to Trigger
+
+**Automatic — no permission asked.**
+
+| Stage | Trigger? | Rationale |
+|-------|----------|-----------|
+| **ESA** | **YES** | Briefing captures Richard's priors, hypotheses, and research direction at a decision point (IG → ESA promotion) |
+| **DD (P1 and RO)** | **YES** | Briefing captures deepening focus, key questions, and what needs resolving |
+| **IG** | No | IG is mechanical (BD + CF prompts). No substantive briefing to capture |
+| **Triaging** | No | Triaging uses standardised checklists. No substantive briefing to capture |
+| **Monitoring / Info Flow** | No | Standing instructions, not stock-specific briefings |
+
+**Trigger condition:** Richard provides a stock-specific research brief that includes context, direction, hypotheses, key questions, or focus areas for ESA or DD work. Watson recognises this as a briefing and captures it.
+
+---
+
+## Format: Synthesised Briefing Memo (Option B)
+
+The note is a **synthesised memo** — NOT a verbatim Q&A log. Watson restructures the briefing conversation into a clean, topically-organised document. The goal is a note Richard can skim later and immediately recall what he was thinking and what was agreed.
+
+### Required Sections
+
+Every briefing note must include the following sections (use H2 headers). Skip a section only if the briefing genuinely contained nothing relevant to it.
+
+#### 1. `## Context & Stage Transition`
+Why this stock is progressing to ESA/DD now. What triggered the promotion. Where it sits in the pipeline. What IG/prior work revealed.
+
+#### 2. `## Richard's Priors & Hypotheses`
+What Richard already believes about this stock. His working thesis. Initial pattern recognition (archetype, setup type). Conviction level. What excited him or raised flags at IG stage.
+
+#### 3. `## Key Questions for {Stage}`
+The specific questions the ESA/DD research needs to answer. Prioritised. These become the research agenda.
+
+#### 4. `## Focus Areas & Angles`
+Specific dimensions Richard wants emphasised. Which parts of the business matter most. Which drivers to investigate. Any thematic overlays (e.g., Iran risk, regulatory change, sector dynamics).
+
+#### 5. `## Known Risks & Concerns`
+What Richard is worried about. Red flags from IG. Things that could kill the case. "False friend" signals.
+
+#### 6. `## Agreed Research Plan`
+Watson's synthesised plan: which prompts to run, which KQs to research, sequencing, any special instructions. This is Watson's analysis of the brief — what needs to happen and in what order.
+
+#### 7. `## Constraints & Context`
+Time pressure, market context (risk-on/off), portfolio context (existing exposure, correlated positions), any external factors shaping the research priority.
+
+### Optional Sections (include when relevant)
+
+- `## Comparable Cases / Archetypes` — If Richard references prior stocks, patterns, or archetypes during the briefing
+- `## Financial Priors` — If Richard mentions specific financial expectations (growth rates, margins, multiples)
+- `## Management / Operator Assessment` — If Richard has views on management quality from IG
+
+---
+
+## Highlighting
+
+Standard green/yellow/red system per Notion Posting SOP. 30%+ coverage target.
+
+### Colour Application in Briefing Context
+
+| Colour | Briefing meaning | Examples |
+|--------|-----------------|----------|
+| `green_bg` | Strong conviction points, confirmed hypotheses, clear positive signals, exciting angles | "Richard sees a clear demand-driven EPSU setup", "Management quality flagged as strong at IG" |
+| `yellow_bg` | Open questions, uncertain areas, things to test, conditional views | "Unclear whether margin expansion is structural or cyclical", "Needs KQ on regulatory timeline" |
+| `red_bg` | Risks flagged, known weaknesses, concerns, potential deal-breakers | "False friend risk on revenue visibility", "Balance sheet leverage a concern", "Richard worried about customer concentration" |
+
+**Highlight the specific sentences that carry signal — not whole paragraphs.** Same precision rules as all Notion postings.
+
+---
+
+## Formatting
+
+**Load and follow the Notion Posting Format Standard** (`memory/skills/notion-posting-standard/SKILL.md`). Key requirements:
+
+- **BLUF:** Page-level (3-5 bullets) and section-level (italic opening sentences)
+- **IAJA tags:** Suffix bullets with #J, #A, #I, #T, #O, #KR, #OQ
+- **J→A→I ordering:** Judgement first in parent bullets, analysis and data in sub-bullets
+- **Headers:** Proportional to length per Format Standard §7. The required sections above provide the H2 skeleton.
+- **Bold:** All financial metrics, stock names, key terms, conclusions, conviction statements
+- **Bullets:** Parent + sub-bullet structure. Shorter sentences. 100-word cap.
+- **Italic summaries:** Section-closing italic sentence at each H2
+- **Dividers:** `---` between major sections
+
+---
+
+## Notion Page Properties
+
+```
+Note title: [W] {TICKER} - {Stage} - Briefing Note - {5-15 word summary} [W] @ DD-Mon-YY
+date:Date:start: YYYY-MM-DD (date of the briefing)
+date:Date:is_datetime: 0
+Main focus of note: Stock(s)
+Info, analysis, judgement and/or action: ["Analysis", "Judgement", "Action needed - Research"]
+Depth of note: Watson back-brief
+Case component: (leave blank — briefing notes span all case components)
+Stock(s): https://www.notion.so/{stock_page_id_no_dashes}
+```
+
+**Title convention (updated 16-Apr-26):** `[W]` prefix (Watson output). `[W]` source suffix (Watson-synthesised). Stage = "ESA" or "DD P1" or "DD RO". Summary = **5-15 word substantive descriptor** of the research direction and central thesis agreed in the brief. Company name NOT included.
+
+**Examples:**
+- `[W] GET - ESA - Briefing Note - Hospital equipment recovery play; fulcrum driver is surgical volumes recovery post-COVID backlog clearing; margin rebuild secondary thesis [W] @ 13-Apr-26`
+- `[W] DCC - DD P1 - Briefing Note - Energy distribution conglomerate; management quality and capital allocation discipline are the key DD focus areas [W] @ 15-Apr-26`
+- `[W] CARLB - DD RO - Briefing Note - Emerging market FX exposure and hedging strategy resolution; secondary focus on pricing power sustainability [W] @ 20-Apr-26`
+
+---
+
+## Coordination Rule — Single Session Ownership
+
+**Only the session that receives and executes the research brief posts the briefing note.** If multiple sessions are running (e.g., an SA session building the SOP while a RES session executes it), only the RESEARCHER session doing the actual research posts the note. SOP-building sessions, observer sessions, and test runs must NOT post production briefing notes to Stock Notes. (Added 13-Apr-26 after duplicate GET ESA Briefing Note was created by two sessions.)
+
+---
+
+## Execution Flow
+
+1. **Recognise briefing.** Richard provides stock-specific ESA/DD research direction. Watson identifies this as a briefing (not a one-off question or a task instruction).
+
+1b. **Dedup check.** Before proceeding, search Notion Stock Notes DB for `{TICKER} {Stage} Briefing Note`. If one already exists for this stock and stage, do NOT post a second one. If the existing note is incomplete or from a test, update it rather than creating a duplicate.
+
+2. **Ask clarifying questions.** Watson asks targeted questions to fill gaps in the briefing — priors, key questions, risk concerns, financial expectations, comparable cases. These questions become part of the captured briefing.
+
+3. **Confirm scope.** Watson back-briefs Richard with the understood research plan. Richard confirms or adjusts.
+
+4. **Synthesise the briefing note.** Watson restructures the entire briefing exchange into the memo format (sections above). Apply highlighting and formatting per SOP.
+
+5. **Pre-flight quality gate.** Run the standard checklist from Notion Posting SOP Step 2.5:
+   - [ ] H2 count: 8-15?
+   - [ ] H3 count: 15-25?
+   - [ ] Bold density: key terms, metrics, stock names all bolded?
+   - [ ] Highlight coverage: 30%+?
+   - [ ] Highlight precision: sentence-level, not paragraph-level?
+
+6. **Post to Stock Notes.** Create page with properties above. Chunk if >15K characters.
+
+7. **Verify posting.** Fetch page from Notion, confirm content completeness and property correctness.
+
+8. **Proceed to research execution.** The briefing note is now saved. Watson moves to executing the agreed research plan per the Research Execution SOP.
+
+---
+
+## Timing
+
+The briefing note is posted **at the end of the briefing, before research execution begins.** It is a record of "what was agreed before work started" — not a post-hoc summary of what was done.
+
+If the briefing happens across multiple messages (Watson asks questions, Richard answers, scope evolves), Watson captures the **final agreed state** — not intermediate back-and-forth.
+
+---
+
+## What This Is NOT
+
+- **Not a research output.** The briefing note captures Richard's thinking and Watson's research plan — not research findings.
+- **Not a verbatim transcript.** It's a synthesised, structured memo. The raw Q&A is reorganised by topic.
+- **Not an IAJA synthesis.** IAJA synthesis comes at the END of a research stage (after all prompts are run). The briefing note comes at the START.
+- **Not a substitute for research.** The briefing note captures the brief; the actual ESA/DD research still needs to be executed.
+
+---
+
+## References
+
+- Notion Posting SOP: `memory/skills/researcher/notion-posting-sop.md`
+- RESEARCHER role file: `memory/skills/researcher/SKILL.md`
+- Research Execution SOP: `memory/skills/researcher/as-claude-research-sop.md`
+- Stock Notes DB: `collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2`

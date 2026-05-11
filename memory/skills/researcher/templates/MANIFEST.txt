@@ -1,0 +1,320 @@
+================================================================================
+ESA Research Templates — Complete Manifest
+================================================================================
+Created: 14-Apr-26
+Path: /sessions/*/mnt/COWORK/memory/skills/researcher/templates/
+
+================================================================================
+NEW FILES (Queries 8-14, ESA Phase)
+================================================================================
+
+08-esa-bm-sector-primer.md
+  Query 8: Business Model & Sector Primer — AS + C (dual-source)
+  Word count target: 3,000+ per version
+  Key outputs: Industry overview, value chain mechanics, competitive landscape,
+              barriers to entry, financial profiles, company positioning,
+              key success factors, sceptical view
+  Posting: [W] {TICKER} — Business Model & Sector Primer [AS/C] @ DD-Mon-YY
+
+09-esa-earnings-history.md
+  Query 9: Earnings History L3Y — AS ONLY
+  Word count target: 3,000+ words
+  Key outputs: Quarterly/semi-annual earnings table (12-16 periods), trajectory
+              inflections, quality assessment, beat/miss patterns, seasonal
+              trends, guidance credibility, forward plausibility
+  Posting: [W] {TICKER} — Earnings History L3Y [AS] @ DD-Mon-YY
+
+10-esa-short-sellers.md
+  Query 10: Short-Sellers & Bear Case — AS + C (dual-source)
+  Word count target: 3,000+ per version
+  Key outputs: Published short reports, SI data, bearish sell-side views,
+              accounting red flags, governance concerns, online commentary,
+              counter-arguments to bull case, historical patterns, bear
+              evidence quality, downside scenarios
+  Posting: [W] {TICKER} — Short-Sellers & Bear Case Assessment [AS/C] @ DD-Mon-YY
+
+11-esa-value-chain-map.md
+  Query 11: Value-Chain Map — Claude ONLY
+  Word count target: 3,000+ words
+  Key outputs: End-to-end value chain diagram/description, company position
+              and integration level, adjacent stages (suppliers/customers),
+              margin distribution, power dynamics, competitive map at multiple
+              stages, structural evolution, company advantages/vulnerabilities,
+              strategic implications
+  Posting: [W] {TICKER} — Value-Chain Map & Position [C] @ DD-Mon-YY
+
+12-esa-value-chain-analysis.md
+  Query 12: Value-Chain Analysis — AS ONLY
+  Word count target: 3,000+ words
+  Key outputs: Customer analysis (concentration, churn, satisfaction, switching
+              costs, pricing), supplier analysis (concentration, input costs,
+              supply risk), competitor analysis (market share, competitive
+              responses), distributor/channel dynamics, cross-value-chain
+              signals (what suppliers/customers/competitors are saying),
+              structural changes, NWC trends, margin sustainability assessment
+  Posting: [W] {TICKER} — Value-Chain Analysis (Customers, Suppliers, Competitors) [AS] @ DD-Mon-YY
+
+13-esa-guidance-tracking.md
+  Query 13: Guidance & Tracking Versus — AS ONLY
+  Word count target: 3,000+ words
+  Key outputs: Current management guidance, historical guidance accuracy tables
+              (L4 periods), beat/miss patterns (sandbagging vs over-promising),
+              estimate revision trends, key assumptions (with sensitivity),
+              credibility assessment, sell-side consensus on guidance, forward
+              tracking metrics, scenario analysis (base/bull/bear), guidance
+              update risk
+  Posting: [W] {TICKER} — Guidance Tracking & Credibility [AS] @ DD-Mon-YY
+
+14-esa-kd-assessment.md
+  Query 14: Watson KD Assessment — ESA — AS + C (dual-source)
+  Word count target: 4,000+ per version (or 400-600 per driver if multi-driver)
+  Key outputs: For EACH APM-identified driver: definition, bull evidence, bear
+              evidence, forward trajectory, sell-side expectations, evidence
+              gaps, Watson rating (Red/Orange/Yellow/Green), fulcrum-level
+              assessment, cross-driver interactions, fulcrum synthesis,
+              comparison to Triaging, Watson back-brief for APM Pass 3
+  Posting: [W] {TICKER} — ESA Key Driver Assessment [AS/C] @ DD-Mon-YY
+  CRITICAL: Requires {APM_KD_SUMMARY} input from APM Pass 1 findings
+
+================================================================================
+REFERENCE FILES (Guides & Indexes)
+================================================================================
+
+INDEX.md
+  Complete index and overview of all 7 ESA templates (Queries 8-14)
+  Sequencing in ESA workflow (Pass 1 → Pass 2 → Pass 3)
+  Quality standards (all templates)
+  Placeholder conventions
+  Related files in system
+
+README.md
+  Detailed usage guide for researchers executing these templates
+  What these files are/aren't
+  Step-by-step execution instructions
+  Word count gates (actual research output, not template file)
+  Quality gates (quantification, bullets, tables, scepticism, highlighting)
+  Source selection (AS vs C)
+  Critical handoff for Query 14
+  Integration with other skills
+  Troubleshooting guide
+
+MANIFEST.txt
+  This file — complete inventory of files created on 14-Apr-26
+
+================================================================================
+RELATED EXISTING FILES (In Researcher Skill)
+================================================================================
+
+Templates directory also contains (pre-existing, from earlier dates):
+  01-ig-bd.md — Ideas Generation: Business Description
+  02-ig-cf.md — Ideas Generation: Change Forces
+  03-ig-tm.md — Ideas Generation: Thesis Map
+  04-triaging-earnings-trends.md — Triaging Stage 2: Earnings Trends
+  05-triaging-earnings-delivery.md — Triaging Stage 2: Earnings Delivery
+  06-triaging-ss-commentary.md — Triaging Stage 2: Sell-Side Commentary
+  07-triaging-kd-assessment.md — Triaging Stage 2: KD Assessment
+
+Total: 16 template files (03 IG + 04 Triaging + 07 ESA + 02 Reference)
+
+================================================================================
+SEQUENCING & WORKFLOW
+================================================================================
+
+Stage 3: ESA (Early-Stage Assessment) has THREE passes:
+
+PASS 1 (APM work):
+  - APM reads Triaging output (Queries 1-7, Stage 2)
+  - APM runs FCS Analysis across 5 Pillars + 13 Categories
+  - APM identifies preliminary key drivers and risks
+  - APM flags evidence gaps
+  - APM proposes setup classification (HQI, BFF, Turnaround, etc.)
+  - APM posts Pass 1 findings to Notion
+
+PASS 2 (RESEARCHER work — THIS TEMPLATE SET):
+  - RESEARCHER executes Queries 8-14 (7 templates)
+  - Queries posted to Notion as completed (typical 2-5 day window)
+  - Query 14 runs LAST, requiring {APM_KD_SUMMARY} from APM Pass 1
+  - Query 14 includes "Watson Back-Brief" for APM refinement
+
+PASS 3 (APM work):
+  - APM reads Query 14 back-brief
+  - APM refines FCS ratings and setup classification
+  - APM finalizes ESA summary with fulcrum drivers, key risks, DD priorities
+  - Hands off to DD Team with clear scope and success criteria
+
+Execution order (recommended):
+  1. Query 08 (BM/Sector Primer) — foundational
+  2. Query 09 (Earnings History) — foundational
+  3. Query 10 (Short-Sellers) — foundational
+  4. Query 11 (Value-Chain Map) + Query 12 (Value-Chain Analysis) — parallel
+  5. Query 13 (Guidance Tracking) — after fundamentals clear
+  6. Query 14 (KD Assessment) — LAST, after APM provides {APM_KD_SUMMARY}
+
+================================================================================
+QUALITY GATES (All Templates)
+================================================================================
+
+Word Count:
+  - Queries 8, 9, 10, 11, 12, 13: 3,000+ words each
+  - Query 14: 4,000+ words total (or 400-600 per driver × number of drivers)
+  - NOTE: These are research output word counts, not template file word counts
+
+Quantification:
+  - Every assertion on financials, metrics, trends, probabilities includes
+    specific numbers/percentages
+  - No vague statements ("The company is growing" ❌)
+  - Specific numbers required ("Revenue CAGR 12% over L3Y" ✓)
+
+Highlighting:
+  - All Notion postings: 30%+ coverage using process_report.py
+  - Highlight key evidence, inflection points, risk statements, quantified
+    milestones, Red/Orange/Yellow/Green ratings
+
+Bullets:
+  - 12-18 bullets per major section (Query 14: 8-12 per driver)
+  - Each bullet: 100-150 words max
+  - Self-contained; avoid "as mentioned above" references
+
+Tables:
+  - Minimum 1-2 summary tables per query (see EXECUTION section of each)
+  - Clean, readable, quantified, easily referenced from text
+
+Scepticism:
+  - Every query includes explicit bear-case or sceptical view section
+  - Fair presentation of counter-arguments; don't dismiss
+  - Ratings: Red/Orange/Yellow/Green with explanation
+    * Green: High confidence; bull case well-supported
+    * Yellow: Medium confidence; uncertainty remains
+    * Orange: Low confidence; bear case stronger
+    * Red: Very low confidence; unlikely as assumed
+
+No Repetition:
+  - Each section adds new information, doesn't restate priors
+  - Avoid copy-pasting same insight across multiple sections
+  - Reference repeated data points rather than repeat them
+
+================================================================================
+AUDIENCE & CONTEXT (Embedded in All Templates)
+================================================================================
+
+Reader Profile:
+  - Concentrated, long-only equity investor (5-15 positions)
+  - UK/Europe focus, $5-50bn market cap sweet spot
+  - 12-24 month hold period
+  - Singular focus: predictable 18M-3Y EPS trajectory with 25%+ IRR
+
+ESA Purpose (embedded in all 7 templates):
+  (1) Interrogate the change thesis — is the change significant enough to
+      drive required financial outputs? Is management dynamic enough to
+      execute? Are the required outputs (EPS trajectory, returns) compelling?
+  (2) Breadth coverage — ensure ALL aspects of the investment case are
+      covered at light or medium depth. The setup title crystallises during
+      ESA. ESA also establishes the key risks, key questions, and key
+      confusions that DD will focus on.
+
+================================================================================
+PLACEHOLDERS (Fill in Before Execution)
+================================================================================
+
+Standard placeholders (all queries):
+  {TICKER} — stock ticker (e.g., DKSH)
+  {COMPANY} — full company name (e.g., Dksh Holding Ltd)
+  {INDUSTRY} — industry category (e.g., business services & supplies)
+  {PEERS} — comma-separated list of 3-5 competitors (e.g., RELX, Experian)
+  {ANGLES} — 2-3 key investment angles from Triaging (e.g., margin expansion)
+  {KDs} — key drivers identified (filled by RESEARCHER from Triaging/APM)
+
+Query 14 ONLY:
+  {APM_KD_SUMMARY} — structured summary of APM Pass 1 key findings
+    Include:
+    - Specific 5-8 key drivers identified as material
+    - Which 2-3 drivers suspected fulcrum-level?
+    - What evidence gaps flagged?
+    - Preliminary setup classification hypothesis?
+    - Open questions for Query 14 to answer?
+
+================================================================================
+NOTION POSTING CONVENTION (All Queries)
+================================================================================
+
+Title Format:
+  [W] {TICKER} — Query Name [Source] @ DD-Mon-YY
+  Example: [W] DKSH — Business Model & Sector Primer [AS] @ 14-Apr-26
+
+Tags:
+  #ESA #{QueryTheme}
+  Query 8: #ESA #BM #Primer
+  Query 9: #ESA #Earnings #Quality
+  Query 10: #ESA #Risk #BearCase
+  Query 11: #ESA #ValueChain #Position
+  Query 12: #ESA #ValueChain #Dynamics
+  Query 13: #ESA #Guidance #Credibility
+  Query 14: #ESA #KeyDrivers #Judgement
+
+Structure:
+  1. Executive summary (500 words, top of page)
+  2. Detailed sections (follow PROMPT structure)
+  3. Summary tables (per EXECUTION section)
+  4. Red/Orange/Yellow/Green ratings with explanations
+
+Highlighting:
+  - 30%+ coverage using process_report.py
+  - Highlight key evidence, inflection points, risks, quantified milestones
+
+Cross-linking:
+  - Query 14 links to APM Pass 1 FCS Analysis page
+  - All queries link to Stock Notes page
+  - All queries link to Index.md or README.md as reference
+
+================================================================================
+FILE LOCATIONS (Absolute Paths)
+================================================================================
+
+All files saved to:
+  /sessions/zealous-jolly-faraday/mnt/COWORK/memory/skills/researcher/templates/
+
+When mounted in local Cowork sessions, accessible at:
+  C:\Users\richb\Documents\COWORK\memory\skills\researcher\templates\
+
+Files created 14-Apr-26:
+  ✓ 08-esa-bm-sector-primer.md
+  ✓ 09-esa-earnings-history.md
+  ✓ 10-esa-short-sellers.md
+  ✓ 11-esa-value-chain-map.md
+  ✓ 12-esa-value-chain-analysis.md
+  ✓ 13-esa-guidance-tracking.md
+  ✓ 14-esa-kd-assessment.md
+  ✓ INDEX.md (master index)
+  ✓ README.md (usage guide)
+  ✓ MANIFEST.txt (this file)
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Richard: Review this manifest + README.md to understand structure
+2. Richard: Share INDEX.md + README.md with RESEARCHER team member
+3. RESEARCHER: When executing ESA Pass 2, use these templates as detailed
+   research briefs for Queries 8-14
+4. RESEARCHER: Post each query output to Notion as completed (don't batch)
+5. APM: After RESEARCHER completes Queries 8-13, provide {APM_KD_SUMMARY}
+6. RESEARCHER: Execute Query 14 with {APM_KD_SUMMARY} input
+7. RESEARCHER: Post Query 14 with Watson Back-Brief section
+8. APM: Use Query 14 back-brief to refine Pass 1 judgement (Pass 3)
+
+================================================================================
+MAINTENANCE
+================================================================================
+
+These templates are LIVE and represent current system standards. As feedback
+and calibration emerge, update:
+  1. Template files (if methodology changes)
+  2. COWORK/memory/corrections.md (append any calibration notes)
+  3. This MANIFEST.txt (if major changes occur)
+
+Version history:
+  Created 14-Apr-26: All 7 ESA templates + reference files
+
+================================================================================
+END MANIFEST
+================================================================================
