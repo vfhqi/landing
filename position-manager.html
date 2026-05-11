@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio overview — Viewforth</title>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f8fa; --bg3: #eaeef2;
+  --fg: #1f2328; --fg2: #656d76; --fg3: #8b949e;
+  --green: #1a7f37; --green-bg: rgba(26,127,55,0.10);
+  --amber: #9a6700; --amber-bg: rgba(154,103,0,0.10);
+  --red: #cf222e; --red-bg: rgba(207,34,46,0.10);
+  --blue: #0969da; --blue-bg: rgba(9,105,218,0.10);
+  --purple: #8250df; --purple-bg: rgba(130,80,223,0.10);
+  --border: #d0d7de;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'Cascadia Code', 'Fira Code', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 13px; line-height: 1.45; }
+.container { max-width: 1900px; margin: 0 auto; padding: 16px; }
+
+/* Sticky top zone — D-PMS-33: page header bar + column headers row only */
+.sticky-top { position: sticky; top: 0; z-index: 50; background: var(--bg); }
+.sticky-top .header { margin-bottom: 0; }
+.sticky-header-table-wrap { background: var(--bg2); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: none; }
+body.scrolled-past-header .sticky-header-table-wrap { display: block; }
+.sticky-header-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.sticky-header-table th { background: var(--bg3); color: var(--fg2); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 8px; text-align: right; border-bottom: 2px solid var(--border); white-space: normal; line-height: 1.25; vertical-align: bottom; }
+.sticky-header-table th.al { text-align: left; }
+
+.header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px 8px 0 0; flex-wrap: wrap; gap: 12px; }
+.header h1 { font-size: 18px; font-weight: 600; }
+.header h1 span { color: var(--fg2); font-weight: 400; font-size: 13px; margin-left: 8px; }
+.header-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.btn { background: var(--bg3); color: var(--fg2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font); }
+.btn:hover { color: var(--fg); border-color: var(--fg3); }
+.btn-primary { background: var(--blue-bg); color: var(--blue); border-color: rgba(9,105,218,0.3); }
+.btn-danger { background: var(--red-bg); color: var(--red); border-color: rgba(207,34,46,0.3); }
+/* D-PMS-126: row-end delete (btn-icon variant) is muted by default, red on hover */
+.pos-table td .btn-icon.btn-danger { background: transparent; color: rgba(120,120,120,0.55); border-color: transparent; padding: 0 4px; font-size: 12px; font-weight: 400; opacity: 0.55; transition: opacity 0.15s, color 0.15s; }
+.pos-table td .btn-icon.btn-danger:hover { color: var(--red); opacity: 1; background: var(--red-bg); border-color: rgba(207,34,46,0.3); }
+.btn-success { background: var(--green-bg); color: var(--green); border-color: rgba(26,127,55,0.3); }
+.btn-icon { padding: 2px 6px; font-size: 14px; line-height: 1; }
+.btn-group-spacer { display: inline-block; width: 12px; }
+#statusBadge { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--bg3); color: var(--fg2); }
+#statusBadge.ok { background: var(--green-bg); color: var(--green); }
+#diskStatus { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--bg3); color: var(--fg2); }
+#diskStatus.ok { background: var(--green-bg); color: var(--green); }
+#diskStatus.warn { background: var(--amber-bg); color: var(--amber); }
+#diskStatus.fail { background: var(--red-bg); color: var(--red); }
+
+/* KPI cards — no longer sticky */
+.portfolio-summary { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 16px 0; }
+.kpi-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+.kpi-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--fg2); margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 700; font-family: var(--mono); }
+
+.alert-banner { background: var(--red-bg); border: 2px solid var(--red); border-radius: 8px; padding: 12px 16px; margin: 16px 0; display: none; }
+.alert-banner.visible { display: block; }
+body.hide-alerts .alert-banner.visible { display: none !important; }
+body.hide-alerts .warn-line { display: none !important; }
+.alert-banner h2 { font-size: 13px; color: var(--red); margin-bottom: 6px; }
+.alert-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 11px; border-bottom: 1px solid rgba(207,34,46,0.2); flex-wrap: wrap; white-space: normal; word-wrap: break-word; line-height: 1.35; }
+.alert-item:last-child { border-bottom: none; }
+.alert-ticker { font-family: var(--mono); font-weight: 700; min-width: 80px; font-size: 11px; }
+.alert-msg { white-space: normal; word-wrap: break-word; }
+.alert-status { padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+
+.help-banner { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin: 16px 0; font-size: 12px; color: var(--fg2); line-height: 1.6; }
+.help-banner b { color: var(--fg); }
+.help-banner kbd { background: var(--bg3); border: 1px solid var(--border); padding: 1px 5px; font-family: var(--mono); font-size: 11px; border-radius: 3px; }
+
+/* Table */
+.table-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; }
+.pos-table { width: 100%; border-collapse: collapse; font-size: 12px; white-space: nowrap; table-layout: fixed; }
+.pos-table th { background: var(--bg3); color: var(--fg2); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 8px; text-align: right; border-bottom: 2px solid var(--border); white-space: normal; line-height: 1.25; vertical-align: bottom; }
+.pos-table th.al { text-align: left; }
+.pos-table td { padding: 5px 8px; border-bottom: 1px solid rgba(208,215,222,0.5); text-align: right; font-family: var(--mono); font-size: 12px; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; height: 32px; box-sizing: border-box; }  /* D-PMS-93 #7: fixed cell height keeps all tranches same height regardless of badge wraps */
+/* D-PMS-94 FIX: don't ellipsis-clip cells containing the promoted-from badge — the badge itself is bounded */
+.pos-table td:has(.promo-badge) { overflow: visible; text-overflow: clip; }
+.pos-table td.al { text-align: left; font-family: var(--font); }
+.pos-table tr.inv-separator td { border-top: 2px solid var(--border); }
+.pos-table tr.inv-spacer td { height: 32px; background: transparent; border: none; padding: 0; }
+.pos-table tr.inv-totals td { font-weight: 700; background: rgba(9,105,218,0.04); font-family: var(--font); border-bottom: 2px solid var(--border); }
+.pos-table tr.inv-totals td.col-totals-emphasis { background: rgba(9,105,218,0.18); }
+
+.edit-input { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 2px 5px; font-size: 12px; font-family: var(--mono); color: var(--fg); width: 90px; }
+.edit-input:focus { outline: none; border-color: var(--blue); background: rgba(9,105,218,0.04); }
+.edit-input.date { width: 110px; }
+.edit-input.pct { width: 55px; text-align: right; }
+.edit-input.ma { width: 60px; padding: 2px 18px 2px 4px; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0l5 6 5-6z' fill='%23656d76'/></svg>"); background-repeat: no-repeat; background-position: right 4px center; background-size: 8px 5px; }
+.edit-input.ma::-ms-expand { display: none; }
+.input-with-suffix { display: inline-flex; align-items: center; gap: 2px; }
+.input-suffix { color: var(--fg3); font-size: 11px; font-family: var(--mono); }
+
+.tranche-row[draggable="true"] { cursor: grab; }
+.tranche-row[draggable="true"]:active { cursor: grabbing; }
+.tranche-row.drag-source { opacity: 0.4; }
+.tranche-row.drag-target { background: rgba(9,105,218,0.10); outline: 2px dashed var(--blue); }
+.drag-handle { display: inline-block; cursor: grab; color: var(--fg3); font-size: 14px; padding: 0 4px; user-select: none; }
+.drag-handle:hover { color: var(--fg); }
+
+.badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+.b-active { background: var(--green-bg); color: var(--green); }
+.b-warn { background: var(--amber-bg); color: var(--amber); }
+.b-bad { background: var(--red-bg); color: var(--red); }
+.b-pass { background: var(--green-bg); color: var(--green); }
+.b-partial { background: var(--amber-bg); color: var(--amber); }
+.b-fail { background: rgba(139,148,158,0.12); color: var(--fg3); }
+
+.tt-PB { color: var(--blue); font-weight: 700; }
+.tt-MM { color: var(--purple); font-weight: 700; }
+
+.val-pos { color: var(--green); }
+.val-neg { color: var(--red); }
+.val-warn { color: var(--amber); }
+.val-muted { color: var(--fg3); }
+/* D-PMS-105: conditional formatting tints */
+.cf-green { background-color: rgba(26,127,55,0.10) !important; color: rgba(26,127,55,0.85) !important; }
+.cf-amber { background-color: rgba(154,103,0,0.10) !important; color: rgba(154,103,0,0.85) !important; }
+.cf-red { background-color: rgba(207,34,46,0.10) !important; color: rgba(207,34,46,0.95) !important; }
+
+
+/* D-PMS-72 (09-May-26): placeholder rows — dim CONTENT without dimming BORDERS.
+   Previous opacity:0.55 on td killed gridline visibility on uninvested rows.
+   Now: faint bg tint, dim text+inputs only, borders stay at full strength. */
+.row-empty td { background: rgba(208,215,222,0.05); color: var(--fg3); }
+.row-empty .ticker-cell { font-style: italic; color: var(--fg3); }
+.row-empty .edit-input, .row-empty .edit-input.date, .row-empty .edit-input.pct, .row-empty .edit-input.ma { opacity: 0.55; }
+.row-empty .ticker-edit { opacity: 1; }  /* keep ticker entry input fully visible — it's the action target */
+.row-empty .input-suffix { opacity: 0.55; }
+.row-warn { background: rgba(154,103,0,0.06); }
+.row-breach-immediate { background: rgba(207,34,46,0.10); }
+.row-breach-grace { background: rgba(207,34,46,0.05); }
+
+/* D-PMS-40 column groups */
+.pos-table th.group-head, .sticky-header-table th.group-head { background: var(--bg2); color: var(--fg); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: center; border-right: 1px solid var(--border); }
+.pos-table th.group-head.group-empty, .sticky-header-table th.group-head.group-empty { background: transparent; border-right: none; }
+.pos-table th.group-atentry, .sticky-header-table th.group-atentry { background: rgba(154,103,0,0.06); color: var(--amber); }
+.pos-table th.group-current, .sticky-header-table th.group-current { background: rgba(9,105,218,0.06); color: var(--blue); }
+.pos-table th.group-pnl, .sticky-header-table th.group-pnl { background: rgba(26,127,55,0.06); color: var(--green); }
+.pos-table th.group-info, .sticky-header-table th.group-info { background: rgba(130,80,223,0.06); color: var(--purple); }
+.pos-table th.group-investment-info, .sticky-header-table th.group-investment-info { background: rgba(71,85,105,0.06); color: var(--fg2); }
+
+/* D-PMS-39 hide-at-entry — when body has class, hide all .col-atentry cells */
+body.hide-at-entry-cols .col-atentry { display: none; }
+/* D-PMS-91 #6 + D-PMS-93 #1: hide Entry % of AUM column in portfolio when at-entry hide is toggled.
+   display:none on the cells; the col element stays at its natural width which the browser then
+   distributes to the auto-width sparkline column. (Earlier visibility:collapse approach broke the
+   neighbouring # Tranches column in Chrome — reverted.) */
+body.hide-at-entry-cols .pf-col-entry-aum { display: none; }
+
+/* D-PMS-66 + D-PMS-93 #5 + D-PMS-94 FIX: bold + bg tint on key columns. Use class-based selectors so PB2-MM rows
+   (which have one fewer cell because ticker cell rowspans) target the right VISUAL columns, not shifted-by-one positions. */
+.pos-table tbody td.col-key-bold,
+.pos-table thead tr:nth-child(2) th.col-key-bold,
+.sticky-header-table thead tr:nth-child(2) th.col-key-bold { font-weight: 700; background: rgba(9,105,218,0.08); }
+.pos-table thead tr:nth-child(2) th.col-key-bold,
+.sticky-header-table thead tr:nth-child(2) th.col-key-bold { background: rgba(9,105,218,0.14); }
+/* D-PMS-84: bold matching column HEADERS (data-row 2 of thead) */
+.pos-table thead tr:nth-child(2) th:nth-child(10),
+.pos-table thead tr:nth-child(2) th:nth-child(15),
+.pos-table thead tr:nth-child(2) th:nth-child(19),
+.sticky-header-table thead tr:nth-child(2) th:nth-child(10),
+.sticky-header-table thead tr:nth-child(2) th:nth-child(15),
+.sticky-header-table thead tr:nth-child(2) th:nth-child(19) { font-weight: 800; color: var(--fg); }
+
+/* D-PMS-62 + D-PMS-86: vertical group dividers — borders at start of each column group.
+   FIX 09-May-26: use class-based selectors instead of :nth-child, because :nth-child counts cells in the
+   <tr>, and PB1 rows have an extra ticker cell with rowspan that PB2-MM4 don't — causing the nth-child
+   indices to drift by 1 on non-first slots. Class-based marking is row-shape-independent. */
+.pos-table tbody td.col-group-start,
+.pos-table thead tr:nth-child(2) th.col-group-start,
+.sticky-header-table thead tr:nth-child(2) th.col-group-start { border-left: 2px solid var(--border); }
+/* When the at-entry group is hidden, shift the Current group divider to the cell that becomes col 4 (drag handle col 2 + slot col 3 + ... but at-entry hide collapses cols 6-9, so Current still starts at col 10 conceptually — no change needed since hidden cols don't render) */
+
+/* D-PMS-42 stop-MA row colour coding (subtle full tint + 3px left stripe). Uses table-row border-left via box-shadow inset since border-left breaks border-collapse */
+.tranche-row.ma-20D td:first-child { box-shadow: inset 3px 0 0 0 #d97706; }
+.tranche-row.ma-20D { background: rgba(217,119,6,0.04); }
+.tranche-row.ma-50D td:first-child { box-shadow: inset 3px 0 0 0 #2563eb; }
+.tranche-row.ma-50D { background: rgba(37,99,235,0.04); }
+.tranche-row.ma-100D td:first-child { box-shadow: inset 3px 0 0 0 #0d9488; }
+.tranche-row.ma-100D { background: rgba(13,148,136,0.04); }
+.tranche-row.ma-150D td:first-child { box-shadow: inset 3px 0 0 0 #db2777; }
+.tranche-row.ma-150D { background: rgba(219,39,119,0.05); }
+.tranche-row.ma-200D td:first-child { box-shadow: inset 3px 0 0 0 #475569; }
+.tranche-row.ma-200D { background: rgba(71,85,105,0.07); }
+
+/* MA row colours yield to row-empty / breach states */
+/* D-PMS-72: placeholder rows keep their faint .row-empty bg (no MA tint, no transparent — borders rely on the rgba rule above). */
+.tranche-row.row-empty.ma-20D td, .tranche-row.row-empty.ma-50D td, .tranche-row.row-empty.ma-100D td, .tranche-row.row-empty.ma-150D td, .tranche-row.row-empty.ma-200D td { background: rgba(208,215,222,0.05); }
+.tranche-row.row-empty.ma-20D td:first-child, .tranche-row.row-empty.ma-50D td:first-child, .tranche-row.row-empty.ma-100D td:first-child, .tranche-row.row-empty.ma-150D td:first-child, .tranche-row.row-empty.ma-200D td:first-child { box-shadow: none; }
+.tranche-row.row-breach-immediate { background: rgba(207,34,46,0.10) !important; }
+.tranche-row.row-breach-grace { background: rgba(207,34,46,0.05) !important; }
+.tranche-row.row-warn { background: rgba(154,103,0,0.06) !important; }
+
+.ccy-tag { font-size: 10px; color: var(--fg3); font-weight: 400; margin-left: 4px; }
+
+.ticker-cell { font-weight: 600; font-family: var(--font); border-right: 1px solid var(--border); background: rgba(9,105,218,0.02); padding: 8px 10px; vertical-align: top; min-width: 160px; white-space: normal; font-size: 13px; }
+.ticker-cell .tk-primary { display: inline; font-weight: 500; font-family: var(--mono); font-size: 11px; color: var(--fg2); }
+.ticker-cell .name { display: block; font-weight: 700; font-family: var(--font); font-size: 13px; color: var(--fg); margin-bottom: 3px; line-height: 1.2; }
+.ticker-cell .meta { display: block; font-size: 10px; color: var(--fg3); margin-top: 4px; }
+.ticker-cell .md-badges { display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap; }
+.md-badge { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 700; letter-spacing: 0.3px; font-family: var(--font); }
+
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 999; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 480px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+.modal h2 { font-size: 16px; margin-bottom: 12px; }
+.modal p { font-size: 13px; line-height: 1.5; margin-bottom: 12px; color: var(--fg2); }
+.modal label { display: block; font-size: 12px; font-weight: 600; color: var(--fg2); margin-bottom: 4px; margin-top: 12px; }
+.modal select, .modal input { width: 100%; padding: 6px 10px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; color: var(--fg); font-size: 13px; font-family: var(--mono); }
+.modal select { -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 28px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0l5 6 5-6z' fill='%23656d76'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; background-size: 10px 6px; }
+.modal select::-ms-expand { display: none; }
+.modal-actions { display: flex; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+
+.warn-line { background: rgba(154,103,0,0.06); }
+.warn-line td { font-size: 10.5px; color: var(--amber); padding-top: 0; padding-bottom: 4px; padding-left: 24px; text-align: left; font-family: var(--font); white-space: normal; word-wrap: break-word; line-height: 1.35; }
+/* D-PMS-64: green promotion badge replacing date cell */
+.promo-badge { display: inline-block; padding: 2px 6px; background: var(--green-bg); color: var(--green); border: 1px solid rgba(26,127,55,0.3); border-radius: 4px; font-size: 9px; font-family: var(--font); font-weight: 600; cursor: pointer; line-height: 1.4; white-space: nowrap; max-width: 100%; }  /* D-PMS-93 #6: nowrap so the badge stays one line + Date col is widened to fit it */
+.promo-badge:hover { background: rgba(26,127,55,0.18); }
+.promo-badge .promo-date-edit { display: none; margin-top: 4px; }
+.promo-badge.editing .promo-date-text { display: none; }
+.promo-badge.editing .promo-date-edit { display: block; }
+
+#errorBox { display: none; }
+#errorBox.visible { display: block; background: var(--red-bg); border: 1px solid var(--red); color: var(--red); padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-weight: 600; }
+#successBox { display: none; }
+#successBox.visible { display: block; background: var(--green-bg); border: 1px solid var(--green); color: var(--green); padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-weight: 600; }
+
+@media (max-width: 1200px) { .portfolio-summary { grid-template-columns: repeat(3, 1fr); } }
+
+/* D-PMS-73 to D-PMS-77 (09-May-26): PORTFOLIO section — one row per live investment, above tranche-detail table */
+.portfolio-section { margin: 16px 0; }
+.portfolio-section h2 { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 4px; margin-top: 8px; }
+.portfolio-section .pf-meta { font-size: 11px; color: var(--fg2); margin-bottom: 2px; margin-top: -2px; }
+.portfolio-table-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; }
+.pf-table { width: 100%; border-collapse: collapse; font-size: 12px; }  /* D-PMS-94d: layout:auto restored; hide-at-entry now omits Entry col entirely from the rendered HTML */
+.pf-table th { background: var(--bg3); color: var(--fg2); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px; text-align: right; border-bottom: 2px solid var(--border); white-space: normal; line-height: 1.25; vertical-align: bottom; }
+.pf-table th.pf-sortable { cursor: pointer; user-select: none; }
+.pf-table th.pf-sortable:hover { background: var(--bg2); color: var(--fg); }
+.pf-sort-arrow { color: var(--blue); font-size: 9px; margin-left: 2px; }
+.pf-table th.al { text-align: left; }
+.pf-table td { padding: 1px 8px; border-bottom: 1px solid rgba(208,215,222,0.5); text-align: right; font-family: var(--mono); font-size: 11.5px; vertical-align: middle; line-height: 1.15; box-sizing: border-box; }  /* D-PMS-93 #2: half-height portfolio rows */
+.pf-table td.al { text-align: left; font-family: var(--font); }
+.pf-table tr.pf-totals td { font-weight: 700; background: rgba(9,105,218,0.04); border-top: 2px solid var(--border); }
+/* D-PMS-83: bold the Loss risk column (header + body) */
+.pf-table th.pf-loss-risk-col, .pf-table td.pf-loss-risk-col { font-weight: 700; }
+.pf-ticker { font-weight: 700; font-family: var(--mono); }
+.pf-name { color: var(--fg2); font-weight: 400; font-size: 11px; }
+.pf-spark-cell { padding: 0px 4px; }
+.pf-table th.pf-spark-header { text-align: center; }
+/* D-PMS-127: placeholder row dimming */
+.pf-row-placeholder td { color: var(--fg3); opacity: 0.55; background: rgba(208,215,222,0.04); }
+.pf-row-placeholder .pf-placeholder-dim { color: var(--fg3); }
+/* D-PMS-91 #1: switch sparkline typography away from mono. 'system-ui' first, fall back to a clean grotesk. Letter-spacing slight neg for readability at small sizes. */
+.pf-spark { display: block; width: 100%; }
+.pf-spark-axis { font-size: 7.5px; fill: var(--fg3); font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; letter-spacing: 0.2px; font-feature-settings: 'tnum' 1, 'cv01' 1; opacity: 0.85; }
+.pf-spark-pair-label { font-size: 7.5px; font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 500; letter-spacing: -0.05px; white-space: pre; font-feature-settings: 'tnum' 1; }
+.pf-spark-bp-text { fill: #b91c1c; font-weight: 600; }    /* D-PMS-90: loss-risk red */
+.pf-spark-bp-inverted { fill: #b91c1c; font-weight: 700; }  /* D-PMS-122: stop above current (inverted) */
+.pf-spark-aum-text { fill: #1f2328; font-weight: 700; }   /* D-PMS-90: AUM dark */
+.pf-spark-ma-label { font-size: 7.5px; font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; letter-spacing: -0.05px; font-feature-settings: 'tnum' 1; }
+.pf-spark-leader { stroke: var(--fg3); stroke-width: 0.5; opacity: 0.4; }
+/* D-PMS-114: pill MA labels (replace dots) */
+.pf-spark-pill rect { transition: opacity 0.15s; }
+.pf-spark-pill:hover rect { opacity: 0.85; }
+.pf-spark-pill-label { font-size: 8px; font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; letter-spacing: 0.1px; pointer-events: none; }
+.pf-spark-pill-count { font-size: 6px; font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; pointer-events: none; opacity: 0.85; }
+/* D-PMS-117: key in section title strip */
+.pf-spark-key-strip { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; justify-content: center; margin-left: 0; margin-top: 4px; font-size: 9px; color: var(--fg2); font-style: italic; font-weight: normal; text-transform: none; letter-spacing: 0; line-height: 1.4; max-width: 100%; }
+.pf-spark-header-wrap { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 2px; width: 100%; }
+.pf-spark-header-title { display: block; text-align: center; width: 100%; }
+.pf-spark-key-strip > span { white-space: nowrap; }
+.pf-spark-key-strip .pf-key-bps { color: #b91c1c; font-weight: 600; font-style: normal; }
+.pf-spark-key-strip .pf-key-aum { color: var(--fg); font-weight: 700; font-style: normal; }
+.pf-spark-key-strip .pf-key-pill-row { display: inline-flex; gap: 4px; align-items: center; }
+.pf-spark-key-strip .pf-key-pill { display: inline-block; min-width: 18px; padding: 1px 4px; border-radius: 3px; color: #fff; font-size: 9px; font-weight: 700; font-style: normal; text-align: center; line-height: 1.2; }
+/* D-PMS-116: portfolio section fills viewport */
+.portfolio-section.pf-fullscreen {
+  /* D-PMS-139.1: dynamically fit viewport. JS sets --pf-max-h on load + resize. */
+  height: var(--pf-max-h, calc(100vh - 220px));
+  max-height: var(--pf-max-h, calc(100vh - 220px));
+  min-height: 280px;  /* never collapse smaller than this */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;  /* contents must scroll inside */
+}
+.portfolio-section.pf-fullscreen .portfolio-table-wrap {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;  /* allow shrink */
+}
+.portfolio-section.pf-fullscreen .pf-table { width: 100%; }
+.portfolio-section.pf-fullscreen .pf-table tbody tr:not(.pf-totals) {
+  /* Rows can grow but have a max — when too many rows for viewport, wrap scrolls */
+  height: auto;
+  min-height: 28px;
+  max-height: 80px;
+}
+.portfolio-section.pf-fullscreen .pf-spark { height: 100%; min-height: 26px; max-height: 70px; }
+.portfolio-section.pf-fullscreen .pf-spark-cell { height: auto; padding: 4px 4px; }
+/* The thead row stays put inside the scrollable wrap via sticky positioning */
+.portfolio-section.pf-fullscreen .pf-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg3);
+}
+/* Totals row stays at bottom of wrap when scrolled */
+.portfolio-section.pf-fullscreen .pf-table tr.pf-totals td {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+}
+.pf-spark-key { font-size: 7.5px; font-family: ui-sans-serif, system-ui, 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-style: italic; opacity: 0.85; }
+/* D-PMS-88: gridlines */
+.pf-spark-major { stroke: var(--border); stroke-width: 0.6; opacity: 0.85; }
+.pf-spark-minor { stroke: var(--border); stroke-width: 0.4; opacity: 0.4; stroke-dasharray: 2,2; }
+.pf-spark-zero-line { stroke: var(--fg3); stroke-width: 1; opacity: 0.85; }
+.pf-spark-baseline { stroke: var(--border); stroke-width: 1; opacity: 0.7; }
+.pf-spark-axis-bg { fill: var(--bg2); opacity: 0.95; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Sticky top zone: header bar + column header row -->
+  <div class="sticky-top">
+    <div class="header">
+      <h1>Portfolio overview <span id="lastUpdated">— Viewforth</span></h1>
+      <div class="header-controls">
+        <span id="statusBadge">loading…</span>
+        <span id="diskStatus" title="Disk persistence status">disk: not connected</span>
+        <button class="btn btn-success" id="btnConnect" title="Grant access to pms-data/ folder for auto-save">Connect to disk</button>
+        <span class="btn-group-spacer"></span>
+        <button class="btn btn-primary" id="btnSaveLibrary" title="Save a labelled snapshot to library/">Save to library</button>
+        <button class="btn" id="btnImport" title="Import state from a library file">Import</button>
+        <button class="btn" id="btnRestoreBackup" title="Restore state from a daily auto-backup file (last 30 days)">Restore</button>
+        <span class="btn-group-spacer"></span>
+        <button class="btn" id="btnHideAtEntry" title="Hide or show the &quot;at entry&quot; columns">Hide at-entry</button>
+        <button class="btn" id="btnHideAlerts" title="Hide or show alert banner and warn-line rows">Hide alerts</button>
+        <button class="btn" id="btnSparkCollapse" title="D-PMS-115: collapse same-MA tranches in the sparkline into summed pills">Sparkline expanded</button>
+        <button class="btn" id="btnSortByStopMa" title="Sort Core MM tranches within each investment by stop MA (ascending). PB1/PB2 stay fixed.">Sort by stop MA</button>
+        <button class="btn btn-danger" id="btnClearAll" title="Clear all tranche edits">Clear all</button>
+      </div>
+    </div>
+    <div class="sticky-header-table-wrap" id="stickyHeaderWrap">
+      <table class="sticky-header-table pos-table" id="stickyHeaderTable"></table>
+    </div>
+  </div>
+
+  <div id="errorBox"></div>
+  <div id="successBox"></div>
+
+  <!-- KPI cards (not sticky, scrolls with page) -->
+  <div class="portfolio-summary" id="portfolioSummary"></div>
+
+  <!-- Help banner -->
+  <div class="help-banner">
+    <b>How to use:</b> 16 investment slots × 6 tranche rows (PB1, PB2, Core MM 1–4). Type <b>%AUM</b> as <kbd>3</kbd> for 3%. Pick a date + stop MA. <b>MA→stop buffer</b> defaults to 2% (= stop is MA × 0.98) and is editable per tranche. Derived columns auto-fill. <b>Drag</b> the ⋮⋮ handle to move tranches between slots — drop a PB onto an MM to promote. Cross-investment drag blocked.
+    <br><b>Slot caps:</b> PB1/2 = 2.5%, MM1 = 4%, MM2 = 3%, MM3 = 2%, MM4 = 1%. <b>PB stops</b> restricted to 20D/50D; <b>MM stops</b> any of 5 MAs.
+    <b>Hybrid grace clock:</b> 150D/200D = immediate; 20D/50D/100D = 3 daily closes OR 1 weekly close.
+    <br><b>Row colours by MA for stop-loss:</b> orange=20D, blue=50D, teal=100D, magenta=150D, slate=200D. Breach states override.
+    <b>Empty slots</b> can have a ticker typed in (must be one of the 9 in chart data). <b>New MM tranches</b> warn if no PB exists for that investment (override permitted for backfill). <b>Connect to disk</b> for auto-save (auto-reconnects on reload).
+  </div>
+
+  <!-- Stop breach alerts -->
+  <div class="alert-banner" id="alertBanner"></div>
+
+  <!-- D-PMS-73 to D-PMS-77: PORTFOLIO section (one row per live investment) -->
+  <div class="portfolio-section pf-fullscreen" id="portfolioSection"></div>
+
+  <!-- Main table -->
+  <div class="table-wrap">
+    <table class="pos-table" id="posTable"></table>
+  </div>
+
+</div>
+
+<!-- PB→MM promotion modal -->
+<div class="modal-overlay" id="promoteModal">
+  <div class="modal">
+    <h2>Promote tranche</h2>
+    <p id="promoteText"></p>
+    <label>New stop MA (defaults to 100D for MMs)</label>
+    <select id="promoteStopMa">
+      <option value="20D">20D</option>
+      <option value="50D">50D</option>
+      <option value="100D" selected>100D</option>
+      <option value="150D">150D</option>
+      <option value="200D">200D</option>
+    </select>
+    <div class="modal-actions">
+      <button class="btn" onclick="cancelPromote()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmPromote()">Promote</button>
+    </div>
+  </div>
+</div>
+
+<!-- Save-to-library label modal -->
+<div class="modal-overlay" id="saveLabelModal">
+  <div class="modal">
+    <h2>Save to library</h2>
+    <p>Library entries are kept forever. Use a label to find them later (e.g. "post Q1 26 earnings").</p>
+    <label>Label (optional)</label>
+    <input type="text" id="saveLabel" placeholder="e.g. baseline, pre-rebalance, milestone">
+    <div class="modal-actions">
+      <button class="btn" onclick="cancelSaveLabel()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmSaveLabel()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden import file input -->
+<input type="file" id="importFileInput" accept=".json" style="display:none">
+
+<!-- Data feeds -->
+<script src="positions.js"></script>
+<script src="position-data.js"></script>
+<script src="pms-chart-data.js"></script>
+<script src="pms-filter-results.js"></script>
+<script src="pms-universe.js"></script>  <!-- D-PMS-71 -->
+
+<script>
+/* =========================================================================
+   Portfolio overview v5j-11d (09-May-26) — D-PMS-94d: hide-at-entry conditionally OMITS Entry col from rendered HTML
+   v5 adds: File System Access persistence + library + 30-day auto-backups,
+   sticky restructure (column headers in, KPIs out).
+   ========================================================================= */
+
+var BUFFER = 0.02;
+var TRADE_TYPES = ['PB1','PB2','MM1','MM2','MM3','MM4'];
+var PB_TYPES = {'PB1': true, 'PB2': true};
+var MM_TYPES = {'MM1': true, 'MM2': true, 'MM3': true, 'MM4': true};
+var TRADE_LABELS = {PB1:'PB1', PB2:'PB2', MM1:'Core MM 1', MM2:'Core MM 2', MM3:'Core MM 3', MM4:'Core MM 4'};
+var SLOT_CAP_DECIMAL = {PB1:0.025, PB2:0.025, MM1:0.04, MM2:0.03, MM3:0.02, MM4:0.01};
+var DEFAULT_STOP_MA = {PB1:'50D', PB2:'50D', MM1:'100D', MM2:'100D', MM3:'100D', MM4:'100D'};
+var GRACE_IMMEDIATE = {'150D':true, '200D':true};
+var GRACE_TACTICAL = {'20D':true, '50D':true, '100D':true};
+var GRACE_DAILY_THRESHOLD = 3;
+var BACKUP_RETENTION_DAYS = 30;
+
+// Column widths (must match between sticky header and main table for alignment)
+var COL_WIDTHS = ['180px', '34px', '140px', '140px', '60px', '70px', '70px', '70px', '80px', '70px', '95px', '70px', '70px', '70px', '80px', '80px', '90px', '80px', '85px', '140px', '34px'];  // D-PMS-93 #6: Date col 110->140 to fit 'Promoted from' badge on one line
+
+var CONFIG = null;
+var CURRENT_DATA = null;
+var CHART_DATA = null;
+var FILTER_RESULTS = null;
+var EDITS = {};
+
+// Drag state
+var dragState = null;
+var pendingPromote = null;
+
+// D-PMS-39 hide-at-entry view state
+var hideAtEntry = false;
+var hideAlerts = false;  // D-PMS-98: toggle to hide red alert banner + orange warn-line rows
+var sparkCollapsed = false;  // D-PMS-115: toggle to collapse same-MA tranches into single pills with summed totals
+var pfSort = { key: 'atRisk', dir: 'asc' };  // D-PMS-138: default sort = Loss Risk ascending (most-negative first; placeholders pinned to bottom separately)
+
+// D-PMS-70 sort-by-stop-MA view state (Core MM only; PB1/PB2 stay fixed)
+var sortByStopMa = false;
+
+// File System Access state
+var pmsDataDirHandle = null;  // FileSystemDirectoryHandle for pms-data/
+var diskWriteEnabled = false;
+var diskAvailable = ('showDirectoryPicker' in window);
+var lastAutoBackupDate = null;  // YYYY-MM-DD string of last auto-backup
+var saveQueue = Promise.resolve();  // serialise writes to avoid races
+
+window.addEventListener('DOMContentLoaded', function() {
+  var statusEl = document.getElementById('statusBadge');
+  var errBox = document.getElementById('errorBox');
+  if (typeof POSITIONS === 'undefined') { errBox.textContent = 'positions.js failed to load.'; errBox.classList.add('visible'); statusEl.textContent='data error'; return; }
+  if (typeof POSITION_DATA === 'undefined') { errBox.textContent = 'position-data.js failed to load.'; errBox.classList.add('visible'); return; }
+  if (typeof PMS_CHART_DATA === 'undefined') { errBox.textContent = 'pms-chart-data.js failed to load.'; errBox.classList.add('visible'); return; }
+  CONFIG = POSITIONS;
+  CURRENT_DATA = POSITION_DATA;
+  CHART_DATA = PMS_CHART_DATA;
+  FILTER_RESULTS = (typeof PMS_FILTER_RESULTS !== 'undefined') ? PMS_FILTER_RESULTS : { _meta: {}, data: {} };
+
+  // Load from localStorage initially (migration source if user grants disk later)
+  loadEditsFromLocalStorage();
+  cleanupCorruptPromoteMetadata();  // D-PMS-67: clean up any already-corrupt state on load
+
+  statusEl.textContent = (CONFIG.investments || []).length + ' slots · ' + Object.keys(CHART_DATA.data || {}).length + ' tickers';
+  statusEl.classList.add('ok');
+
+  updateDiskStatus();
+
+  // D-PMS-47: try silent auto-reconnect to disk if previously granted
+  if (diskAvailable) {
+    tryAutoReconnect().catch(function(e) { console.warn('Auto-reconnect failed', e); });
+  }
+
+  document.getElementById('btnConnect').addEventListener('click', connectToDisk);
+  document.getElementById('btnSaveLibrary').addEventListener('click', openSaveLabelModal);
+  document.getElementById('btnImport').addEventListener('click', function() { document.getElementById('importFileInput').click(); });
+  document.getElementById('importFileInput').addEventListener('change', importFromFile);
+  document.getElementById('btnClearAll').addEventListener('click', clearAllEdits);
+  document.getElementById('btnHideAtEntry').addEventListener('click', toggleHideAtEntry);
+  document.getElementById('btnHideAlerts').addEventListener('click', toggleHideAlerts);
+  document.getElementById('btnSparkCollapse').addEventListener('click', toggleSparkCollapse);
+  // D-PMS-104: portfolio overview sort delegation
+  document.getElementById('portfolioSection').addEventListener('click', function(e) {
+    var th = e.target.closest && e.target.closest('.pf-sortable');
+    if (!th) return;
+    var key = th.getAttribute('data-sort-key');
+    if (!key) return;
+    if (pfSort.key === key) {
+      pfSort.dir = pfSort.dir === 'asc' ? 'desc' : 'asc';
+    } else {
+      pfSort.key = key;
+      pfSort.dir = 'asc';
+    }
+    renderPortfolioSection();
+  });
+  document.getElementById('btnSortByStopMa').addEventListener('click', toggleSortByStopMa);
+  document.getElementById('btnRestoreBackup').addEventListener('click', restoreFromBackup);
+  // Restore hide-at-entry state from localStorage (D-PMS-39)
+  try { hideAtEntry = localStorage.getItem('pms_hide_at_entry_v5c') === '1'; } catch(e) {}
+  // D-PMS-98: restore hide-alerts state (default OFF — visible)
+  try { hideAlerts = localStorage.getItem('pms_hide_alerts_v5j_12') === '1'; } catch(e) {}
+  // D-PMS-115: restore spark-collapsed state (default OFF — expanded)
+  try { sparkCollapsed = localStorage.getItem('pms_spark_collapsed_v5k') === '1'; } catch(e) {}
+  applyHideAtEntry();
+  // D-PMS-70: restore sort-by-stop-MA state from localStorage
+  try { sortByStopMa = localStorage.getItem('pms_sort_by_stop_ma_v5j') === '1'; } catch(e) {}
+  applySortByStopMaButtonLabel();
+  applySparkCollapseLabel();
+
+  if (!diskAvailable) {
+    flashError('File System Access API not available in this browser. Persistence falls back to localStorage. Use Chrome / Edge for disk persistence.');
+    document.getElementById('btnConnect').disabled = true;
+    document.getElementById('btnConnect').textContent = 'Disk N/A';
+  }
+
+  // D-PMS-61: scroll listener — show sticky duplicate header when user scrolls past the main table's thead
+  window.addEventListener('scroll', updateStickyHeaderVisibility, { passive: true });
+  window.addEventListener('resize', updateStickyHeaderVisibility, { passive: true });
+
+  // D-PMS-113: rehydrate any universe-loaded ticker charts saved in EDITS
+  // (placeholder slots with _ticker_override) so the row renders with name/px after reload.
+  rehydrateOverrideCharts();
+
+  render();
+  // Initial check after render (in case starting position is already scrolled)
+  setTimeout(updateStickyHeaderVisibility, 0);
+});
+
+function updateStickyHeaderVisibility() {
+  var tableWrap = document.querySelector('.table-wrap');
+  if (!tableWrap) return;
+  var thead = tableWrap.querySelector('thead');
+  if (!thead) return;
+  // Bottom of thead — once we scroll past this, show the duplicate
+  var rect = thead.getBoundingClientRect();
+  var headerBarH = 0;
+  var headerEl = document.querySelector('.sticky-top .header');
+  if (headerEl) headerBarH = headerEl.getBoundingClientRect().height;
+  // Show sticky duplicate when thead's bottom edge has moved above the page header bar's bottom
+  var shouldShow = rect.bottom < headerBarH + 4;  // +4px fudge for borders
+  document.body.classList.toggle('scrolled-past-header', shouldShow);
+}
+
+// === Persistence: File System Access API + IndexedDB handle persistence + localStorage fallback ===
+// D-PMS-47: handle persists across reloads via IndexedDB. Auto-reconnect silently if permission still granted.
+// D-PMS-48: never overwrite in-memory state with empty disk state. Merge with newer-wins per slot.
+
+function updateDiskStatus() {
+  var el = document.getElementById('diskStatus');
+  if (!diskAvailable) {
+    el.textContent = 'disk: N/A (browser)';
+    el.className = 'fail';
+  } else if (diskWriteEnabled) {
+    el.textContent = 'disk: ✓ pms-data/';
+    el.className = 'ok';
+  } else {
+    el.textContent = 'disk: not connected';
+    el.className = 'warn';
+  }
+}
+
+// === IndexedDB helpers for persisting the directory handle ===
+function openHandleDB() {
+  return new Promise(function(resolve, reject) {
+    var req = indexedDB.open('pms-handle-db', 1);
+    req.onupgradeneeded = function() { req.result.createObjectStore('handles'); };
+    req.onsuccess = function() { resolve(req.result); };
+    req.onerror = function() { reject(req.error); };
+  });
+}
+async function saveHandleToIDB(handle) {
+  try {
+    var db = await openHandleDB();
+    var tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').put(handle, 'pms-data-dir');
+    return new Promise(function(resolve, reject) {
+      tx.oncomplete = function() { resolve(); };
+      tx.onerror = function() { reject(tx.error); };
+    });
+  } catch (e) { console.warn('saveHandleToIDB failed', e); }
+}
+async function loadHandleFromIDB() {
+  try {
+    var db = await openHandleDB();
+    return new Promise(function(resolve, reject) {
+      var req = db.transaction('handles', 'readonly').objectStore('handles').get('pms-data-dir');
+      req.onsuccess = function() { resolve(req.result || null); };
+      req.onerror = function() { reject(req.error); };
+    });
+  } catch (e) { console.warn('loadHandleFromIDB failed', e); return null; }
+}
+async function clearHandleFromIDB() {
+  try {
+    var db = await openHandleDB();
+    var tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').delete('pms-data-dir');
+  } catch (e) {}
+}
+
+// D-PMS-47: try silent auto-reconnect on page load
+async function tryAutoReconnect() {
+  if (!diskAvailable) return false;
+  var savedHandle = await loadHandleFromIDB();
+  if (!savedHandle) return false;
+  // Check if we still have permission (or can request silently)
+  try {
+    var perm = await savedHandle.queryPermission({ mode: 'readwrite' });
+    if (perm === 'granted') {
+      pmsDataDirHandle = savedHandle;
+      diskWriteEnabled = true;
+      // Merge disk state with current in-memory state (D-PMS-48)
+      await mergeDiskStateIntoMemory();
+      updateDiskStatus();
+      flashSuccess('Auto-reconnected to pms-data/. ' + Object.keys(EDITS).length + ' investment(s) loaded.');
+      await maybeWriteAutoBackup();
+      render();
+      return true;
+    }
+    // Permission needs re-prompt — defer to manual Connect button (don't surprise user with dialog on load)
+    return false;
+  } catch (e) {
+    console.warn('Auto-reconnect failed', e);
+    return false;
+  }
+}
+
+async function connectToDisk() {
+  if (!diskAvailable) { flashError('Browser does not support File System Access API.'); return; }
+  try {
+    var dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'pms-data', startIn: 'documents' });
+    pmsDataDirHandle = dirHandle;
+    diskWriteEnabled = true;
+
+    // Persist the handle for next reload (D-PMS-47)
+    await saveHandleToIDB(dirHandle);
+
+    // Make sure library/ and auto-backups/ exist
+    await dirHandle.getDirectoryHandle('library', { create: true });
+    await dirHandle.getDirectoryHandle('auto-backups', { create: true });
+
+    // D-PMS-48: merge disk state with in-memory state, NEVER wipe
+    await mergeDiskStateIntoMemory();
+
+    updateDiskStatus();
+    render();
+    await maybeWriteAutoBackup();
+    flashSuccess('Connected. ' + Object.keys(EDITS).length + ' investment(s) loaded. Auto-save active.');
+  } catch (e) {
+    if (e.name === 'AbortError') return;
+    console.error('connectToDisk error', e);
+    flashError('Could not connect to disk: ' + e.message);
+  }
+}
+
+// D-PMS-48: Read disk state, merge with in-memory EDITS — newer wins per slot.
+// If disk is empty, write current memory to disk (don't wipe).
+async function mergeDiskStateIntoMemory() {
+  if (!pmsDataDirHandle) return;
+  var diskEdits = null;
+  var diskMeta = null;
+  try {
+    var fileHandle = await pmsDataDirHandle.getFileHandle('pms-state.json', { create: false });
+    var file = await fileHandle.getFile();
+    var text = await file.text();
+    var parsed = JSON.parse(text);
+    if (parsed && typeof parsed === 'object' && parsed.EDITS) {
+      diskEdits = parsed.EDITS;
+      diskMeta = parsed._meta;
+    }
+  } catch (e) {
+    if (e.name !== 'NotFoundError') console.warn('mergeDiskStateIntoMemory read error', e);
+  }
+
+  if (!diskEdits) {
+    // Disk empty. If memory has data, write it to disk now (NEVER wipe memory).
+    if (Object.keys(EDITS).length > 0) {
+      console.log('[pms] Disk empty, memory has', Object.keys(EDITS).length, 'investments — writing memory to disk');
+      await writeStateToDisk();
+    }
+    return;
+  }
+
+  // Both disk and memory potentially have data — merge with newer-wins per slot
+  var memoryCount = countSlots(EDITS);
+  var diskCount = countSlots(diskEdits);
+  if (memoryCount === 0) {
+    // Memory empty, disk has data — adopt disk
+    EDITS = diskEdits;
+    lastAutoBackupDate = diskMeta && diskMeta.last_auto_backup_date;
+    cleanupCorruptPromoteMetadata();  // D-PMS-67
+    saveEditsToLocalStorage();
+    return;
+  }
+  // Both have data: merge per slot, newer wins
+  var merged = JSON.parse(JSON.stringify(diskEdits));  // deep clone of disk
+  Object.keys(EDITS).forEach(function(invIdx) {
+    if (!merged[invIdx]) merged[invIdx] = {};
+    Object.keys(EDITS[invIdx]).forEach(function(slotType) {
+      var memEdit = EDITS[invIdx][slotType];
+      var diskEdit = merged[invIdx][slotType];
+      if (!diskEdit) {
+        merged[invIdx][slotType] = memEdit;
+      } else {
+        // Compare timestamps if both have them
+        var memTs = memEdit._added_at || memEdit.promoted_at || '';
+        var diskTs = diskEdit._added_at || diskEdit.promoted_at || '';
+        if (memTs > diskTs) merged[invIdx][slotType] = memEdit;
+      }
+    });
+  });
+  EDITS = merged;
+  lastAutoBackupDate = diskMeta && diskMeta.last_auto_backup_date;
+  // D-PMS-67: re-clean after merge — disk may have resurrected corrupt state
+  cleanupCorruptPromoteMetadata();
+  saveEditsToLocalStorage();
+  // Write merged + cleaned result back to disk
+  await writeStateToDisk();
+  console.log('[pms] Merged disk + memory: disk had', diskCount, '· memory had', memoryCount, '· result has', countSlots(EDITS));
+}
+
+function countSlots(edits) {
+  var c = 0;
+  Object.keys(edits || {}).forEach(function(k) { c += Object.keys(edits[k] || {}).length; });
+  return c;
+}
+
+// Legacy fn kept for backwards-compat in case anything calls it
+async function tryLoadStateFromDisk() { return mergeDiskStateIntoMemory(); }
+
+async function writeStateToDisk() {
+  if (!pmsDataDirHandle) return false;
+  var payload = {
+    _meta: {
+      saved_at: new Date().toISOString(),
+      version: 'v5',
+      last_auto_backup_date: lastAutoBackupDate,
+    },
+    EDITS: EDITS,
+  };
+  try {
+    var fileHandle = await pmsDataDirHandle.getFileHandle('pms-state.json', { create: true });
+    var writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify(payload, null, 2));
+    await writable.close();
+    return true;
+  } catch (e) {
+    console.error('writeStateToDisk error', e);
+    flashError('Disk write failed: ' + e.message + '. Falling back to localStorage.');
+    diskWriteEnabled = false;
+    updateDiskStatus();
+    return false;
+  }
+}
+
+async function maybeWriteAutoBackup() {
+  if (!pmsDataDirHandle) return;
+  var today = new Date().toISOString().slice(0, 10);
+  if (lastAutoBackupDate === today) return;  // already done today
+  try {
+    var backupsDir = await pmsDataDirHandle.getDirectoryHandle('auto-backups', { create: true });
+    var fileHandle = await backupsDir.getFileHandle(today + '.json', { create: true });
+    var writable = await fileHandle.createWritable();
+    var payload = {
+      _meta: { backup_date: today, saved_at: new Date().toISOString(), kind: 'auto-backup' },
+      CONFIG: CONFIG, EDITS: EDITS,
+    };
+    await writable.write(JSON.stringify(payload, null, 2));
+    await writable.close();
+    lastAutoBackupDate = today;
+    // Persist the backup-date marker via the next state write
+    await writeStateToDisk();
+    // Prune
+    await pruneAutoBackups();
+  } catch (e) {
+    console.error('maybeWriteAutoBackup error', e);
+  }
+}
+
+async function pruneAutoBackups() {
+  if (!pmsDataDirHandle) return;
+  try {
+    var backupsDir = await pmsDataDirHandle.getDirectoryHandle('auto-backups', { create: false });
+    var cutoff = new Date(); cutoff.setDate(cutoff.getDate() - BACKUP_RETENTION_DAYS);
+    var cutoffStr = cutoff.toISOString().slice(0, 10);
+    for await (var entry of backupsDir.values()) {
+      if (entry.kind !== 'file') continue;
+      var name = entry.name;
+      if (!/^\d{4}-\d{2}-\d{2}\.json$/.test(name)) continue;
+      var dateStr = name.slice(0, 10);
+      if (dateStr < cutoffStr) {
+        await backupsDir.removeEntry(name);
+      }
+    }
+  } catch (e) {
+    console.warn('pruneAutoBackups error', e);
+  }
+}
+
+function loadEditsFromLocalStorage() {
+  try { var raw = localStorage.getItem('pms_edits_v5') || localStorage.getItem('pms_edits_v4'); if (raw) EDITS = JSON.parse(raw); } catch(e) { EDITS = {}; }
+}
+function saveEditsToLocalStorage() {
+  try { localStorage.setItem('pms_edits_v5', JSON.stringify(EDITS)); } catch(e) {}
+}
+
+function saveEdits() {
+  // Always mirror to localStorage for safety
+  saveEditsToLocalStorage();
+  // Queue async disk write if enabled
+  if (diskWriteEnabled) {
+    saveQueue = saveQueue.then(async function() {
+      await writeStateToDisk();
+      await maybeWriteAutoBackup();
+    }).catch(function(e) {
+      console.error('Save queue error', e);
+    });
+  }
+}
+
+// D-PMS-48: bigger flashSuccess / flashError that stay visible (5s default → 8s for important)
+function flashSuccess8s(msg) {
+  var box = document.getElementById('successBox');
+  box.textContent = msg; box.classList.add('visible');
+  setTimeout(function() { box.classList.remove('visible'); }, 8000);
+}
+
+// === Save to library ===
+function openSaveLabelModal() {
+  if (!diskWriteEnabled) {
+    flashError('Connect to disk first to save to library.');
+    return;
+  }
+  document.getElementById('saveLabel').value = '';
+  document.getElementById('saveLabelModal').classList.add('open');
+  setTimeout(function() { document.getElementById('saveLabel').focus(); }, 50);
+}
+function cancelSaveLabel() {
+  document.getElementById('saveLabelModal').classList.remove('open');
+}
+async function confirmSaveLabel() {
+  var label = document.getElementById('saveLabel').value.trim();
+  document.getElementById('saveLabelModal').classList.remove('open');
+  await saveToLibrary(label);
+}
+
+async function saveToLibrary(label) {
+  if (!pmsDataDirHandle) { flashError('Disk not connected.'); return; }
+  try {
+    var libDir = await pmsDataDirHandle.getDirectoryHandle('library', { create: true });
+    var now = new Date();
+    var ts = now.toISOString().slice(0, 16).replace(/[:T]/g, '-').replace(/-(\d{2})-(\d{2})$/, '-$1$2');
+    // ts is now YYYY-MM-DD-HHMM
+    var fname = ts + (label ? '-' + label.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40) : '') + '.json';
+    var payload = {
+      _meta: {
+        saved_at: now.toISOString(),
+        kind: 'library',
+        label: label || null,
+      },
+      CONFIG: CONFIG,
+      EDITS: EDITS,
+    };
+    var fileHandle = await libDir.getFileHandle(fname, { create: true });
+    var writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify(payload, null, 2));
+    await writable.close();
+    flashSuccess('Saved to library: ' + fname);
+  } catch (e) {
+    console.error(e);
+    flashError('Save to library failed: ' + e.message);
+  }
+}
+
+// D-PMS-48: Restore from any of the auto-backup files
+async function restoreFromBackup() {
+  if (!pmsDataDirHandle) {
+    flashError('Connect to disk first to access auto-backups.');
+    return;
+  }
+  try {
+    var backupsDir = await pmsDataDirHandle.getDirectoryHandle('auto-backups', { create: false });
+    var files = [];
+    for await (var entry of backupsDir.values()) {
+      if (entry.kind === 'file' && /^\d{4}-\d{2}-\d{2}\.json$/.test(entry.name)) {
+        files.push(entry.name);
+      }
+    }
+    if (!files.length) {
+      flashError('No auto-backup files found in pms-data/auto-backups/');
+      return;
+    }
+    files.sort();  // oldest first
+    var picked = prompt('Auto-backups available (newest last):\n\n' + files.join('\n') + '\n\nEnter the date (YYYY-MM-DD) to restore, or Cancel:');
+    if (!picked) return;
+    var fname = picked + '.json';
+    if (!files.includes(fname)) {
+      flashError('No backup file named ' + fname);
+      return;
+    }
+    var fh = await backupsDir.getFileHandle(fname, { create: false });
+    var f = await fh.getFile();
+    var text = await f.text();
+    var parsed = JSON.parse(text);
+    if (!parsed.EDITS) {
+      flashError('Backup file does not contain EDITS field');
+      return;
+    }
+    if (!confirm('Restore from ' + fname + '? Current state has ' + countSlots(EDITS) + ' tranche edit(s); backup has ' + countSlots(parsed.EDITS) + '. Current state will be overwritten.')) return;
+    EDITS = parsed.EDITS;
+    saveEdits();
+    render();
+    flashSuccess8s('Restored from ' + fname + ': ' + countSlots(EDITS) + ' tranche edit(s).');
+  } catch (e) {
+    console.error('restoreFromBackup error', e);
+    flashError('Restore failed: ' + e.message);
+  }
+}
+
+// === Import ===
+function importFromFile(ev) {
+  var file = ev.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var parsed = JSON.parse(e.target.result);
+      if (!parsed.EDITS) {
+        flashError('File does not contain an EDITS field.');
+        return;
+      }
+      if (!confirm('Overwrite current state with imported file? Current state has ' + Object.keys(EDITS).length + ' investment(s).')) return;
+      EDITS = parsed.EDITS;
+      saveEdits();
+      render();
+      flashSuccess('Imported state from ' + file.name + ' (' + Object.keys(EDITS).length + ' investments).');
+    } catch (err) {
+      flashError('Import failed: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value = '';  // allow re-importing same file
+}
+
+function clearAllEdits() {
+  if (!confirm('Clear ALL tranche edits across all 16 slots? Tickers stay.')) return;
+  EDITS = {}; saveEdits(); render();
+}
+
+// === Edit helpers (slot-based) ===
+function getEdit(invIdx, slotType) {
+  if (!EDITS[invIdx]) return null;
+  return EDITS[invIdx][slotType] || null;
+}
+function setEditField(invIdx, slotType, field, value) {
+  if (!EDITS[invIdx]) EDITS[invIdx] = {};
+  if (!EDITS[invIdx][slotType]) EDITS[invIdx][slotType] = {};
+  EDITS[invIdx][slotType][field] = value;
+  saveEdits(); render();
+}
+// D-PMS-64: toggle promotion badge to show/hide the date editor
+function togglePromoBadge(el) {
+  el.classList.toggle('editing');
+  // If editing now, focus the date input
+  if (el.classList.contains('editing')) {
+    var input = el.querySelector('input[type="date"]');
+    if (input) setTimeout(function() { input.focus(); }, 0);
+  }
+}
+
+// D-PMS-113 (09-May-26): on init, walk EDITS for any _ticker_override that's in PMS_UNIVERSE
+// but not yet in CHART_DATA, and async-load its chart. This makes the override survive reload
+// and the row picks up the name + meta on the chart-load callback.
+function rehydrateOverrideCharts() {
+  if (!window.PMS_UNIVERSE || !PMS_UNIVERSE.data) return;
+  if (!window.PMS_CHART_DATA) window.PMS_CHART_DATA = { data: {} };
+  if (!PMS_CHART_DATA.data) PMS_CHART_DATA.data = {};
+  Object.keys(EDITS || {}).forEach(function(idx) {
+    var ov = EDITS[idx] && EDITS[idx]._ticker_override;
+    if (!ov) return;
+    if (PMS_CHART_DATA.data[ov]) return;  // already loaded (e.g. one of the 9 hardcoded)
+    if (!(ov in PMS_UNIVERSE.data)) return;  // not in universe — leave for warning UX
+    if (window._pmsTickerLoadInflight && window._pmsTickerLoadInflight[ov]) return;
+    if (!window._pmsTickerLoadInflight) window._pmsTickerLoadInflight = {};
+    window._pmsTickerLoadInflight[ov] = true;
+    loadTickerChart(ov, parseInt(idx, 10));
+  });
+}
+
+// D-PMS-50 + D-PMS-71: set placeholder slot ticker.
+// D-PMS-71 (09-May-26): typed ticker is validated against PMS_UNIVERSE.data.
+//   - If not in universe → show inline warning + reject (revert to previous value).
+//   - If in universe but chart not yet loaded → dynamically inject pms-charts/{TICKER}.js,
+//     wait for onload, then merge into PMS_CHART_DATA.data and re-render.
+//   - If in universe AND already loaded → just save + re-render the row.
+window._pmsTickerLoadInflight = window._pmsTickerLoadInflight || {};
+
+function setPlaceholderTicker(invIdx, value) {
+  var raw = (value || '').trim().toUpperCase();
+  if (!EDITS[invIdx]) EDITS[invIdx] = {};
+  // Empty value = clear
+  if (!raw) {
+    delete EDITS[invIdx]._ticker_override;
+    saveEdits();
+    clearTickerWarning(invIdx);
+    return;
+  }
+  // Universe check
+  var universe = (window.PMS_UNIVERSE && PMS_UNIVERSE.data) ? PMS_UNIVERSE.data : {};
+  if (!(raw in universe)) {
+    showTickerWarning(invIdx, 'Ticker "' + raw + '" not in MD universe (' + Object.keys(universe).length + ' tickers). Try a known ticker like RHM-DE.');
+    return;
+  }
+  clearTickerWarning(invIdx);
+  EDITS[invIdx]._ticker_override = raw;
+  saveEdits();
+  // Already loaded? — just trigger render so the row activates.
+  if (window.PMS_CHART_DATA && PMS_CHART_DATA.data && PMS_CHART_DATA.data[raw]) {
+    setTimeout(render, 0);
+    return;
+  }
+  // Already in flight?
+  if (window._pmsTickerLoadInflight[raw]) return;
+  window._pmsTickerLoadInflight[raw] = true;
+  loadTickerChart(raw, invIdx);
+}
+
+// D-PMS-71: dynamically inject <script> for pms-charts/{TICKER}.js. On load, merge into PMS_CHART_DATA.data and re-render.
+function loadTickerChart(ticker, invIdx) {
+  var safe = ticker.replace(/\./g, '_').replace(/-/g, '_');
+  var src = 'pms-charts/' + ticker + '.js';
+  var s = document.createElement('script');
+  s.src = src;
+  s.async = false;
+  var done = false;
+  var timeoutId = null;
+  function complete() {
+    if (done) return;
+    done = true;
+    if (timeoutId) clearTimeout(timeoutId);
+    delete window._pmsTickerLoadInflight[ticker];
+  }
+  s.onload = function() {
+    var varName = 'PMS_CHART_DATA_' + safe;
+    var payload = window[varName];
+    if (payload && payload.data && Array.isArray(payload.data)) {
+      if (!window.PMS_CHART_DATA) window.PMS_CHART_DATA = {data: {}};
+      if (!PMS_CHART_DATA.data) PMS_CHART_DATA.data = {};
+      PMS_CHART_DATA.data[ticker] = payload.data;
+      // Reuse the same alias mechanism used by main pipeline (e.g., CARL.B-DK / CARLB-DK).
+      var alias = ticker.replace(/\./g, '');
+      if (alias !== ticker && !PMS_CHART_DATA.data[alias]) {
+        PMS_CHART_DATA.data[alias] = payload.data;
+      }
+      complete();
+      render();
+    } else {
+      complete();
+      showTickerWarning(invIdx, 'Loaded ' + src + ' but no chart payload found.');
+    }
+  };
+  s.onerror = function() {
+    complete();
+    showTickerWarning(invIdx, 'No chart data file at ' + src + ' (404). Ticker is in the universe but chart not built.');
+  };
+  // 5s timeout fallback
+  timeoutId = setTimeout(function() {
+    if (done) return;
+    showTickerWarning(invIdx, 'Timeout loading ' + src + ' (>5s).');
+    complete();
+  }, 5000);
+  document.head.appendChild(s);
+}
+
+// D-PMS-71: show inline warning under the placeholder ticker input.
+function showTickerWarning(invIdx, msg) {
+  var input = document.querySelector('input.ticker-edit[oninput*="setPlaceholderTicker(' + invIdx + ',"]');
+  if (!input) return;
+  var existing = input.parentElement.querySelector('.ticker-warn');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.className = 'ticker-warn';
+    existing.style.cssText = 'color:var(--red);font-size:9.5px;margin-top:3px;line-height:1.3;max-width:170px;';
+    input.parentElement.appendChild(existing);
+  }
+  existing.textContent = msg;
+}
+function clearTickerWarning(invIdx) {
+  var input = document.querySelector('input.ticker-edit[oninput*="setPlaceholderTicker(' + invIdx + ',"]');
+  if (!input) return;
+  var existing = input.parentElement.querySelector('.ticker-warn');
+  if (existing) existing.remove();
+}
+
+// D-PMS-49: warn if user is adding a Core MM tranche but no PB tranche exists for this investment
+// Returns true to allow, false if user cancelled
+function checkPbRequirementForMM(invIdx, slotType) {
+  if (!MM_TYPES[slotType]) return true;  // not an MM slot, no check
+  // Does this investment already have any PB edit (with data)?
+  var hasPb = ['PB1', 'PB2'].some(function(pb) { return hasEdit(invIdx, pb); });
+  if (hasPb) return true;
+  var ticker = (CONFIG.investments[invIdx] || {}).ticker || 'this investment';
+  return confirm('No probing bet (PB1 or PB2) exists for ' + ticker + ' yet. New investments should normally start with a PB before adding Core MM tranches. (For backfilling live positions, this is fine.) Continue anyway?');
+}
+
+// D-PMS-43: MA-stop buffer input wrapper
+function setBufferEdit(invIdx, slotType, inputEl) {
+  var raw = inputEl.value;
+  var n = parseFloat(raw);
+  if (isNaN(n)) { setEditField(invIdx, slotType, 'buffer_pct', null); return; }
+  // Clamp to [0, 0.5] (50% max — sanity)
+  if (n < 0) n = 0;
+  if (n > 50) n = 50;
+  setEditField(invIdx, slotType, 'buffer_pct', n / 100);
+}
+// D-PMS-38: %AUM input wrapper with slot-cap warning + revert-on-cancel
+function setPctEdit(invIdx, slotType, inputEl) {
+  var raw = inputEl.value;
+  var decimal = pctInputToDecimal(raw);
+  if (decimal != null) {
+    var capDecimal = SLOT_CAP_DECIMAL[slotType];
+    var capPct = capDecimal * 100;
+    var enteredPct = decimal * 100;
+    if (decimal > capDecimal) {
+      var ok = confirm(enteredPct.toFixed(2) + '% exceeds the ' + slotType + ' cap of ' + capPct + '% — continue anyway?');
+      if (!ok) {
+        var priorEdit = getEdit(invIdx, slotType);
+        var priorPct = priorEdit && priorEdit.target_size_pct != null ? priorEdit.target_size_pct : null;
+        inputEl.value = decimalToPctInput(priorPct);
+        return;
+      }
+    }
+    // D-PMS-49: PB-required check for new MM tranches
+    if (decimal > 0 && !checkPbRequirementForMM(invIdx, slotType)) {
+      var priorEdit2 = getEdit(invIdx, slotType);
+      var priorPct2 = priorEdit2 && priorEdit2.target_size_pct != null ? priorEdit2.target_size_pct : null;
+      inputEl.value = decimalToPctInput(priorPct2);
+      return;
+    }
+  }
+  setEditField(invIdx, slotType, 'target_size_pct', decimal);
+}
+function clearEdit(invIdx, slotType) {
+  if (EDITS[invIdx] && EDITS[invIdx][slotType]) {
+    delete EDITS[invIdx][slotType];
+    if (!Object.keys(EDITS[invIdx]).length) delete EDITS[invIdx];
+    saveEdits(); render();
+  }
+}
+function hasEdit(invIdx, slotType) {
+  var e = getEdit(invIdx, slotType);
+  return !!(e && (e.entry_date || (e.target_size_pct != null && e.target_size_pct > 0)));
+}
+
+// === Tester logic ===
+function findIndexByDate(ticker, dateStr) {
+  var series = (CHART_DATA.data || {})[ticker];
+  if (!series || !dateStr) return -1;
+  for (var i = 0; i < series.length; i++) if (series[i].d >= dateStr) return i;
+  return -1;
+}
+function getMaOnDate(ticker, dateStr, maName) {
+  var idx = findIndexByDate(ticker, dateStr);
+  if (idx < 0) return null;
+  var entry = CHART_DATA.data[ticker][idx];
+  var key = 'ma' + maName.replace('D', '');
+  return entry[key] !== undefined ? entry[key] : null;
+}
+function calcStop(ma, buf) { var b = (buf == null) ? BUFFER : buf; return (ma == null) ? null : +(ma * (1 - b)).toFixed(4); }
+
+function walkForBreach(ticker, entryDateStr, stopMa, bufferOverride) {
+  var series = (CHART_DATA.data || {})[ticker];
+  if (!series) return null;
+  var startIdx = findIndexByDate(ticker, entryDateStr);
+  if (startIdx < 0) return null;
+  var maKey = 'ma' + stopMa.replace('D', '');
+  var immediate = !!GRACE_IMMEDIATE[stopMa];
+  var bufVal = (bufferOverride == null) ? BUFFER : bufferOverride;
+  var rawBreach = null, graceBreach = null, streak = 0, lastIdx = -999;
+  for (var i = startIdx; i < series.length; i++) {
+    var day = series[i]; var ma = day[maKey]; if (ma == null) continue;
+    var stopLevel = ma * (1 - bufVal);
+    if (day.c < stopLevel) {
+      if (!rawBreach) rawBreach = { breach_date: day.d, breach_close: day.c, stop_level: +stopLevel.toFixed(4), days_held: i - startIdx };
+      if (i === lastIdx + 1 || lastIdx === -999) streak += 1; else streak = 1;
+      lastIdx = i;
+      var dt = new Date(day.d); var isFri = dt.getDay() === 5;
+      if (immediate) {
+        if (!graceBreach) graceBreach = { trigger:'IMMEDIATE', breach_date: day.d, breach_close: day.c, stop_level: +stopLevel.toFixed(4), days_held: i - startIdx };
+      } else {
+        if (streak >= GRACE_DAILY_THRESHOLD && !graceBreach) graceBreach = { trigger:'DAILY_3', breach_date: day.d, breach_close: day.c, stop_level: +stopLevel.toFixed(4), days_held: i - startIdx, streak };
+        if (isFri && !graceBreach) graceBreach = { trigger:'WEEKLY', breach_date: day.d, breach_close: day.c, stop_level: +stopLevel.toFixed(4), days_held: i - startIdx };
+      }
+    } else { streak = 0; }
+  }
+  return { raw_breach: rawBreach, grace_breach: graceBreach, tier: immediate ? 'immediate' : 'tactical' };
+}
+
+function runTester(ticker, pctAum, entryDateStr, stopMa, bufferOverride) {
+  var series = (CHART_DATA.data || {})[ticker];
+  if (!series) return { error: 'No chart data for ' + ticker };
+  var idx = findIndexByDate(ticker, entryDateStr);
+  if (idx < 0) return { error: 'No data on or after ' + entryDateStr };
+  var entry = series[idx];
+  var entryMa = getMaOnDate(ticker, entryDateStr, stopMa);
+  var entryStop = calcStop(entryMa, bufferOverride);
+  var latest = series[series.length - 1];
+  var maKey = 'ma' + stopMa.replace('D', '');
+  var currentMa = latest[maKey];
+  var currentStop = calcStop(currentMa, bufferOverride);
+  var paperPnlPerShare = (latest.c / entry.c - 1);
+  var paperPnlAum = (pctAum || 0) * paperPnlPerShare;
+  var lossRiskAum = (currentStop && pctAum) ? pctAum * (currentStop / latest.c - 1) : null;
+  var entryWarn = null;
+  if (entry.c < entryStop) entryWarn = 'BELOW_STOP';
+  else if (entryMa != null && entry.c < entryMa) entryWarn = 'BELOW_MA_ABOVE_STOP';
+  var breach = walkForBreach(ticker, entryDateStr, stopMa, bufferOverride);
+  // D-PMS-59: Value AUM = original size × (current price / entry close) — % AUM the tranche is worth right now
+  var valueAumPct = (pctAum && entry.c) ? pctAum * (latest.c / entry.c) : null;
+  return { ok: true, entry_close: entry.c, entry_date_actual: entry.d, entry_ma: entryMa, entry_stop: entryStop,
+    initial_stop_distance_pct: (entryStop != null) ? (entryStop / entry.c - 1) : null,
+    current_price: latest.c, current_ma: currentMa, current_stop: currentStop,
+    stop_distance_pct: (currentStop != null) ? (currentStop / latest.c - 1) : null,
+    value_aum_pct: valueAumPct,
+    paper_pnl_per_share: paperPnlPerShare, paper_pnl_aum: paperPnlAum, loss_risk_aum: lossRiskAum,
+    entry_warn: entryWarn, breach: breach };
+}
+
+// === Soft validation gates ===
+function getCriteriaForSlot(invIdx, slotType) {
+  var ticker = CONFIG.investments[invIdx].ticker;
+  if (!ticker) return null;
+  var fr = (FILTER_RESULTS.data || {})[ticker];
+  if (!fr || !fr.available) return { available: false, ticker: ticker };
+  if (PB_TYPES[slotType]) return { available: true, ticker: ticker, criterion: 'probing_bet', stage: fr.pb_stage, badge: fr.pb_pass };
+  var existingMM = TRADE_TYPES.filter(function(s) { return MM_TYPES[s] && hasEdit(invIdx, s); });
+  if (existingMM.length === 0) return { available: true, ticker: ticker, criterion: 'mm99', stage: fr.mm99_stage, score: fr.mm99_score, badge: fr.mm99_pass };
+  return { available: true, ticker: ticker, criterion: 'uptrend_retest', stage: fr.utr_stage, badge: fr.utr_pass };
+}
+
+function gateCheckBeforeDrop(invIdx, fromSlot, toSlot) {
+  if (PB_TYPES[fromSlot] && PB_TYPES[toSlot]) return 'OK';
+  if (MM_TYPES[fromSlot] && MM_TYPES[toSlot]) return 'OK';
+  var crit = getCriteriaForSlot(invIdx, toSlot);
+  if (!crit) return 'OK';
+  if (!crit.available) return null;
+  if (crit.badge !== 'pass' && crit.badge !== 'partial') {
+    var label = crit.criterion === 'probing_bet' ? 'PB criteria' : crit.criterion === 'mm99' ? 'MM99 criteria' : crit.criterion === 'uptrend_retest' ? 'Uptrend Retest' : crit.criterion;
+    var stage = crit.stage || 'None';
+    return 'Master Dashboard ' + label + ' for ' + crit.ticker + ' is ' + stage + ' — continue anyway?';
+  }
+  return 'OK';
+}
+
+// === Drag-drop ===
+function onDragStart(ev, invIdx, slotType) {
+  if (!hasEdit(invIdx, slotType)) { ev.preventDefault(); return false; }
+  dragState = { invIdx: invIdx, fromSlot: slotType };
+  ev.dataTransfer.effectAllowed = 'move';
+  ev.dataTransfer.setData('text/plain', invIdx + ':' + slotType);
+  setTimeout(function() {
+    var row = document.querySelector('[data-row-key="' + invIdx + ':' + slotType + '"]');
+    if (row) row.classList.add('drag-source');
+  }, 0);
+  return true;
+}
+function onDragEnd(ev) {
+  document.querySelectorAll('.drag-source, .drag-target').forEach(function(el) { el.classList.remove('drag-source', 'drag-target'); });
+  dragState = null;
+}
+function onDragOver(ev, invIdx, slotType) {
+  if (!dragState) return;
+  if (dragState.invIdx !== invIdx) return;
+  if (dragState.fromSlot === slotType) return;
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = 'move';
+  var row = ev.currentTarget;
+  document.querySelectorAll('.drag-target').forEach(function(el) { el.classList.remove('drag-target'); });
+  row.classList.add('drag-target');
+}
+function onDragLeave(ev) { ev.currentTarget.classList.remove('drag-target'); }
+function onDrop(ev, invIdx, slotType) {
+  ev.preventDefault();
+  if (!dragState) return;
+  if (dragState.invIdx !== invIdx) { flashError('Cross-investment dragging blocked (D-PMS-29).'); onDragEnd(ev); return; }
+  if (dragState.fromSlot === slotType) { onDragEnd(ev); return; }
+  var fromSlot = dragState.fromSlot;
+  var toSlot = slotType;
+  var gate = gateCheckBeforeDrop(invIdx, fromSlot, toSlot);
+  if (gate && gate !== 'OK') {
+    if (!confirm(gate)) { onDragEnd(ev); return; }
+  }
+  if (PB_TYPES[fromSlot] && MM_TYPES[toSlot]) {
+    pendingPromote = { invIdx: invIdx, fromSlot: fromSlot, toSlot: toSlot };
+    var ticker = CONFIG.investments[invIdx].ticker;
+    document.getElementById('promoteText').textContent = 'Promoting ' + ticker + ' from ' + fromSlot + ' → ' + toSlot + '. Original entry preserved. Pick the new stop MA:';
+    document.getElementById('promoteStopMa').value = '100D';
+    document.getElementById('promoteModal').classList.add('open');
+    onDragEnd(ev);
+    return;
+  }
+  performMove(invIdx, fromSlot, toSlot, null);
+  onDragEnd(ev);
+}
+function performMove(invIdx, fromSlot, toSlot, newStopMa) {
+  var fromEdit = getEdit(invIdx, fromSlot);
+  var toEdit = getEdit(invIdx, toSlot);
+  if (!fromEdit) return;
+  var movingEdit = Object.assign({}, fromEdit);
+  if (newStopMa) {
+    // Promotion: PB → MM
+    movingEdit.promoted_from = fromSlot;
+    movingEdit.promoted_at = new Date().toISOString().slice(0, 10);
+    movingEdit.stop_ma = newStopMa;
+  } else {
+    // D-PMS-67: non-promotion move (reorder/swap). Strip stale promotion metadata if the destination
+    // slot is the SAME as the original promoted_from (would create nonsense "Promoted from X" when in slot X).
+    if (movingEdit.promoted_from === toSlot) {
+      delete movingEdit.promoted_from;
+      delete movingEdit.promoted_at;
+    }
+  }
+  if (!EDITS[invIdx]) EDITS[invIdx] = {};
+  EDITS[invIdx][toSlot] = movingEdit;
+  if (toEdit) {
+    // D-PMS-67: when swapping back, also strip stale metadata from the swapped-back tranche
+    var swappedBack = Object.assign({}, toEdit);
+    if (swappedBack.promoted_from === fromSlot) {
+      delete swappedBack.promoted_from;
+      delete swappedBack.promoted_at;
+    }
+    EDITS[invIdx][fromSlot] = swappedBack;
+  } else {
+    delete EDITS[invIdx][fromSlot];
+  }
+  if (!Object.keys(EDITS[invIdx]).length) delete EDITS[invIdx];
+  saveEdits(); render();
+}
+
+// D-PMS-67: on-load cleanup for already-corrupt state (e.g. RYA-IE.PB1 with promoted_from='PB1')
+function cleanupCorruptPromoteMetadata() {
+  var fixed = 0;
+  Object.keys(EDITS).forEach(function(invIdx) {
+    if (typeof EDITS[invIdx] !== 'object') return;
+    Object.keys(EDITS[invIdx]).forEach(function(slotType) {
+      if (slotType.indexOf('_') === 0) return;  // skip _ticker_override etc.
+      var e = EDITS[invIdx][slotType];
+      if (!e || typeof e !== 'object') return;
+      if (e.promoted_from && e.promoted_from === slotType) {
+        delete e.promoted_from;
+        delete e.promoted_at;
+        fixed++;
+      }
+    });
+  });
+  if (fixed > 0) {
+    console.log('[PMS] Cleaned ' + fixed + ' corrupt promotion metadata entries');
+    saveEditsToLocalStorage();
+  }
+}
+function confirmPromote() {
+  if (!pendingPromote) return;
+  var newMa = document.getElementById('promoteStopMa').value;
+  performMove(pendingPromote.invIdx, pendingPromote.fromSlot, pendingPromote.toSlot, newMa);
+  pendingPromote = null;
+  document.getElementById('promoteModal').classList.remove('open');
+}
+function cancelPromote() { pendingPromote = null; document.getElementById('promoteModal').classList.remove('open'); }
+
+function flashError(msg) {
+  var box = document.getElementById('errorBox');
+  box.textContent = msg; box.classList.add('visible');
+  setTimeout(function() { box.classList.remove('visible'); }, 6000);
+}
+function flashSuccess(msg) {
+  var box = document.getElementById('successBox');
+  box.textContent = msg; box.classList.add('visible');
+  setTimeout(function() { box.classList.remove('visible'); }, 4000);
+}
+
+// === % I/O ===
+function decimalToPctInput(d) {
+  if (d == null || isNaN(d)) return '';
+  // D-PMS-65: always show 1dp for %AUM & buffer cells
+  return (d * 100).toFixed(1);
+}
+function pctInputToDecimal(s) {
+  var n = parseFloat(s);
+  if (isNaN(n)) return null;
+  return n / 100;
+}
+
+// === Render ===
+function toggleHideAtEntry() {
+  hideAtEntry = !hideAtEntry;
+  try { localStorage.setItem('pms_hide_at_entry_v5c', hideAtEntry ? '1' : '0'); } catch(e) {}
+  applyHideAtEntry();
+  renderPortfolioSection();  // D-PMS-94d: re-render to show/hide Entry col conditionally
+}
+function applyHideAtEntry() {
+  var btn = document.getElementById('btnHideAtEntry');
+  if (btn) btn.textContent = hideAtEntry ? 'Show at-entry' : 'Hide at-entry';
+  document.body.classList.toggle('hide-at-entry-cols', hideAtEntry);
+  var newColspan = hideAtEntry ? 2 : 6;
+  document.querySelectorAll('th.group-atentry').forEach(function(th) {
+    th.setAttribute('colspan', newColspan);
+  });
+}
+
+// D-PMS-70: toggle Sort-by-stop-MA mode (Core MM tranches only)
+function toggleHideAlerts() {
+  hideAlerts = !hideAlerts;
+  try { localStorage.setItem('pms_hide_alerts_v5j_12', hideAlerts ? '1' : '0'); } catch(e) {}
+  applyHideAlerts();
+  // D-PMS-106: re-render so ticker rowspan recomputes excluding warn-line rows
+  render();
+}
+
+function applyHideAlerts() {
+  var btn = document.getElementById('btnHideAlerts');
+  if (btn) btn.textContent = hideAlerts ? 'Show alerts' : 'Hide alerts';
+  document.body.classList.toggle('hide-alerts', hideAlerts);
+}
+
+function toggleSortByStopMa() {
+  sortByStopMa = !sortByStopMa;
+  try { localStorage.setItem('pms_sort_by_stop_ma_v5j', sortByStopMa ? '1' : '0'); } catch(e) {}
+  applySortByStopMaButtonLabel();
+  render();
+}
+function applySortByStopMaButtonLabel() {
+  var btn = document.getElementById('btnSortByStopMa');
+  if (!btn) return;
+  btn.textContent = sortByStopMa ? 'Manual order' : 'Sort by stop MA';
+  btn.classList.toggle('btn-primary', sortByStopMa);
+}
+
+// D-PMS-115: toggle sparkline collapsed/expanded mode
+function toggleSparkCollapse() {
+  sparkCollapsed = !sparkCollapsed;
+  try { localStorage.setItem('pms_spark_collapsed_v5k', sparkCollapsed ? '1' : '0'); } catch(e) {}
+  applySparkCollapseLabel();
+  renderPortfolioSection();
+}
+function applySparkCollapseLabel() {
+  var btn = document.getElementById('btnSparkCollapse');
+  if (!btn) return;
+  btn.textContent = sparkCollapsed ? 'Sparkline collapsed' : 'Sparkline expanded';
+  btn.classList.toggle('btn-primary', sparkCollapsed);
+}
+
+// D-PMS-70: return the slotType render order for a given investment.
+// PB1, PB2 always first (fixed). MM1-MM4 either default order, or
+// (when sortByStopMa is on) sorted by their tranche's stop_ma ascending,
+// tiebreaker = newest entry_date first.
+var MA_RANK = {'20D':0, '50D':1, '100D':2, '150D':3, '200D':4};
+function sortedTradeTypesForInvestment(invIdx) {
+  if (!sortByStopMa) return TRADE_TYPES;  // ['PB1','PB2','MM1','MM2','MM3','MM4']
+  var pb = ['PB1', 'PB2'];
+  var mm = ['MM1', 'MM2', 'MM3', 'MM4'].slice().sort(function(a, b) {
+    var ea = getEdit(invIdx, a);
+    var eb = getEdit(invIdx, b);
+    // Empty MM slots (no edit at all) sort to the END.
+    // Edited MM with no explicit stop_ma falls back to DEFAULT_STOP_MA[slotType] (100D for MMs).
+    var maA = ea ? MA_RANK[ea.stop_ma || DEFAULT_STOP_MA[a]] : 99;
+    var maB = eb ? MA_RANK[eb.stop_ma || DEFAULT_STOP_MA[b]] : 99;
+    if (maA !== maB) return maA - maB;
+    // tiebreaker: newest entry_date first (descending date string compare)
+    var dA = (ea && ea.entry_date) || '';
+    var dB = (eb && eb.entry_date) || '';
+    if (dA !== dB) return dB.localeCompare(dA);
+    return 0;
+  });
+  return pb.concat(mm);
+}
+
+// === D-PMS-73 to D-PMS-77: PORTFOLIO section (above tranche detail table) ===
+// Returns aggregate data per live investment.
+function gatherPortfolioRows() {
+  var rows = [];
+  CONFIG.investments.forEach(function(inv, invIdx) {
+    var ticker = inv.ticker;
+    // D-PMS-127: include placeholder slots as blank rows (matches PMS 16)
+    var ed = EDITS[invIdx] || {};
+    if ((inv.is_placeholder || !ticker) && !ed._ticker_override) {
+      rows.push({
+        invIdx: invIdx,
+        ticker: inv.ticker || ('Slot ' + (invIdx + 1)),
+        name: inv.name || ('Empty slot ' + (invIdx + 1)),
+        currency: inv.currency || '',
+        deployed: 0, trancheCount: 0, valueAum: 0,
+        atRisk: 0, weightedStopDistance: null,
+        paperPnl: 0, avgPriceMove: null,
+        breachCount: 0, tranches: [], _is_placeholder: true
+      });
+      return;
+    }
+    // Universe-loaded placeholder: use override ticker for compute
+    if ((inv.is_placeholder || !ticker) && ed._ticker_override) {
+      ticker = ed._ticker_override;
+    }
+    // collect all tranches with computed runTester output
+    var trancheData = [];
+    var deployed = 0, valueAum = 0, atRisk = 0, paperPnl = 0, breachCount = 0;
+    var weightedStopDistanceNum = 0, weightedStopDistanceDen = 0;
+    var priceMoveSum = 0, priceMoveCount = 0;
+    TRADE_TYPES.forEach(function(slotType) {
+      var edit = getEdit(invIdx, slotType);
+      if (!edit || !edit.entry_date || edit.target_size_pct == null || edit.target_size_pct <= 0) return;
+      var bufVal = edit.buffer_pct != null ? edit.buffer_pct : 0.02;
+      var stopMa = edit.stop_ma || DEFAULT_STOP_MA[slotType];
+      var r = runTester(ticker, edit.target_size_pct, edit.entry_date, stopMa, bufVal);
+      if (!r || !r.ok) return;
+      deployed += edit.target_size_pct;
+      valueAum += (r.value_aum_pct || 0);
+      atRisk += (r.loss_risk_aum || 0);
+      paperPnl += (r.paper_pnl_aum || 0);
+      if (r.breach && r.breach.grace_breach) breachCount += 1;
+      if (r.stop_distance_pct != null) {
+        weightedStopDistanceNum += r.stop_distance_pct * edit.target_size_pct;
+        weightedStopDistanceDen += edit.target_size_pct;
+      }
+      if (r.paper_pnl_per_share != null) {
+        priceMoveSum += r.paper_pnl_per_share;
+        priceMoveCount += 1;
+      }
+      trancheData.push({slot: slotType, stop_ma: stopMa, stop_distance_pct: r.stop_distance_pct, loss_risk_aum: r.loss_risk_aum, value_aum_pct: r.value_aum_pct});
+    });
+    if (deployed === 0) {
+      // D-PMS-127: emit as placeholder-style row instead of skipping
+      rows.push({
+        invIdx: invIdx, ticker: ticker, name: inv.name || ticker, currency: inv.currency || '',
+        deployed: 0, trancheCount: 0, valueAum: 0,
+        atRisk: 0, weightedStopDistance: null,
+        paperPnl: 0, avgPriceMove: null,
+        breachCount: 0, tranches: [], _is_placeholder: true
+      });
+      return;
+    }
+    var weightedStopDistance = weightedStopDistanceDen > 0 ? weightedStopDistanceNum / weightedStopDistanceDen : null;
+    var avgPriceMove = priceMoveCount > 0 ? priceMoveSum / priceMoveCount : null;
+    rows.push({
+      invIdx: invIdx, ticker: ticker, name: inv.name || '', currency: inv.currency || '',
+      deployed: deployed, trancheCount: trancheData.length, valueAum: valueAum,
+      atRisk: atRisk, weightedStopDistance: weightedStopDistance, paperPnl: paperPnl,
+      avgPriceMove: avgPriceMove, breachCount: breachCount, tranches: trancheData
+    });
+  });
+  // sort by ticker ascending
+  rows.sort(function(a, b) { return a.ticker.localeCompare(b.ticker); });
+  return rows;
+}
+
+// D-PMS-77: dot colours match MA tints
+var MA_DOT_COLOURS = {'20D': '#d97706', '50D': '#2563eb', '100D': '#0d9488', '150D': '#db2777', '200D': '#475569'};
+
+// D-PMS-114 / 115 / 117 (v5k): render sparkline for one investment row using PILLS not dots.
+// Each pill = rounded-rect with the MA number ('20', '50', '100', '150', '200') tinted by MA colour.
+// Expanded (default): one pill per tranche; same-MA stacked side-by-side; composite slash labels.
+// Collapsed: same-MA tranches merge to ONE pill per (cluster, MA) with SUMMED bps + AUM%.
+// Key removed from SVG — now in section title strip (D-PMS-117).
+function renderSparkline(tranches, axisMin, axisMax, isFirstRow) {
+  var paddingX = 8;
+  var vbWidth = 600;
+
+  // Filter null stop-distances + sort
+  var rawTranches = tranches.filter(function(t) { return t.stop_distance_pct != null; })
+    .map(function(t) { return { t: t, sd: t.stop_distance_pct, x: undefined }; })
+    .sort(function(a, b) { return a.sd - b.sd; });
+
+  // Plot bounds (used by xFor)
+  var plotX0 = paddingX;
+  var plotX1 = vbWidth - paddingX;
+  var plotW = plotX1 - plotX0;
+  var range = axisMax - axisMin;
+  if (range <= 0) range = 1;
+  function xFor(stopDist) {
+    var t = (stopDist - axisMin) / range;
+    return plotX0 + t * plotW;
+  }
+  rawTranches.forEach(function(rt) { rt.x = xFor(rt.sd); });
+
+  // Cluster: chain by 14px proximity on canvas
+  var proximityPx = 22;  // D-PMS-114-fix2: bumped from 14 to match pillSpacingX (20px pill + 2px gap)
+  var clusters = {};
+  var clusterCounter = 0;
+  var lastX = -Infinity;
+  var lastKey = null;
+  rawTranches.forEach(function(rt) {
+    var key;
+    if (rt.x - lastX <= proximityPx && lastKey !== null) {
+      key = lastKey;
+    } else {
+      key = 'c' + clusterCounter++;
+      clusters[key] = [];
+    }
+    clusters[key].push(rt.t);
+    lastX = rt.x;
+    lastKey = key;
+  });
+
+  // D-PMS-114-fix3: POST-CLUSTER MERGE for visual pill collision.
+  // Walk clusters left-to-right; if cluster N+1's leftmost pill would land
+  // within pillSpacingX of cluster N's rightmost pill, merge them.
+  (function mergeCollidingClusters() {
+    var pillW_local = 20;
+    var pillSpacingX_local = pillW_local + 2;
+    var orderedKeys = Object.keys(clusters).sort(function(a, b) { return parseInt(a.slice(1)) - parseInt(b.slice(1)); });
+    var changed = true;
+    while (changed) {
+      changed = false;
+      for (var i = 0; i < orderedKeys.length - 1; i++) {
+        var kA = orderedKeys[i], kB = orderedKeys[i+1];
+        if (!clusters[kA] || !clusters[kB]) continue;
+        var aMembers = clusters[kA];
+        var bMembers = clusters[kB];
+        var aAnchorSd = aMembers.reduce(function(s, t) { return s + t.stop_distance_pct; }, 0) / aMembers.length;
+        var bAnchorSd = bMembers.reduce(function(s, t) { return s + t.stop_distance_pct; }, 0) / bMembers.length;
+        var aAnchorX = xFor(aAnchorSd);
+        var bAnchorX = xFor(bAnchorSd);
+        var aRight = aAnchorX + ((aMembers.length - 1) * pillSpacingX_local) / 2 + pillW_local / 2;
+        var bLeft  = bAnchorX - ((bMembers.length - 1) * pillSpacingX_local) / 2 - pillW_local / 2;
+        if (bLeft - aRight < 2) {
+          clusters[kA] = aMembers.concat(bMembers);
+          delete clusters[kB];
+          orderedKeys.splice(i+1, 1);
+          changed = true;
+          break;
+        }
+      }
+    }
+  })();
+
+  // D-PMS-115 collapsed: merge same-MA tranches WITHIN each cluster.
+  // Each cluster becomes a list of MERGED items: {stop_ma, sd, n, sum_bps, sum_aum, members[]}.
+  // In Expanded mode the list IS the original members (each one is its own merged-of-one entry).
+  var mergedClusters = {};  // clusterKey -> [{stop_ma, sd_anchor, n, sum_bps, sum_aum, members}]
+  Object.keys(clusters).forEach(function(k) {
+    var mems = clusters[k];
+    if (sparkCollapsed) {
+      var byMa = {};
+      mems.forEach(function(t) {
+        var ma = t.stop_ma || '?';
+        if (!byMa[ma]) {
+          byMa[ma] = { stop_ma: ma, sd_sum: 0, n: 0, sum_bps: 0, sum_aum: 0, members: [] };
+        }
+        byMa[ma].members.push(t);
+        byMa[ma].n += 1;
+        byMa[ma].sd_sum += t.stop_distance_pct;
+        if (t.loss_risk_aum != null && !isNaN(t.loss_risk_aum)) byMa[ma].sum_bps += t.loss_risk_aum;
+        if (t.value_aum_pct != null && !isNaN(t.value_aum_pct)) byMa[ma].sum_aum += t.value_aum_pct;
+      });
+      var rk = {'20D':0,'50D':1,'100D':2,'150D':3,'200D':4};
+      mergedClusters[k] = Object.keys(byMa).map(function(ma) {
+        var b = byMa[ma];
+        return { stop_ma: ma, sd_anchor: b.sd_sum / b.n, n: b.n, sum_bps: b.sum_bps, sum_aum: b.sum_aum, members: b.members };
+      }).sort(function(a, b) { return (rk[a.stop_ma]||5) - (rk[b.stop_ma]||5); });
+    } else {
+      mergedClusters[k] = mems.map(function(t) {
+        return {
+          stop_ma: t.stop_ma,
+          sd_anchor: t.stop_distance_pct,
+          n: 1,
+          sum_bps: (t.loss_risk_aum != null && !isNaN(t.loss_risk_aum)) ? t.loss_risk_aum : 0,
+          sum_aum: (t.value_aum_pct != null && !isNaN(t.value_aum_pct)) ? t.value_aum_pct : 0,
+          members: [t]
+        };
+      });
+      var rk2 = {'20D':0,'50D':1,'100D':2,'150D':3,'200D':4};
+      mergedClusters[k].sort(function(a, b) { return (rk2[a.stop_ma]||5) - (rk2[b.stop_ma]||5); });
+    }
+  });
+
+  // Vertical layout — pills are 14px wide x 11px tall, sit centred on baseline.
+  var labelRowH = 9;
+  var maxLabelLanes = 2;
+  var labelBlockH = labelRowH * maxLabelLanes + 2;
+  var pillW = 20;
+  var pillH = 13;
+  var pillR = 3;             // rounded corners
+  var pillSpacingX = pillW + 2;  // 2px gap between adjacent pills in a cluster
+  var topPad = 2;
+  var maTopPad = 2;
+  var maPostPillH = 4;       // small bottom gap below the pill row
+  var totalHeight = topPad + labelBlockH + pillH + maPostPillH + 2;
+  var baselineY = topPad + labelBlockH + pillH / 2;
+
+  function fmtTickLabel(v) {
+    var n = Math.round(v * 100);
+    if (n < 0) return '(' + Math.abs(n) + ')%';
+    if (n > 0) return '+' + n + '%';
+    return '0%';
+  }
+  function fmtBpInt(bp) {
+    bp = Math.round(bp);
+    if (bp < 0) return '(' + Math.abs(bp) + ')bps';
+    if (bp > 0) return '+' + bp + 'bps';
+    return '0bps';
+  }
+  function fmtAumPctNum(n) {
+    if (n < 0) return '(' + Math.abs(n).toFixed(1) + ')%';
+    return n.toFixed(1) + '%';
+  }
+
+  var svg = '<svg class="pf-spark" width="100%" height="100%" viewBox="0 0 ' + vbWidth + ' ' + totalHeight + '" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="min-height:' + totalHeight + 'px;">';
+  // Gridlines
+  var gridTop = topPad;
+  var gridBot = baselineY + pillH / 2 + maPostPillH;
+  for (var v = Math.ceil(axisMin / 0.025) * 0.025; v <= axisMax + 1e-9; v += 0.025) {
+    if (Math.abs((v / 0.05) - Math.round(v / 0.05)) < 1e-6) continue;
+    var mx = xFor(v);
+    svg += '<line class="pf-spark-minor" x1="' + mx + '" y1="' + gridTop + '" x2="' + mx + '" y2="' + gridBot + '"></line>';
+  }
+  for (var vM = Math.round(axisMin / 0.05) * 0.05; vM <= axisMax + 1e-9; vM += 0.05) {
+    var mxM = xFor(vM);
+    var isZero = Math.abs(vM) < 1e-9;
+    svg += '<line class="pf-spark-major' + (isZero ? ' pf-spark-zero-line' : '') + '" x1="' + mxM + '" y1="' + gridTop + '" x2="' + mxM + '" y2="' + gridBot + '"></line>';
+  }
+  // Baseline
+  svg += '<line class="pf-spark-baseline" x1="' + plotX0 + '" y1="' + baselineY + '" x2="' + plotX1 + '" y2="' + baselineY + '"></line>';
+
+  // PILL placements (one per merged-item per cluster). Side-by-side spread within cluster,
+  // anchored at the cluster's mean sd.
+  var pillPlacements = [];     // {x, anchorX, item, col, ma, n, clusterKey, idxInCluster, clusterSize}
+  var clusterPlacements = [];  // one entry per cluster: anchorX, bpStr, aumStr, labelHalfW, lane, labelX
+  var clusterKeys = Object.keys(mergedClusters).sort(function(a, b) { return parseFloat(a.slice(1)) - parseFloat(b.slice(1)); });
+  clusterKeys.forEach(function(k) {
+    var items = mergedClusters[k];
+    if (!items.length) return;
+    var sdAvg = items.reduce(function(a, x) { return a + x.sd_anchor; }, 0) / items.length;
+    var anchorX = xFor(sdAvg);
+    if (anchorX < plotX0 + pillW / 2) anchorX = plotX0 + pillW / 2;
+    if (anchorX > plotX1 - pillW / 2) anchorX = plotX1 - pillW / 2;
+    var clusterTotalW = (items.length - 1) * pillSpacingX;
+    var firstX = anchorX - clusterTotalW / 2;
+    var lastX = firstX + clusterTotalW;
+
+    // CLUSTER-LEVEL SHIFT (D-PMS-114-fix1): if the cluster would cross either plot
+    // boundary, shift the whole cluster so it stays inside the plot region with all
+    // pills properly spaced. Per-pill clamping caused pills to collapse onto the
+    // boundary, producing visible overlaps.
+    var leftOverflow  = (plotX0 + pillW / 2) - firstX;   // positive when cluster too far left
+    var rightOverflow = lastX - (plotX1 - pillW / 2);    // positive when cluster too far right
+    var clusterShift = 0;
+    if (leftOverflow > 0)        clusterShift = leftOverflow;
+    else if (rightOverflow > 0)  clusterShift = -rightOverflow;
+    firstX += clusterShift;
+    anchorX += clusterShift;  // anchor moves with cluster so leader lines + labels follow
+
+    // Build one pill per item
+    items.forEach(function(it, i) {
+      var px = firstX + i * pillSpacingX;
+      var col = MA_DOT_COLOURS[it.stop_ma] || '#666';
+      pillPlacements.push({
+        x: px, anchorX: anchorX, item: it, col: col, ma: it.stop_ma, n: it.n,
+        clusterKey: k, idxInCluster: i, clusterSize: items.length
+      });
+    });
+
+    // Build composite cluster label
+    var bpStr, aumStr;
+    if (sparkCollapsed) {
+      // Per-MA totals — clean numbers, no slashes
+      var bpParts = items.map(function(it) { return fmtBpInt(it.sum_bps * 10000); });
+      var aumParts = items.map(function(it) { return fmtAumPctNum(it.sum_aum * 100); });
+      // If only one MA in this cluster, just one entry
+      bpStr = bpParts.join(' · ');
+      aumStr = aumParts.join(' · ');
+    } else {
+      // Expanded — original composite slash format
+      var bpStrs = items.map(function(it) {
+        var v = it.members[0].loss_risk_aum;
+        if (v == null || isNaN(v)) return '—';
+        var bp = Math.round(v * 10000);
+        if (bp < 0) return '(' + Math.abs(bp) + ')';
+        if (bp > 0) return '+' + bp;
+        return '0';
+      });
+      var aumStrs = items.map(function(it) {
+        var v = it.members[0].value_aum_pct;
+        if (v == null || isNaN(v)) return '—';
+        return (v * 100).toFixed(1);
+      });
+      if (items.length === 1) {
+        bpStr = bpStrs[0] + 'bps';
+        aumStr = aumStrs[0] + '%';
+      } else {
+        var allNeg = bpStrs.every(function(s) { return s.startsWith('('); });
+        if (allNeg) {
+          bpStr = '(' + bpStrs.map(function(s) { return s.replace(/[()]/g, ''); }).join('/') + ')bps';
+        } else {
+          bpStr = bpStrs.map(function(s) {
+            if (s.startsWith('(')) return '-' + s.replace(/[()]/g, '');
+            return s;
+          }).join('/') + 'bps';
+        }
+        aumStr = aumStrs.join('/') + '%';
+      }
+    }
+    clusterPlacements.push({
+      anchorX: anchorX,
+      bpStr: bpStr,
+      aumStr: aumStr,
+      labelHalfW: Math.max(28, 4 + (bpStr.length + aumStr.length + 1) * 3)
+    });
+  });
+
+  // Lane assignment for cluster labels (label-collision avoidance)
+  clusterPlacements.sort(function(a, b) { return a.anchorX - b.anchorX; });
+  var minGap = 3;
+  var maxShift = 36;
+  var laneRightEdge = [-Infinity, -Infinity, -Infinity];
+  clusterPlacements.forEach(function(cp) {
+    var desired = cp.anchorX;
+    var halfW = cp.labelHalfW;
+    var placed = false;
+    for (var L = 0; L < 3 && !placed; L++) {
+      var prevRight = laneRightEdge[L];
+      var leftEdge = desired - halfW;
+      if (leftEdge < prevRight + minGap) leftEdge = prevRight + minGap;
+      var labelCentre = leftEdge + halfW;
+      var shift = labelCentre - desired;
+      var rightEdge = leftEdge + 2 * halfW;
+      if (shift <= maxShift && rightEdge <= plotX1 + 6) {
+        cp.labelX = labelCentre;
+        cp.lane = L;
+        laneRightEdge[L] = rightEdge;
+        placed = true;
+      }
+    }
+    if (!placed) {
+      cp.labelX = desired;
+      cp.lane = 2;
+      laneRightEdge[2] = Math.max(laneRightEdge[2], desired + halfW);
+    }
+  });
+
+  // Leader lines from labels to cluster anchor (top of pill row)
+  clusterPlacements.forEach(function(cp) {
+    var labelY = topPad + (maxLabelLanes - 1 - cp.lane) * labelRowH + labelRowH;
+    var pillTopY = baselineY - pillH / 2 - 1;
+    if (Math.abs(cp.labelX - cp.anchorX) < 1.5) {
+      svg += '<line class="pf-spark-leader" x1="' + cp.anchorX + '" y1="' + pillTopY + '" x2="' + cp.anchorX + '" y2="' + (labelY + 1) + '"></line>';
+    } else {
+      var midY = labelY + 4;
+      var pts = cp.anchorX + ',' + pillTopY + ' ' + cp.anchorX + ',' + midY + ' ' + cp.labelX + ',' + midY + ' ' + cp.labelX + ',' + (labelY + 1);
+      svg += '<polyline class="pf-spark-leader" fill="none" points="' + pts + '"></polyline>';
+    }
+  });
+
+  // PILLS — rounded-rect with MA number text
+  pillPlacements.forEach(function(p) {
+    var pillX = p.x - pillW / 2;
+    var pillY = baselineY - pillH / 2;
+    var label = p.ma ? p.ma.replace('D', '') : '?';
+    var nSuffix = (p.n > 1) ? ' ×' + p.n : '';
+    var titleText = (p.ma || '?') + ' / ' + p.n + ' tranche' + (p.n === 1 ? '' : 's')
+      + ' / SD avg ' + fmtTickLabel(p.item.sd_anchor)
+      + ' / loss risk ' + fmtBpInt(p.item.sum_bps * 10000)
+      + ' / value AUM ' + fmtAumPctNum(p.item.sum_aum * 100)
+      + nSuffix;
+    svg += '<g class="pf-spark-pill">';
+    svg += '<rect x="' + pillX + '" y="' + pillY + '" width="' + pillW + '" height="' + pillH + '" rx="' + pillR + '" ry="' + pillR + '" fill="' + p.col + '" stroke="#fff" stroke-width="1"><title>' + titleText + '</title></rect>';
+    svg += '<text class="pf-spark-pill-label" x="' + p.x + '" y="' + (baselineY + 3) + '" text-anchor="middle" fill="#fff">' + label + '</text>';
+    if (p.n > 1) {
+      // small superscript count, top-right of pill
+      svg += '<text class="pf-spark-pill-count" x="' + (pillX + pillW - 1) + '" y="' + (pillY + 4) + '" text-anchor="end" fill="#fff">' + p.n + '</text>';
+    }
+    svg += '</g>';
+  });
+
+  // Composite cluster labels
+  clusterPlacements.forEach(function(cp) {
+    var labelY = topPad + (maxLabelLanes - 1 - cp.lane) * labelRowH + labelRowH;
+    // D-PMS-122: detect inverted-stop cluster (all bps prefixed with + = stop above current price)
+    var bpClean = cp.bpStr.replace(/bps$/, '');
+    var bpParts = bpClean.split('/');
+    var allInverted = bpParts.length > 0 && bpParts.every(function(p) { return p.startsWith('+'); });
+    var bpClass = allInverted ? 'pf-spark-bp-text pf-spark-bp-inverted' : 'pf-spark-bp-text';
+    var prefix = allInverted ? '⚠ ' : '';
+    svg += '<text class="pf-spark-pair-label" x="' + cp.labelX + '" y="' + labelY + '" text-anchor="middle">';
+    svg += '<tspan class="' + bpClass + '">' + prefix + cp.bpStr + '</tspan>';
+    svg += '<tspan> </tspan>';
+    svg += '<tspan class="pf-spark-aum-text">' + cp.aumStr + '</tspan>';
+    svg += '</text>';
+  });
+
+  // Axis tick labels — sitting on the baseline (white pill bg so they don't clash with grid)
+  var axisY = baselineY + 3;
+  for (var vL = Math.round(axisMin / 0.05) * 0.05; vL <= axisMax + 1e-9; vL += 0.05) {
+    var lx = xFor(vL);
+    var anchor = 'middle';
+    if (Math.abs(vL - axisMin) < 1e-6) anchor = 'start';
+    else if (Math.abs(vL - axisMax) < 1e-6) anchor = 'end';
+    var labelText = fmtTickLabel(vL);
+    var labelW = labelText.length * 4.5 + 4;
+    var pillX2 = (anchor === 'middle') ? (lx - labelW / 2) : (anchor === 'start' ? lx - 1 : lx - labelW + 1);
+    // Don't draw the axis pill if it would land on top of a sparkline pill
+    var collidesWithPill = false;
+    for (var i = 0; i < pillPlacements.length; i++) {
+      var pp = pillPlacements[i];
+      if (Math.abs(pp.x - lx) < (pillW / 2 + labelW / 2 + 2)) { collidesWithPill = true; break; }
+    }
+    if (!collidesWithPill) {
+      svg += '<rect class="pf-spark-axis-bg" x="' + pillX2 + '" y="' + (baselineY - 6) + '" width="' + labelW + '" height="13" rx="2"></rect>';
+      svg += '<text class="pf-spark-axis" x="' + lx + '" y="' + axisY + '" text-anchor="' + anchor + '">' + labelText + '</text>';
+    }
+  }
+
+  // D-PMS-117: KEY MOVED TO TITLE STRIP — no longer rendered inside SVG.
+
+  svg += '</svg>';
+  return svg;
+}
+
+function renderPortfolioSection() {
+  var el = document.getElementById('portfolioSection');
+  if (!el) return;
+  var rows = gatherPortfolioRows();
+  // D-PMS-104: apply sort if pfSort.key set
+  if (pfSort && pfSort.key) {
+    var sortKey = pfSort.key, sortDir = pfSort.dir === 'desc' ? -1 : 1;
+    rows.sort(function(a, b) {
+      // D-PMS-138: placeholders ALWAYS at bottom, regardless of sort
+      if (a._is_placeholder && !b._is_placeholder) return 1;
+      if (!a._is_placeholder && b._is_placeholder) return -1;
+      if (a._is_placeholder && b._is_placeholder) return 0;
+      var av = a[sortKey], bv = b[sortKey];
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      if (typeof av === 'string') return av.localeCompare(bv) * sortDir;
+      return (av - bv) * sortDir;
+    });
+  } else {
+    // D-PMS-138: even with no sort, push placeholders to bottom (stable order otherwise)
+    rows.sort(function(a, b) {
+      if (a._is_placeholder && !b._is_placeholder) return 1;
+      if (!a._is_placeholder && b._is_placeholder) return -1;
+      return 0;
+    });
+  }
+  if (!rows.length) {
+    el.innerHTML = '<h2>Portfolio summary</h2><div class="pf-meta">No live positions yet — add tranche data below to populate this view.</div>';
+    return;
+  }
+  // Compute universal stop-distance axis across ALL tranches in portfolio
+  var allStopDistances = [];
+  rows.forEach(function(r) { r.tranches.forEach(function(t) { if (t.stop_distance_pct != null) allStopDistances.push(t.stop_distance_pct); }); });
+  var rawMin = Math.min.apply(null, allStopDistances);
+  var rawMax = Math.max.apply(null, allStopDistances);
+  // D-PMS-88: round axis OUTWARDS to nearest 5% step. (Floor for min, ceil for max; in decimal that's 0.05 step.)
+  var axisMin = Math.floor(rawMin / 0.05) * 0.05;
+  var axisMax = Math.ceil(rawMax / 0.05) * 0.05;
+  // Always include 0% in the range
+  if (axisMin > 0) axisMin = 0;
+  if (axisMax < 0) axisMax = 0;
+  // Safety: ensure non-zero range
+  if (axisMax - axisMin < 0.05) axisMax = axisMin + 0.05;
+  // Totals row aggregates
+  var totDeployed = 0, totTranches = 0, totValueAum = 0, totAtRisk = 0, totPaperPnl = 0, totBreaches = 0;
+  rows.forEach(function(r) {
+    totDeployed += r.deployed; totTranches += r.trancheCount; totValueAum += r.valueAum;
+    totAtRisk += r.atRisk; totPaperPnl += r.paperPnl; totBreaches += r.breachCount;
+  });
+  // Build HTML — D-PMS-117: key strip alongside H2
+  var keyStrip = '<span class="pf-spark-key-strip">'
+    + '<span class="pf-key-pill-row">'
+      + '<span class="pf-key-pill" style="background:#d97706">20</span>'
+      + '<span class="pf-key-pill" style="background:#2563eb">50</span>'
+      + '<span class="pf-key-pill" style="background:#0d9488">100</span>'
+      + '<span class="pf-key-pill" style="background:#db2777">150</span>'
+      + '<span class="pf-key-pill" style="background:#475569">200</span>'
+      + '<span> = MA stop</span>'
+    + '</span>'
+    + '<span><span class="pf-key-bps">(X)bps</span> = loss risk per tranche of capital</span>'
+    + '<span><span class="pf-key-aum">X.X%</span> = % of AUM per tranche of capital</span>'
+    + '</span>';
+  var html = '<h2>Portfolio summary</h2>';
+  function fmtMetaTick(v) { var n = Math.round(v * 100); if (n < 0) return '(' + Math.abs(n) + ')%'; if (n > 0) return '+' + n + '%'; return '0%'; }
+  html += '<div class="pf-meta">' + rows.length + ' live investment' + (rows.length === 1 ? '' : 's') + ' · ' + totTranches + ' tranche' + (totTranches === 1 ? '' : 's') + ' · sparkline axis ' + fmtMetaTick(axisMin) + ' to ' + fmtMetaTick(axisMax) + ' (universal across all rows; major gridlines every 5%, minor every 2.5%)</div>';
+  html += '<div class="portfolio-table-wrap"><table class="pf-table">';
+  html += '<colgroup>'
+    + '<col style="width:90px">'   // ticker
+    + '<col style="width:160px">'  // name
+    + (hideAtEntry ? '' : '<col style="width:80px">')   // deployed %AUM
+    + '<col style="width:55px">'   // # tranches
+    + '<col style="width:80px">'   // current value %AUM
+    + '<col style="width:85px">'   // at-risk %AUM
+    + '<col style="width:95px">'   // wt avg stop dist
+    + '<col style="width:80px">'   // paper P&L AUM
+    + '<col style="width:95px">'   // avg price move
+    + '<col style="width:65px">'   // breach alerts
+    + '<col style="width:auto">'  // D-PMS-78: sparkline column auto-fills remaining space
+    + '</colgroup>';
+  function pfSortLabel(key) {
+    if (pfSort.key !== key) return '';
+    return pfSort.dir === 'asc' ? ' <span class="pf-sort-arrow">▲</span>' : ' <span class="pf-sort-arrow">▼</span>';
+  }
+  html += '<thead><tr>'
+    + '<th class="al pf-sortable" data-sort-key="ticker">Ticker' + pfSortLabel('ticker') + '</th>'
+    + '<th class="al pf-sortable" data-sort-key="name">Name' + pfSortLabel('name') + '</th>'
+    + (hideAtEntry ? '' : '<th class="pf-sortable" data-sort-key="deployed">Entry % of AUM' + pfSortLabel('deployed') + '</th>')
+    + '<th class="pf-sortable" data-sort-key="trancheCount"># Tranches' + pfSortLabel('trancheCount') + '</th>'
+    + '<th class="pf-sortable" data-sort-key="valueAum">Current % of AUM' + pfSortLabel('valueAum') + '</th>'
+    + '<th class="pf-loss-risk-col pf-sortable" data-sort-key="atRisk">Loss risk' + pfSortLabel('atRisk') + '</th>'
+    + '<th class="pf-sortable" data-sort-key="weightedStopDistance">Weighted stop-loss distance' + pfSortLabel('weightedStopDistance') + '</th>'
+    + '<th class="pf-sortable" data-sort-key="paperPnl">P&L AUM' + pfSortLabel('paperPnl') + '</th>'
+    + '<th class="pf-sortable" data-sort-key="avgPriceMove">Average price change' + pfSortLabel('avgPriceMove') + '</th>'
+    + '<th class="pf-sortable" data-sort-key="breachCount">Breach alerts' + pfSortLabel('breachCount') + '</th>'
+    + '<th class="pf-spark-header"><div class="pf-spark-header-wrap"><span class="pf-spark-header-title">Investment visualisation per tranche</span>' + keyStrip + '</div></th>'
+    + '</tr></thead><tbody>';
+  rows.forEach(function(r, _pfRowIdx) {
+    if (r._is_placeholder) {
+      // D-PMS-127: blank placeholder row
+      html += '<tr class="pf-row-placeholder">'
+        + '<td class="al"><span class="pf-ticker pf-placeholder-dim">' + esc(r.ticker) + '</span></td>'
+        + '<td class="al pf-name pf-placeholder-dim">' + esc(r.name) + '</td>'
+        + (hideAtEntry ? '' : '<td class="pf-placeholder-dim">—</td>')
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="pf-loss-risk-col pf-placeholder-dim">—</td>'
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="pf-placeholder-dim">—</td>'
+        + '<td class="al pf-spark-cell pf-placeholder-dim">—</td>'
+        + '</tr>';
+      return;
+    }
+    html += '<tr>'
+      + '<td class="al"><span class="pf-ticker">' + esc(r.ticker) + '</span> <span class="ccy-tag">' + esc(r.currency) + '</span></td>'
+      + '<td class="al pf-name">' + esc(r.name) + '</td>'
+      + (hideAtEntry ? '' : '<td>' + pctNoSign1dp(r.deployed) + '</td>')
+      + '<td>' + r.trancheCount + '</td>'
+      + '<td>' + pctNoSign1dp(r.valueAum) + '</td>'
+      + '<td class="pf-loss-risk-col ' + lossRiskCls(r.atRisk) + '">' + pctBp(r.atRisk) + '</td>'
+      + '<td class="' + stopDistCls(r.weightedStopDistance) + '">' + pctSD(r.weightedStopDistance) + '</td>'
+      + '<td>' + pctBp(r.paperPnl) + '</td>'
+      + '<td>' + pct(r.avgPriceMove, 1) + '</td>'
+      + '<td>' + (r.breachCount > 0 ? '<span class="val-neg">' + r.breachCount + '</span>' : '<span class="val-muted">0</span>') + '</td>'
+      + '<td class="al pf-spark-cell">' + renderSparkline(r.tranches, axisMin, axisMax, _pfRowIdx === 0) + '</td>'
+      + '</tr>';
+  });
+  // Totals row
+  var avgPriceMoveTot = (function() {
+    var s = 0, n = 0;
+    rows.forEach(function(r) { if (r.avgPriceMove != null) { s += r.avgPriceMove; n += 1; } });
+    return n > 0 ? s / n : null;
+  })();
+  html += '<tr class="pf-totals">'
+    + '<td class="al" colspan="2">Portfolio total</td>'
+    + (hideAtEntry ? '' : '<td>' + pctNoSign1dp(totDeployed) + '</td>')
+    + '<td>' + totTranches + '</td>'
+    + '<td>' + pctNoSign1dp(totValueAum) + '</td>'
+    + '<td class="pf-loss-risk-col ' + lossRiskCls(totAtRisk) + '">' + pctBp(totAtRisk) + '</td>'
+    + '<td></td>'
+    + '<td>' + pctBp(totPaperPnl) + '</td>'
+    + '<td>' + pct(avgPriceMoveTot, 1) + '</td>'
+    + '<td>' + (totBreaches > 0 ? '<span class="val-neg">' + totBreaches + '</span>' : '<span class="val-muted">0</span>') + '</td>'
+    + '<td></td>'
+    + '</tr>';
+  html += '</tbody></table></div>';
+  el.innerHTML = html;
+}
+
+function render() {
+  renderTable();
+  renderStickyHeaderTable();
+  renderKpis();
+  renderAlerts();
+  applyHideAlerts();
+  renderPortfolioSection();
+  // D-PMS-94 FIX: re-apply hide-at-entry col tweak after portfolio re-render (rebuilds colgroup)
+  applyHideAtEntry();
+  document.getElementById('lastUpdated').textContent = '— Updated ' + new Date().toLocaleString('en-GB', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+}
+
+function buildColgroup() {
+  return '<colgroup>' + COL_WIDTHS.map(function(w) { return '<col style="width:' + w + ';">'; }).join('') + '</colgroup>';
+}
+
+function buildHeaderRow() {
+  // D-PMS-40 two-row group header. Top row = group label spanning multiple cols. Bottom row = simple column name.
+  // Hideable "at entry" cols carry .col-atentry class.
+  var groupRow = '<tr>'
+    + '<th class="group-head group-investment-info" colspan="3">Investment information</th>'  // D-PMS-124: ticker + drag + slot
+    + '<th class="group-head group-atentry" colspan="6">At entry</th>'  // date, %aum, pivot, pivot MA, init stop, init stop dist
+    + '<th class="group-head group-current" colspan="7">Current</th>'  // stop MA, MA→stop buffer, price, MA, stop, stop dist, value AUM
+    + '<th class="group-head group-pnl" colspan="3">P&L</th>'  // paper, AUM, loss risk
+    + '<th class="group-head group-info" colspan="2">Information</th>'  // D-PMS-125: historical breach + clear button
+    + '</tr>';
+  var colRow = '<tr>'
+    + '<th class="al">Ticker</th>'
+    + '<th class="al"></th>'  // drag handle
+    + '<th class="al">Slot</th>'
+    + '<th class="al col-group-start">Date</th>'
+    + '<th>%AUM</th>'
+    + '<th class="col-atentry">Price</th>'
+    + '<th class="col-atentry">MA level</th>'
+    + '<th class="col-atentry">Stop-loss level</th>'
+    + '<th class="col-atentry">Stop-loss distance</th>'
+    + '<th class="col-group-start col-key-bold">MA for stop-loss</th>'
+    + '<th>MA→stop buffer</th>'
+    + '<th>Price</th>'
+    + '<th>MA level</th>'
+    + '<th>Stop-loss level</th>'
+    + '<th class="col-key-bold">Stop-loss distance</th>'
+    + '<th>% of AUM</th>'  // D-PMS-59 (renamed D-PMS-85)
+    + '<th class="col-group-start">Price move since entry</th>'
+    + '<th>P&L AUM</th>'
+    + '<th class="col-key-bold">Loss risk</th>'
+    + '<th class="col-group-start">Historical breach</th>'
+    + '<th></th>'
+    + '</tr>';
+  return '<thead>' + groupRow + colRow + '</thead>';
+}
+
+function renderStickyHeaderTable() {
+  // D-PMS-58 v3: sticky duplicate restored. Repopulate the duplicate table whenever main table re-renders.
+  var t = document.getElementById('stickyHeaderTable');
+  if (t) t.innerHTML = buildColgroup() + buildHeaderRow();
+}
+
+function renderTable() {
+  var tbl = document.getElementById('posTable');
+  if (!CONFIG || !CONFIG.investments) { tbl.innerHTML = ''; return; }
+  var html = buildColgroup() + buildHeaderRow() + '<tbody>';
+  CONFIG.investments.forEach(function(inv, invIdx) {
+    var isPlaceholder = inv.is_placeholder || !inv.ticker;
+    // D-PMS-68: pre-count how many EXTRA rows (warn-lines) this investment will emit,
+    // so the first row's ticker cell can use rowspan = 6 + extras to span them all.
+    var extraRows = countExtraRowsForInvestment(inv, invIdx, isPlaceholder);
+    var totalRowspan = 6 + extraRows;
+    // D-PMS-70: per-investment trade-type render order (sorted vs default)
+    var typesForInv = sortedTradeTypesForInvestment(invIdx);
+    typesForInv.forEach(function(slotType, slotOrder) {
+      html += renderTrancheRow(inv, invIdx, slotType, slotOrder === 0, isPlaceholder, totalRowspan);
+    });
+    var hasAny = TRADE_TYPES.some(function(st) { return hasEdit(invIdx, st); });
+    if (hasAny && !isPlaceholder) html += renderInvTotalsRow(inv, invIdx);
+    // D-PMS-95: ~32px spacer row between investment blocks (skip after last)
+    if (invIdx < CONFIG.investments.length - 1) {
+      html += '<tr class="inv-spacer"><td colspan="21"></td></tr>';
+    }
+  });
+  html += '</tbody>';
+  tbl.innerHTML = html;
+}
+
+// D-PMS-68: count warn-line rows that will be emitted for this investment (so the ticker rowspan covers them)
+function countExtraRowsForInvestment(inv, invIdx, isPlaceholder) {
+  if (isPlaceholder) return 0;
+  // D-PMS-106: when alerts hidden, warn-line rows are not rendered so rowspan must exclude them
+  if (hideAlerts) return 0;
+  var ticker = inv.ticker;
+  var extras = 0;
+  TRADE_TYPES.forEach(function(slotType) {
+    var edit = getEdit(invIdx, slotType);
+    if (!edit) return;
+    var entryDate = edit.entry_date;
+    var pctAumDecimal = edit.target_size_pct;
+    var stopMa = (edit && edit.stop_ma) || DEFAULT_STOP_MA[slotType];
+    var bufferDecimal = (edit && edit.buffer_pct != null) ? edit.buffer_pct : 0.02;
+    if (entryDate && pctAumDecimal != null && pctAumDecimal > 0 && stopMa) {
+      var r = runTester(ticker, pctAumDecimal, entryDate, stopMa, bufferDecimal);
+      if (r && r.ok && (r.entry_warn === 'BELOW_STOP' || r.entry_warn === 'BELOW_MA_ABOVE_STOP')) {
+        extras++;
+      }
+    }
+  });
+  return extras;
+}
+
+function renderTrancheRow(inv, invIdx, slotType, isFirstSlot, isPlaceholder, totalRowspan) {
+  var ticker = inv.ticker || '';
+  // D-PMS-50: placeholder slots can have a user-entered ticker override
+  // D-PMS-113 (09-May-26): track when universe-loaded so we can override name/currency/meta.
+  var wasPlaceholderUniverse = false;
+  if (isPlaceholder && EDITS[invIdx] && EDITS[invIdx]._ticker_override && CHART_DATA.data[EDITS[invIdx]._ticker_override]) {
+    ticker = EDITS[invIdx]._ticker_override;
+    isPlaceholder = false;  // treat as live for the row inputs/derived
+    wasPlaceholderUniverse = true;
+  }
+  var label = TRADE_LABELS[slotType] || slotType;
+  var typeCls = PB_TYPES[slotType] ? 'tt-PB' : 'tt-MM';
+  var slotCapPct = SLOT_CAP_DECIMAL[slotType] * 100;
+  var edit = getEdit(invIdx, slotType);
+  var entryDate = edit && edit.entry_date ? edit.entry_date : '';
+  var pctAumDecimal = edit && edit.target_size_pct != null ? edit.target_size_pct : null;
+  var pctAumDisplay = decimalToPctInput(pctAumDecimal);
+  var stopMa = (edit && edit.stop_ma) || DEFAULT_STOP_MA[slotType];
+  // D-PMS-43 per-tranche buffer (default 0.02)
+  var bufferDecimal = (edit && edit.buffer_pct != null) ? edit.buffer_pct : 0.02;
+  var r = null;
+  if (!isPlaceholder && entryDate && pctAumDecimal != null && pctAumDecimal > 0 && stopMa) {
+    r = runTester(ticker, pctAumDecimal, entryDate, stopMa, bufferDecimal);
+  }
+  var rowKey = invIdx + ':' + slotType;
+  var rowCls = 'tranche-row';
+  // D-PMS-42: MA-stop colour class (if not placeholder + has known stopMa)
+  if (!isPlaceholder && stopMa) rowCls += ' ma-' + stopMa;
+  if (isPlaceholder) rowCls += ' row-empty';
+  if (isFirstSlot) rowCls += ' inv-separator';
+  if (r && r.ok) {
+    if (r.entry_warn === 'BELOW_STOP' || r.entry_warn === 'BELOW_MA_ABOVE_STOP') rowCls += ' row-warn';
+    if (r.breach && r.breach.grace_breach) rowCls += (r.breach.tier === 'immediate' ? ' row-breach-immediate' : ' row-breach-grace');
+  }
+  var hasE = hasEdit(invIdx, slotType);
+  var draggable = hasE && !isPlaceholder ? 'draggable="true"' : '';
+  var dragHandlers = hasE && !isPlaceholder
+    ? 'ondragstart="onDragStart(event,' + invIdx + ',\'' + slotType + '\')" '
+    + 'ondragover="onDragOver(event,' + invIdx + ',\'' + slotType + '\')" '
+    + 'ondrop="onDrop(event,' + invIdx + ',\'' + slotType + '\')" '
+    + 'ondragend="onDragEnd(event)" ondragleave="onDragLeave(event)"'
+    : 'ondragover="onDragOver(event,' + invIdx + ',\'' + slotType + '\')" '
+    + 'ondrop="onDrop(event,' + invIdx + ',\'' + slotType + '\')" '
+    + 'ondragleave="onDragLeave(event)"';
+
+  var cells = '';
+  if (isFirstSlot) {
+    var savedOverride = (EDITS[invIdx] && EDITS[invIdx]._ticker_override) || '';
+    // D-PMS-113: universe-loaded placeholder — use universe metadata for title/secondary/meta.
+    var uniMeta = (wasPlaceholderUniverse && window.PMS_UNIVERSE && PMS_UNIVERSE.data) ? PMS_UNIVERSE.data[ticker] : null;
+    var displayName = uniMeta ? uniMeta.name : (inv.name || '');
+    var displayCurrency = uniMeta ? uniMeta.currency : (inv.currency || '');
+    var tickerHtml = isPlaceholder
+      ? '<input type="text" class="ticker-edit" placeholder="enter ticker" value="' + esc(savedOverride) + '" oninput="setPlaceholderTicker(' + invIdx + ', this.value)" style="width:110px;">'
+      : '<span class="tk-primary">' + esc(ticker) + '</span><span class="ccy-tag">' + esc(displayCurrency) + '</span>';
+    var nameHtml = isPlaceholder ? '<span class="name">(empty slot)</span>' : '<span class="name">' + esc(displayName) + '</span>';
+    var meta = '';
+    if (!isPlaceholder && wasPlaceholderUniverse) {
+      // Universe-loaded ticker: pull last close px + date from CHART_DATA (no CURRENT_DATA entry).
+      var rows = CHART_DATA.data && CHART_DATA.data[ticker];
+      if (rows && rows.length) {
+        var last = rows[rows.length - 1];
+        if (last && last.c != null) {
+          meta = '<span class="meta">Px ' + fmt(last.c, 2) + ' · ' + (last.d || '') + '</span>';
+        }
+      }
+    } else if (!isPlaceholder && CURRENT_DATA) {
+      var invData = CURRENT_DATA.investments.find(function(x) { return x.ticker === ticker; });
+      if (invData && invData.price != null) {
+        meta = '<span class="meta">' + (invData.fallback ? '⚠ fallback · ' : '') + 'Px ' + fmt(invData.price, 2) + ' · ' + (invData.last_close_date || '') + '</span>';
+      }
+    }
+    var mdBadges = '';
+    if (!isPlaceholder) {
+      var fr = (FILTER_RESULTS.data || {})[ticker];
+      if (fr && fr.available) {
+        mdBadges += '<div class="md-badges">';
+        mdBadges += '<span class="md-badge b-' + fr.pb_pass + '" title="PB stage: ' + esc(fr.pb_stage || 'None') + '">Probing bet ' + (fr.pb_pass === 'pass' ? '✓' : fr.pb_pass === 'partial' ? '◑' : '✗') + '</span>';
+        mdBadges += '<span class="md-badge b-' + fr.mm99_pass + '" title="MM99 stage: ' + esc(fr.mm99_stage || 'None') + ' · score ' + (fr.mm99_score || 0) + '/11">MM99 ' + (fr.mm99_pass === 'pass' ? '✓' : fr.mm99_pass === 'partial' ? '◑' : '✗') + ' (' + (fr.mm99_score || 0) + ')</span>';
+        mdBadges += '<span class="md-badge b-' + fr.utr_pass + '" title="UTR stage: ' + esc(fr.utr_stage || 'null') + '">Uptrend retest ' + (fr.utr_pass === 'pass' ? '✓' : fr.utr_pass === 'partial' ? '◑' : '✗') + '</span>';
+        mdBadges += '</div>';
+      } else if (fr && !fr.available) {
+        mdBadges += '<div class="md-badges"><span class="md-badge b-fail" title="No MD filter data">no MD data</span></div>';
+      }
+    }
+    cells += '<td class="al ticker-cell" rowspan="' + (totalRowspan || 6) + '">' + nameHtml + tickerHtml + meta + mdBadges + '</td>';
+  }
+  cells += '<td class="al">' + (hasE && !isPlaceholder ? '<span class="drag-handle" title="Drag to reslot">⋮⋮</span>' : '') + '</td>';
+  cells += '<td class="al"><span class="' + typeCls + '">' + esc(label) + '</span> <span style="color:var(--fg3);font-size:10px;">cap ' + slotCapPct.toFixed(1) + '%</span></td>';
+  // === At entry group ===
+  // D-PMS-64: promotion badge replaces date cell when tranche has promoted_from metadata
+  if (edit && edit.promoted_from && edit.promoted_from !== slotType) {
+    cells += '<td class="al col-group-start"><span class="promo-badge" onclick="togglePromoBadge(this)" title="Click to edit date">'
+      + '<span class="promo-date-text">↑ from ' + esc(edit.promoted_from) + ' ' + esc(fmtDateShort(edit.promoted_at)) + '</span>'
+      + '<span class="promo-date-edit"><input type="date" class="edit-input date" value="' + esc(entryDate) + '" '
+      + (isPlaceholder ? 'disabled' : '')
+      + ' onchange="setEditField(' + invIdx + ',\'' + slotType + '\',\'entry_date\',this.value)" onclick="event.stopPropagation()"></span>'
+      + '</span></td>';
+  } else {
+    cells += '<td class="al col-group-start"><input type="date" class="edit-input date" value="' + esc(entryDate) + '" '
+      + (isPlaceholder ? 'disabled' : '')
+      + ' onchange="setEditField(' + invIdx + ',\'' + slotType + '\',\'entry_date\',this.value)"></td>';
+  }
+  cells += '<td><span class="input-with-suffix"><input type="number" step="any" min="0" class="edit-input pct" value="' + esc(pctAumDisplay) + '" placeholder="' + slotCapPct.toFixed(1) + '" '
+    + (isPlaceholder ? 'disabled' : '')
+    + ' onchange="setPctEdit(' + invIdx + ',\'' + slotType + '\',this)"><span class="input-suffix">%</span></span></td>';
+  // 4 derived "at entry" cells (col-atentry — hideable)
+  if (r && r.ok) {
+    cells += '<td class="col-atentry">' + fmtPrice(r.entry_close) + '</td>';
+    cells += '<td class="col-atentry">' + fmtPrice(r.entry_ma) + '</td>';
+    cells += '<td class="col-atentry">' + fmtPrice(r.entry_stop) + '</td>';
+    cells += '<td class="col-atentry">' + pctSD(r.initial_stop_distance_pct) + '</td>';
+  } else {
+    cells += '<td class="col-atentry">—</td><td class="col-atentry">—</td><td class="col-atentry">—</td><td class="col-atentry">—</td>';
+  }
+  // === Current group: Stop MA dropdown + MA→stop buffer + 4 derived ===
+  // D-PMS-37: PB1/PB2 restricted to 20D/50D; MM1-4 all 5 options
+  var maOptions = PB_TYPES[slotType] ? ['20D','50D'] : ['20D','50D','100D','150D','200D'];
+  cells += '<td class="col-group-start col-key-bold"><select class="edit-input ma" '
+    + (isPlaceholder ? 'disabled' : '')
+    + ' onchange="setEditField(' + invIdx + ',\'' + slotType + '\',\'stop_ma\',this.value)">';
+  maOptions.forEach(function(m) {
+    cells += '<option value="' + m + '"' + (m === stopMa ? ' selected' : '') + '>' + m + '</option>';
+  });
+  cells += '</select></td>';
+  // D-PMS-43 MA→stop buffer (per-tranche, default 2%)
+  var bufferDisplay = (bufferDecimal * 100).toFixed(1);  // D-PMS-65 1dp
+  cells += '<td><span class="input-with-suffix"><input type="number" step="any" min="0" max="50" class="edit-input pct" value="' + esc(bufferDisplay) + '" placeholder="2" '
+    + (isPlaceholder ? 'disabled' : '')
+    + ' onchange="setBufferEdit(' + invIdx + ',\'' + slotType + '\',this)"><span class="input-suffix">%</span></span></td>';
+  // 5 derived "current" cells (price/MA/stop/stop-dist/value-AUM)
+  if (r && r.ok) {
+    cells += '<td>' + fmtPrice(r.current_price) + '</td>';
+    cells += '<td>' + fmtPrice(r.current_ma) + '</td>';
+    cells += '<td>' + fmtPrice(r.current_stop) + '</td>';
+    cells += '<td class="col-key-bold ' + stopDistCls(r.stop_distance_pct) + '">' + pctSD(r.stop_distance_pct) + '</td>';
+    cells += '<td>' + pctNoSign1dp(r.value_aum_pct) + '</td>';  // D-PMS-59 + D-PMS-63 + D-PMS-100 1dp no-sign
+  } else if (r && r.error) {
+    cells += '<td colspan="5" class="al"><span class="badge b-bad">' + esc(r.error) + '</span></td>';
+  } else {
+    cells += '<td>—</td><td>—</td><td>—</td><td class="col-key-bold">—</td><td>—</td>';
+  }
+  // === P&L group ===
+  if (r && r.ok) {
+    cells += '<td class="col-group-start">' + pct(r.paper_pnl_per_share, 0) + '</td>';
+    cells += '<td>' + pctBp(r.paper_pnl_aum) + '</td>';
+    cells += '<td class="col-key-bold ' + lossRiskCls(r.loss_risk_aum) + '">' + pctBp(r.loss_risk_aum) + '</td>';
+  } else {
+    cells += '<td class="col-group-start">—</td><td>—</td><td class="col-key-bold">—</td>';
+  }
+  // === Information group ===
+  if (r && r.ok) {
+    cells += '<td class="col-group-start">' + breachBadge(r) + '</td>';
+  } else {
+    cells += '<td class="col-group-start">—</td>';
+  }
+  cells += '<td>';
+  if (hasE) cells += '<button class="btn btn-icon btn-danger" onclick="clearEdit(' + invIdx + ',\'' + slotType + '\')" title="Clear">×</button>';
+  cells += '</td>';
+  var rowHtml = '<tr class="' + rowCls + '" data-row-key="' + rowKey + '" ' + draggable + ' ' + dragHandlers + '>' + cells + '</tr>';
+  // D-PMS-106: only emit warn-line rows when alerts visible (otherwise rowspan overshoots)
+  if (!hideAlerts) {
+    if (r && r.entry_warn === 'BELOW_STOP') {
+      rowHtml += '<tr class="warn-line"><td colspan="21">⚠ Entry ' + fmtPrice(r.entry_close) + ' below initial stop ' + fmtPrice(r.entry_stop) + ' — would trigger day 1.</td></tr>';
+    } else if (r && r.entry_warn === 'BELOW_MA_ABOVE_STOP') {
+      rowHtml += '<tr class="warn-line"><td colspan="21">ℹ Entry ' + fmtPrice(r.entry_close) + ' below ' + esc(stopMa) + ' MA ' + fmtPrice(r.entry_ma) + ', above stop ' + fmtPrice(r.entry_stop) + ' — buying weakness.</td></tr>';
+    }
+  }
+  // D-PMS-64: promotion line removed — now rendered as a green badge in the Date cell instead
+  return rowHtml;
+}
+
+function renderInvTotalsRow(inv, invIdx) {
+  var sumDeployed = 0, sumPnl = 0, sumRisk = 0, sumValueAum = 0;
+  TRADE_TYPES.forEach(function(slotType) {
+    var edit = getEdit(invIdx, slotType);
+    if (!edit || !edit.entry_date || edit.target_size_pct == null) return;
+    var bufVal = edit.buffer_pct != null ? edit.buffer_pct : 0.02;
+    var r = runTester(inv.ticker, edit.target_size_pct, edit.entry_date, edit.stop_ma || DEFAULT_STOP_MA[slotType], bufVal);
+    if (r && r.ok) {
+      sumDeployed += edit.target_size_pct;
+      sumPnl += r.paper_pnl_aum || 0;
+      sumRisk += r.loss_risk_aum || 0;
+      sumValueAum += r.value_aum_pct || 0;
+    }
+  });
+  // D-PMS-44 + D-PMS-59: align deployed under %AUM, sumValueAum under Value AUM, sumPnl under P&L AUM, sumRisk under Loss risk
+  return '<tr class="inv-totals"><td class="al" colspan="4">' + esc(inv.ticker) + ' total</td>'
+    + '<td>' + pctNoSign1dp(sumDeployed) + '</td>'
+    + '<td colspan="10"></td>'
+    + '<td>' + pctNoSign1dp(sumValueAum) + '</td>'  // D-PMS-59 + D-PMS-100 1dp Value AUM total
+    + '<td></td>'  // share p&l per-share (not summable)
+    + '<td>' + pctBp(sumPnl) + '</td>'
+    + '<td class="col-totals-emphasis ' + lossRiskCls(sumRisk) + '">' + pctBp(sumRisk) + '</td>'
+    + '<td colspan="2"></td></tr>';
+}
+
+function renderKpis() {
+  var deployed = 0, pnl = 0, risk = 0, activeInvs = 0, activeTrades = 0, alertCount = 0;
+  CONFIG.investments.forEach(function(inv, invIdx) {
+    var hasAny = false;
+    TRADE_TYPES.forEach(function(slotType) {
+      var edit = getEdit(invIdx, slotType);
+      if (!edit || !edit.entry_date || edit.target_size_pct == null || edit.target_size_pct <= 0) return;
+      var bufVal = edit.buffer_pct != null ? edit.buffer_pct : 0.02;
+    var r = runTester(inv.ticker, edit.target_size_pct, edit.entry_date, edit.stop_ma || DEFAULT_STOP_MA[slotType], bufVal);
+      if (!r || !r.ok) return;
+      deployed += edit.target_size_pct;
+      pnl += (r.paper_pnl_aum || 0);
+      risk += (r.loss_risk_aum || 0);
+      activeTrades += 1; hasAny = true;
+      if (r.breach && r.breach.grace_breach) alertCount += 1;
+    });
+    if (hasAny) activeInvs += 1;
+  });
+  var el = document.getElementById('portfolioSummary');
+  el.innerHTML = kpiCard('Deployed', pct(deployed), deployed > 0.8 ? 'val-warn' : deployed > 0 ? 'val-pos' : 'val-muted')
+    + kpiCard('At-Risk Loss', pctBp(risk), risk < -0.005 ? 'val-neg' : 'val-warn')
+    + kpiCard('Paper P&L', pctBp(pnl), pnl > 0 ? 'val-pos' : pnl < 0 ? 'val-neg' : '')
+    + kpiCard('Active Investments', activeInvs + ' / 16', '')
+    + kpiCard('Active Tranches', activeTrades, '')
+    + kpiCard('Breach Alerts', alertCount, alertCount > 0 ? 'val-neg' : 'val-pos');
+}
+
+function kpiCard(label, value, cls) {
+  return '<div class="kpi-card"><div class="kpi-label">' + label + '</div><div class="kpi-value ' + cls + '">' + value + '</div></div>';
+}
+
+function renderAlerts() {
+  var alerts = [];
+  CONFIG.investments.forEach(function(inv, invIdx) {
+    TRADE_TYPES.forEach(function(slotType) {
+      var edit = getEdit(invIdx, slotType);
+      if (!edit || !edit.entry_date || edit.target_size_pct == null || edit.target_size_pct <= 0) return;
+      var bufVal = edit.buffer_pct != null ? edit.buffer_pct : 0.02;
+    var r = runTester(inv.ticker, edit.target_size_pct, edit.entry_date, edit.stop_ma || DEFAULT_STOP_MA[slotType], bufVal);
+      if (!r || !r.ok) return;
+      if (r.breach && r.breach.grace_breach) alerts.push({ ticker: inv.ticker, slot: slotType, breach: r.breach.grace_breach, tier: r.breach.tier });
+    });
+  });
+  var el = document.getElementById('alertBanner');
+  if (!alerts.length) { el.className = 'alert-banner'; el.innerHTML = ''; return; }
+  var html = '<h2>⚠ STOP BREACH — ' + alerts.length + ' tranche' + (alerts.length > 1 ? 's' : '') + '</h2>';
+  alerts.forEach(function(a) {
+    html += '<div class="alert-item">'
+      + '<span class="alert-ticker">' + esc(a.ticker) + '</span>'
+      + '<span>' + esc(TRADE_LABELS[a.slot] || a.slot) + '</span>'
+      + '<span class="alert-msg">' + esc(a.breach.trigger) + ' ' + esc(fmtDate(a.breach.breach_date)) + '</span>'
+      + '<span class="alert-status b-bad">' + esc(a.breach.trigger) + '</span>'
+      + '</div>';
+  });
+  el.innerHTML = html;
+  el.className = 'alert-banner visible';
+}
+
+function fmt(v, dp) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  if (dp == null) dp = 2;
+  return Number(v).toLocaleString('en-GB', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+}
+// D-PMS-35 adaptive price precision: >=100=0dp, 20-100=1dp, 1-20=2dp, <1=3dp
+function fmtPrice(v) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  var abs = Math.abs(v);
+  var dp;
+  if (abs >= 100) dp = 0;
+  else if (abs >= 20) dp = 1;
+  else if (abs >= 1) dp = 2;
+  else dp = 3;
+  return Number(v).toLocaleString('en-GB', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+}
+// D-PMS-36 negative pct rendered as (N)% not -N%
+function pct(v, dp) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  if (dp == null) dp = 2;
+  var n = v * 100;
+  var cls = n > 0 ? 'val-pos' : n < 0 ? 'val-neg' : '';
+  var abs = Math.abs(n).toFixed(dp);
+  if (n > 0) return '<span class="' + cls + '">+' + abs + '%</span>';
+  if (n < 0) return '<span class="' + cls + '">(' + abs + ')%</span>';
+  return '<span class="">0' + (dp > 0 ? '.' + '0'.repeat(dp) : '') + '%</span>';
+}
+// D-PMS-34 stop-distance formatter: 0dp + (N)% formatting
+function pctSD(v) { return pct(v, 0); }
+// D-PMS-53: render YYYY-MM-DD as DD-MMM-YY (e.g. 04-May-26)
+function fmtDate(s) {
+  if (!s || typeof s !== 'string') return s;
+  var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return s;
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var yy = m[1].slice(2);
+  var mm = months[parseInt(m[2], 10) - 1];
+  var dd = m[3];
+  return dd + '-' + mm + '-' + yy;
+}
+// D-PMS-109: short date for promo-badge (no year). Format dd-Mmm.
+function fmtDateShort(s) {
+  if (!s || typeof s !== 'string') return s;
+  var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return s;
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var mm = months[parseInt(m[2], 10) - 1];
+  var dd = m[3];
+  return dd + '-' + mm;
+}
+// D-PMS-44 totals-row helper: drop "+" prefix on positive (deployed always positive)
+function pctNoSign(v) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  var n = v * 100;
+  if (n < 0) return '<span class="val-neg">(' + Math.abs(n).toFixed(2) + ')%</span>';
+  return '<span class="">' + n.toFixed(2) + '%</span>';
+}
+// D-PMS-81: 1dp variant for portfolio section (Entry %AUM, Current %AUM)
+function pctNoSign1dp(v) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  var n = v * 100;
+  if (n < 0) return '<span class="val-neg">(' + Math.abs(n).toFixed(1) + ')%</span>';
+  return '<span class="">' + n.toFixed(1) + '%</span>';
+}
+// D-PMS-105: conditional formatting helpers (absolute thresholds)
+function lossRiskCls(decimalValue) {
+  if (decimalValue == null || isNaN(decimalValue)) return '';
+  var bp = Math.abs(decimalValue) * 10000;
+  if (bp <= 10) return 'cf-green';
+  if (bp <= 30) return 'cf-amber';
+  return 'cf-red';
+}
+function stopDistCls(decimalValue) {
+  if (decimalValue == null || isNaN(decimalValue)) return '';
+  var pctAbs = Math.abs(decimalValue) * 100;
+  if (pctAbs >= 10) return 'cf-green';
+  if (pctAbs >= 5) return 'cf-amber';
+  return 'cf-red';
+}
+function pctBp(v) {
+  if (v == null || isNaN(v)) return '<span class="val-muted">—</span>';
+  var bp = Math.round(v * 10000);
+  var cls = bp > 0 ? 'val-pos' : bp < 0 ? 'val-neg' : '';
+  if (bp > 0) return '<span class="' + cls + '">+' + bp + 'bp</span>';
+  if (bp < 0) return '<span class="' + cls + '">(' + Math.abs(bp) + ')bp</span>';
+  return '<span class="">0bp</span>';
+}
+function esc(s) { var d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+function breachBadge(r) {
+  if (!r.breach) return '<span class="badge b-active">no</span>';
+  if (r.breach.grace_breach) return '<span class="badge b-bad">' + esc(r.breach.grace_breach.trigger) + ' ' + esc(fmtDate(r.breach.grace_breach.breach_date)) + '</span>';
+  if (r.breach.raw_breach) return '<span class="badge b-warn">raw ' + esc(fmtDate(r.breach.raw_breach.breach_date)) + '</span>';
+  return '<span class="badge b-active">no</span>';
+}
+
+
+// === D-PMS-139.1: dynamically fit Portfolio summary to viewport ===
+(function() {
+  function fitPortfolioToViewport() {
+    var section = document.querySelector('.portfolio-section.pf-fullscreen');
+    if (!section) return;
+    var rect = section.getBoundingClientRect();
+    var topOffset = Math.max(rect.top, 0);
+    var bottomBuffer = 12;  // small breathing room
+    var available = window.innerHeight - topOffset - bottomBuffer;
+    if (available < 280) available = 280;  // floor matches CSS min-height
+    section.style.setProperty('--pf-max-h', available + 'px');
+  }
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fitPortfolioToViewport);
+  } else {
+    fitPortfolioToViewport();
+  }
+  // Run after layout settles (renderPortfolioSection may have run after DOMContentLoaded)
+  setTimeout(fitPortfolioToViewport, 100);
+  setTimeout(fitPortfolioToViewport, 500);
+  // Re-run on resize
+  window.addEventListener('resize', fitPortfolioToViewport);
+  // Re-run on hide-toggle / sort-clicks (those re-render and may change section_top)
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('#btnHideAtEntry, #btnHideAlerts, .pf-sortable, #btnSparkCollapse, #btnSortByStopMa')) {
+      setTimeout(fitPortfolioToViewport, 50);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
