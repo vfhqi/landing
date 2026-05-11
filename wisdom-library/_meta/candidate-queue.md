@@ -195,3 +195,35 @@
 - **Cross-ref:** SA - GITHUB SOP follow-up brief Step 8.6 (lock as standing SOP rule).
 - **Domain:** publishing / GitHub Pages / static site generators
 
+
+### 11-May-26 — SA - LANDING PAGE v6r5 — Verify URL targets exist BEFORE wiring
+- **Tier proposed:** Silver
+- **Category:** general/process
+- **Evidence:** v5 landing page wired hrefs against `vfhqi/master-dashboard` and `vfhqi/dashboards` repos that DON'T EXIST. The actual public repos are `vfhqi/master`, `vfhqi/ratings`, `vfhqi/landing`. Twelve broken links shipped to production for two days because nobody curl-tested the GH targets after the v5 push. Discovered only when Richard clicked Basing Plateau and got "Site not found · GitHub Pages." Today's fix took 30 minutes; preventing it would have taken 2 minutes (one `curl -L $url` per distinct destination).
+- **Counter-evidence:** none. URL existence is binary; takes seconds to verify.
+- **Cross-ref:** SA - GITHUB SOP — pre-publish gate must include "for every external URL in the artefact, curl -L returns 200." Add to SA - LANDING PAGE D-LP-50 standing rule.
+- **Domain:** publishing / external link integrity
+
+### 11-May-26 — SA - LANDING PAGE v6r4 — GH Pages serves .md as text/plain (use github.com/blob for rendered MD)
+- **Tier proposed:** Silver
+- **Category:** publishing / static site
+- **Evidence:** Reminder-block .md links opened raw markdown source (text/plain) when clicked from the live page. Cause: GH Pages does NOT auto-render .md like github.com does. Fix: route .md hrefs through `https://github.com/<org>/<repo>/blob/main/<path>.md` which serves a fully-rendered preview with table-of-contents sidebar + file tree navigator. Universal trap whenever a static site needs to link to documentation that lives as markdown.
+- **Counter-evidence:** Trade-off — clicking takes user away from `*.github.io` to `github.com`. Acceptable for documentation; not for embedded UI.
+- **Cross-ref:** SA - GITHUB SOP standing rule. SA - LANDING PAGE D-LP-49.
+- **Domain:** publishing / markdown rendering / GH Pages
+
+### 11-May-26 — SA - LANDING PAGE v6 → v6r5 — Click-test every link in real browser, not just curl
+- **Tier proposed:** Gold
+- **Category:** general/quality-gates
+- **Evidence:** Watson shipped v6 and reported "complete" three times before Richard asked if it was Chrome-tested. It wasn't. curl 200 + grep + content-sanity passes do NOT prove the LINK works — they prove the URL responds, but: (a) the rendered content might be unusable (raw markdown vs rendered MD), (b) the visual position of an arrow head might pierce a title, (c) the cluster might overlap, (d) the link might point at a dead repo (vfhqi/master-dashboard). Real Chrome click-test caught FIVE distinct issues missed by curl: arrow piercing GAP title, OKR text mid-word truncation, cyan cluster crowding GAP, raw .md rendering, 404 dashboards repo. Universal lesson: Quality Gate IS clicking the thing in the actual UI, not server-side smoke checks.
+- **Counter-evidence:** This pattern is documented in `feedback_quality_gate_must_run_at_decision_point.md` (04-May-26 KZN-001 — already filed). Today's session is the THIRD repeat of the same failure mode. That repetition itself argues for promotion to Gold + binding it via SOP step (e.g. SA SKILL §pre-ship checklist mandates Chrome MCP click-test before declaring "complete").
+- **Cross-ref:** `feedback_quality_gate_must_run_at_decision_point.md`; promote/extend rather than file new entry. Bind to SA - LANDING PAGE specifically + SA SKILL globally.
+- **Domain:** general/quality-gates / verification discipline
+
+### 11-May-26 — SA - LANDING PAGE v6r3 — Route arrows around clusters via cluster-free corridors
+- **Tier proposed:** Bronze
+- **Category:** situational/diagrams
+- **Evidence:** Initial v6 diagrams drew arrows as Bezier curves through the shortest path — frequently piercing cluster bodies + title text. v6r3 fix: pre-define orthogonal corridors (vertical strips between clusters, horizontal strips between rows) and route every flow line through 2-4 right-angle segments via those corridors. Result: zero cluster-body crossings, every arrow head lands cleanly on a cluster boundary. Universal pattern for any flow diagram with >5 clusters.
+- **Counter-evidence:** Bezier-direct paths look more "organic" but only at low cluster count. Above ~6 clusters the corridor-routing approach is cleaner.
+- **Cross-ref:** SA SKILL — diagram authoring sub-section.
+- **Domain:** situational/diagrams / SVG flow charts
