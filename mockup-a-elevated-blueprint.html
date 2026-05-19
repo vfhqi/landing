@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viewforth OS — Mockup A: Elevated Blueprint</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;background:#eceae4;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px 32px}
+  .chrome{width:100%;max-width:1340px;background:#fff;border-radius:12px;padding:10px 20px;margin-bottom:14px;box-shadow:0 2px 14px rgba(0,0,0,.07);display:flex;justify-content:space-between;align-items:center}
+  .chrome-left{display:flex;align-items:center;gap:16px}
+  .chrome-title{font-size:15px;font-weight:600;color:#111827;letter-spacing:-.3px}
+  .chrome-sep{width:1px;height:16px;background:#e5e7eb}
+  .chrome-tag{font-size:11px;font-weight:500;color:#6b7280;background:#f3f4f6;padding:3px 8px;border-radius:20px;border:1px solid #e5e7eb}
+  .chrome-meta{font-size:11px;color:#9ca3af;letter-spacing:.2px}
+  .wrap{width:100%;max-width:1340px;background:#fdfcfa;border-radius:16px;box-shadow:0 10px 50px rgba(0,0,0,.11),0 2px 8px rgba(0,0,0,.06);overflow:hidden}
+  svg{display:block;width:100%;height:auto}
+  .label{margin-top:14px;font-size:12px;color:#9ca3af;text-align:center;font-style:italic;letter-spacing:.2px}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="chrome-left">
+    <span class="chrome-title">Viewforth — Operating System Map</span>
+    <span class="chrome-sep"></span>
+    <span class="chrome-tag">Mockup A · Elevated Blueprint</span>
+    <span class="chrome-tag">Representative section</span>
+  </div>
+  <span class="chrome-meta">Date 19-May-26 &nbsp;·&nbsp; Market regime <strong>risk-off</strong> &nbsp;·&nbsp; Design exploration — not live</span>
+</div>
+
+<div class="wrap">
+<svg viewBox="0 0 1300 870" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- ── Drop shadows ── -->
+  <filter id="sh-cluster" x="-12%" y="-12%" width="124%" height="124%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/>
+    <feOffset dx="0" dy="4" result="ob"/>
+    <feComponentTransfer in="ob" result="soft">
+      <feFuncA type="linear" slope="0.13"/>
+    </feComponentTransfer>
+    <feMerge><feMergeNode in="soft"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="sh-node" x="-18%" y="-18%" width="136%" height="136%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="b"/>
+    <feOffset dx="0" dy="2" result="ob"/>
+    <feComponentTransfer in="ob" result="soft">
+      <feFuncA type="linear" slope="0.10"/>
+    </feComponentTransfer>
+    <feMerge><feMergeNode in="soft"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="sh-inode" x="-16%" y="-16%" width="132%" height="132%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="b"/>
+    <feOffset dx="0" dy="2" result="ob"/>
+    <feComponentTransfer in="ob" result="soft">
+      <feFuncA type="linear" slope="0.12"/>
+    </feComponentTransfer>
+    <feMerge><feMergeNode in="soft"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+
+  <!-- ── Gradient fills — clusters ── -->
+  <linearGradient id="g-magenta" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fceef4"/><stop offset="100%" stop-color="#f8d8e7"/>
+  </linearGradient>
+  <linearGradient id="g-green" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#eaf5ea"/><stop offset="100%" stop-color="#d4ecd4"/>
+  </linearGradient>
+  <linearGradient id="g-blue" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e8f0fc"/><stop offset="100%" stop-color="#d2e4fb"/>
+  </linearGradient>
+  <linearGradient id="g-orange" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fef2e8"/><stop offset="100%" stop-color="#fcdfc6"/>
+  </linearGradient>
+  <linearGradient id="g-pink" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#fdeef6"/><stop offset="100%" stop-color="#f8d6eb"/>
+  </linearGradient>
+  <linearGradient id="g-node" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f8f9fa"/>
+  </linearGradient>
+  <linearGradient id="g-inode" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f4f5f7"/>
+  </linearGradient>
+  <linearGradient id="g-substrate" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#272736"/><stop offset="100%" stop-color="#1a1a28"/>
+  </linearGradient>
+  <linearGradient id="g-ttq" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#f0fff4"/><stop offset="100%" stop-color="#e0fae8"/>
+  </linearGradient>
+
+  <!-- ── Arrowhead — soft muted ── -->
+  <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#8fa3b3" opacity="0.9"/>
+  </marker>
+  <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#4ade80" opacity="0.9"/>
+  </marker>
+
+</defs>
+
+<!-- ═══ BACKGROUND ═══ -->
+<rect width="1300" height="870" fill="#fdfcfa"/>
+
+<!-- ═══ FLOW LINES — Bézier curves, behind everything ═══ -->
+
+<!-- M&E → WCM  (sweeps down-left, hugging left side) -->
+<path d="M630,150 C630,380 130,340 130,538" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- M&E → Master Dashboard (short drop top-left) -->
+<path d="M530,150 C530,200 244,210 244,168" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.6"/>
+
+<!-- Master Dashboard → WCM (exits bottom, short drop) -->
+<path d="M120,488 C120,512 130,524 130,538" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- Master Dashboard → TTQ (sweeps right along bottom, then up to TTQ) -->
+<path d="M464,400 C620,400 820,460 820,538" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- Workflow Priorities → QCC (sweeps left-down) -->
+<path d="M960,260 C860,260 540,380 500,538" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- QCC → Notes Repository (gentle drop) -->
+<path d="M354,582 C354,620 230,634 230,644" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- TTQ → BAT (short organic drop, green) -->
+<path d="M930,582 C930,592 930,600 930,608" stroke="#4ade80" stroke-width="1.5" fill="none" marker-end="url(#arr-green)" opacity="0.85"/>
+
+<!-- Workflow Priorities → BAT (sweeps around below TTQ) -->
+<path d="M960,290 C1060,290 1060,640 1060,634" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.6"/>
+
+<!-- BAT → Notes Repository (organic sweep left) -->
+<path d="M900,660 C900,710 230,710 230,726" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- BAT → Ratings Dashboard (curves right and up) -->
+<path d="M1062,634 C1100,634 1100,520 1040,500" stroke="#8fa3b3" stroke-width="1.7" fill="none" marker-end="url(#arr)" opacity="0.7"/>
+
+<!-- Stocks Universe → Notes Repository -->
+<path d="M230,810 C230,798 230,752 230,728" stroke="#8fa3b3" stroke-width="1.4" fill="none" marker-end="url(#arr)" opacity="0.5"/>
+
+<!-- Notes Repo → Ratings Dashboard (sweeps right) -->
+<path d="M464,680 C640,680 940,600 960,536" stroke="#8fa3b3" stroke-width="1.4" fill="none" marker-end="url(#arr)" opacity="0.5" stroke-dasharray="5 4"/>
+
+
+<!-- ═══ CLUSTER: MARKET & ENVIRONMENT (magenta, top-centre) ═══ -->
+<g filter="url(#sh-cluster)">
+  <rect x="452" y="22" width="356" height="128" rx="14" fill="url(#g-magenta)" stroke="#d0607a" stroke-width="1.2"/>
+</g>
+<text x="630" y="47" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.8" fill="#a03050" opacity=".9">MARKET &amp; ENVIRONMENT</text>
+<text x="630" y="63" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#b05070" font-style="italic">Fit for fighting · Radar process</text>
+<g filter="url(#sh-node)">
+  <rect x="470" y="74" width="320" height="64" rx="9" fill="url(#g-node)" stroke="#d0607a" stroke-width="1"/>
+</g>
+<text x="630" y="98" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="12" font-weight="600" fill="#111827">Active thematics (3)</text>
+<text x="630" y="116" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic">AI · Iran Oil · Recession / Bear Market Roll-over</text>
+<text x="630" y="131" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9" fill="#9ca3af">click to open radar</text>
+
+
+<!-- ═══ CLUSTER: MASTER (TECHNICAL) DASHBOARD (green, left tall) ═══ -->
+<g filter="url(#sh-cluster)">
+  <rect x="22" y="168" width="442" height="320" rx="14" fill="url(#g-green)" stroke="#4a8a40" stroke-width="1.2"/>
+</g>
+<text x="243" y="192" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.8" fill="#2a5a24" opacity=".9">MASTER (TECHNICAL) DASHBOARD</text>
+<text x="52" y="212" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#3a6a30">SCREENS (8)</text>
+
+<!-- Screen pills — 2×4 grid, rounded, white, subtle green border -->
+<g font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" fill="#1e3e1c">
+  <g filter="url(#sh-node)"><rect x="40" y="220" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="138" y="237" text-anchor="middle">Basing Plateau</text>
+  <g filter="url(#sh-node)"><rect x="248" y="220" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="346" y="237" text-anchor="middle">Probing Bet</text>
+
+  <g filter="url(#sh-node)"><rect x="40" y="254" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="138" y="271" text-anchor="middle">Mark Minervini 99-Point</text>
+  <g filter="url(#sh-node)"><rect x="248" y="254" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="346" y="271" text-anchor="middle">Volatility Contraction</text>
+
+  <g filter="url(#sh-node)"><rect x="40" y="288" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="138" y="305" text-anchor="middle">Uptrend Retest</text>
+  <g filter="url(#sh-node)"><rect x="248" y="288" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="346" y="305" text-anchor="middle">Sell-Side Est. Momentum</text>
+
+  <g filter="url(#sh-node)"><rect x="40" y="322" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="138" y="339" text-anchor="middle">Valuation in Range</text>
+  <g filter="url(#sh-node)"><rect x="248" y="322" width="196" height="26" rx="7" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/></g>
+  <text x="346" y="339" text-anchor="middle">Composite / Combination</text>
+</g>
+
+<!-- Main dashboard tile -->
+<g filter="url(#sh-node)">
+  <rect x="96" y="358" width="292" height="80" rx="10" fill="url(#g-node)" stroke="#4a8a40" stroke-width="1.1"/>
+</g>
+<text x="242" y="388" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="12.5" font-weight="600" fill="#111827">Technical (Master) Dashboard</text>
+<text x="242" y="408" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">Click any screen above to open at that tab</text>
+
+<!-- Quant input tiles -->
+<g filter="url(#sh-node)">
+  <rect x="40" y="452" width="192" height="36" rx="8" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/>
+</g>
+<text x="136" y="468" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" fill="#2a4a22">Valuation in Range</text>
+<text x="136" y="482" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9" fill="#9ca3af" font-style="italic">quant input feeding the dashboard</text>
+<g filter="url(#sh-node)">
+  <rect x="248" y="452" width="192" height="36" rx="8" fill="url(#g-node)" stroke="#7ab870" stroke-width="0.9"/>
+</g>
+<text x="344" y="468" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" fill="#2a4a22">SS Estimate Momentum</text>
+<text x="344" y="482" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9" fill="#9ca3af" font-style="italic">quant input feeding the dashboard</text>
+<text x="243" y="502" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">↑ feed the Master Dashboard</text>
+
+
+<!-- ═══ CLUSTER: WORKFLOW PRIORITIES (blue, top-right) ═══ -->
+<g filter="url(#sh-cluster)">
+  <rect x="958" y="160" width="316" height="170" rx="14" fill="url(#g-blue)" stroke="#3a5aa8" stroke-width="1.2"/>
+</g>
+<text x="1116" y="184" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.8" fill="#1a3a80" opacity=".9">WORKFLOW PRIORITIES</text>
+<g filter="url(#sh-node)">
+  <rect x="976" y="196" width="280" height="122" rx="9" fill="url(#g-node)" stroke="#3a5aa8" stroke-width="1"/>
+</g>
+<text x="1116" y="220" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="12" font-weight="600" fill="#111827">Workflow &amp; Kanban Board</text>
+<text x="986" y="242" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#3a5aa8">Lanes: Richard · Researcher · APM</text>
+<text x="986" y="260" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">23 active to-dos · 6 overdue</text>
+<text x="986" y="278" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">Priorities flow into execution</text>
+<text x="986" y="296" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">and into Ratings Dashboard reads</text>
+
+
+<!-- ═══ CLUSTER: RATINGS DASHBOARD (orange, right) ═══ -->
+<g filter="url(#sh-cluster)">
+  <rect x="958" y="370" width="316" height="202" rx="14" fill="url(#g-orange)" stroke="#b06020" stroke-width="1.2"/>
+</g>
+<text x="1116" y="394" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.8" fill="#7a4010" opacity=".9">RATINGS DASHBOARD</text>
+<text x="1116" y="412" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#9a5010" font-style="italic">Per-stock composite · 4 columns</text>
+<!-- Column tiles -->
+<g font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5">
+  <g filter="url(#sh-node)"><rect x="972" y="426" width="64" height="38" rx="7" fill="url(#g-node)" stroke="#b06020" stroke-width="0.9"/></g>
+  <text x="1004" y="443" text-anchor="middle" font-weight="700" fill="#8a4010">Timeliness</text>
+  <text x="1004" y="458" text-anchor="middle" fill="#9ca3af">how recent</text>
+  <g filter="url(#sh-node)"><rect x="1044" y="426" width="64" height="38" rx="7" fill="url(#g-node)" stroke="#b06020" stroke-width="0.9"/></g>
+  <text x="1076" y="443" text-anchor="middle" font-weight="700" fill="#8a4010">Knowledge</text>
+  <text x="1076" y="458" text-anchor="middle" fill="#9ca3af">depth</text>
+  <g filter="url(#sh-node)"><rect x="1116" y="426" width="64" height="38" rx="7" fill="url(#g-node)" stroke="#b06020" stroke-width="0.9"/></g>
+  <text x="1148" y="443" text-anchor="middle" font-weight="700" fill="#8a4010">Interest</text>
+  <text x="1148" y="458" text-anchor="middle" fill="#9ca3af">conviction</text>
+  <g filter="url(#sh-node)"><rect x="1188" y="426" width="66" height="38" rx="7" fill="url(#g-node)" stroke="#b06020" stroke-width="0.9"/></g>
+  <text x="1221" y="443" text-anchor="middle" font-weight="700" fill="#8a4010">Master</text>
+  <text x="1221" y="458" text-anchor="middle" fill="#9ca3af">composite</text>
+</g>
+<text x="1116" y="488" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic">A–F grading · Six Pillars rollup</text>
+<text x="1116" y="506" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic">stage-flexed (Triaging / ESA / DD / Live)</text>
+<text x="1116" y="524" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic">One click opens whole dashboard</text>
+<text x="1116" y="552" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic" opacity="0.6">↓ arrow into from Notes Repository</text>
+
+
+<!-- ═══ INTERMEDIATE NODES ═══ -->
+
+<!-- WCM (Weekly Changes Memo) -->
+<g filter="url(#sh-inode)">
+  <rect x="40" y="538" width="196" height="44" rx="9" fill="url(#g-inode)" stroke="#b0b8c4" stroke-width="1.3"/>
+</g>
+<text x="138" y="558" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600" fill="#111827">Weekly Changes Memo</text>
+<text x="138" y="574" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">M&amp;E + Technical → APM</text>
+
+<!-- QCC (Quality Control Centre) -->
+<g filter="url(#sh-inode)">
+  <rect x="256" y="538" width="196" height="44" rx="9" fill="url(#g-inode)" stroke="#b0b8c4" stroke-width="1.3"/>
+</g>
+<text x="354" y="558" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600" fill="#111827">Quality Control Centre</text>
+<text x="354" y="574" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#6b7280" font-style="italic">Research QC gate</text>
+
+<!-- TTQ (Trigger Test Qualification) — green accent -->
+<g filter="url(#sh-inode)">
+  <rect x="820" y="538" width="242" height="44" rx="9" fill="url(#g-ttq)" stroke="#4ade80" stroke-width="1.9"/>
+</g>
+<text x="941" y="558" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600" fill="#166534">Trigger Test Qualification</text>
+<text x="941" y="574" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#4ade80" font-style="italic">Signal from Master Dashboard</text>
+
+<!-- BAT (Batching of Research/Analysis Automatically) -->
+<g filter="url(#sh-inode)">
+  <rect x="820" y="608" width="242" height="52" rx="9" fill="url(#g-inode)" stroke="#b0b8c4" stroke-width="1.3"/>
+</g>
+<text x="941" y="630" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600" fill="#111827">Batching of Research /</text>
+<text x="941" y="648" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600" fill="#111827">Analysis Automatically</text>
+
+
+<!-- ═══ CLUSTER: NOTES REPOSITORY (pink, bottom-left) ═══ -->
+<g filter="url(#sh-cluster)">
+  <rect x="22" y="640" width="442" height="94" rx="14" fill="url(#g-pink)" stroke="#b04870" stroke-width="1.2"/>
+</g>
+<g filter="url(#sh-node)">
+  <rect x="38" y="654" width="410" height="68" rx="9" fill="url(#g-node)" stroke="#b04870" stroke-width="1"/>
+</g>
+<text x="243" y="678" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="13.5" font-weight="700" letter-spacing=".4" fill="#111827">NOTES REPOSITORY</text>
+<text x="243" y="698" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10" fill="#6b7280" font-style="italic">Researcher · APM · Qualitative IC analysis</text>
+<text x="243" y="714" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#9ca3af" font-style="italic">Per-stock memos · IAJA library · feeds Ratings Dashboard</text>
+
+
+<!-- ═══ SUBSTRATE BAR ═══ -->
+<g filter="url(#sh-node)">
+  <rect x="22" y="768" width="1256" height="82" rx="12" fill="url(#g-substrate)"/>
+</g>
+<text x="650" y="800" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0" letter-spacing=".8">STOCKS UNIVERSE DATABASE</text>
+<text x="650" y="820" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="10.5" fill="#64748b">973 stocks · 24 industries · 154 sectors · pullback watchlist</text>
+<text x="650" y="838" text-anchor="middle" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#475569" font-style="italic">substrate everything sits on</text>
+
+
+<!-- ═══ FOOTER ═══ -->
+<text x="30" y="860" font-family="-apple-system,'Segoe UI',system-ui,sans-serif" font-size="9" fill="#d1d5db">Built 19-May-26 · Mockup A · Elevated Blueprint · Representative section (6 of 9 clusters shown)</text>
+
+</svg>
+</div>
+
+<p class="label">Direction A — Same spatial layout · Cubic Bézier arrows · Gradient fills · Drop shadows · Refined typography · Warmer palette</p>
+
+</body>
+</html>
