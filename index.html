@@ -83,7 +83,7 @@
 </head>
 <body>
 <header>
-  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v7</span></span></h1>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v8</span></span></h1>
   <div class="status-strip">
     <span class="pill">Date <strong id="d-date">—</strong></span>
     <span class="pill">Market regime <strong>risk-off</strong></span>
@@ -104,7 +104,7 @@
   <span class="sw"><i style="background:#fef0d0;border:1px solid #e0a040"></i>GAP (clickable)</span>
 </div>
 <main class="stage">
-<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v7">
+<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v8">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#2a2a2a"/>
@@ -179,21 +179,26 @@
        Route: QCC bottom-centre (x=395,y=646) → straight drop to Notes Repo top (y=740) -->
   <path class="flow-line" d="M395,646 L395,740" marker-end="url(#arrow)"/>
 
-  <!-- Master (Technical) Dashboard → Batching
-       Route: Green cluster bottom x=285 → y=596 corridor → BAT left edge x=890 → BAT top y=600 -->
+  <!-- Master (Technical) Dashboard → Trigger Test Qualification
+       Route: Green cluster bottom x=285 → y=596 corridor → TTQ left edge x=890 → TTQ top y=600 -->
   <path class="flow-line" d="M285,580 L285,596 L890,596 L890,600" marker-end="url(#arrow)"/>
 
   <!-- Workflow Priorities → Batching
        Route: WP bottom-centre x=1320,y=490 → y=570 → BAT top-centre x=1000,y=600 -->
-  <path class="flow-line" d="M1320,490 L1320,570 L1000,570 L1000,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1320,490 L1320,650 L1000,650 L1000,666" marker-end="url(#arrow)"/>
+
+
+  <!-- Trigger Test Qualification → Batching of Research/Analysis Automatically
+       Route: TTQ bottom-centre x=995,y=646 → straight drop to BAT top y=666 -->
+  <path class="flow-line" d="M995,646 L995,666" marker-end="url(#arrow)"/>
 
   <!-- Batching → Notes Repository
        Route: BAT bottom-centre x=995,y=652 → y=710 corridor → x=285 → Notes Repo top y=740 -->
-  <path class="flow-line" d="M995,652 L995,710 L285,710 L285,740" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M995,718 L995,728 L285,728 L285,740" marker-end="url(#arrow)"/>
 
   <!-- Batching → Ratings Dashboard
        Route: BAT right edge x=1115,y=626 → x=1160 right corridor → y=560 → Ratings left edge x=1180 -->
-  <path class="flow-line" d="M1115,626 L1160,626 L1160,560 L1180,560" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1115,692 L1160,692 L1160,560 L1180,560" marker-end="url(#arrow)"/>
 
 
   <!-- ============ REMINDER BLOCK (top-left, clickable) ============ -->
@@ -388,13 +393,7 @@
         <text class="sub" x="285" y="434" text-anchor="middle" style="font-style:italic">Click any screen above to open at that tab</text>
       </a>
     </g>
-    <!-- TTQ-TRIGGERS-LINK-MARKER -- Trigger Test Qualification Report link (18-May-26) -->
-    <g class="node">
-      <a data-href="local:projects/Trigger%20Test%20Qualification/reports/trigger-report-latest.html" target="_blank" rel="noopener">
-        <rect x="120" y="364" width="330" height="16" style="fill:#1a3d2a;stroke:#4ade80;rx:4"/>
-        <text class="sub" x="285" y="376" text-anchor="middle" style="font-weight:600;fill:#4ade80;font-size:10px">Trigger Test Qualification Report</text>
-      </a>
-    </g>
+
     <g class="node">
       <a data-href="local:master-dashboard/index.html#tab=val" data-href-gh="https://vfhqi.github.io/master/#tab=val" target="_blank">
         <rect x="55" y="478" width="220" height="40"/>
@@ -442,15 +441,29 @@
     </a>
   </g>
 
+
+  <!-- INTERMEDIATE: Trigger Test Qualification Report
+       Input: Master (Technical) Dashboard
+       Output: Batching of Research/Analysis Automatically
+       Positioned at x=875-1115, y=600-646 — directly above BAT, right side of diagram.
+       Green accent border signals this is a screening-signal output, not a plain process step. -->
+  <g class="inode">
+    <a data-href="local:projects/Trigger%20Test%20Qualification/reports/trigger-report-latest.html" target="_blank" rel="noopener">
+      <rect x="875" y="600" width="240" height="46" rx="8" ry="8" style="stroke:#4ade80;stroke-width:1.8;"/>
+      <text class="title" x="995" y="621" text-anchor="middle">Trigger Test Qualification</text>
+      <text class="sub" x="995" y="637" text-anchor="middle">Signal from Master Dashboard</text>
+    </a>
+  </g>
+
   <!-- INTERMEDIATE: Batching of Research / Analysis Automatically
        Inputs: Master (Technical) Dashboard + Workflow Priorities
        Outputs: Notes Repository + Ratings Dashboard
        Positioned at x=875-1115, y=600-652 — central-right, between clusters -->
   <g class="inode">
     <a href="#" data-placeholder="true">
-      <rect x="875" y="600" width="240" height="52" rx="8" ry="8"/>
-      <text class="title" x="995" y="620" text-anchor="middle">Batching of Research /</text>
-      <text class="title" x="995" y="637" text-anchor="middle">Analysis Automatically</text>
+      <rect x="875" y="666" width="240" height="52" rx="8" ry="8"/>
+      <text class="title" x="995" y="686" text-anchor="middle">Batching of Research /</text>
+      <text class="title" x="995" y="703" text-anchor="middle">Analysis Automatically</text>
     </a>
   </g>
 
@@ -480,7 +493,7 @@
 </main>
 
 <footer>
-  <span>Built 19-May-26 &middot; v7 &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span>Built 19-May-26 &middot; v8 &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
   <span><code id="d-host">file://</code> &middot; <a href="#" id="d-toggle">toggle local / GH mode</a></span>
 </footer>
 
