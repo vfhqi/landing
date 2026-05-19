@@ -79,11 +79,22 @@
   footer a{color:var(--ink-dim);}
   @media (max-width:900px){body{overflow:auto;}header{padding:6px 10px 4px;gap:8px;}header h1{font-size:14px;}.status-strip{font-size:10px;gap:4px;}.legend{padding:4px 10px;gap:3px 8px;font-size:9.5px;}main.stage{padding:4px 4px;}svg.flow{height:auto;}}
   @media (max-width:600px){header{flex-direction:column;align-items:flex-start;gap:4px;padding:6px 8px;}header h1{font-size:13px;}.status-strip{gap:3px;font-size:9.5px;}.status-strip .pill{padding:1px 5px;font-size:9.5px;}.legend{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;padding:3px 8px;}main.stage{padding:2px;overflow:auto;}svg.flow{min-width:1300px;}footer{font-size:9px;padding:3px 8px 4px;flex-direction:column;gap:2px;}}
+
+  /* === v9 Elevated Blueprint === */
+  .node rect { fill: url(#g-node); filter: url(#sh-node); }
+  .tab-pill rect { fill: url(#g-node); filter: url(#sh-node); }
+  .cyan-pill rect { fill: url(#g-node); filter: url(#sh-node); }
+  .inode rect { fill: url(#g-inode); filter: url(#sh-inode); }
+  .flow-line { stroke: #8fa3b3; stroke-width: 1.6; opacity: 0.82; }
+  .flow-line.dotted { stroke: #a8b8c4; opacity: 0.65; }
+  .substrate-bar { fill: url(#g-substrate) !important; filter: url(#sh-node); stroke: #3a3a5a !important; stroke-width: 1.0 !important; }
+  .substrate-label { fill: #e8e4d0; }
+  .substrate-sub { fill: #b0a8a0; }
 </style>
 </head>
 <body>
 <header>
-  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v8</span></span></h1>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v9</span></span></h1>
   <div class="status-strip">
     <span class="pill">Date <strong id="d-date">—</strong></span>
     <span class="pill">Market regime <strong>risk-off</strong></span>
@@ -104,13 +115,68 @@
   <span class="sw"><i style="background:#fef0d0;border:1px solid #e0a040"></i>GAP (clickable)</span>
 </div>
 <main class="stage">
-<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v8">
+<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v9">
   <defs>
+    <filter id="sh-cluster" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="2" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sh-node" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="1" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.14"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sh-inode" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+      <feOffset dx="1" dy="1.5"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="g-magenta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fceef4"/><stop offset="100%" stop-color="#f5d0e4"/>
+    </linearGradient>
+    <linearGradient id="g-yellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffae6"/><stop offset="100%" stop-color="#f8edbc"/>
+    </linearGradient>
+    <linearGradient id="g-cyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f8fc"/><stop offset="100%" stop-color="#c4e8f4"/>
+    </linearGradient>
+    <linearGradient id="g-blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f0fc"/><stop offset="100%" stop-color="#c8d8f8"/>
+    </linearGradient>
+    <linearGradient id="g-orange-out" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef2e8"/><stop offset="100%" stop-color="#f8d8b0"/>
+    </linearGradient>
+    <linearGradient id="g-green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#edf8ed"/><stop offset="100%" stop-color="#c8e8c8"/>
+    </linearGradient>
+    <linearGradient id="g-pink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fdeef6"/><stop offset="100%" stop-color="#f0c0d8"/>
+    </linearGradient>
+    <linearGradient id="g-node" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f6f7f9"/>
+    </linearGradient>
+    <linearGradient id="g-inode" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fefefe"/><stop offset="100%" stop-color="#eff1f4"/>
+    </linearGradient>
+    <linearGradient id="g-ttq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fff4"/><stop offset="100%" stop-color="#d8fce4"/>
+    </linearGradient>
+    <linearGradient id="g-substrate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2c2c44"/><stop offset="100%" stop-color="#1a1828"/>
+    </linearGradient>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4ade80" opacity="0.9"/>
+    </marker>
+
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2a2a2a"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a96aa" opacity="0.85"/>
     </marker>
     <marker id="arrow-dot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7a7a7a"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#a8b8c4" opacity="0.75"/>
     </marker>
   </defs>
 
@@ -125,85 +191,85 @@
   -->
 
   <!-- ST -> GAP (right-side feeder, dotted) — sits to the right of ST cluster, drops into GAP -->
-  <path class="flow-line dotted" d="M1370,160 L1370,240 L1370,310 L1140,310 L1140,320" marker-end="url(#arrow-dot)"/>
+  <path class="flow-line dotted" d="M1370,160 C1370,240 1140,240 1140,320" marker-end="url(#arrow-dot)"/>
 
   <!-- M&E -> GAP (across top corridor y=180-200, around cyan top, down right corridor) -->
-  <path class="flow-line dotted" d="M920,100 L935,100 L935,310 L940,310 L940,320" marker-end="url(#arrow-dot)"/>
+  <path class="flow-line dotted" d="M920,100 C935,100 940,200 940,320" marker-end="url(#arrow-dot)"/>
 
   <!-- Cyan cluster (Portfolio sub) -> GAP (across right side at y=265, into GAP via right-side corridor) -->
-  <path class="flow-line dotted" d="M860,265 L900,265 L900,405 L940,405" marker-end="url(#arrow-dot)"/>
+  <path class="flow-line dotted" d="M860,265 C920,265 940,310 940,405" marker-end="url(#arrow-dot)"/>
 
   <!-- M&E -> Cyan cluster (top of cyan, via top corridor y=190) -->
-  <path class="flow-line" d="M730,180 L730,200" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M730,180 C730,188 730,194 730,200" marker-end="url(#arrow)"/>
 
   <!-- ST -> Cyan cluster (left edge of ST drops to top corridor y=190, then leftward to top of cyan right edge) -->
-  <path class="flow-line" d="M955,300 L955,310 L860,310 L860,294" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M955,300 C920,310 880,308 860,294" marker-end="url(#arrow)"/>
 
   <!-- Master Dashboard -> Cyan cluster PMS (right edge of Master, via vertical corridor x=535, into cyan PMS at y=540) -->
-  <path class="flow-line" d="M530,500 L535,500 L535,540 L556,540" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M530,500 C542,500 542,540 556,540" marker-end="url(#arrow)"/>
 
   <!-- Cyan cluster PMS -> Ratings (right edge of cyan at PMS row y=540, via right corridor x=1150-1180, down to Ratings) -->
-  <path class="flow-line" d="M860,540 L900,540 L900,580 L1150,580 L1150,560 L1180,560" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M860,540 C960,540 1100,560 1180,560" marker-end="url(#arrow)"/>
 
   <!-- Workflow -> Ratings (Workflow bottom edge to Ratings top) — both in right column -->
-  <path class="flow-line" d="M1320,490 L1320,510" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1320,490 C1320,498 1320,504 1320,510" marker-end="url(#arrow)"/>
 
   <!-- Workflow -> Cyan cluster PMS (left edge of Workflow, across right corridor at y=400, drop to PMS top, in via cyan boundary) -->
-  <path class="flow-line" d="M1180,400 L1160,400 L1160,470 L860,470" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1180,400 C1120,400 960,450 860,470" marker-end="url(#arrow)"/>
 
   <!-- Notes Repository -> Ratings (drop to y=698 below cyan, across to x=1170, up via right corridor to Ratings left edge y=560) -->
-  <path class="flow-line" d="M530,785 L530,855 L1170,855 L1170,560 L1180,560" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M530,785 C900,785 1180,700 1180,560" marker-end="url(#arrow)"/>
 
   <!-- Stocks Universe -> Master Dashboard (left side, vertical) -->
-  <path class="flow-line" d="M270,870 L270,580" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M270,870 C270,740 270,680 270,580" marker-end="url(#arrow)"/>
 
   <!-- Stocks Universe -> Notes Repository (just above substrate) -->
-  <path class="flow-line" d="M285,870 L285,830" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M285,870 C285,855 285,845 285,830" marker-end="url(#arrow)"/>
 
   <!-- Stocks Universe -> Cyan cluster (centre, via bottom corridor y=720) -->
-  <path class="flow-line" d="M700,870 L700,690" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M700,870 C700,790 700,740 700,690" marker-end="url(#arrow)"/>
   <!-- ============ NEW INTERMEDIATE NODE ARROWS (v7) ============ -->
   <!-- Market & Environment → Weekly Changes Memo
        Route: M&E inner-rect bottom-centre (x=730,y=166) → corridor y=192 → WCM top (x=160,y=600) -->
-  <path class="flow-line" d="M730,166 L730,192 L160,192 L160,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M730,166 C730,192 160,192 160,600" marker-end="url(#arrow)"/>
 
   <!-- Master (Technical) Dashboard → Weekly Changes Memo
        Route: Green cluster bottom at x=160 → straight drop to WCM top -->
-  <path class="flow-line" d="M160,580 L160,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M160,580 C160,588 160,594 160,600" marker-end="url(#arrow)"/>
 
   <!-- Workflow Priorities → Quality Control Centre
        Route: WP left edge y=405 → x=1155 corridor → y=623 → QCC right edge x=505 -->
-  <path class="flow-line" d="M1180,405 L1155,405 L1155,623 L505,623" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1180,405 C1060,405 620,505 505,623" marker-end="url(#arrow)"/>
 
   <!-- Quality Control Centre → Notes Repository
        Route: QCC bottom-centre (x=395,y=646) → straight drop to Notes Repo top (y=740) -->
-  <path class="flow-line" d="M395,646 L395,740" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M395,646 C395,686 395,710 395,740" marker-end="url(#arrow)"/>
 
   <!-- Master (Technical) Dashboard → Trigger Test Qualification
        Route: Green cluster bottom x=285 → y=596 corridor → TTQ left edge x=890 → TTQ top y=600 -->
-  <path class="flow-line" d="M285,580 L285,596 L890,596 L890,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M285,580 C285,760 890,760 890,600" marker-end="url(#arrow)"/>
 
   <!-- Workflow Priorities → Batching
        Route: WP bottom-centre x=1320,y=490 → y=570 → BAT top-centre x=1000,y=600 -->
-  <path class="flow-line" d="M1320,490 L1320,650 L1000,650 L1000,666" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1320,490 C1320,600 1000,580 1000,666" marker-end="url(#arrow)"/>
 
 
   <!-- Trigger Test Qualification → Batching of Research/Analysis Automatically
        Route: TTQ bottom-centre x=995,y=646 → straight drop to BAT top y=666 -->
-  <path class="flow-line" d="M995,646 L995,666" marker-end="url(#arrow)"/>
+  <path d="M995,646 C995,654 995,660 995,666" style="stroke:#4ade80;stroke-width:1.7;fill:none;opacity:0.88" marker-end="url(#arrow-green)"/>
 
   <!-- Batching → Notes Repository
        Route: BAT bottom-centre x=995,y=652 → y=710 corridor → x=285 → Notes Repo top y=740 -->
-  <path class="flow-line" d="M995,718 L995,728 L285,728 L285,740" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M995,718 C995,734 285,726 285,740" marker-end="url(#arrow)"/>
 
   <!-- Batching → Ratings Dashboard
        Route: BAT right edge x=1115,y=626 → x=1160 right corridor → y=560 → Ratings left edge x=1180 -->
-  <path class="flow-line" d="M1115,692 L1160,692 L1160,560 L1180,560" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1115,692 C1140,692 1170,630 1180,560" marker-end="url(#arrow)"/>
 
 
   <!-- ============ REMINDER BLOCK (top-left, clickable) ============ -->
   <g aria-label="Reminder list of other large system components, clickable">
-    <rect x="40" y="20" width="490" height="160" rx="10" ry="10" fill="#f4efdc" stroke="#bdb494" stroke-width="1.4" stroke-dasharray="6 4"/>
+    <rect x="40" y="20" width="490" height="160" rx="14" ry="14" fill="#f4efdc" stroke="#cec8aa" stroke-width="1.0" stroke-dasharray="6 4" filter="url(#sh-inode)"/>
     <text x="55" y="42" style="font-size:10.5px;font-weight:700;fill:#7a6f47;letter-spacing:.5px">REMINDER &#8212; OTHER LARGE COMPONENTS</text>
     <g class="reminder-link"><a data-href="local:wisdom-library/INDEX.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/wisdom-library/INDEX.md" target="_blank" rel="noopener"><text x="60" y="68">&#8226;&#160;&#160;Wisdom Library</text></a></g>
     <g class="reminder-link"><a data-href="local:memory/skills/INDEX.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/skills/INDEX.md" target="_blank" rel="noopener"><text x="60" y="86">&#8226;&#160;&#160;Roles (skills, memory, other)</text></a></g>
@@ -223,7 +289,7 @@
 
   <!-- MAGENTA: Market & Environment (top-LEFT) -->
   <g>
-    <rect class="cluster c-magenta" x="540" y="20" width="380" height="160"/>
+    <rect x="540" y="20" width="380" height="160" rx="16" ry="16" fill="url(#g-magenta)" stroke="#c05478" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <a data-href="local:databases/thematics-dashboard.html" data-href-gh="https://vfhqi.github.io/landing/thematics-dashboard.html" target="_blank" rel="noopener">
         <rect x="554" y="34" width="352" height="132"/>
@@ -239,7 +305,7 @@
 
   <!-- YELLOW: Strategic Targets (top-RIGHT) — now lists OKRs too via #st-okr-list -->
   <g>
-    <rect class="cluster c-yellow" x="940" y="20" width="420" height="280"/>
+    <rect x="940" y="20" width="420" height="280" rx="16" ry="16" fill="url(#g-yellow)" stroke="#c09020" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/context/values-and-behaviours.md" target="_blank" rel="noopener">
         <rect x="954" y="34" width="392" height="252"/>
@@ -259,7 +325,7 @@
   <!-- Box: x=940 width=200 height=170. Sits BELOW Strategic Targets, RIGHT of cyan cluster (cyan ends x=860). 80px gap to cyan. -->
   <g aria-label="GAP — what the portfolio needs given strategic targets and market environment">
     <a data-href="local:databases/portfolio-okrs/2026-05.json" data-href-gh="https://vfhqi.github.io/landing/portfolio-okrs/2026-05.json" target="_blank" rel="noopener">
-      <rect x="940" y="320" width="200" height="170" rx="10" ry="10" fill="#fef0d0" stroke="#e0a040" stroke-width="2.4"/>
+      <rect x="940" y="320" width="200" height="170" rx="12" ry="12" fill="#fef0d0" stroke="#e0a040" stroke-width="1.8" filter="url(#sh-node)"/>
       <text x="1040" y="342" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#8a5a10;letter-spacing:.5px">GAP</text>
       <text x="1040" y="356" text-anchor="middle" style="font-size:9px;fill:#8a5a10;font-style:italic">portfolio shortfall</text>
       <g id="gap-okr-list">
@@ -270,13 +336,13 @@
 
   <!-- ============ CYAN COMBINED CLUSTER (Portfolio + 3 weekly reports + PMS) — title moved to LEFT-aligned to free GAP boundary ============ -->
   <g>
-    <rect class="cluster c-cyan" x="540" y="200" width="320" height="490"/>
+    <rect x="540" y="200" width="320" height="490" rx="16" ry="16" fill="url(#g-cyan)" stroke="#1f8fa8" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <text class="area-title at-cyan" x="556" y="222" text-anchor="start" style="font-size:11px">PORTFOLIO &middot; REPORTS &middot; PMS</text>
     </g>
     <g class="node">
       <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
-        <rect x="556" y="234" width="288" height="58" fill="#ffffff" stroke="#1f6f82" stroke-width="1.2"/>
+        <rect x="556" y="234" width="288" height="58" stroke="#1f6f82" stroke-width="1.2"/>
         <text class="title" x="700" y="256" text-anchor="middle" style="font-size:12.5px">Portfolio</text>
         <text class="sub" x="700" y="274" text-anchor="middle" style="font-size:10px">9 live positions &middot; current state of the book</text>
       </a>
@@ -313,7 +379,7 @@
     </g>
     <g class="node">
       <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
-        <rect x="556" y="454" width="288" height="220" fill="#ffffff" stroke="#1f6f82" stroke-width="1.2"/>
+        <rect x="556" y="454" width="288" height="220" stroke="#1f6f82" stroke-width="1.2"/>
         <text class="title" x="700" y="478" text-anchor="middle">Position Management System</text>
         <text class="sub" x="700" y="500" text-anchor="middle" style="font-style:italic">Stops, grace clocks, at-risk basis points</text>
         <text class="sub" x="700" y="520" text-anchor="middle" style="font-style:italic">Slug pyramid &amp; stop-MA enforcement</text>
@@ -328,7 +394,7 @@
 
   <!-- BLUE: Workflow Priorities (top-right, BELOW Strategic Targets and GAP node — y=510) -->
   <g>
-    <rect class="cluster c-blue" x="1180" y="320" width="280" height="170"/>
+    <rect x="1180" y="320" width="280" height="170" rx="16" ry="16" fill="url(#g-blue)" stroke="#3060c0" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <a data-href="local:memory/projects/pipeline.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/projects/pipeline.md" target="_blank" rel="noopener">
         <rect x="1194" y="334" width="252" height="142"/>
@@ -344,7 +410,7 @@
 
   <!-- ORANGE-OUTLINE: Ratings Dashboard (right, y=510) -->
   <g>
-    <rect class="cluster c-orange-out" x="1180" y="510" width="280" height="180"/>
+    <rect x="1180" y="510" width="280" height="180" rx="16" ry="16" fill="url(#g-orange-out)" stroke="#c06020" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/ratings/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
         <rect x="1194" y="524" width="252" height="152"/>
@@ -373,7 +439,7 @@
 
   <!-- GREEN: Master (Technical) Dashboard (left, full height) -->
   <g>
-    <rect class="cluster c-green" x="40" y="200" width="490" height="380"/>
+    <rect x="40" y="200" width="490" height="380" rx="16" ry="16" fill="url(#g-green)" stroke="#4a8a44" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <text class="area-title at-green" x="285" y="222" text-anchor="middle">MASTER (TECHNICAL) DASHBOARD</text>
     </g>
@@ -449,7 +515,7 @@
        Green accent border signals this is a screening-signal output, not a plain process step. -->
   <g class="inode">
     <a data-href="local:projects/Trigger%20Test%20Qualification/reports/trigger-report-latest.html" target="_blank" rel="noopener">
-      <rect x="875" y="600" width="240" height="46" rx="8" ry="8" style="stroke:#4ade80;stroke-width:1.8;"/>
+      <rect x="875" y="600" width="240" height="46" rx="8" ry="8" fill="url(#g-ttq)" filter="url(#sh-inode)" style="stroke:#4ade80;stroke-width:1.8;"/>
       <text class="title" x="995" y="621" text-anchor="middle">Trigger Test Qualification</text>
       <text class="sub" x="995" y="637" text-anchor="middle">Signal from Master Dashboard</text>
     </a>
@@ -469,7 +535,7 @@
 
   <!-- PINK: Notes Repository (bottom-left below Master Dashboard) -->
   <g>
-    <rect class="cluster c-pink" x="40" y="740" width="490" height="90"/>
+    <rect x="40" y="740" width="490" height="90" rx="16" ry="16" fill="url(#g-pink)" stroke="#c05878" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
     <g class="node">
       <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/ratings/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
         <rect x="54" y="754" width="462" height="62"/>
@@ -493,7 +559,7 @@
 </main>
 
 <footer>
-  <span>Built 19-May-26 &middot; v8 &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span>Built 19-May-26 &middot; v9 &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
   <span><code id="d-host">file://</code> &middot; <a href="#" id="d-toggle">toggle local / GH mode</a></span>
 </footer>
 
