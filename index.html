@@ -80,16 +80,13 @@
   @media (max-width:900px){body{overflow:auto;}header{padding:6px 10px 4px;gap:8px;}header h1{font-size:14px;}.status-strip{font-size:10px;gap:4px;}.legend{padding:4px 10px;gap:3px 8px;font-size:9.5px;}main.stage{padding:4px 4px;}svg.flow{height:auto;}}
   @media (max-width:600px){header{flex-direction:column;align-items:flex-start;gap:4px;padding:6px 8px;}header h1{font-size:13px;}.status-strip{gap:3px;font-size:9.5px;}.status-strip .pill{padding:1px 5px;font-size:9.5px;}.legend{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;padding:3px 8px;}main.stage{padding:2px;overflow:auto;}svg.flow{min-width:1300px;}footer{font-size:9px;padding:3px 8px 4px;flex-direction:column;gap:2px;}}
 
-  /* === v9 Elevated Blueprint === */
-  .node rect { fill: url(#g-node); filter: url(#sh-node); }
-  .tab-pill rect { fill: url(#g-node); filter: url(#sh-node); }
-  .cyan-pill rect { fill: url(#g-node); filter: url(#sh-node); }
-  .inode rect { fill: url(#g-inode); filter: url(#sh-inode); }
+  /* === v10 Visual Polish === */
+  .node rect { stroke: rgba(60,60,60,0.14); stroke-width: 1.0; filter: url(#sh-node); }
+  .tab-pill rect { filter: url(#sh-node); }
+  .cyan-pill rect { filter: url(#sh-node); }
+  .inode rect { filter: url(#sh-inode); }
   .flow-line { stroke: #8fa3b3; stroke-width: 1.6; opacity: 0.82; }
   .flow-line.dotted { stroke: #a8b8c4; opacity: 0.65; }
-  .substrate-bar { fill: url(#g-substrate) !important; filter: url(#sh-node); stroke: #3a3a5a !important; stroke-width: 1.0 !important; }
-  .substrate-label { fill: #e8e4d0; }
-  .substrate-sub { fill: #b0a8a0; }
 </style>
 </head>
 <body>
@@ -103,19 +100,9 @@
     <span class="pill">Mode <strong id="d-mode">local</strong></span>
   </div>
 </header>
-<div class="legend">
-  <span class="sw"><i style="background:rgba(230,184,0,.5)"></i>Strategic Targets</span>
-  <span class="sw"><i style="background:rgba(198,106,176,.5)"></i>Market &amp; Environment</span>
-  <span class="sw"><i style="background:rgba(95,179,199,.55)"></i>Portfolio &middot; Reports &middot; Position Management</span>
-  <span class="sw"><i style="background:rgba(84,129,199,.5)"></i>Workflow Priorities</span>
-  <span class="sw"><i style="background:rgba(106,170,100,.5)"></i>Master (Technical) Dashboard</span>
-  <span class="sw"><i style="background:rgba(232,138,166,.5)"></i>Notes Repository</span>
-  <span class="sw"><i style="background:rgba(224,122,60,.5)"></i>Ratings Dashboard</span>
-  <span class="sw"><i style="background:var(--substrate)"></i>Stocks Universe (substrate)</span>
-  <span class="sw"><i style="background:#fef0d0;border:1px solid #e0a040"></i>GAP (clickable)</span>
-</div>
+
 <main class="stage">
-<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v9">
+<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v10">
   <defs>
     <filter id="sh-cluster" x="-5%" y="-5%" width="110%" height="110%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
@@ -194,7 +181,7 @@
   <path class="flow-line dotted" d="M1370,160 C1370,240 1140,240 1140,320" marker-end="url(#arrow-dot)"/>
 
   <!-- M&E -> GAP (across top corridor y=180-200, around cyan top, down right corridor) -->
-  <path class="flow-line dotted" d="M920,100 C935,100 940,200 940,320" marker-end="url(#arrow-dot)"/>
+  <path class="flow-line dotted" d="M920,100 C925,100 925,310 940,405" marker-end="url(#arrow-dot)"/>
 
   <!-- Cyan cluster (Portfolio sub) -> GAP (across right side at y=265, into GAP via right-side corridor) -->
   <path class="flow-line dotted" d="M860,265 C920,265 940,310 940,405" marker-end="url(#arrow-dot)"/>
@@ -215,13 +202,13 @@
   <path class="flow-line" d="M1320,490 C1320,498 1320,504 1320,510" marker-end="url(#arrow)"/>
 
   <!-- Workflow -> Cyan cluster PMS (left edge of Workflow, across right corridor at y=400, drop to PMS top, in via cyan boundary) -->
-  <path class="flow-line" d="M1180,400 C1120,400 960,450 860,470" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1180,400 C1155,400 1140,505 960,505 C900,505 880,490 860,470" marker-end="url(#arrow)"/>
 
   <!-- Notes Repository -> Ratings (drop to y=698 below cyan, across to x=1170, up via right corridor to Ratings left edge y=560) -->
   <path class="flow-line" d="M530,785 C900,785 1180,700 1180,560" marker-end="url(#arrow)"/>
 
   <!-- Stocks Universe -> Master Dashboard (left side, vertical) -->
-  <path class="flow-line" d="M270,870 C270,740 270,680 270,580" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M270,870 C20,870 20,550 160,580" marker-end="url(#arrow)"/>
 
   <!-- Stocks Universe -> Notes Repository (just above substrate) -->
   <path class="flow-line" d="M285,870 C285,855 285,845 285,830" marker-end="url(#arrow)"/>
@@ -231,7 +218,7 @@
   <!-- ============ NEW INTERMEDIATE NODE ARROWS (v7) ============ -->
   <!-- Market & Environment → Weekly Changes Memo
        Route: M&E inner-rect bottom-centre (x=730,y=166) → corridor y=192 → WCM top (x=160,y=600) -->
-  <path class="flow-line" d="M730,166 C730,192 160,192 160,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M560,180 C20,180 20,610 160,600" marker-end="url(#arrow)"/>
 
   <!-- Master (Technical) Dashboard → Weekly Changes Memo
        Route: Green cluster bottom at x=160 → straight drop to WCM top -->
@@ -239,7 +226,7 @@
 
   <!-- Workflow Priorities → Quality Control Centre
        Route: WP left edge y=405 → x=1155 corridor → y=623 → QCC right edge x=505 -->
-  <path class="flow-line" d="M1180,405 C1060,405 620,505 505,623" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1180,405 C1155,405 1155,720 395,720 C395,700 395,665 395,646" marker-end="url(#arrow)"/>
 
   <!-- Quality Control Centre → Notes Repository
        Route: QCC bottom-centre (x=395,y=646) → straight drop to Notes Repo top (y=740) -->
@@ -247,11 +234,11 @@
 
   <!-- Master (Technical) Dashboard → Trigger Test Qualification
        Route: Green cluster bottom x=285 → y=596 corridor → TTQ left edge x=890 → TTQ top y=600 -->
-  <path class="flow-line" d="M285,580 C285,760 890,760 890,600" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M285,580 C535,580 535,750 870,750 C870,650 870,625 875,623" marker-end="url(#arrow)"/>
 
   <!-- Workflow Priorities → Batching
        Route: WP bottom-centre x=1320,y=490 → y=570 → BAT top-centre x=1000,y=600 -->
-  <path class="flow-line" d="M1320,490 C1320,600 1000,580 1000,666" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M1320,490 C1175,490 1155,540 1000,580 C1000,620 1000,650 1000,666" marker-end="url(#arrow)"/>
 
 
   <!-- Trigger Test Qualification → Batching of Research/Analysis Automatically
