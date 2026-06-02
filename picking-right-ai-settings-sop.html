@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Picking the Right AI Settings SOP</title>
+<style>
+  :root {
+    --bg: #faf8f4;
+    --surface: #ffffff;
+    --border: #e2ddd4;
+    --accent-gold: #7a6f47;
+    --accent-purple: #5c3d82;
+    --accent-blue: #1d5fa8;
+    --accent-green: #1a6b4a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --haiku-bg: #f0f7ff;
+    --haiku-border: #a8c4e8;
+    --sonnet-bg: #f0f7f0;
+    --sonnet-border: #8ec8a0;
+    --opus-bg: #f7f0ff;
+    --opus-border: #b89ed4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+  .page-header {
+    background: var(--accent-purple);
+    color: white;
+    padding: 28px 40px 22px;
+    border-bottom: 3px solid #3d2660;
+  }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  .page-header .meta {
+    font-size: 12px;
+    opacity: 0.75;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 36px 40px 60px;
+  }
+  /* Navigation */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+  }
+  .toc h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .toc ol {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+  .toc li { margin-bottom: 4px; }
+  .toc a { color: var(--accent-purple); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  /* Sections */
+  .section {
+    margin-bottom: 44px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  /* BLUF box */
+  .bluf {
+    background: #2d1f4a;
+    color: #f0eaff;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .bluf-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #c9b8e8;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+  }
+  .bluf p { font-size: 14.5px; line-height: 1.6; margin-bottom: 10px; }
+  .bluf p:last-child { margin-bottom: 0; }
+  .bluf strong { color: #e8d8ff; }
+  /* Model cards */
+  .model-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 700px) { .model-cards { grid-template-columns: 1fr; } }
+  .model-card {
+    border-radius: 8px;
+    padding: 18px 20px;
+    border: 1.5px solid;
+  }
+  .model-card.haiku { background: var(--haiku-bg); border-color: var(--haiku-border); }
+  .model-card.sonnet { background: var(--sonnet-bg); border-color: var(--sonnet-border); }
+  .model-card.opus { background: var(--opus-bg); border-color: var(--opus-border); }
+  .model-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .model-card.haiku .model-label { color: #1d5fa8; }
+  .model-card.sonnet .model-label { color: #1a6b4a; }
+  .model-card.opus .model-label { color: #5c3d82; }
+  .model-card .model-tagline {
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+  .model-card ul {
+    font-size: 13px;
+    line-height: 1.5;
+    padding-left: 16px;
+    color: var(--text-secondary);
+  }
+  .model-card li { margin-bottom: 4px; }
+  /* Explainer blocks */
+  .explainer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+  }
+  .explainer .tech-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+    font-family: 'Courier New', monospace;
+  }
+  .explainer .plain-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-green);
+    margin-bottom: 6px;
+    font-family: 'Courier New', monospace;
+  }
+  .explainer p { font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); }
+  /* Combo table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  th {
+    background: #f0ece4;
+    text-align: left;
+    padding: 9px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text-secondary);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #faf8f4; }
+  .badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-opus { background: var(--opus-bg); color: #5c3d82; border: 1px solid var(--opus-border); }
+  .badge-sonnet { background: var(--sonnet-bg); color: #1a6b4a; border: 1px solid var(--sonnet-border); }
+  .badge-haiku { background: var(--haiku-bg); color: #1d5fa8; border: 1px solid var(--haiku-border); }
+  .badge-on { background: #fff3e0; color: #b34700; border: 1px solid #f5c07a; }
+  .badge-off { background: #f4f4f4; color: #555; border: 1px solid #d0d0d0; }
+  .badge-high { background: #fde8e8; color: #8b1a1a; border: 1px solid #e8aaaa; }
+  .badge-normal { background: #f4f4f4; color: #444; border: 1px solid #d0d0d0; }
+  /* Guidelines */
+  .guideline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .guideline-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+    background: #f8f5ef;
+  }
+  .guideline-num {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    min-width: 28px;
+  }
+  .guideline-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
+  }
+  .guideline-badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .guideline-body {
+    padding: 16px 20px;
+  }
+  .guideline-body p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .guideline-body ul {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    margin-bottom: 12px;
+  }
+  .guideline-body li { margin-bottom: 5px; line-height: 1.5; }
+  .guideline-body strong { color: var(--text-primary); }
+  .guideline-sub {
+    background: #f8f5ef;
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+  .guideline-sub strong { color: var(--text-secondary); }
+  /* Signal box */
+  .signal-box {
+    background: #fff8e8;
+    border: 1px solid #e8d080;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+  }
+  .signal-box .signal-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8b6600;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
+  }
+  .signal-box ol {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding-left: 18px;
+  }
+  .signal-box li { margin-bottom: 5px; }
+  /* Footer */
+  .page-footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Picking the Right AI Settings SOP</h1>
+  <div class="meta">Authored: 02-Jun-2026 &nbsp;|&nbsp; Scope: Cowork app sessions &nbsp;|&nbsp; For: Richard Black &nbsp;|&nbsp; Watson [W]</div>
+</div>
+
+<div class="container">
+
+  <nav class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Bottom line up front</a></li>
+      <li><a href="#s2">The three models: Haiku, Sonnet, Opus</a></li>
+      <li><a href="#s3">The effort slider and thinking mode</a></li>
+      <li><a href="#s4">How model and thinking interact</a></li>
+      <li><a href="#s5">Practical guidelines by work type</a></li>
+      <li><a href="#s6">Quick-reference table</a></li>
+    </ol>
+  </nav>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">§1</span>
+      <span class="section-title">Bottom line up front</span>
+    </div>
+
+    <div class="bluf">
+      <div class="bluf-label">Verdict first</div>
+      <p><strong>Three levers, one compounding effect.</strong> Every Cowork session involves a choice of (a) which model, (b) how much effort, and (c) whether to enable thinking. Getting all three right matters: the difference between Sonnet at default effort and Opus at max effort with thinking is roughly the difference between a capable intern and a seasoned analyst.</p>
+      <p><strong>The most common mistake:</strong> defaulting to Sonnet out of habit for work that warrants Opus, then being frustrated at the depth. The second most common: using Opus on routine tasks where Sonnet is identical quality but faster.</p>
+      <p><strong>Simple starting heuristic:</strong> If you are <em>building something new</em> or <em>making a judgement call under uncertainty</em>, start with Opus. If you are <em>executing a known pattern</em> or <em>doing admin</em>, Sonnet is fine. See Section 5 for the full breakdown by work type.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">§2</span>
+      <span class="section-title">The three models</span>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">These are three distinct versions of Claude, each trained to a different capability ceiling. They share the same underlying architecture but differ in size, reasoning depth, and effective synthesis quality.</p>
+
+    <div class="model-cards">
+      <div class="model-card haiku">
+        <div class="model-label">Haiku</div>
+        <div class="model-tagline">The fast admin assistant</div>
+        <ul>
+          <li>Fastest response, lowest cost</li>
+          <li>Follows clear instructions well</li>
+          <li>Struggles with ambiguity or multi-step chains</li>
+          <li>Used internally in Watson's live artifacts (background calls)</li>
+          <li><strong>Your sessions: rarely select this manually</strong></li>
+        </ul>
+      </div>
+      <div class="model-card sonnet">
+        <div class="model-label">Sonnet</div>
+        <div class="model-tagline">The capable generalist</div>
+        <ul>
+          <li>Balanced speed and capability</li>
+          <li>The Cowork default</li>
+          <li>Good for clear writing, standard coding, structured analysis</li>
+          <li>Ceiling: reasoning depth on genuinely novel or ambiguous problems</li>
+          <li><strong>Your sessions: EA work, routine formatting, known SA patterns</strong></li>
+        </ul>
+      </div>
+      <div class="model-card opus">
+        <div class="model-label">Opus</div>
+        <div class="model-tagline">The senior analyst</div>
+        <ul>
+          <li>Highest capability, slowest, most expensive</li>
+          <li>Best for: deep reasoning, creative synthesis, ambiguous inference, high-quality writing</li>
+          <li>Holds long-session context more coherently</li>
+          <li><strong>Your sessions: SA architecture, APM memos, Researcher synthesis</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <div class="tech-label">Technical</div>
+      <p>Models differ in parameter count and training compute. Haiku = smallest. Sonnet = mid-tier. Opus = largest. More parameters generally means better capability on complex tasks but higher inference cost and latency. As of 02-Jun-2026: Haiku 4.5, Sonnet 4.6, Opus 4.6.</p>
+    </div>
+    <div class="explainer">
+      <div class="plain-label">Plain English</div>
+      <p>Think of three analysts on your team. Haiku is a reliable and fast admin who follows explicit instructions well but will not reason through ambiguity. Sonnet is a capable mid-level analyst: good across most tasks, but hits a ceiling on genuinely hard problems. Opus is the senior analyst who holds the full context, reasons through complexity, and writes at a materially higher quality level — but takes longer and costs more.</p>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-top:16px;"><strong>The frustration pattern you described:</strong> You use Sonnet, the output is technically correct but lacks depth or expression quality. That is Sonnet hitting its ceiling — not a Sonnet failure, a task-model mismatch. Switch to Opus, restate the brief.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">§3</span>
+      <span class="section-title">The effort slider and thinking mode</span>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;color:var(--text-primary);">3.1 The effort slider</h3>
+    <div class="explainer">
+      <div class="tech-label">Technical</div>
+      <p>The effort slider controls the extended thinking budget: how many tokens Claude is permitted to use for internal reasoning before generating the visible response. Normal effort = minimal or zero thinking budget (Claude responds directly). High / Max effort = larger thinking budget (Claude reasons first, then responds).</p>
+    </div>
+    <div class="explainer">
+      <div class="plain-label">Plain English</div>
+      <p>Imagine asking someone a hard maths problem. They can answer immediately from memory, or you can give them scratch paper to work it out first. The effort slider gives Watson scratch paper. More scratch paper (higher effort) helps for non-obvious problems. It makes no difference when the answer is immediate.</p>
+    </div>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;margin-top:8px;"><strong>The cost:</strong> Higher effort = more thinking tokens before the visible answer = slower wall-clock response + higher usage. Worth it on reasoning-heavy tasks; wasteful on straightforward ones.</p>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:12px;color:var(--text-primary);">3.2 Thinking mode (extended thinking toggle)</h3>
+    <div class="explainer">
+      <div class="tech-label">Technical</div>
+      <p>When thinking mode is enabled, Claude performs a separate chain-of-thought reasoning pass before generating the visible response. This reasoning chain is computationally expensive but is not shown verbatim in the output. The visible response is generated from the conclusion of that reasoning. Thinking mode is distinct from model choice: you can have Sonnet with thinking ON, or Opus with thinking OFF.</p>
+    </div>
+    <div class="explainer">
+      <div class="plain-label">Plain English</div>
+      <p>Thinking mode is the equivalent of asking someone to take five minutes to think before answering. Most valuable when: the question is genuinely hard, there are multiple plausible approaches to evaluate, or there is a risk of a plausible-sounding wrong answer. Adds little when the task is deterministic and well-specified.</p>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-top:10px;"><strong>In the Cowork app:</strong> Thinking mode and the effort slider are related controls — both give Watson more computational budget to reason before responding. In some app versions they are the same control. The principle is identical: more budget = better reasoning on hard problems, no improvement on easy ones.</p>
+
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-top:10px;"><strong>When thinking mode helps vs not:</strong></p>
+    <table style="margin-top:8px;">
+      <tr><th>Thinking ON helps</th><th>Thinking ON adds little</th></tr>
+      <tr><td>Novel architectural decisions (SA system design)</td><td>Clear, deterministic tasks (adding a Reminder block link)</td></tr>
+      <tr><td>Ambiguous verdicts (PROGRESS vs PASS with conflicting signals)</td><td>Routine formatting (memo template application)</td></tr>
+      <tr><td>Multi-step planning where early errors compound</td><td>Tasks where the bottleneck is information, not reasoning</td></tr>
+      <tr><td>Debugging a non-obvious failure</td><td>Standard pipeline execution</td></tr>
+    </table>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">§4</span>
+      <span class="section-title">How model and thinking interact</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:16px;"><strong>Model and thinking are not interchangeable.</strong> Model choice primarily affects the quality ceiling on <em>expression, synthesis, and knowledge</em>. Thinking mode primarily affects the quality ceiling on <em>reasoning and planning</em>. The best outcomes on truly hard tasks combine both.</p>
+
+    <table>
+      <tr>
+        <th>Model</th>
+        <th>Effort / Thinking</th>
+        <th>What it gets you</th>
+        <th>When to use</th>
+      </tr>
+      <tr>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-normal">Normal</span> <span class="badge badge-off">OFF</span></td>
+        <td>Fast, competent execution</td>
+        <td>Routine, well-specified tasks</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-high">High</span> <span class="badge badge-on">ON</span></td>
+        <td>Better reasoning, same expression ceiling</td>
+        <td>Mid-complexity tasks where speed matters but you want more depth</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-normal">Normal</span> <span class="badge badge-off">OFF</span></td>
+        <td>Higher expression and synthesis quality</td>
+        <td>High-quality writing where reasoning is clear but expression matters</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-high">High</span> <span class="badge badge-on">ON</span></td>
+        <td>Both reasoning depth and expression quality maximised</td>
+        <td>Complex, novel, ambiguous problems — the hardest SA and APM work</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">§5</span>
+      <span class="section-title">Practical guidelines by work type</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;">These are guidelines, not rules. The right call will occasionally differ — use these as the strong default and adjust when you see a clear signal to do so.</p>
+
+    <!-- Guideline 1: SA -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G1</span>
+        <span class="guideline-title">SA (Systems Architect) — building new systems, complex debugging</span>
+        <div class="guideline-badges">
+          <span class="badge badge-opus">Opus</span>
+          <span class="badge badge-high">High</span>
+          <span class="badge badge-on">Thinking ON</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p><strong>Why:</strong> SA work in your system is almost never routine. The Master Dashboard (1.1MB Python pipeline, multi-file HTML and JavaScript), the landing page SVG rewrites, the family-report column system (4 new columns, colspan changes, published wash-and-pass pills) — all required genuine architectural reasoning. Sonnet can execute a known pattern; it will struggle to <em>design</em> something new or diagnose a genuinely novel failure.</p>
+        <ul>
+          <li><strong>Use Opus + Thinking ON when:</strong> starting a new SA project from a blank brief, debugging a complex non-obvious failure (e.g., the FUSE silent truncation events, the dashboard showing 923% for T7 instead of industry RS percentile), designing a new schema or data model, writing or rewriting a canonical SOP or SKILL file</li>
+          <li><strong>Drop to Sonnet when (within an SA session):</strong> architectural decisions are locked and you are executing a known pattern; running bash commands or reading files; making a small isolated edit with a well-understood structure (e.g., adding one new line to push-dashboard.sh's target registry)</li>
+          <li><strong>Signal to switch up mid-session:</strong> Watson starts giving technically plausible but shallow answers, or proposes solutions that do not account for the full system context</li>
+        </ul>
+      </div>
+      <div class="guideline-sub"><strong>Real examples from your system:</strong> Master Dashboard sessions 54–60 (multi-workstream builds) → Opus. Adding the "Picking the right AI settings SOP" link to the Reminder block → Sonnet is fine.</div>
+    </div>
+
+    <!-- Guideline 2: Researcher -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G2</span>
+        <span class="guideline-title">Researcher — synthesis, memo writing, Family Query outputs</span>
+        <div class="guideline-badges">
+          <span class="badge badge-opus">Opus</span>
+          <span class="badge badge-normal">Normal</span>
+          <span class="badge badge-off">Thinking OFF</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p><strong>Why:</strong> Researcher synthesis (Family Query outputs, Change Forces memos, Q24 Recent Developments summaries) requires the Opus quality ceiling on <em>written judgement</em>. The reasoning chain for a research memo is not novel — you have a 24-template SOP. What matters is the quality of expression and the depth of analytical insight extracted. Thinking mode adds less here because the hard part is qualitative synthesis, not logical chains.</p>
+        <p><strong>For formatting and routing tasks (separate mode):</strong> Sonnet, Normal, OFF.</p>
+        <ul>
+          <li><strong>Use Opus when:</strong> writing or reviewing a Family Query synthesis (the Croda V3 at 43 body pages no-cohort was Opus-led), writing a Change Forces memo (render_cf_v2.py outputs need Opus-quality assembly), making a research verdict or A&amp;J call, deep QC of overnight pipeline output</li>
+          <li><strong>Use Sonnet when:</strong> reformatting an existing memo to a template, extracting specific sections from a report, running the batch orchestrator (mechanical pipeline execution), checking a manifest or routing files</li>
+        </ul>
+      </div>
+      <div class="guideline-sub"><strong>Real example:</strong> Croda Family Query V3 sign-off (43-page no-cohort output, ROIC 8.2%, rating mix 50% correct) → Opus. Running the 24-query AS batch → Sonnet.</div>
+    </div>
+
+    <!-- Guideline 3: APM -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G3</span>
+        <span class="guideline-title">APM — A&amp;J memos, stage verdicts, research judgements</span>
+        <div class="guideline-badges">
+          <span class="badge badge-opus">Opus</span>
+          <span class="badge badge-normal">Normal</span>
+          <span class="badge badge-off">Thinking OFF</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p><strong>Why:</strong> APM work is primarily about written judgement. The HTRO ESA memo, the Croda triage (17,567 words, QC-clean, PROGRESS verdict) — these require Opus's writing ceiling for expression. Thinking mode is less critical unless the verdict itself is genuinely unclear.</p>
+        <ul>
+          <li><strong>Upgrade to Thinking ON when:</strong> the stage verdict is genuinely ambiguous (PROGRESS vs PASS, WATCH vs EXIT with conflicting signals); multiple RA patterns are in tension and you need prioritisation reasoning; working through a complex invalidation scenario</li>
+          <li><strong>Stay at Thinking OFF when:</strong> the verdict is clear and you are writing it up; structuring and polishing a memo where the analytical content is already agreed</li>
+        </ul>
+      </div>
+      <div class="guideline-sub"><strong>Real example:</strong> Croda PROGRESS verdict (RA5 destocking cleared + RA3 PTIC divestment secondary) → Opus + Thinking ON for the verdict reasoning, Opus + Thinking OFF for the memo write-up.</div>
+    </div>
+
+    <!-- Guideline 4: IA -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G4</span>
+        <span class="guideline-title">IA (Investment Analyst) — cohort analysis, stock classification</span>
+        <div class="guideline-badges">
+          <span class="badge badge-opus">Opus</span>
+          <span class="badge badge-normal">Normal</span>
+          <span class="badge badge-off">Thinking OFF</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p><strong>Why:</strong> IA work requires sustained, consistent cross-reference judgement across a large corpus. The cohort framework (363 cohorts, 972 stocks) is the canonical example — classification decisions at that scale require Opus-level consistency. Sonnet will drift in consistency over a long session.</p>
+        <ul>
+          <li><strong>Upgrade to Thinking ON when:</strong> a stock classification is genuinely ambiguous between two cohorts; you are designing new framework structure or criteria</li>
+        </ul>
+      </div>
+      <div class="guideline-sub"><strong>Real example:</strong> Third-pass cohort framework design (363 cohorts, second-pass-final-framework.json → cohorts-v3.json) → Opus throughout.</div>
+    </div>
+
+    <!-- Guideline 5: EA -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G5</span>
+        <span class="guideline-title">EA (Executive Assistant) — email, scheduling, documents, research</span>
+        <div class="guideline-badges">
+          <span class="badge badge-sonnet">Sonnet</span>
+          <span class="badge badge-normal">Normal</span>
+          <span class="badge badge-off">Thinking OFF</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p><strong>Why:</strong> EA tasks are almost always well-specified with a clear right answer. Email management, scheduling, the Moving House dossier, the Oakhurst Lodge planning defensives — these require competent execution, not deep reasoning.</p>
+        <ul>
+          <li><strong>Upgrade to Opus when:</strong> the EA task has a genuinely strategic dimension — structuring a legal argument (e.g., Oakhurst Lodge against Maidstone BC permission), complex multi-party negotiation preparation, or any task where output will be read externally by people who matter and expression quality is important</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Guideline 6: Quality frustration signal -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G6</span>
+        <span class="guideline-title">When you are frustrated with quality — diagnosis and fix</span>
+        <div class="guideline-badges"></div>
+      </div>
+      <div class="guideline-body">
+        <div class="signal-box">
+          <div class="signal-label">Most likely causes in order</div>
+          <ol>
+            <li><strong>Wrong model:</strong> You are on Sonnet for a task that needs Opus. Switch model, restate the brief, continue.</li>
+            <li><strong>Thinking OFF on a reasoning-heavy task:</strong> Enable thinking, restate the question.</li>
+            <li><strong>Underspecified brief:</strong> Watson is pattern-matching to the most plausible surface interpretation. Restate with more specific constraints.</li>
+            <li><strong>Sonnet ceiling on expression:</strong> Some tasks genuinely require Opus's writing quality. Most visible in research synthesis and A&amp;J memo writing.</li>
+          </ol>
+        </div>
+        <p><strong>The diagnostic question:</strong> Is this task hard because it requires <em>deep reasoning</em> (logic, planning, multi-step inference)? Or because it requires <em>high-quality expression and synthesis</em> (nuanced writing, creative insight)? Reasoning bottleneck → turn thinking ON. Expression bottleneck → use Opus.</p>
+      </div>
+    </div>
+
+    <!-- Guideline 7: Speed overrides -->
+    <div class="guideline">
+      <div class="guideline-header">
+        <span class="guideline-num">G7</span>
+        <span class="guideline-title">When speed matters — the explicit overrides</span>
+        <div class="guideline-badges">
+          <span class="badge badge-sonnet">Sonnet</span>
+          <span class="badge badge-normal">Normal</span>
+        </div>
+      </div>
+      <div class="guideline-body">
+        <p>Watson's default is quality before speed. These overrides require Richard to name speed explicitly as the constraint.</p>
+        <ul>
+          <li>Quick directional check before committing to a path → Sonnet, Normal, OFF</li>
+          <li>Fast intermediate result to check a direction → Sonnet</li>
+          <li>Running a known pipeline (e.g., triggering the daily researcher batch) → model matters less; Sonnet is fine</li>
+          <li>Live session with time pressure and quality can be iterated → Sonnet, Normal, OFF</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">§6</span>
+      <span class="section-title">Quick-reference table</span>
+    </div>
+
+    <table>
+      <tr>
+        <th>Work type / situation</th>
+        <th>Model</th>
+        <th>Effort</th>
+        <th>Thinking</th>
+        <th>Override trigger</th>
+      </tr>
+      <tr>
+        <td>SA — new architecture, complex debug</td>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-high">High</span></td>
+        <td><span class="badge badge-on">ON</span></td>
+        <td>Small isolated edit → Sonnet</td>
+      </tr>
+      <tr>
+        <td>SA — executing a known pattern</td>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>Complex diagnosis → Opus + ON</td>
+      </tr>
+      <tr>
+        <td>Researcher — synthesis and writing</td>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>Verdict uncertainty → ON</td>
+      </tr>
+      <tr>
+        <td>Researcher — formatting, routing, pipeline</td>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>APM — memo writing, verdict clear</td>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>Ambiguous verdict → Thinking ON</td>
+      </tr>
+      <tr>
+        <td>APM — ambiguous verdict, conflicting signals</td>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-high">High</span></td>
+        <td><span class="badge badge-on">ON</span></td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>IA — cohort and stock analysis</td>
+        <td><span class="badge badge-opus">Opus</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>Ambiguous classification → ON</td>
+      </tr>
+      <tr>
+        <td>EA — standard admin, emails, scheduling</td>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>Strategic or external output → Opus</td>
+      </tr>
+      <tr>
+        <td>Quick directional check, any role</td>
+        <td><span class="badge badge-sonnet">Sonnet</span></td>
+        <td><span class="badge badge-normal">Normal</span></td>
+        <td><span class="badge badge-off">OFF</span></td>
+        <td>—</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="page-footer">
+    Picking the Right AI Settings SOP &nbsp;|&nbsp; v1.0 &nbsp;|&nbsp; Authored 02-Jun-2026 by Watson [W] &nbsp;|&nbsp; For: Richard Black &nbsp;|&nbsp; Scope: Cowork app sessions<br>
+    File: picking-right-ai-settings-sop.html &nbsp;|&nbsp; Deployed: vfhqi.github.io/landing/picking-right-ai-settings-sop.html
+  </div>
+
+</div>
+</body>
+</html>
