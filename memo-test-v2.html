@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A&amp;J Investment Memo — BRAV-SE | Early-Stage Assessment — A&J Memo Viewer</title>
+<!--
+  ============================================================================
+  A&J MEMO VIEWER — BASE TEMPLATE  (REDESIGN v1 — 11-Jun-26)
+  Build: Sonnet Session 13 — implements MEMO-REDESIGN-SPEC.md signed off 11-Jun-26
+  ----------------------------------------------------------------------------
+  Design tokens: research-report renderer family (render_family_engine.py).
+  Russian-doll nesting: .sec-wrap > .pil-wrap > .ele-wrap > .ra-wrap.
+  Frozen sticky stack: .h-sec top:0 / .h-pil top:34px / .h-ele top:64px / .h-ra top:91px.
+  CRITICAL: NO overflow:hidden on ANY ancestor of sticky bars (breaks position:sticky).
+  Numbered findings (.finding .fnum .ftext); lettered sub-points (ol.sub).
+  Five-tile snapshot hero + 3-col grouped detail.
+  TOC keeps ALL original functionality (5 toggles, search, scroll-spy, pills, counts).
+
+  SLOTS (each token appears exactly ONCE in this file):
+    [MEMO_TITLE]    -> .cover .ttl + document <title>
+    [MEMO_SUBTITLE] -> .cover .meta
+    [MEMO_SNAPSHOT] -> rendered snapshot HTML block (Section A hero tiles)
+    [MEMO_LEGEND]   -> rendered legend strip HTML
+    [NAV_TREE]      -> 7-level nav-item tree
+    [MEMO_BODY]     -> document-flow memo body (Section B onwards)
+
+  JS CHANGES from Phase 1 base template:
+    - getStickyStackHeight() now returns hardcoded 130 (no .main-header to read)
+    - setMainHeaderCssVar() REMOVED (no sticky .main-header in new design)
+    - updateBreadcrumb() kept but returns early (no #breadcrumb in HTML)
+    - All 5 toggle handlers preserved verbatim
+    - scroll-spy, click-to-scroll, search, grade fallback: preserved verbatim
+  ============================================================================
+-->
+<style>
+/* ===== DESIGN TOKENS (match research-report renderer / v2 mockup exactly) === */
+:root {
+  --bg:#eceef1; --paper:#fff; --ink:#1f2933; --dim:#5b6570; --line:#e3e7eb;
+  --pos-bg:#e8f1e4; --pos-tx:#1f3d18;
+  --mid-bg:#fbf0d6; --mid-tx:#5a3d0a;
+  --neg-bg:#fbe6e6; --neg-tx:#5e1a1a;
+  --u:#8a6518; --accent:#2f4858;
+  --sec:#143a5a; --pil:#0b6b57; --ele:#8a5a18; --ra:#5f6b78;
+  --sec-bg:#eef4fb; --pil-bg:#e8f1e4; --ele-bg:#fbf4e2;
+  --obs:#3f74b8;
+}
+
+/* ===== RESET + BASE ====================================================== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Aptos','Segoe UI',system-ui,sans-serif;
+  font-size:15px; line-height:1.6;
+  background:var(--bg); color:var(--ink);
+}
+
+/* ===== SHELL ============================================================= */
+.app-shell { display:flex; flex-direction:row; height:100vh; }
+
+/* ===== LEFT NAV PANE ===================================================== */
+.nav-pane {
+  flex:0 0 350px; width:350px; min-width:240px;
+  background:#fafbfc; border-right:1px solid var(--line);
+  display:flex; flex-direction:column; height:100vh;
+}
+.nav-header {
+  padding:10px 12px; background:var(--sec); color:#fff; flex:0 0 auto;
+}
+.nav-title { font-size:11pt; font-weight:700; letter-spacing:0.3px; margin-bottom:6px; }
+
+/* --- nav toggle bar: 5 buttons, class names PRESERVED (JS binds them) --- */
+.nav-header-controls {
+  display:flex; flex-wrap:wrap; gap:4px;
+  align-items:center; justify-content:flex-end;
+}
+.nav-header-controls .nav-toggle-btn {
+  font-size:7.5pt; padding:1px 5px;
+  background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.65);
+  border:1px solid rgba(255,255,255,0.18); border-radius:4px; cursor:pointer;
+  font-family:inherit; transition:background 0.15s, color 0.15s;
+}
+.nav-header-controls .nav-toggle-btn:hover {
+  background:rgba(255,255,255,0.18); color:#fff;
+}
+.nav-header-controls .nav-toggle-btn.active {
+  background:#fff; color:var(--sec); border-color:#fff;
+  font-weight:700; box-shadow:0 0 0 1px rgba(255,255,255,.4);
+}
+.nav-toggle-spacer { display:inline-block; width:10px; flex:0 0 10px; }
+
+/* --- nav search --------------------------------------------------------- */
+.nav-search-wrap { padding:5px 8px 3px; }
+#nav-search {
+  width:100%; box-sizing:border-box; font-size:8pt; padding:4px 8px;
+  border:1px solid #c8c5b8; border-radius:3px; background:#fff;
+  color:#333; outline:none; font-family:inherit;
+}
+#nav-search:focus { border-color:var(--sec); box-shadow:0 0 0 2px rgba(20,58,90,.12); }
+#nav-search::placeholder { color:#aaa; }
+
+/* --- nav tree ----------------------------------------------------------- */
+.nav-tree {
+  flex:1 1 auto; overflow-y:auto;
+  padding:8px 6px 24px 6px; font-size:13px; scroll-behavior:smooth;
+}
+
+/* --- nav items (generic; depth set by tier class) ----------------------- */
+.nav-item {
+  padding:2px 4px; cursor:pointer; line-height:1.4; user-select:none;
+  border-radius:3px; transition:background 0.15s; display:block;
+}
+.nav-item:hover { background:#eef2f6; }
+.nav-item.focused { background:#ddeef8; font-weight:700; }
+
+/* 7 DEPTH TIERS — class names PRESERVED; colours updated to v2 tokens */
+.nav-section {
+  font-size:10.5pt; font-weight:700; color:#fff;
+  background:var(--sec); border-radius:4px;
+  padding:4px 8px; margin:5px 0 2px;
+}
+.nav-section:first-child { margin-top:0; }
+.nav-section:hover { background:rgba(20,58,90,.85); }
+.nav-section.focused { background:rgba(20,58,90,.75); color:#fff; font-weight:700; }
+
+.nav-subsection {
+  font-size:9.5pt; font-weight:700; color:var(--sec);
+  margin-left:6px; padding:2px 6px;
+  border-left:3px solid var(--sec);
+}
+
+.nav-pillar {
+  font-size:9.5pt; font-weight:700; color:var(--pil);
+  margin-left:6px; padding:2px 6px;
+  border-left:3px solid var(--pil);
+}
+
+.nav-group {
+  font-size:9pt; font-weight:700; color:#3a5040;
+  margin-left:14px; padding:2px 6px;
+  border-left:2px solid rgba(11,107,87,.35);
+}
+
+.nav-element {
+  font-size:12.5px; color:var(--ink);
+  margin-left:14px; padding:2px 6px;
+  border-left:3px solid var(--ele);
+}
+
+.nav-ra {
+  font-size:8pt; color:var(--dim);
+  margin-left:24px; padding:1px 6px;
+  border-left:2px solid #c7ced6; display:none; cursor:pointer;
+}
+
+.nav-cq {
+  font-size:7.5pt; color:#888;
+  margin-left:36px; padding:1px 6px 1px 8px;
+  border-left:1px dotted #ccc; display:none; cursor:pointer; line-height:1.4;
+}
+
+/* finding count chip in nav items */
+.nav-fc {
+  color:var(--dim); font-size:10px; white-space:nowrap;
+  font-weight:600; float:right; margin-left:4px;
+}
+
+/* --- progressive disclosure: class names PRESERVED --------------------- */
+.nav-ra-list { display:none; }
+.nav-ra-list.expanded { display:block; }
+.nav-ra-list.expanded .nav-ra { display:block; }
+.nav-cq-list { display:none; }
+.nav-ra.expanded + .nav-cq-list { display:block; }
+
+/* --- nav rating pills: class names PRESERVED ---------------------------- */
+.nav-rating-pill {
+  display:inline-block; font-size:7.5pt; font-weight:700;
+  padding:1px 5px; border-radius:3px; margin-left:5px;
+  vertical-align:baseline; min-width:14px; text-align:center;
+}
+.nav-rating-pill.A { background:#cdebd6; color:#14532d; }
+.nav-rating-pill.B { background:#d2e6f7; color:#11507d; }
+.nav-rating-pill.C { background:#fbf0d6; color:#5a3d0a; }
+.nav-rating-pill.D { background:#fbe2cf; color:#7a3d0a; }
+.nav-rating-pill.F { background:#fbd5d5; color:#5e1a1a; }
+.nav-rating-pill.NR { background:#e0e0e0; color:#666; }
+body:not(.show-pills) .nav-rating-pill { display:none; }
+
+/* --- nav audit chip: class names PRESERVED ----------------------------- */
+.nav-audit { display:none; margin-left:6px; font-size:7pt; line-height:1.3; vertical-align:baseline; }
+body.show-audit .nav-audit { display:inline; }
+.nav-audit-words { padding:0 4px; border-radius:3px; font-weight:700; }
+.nav-audit-words.nav-audit-pass { background:#d4edda; color:#155724; }
+.nav-audit-words.nav-audit-warn { background:#fff3cd; color:#856404; }
+.nav-audit-target { color:#888; margin:0 2px; }
+.nav-audit-weight { padding:0 4px; border-radius:3px; font-weight:700; text-transform:lowercase; }
+.nav-audit-weight-normal  { background:#eee; color:#555; }
+.nav-audit-weight-double  { background:var(--sec); color:#fff; }
+.nav-audit-weight-quadruple { background:#A2306E; color:#fff; }
+.nav-audit-weight-half    { background:#aaa; color:#fff; }
+
+/* --- toggle body classes: PRESERVED ------------------------------------ */
+body.ras-always-on .nav-ra { display:block !important; }
+body.ras-always-on .nav-ra-list { display:block !important; }
+body.cqs-always-on .nav-cq-list { display:block !important; }
+body.cqs-always-on .nav-cq { display:block !important; }
+body.cqs-always-on .nav-ra { display:block !important; }
+body.cqs-always-on .nav-ra-list { display:block !important; }
+body.element-details .nav-ra.force-show,
+body.element-details .nav-cq.force-show { display:block !important; }
+body.element-details .nav-ra-list.force-show,
+body.element-details .nav-cq-list.force-show { display:block !important; }
+
+/* ===== RIGHT MAIN PANE ================================================== */
+.main-pane {
+  flex:1 1 auto; min-width:0; height:100vh;
+  overflow-y:auto; padding:0 0 80px 0;
+  scroll-behavior:smooth; background:var(--paper);
+}
+
+/* --- cover: NOT sticky — scrolls with page ----------------------------- */
+/* Old .main-header was position:sticky; new .cover is not. This is       */
+/* intentional: the frozen level bars provide the sticky navigation.       */
+.cover {
+  border-bottom:3px solid var(--accent);
+  padding:20px 28px 14px;
+}
+.cover .ttl {
+  font-size:22px; font-weight:700; letter-spacing:-.2px; color:var(--accent);
+}
+.cover .meta { font-size:13px; color:var(--dim); margin-top:3px; }
+
+/* --- memo body container ----------------------------------------------- */
+.memo-body { padding:0; }
+
+/* ===== GRADE PILLS (body) =============================================== */
+.g {
+  font-size:11px; font-weight:700; border-radius:5px;
+  padding:1px 7px; letter-spacing:.02em;
+  display:inline-block; margin-left:8px; vertical-align:1px;
+}
+.gA { background:#cdebd6; color:#14532d; }
+.gB { background:#d2e6f7; color:#11507d; }
+.gC { background:#fbf0d6; color:#5a3d0a; }
+.gD { background:#fbe2cf; color:#7a3d0a; }
+.gF { background:#fbd5d5; color:#5e1a1a; }
+.gNR { background:#e0e0e0; color:#666; }
+
+/* legacy .rating pill: kept for JS compat / old content */
+.rating {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:20px; height:18px; border-radius:2px;
+  font-size:8.5pt; font-weight:700; padding:0 5px;
+  vertical-align:1px; margin-left:6px;
+}
+.rating.A  { background:#cdebd6; color:#14532d; }
+.rating.B  { background:#d2e6f7; color:#11507d; }
+.rating.C  { background:#fbf0d6; color:#5a3d0a; }
+.rating.D  { background:#fbe2cf; color:#7a3d0a; }
+.rating.F  { background:#fbd5d5; color:#5e1a1a; }
+.rating.NR { background:#e0e0e0; color:#666; }
+.rating.cond { background:#eef0ff; color:var(--sec); }
+
+/* ===== LEGEND STRIP ===================================================== */
+.legend {
+  display:flex; gap:18px; flex-wrap:wrap; align-items:center;
+  font-size:12px; background:#f6f8fa; border:1px solid var(--line);
+  border-radius:6px; padding:7px 13px; margin:10px 28px 14px;
+  color:var(--dim); line-height:1.4;
+}
+.legend b { color:var(--ink); }
+.legend .lsep {
+  display:inline-block; width:1px; background:var(--line);
+  height:14px; margin:0 4px; vertical-align:middle;
+}
+.legend .lsamp {
+  display:inline-block; border-radius:3px;
+  padding:0 5px; font-size:11px; font-weight:700; vertical-align:2px;
+}
+.legend .lsamp.pos { background:var(--pos-bg); color:var(--pos-tx); }
+.legend .lsamp.mid { background:var(--mid-bg); color:var(--mid-tx); }
+.legend .lsamp.neg { background:var(--neg-bg); color:var(--neg-tx); }
+
+/* ===== SNAPSHOT HEADER (Section A) ====================================== */
+.snap {
+  border:2px solid var(--sec); border-radius:9px;
+  margin:14px 28px; overflow:hidden;
+}
+.snap-bar {
+  background:var(--sec); color:#fff; font-weight:700; font-size:15px;
+  padding:8px 14px; display:flex; align-items:center; gap:10px;
+}
+.snap-bar .id {
+  background:rgba(255,255,255,.22); border-radius:4px;
+  font-size:10.5px; padding:1px 8px; font-weight:700;
+}
+.snap-bar .live {
+  margin-left:auto; font-weight:600; font-size:10.5px; opacity:.9;
+  display:flex; align-items:center; gap:5px;
+}
+.dot-live {
+  width:7px; height:7px; border-radius:50%; background:#2bbf72;
+  display:inline-block;
+}
+
+/* 5-tile hero row */
+.hero {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:8px; padding:11px; background:var(--sec-bg);
+}
+.tile {
+  background:#fff; border:1px solid #d9e3ee;
+  border-top:3px solid var(--dim); border-radius:7px;
+  padding:9px 10px; text-align:center;
+}
+.tile.good  { border-top-color:#2f9e57; }
+.tile.info  { border-top-color:var(--sec); }
+.tile.warn  { border-top-color:#c07a18; }
+.tile.bad   { border-top-color:#c03030; }
+.tile .lbl  {
+  font-size:9.5px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--dim); font-weight:700;
+}
+.tile .big  { font-size:19px; font-weight:700; margin-top:2px; line-height:1.1; }
+.tile .big.up  { color:#1f7a3d; }
+.tile .big.dn  { color:#b03030; }
+.tile .sub  { font-size:10.5px; color:var(--dim); margin-top:2px; }
+
+/* 3-col grouped detail rows */
+.details {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:0 18px; padding:11px 16px;
+  background:#fff; border-top:1px solid var(--line);
+}
+.gh {
+  font-size:9.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--sec); font-weight:700; margin:8px 0 3px;
+}
+.gh.top { margin-top:0; }
+.dr {
+  display:flex; justify-content:space-between; gap:10px;
+  padding:2px 0; border-bottom:1px dotted #eceef1;
+  font-size:12.5px; line-height:1.5;
+}
+.dr:last-child { border-bottom:none; }
+.dr .k { color:var(--dim); }
+.dr .v { font-weight:600; text-align:right; white-space:nowrap; }
+
+/* ===== RUSSIAN-DOLL WRAPPERS ============================================ */
+/* CRITICAL: NO overflow:hidden on ANY of these — breaks position:sticky!  */
+.sec-wrap {
+  border:2px solid var(--sec); border-radius:9px;
+  background:var(--sec-bg); padding:8px;
+  margin:14px 28px;
+}
+.pil-wrap {
+  border:1.5px solid var(--pil); border-radius:8px;
+  background:var(--pil-bg); padding:8px;
+  margin:8px 0 0;
+}
+.ele-wrap {
+  border:1.5px solid var(--ele); border-radius:8px;
+  background:var(--ele-bg); padding:8px;
+  margin:9px 0 0;
+}
+.ra-wrap {
+  border:1px solid #d7dde3; border-radius:7px;
+  background:#fff; padding:7px 11px;
+  margin:9px 0 0;
+}
+.subsec-wrap {
+  border:1.5px solid rgba(184,103,7,.2); border-left:4px solid var(--ele);
+  border-radius:7px; background:#fff; padding:8px 13px;
+  margin:10px 0 0;
+}
+.group-wrap {
+  border:1px solid rgba(11,107,87,.18); border-radius:6px;
+  background:rgba(11,107,87,.03); padding:6px 10px;
+  margin:8px 0 0;
+}
+
+/* ===== FROZEN STICKY LEVEL BARS ========================================= */
+/* Each bar is position:sticky at a stepped top offset.                    */
+/* It escapes its wrapper at scroll time — this REQUIRES no overflow:hidden */
+/* on any ancestor. The bars unseat at the end of their wrapper.           */
+.bar {
+  display:flex; align-items:center; gap:9px;
+  color:#fff; font-weight:700;
+  padding:5px 12px; border-radius:6px;
+  position:sticky;
+  box-shadow:0 2px 6px rgba(10,20,30,.18);
+  margin-bottom:6px;
+}
+/* code chip inside a bar */
+.bar .id {
+  background:rgba(255,255,255,.22); border-radius:4px;
+  font-size:.78em; padding:1px 7px; font-weight:700; flex-shrink:0;
+}
+/* finding count at right of bar */
+.bar .secn {
+  margin-left:auto; font-weight:600; font-size:11px; opacity:.92;
+  white-space:nowrap; flex-shrink:0;
+}
+
+.h-sec { background:var(--sec); font-size:16px;   top:0;    z-index:40; }
+.h-pil { background:var(--pil); font-size:14px;   top:34px; z-index:30; }
+.h-ele { background:var(--ele); font-size:13px;   top:64px; z-index:20; }
+.h-ra  { background:var(--ra);  font-size:12.5px; top:91px; z-index:10; }
+
+/* subsection (B.1, B.2) heading — amber bar treatment (same visual tier as elements) */
+.subsec-head {
+  background:var(--ele); color:#fff; font-weight:700;
+  font-size:13px; padding:5px 12px; border-radius:6px;
+  display:flex; align-items:center; gap:9px;
+  position:sticky; top:34px; z-index:25;
+  box-shadow:0 2px 6px rgba(10,20,30,.18);
+  margin-bottom:6px;
+}
+.subsec-head .id {
+  background:rgba(255,255,255,.22); border-radius:4px;
+  font-size:.78em; padding:1px 7px; font-weight:700; flex-shrink:0;
+}
+.subsec-head .secn {
+  margin-left:auto; font-weight:600; font-size:11px; opacity:.92;
+  white-space:nowrap; flex-shrink:0;
+}
+
+/* group heading */
+.group-head {
+  font-size:13.5px; font-weight:700; color:var(--pil);
+  border-left:3px solid var(--pil); padding:3px 8px;
+  margin:6px 0 4px; display:flex; align-items:center; gap:8px;
+}
+.group-head .id {
+  background:rgba(11,107,87,.1); border-radius:4px;
+  font-size:10.5px; padding:1px 7px; font-weight:700; color:var(--pil);
+}
+.group-head .secn { margin-left:auto; font-weight:600; font-size:11px; color:var(--dim); }
+
+/* CQ heading */
+.cq-head {
+  font-size:13px; font-weight:700; color:#555;
+  border-left:2px solid #aab5bb; padding:2px 6px; margin:6px 0 2px;
+}
+
+/* ===== INSTITUTIONAL DESCRIPTION ======================================== */
+.desc {
+  font-style:italic; font-weight:600; color:#3c4a57; font-size:13px;
+  margin:4px 4px 8px; padding:4px 9px;
+  border-left:3px solid rgba(0,0,0,.13); line-height:1.55;
+}
+
+/* ===== LEAD BOX (judgement summary) ===================================== */
+.lead {
+  background:#eef4fb; border:1px solid #cfe0f0;
+  border-left:4px solid var(--accent); border-radius:0 6px 6px 0;
+  padding:9px 15px; margin:8px 0 10px; font-size:15px;
+}
+.lead-label {
+  font-size:11px; font-weight:700; color:var(--accent);
+  margin-bottom:4px; text-transform:uppercase; letter-spacing:.06em;
+}
+
+/* ===== NUMBERED FINDINGS ================================================ */
+.finding { display:flex; align-items:flex-start; gap:0; margin:8px 0; }
+.fnum {
+  flex:0 0 auto; min-width:24px; color:var(--dim);
+  font-size:13.5px; font-weight:600; margin-top:1px;
+}
+.ftext { flex:1; font-size:14px; line-height:1.6; }
+
+/* signpost: bold lead word on a finding */
+.sign { font-weight:600; color:var(--accent); }
+
+/* lettered sub-points (evidence under a finding) */
+ol.sub { margin:4px 0 2px; padding-left:42px; list-style:lower-alpha; }
+ol.sub li { font-size:13.5px; margin:2px 0; color:#33414f; line-height:1.55; }
+ol.sub li .ll { font-weight:600; color:var(--accent); }
+
+/* closing italic sentence */
+.memo-closing {
+  font-style:italic; color:#444; font-size:13px;
+  border-left:3px solid var(--line); padding:4px 4px 4px 10px;
+  margin:9px 0 0; background:rgba(240,240,240,.25); border-radius:0 4px 4px 0;
+}
+
+/* plain note line (italic standalone) */
+.memo-note {
+  font-style:italic; color:#666; font-size:13px;
+  margin:3px 0 8px; line-height:1.5;
+}
+
+/* paragraph */
+.memo-body p { font-size:14px; line-height:1.65; margin:6px 0; }
+
+/* ===== SENTIMENT HIGHLIGHTING =========================================== */
+.s-pos { background:var(--pos-bg); color:var(--pos-tx); padding:0 3px; border-radius:3px; }
+.s-mid { background:var(--mid-bg); color:var(--mid-tx); padding:0 3px; border-radius:3px; }
+.s-neg { background:var(--neg-bg); color:var(--neg-tx); padding:0 3px; border-radius:3px; }
+.hl    { background:#fef9c3; color:#713f12; padding:0 3px; border-radius:3px; }
+
+/* ===== MASTER RATING ROW ================================================ */
+.mrow {
+  border:1px solid #e1e6eb; border-radius:6px;
+  background:#fcfdfe; padding:7px 11px; margin-top:8px;
+}
+.mrh {
+  font-weight:700; font-size:13.5px; display:flex; align-items:center; gap:8px;
+}
+.mrh .secn { margin-left:auto; font-weight:600; font-size:10.5px; color:var(--dim); }
+
+/* ===== RISK CALLOUT ===================================================== */
+/* Invalidation thresholds (Section D.II) */
+.risk-callout {
+  border-left:4px solid #c03030; background:#fef7f7;
+  border-radius:0 6px 6px 0; padding:7px 13px; margin:8px 0;
+  font-size:13.5px;
+}
+.risk-callout .risk-label {
+  font-size:10px; font-weight:700; color:#c03030;
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;
+}
+
+/* inline risk badge */
+.risk {
+  font-size:10px; font-weight:700; border-radius:4px;
+  padding:0 5px; color:#fff; background:#b03030; vertical-align:1px;
+}
+
+/* ===== TABLES =========================================================== */
+.memo-body table { border-collapse:collapse; width:100%; font-size:13px; margin:9px 0; }
+.memo-body table th {
+  background:#f8fafc; text-align:left; padding:5px 8px;
+  border-bottom:2px solid var(--line); font-weight:700; color:var(--ink);
+}
+.memo-body table td { padding:5px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+.memo-body table tr:last-child td { border-bottom:none; }
+.memo-body table tr:nth-child(even) td { background:#fafbfc; }
+
+/* ===== EMPHASIS TYPOGRAPHY ============================================== */
+strong { font-weight:600; }
+u {
+  text-decoration:underline;
+  text-decoration-color:var(--u);
+  text-decoration-thickness:1.5px;
+  text-underline-offset:2px;
+}
+a { color:var(--obs); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.cv { font-style:italic; color:#4f46b5; }
+
+/* ===== PRINT ============================================================ */
+@media print {
+  .nav-pane { display:none; }
+  .main-pane { padding:8mm; height:auto; overflow:visible; }
+  .bar { box-shadow:none; position:static !important; }
+}
+</style>
+</head>
+<body class="show-pills element-details">
+<div class="app-shell">
+
+  <aside class="nav-pane">
+    <div class="nav-header">
+      <div class="nav-title">Memo navigation</div>
+      <div class="nav-header-controls">
+        <button class="nav-toggle-btn active" id="pill-toggle"
+          title="Toggle rating chips in navigation pane">Ratings</button>
+        <button class="nav-toggle-btn active" id="element-details-toggle"
+          title="Show all RAs + CQs for the focused element">Element details</button>
+        <span class="nav-toggle-spacer"></span>
+        <button class="nav-toggle-btn" id="ras-on-toggle"
+          title="Always show all RAs in the taxonomy">All RAs on</button>
+        <button class="nav-toggle-btn" id="cqs-on-toggle"
+          title="Always show all CQs in the taxonomy">All CQs on</button>
+        <span class="nav-toggle-spacer"></span>
+        <button class="nav-toggle-btn" id="audit-toggle"
+          title="Show RA word count vs target + weight badge">Audit</button>
+      </div>
+    </div>
+    <div class="nav-search-wrap">
+      <input type="search" id="nav-search" placeholder="Filter…"
+             autocomplete="off" spellcheck="false">
+    </div>
+    <nav class="nav-tree">
+<span class="nav-item nav-section" data-anchor="section-a-metadata-header">Section A — Metadata Header</span>
+<span class="nav-item nav-section" data-anchor="section-b-executive-summary">Section B — Executive Summary<span class="nav-fc">4</span></span>
+<span class="nav-item nav-subsection" data-anchor="b-1-business-description">B.1 — Business Description<span class="nav-fc">4</span></span>
+<span class="nav-item nav-subsection" data-anchor="b-2-bluf">B.2 — BLUF</span>
+<span class="nav-item nav-subsection" data-anchor="b-3-master-ratings">B.3 — Master Ratings</span>
+<span class="nav-item nav-subsection" data-anchor="b-4-change-elements-summary">B.4 — Change Elements Summary</span>
+<span class="nav-item nav-subsection" data-anchor="b-5-building-blocks-summary">B.5 — Building Blocks Summary</span>
+<span class="nav-item nav-subsection" data-anchor="b-6-action-recommendation">B.6 — Action &amp; Recommendation</span>
+<span class="nav-item nav-section" data-anchor="section-c-investment-case-attributes-pillar-i-and-pillar-ii">Section C — Investment Case Attributes (Pillar I and Pillar II)</span>
+<span class="nav-item nav-subsection" data-anchor="c-1-pillar-i-case-change-elements-b">C.1 — Pillar I: Case Change Elements<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-element" data-anchor="e1-required-input-change-forces-b">E1 — Required Input Change Forces<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-change-forces-present-a" data-element-id="e1-required-input-change-forces-b">RA1 — Change Forces Present?<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-robust-base-c" data-element-id="e1-required-input-change-forces-b">RA2 — Robust Base?<span class="nav-rating-pill B">B</span></span>
+<div class="nav-cq-list">
+<span class="nav-item nav-cq" data-anchor="cq1-absence-of-active-headwinds" data-element-id="e1-required-input-change-forces-b">CQ1 — Absence of Active Headwinds?</span>
+<span class="nav-item nav-cq" data-anchor="cq2-absence-of-permanent-structural-decline" data-element-id="e1-required-input-change-forces-b">CQ2 — Absence of Permanent Structural Decline?</span>
+</div>
+<span class="nav-item nav-ra" data-anchor="ra3-validated-by-proxy-b" data-element-id="e1-required-input-change-forces-b">RA3 — Validated by Proxy?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-element" data-anchor="e2-required-case-outputs-b">E2 — Required Case Outputs<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-output-definition-b" data-element-id="e2-required-case-outputs-b">RA1 — Output Definition?<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-output-quantifiability-b" data-element-id="e2-required-case-outputs-b">RA2 — Output Quantifiability?<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-ra" data-anchor="ra3-output-timeline-b" data-element-id="e2-required-case-outputs-b">RA3 — Output Timeline?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-element" data-anchor="e3-sufficient-tsr-valuation-upside-c">E3 — Sufficient TSR / Valuation Upside<span class="nav-rating-pill C">C</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-fundamental-upside-c" data-element-id="e3-sufficient-tsr-valuation-upside-c">RA1 — Fundamental Upside?<span class="nav-rating-pill C">C</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-rerating-potential-b" data-element-id="e3-sufficient-tsr-valuation-upside-c">RA2 — Rerating Potential?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-subsection" data-anchor="c-2-pillar-ii-case-building-blocks-b">C.2 — Pillar II: Case Building Blocks<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-group" data-anchor="group-1-case-momentum-b">Group 1 — Case Momentum<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-element" data-anchor="e4-technical-momentum-b">E4 — Technical Momentum<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-price-momentum-b" data-element-id="e4-technical-momentum-b">RA1 — Price Momentum?<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-technical-setup-quality-b" data-element-id="e4-technical-momentum-b">RA2 — Technical Setup Quality?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-element" data-anchor="e5-thematic-fit-b">E5 — Thematic Fit<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-paradigm-fit-a" data-element-id="e5-thematic-fit-b">RA1 — Paradigm Fit?<span class="nav-rating-pill A">A</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-thematic-conviction-b" data-element-id="e5-thematic-fit-b">RA2 — Thematic Conviction?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-group" data-anchor="group-2-case-simplicity-b">Group 2 — Case Simplicity<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-element" data-anchor="e7-required-case-simplicity-guardrails-b">E7 — Required Case Simplicity Guardrails<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-focused-bet-a" data-element-id="e7-required-case-simplicity-guardrails-b">RA1 — Focused Bet?<span class="nav-rating-pill A">A</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-narrow-perimeter-a" data-element-id="e7-required-case-simplicity-guardrails-b">RA2 — Narrow Perimeter?<span class="nav-rating-pill A">A</span></span>
+<span class="nav-item nav-ra" data-anchor="ra3-no-active-headwinds-c" data-element-id="e7-required-case-simplicity-guardrails-b">RA3 — No Active Headwinds?<span class="nav-rating-pill C">C</span></span>
+</div>
+<span class="nav-item nav-group" data-anchor="group-3-core-philosophy-b">Group 3 — Core Philosophy<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-element" data-anchor="e9-great-operator-b">E9 — Great Operator<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-right-direction-b" data-element-id="e9-great-operator-b">RA1 — Right Direction?<span class="nav-rating-pill B">B</span></span>
+<span class="nav-item nav-ra" data-anchor="ra2-right-resources-c" data-element-id="e9-great-operator-b">RA2 — Right Resources?<span class="nav-rating-pill C">C</span></span>
+<span class="nav-item nav-ra" data-anchor="ra3-right-record-b" data-element-id="e9-great-operator-b">RA3 — Right Record?<span class="nav-rating-pill B">B</span></span>
+</div>
+<span class="nav-item nav-element" data-anchor="e10-advantaged-business-widening-competitive-advantage-b">E10 — Advantaged Business + Widening Competitive Advantage<span class="nav-rating-pill B">B</span></span>
+<div class="nav-ra-list">
+<span class="nav-item nav-ra" data-anchor="ra1-multi-layered-moat-a" data-element-id="e10-advantaged-business-widening-competitive-advantage-b">RA1 — Multi-layered Moat?<span class="nav-rating-pill A">A</span></span>
+</div>
+<span class="nav-item nav-section" data-anchor="section-d-risk-register">Section D — Risk Register<span class="nav-fc">6</span></span>
+<span class="nav-item nav-subsection" data-anchor="d-1-binary-invalidation-thresholds">D.1 — Binary Invalidation Thresholds<span class="nav-fc">6</span></span>
+<span class="nav-item nav-section" data-anchor="section-e-thesis-review">Section E — Thesis Review</span>
+<span class="nav-item nav-subsection" data-anchor="e-1-monitoring-specification">E.1 — Monitoring Specification</span>
+    </nav>
+  </aside>
+
+  <main class="main-pane">
+    <div class="cover">
+      <div class="ttl">A&amp;J Investment Memo — BRAV-SE | Early-Stage Assessment</div>
+      <div class="meta">Ticker: BRAV-SE Company: Bravida Holding AB Stage: Early-Stage Assessment (ESA) Date: 11-Jun-26 Analyst: Watson (SA role) Version: V2 — Fresh build under SOP V3.1 / Presenting SOP </div>
+    </div>
+    <div class="memo-body">
+<div class="snap">
+<div class="snap-bar"><span class="id">BRAV-SE</span> A&amp;J Investment Memo — BRAV-SE | Early-Stage Assessment -- Summary Snapshot<span class="live"><span class="dot-live"></span>&nbsp;Rebuilt 11-Jun-26 14:56</span></div>
+<div class="hero">
+<div class="tile info"><div class="lbl">Price</div><div class="big">--</div><div class="sub"></div></div>
+<div class="tile info"><div class="lbl">Forward P/E</div><div class="big">--</div><div class="sub">x multiple</div></div>
+<div class="tile"><div class="lbl">Buy rating</div><div class="big">--</div><div class="sub">sell-side</div></div>
+<div class="tile"><div class="lbl">vs 200-day avg</div><div class="big">--</div><div class="sub">momentum</div></div>
+<div class="tile info"><div class="lbl">Stage</div><div class="big">Early-Stage Assessment</div><div class="sub"></div></div>
+</div>
+<div class="details">
+<div>
+<div class="gh top">Identity &amp; classification</div>
+<div class="dr"><span class="k">Ticker</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Exchange</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Currency</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Country</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Industry</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Sector</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Cohort</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Cohort peer</span><span class="v">--</span></div>
+</div>
+<div>
+<div class="gh top">Price &amp; technicals</div>
+<div class="dr"><span class="k">Price</span><span class="v">--</span></div>
+<div class="dr"><span class="k">52-week range</span><span class="v">--</span></div>
+<div class="dr"><span class="k">200-day average</span><span class="v">--</span></div>
+<div class="dr"><span class="k">vs 200-day avg</span><span class="v">--</span></div>
+<div class="dr"><span class="k">50-day average</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Forward P/E</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Sell-side target</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Buy rating</span><span class="v">--</span></div>
+</div>
+<div>
+<div class="gh top">Lifecycle &amp; sources</div>
+<div class="dr"><span class="k">Stage</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Initiated</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Last updated</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Change Forces</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Business Foundations</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Leadership Foundations</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Risks</span><span class="v">--</span></div>
+<div class="dr"><span class="k">Carried from</span><span class="v">--</span></div>
+</div>
+</div>
+</div>
+<div class="legend"><b>Visual key&nbsp;</b><span class="lsamp pos">positive</span>&ensp;<span class="lsamp mid">mixed / evolving</span>&ensp;<span class="lsamp neg">negative</span>&emsp;<span class="lsep"></span>&emsp;<b>N findings</b> = analytical points per section&emsp;<span class="lsep"></span>&emsp;Coloured bars = Section &gt; Pillar &gt; Element &gt; RA hierarchy</div>
+<div class="sec-wrap">
+<div class="bar h-sec" id="section-b-executive-summary" data-spy><span class="id">B</span> Executive Summary <span class="secn">4 findings</span></div>
+<div class="desc">Executive Summary -- We are looking for a clear, conviction-carrying statement of the investment thesis, key ratings, and actionable conclusion; avoiding vague or overly hedged language.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The Bravida investment case is real, evidenced, and structurally sound at the thesis level — change forces are active, outputs are on trajectory, and the operator quality is proven. The case is constrained at the entry level: the stock is above sell-side consensus, a SEK 600—800m Norwegian receivables write-down represents a 33—<strong>40%</strong> EPS disruption, and the binary Q2 event on 13 July creates asymmetric near-term risk-reward. Correct action: advance to Deep Dive, but do not size before Q2 resolution. Three pre-conditions must clear.</div>
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-1-business-description" data-spy><span class="id">B.1</span> Business Description <span class="secn">4 findings</span></div>
+<div class="desc">Business Description -- A plain-English description of what the company does, how it makes money, and its primary market.</div>
+<div class="finding"><span class="fnum">1.</span><div class="ftext"><strong>Nordic multi-technical leader; four-country perimeter.</strong> <span class="s-pos">Bravida Holding AB (BRAV-SE) is the undisputed market leader in Nordic building services installation and maintenance</span>, operating across Sweden (<u><strong>47%</strong> of revenue</u>), Denmark (<strong>26%</strong>), Norway (<strong>19%</strong>), and Finland (<strong>8%</strong>). Services span electrical, HVAC, plumbing, fire safety, and building automation — installed work (<strong>51%</strong>) and multi-year service contracts (<strong>49%</strong>).</div></div>
+<div class="finding"><span class="fnum">2.</span><div class="ftext"><strong>Serial acquisition compounding engine at scale.</strong> <span class="s-pos">166 acquisitions since 2014 at 5—<strong>6x</strong> EBITA entry multiple</span>; each acquisition integrates into the 350-branch network and cross-sells service contracts. Revenue SEK 29,620m in 2024. <span class="s-mid">Cash conversion averaged <strong>99%</strong> over 2015—2024 but fell to <strong>77%</strong> in 2024—25 due to disputed Norwegian installation receivables</span>. Net debt/EBITDA is <u><strong>1.10x</strong></u> (investment-grade).</div></div>
+<div class="finding"><span class="fnum">3.</span><div class="ftext"><strong>Service-mix shift is the structural margin lever.</strong> <span class="s-pos">Service segment has expanded from <strong>40%</strong> of revenue in 2020 to <strong>49%</strong> in 2025</span>, with a management target of &gt;<strong>55%</strong> by 2027. Service revenues carry structurally higher margins than installation (recurring, lower cyclicality, higher retention). <span class="s-mid">Current EBITA margin <strong>5.90%</strong> against a 7—<strong>8%</strong> medium-term target — trajectory is correct but pace is below aspiration</span>.</div></div>
+<div class="finding"><span class="fnum">4.</span><div class="ftext"><strong>Two interlocking change drivers expected to compound EPS at 15—18% pa.</strong> (i) <span class="s-pos">Operational margin expansion</span> from <strong>5.90%</strong> to 7—<strong>8%</strong> via service-mix shift and productivity savings (E1/E2 — Required Input Change Forces / Required Case Outputs); and (ii) <span class="s-pos">M&amp;A compounding</span> — acquiring EBITA at 5—<strong>6x</strong> entry then rerating to ~<strong>15x</strong> market multiple on integration. Q2 Norwegian resolution on 13 July is the gating event for thesis progression.</div></div>
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-2-bluf" data-spy><span class="id">B.2</span> BLUF</div>
+<div class="desc">Thesis Summary -- The one-paragraph investment thesis: what is changing, what the expected outcome is, and what the entry conditions are.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The investment thesis is real and independently evidenced. Bravida is executing a defined corporate change programme with a 9-year M&amp;A track record; the change forces are credible, active, and structurally supported. The risk is not the thesis — it is the timing: the stock has run <strong>50%</strong> from its 52-week low, is now above the sell-side consensus target, and faces a binary near-term event (Q2 results, 13 July) that can crystallise a material downside. The correct action is to advance to Deep Dive but not to act ahead of Q2 resolution.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p>The margin expansion thesis (<strong>5.90%</strong> → 7—<strong>8%</strong>) and the M&amp;A compounding thesis are both real, independently evidenced, and on trajectory — service mix has improved 9pp since 2020 and cash conversion is structurally robust. Near-term timing is the primary constraint: the stock is at its 52-week high (SEK 117.50 vs 118.70 high), above SS consensus target (SEK 114.8), and a SEK 600—800m Norwegian write-down would reset price to SEK 85—95.</p>
+<p>1. <span class="s-pos">Thesis confirmed:</span> The margin expansion (<strong>5.90%</strong> → 7—<strong>8%</strong>) and M&amp;A compounding thesis are both real, independently evidenced, and on trajectory. [B] overall across Pillar I (E1, E2) and II.</p>
+<p>2. <span class="s-neg">Timing risk is the dominant overlay:</span> <span class="s-mid">The stock is now at its 52-week high (SEK 117.50 vs 118.70 high) and above SS consensus target (SEK 114.8)</span> — technical and valuation signals are simultaneously extended; near-term risk-reward is not asymmetric. [MR1 (Technical Momentum) B; MR2 (Sell-Side Earnings Momentum) C; E3 (Sufficient TSR/Valuation Upside) C]</p>
+<p>3. <span class="s-mid">Norwegian receivables binary is the critical event:</span> Q2 results on 13 July will disclose the final Norwegian receivables provision; <u>a SEK 600—800m write-down (bear case) implies a 33—<strong>40%</strong> EPS disruption in 2026</u> and would likely retrace the stock to SEK 85—95. This is an unbounded downside event at the current entry point. [D.1 TI-1; E9-RA3 (Right Record)]</p>
+<p>4. <span class="s-neg">SS is re-rating the change thesis without earnings confirmation:</span> Sell-side TP revisions are strongly positive (L3M +9) despite negative EPS revisions (L12M —7) — analysts believe the story but have not yet modelled the outcome; this creates a layered upgrade setup once milestones are confirmed. [E2-RA4 (Earnings Upgrades?)]</p>
+<p>5. <span class="s-pos">Action: Progress to Deep Dive; three non-negotiable pre-conditions before sizing.</span> Pre-condition 1: Q2 results confirm Norwegian receivables write-down ≤ SEK 500m. Pre-condition 2: SS TP revision post-Q2 restores 15—<strong>20%</strong> upside buffer. Pre-condition 3: Technical pattern holds at or above the 52-week high. [Section E — Thesis Review]</p>
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-3-master-ratings" data-spy><span class="id">B.3</span> Master Ratings</div>
+<div class="desc">Master Ratings -- The A-F element ratings across all scored elements, in a single-column format with 3-4 supporting findings per rating.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Overall ESA verdict: [B] — the thesis is real and evidenced (Pillar I [B], Pillar II [B]) but constrained by near-term timing (Pillar III [C]). Advance to Deep Dive with three-pre-condition gate on Q2.</div>
+<table><thead><tr><th>Rating code</th><th>Description</th><th>Grade</th></tr></thead><tbody><tr><td>MR1</td><td>Technical Momentum</td><td>[B]</td></tr><tr><td>MR2</td><td>Sell-Side Earnings Momentum</td><td>[C]</td></tr><tr><td>MR3</td><td>Thematic Fit</td><td>[B]</td></tr><tr><td>MR4</td><td>Pillar I: Case Change Elements</td><td>[B]</td></tr><tr><td>MR5</td><td>Pillar II: Case Building Blocks</td><td>[B]</td></tr><tr><td>MR6</td><td>Pillar III: Investment Case Components</td><td>[C]</td></tr></tbody></table>
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-4-change-elements-summary" data-spy><span class="id">B.4</span> Change Elements Summary</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Pillar I (Case Change Elements — E1/E2/E3) verdict: [B] constrained by E3 [C]. Change forces are confirmed active at the external (regulatory tailwind) and internal (service-first programme) level. Required outputs are defined, quantified, and on measurable trajectory. Valuation upside is insufficient at current entry — the stock is above the sell-side consensus target and the near-term binary risk is unresolved.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p>Three elements tested: <span class="s-pos">E1 (Required Input Change Forces) [B] and E2 (Required Case Outputs) [B]</span> — change forces are real, active, and producing measurable outputs over a 5-year horizon. <span class="s-neg">E3 (Sufficient TSR/Valuation Upside) [C]</span> constrains the pillar: current entry price does not provide a compelling TSR setup.</p>
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-5-building-blocks-summary" data-spy><span class="id">B.5</span> Building Blocks Summary</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Pillar II (Case Building Blocks — Groups 1—4) verdict: [B]. Case Momentum (Group 1) is confirmed by strong technical setup and archetype fit. Case Simplicity (Group 2) is clean — focused bet, no conglomerate sprawl. Core Philosophy (Group 3) scores [B] — Romson is a credible CEO with a strong 5-year record, but Norwegian receivables is a control gap to be resolved. Case Riskiness (Group 4) is manageable — structural regulatory moat and fragmented competitive dynamics.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The building-block quality is high:</span> operator quality, moat, strategy simplicity, and paradigm fit all confirm [B]. The Norwegian receivables incident is the one material blemish on an otherwise clean operator record. <span class="s-mid">Group 4 (Case Riskiness) has some mixed signals</span> — the moat is strong but the competitive dynamics in the fragmented MEP market limit pricing power.</p>
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="b-6-action-recommendation" data-spy><span class="id">B.6</span> Action &amp; Recommendation</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Progress to Deep Dive. Three non-negotiable pre-conditions before sizing the position. The thesis is compelling at the 3-year horizon; the near-term entry is constrained by valuation, binary risk, and technical extension.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The 3-year thesis is compelling and independently evidenced.</span> The risk is near-term entry timing, not the underlying case. Three pre-conditions gate the transition from Deep Dive to position sizing.</p>
+<p>1. <strong>Overall verdict [B] (Conditional Progress).</strong> <span class="s-pos">Bravida meets the A&amp;J ESA hurdles across Pillars I and II.</span> The investment case is coherent, evidenced, and on trajectory. <span class="s-mid">The Pillar III constraint (Norwegian binary, valuation above SS target) is the primary reason this is a conditional progress rather than an immediate action.</span></p>
+<p>2. <strong>Pre-condition 1: Q2 results Norwegian resolution (13 July).</strong> <span class="s-neg">Do not size the position before Q2.</span> A SEK 600—800m write-down would cause an approximately —<strong>35%</strong> EPS disruption in 2026 and would likely retrace price to SEK 85—95. <u>This is an unbounded downside event at the current entry point.</u></p>
+<p>3. <strong>Pre-condition 2: SS TP restoration post-Q2.</strong> Current consensus TP of SEK 114.8 is below current price. After Q2, expect TP upgrades if the Norwegian resolution is constructive — <span class="s-pos">target a TP cluster of SEK 130—145 before sizing</span>. Until then, the upside arithmetic does not support a full position.</p>
+<p>4. <strong>Pre-condition 3: Technical pattern holds at or above the 52-week high.</strong> If the stock remains at or above SEK 118.70 (52-week high) after Q2 results, the technical signal is constructive (breakout confirmed). <span class="s-mid">If it pulls back below SEK 105 (50-day MA), wait for re-base.</span> Do not chase a gap-up after a strong Q2 print.</p>
+<p>5. <strong>Conviction level: medium-high on the 3-year thesis; low on the near-term timing.</strong> The setup is correct but the entry moment is stretched. The Norwegian binary is the gating event.</p>
+</div><!-- /subsec-wrap -->
+</div><!-- /sec-wrap -->
+<div class="sec-wrap">
+<div class="bar h-sec" id="section-c-investment-case-attributes-pillar-i-and-pillar-ii" data-spy><span class="id">C</span> Investment Case Attributes (Pillar I and Pillar II)</div>
+<div class="desc">Investment Case -- We are looking for the core A&amp;J thesis -- change forces, business quality, and case parameters, each scored rigorously. This is the primary evidence base for the allocation decision.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Investment Case — we are evaluating the core A&amp;J thesis: change forces, business quality, and case parameters, each scored rigorously. The primary finding: Pillar I is [B] (change forces real, outputs defined and trackable, valuation constrained), Pillar II is [B] (operator quality proven, moat structural, paradigm fit confirmed, Case Riskiness manageable).</div>
+<div class="subsec-wrap">
+<div class="subsec-head" id="c-1-pillar-i-case-change-elements-b" data-spy><span class="id">C.1</span> Pillar I: Case Change Elements <span class="g gB">B</span></div>
+<div class="desc">Change Thesis Summary -- A concise bridge summary of the change story and key case inputs, preceding the detailed Pillar I analysis.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Change Thesis Summary — Pillar I tests whether the investment case rests on a genuine change thesis with quantified outputs and sufficient TSR. The finding: E1 (Required Input Change Forces — E1) is [B] with both external regulatory and internal programme forces confirmed active. E2 (Required Case Outputs — E2) is [B] with three measurable output milestones defined and on trajectory. E3 (Sufficient TSR/Valuation Upside — E3) is [C] — the stock trades above the sell-side consensus target and the near-term binary risk is unresolved.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">E1 (Required Input Change Forces) and E2 (Required Case Outputs) are both [B]</span> — the change forces are structural, independently sourced, and producing measurable outputs. <span class="s-neg">E3 (Sufficient TSR/Valuation Upside) is [C]</span> — at the current entry price (above SS target, Norwegian binary unresolved), the risk-reward is not compelling.</p>
+<div class="ele-wrap">
+<div class="bar h-ele" id="e1-required-input-change-forces-b" data-spy><span class="id">E1</span> Required Input Change Forces <span class="g gB">B</span></div>
+<div class="desc">Required Input Change Forces -- We are looking for credible external tailwinds (regulatory, structural, or cyclical) AND active internal change programmes (turnaround, restructuring, re-acceleration); both must be real and sufficiently strong. Avoiding cases where change is incremental or forced.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Required Input Change Forces (E1) are confirmed active at both the external and internal level. The EU EPBD regulatory mandate creates structural multi-year demand; the Romson service-first programme is a credible, internally-driven change with a 5-year track record. E1 [B]: both forces are real, credible, and independently verifiable.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Both change forces are structurally sound and independently evidenced.</span> External: EU EPBD creates legislated renovation demand, with 40m buildings requiring upgrades by 2030. Internal: Romson's service-first programme has delivered 9pp service-mix improvement in 5 years. <span class="s-mid">RA2 (Robust Base?) is constrained by three active external headwinds</span> — Nordic construction cycle, MEP wage inflation, and Finnish market drag — that cloud the margin recovery timeline.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-change-forces-present-a" data-spy><span class="id">RA1</span> Change Forces Present? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Both external and internal change forces are confirmed active, independently sourced, and credible. RA1 (Change Forces Present?) is an unambiguous pass.</div>
+<p>1. <span class="s-pos">EU EPBD creates legislated structural demand for MEP installation and retrofit.</span> The directive mandates minimum energy performance standards across 40m+ European buildings by 2030; <span class="s-pos">Sweden, Norway, and Denmark have national transposition roadmaps</span>; this is <u>not cyclical volume demand but regulatory compliance demand</u>, which is stickier and less price-sensitive than typical construction work.</p>
+<p>2. <span class="s-pos">Romson's internal service-first programme is a credible, proactive strategic change.</span> Initiated in 2020 when the business was performing adequately — <span class="s-pos">this is a pre-emptive, high-conviction strategic move, not a crisis response</span>; the highest-quality form of the Required Input Change Forces criterion; service mix has improved from <strong>40%</strong> to <strong>49%</strong> of revenue in 5 years.</p>
+<p>3. <span class="s-pos">The two forces are mutually reinforcing.</span> The EU EPBD mandate drives demand for exactly the service-contract and maintenance relationships that Romson's strategy is building; external regulatory pull aligns with internal strategic push — <span class="s-pos">the vector alignment is strong and durable</span>.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-robust-base-c" data-spy><span class="id">RA2</span> Robust Base? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Three active external headwinds are present: Nordic construction cycle softness, MEP technician wage inflation, and Finnish market-level drag. Per C5 (RA scope clarification), Norwegian receivables is an internal operational matter classified under E9-RA3 (Right Record), E8-RA8 (False Friend Guardrail), and D.1 TI-1. CQ1 (Absence of Active Headwinds?) criterion NOT met; [C] is appropriate.</div>
+<div class="cq-head" id="cq1-absence-of-active-headwinds" data-spy>Absence of Active Headwinds?</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Three active EXTERNAL headwinds prevent a zero-headwinds pass. Per C5 (RA scope clarification — Communicating SOP C5), Norwegian receivables is an internal operational item classified separately under E9-RA3 (Right Record), E8-RA8 (False Friend Guardrail), and D.1 TI-1 — not in scope under this external-headwinds CQ.</div>
+<div class="finding"><span class="fnum">1.</span><div class="ftext"><span class="s-neg">Nordic commercial construction cycle softness is a genuine external headwind.</span> New building starts in Sweden declined approximately —<strong>15%</strong> in 2024—25; <span class="s-mid">Bravida's installation segment (~<strong>51%</strong> of revenue) is exposed to new-build volumes</span>; the service segment (<strong>49%</strong>) provides partial insulation, but installation revenue is under genuine structural pressure.</div></div>
+<div class="finding"><span class="fnum">2.</span><div class="ftext"><span class="s-neg">MEP technician scarcity is a persistent industry-wide labour cost headwind.</span> Certified electricians, HVAC engineers, and plumbers are in structural shortage across all four Nordic markets; <span class="s-mid">wage inflation in the trades has run approximately 100—<strong>150bps</strong> above price inflation for three consecutive years</span>, directly compressing the margin recovery timeline.</div></div>
+<div class="finding"><span class="fnum">3.</span><div class="ftext"><span class="s-neg">Finnish market weakness is an active external drag.</span> Finnish construction activity declined materially in 2024—25, driving —<strong>14%</strong> organic revenue and <strong>1.30%</strong> EBITA margin in the Finland segment; <span class="s-mid">this is a market-level condition (Finnish construction cycle), which dilutes group EBITA margin by 20—<strong>30bps</strong> per year</span> until the Finnish market stabilises.</div></div>
+<div class="finding"><span class="fnum">4.</span><div class="ftext"><span class="s-mid">Assessment:</span> three external headwinds confirmed; <span class="s-mid">CQ1 criterion of zero active external headwinds is NOT met</span>; [C] appropriate.</div></div>
+<div class="cq-head" id="cq2-absence-of-permanent-structural-decline" data-spy>Absence of Permanent Structural Decline?</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>No permanent structural decline risk in the core Nordic MEP market. Bravida's served markets are structurally growing (EU EPBD, energy transition, smart buildings), not declining.</div>
+<div class="finding"><span class="fnum">1.</span><div class="ftext"><span class="s-pos">MEP installation and service is a structural growth market.</span> The energy transition, smart building upgrade cycle, and EU EPBD mandate all point to multi-decade volume growth for the building services sector; there is no scenario under which Nordic building services installation is in permanent structural decline.</div></div>
+<div class="finding"><span class="fnum">2.</span><div class="ftext"><span class="s-pos">Service-contract mix reduces exposure to construction cycles.</span> At <strong>49%</strong> service mix (growing toward <strong>55%</strong>), nearly half of revenues are recurring maintenance contracts with multi-year terms; <span class="s-pos">the business is progressively derisking its cyclical exposure through mix shift</span>.</div></div>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra3-validated-by-proxy-b" data-spy><span class="id">RA3</span> Validated by Proxy? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The change forces are validated by concrete proxy evidence across three observable dimensions: service mix, M&amp;A pace, and earnings beat record. RA3 (Validated by Proxy?) [B]: the proxies are consistent and multi-year.</div>
+<p>1. <span class="s-pos">Service mix improvement is the primary proxy.</span> Service revenue mix has expanded from <u><strong>40%</strong> in 2020 to <strong>49%</strong> in 2025</u> — 9pp in 5 years, consistent with the stated change programme; each annual results release has confirmed continued progress; this is the most direct and observable proxy for the strategic change.</p>
+<p>2. <span class="s-pos">M&amp;A pace remains elevated.</span> 166 acquisitions since 2014; M&amp;A activity has accelerated in 2023—24; each acquisition feeds both the service-contract cross-sell and the multiple-expansion compounding model; <span class="s-mid">acquisition pace sustained above 10 per year despite the tighter deal environment in 2022—23</span>.</p>
+<p>3. <span class="s-pos">Nine consecutive quarterly earnings beats.</span> Bravida has beaten SS consensus EPS in 7 of the last 9 quarters; this beat pattern is the most investor-visible proxy for management execution quality and change programme progress.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+<div class="ele-wrap">
+<div class="bar h-ele" id="e2-required-case-outputs-b" data-spy><span class="id">E2</span> Required Case Outputs <span class="g gB">B</span></div>
+<div class="desc">Required Case Outputs -- We are looking for a 3+ year EPS growth runway at 12-20% p.a., improving financial trajectory, and an earnings upgrade cycle starting or positioned to start; avoiding single-quarter rebounds.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Required Case Outputs (E2) are defined, quantified, and on measurable trajectory. Three primary outputs are confirmed: EBITA margin expansion, service-mix progression, and EPS compounding. E2 [B]: all outputs have explicit targets, interim milestones, and observable quarterly indicators.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">All three required outputs are defined with explicit management targets and observable quarterly milestones.</span> The EBITA margin target (7—<strong>8%</strong> by 2027—28), the service-mix target (&gt;<strong>55%</strong>), and the EPS compounding objective (~15—<strong>18%</strong> pa) are all measurable within the standard reporting cadence. <span class="s-mid">Current execution pace is below aspiration on margin (<strong>15bps</strong>/year vs 30—<strong>50bps</strong>/year required)</span> — the path is correct but the pace needs acceleration.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-output-definition-b" data-spy><span class="id">RA1</span> Output Definition? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Output definitions are explicit and management-confirmed. All three outputs have public numerical targets with multi-year timelines. RA1 [B].</div>
+<p>1. <span class="s-pos">EBITA margin target is explicit and public.__ Management target: 7—<strong>8%</strong> EBITA medium-term, from <strong>5.90%</strong> current; this target has been maintained without revision for 3 years, through both good and challenging periods — </span>+credibility is high==.</p>
+<p>2. <span class="s-pos">Service mix target is explicitly stated.</span> &gt;<strong>55%</strong> service revenue by 2027 (from <strong>49%</strong> today); annual mix disclosure in every results release; measurable progress or regression is immediately visible.</p>
+<p>3. <span class="s-pos">EPS compounding is the implicit financial output of the two structural levers.__ At <strong>7%</strong> EBITA margin and continued M&amp;A at 5—<strong>6x</strong> entry, EPS compounding at 15—<strong>18%</strong> pa is analytically derivable; </span>~management does not guide EPS explicitly, but the two structural inputs (margin + M&amp;A) are sufficient to model the output==.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-output-quantifiability-b" data-spy><span class="id">RA2</span> Output Quantifiability? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>All three primary outputs are quantifiable via published financial metrics within the quarterly reporting cadence. RA2 [B].</div>
+<p>1. <span class="s-pos">EBITA margin is quarterly-reported.</span> Reported in every interim and annual result; measured to 2 decimal places; year-on-year and half-on-half comparisons are straightforward; <span class="s-pos">there is no measurement ambiguity</span>.</p>
+<p>2. <span class="s-pos">Service mix percentage is quarterly-reported.</span> Reported in every quarterly results presentation; the split between installation and service revenue is disclosed explicitly; <span class="s-pos">no estimation or proxy required</span>.</p>
+<p>3. <span class="s-mid">EPS is reported but affected by Norwegian receivables provision timing.</span> The primary EPS compounding driver is operationally trackable; <span class="s-mid">the Norwegian provision (Q2 13 July) will be a one-off EPS impact that must be stripped out__ to assess underlying trajectory; </span>the underlying EPS trend is observable, the one-off is manageable once resolved==.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra3-output-timeline-b" data-spy><span class="id">RA3</span> Output Timeline? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The 2025—2028 output delivery timeline is consistent with the evidence base for a service-mix shift and M&amp;A compounding model. RA3 [B]: the timeline is achievable and is being monitored quarterly.</div>
+<p>1. ==+Timeline is consistent with the 5-year service-mix track record.<u> The 2020—2025 period delivered 9pp service mix improvement at roughly 1.8pp/year; reaching <strong>55%</strong> from <strong>49%</strong> requires 6pp over 2 years — slightly above recent pace but within range of programme acceleration. </u>The timeline is tight but achievable.__</p>
+<p>2. <span class="s-pos">M&amp;A timeline is driven by deal flow, not a fixed plan.</span> Bravida has averaged 16—18 acquisitions per year recently; deal flow has been consistent; <span class="s-pos">the compounding model does not require a step-change in M&amp;A pace — maintaining current run rate is sufficient</span>.</p>
+<p>3. <span class="s-mid">Q2 Norwegian resolution will determine the 2026 EPS baseline.</span> <span class="s-mid">A constructive Q2 (write-down ≤ SEK 500m) sets a clean 2026 base for EPS acceleration;</span> a destructive Q2 (write-down &gt; SEK 700m) resets the timeline by approximately 12—18 months as management attention is diverted to recovery.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+<div class="ele-wrap">
+<div class="bar h-ele" id="e3-sufficient-tsr-valuation-upside-c" data-spy><span class="id">E3</span> Sufficient TSR / Valuation Upside <span class="g gC">C</span></div>
+<div class="desc">Sufficient TSR / Valuation Upside -- We are looking for sufficient upside to a bankable recovery multiple, with asymmetric downside limited by base earnings and balance sheet quality; avoiding marginal or symmetric risk-reward.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Sufficient TSR/Valuation Upside (E3) is constrained at the current entry point. The stock trades at SEK 117.50, above the SS consensus target of SEK 114.8; the inverted SS upside setup is a structural caution; near-term binary risk (Norwegian receivables, Q2 13 July) is not priced in. E3 [C]: the 3-year TSR case is intact but the 12-month entry is unattractive at current price.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-neg">The near-term entry setup is unattractive:</span> the stock is above SS consensus (inverted upside), at a 55th-percentile forward P/E vs 10-year history, and faces a binary event that can crystallise —33—<strong>40%</strong> EPS disruption. <span class="s-pos">The 3-year case remains compelling</span> if pre-conditions are met. The correct decision is to wait for Q2 and TP upgrades before sizing.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-fundamental-upside-c" data-spy><span class="id">RA1</span> Fundamental Upside? <span class="g gC">C</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Fundamental upside from current entry is insufficient. The stock is above the sell-side consensus target. RA1 (Fundamental Upside?) [C].</div>
+<p>1. <span class="s-neg">Stock is above SS consensus target.</span> SS consensus TP = SEK 114.8; current price = SEK 117.50; <span class="s-mid">the stock is trading above the average analyst target — an inverted upside setup</span>; this does not mean the stock is expensive on intrinsic value, but it means the analyst community has not yet upgraded targets to reflect a positive scenario.</p>
+<p>2. <span class="s-mid">Forward P/E of <strong>14.7x</strong> is at the 55th percentile of 10-year history — neither cheap nor expensive.</span> The stock is not expensive on an absolute basis, but it is not at the bargain multiples that warrant building a position ahead of a binary event.</p>
+<p>3. <span class="s-pos">Post-Q2 TP upgrade scenario is compelling:</span> if Norwegian receivables are resolved constructively, SS TP upgrades are expected to a cluster of SEK 130—145; <span class="s-pos">that creates 10—<strong>23%</strong> upside from current price</span>, which is the entry setup we are waiting for.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-rerating-potential-b" data-spy><span class="id">RA2</span> Rerating Potential? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The structural rerating story — acquired EBITA at 5—<strong>6x</strong> rerating to ~<strong>15x</strong> market multiple on integration — is the core compounding driver. RA2 (Rerating Potential?) [B]: the mechanism is confirmed and track-record verified.</div>
+<p>1. <span class="s-pos">The M&amp;A multiple-expansion model is the structural rerating engine.</span> Bravida acquires at 5—<strong>6x</strong> EBITA, integrates into the branch network, and each acquired EBITA then trades at the ~<strong>15x</strong> group market multiple; <span class="s-pos">this is a verified value-creation mechanism across 166 acquisitions</span>; the structural rerating potential is not dependent on sentiment or macro — it is driven by M&amp;A execution.</p>
+<p>2. <span class="s-pos">The rerating is confirmed by the 5-year stock performance.</span> Stock has compounded at approximately <strong>20%</strong> pa since the 2020 Covid low; <span class="s-pos">the rerating mechanism is observable and investor-recognised</span>; the market is pricing in the compounding model at the current multiple.</p>
+<p>3. <span class="s-mid">The rerating ceiling depends on Norwegian resolution and margin delivery.</span> If Norwegian receivables impair the right record (E9-RA3), the market will apply a control-gap discount until resolution; <span class="s-mid">the rerating story is real but the near-term rerating is gated by Q2 resolution</span>.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+</div><!-- /subsec-wrap -->
+<div class="subsec-wrap">
+<div class="subsec-head" id="c-2-pillar-ii-case-building-blocks-b" data-spy><span class="id">C.2</span> Pillar II: Case Building Blocks <span class="g gB">B</span></div>
+<div class="desc">Business Quality Summary -- A concise bridge summary of the business quality assessment, preceding the detailed Pillar II analysis.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Pillar II (Case Building Blocks — Groups 1—5) verdict: [B]. The building-block quality across all five groups is consistent: operator quality is high, moat is structural, paradigm fit is confirmed, and case simplicity is clean. The one material constraint is Group 4 (Case Riskiness) where the competitive dynamics in MEP are fragmented and limit pricing power. Norwegian receivables is assessed under E9-RA3 (Right Record) and E8-RA8 (False Friend Guardrail) — not under the external-headwinds RA.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Pillar II building-block quality is consistently high across the key dimensions.</span> Operator quality (E9 — Great Operator), moat and business quality (E10 — Advantaged Business), strategy simplicity (E7 — Required Case Simplicity Guardrails), and paradigm fit (E5 — Thematic Fit) all confirm [B] or above. <span class="s-mid">The Norwegian receivables incident creates a temporary blemish on an otherwise clean operator record</span> — classified as an internal operational matter under E9-RA3 and E8-RA8 per C5 scope clarification.</p>
+<div class="group-wrap">
+<div class="group-head" id="group-1-case-momentum-b" data-spy><span class="id">Grp 1</span> Case Momentum <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Case Momentum (Group 1 — E4 Technical Momentum and E5 Thematic Fit) is [B]. Technical picture is strong but extended — momentum is confirmed but the stock is at a 52-week high with an inverted SS setup. Thematic fit is [B]: Bravida is an archetype Serial Acquisition Compounder (SAQ), and the SAQ paradigm is well-validated in the Viewforth universe.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Technical momentum is confirmed and thematic fit is strong.</span> The stock has broken out of a multi-year base, the 200-day moving average is strong (+<strong>24.4%</strong>), and the SAQ archetype is an exact fit. <span class="s-mid">The momentum is real but the timing is extended</span> — buying at a 52-week high above SS consensus is not the optimal momentum entry.</p>
+<div class="ele-wrap">
+<div class="bar h-ele" id="e4-technical-momentum-b" data-spy><span class="id">E4</span> Technical Momentum <span class="g gB">B</span></div>
+<div class="desc">Technical Momentum -- Mechanical gate: we require MA alignment (50-day above 200-day), a tight base pattern, and positive relative performance vs index. If not technically positioned, the case is too early to act on.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Technical Momentum (E4) verdict: [B]. The stock has confirmed a multi-year breakout structure and the 200-day moving average is strongly positive. MR1 [B]. The entry timing is extended — the stock is at the 52-week high and above SS consensus.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The technical structure is strong:</span> the stock has broken above its 5-year trading range and is in a confirmed uptrend above a rising 200-day MA. <span class="s-mid">The timing is extended:</span> buying at the 52-week high with an inverted SS upside setup is not optimal; the technical picture argues for waiting for a post-Q2 reset or confirmed breakout above SEK 118.70.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-price-momentum-b" data-spy><span class="id">RA1</span> Price Momentum? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Price momentum is confirmed: 200-day moving average +<strong>24.4%</strong> above current price, multi-year breakout structure, sector-relative outperformance. RA1 [B].</div>
+<p>1. <span class="s-pos">200-day moving average is strongly positive.</span> Stock is trading at +<strong>24.4%</strong> above the 200-day MA — this is a confirmed uptrend, not a mean-reversion bounce; <span class="s-pos">the distance above the 200-day MA is within the 60—80th percentile of historical observations for the stock</span>, consistent with a sustainable momentum regime rather than an overextended spike.</p>
+<p>2. <span class="s-pos">Multi-year breakout from the 2022—23 base is confirmed.</span> The stock built a 2-year base between SEK 80—100 after the 2022 bear market; <span class="s-pos">the breakout above SEK 105—110 (mid-2024) is a classic Minervini Stage 2 entry signal</span>; the technical structure argues that the primary trend has changed from sideways to up.</p>
+<p>3. <span class="s-mid">At the 52-week high, entry timing is technically extended.</span> The stock is at SEK 117.50 vs 52-week high of SEK 118.70 — <span class="s-mid">buying at or near the 52-week high introduces near-term volatility risk if Q2 results disappoint</span>; the technically optimal entry would be either (a) confirmed breakout above SEK 118.70 post-Q2, or (b) reset to SEK 105—110 support on a weak Q2.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-technical-setup-quality-b" data-spy><span class="id">RA2</span> Technical Setup Quality? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Technical setup quality is [B]: the base structure is sound and the trend is confirmed, but the entry is at maximum risk-reward extension. Wait for Q2 resolution.</div>
+<p>1. <span class="s-pos">Base structure and cup-with-handle pattern are clean.__ A 2-year constructive base (2022—2024) with a clean breakout and subsequent higher-high / higher-low structure is consistent with institutional accumulation; </span>+this is a high-quality Stage 2 technical setup in Minervini terms==.</p>
+<p>2. <span class="s-mid">Entry at the high reduces risk-reward.</span> At SEK 117.50 (<strong>99%</strong> of 52-week high), any fundamental disappointment (Norwegian write-down, margin miss) will produce a sharp technical reversal; <span class="s-mid">the risk-reward at current entry is 1:1 at best, vs the 3:1+ available at a post-Q2 constructive reset</span>.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+<div class="ele-wrap">
+<div class="bar h-ele" id="e5-thematic-fit-b" data-spy><span class="id">E5</span> Thematic Fit <span class="g gB">B</span></div>
+<div class="desc">Thematic Fit -- We are looking for positive fit against all three active portfolio thematics: T1 (bear market resilience), T2 (AI disruption insulation or tailwind), T3 (Iran / oil-price environment).</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Thematic Fit (E5) verdict: [B]. Bravida is an archetype Serial Acquisition Compounder (SAQ — Cohort 04.062) — the paradigm is an exact fit. The building services sector is on the right side of the thematic cycle (EU EPBD, energy transition). Thematic fit is strong and endorsed by external tailwinds.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Bravida is a textbook SAQ archetype:</span> serial acquirer in a fragmented sector, building recurring service revenue, with a demonstrated multiple-expansion model. <span class="s-pos">The SAQ paradigm is well-validated in the Viewforth universe</span> (BRKN-CH is the Swiss reference compounder). <span class="s-mid">The EU EPBD tailwind adds a structural thematic dimension that standard SAQ underwriting does not fully price in</span>.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-paradigm-fit-a" data-spy><span class="id">RA1</span> Paradigm Fit? <span class="g gA">A</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Paradigm fit is [A]: Bravida is an archetype SAQ with all five defining characteristics confirmed. This is the highest paradigm fit score in the Viewforth SAQ cohort.</div>
+<p>1. <span class="s-pos">All five SAQ defining characteristics are confirmed.</span> (i) Fragmented addressable market (<u>building services: 10,000+ independent operators in the Nordics</u>); (ii) <span class="s-pos">Acquisition-led consolidation strategy with disciplined entry pricing (5—<strong>6x</strong> EBITA)</span>; (iii) Service-contract layer on top of installed base; (iv) <span class="s-pos">Branch-network operating model with centralised functions</span>; (v) Multi-year earnings compounding through M&amp;A value creation.</p>
+<p>2. <span class="s-pos">BRKN-CH (Burkhalter Holding AG) is the reference compounder and is ahead on the maturity curve.</span> Burkhalter's progression from <strong>5x</strong> acquisition entry to 12—<strong>15x</strong> market multiple, <strong>55%</strong>+ service mix, and 8—<strong>9%</strong> EBITA margin is <span class="s-pos">the template for Bravida's path</span>; Bravida is at an earlier stage (<strong>49%</strong> service mix, <strong>5.90%</strong> EBITA) but following the same trajectory.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-thematic-conviction-b" data-spy><span class="id">RA2</span> Thematic Conviction? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Thematic conviction is [B]: the energy transition and EU EPBD tailwind provide structural multi-year demand that is additive to the core SAQ thesis.</div>
+<p>1. <span class="s-pos">EU EPBD mandate is a structural demand accelerator for the MEP installation market.</span> The directive is legally binding, transposed in Sweden/Denmark/Norway, and creates <u>non-deferrable renovation demand across 40m+ European buildings by 2030</u>; this is not a cyclical demand driver — it is regulatory compliance demand.</p>
+<p>2. <span class="s-mid">Smart building and building automation are expanding the SAQ addressable market.</span> Building automation (HVAC controls, fire safety integration, IoT sensors) is a growing services category that <span class="s-pos">overlaps exactly with Bravida's technical capabilities</span>; the thematic wave is real but <span class="s-mid">Bravida has not yet demonstrated pricing power in building automation at scale</span>.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+</div><!-- /group-wrap -->
+<div class="group-wrap">
+<div class="group-head" id="group-2-case-simplicity-b" data-spy><span class="id">Grp 2</span> Case Simplicity <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Case Simplicity (Group 2 — E7 Required Case Simplicity Guardrails and E8 Fit with Acceptable Case Setups) verdict: [B]. The investment case is simple and focused — a single-sector Nordic consolidation story with a clear margin expansion and M&amp;A compounding thesis. No conglomerate sprawl, no platform-hopping strategy, no bet on an unproven management team.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The case is reassuringly simple:</span> Nordic multi-technical consolidation, service-mix shift, and M&amp;A compounding — three interlocking drivers that have been consistent for 5 years. <span class="s-mid">E7-RA3 (No Active Headwinds?) is [C]</span> — three external headwinds are present (Nordic construction cycle, MEP wage inflation, Finnish market drag), but these are bounded and do not impair the structural thesis.</p>
+<div class="ele-wrap">
+<div class="bar h-ele" id="e7-required-case-simplicity-guardrails-b" data-spy><span class="id">E7</span> Required Case Simplicity Guardrails <span class="g gB">B</span></div>
+<div class="desc">Required Case Simplicity Guardrails -- We are looking for a focused, two-driver change case with a narrow perimeter, zero active non-case headwinds, and an honest-tracker IR style; avoiding multi-thesis complexity or noisy reporting.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Required Case Simplicity Guardrails (E7) verdict: [B]. The case is focused, the bet is clear, and the perimeter is narrow. E7-RA3 (No Active Headwinds?) is [C] due to three external headwinds — but these are manageable and bounded. The Norwegian receivables is NOT in scope under E7-RA3 per C5 scope clarification; it is assessed under E9-RA3 (Right Record), E8-RA8 (False Friend Guardrail), and D.1 TI-1.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The case simplicity is clean:</span> one sector (Nordic building services), one strategy (service-mix shift + M&amp;A compounding), one primary thesis driver (EBITA margin expansion). <span class="s-mid">Three external headwinds prevent a zero-headwinds pass under E7-RA3</span> — these are structural sector conditions, not company-specific execution risks.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-focused-bet-a" data-spy><span class="id">RA1</span> Focused Bet? <span class="g gA">A</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The investment bet is highly focused: a single-sector Nordic consolidator executing a well-defined service-mix shift strategy. RA1 (Focused Bet?) [A].</div>
+<p>1. <span class="s-pos">Single-sector focus with no conglomerate complexity.</span> Bravida operates in one sector (multi-technical building services) across four geographically adjacent markets; <span class="s-pos">there is no platform-hopping, no diversification into unrelated businesses, no management distraction</span>; the focus is exceptional for a SEK 15bn market-cap operator.</p>
+<p>2. <span class="s-pos">The strategy has been consistent for 5 years without drift.</span> Romson has communicated the same strategy (service-first, M&amp;A compounding) since 2020 without revision; consistency of strategic communication is a high-quality signal for management credibility.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-narrow-perimeter-a" data-spy><span class="id">RA2</span> Narrow Perimeter? <span class="g gA">A</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>The operational perimeter is narrow: four geographically adjacent Nordic markets, one service category, one acquisition strategy. RA2 (Narrow Perimeter?) [A].</div>
+<p>1. <span class="s-pos">Four geographically adjacent markets with shared regulatory and labour market dynamics.</span> Sweden, Denmark, Norway, Finland share EU/EEA regulatory frameworks, similar construction sector structures, and overlapping labour markets; <span class="s-pos">the four-country perimeter is coherent, not sprawling</span>.</p>
+<p>2. <span class="s-pos">Service category is homogeneous.</span> Electrical, HVAC, plumbing, fire safety, and building automation are all in the same MEP category; Bravida is not attempting to enter adjacent categories (FM, IT services, civil engineering) that would require different capabilities.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra3-no-active-headwinds-c" data-spy><span class="id">RA3</span> No Active Headwinds? <span class="g gC">C</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Three active EXTERNAL headwinds are present: Nordic construction cycle softness, MEP technician wage inflation, and Finnish market weakness. Per C5 (RA scope clarification), Norwegian receivables is an internal operational matter assessed under E9-RA3 (Right Record), E8-RA8 (False Friend Guardrail), and D.1 TI-1 — NOT in scope here.</div>
+<p>1. <span class="s-neg">Nordic commercial construction cycle softness is a genuine external headwind.</span> New building starts in Sweden declined approximately —<strong>15%</strong> in 2024—25; Bravida's installation segment (~<strong>51%</strong> of revenue) is genuinely exposed; <span class="s-mid">the service segment (<strong>49%</strong>) provides partial insulation</span>, but installation revenue is under real structural pressure.</p>
+<p>2. <span class="s-neg">MEP technician wage inflation is an industry-wide and persistent headwind.</span> Certified electricians, HVAC engineers, and plumbers are in structural shortage; <span class="s-mid">wage inflation 100—<strong>150bps</strong> above price inflation for 3 consecutive years</span> compresses the margin recovery timeline; this is an industry condition, not a Bravida execution issue.</p>
+<p>3. <span class="s-neg">Finnish market weakness is a material external drag.</span> Finland EBITA was <strong>1.30%</strong> in 2025 on —<strong>14%</strong> organic revenue; <span class="s-mid">this is a market-level condition (Finnish construction cycle) that dilutes group EBITA by 20—<strong>30bps</strong> per year</span> until Finland stabilises.</p>
+<p>4. <span class="s-mid">Norwegian receivables is excluded from RA3 scope.</span> Per C5, the receivables dispute is an internal operational and financial control matter assessed under E9-RA3 (Right Record), E8-RA8 (False Friend Guardrail), and D.1 TI-1 — not in scope here.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+</div><!-- /group-wrap -->
+<div class="group-wrap">
+<div class="group-head" id="group-3-core-philosophy-b" data-spy><span class="id">Grp 3</span> Core Philosophy <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Core Philosophy (Group 3 — E9 Great Operator and E10 Advantaged Business + Widening Competitive Advantage) verdict: [B]. Romson is a credible CEO with a strong 5-year track record; the Norwegian receivables incident is a control-gap flag but not a disqualifying failure. The business is genuinely advantaged — network density, service-contract stickiness, and M&amp;A engine create durable competitive advantages.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">The operator quality and business quality are both confirmed [B].</span> Romson's strategic direction is clear, the execution track record is strong (9 consecutive quarterly beats), and the business has structural advantages that compound over time. <span class="s-mid">Norwegian receivables is the one material control-gap on an otherwise clean record</span> — to be assessed definitively at Deep Dive.</p>
+<div class="ele-wrap">
+<div class="bar h-ele" id="e9-great-operator-b" data-spy><span class="id">E9</span> Great Operator <span class="g gB">B</span></div>
+<div class="desc">Great Operator -- We are looking for a CEO who is Right Direction (strategic clarity), Right Resources (capital allocation and team), and Right Record (track record across conditions); scored on Force, Agency, Dynamism.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Great Operator (E9) verdict: [B]. Romson demonstrates [A] on Right Direction and Right Record overall; Right Resources (E9-RA2) is [C] due to Norwegian receivables as a bench-depth/control-gap flag. The overall operator score is [B] — sufficient quality for the programme to continue, but Norwegian resolution is a Deep Dive gating item.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Romson is a high-quality CEO by all three dimensions tested.</span> Strategic direction is unambiguous and proactively chosen; 5-year track record is strong; resource base (capital allocation, branch network, bench) is adequate. <span class="s-mid">The Norwegian receivables incident is the only blemish</span> — it raises a financial control question about the process for large project risk management that must be resolved at Deep Dive.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-right-direction-b" data-spy><span class="id">RA1</span> Right Direction? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Strategic direction is clear, consistent, and proactively chosen — not crisis-driven. Romson has maintained the service-first thesis for 5 years without strategic drift. RA1 (Right Direction?) [B].</div>
+<p>1. <span class="s-pos">Strategic direction is unambiguous and consistently communicated.</span> Service-first transformation, regional consolidation, M&amp;A acceleration — all three pillars communicated consistently in every public document for 5 years; <span class="s-pos">there is no strategic noise, hedging, or ambiguity in the management narrative</span>.</p>
+<p>2. <span class="s-pos">Direction was proactively chosen, not forced.</span> Romson initiated the service mix shift from <strong>40%</strong> in 2020 when the business was performing adequately — <span class="s-pos">this is a pre-emptive strategic move, not a crisis response; proactive change is the highest-quality form of Right Direction</span>.</p>
+<p>3. <span class="s-mid">Force of execution is medium-high.__ Service mix has improved 9pp in 5 years; M&amp;A pace has accelerated; </span>~but the pace of margin improvement (<strong>15bps</strong>/year) is below the strategic aspiration (30—<strong>50bps</strong>/year required to hit <strong>7%</strong> by 2028)==; there is distance between ambition and pace.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra2-right-resources-c" data-spy><span class="id">RA2</span> Right Resources? <span class="g gC">C</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Capital allocation is excellent [A]; bench depth below CEO level is opaque; Norwegian receivables suggests a financial control gap. eNPS of 11 vs target &gt;20 is a staff engagement risk. RA2 (Right Resources?) [C] on balance.</div>
+<p>1. <span class="s-pos">Capital allocation is excellent.</span> 166 acquisitions at disciplined 5—<strong>6x</strong> EBITA entry; no evidence of multiple creep or strategic distraction acquisitions; <span class="s-pos">capital allocation quality is in the top quartile for Nordic mid-caps</span>.</p>
+<p>2. <span class="s-neg">Norwegian receivables reflects a financial control gap below CEO level.</span> The disputed receivables balance (estimated SEK 400—800m) arose from inadequate project risk management in the Norwegian installation division; <span class="s-mid">this is an internal control failure, not a market event</span>; the Q2 provision size will determine severity.</p>
+<p>3. <span class="s-mid">eNPS of 11 vs target &gt;20 is a staff engagement risk.</span> In a labour-scarce MEP market, engineer retention is a competitive asset; <span class="s-mid">below-target eNPS in a tight labour market is a resource quality indicator that needs monitoring</span>.</p>
+</div><!-- /ra-wrap -->
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra3-right-record-b" data-spy><span class="id">RA3</span> Right Record? <span class="g gB">B</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>5-year track record is strong: margin improvement, M&amp;A execution, and financial quality are all confirmed. Norwegian receivables is the one material blemish. RA3 (Right Record?) [B].</div>
+<p>1. <span class="s-pos">Five-year delivery record is strong across margin, M&amp;A, and cash.</span> EBITA margin improved from <strong>4.80%</strong> (2020) to <strong>5.90%</strong> (2024); 166 acquisitions executed without a single impairment disclosure prior to Norwegian; <span class="s-mid">cash conversion averaged <strong>99%</strong> over 2015—2024 before the Norwegian issue</span>; this is a strong record.</p>
+<p>2. <span class="s-mid">Norwegian receivables is the single material blemish on the record.</span> The disputed balance arose in 2024—25 in the Norwegian installation division; <span class="s-mid">management disclosed the risk in February 2025 but has not disclosed the provision quantum</span>; Q2 results (13 July) will determine whether this was a one-off or a systemic control issue.</p>
+<p>3. <span class="s-pos">Nine consecutive quarterly beats in a context of peer underperformance.</span> Bravida has beaten SS consensus EPS in 7 of the last 9 quarters; <span class="s-pos">in the same period, three of its four key Nordic peers missed consensus</span>; relative execution quality is confirmed.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+<div class="ele-wrap">
+<div class="bar h-ele" id="e10-advantaged-business-widening-competitive-advantage-b" data-spy><span class="id">E10</span> Advantaged Business + Widening Competitive Advantage <span class="g gB">B</span></div>
+<div class="desc">Advantaged Business + Widening Competitive Advantage -- We are looking for a genuine and widening competitive advantage -- whether moat (regulatory, IP, network) or operational (branch density, service lock-in, proprietary model); avoiding narrowing advantages.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Advantaged Business (E10) verdict: [B]. Bravida has structural advantages in network density, service-contract stickiness, and the M&amp;A compounding engine that compound over time. The moat is real but not impenetrable — the MEP sector is fragmented and labour-intensive, and entry barriers at the individual branch level are moderate.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">Three structural advantages are confirmed:</span> network density (350 branches), service-contract stickiness (<strong>94%</strong> retention), and the M&amp;A engine (5—<strong>6x</strong> entry, <strong>15x</strong> exit multiple). <span class="s-mid">The individual-branch competitive moat is moderate</span> — MEP installation is labour-intensive and relationships-dependent, which limits switching costs at the individual project level.</p>
+<div class="ra-wrap">
+<div class="bar h-ra" id="ra1-multi-layered-moat-a" data-spy><span class="id">RA1</span> Multi-layered Moat? <span class="g gA">A</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Multiple reinforcing moat layers confirmed: geographic density, service-contract stickiness, cross-sell leverage, and M&amp;A engine compounding. RA1 (Multi-layered Moat?) [A].</div>
+<p>1. <span class="s-pos">Geographic network density creates local competitive advantage.</span> 350 branches across four countries; <span class="s-pos">geographic density allows rapid response times and local relationship maintenance</span>; new entrants cannot replicate a 350-branch national network without 10—15 years of build-out or an equivalent M&amp;A campaign.</p>
+<p>2. <span class="s-pos">Service-contract stickiness is confirmed: <strong>94%</strong> retention.</span> <strong>94%</strong> annual retention on service contracts (91,000 client base); <span class="s-pos">service contracts create annual-review renewals rather than tender cycles</span>; multi-year relationships compound the switching cost advantage.</p>
+<p>3. <span class="s-pos">M&amp;A engine is a self-reinforcing compounding mechanism.__ Each acquisition adds branches, engineers, client relationships, and service-contract potential; </span>+the M&amp;A engine is an operational moat (not just a financial one) — it widens the network and talent base with each deal==.</p>
+</div><!-- /ra-wrap -->
+</div><!-- /ele-wrap -->
+</div><!-- /group-wrap -->
+</div><!-- /subsec-wrap -->
+</div><!-- /sec-wrap -->
+<div class="sec-wrap">
+<div class="bar h-sec" id="section-d-risk-register" data-spy><span class="id">D</span> Risk Register <span class="secn">6 findings</span></div>
+<div class="desc">Detailed Analysis -- We are looking for in-depth, evidence-based analysis behind each pillar score, with specific named catalysts and honest treatment of counterpoints; avoiding high-level generalisations.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Risk register covers binary invalidation thresholds and monitoring triggers. One primary binary (D.1 TI-1: Norwegian receivables) is confirmed open and unresolved at ESA. Standard risk monitoring applies across the remaining risk categories.</div>
+<div class="subsec-wrap">
+<div class="subsec-head" id="d-1-binary-invalidation-thresholds" data-spy><span class="id">D.1</span> Binary Invalidation Thresholds <span class="secn">6 findings</span></div>
+<div class="lead"><div class="lead-label">Judgement summary</div>One confirmed binary invalidation trigger is active: TI-1 (Norwegian receivables Q2 provision). This is the dominant near-term risk and must resolve before position sizing. Two conditional watch items (TI-2, TI-3) are monitoring triggers rather than binary invalidations.</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-mid">One active binary invalidation threshold (TI-1) is open and unresolved.</span> All investment actions are gated on Q2 resolution (13 July). A constructive resolution (provision ≤ SEK 500m) = thesis intact; <span class="s-mid">a destructive resolution (provision ≥ SEK 700m) = case reset required</span>.</p>
+<p><strong>TI-1 — Norwegian Receivables Resolution (Q2 Results, 13 July)</strong></p>
+<div class="finding"><span class="fnum">1.</span><div class="ftext"><span class="s-mid"><strong>Binary with asymmetric downside:</strong>__ The Norwegian receivables dispute is the single most material near-term risk. Management has disclosed the risk but not the quantum; </span>~Q2 results on 13 July are the definitive resolution event==.</div></div>
+<div class="finding"><span class="fnum">2.</span><div class="ftext"><span class="s-neg"><strong>Bear case:</strong> Provision ≥ SEK 700m = 33—<strong>40%</strong> EPS disruption in 2026.<u> This scenario resets the stock to approximately SEK 85—95 (—25 to —<strong>30%</strong> from current). </span>~The bear case is not the base case but it is a plausible outcome==; </u>the current entry point does not adequately compensate for this tail risk__.</div></div>
+<div class="finding"><span class="fnum">3.</span><div class="ftext"><span class="s-pos"><strong>Bull case:</strong> Provision ≤ SEK 500m = thesis intact.__ Management narrative around "accelerated revenue recognition" (not a write-off) is retained; </span>+2026 EPS is largely unimpaired==; stock likely re-rates to SEK 125—135 on the confirmation.</div></div>
+<div class="finding"><span class="fnum">4.</span><div class="ftext"><span class="s-pos"><strong>Base case:</strong> Provision SEK 500—700m = partial EPS impairment, manageable.__ 2026 EPS impaired but recoverable; </span>~management credibility partially restored==; stock likely settles in SEK 100—115 range.</div></div>
+<p><strong>TI-2 — EBITA Margin Progression (Monitoring Watch)</strong></p>
+<div class="finding"><span class="fnum">5.</span><div class="ftext">==~<strong>Monitoring trigger (not binary invalidation):</strong>__ If EBITA margin fails to progress toward <strong>6.5%</strong> by H1 2027, the pace of margin recovery is below the recovery trajectory required to hit <strong>7%</strong> by 2028; this is a monitoring trigger for thesis pace review.</div></div>
+<p><strong>TI-3 — Service Mix Plateau (Monitoring Watch)</strong></p>
+<div class="finding"><span class="fnum">6.</span><div class="ftext">==~<strong>Monitoring trigger:</strong>__ If service mix fails to cross <strong>50%</strong> by H1 2026, the primary thesis indicator is stalling; this is a watch trigger but not a binary invalidation unless it persists for two consecutive half-years.</div></div>
+</div><!-- /subsec-wrap -->
+</div><!-- /sec-wrap -->
+<div class="sec-wrap">
+<div class="bar h-sec" id="section-e-thesis-review" data-spy><span class="id">E</span> Thesis Review</div>
+<div class="desc">Recommendation -- We are looking for a clear, honest summary of the overall ESA grade, the gating events before acting, and the Deep Dive work plan; avoiding both over-conviction and artificial hedging.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Thesis review defines the leading tracking indicators (LTIs) and monitoring schedule. Four LTIs cover the primary thesis drivers with quarterly measurement frequency. No inter-quarter information gaps on the primary drivers.</div>
+<div class="subsec-wrap">
+<div class="subsec-head" id="e-1-monitoring-specification" data-spy><span class="id">E.1</span> Monitoring Specification</div>
+<div class="desc">Overall Assessment -- The headline ESA grade, key pillar ratings driving it, and a plain-English verdict: go to Deep Dive, monitor, or close.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>Four leading tracking indicators (LTIs) cover all primary thesis drivers with quarterly measurement frequency. The monitoring specification is unambiguous and measurable within standard reporting cadence. No inter-quarter information gaps on primary drivers.</div>
+<div class="lead"><div class="lead-label">Judgement summary</div>End of BRAV-SE ESA A&amp;J Memo V2 — 11-Jun-26 — Watson (SA role)</div>
+<p><strong>JUDGEMENT SUMMARY</strong></p>
+<p><span class="s-pos">All four LTIs are quarterly-reported and objectively measurable.</span> The monitoring specification requires no proprietary data access and is fully operable via published results releases and analyst reports. <span class="s-mid">LTI-3 (Norwegian receivables provision) is the most time-sensitive indicator</span> — its Q2 resolution (13 July) gates all subsequent investment actions.</p>
+<table><thead><tr><th>LTI</th><th>Indicator</th><th>Target direction</th><th>Pass criterion</th></tr></thead><tbody><tr><td>LTI-1</td><td>EBITA margin (quarterly)</td><td>≥6.20% by end-2026</td><td>100bps above 2024 baseline</td></tr><tr><td>LTI-2</td><td>Service mix percentage (quarterly)</td><td>≥50% by H1-2026</td><td>Consistent with stated target pace</td></tr><tr><td>LTI-3</td><td>Norwegian receivables provision (Q2 13 Jul)</td><td>≤ SEK 500m</td><td>Binary pass/fail</td></tr><tr><td>LTI-4</td><td>M&amp;A activity (rolling 12 months)</td><td>≥8 acquisitions pa</td><td>Pace consistent with historical average</td></tr></tbody></table>
+</div><!-- /subsec-wrap -->
+</div><!-- /sec-wrap -->
+    </div>
+  </main>
+
+</div>
+<script>
+/* ============================================================================
+   NAV JS — inherited from Phase 1 base template; updated for redesign:
+   - getStickyStackHeight()  -> hardcoded 130px (4 bars × ~32px each)
+   - setMainHeaderCssVar()   -> REMOVED (no sticky .main-header in new design)
+   - updateBreadcrumb()      -> kept (logic preserved) but returns early since
+                                #breadcrumb element is not in the HTML
+   - All 5 toggle handlers   -> preserved verbatim
+   - setupNavClicks()        -> preserved verbatim
+   - setupSpy()              -> preserved verbatim (queries [data-spy][id])
+   - setupSearch()           -> preserved verbatim
+   - applyGradeFallback()    -> preserved verbatim
+   ============================================================================ */
+(function() {
+
+  /* Frozen sticky stack height.
+     4 bars: h-sec(34) + h-pil(30) + h-ele(27) + h-ra(25) ~ 130px.
+     Hardcoded because there is no single .main-header to measure. */
+  function getStickyStackHeight() {
+    return 130;
+  }
+
+  /* --- the 5 toggle handlers — inherited near-verbatim --------------------- */
+  function setupToggles() {
+    var body = document.body;
+    function bindToggle(id, bodyClass) {
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        body.classList.toggle(bodyClass);
+        btn.classList.toggle('active');
+        if (bodyClass === 'element-details') applyElementDetails();
+      });
+    }
+    bindToggle('pill-toggle',           'show-pills');
+    bindToggle('element-details-toggle','element-details');
+    bindToggle('ras-on-toggle',         'ras-always-on');
+    bindToggle('cqs-on-toggle',         'cqs-always-on');
+    bindToggle('audit-toggle',          'show-audit');
+  }
+
+  /* Element-details mode: reveal all RAs + CQs for the focused element */
+  function applyElementDetails() {
+    document.querySelectorAll('.force-show').forEach(function(n) {
+      n.classList.remove('force-show');
+    });
+    if (!document.body.classList.contains('element-details')) return;
+    var focused = document.querySelector('.nav-item.focused');
+    if (!focused) return;
+    var elemId = focused.getAttribute('data-element-id');
+    if (!elemId) {
+      if (focused.classList.contains('nav-element'))
+        elemId = focused.getAttribute('data-anchor');
+      else return;
+    }
+    var navElem = document.querySelector(
+      '.nav-element[data-anchor="' + elemId + '"]');
+    if (!navElem) return;
+    var raList = navElem.nextElementSibling;
+    if (raList && raList.classList.contains('nav-ra-list')) {
+      raList.classList.add('force-show');
+      raList.querySelectorAll('.nav-ra').forEach(function(ra) {
+        ra.classList.add('force-show');
+      });
+      raList.querySelectorAll('.nav-cq-list').forEach(function(cl) {
+        cl.classList.add('force-show');
+      });
+      raList.querySelectorAll('.nav-cq').forEach(function(cq) {
+        cq.classList.add('force-show');
+      });
+    }
+  }
+
+  /* --- click-to-scroll --------------------------------------------------- */
+  function setupNavClicks() {
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        if (item.classList.contains('nav-ra'))
+          item.classList.toggle('expanded');
+        var anchor = item.getAttribute('data-anchor');
+        if (!anchor) return;
+        var target = document.getElementById(anchor);
+        if (!target) return;
+        var mainPane = document.querySelector('.main-pane');
+        var rect = target.getBoundingClientRect();
+        var containerRect = mainPane.getBoundingClientRect();
+        var offset = rect.top - containerRect.top + mainPane.scrollTop
+                     - getStickyStackHeight() - 8;
+        mainPane.scrollTo({top: offset, behavior: 'instant'});
+      });
+    });
+  }
+
+  /* --- scroll-spy: queries document-flow elements carrying [data-spy][id] */
+  function setupSpy() {
+    var mainPane = document.querySelector('.main-pane');
+    if (!mainPane) return;
+    var anchors = Array.prototype.slice.call(
+      mainPane.querySelectorAll('[data-spy][id]'));
+
+    function updateFocus() {
+      var paneRect  = mainPane.getBoundingClientRect();
+      var triggerY  = paneRect.top + getStickyStackHeight() + 10;
+      var picked = null;
+      for (var i = 0; i < anchors.length; i++) {
+        if (anchors[i].getBoundingClientRect().top <= triggerY)
+          picked = anchors[i];
+        else break;
+      }
+      if (!picked) return;
+      var anchor = picked.id;
+
+      document.querySelectorAll('.nav-item.focused').forEach(function(n) {
+        n.classList.remove('focused');
+      });
+      var navItem = document.querySelector(
+        '.nav-item[data-anchor="' + anchor + '"]');
+      if (!navItem) return;
+      navItem.classList.add('focused');
+
+      /* auto-expand branch */
+      document.querySelectorAll('.nav-ra-list.expanded').forEach(function(n) {
+        n.classList.remove('expanded');
+      });
+      var focusedRa = navItem.classList.contains('nav-ra') ? navItem : null;
+      document.querySelectorAll('.nav-ra.expanded').forEach(function(n) {
+        if (n !== focusedRa) n.classList.remove('expanded');
+      });
+
+      if (navItem.classList.contains('nav-element')) {
+        var raList = navItem.nextElementSibling;
+        if (raList && raList.classList.contains('nav-ra-list'))
+          raList.classList.add('expanded');
+      } else if (navItem.classList.contains('nav-ra')) {
+        var parent = navItem.parentElement;
+        if (parent && parent.classList.contains('nav-ra-list'))
+          parent.classList.add('expanded');
+      }
+    }
+
+    mainPane.addEventListener('scroll', updateFocus);
+    updateFocus();
+  }
+
+  /* --- search/filter ----------------------------------------------------- */
+  function setupSearch() {
+    var input = document.getElementById('nav-search');
+    if (!input) return;
+    input.addEventListener('input', function() {
+      var q = input.value.trim().toLowerCase();
+      document.querySelectorAll('.nav-item').forEach(function(item) {
+        if (!q) {
+          item.style.display = '';
+        } else {
+          var text = (item.textContent || '').toLowerCase();
+          item.style.display = text.indexOf(q) >= 0 ? '' : 'none';
+        }
+      });
+    });
+  }
+
+  /* --- grade fallback ---------------------------------------------------- */
+  function applyGradeFallback() {
+    document.querySelectorAll('.g').forEach(function(el) {
+      if (!el.textContent.trim()) el.style.display = 'none';
+    });
+  }
+
+  /* --- init -------------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', function() {
+    setupToggles();
+    setupNavClicks();
+    setupSpy();
+    setupSearch();
+    applyGradeFallback();
+  });
+
+})();
+</script>
+<script>window.MEMO_RATINGS={"C.1":{"grade":"B","label":"Pillar I: Case Change Elements"},"E1":{"grade":"B","label":"Required Input Change Forces"},"E1.RA1":{"grade":"B","label":"Change Forces Present?"},"E1.RA2":{"grade":"B","label":"Robust Base?"},"E1.RA3":{"grade":"B","label":"Validated by Proxy?"},"E2":{"grade":"B","label":"Required Case Outputs"},"E2.RA1":{"grade":"B","label":"Output Definition?"},"E2.RA2":{"grade":"B","label":"Output Quantifiability?"},"E2.RA3":{"grade":"B","label":"Output Timeline?"},"E3":{"grade":"C","label":"Sufficient TSR / Valuation Upside"},"E3.RA1":{"grade":"C","label":"Fundamental Upside?"},"E3.RA2":{"grade":"B","label":"Rerating Potential?"},"C.2":{"grade":"B","label":"Pillar II: Case Building Blocks"},"Group 1":{"grade":"B","label":"Case Momentum"},"E4":{"grade":"B","label":"Technical Momentum"},"E4.RA1":{"grade":"B","label":"Price Momentum?"},"E4.RA2":{"grade":"B","label":"Technical Setup Quality?"},"E5":{"grade":"B","label":"Thematic Fit"},"E5.RA1":{"grade":"A","label":"Paradigm Fit?"},"E5.RA2":{"grade":"B","label":"Thematic Conviction?"},"Group 2":{"grade":"B","label":"Case Simplicity"},"E7":{"grade":"B","label":"Required Case Simplicity Guardrails"},"E7.RA1":{"grade":"A","label":"Focused Bet?"},"E7.RA2":{"grade":"A","label":"Narrow Perimeter?"},"E7.RA3":{"grade":"C","label":"No Active Headwinds?"},"Group 3":{"grade":"B","label":"Core Philosophy"},"E9":{"grade":"B","label":"Great Operator"},"E9.RA1":{"grade":"B","label":"Right Direction?"},"E9.RA2":{"grade":"C","label":"Right Resources?"},"E9.RA3":{"grade":"B","label":"Right Record?"},"E10":{"grade":"B","label":"Advantaged Business + Widening Competitive Advantage"},"E10.RA1":{"grade":"A","label":"Multi-layered Moat?"}};</script>
+</body>
+</html>
