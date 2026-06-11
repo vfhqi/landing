@@ -736,7 +736,7 @@ a:hover { text-decoration:underline; }
     </div>
     <div class="memo-body">
 <div class="snap">
-<div class="snap-bar"><span class="id">BRAV-SE</span> BRAV-SE — Early-Stage Assessment Analysis &amp; Judgement Memo -- Summary Snapshot<span class="live"><span class="dot-live"></span>&nbsp;Rebuilt 11-Jun-26 08:13</span></div>
+<div class="snap-bar"><span class="id">BRAV-SE</span> BRAV-SE — Early-Stage Assessment Analysis &amp; Judgement Memo -- Summary Snapshot<span class="live"><span class="dot-live"></span>&nbsp;Rebuilt 11-Jun-26 08:57</span></div>
 <div class="hero">
 <div class="tile info"><div class="lbl">Price</div><div class="big">SEK 117.50 (11-Jun-26)</div><div class="sub"></div></div>
 <div class="tile info"><div class="lbl">Forward P/E</div><div class="big">14.7x (55th percentile vs 10-year history)</div><div class="sub">x multiple</div></div>
@@ -1638,4 +1638,49 @@ a:hover { text-decoration:underline; }
       } else if (navItem.classList.contains('nav-ra')) {
         var parent = navItem.parentElement;
         if (parent && parent.classList.contains('nav-ra-list'))
-          parent.classList.add('expanded'
+          parent.classList.add('expanded');
+      }
+    }
+
+    mainPane.addEventListener('scroll', updateFocus);
+    updateFocus();
+  }
+
+  /* --- search/filter ----------------------------------------------------- */
+  function setupSearch() {
+    var input = document.getElementById('nav-search');
+    if (!input) return;
+    input.addEventListener('input', function() {
+      var q = input.value.trim().toLowerCase();
+      document.querySelectorAll('.nav-item').forEach(function(item) {
+        if (!q) {
+          item.style.display = '';
+        } else {
+          var text = (item.textContent || '').toLowerCase();
+          item.style.display = text.indexOf(q) >= 0 ? '' : 'none';
+        }
+      });
+    });
+  }
+
+  /* --- grade fallback ---------------------------------------------------- */
+  function applyGradeFallback() {
+    document.querySelectorAll('.g').forEach(function(el) {
+      if (!el.textContent.trim()) el.style.display = 'none';
+    });
+  }
+
+  /* --- init -------------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', function() {
+    setupToggles();
+    setupNavClicks();
+    setupSpy();
+    setupSearch();
+    applyGradeFallback();
+  });
+
+})();
+</script>
+<script>window.MEMO_RATINGS={"MR1":{"grade":"B","label":"Technical Momentum"},"MR2":{"grade":"C","label":"Sell-Side Earnings Momentum"},"MR3":{"grade":"B","label":"Thematic Fit"},"MR4":{"grade":"B","label":"Pillar I: Case Change Elements"},"MR5":{"grade":"B","label":"Pillar II: Case Building Blocks"},"MR6":{"grade":"C","label":"Pillar III: Investment Case Components"},"C.1":{"grade":"B","label":"Pillar I: Case Change Elements"},"E1":{"grade":"B","label":"Required Input Change Forces"},"E1.RA1":{"grade":"B","label":"Change Forces Present?"},"E1.RA2":{"grade":"B","label":"Robust Base?"},"E2":{"grade":"B","label":"Required Case Outputs"},"E3":{"grade":"C","label":"Sufficient TSR / Valuation Upside"},"E3.RA1":{"grade":"C","label":"Bankable Multiple?"},"C.2":{"grade":"B","label":"Pillar II: Case Building Blocks"},"Group 1":{"grade":"B","label":"Case Momentum"},"E4":{"grade":"B","label":"Technical Momentum"},"E5":{"grade":"B","label":"Thematic Fit"},"Group 2":{"grade":"B","label":"Case Simplicity"},"E7":{"grade":"B","label":"Required Case Simplicity Guardrails"},"E7.RA3":{"grade":"C","label":"No Active Headwinds?"},"E8":{"grade":"B","label":"Fit with Acceptable Case Setups"},"E8.RA8":{"grade":"B","label":"False Friend Guardrail (Conditionally Active)?"},"Group 3":{"grade":"B","label":"Core Philosophy"},"E9":{"grade":"B","label":"Great Operator"},"E9.RA2":{"grade":"C","label":"Right Resources?"},"E10":{"grade":"B","label":"Advantaged Business + Widening Competitive Advantage"},"Group 4":{"grade":"C","label":"Case Riskiness"},"E11":{"grade":"C","label":"Value-Chain Dynamics"},"E11.RA2":{"grade":"C","label":"Competitive Supportiveness?"},"E11.RA3":{"grade":"C","label":"Disruption Forces Manageable?"},"E11.RA4":{"grade":"C","label":"Political / Regulatory Benign?"},"E12":{"grade":"C","label":"Supportive Industry Structure"},"E12.RA3":{"grade":"C","label":"Competitor Attitudes Cooperative?"},"E12.RA4":{"grade":"C","label":"Competitiveness Trends?"},"Group 5":{"grade":"B","label":"Case Optionality"},"E13":{"grade":"A","label":"High Secular Growth Potential"},"E13.RA1":{"grade":"A","label":"Structural Driver Identified?"},"E18":{"grade":"B","label":"Clear Transmission Mechanism"},"E19":{"grade":"B","label":"Monitorable Transmission Mechanism"},"E20":{"grade":"B","label":"Nice-to-Have Attributes"}};</script>
+</body>
+</html>
