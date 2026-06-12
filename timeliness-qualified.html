@@ -70,35 +70,44 @@ main{max-width:1480px;margin:0 auto;padding:18px 16px 50px}
   column-gap: 12px;
 }
 
-/* industry groups */
+/* industry groups — boxed cards */
 .industry-group{
   --ihue: 200;
   break-inside: avoid;
   margin-bottom: 10px;
   display: block;
+  border: 1px solid hsl(var(--ihue),30%,83%);
+  border-radius: 6px;
+  padding: 8px 9px 6px;
+  background: hsl(var(--ihue),50%,98.2%);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
 .industry-header{
-  font-size:.78rem;font-weight:700;
-  background:hsl(var(--ihue),55%,96%);
-  border-left:3px solid hsl(var(--ihue),55%,48%);
-  color:hsl(var(--ihue),40%,22%);
-  padding:3px 8px;border-radius:0 var(--radius) var(--radius) 0;
-  margin-bottom:5px;
+  font-size:.79rem;font-weight:700;
+  border-left:3px solid hsl(var(--ihue),55%,42%);
+  color:hsl(var(--ihue),42%,20%);
+  padding:2px 7px;
+  margin-bottom:8px;
 }
 
 /* sector groups */
-.sector-group{margin-bottom:5px;padding-left:3px}
+.sector-group{margin-bottom:4px;padding-left:2px}
+.sector-group + .sector-group{
+  margin-top:7px;
+  padding-top:6px;
+  border-top:1px solid hsl(var(--ihue),28%,88%);
+}
 .sector-header{
   font-size:.66rem;font-weight:700;
-  color:hsl(var(--ihue),45%,38%);
+  color:hsl(var(--ihue),46%,36%);
   text-transform:uppercase;letter-spacing:.06em;
-  margin-bottom:2px;padding-left:2px;
+  margin-bottom:3px;padding-left:1px;
 }
 
 /* stock list */
 .stock-list{
   list-style:none;
-  border-left:2px solid hsl(var(--ihue),35%,88%);
+  border-left:2px solid hsl(var(--ihue),32%,86%);
   border-radius:0 var(--radius) var(--radius) 0;
   overflow:hidden;
   margin-left:2px;
