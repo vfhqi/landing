@@ -156,10 +156,11 @@ main{max-width:1800px;margin:0 auto;padding:18px 16px 50px}
 /* sector label */
 .sector-cell{
   flex:1;min-width:0;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;overflow:hidden;
   font-size:.68rem;color:var(--muted);font-style:italic;
-  padding:0 6px;text-align:left;
+  padding:0 6px;
 }
+.col-a .sector-cell,.col-b .sector-cell{text-align:left}
 
 /* column sub-headers */
 .stock-header-row{
@@ -172,7 +173,7 @@ main{max-width:1800px;margin:0 auto;padding:18px 16px 50px}
   color:var(--muted);
 }
 .sh-name{flex:1;min-width:0}
-.sh-sector{flex:1;min-width:0;padding:0 6px}
+.sh-sector{flex:1;min-width:0;padding:0 6px;text-align:left}
 .sh-timeliness{flex-shrink:0;white-space:nowrap;text-align:right}
 
 /* qualification label */
