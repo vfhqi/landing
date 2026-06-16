@@ -48,82 +48,103 @@ header{
 }
 
 /* main */
-main{max-width:1480px;margin:0 auto;padding:18px 16px 50px}
+main{max-width:1200px;margin:0 auto;padding:18px 16px 50px}
 
-/* grade sections */
-.grade-section{margin-bottom:36px}
-.section-head{
-  display:flex;align-items:center;gap:10px;
-  border-bottom:2px solid var(--line);padding-bottom:7px;margin-bottom:14px;
+/* summary counts row */
+.summary-row{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:2px solid var(--line);
 }
-.section-head h2{font-size:.95rem;font-weight:700}
-.grade-a .section-head h2{color:var(--yellow)}
-.grade-b .section-head h2{color:var(--blue)}
-.count-badge{
-  font-size:.68rem;font-weight:600;padding:1px 8px;border-radius:99px;
-  background:var(--tile-b);color:var(--ink-dim);
+.summary-badge{
+  display:flex;align-items:center;gap:5px;
+  font-size:.78rem;font-weight:600;
 }
+.badge-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+}
+.badge-dot-a{background:#2e7d32}
+.badge-dot-b{background:#b37a00}
 
-/* multi-column industry wrapper */
-.industries-wrapper{
-  columns: 3 260px;
-  column-gap: 12px;
-}
-
-/* industry groups — boxed cards */
-.industry-group{
+/* industry panel — full-width card per industry */
+.industry-panel{
   --ihue: 200;
-  break-inside: avoid;
-  margin-bottom: 10px;
-  display: block;
-  border: 1px solid hsl(var(--ihue),30%,83%);
-  border-radius: 6px;
-  padding: 8px 9px 6px;
-  background: hsl(var(--ihue),50%,98.2%);
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
-}
-.industry-header{
-  font-size:.79rem;font-weight:700;
-  border-left:3px solid hsl(var(--ihue),55%,42%);
-  color:hsl(var(--ihue),42%,20%);
-  padding:2px 7px;
-  margin-bottom:8px;
+  margin-bottom:10px;
+  border:1px solid hsl(var(--ihue),28%,82%);
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
 }
 
-/* sector groups */
-.sector-group{margin-bottom:4px;padding-left:2px}
-.sector-group + .sector-group{
-  margin-top:7px;
-  padding-top:6px;
-  border-top:1px solid hsl(var(--ihue),28%,88%);
+/* dark industry header bar */
+.industry-header-row{
+  background:hsl(var(--ihue),28%,22%);
+  color:hsl(var(--ihue),30%,92%);
+  padding:5px 12px;
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.02em;
 }
-.sector-header{
-  font-size:.66rem;font-weight:700;
-  color:hsl(var(--ihue),46%,36%);
-  text-transform:uppercase;letter-spacing:.06em;
-  margin-bottom:3px;padding-left:1px;
+
+/* two-column layout */
+.two-col{
+  display:flex;
+  min-height:0;
+}
+.col-a,.col-b{
+  flex:1;
+  min-width:0;
+}
+.col-a{
+  border-right:1px solid hsl(var(--ihue),28%,85%);
+}
+
+/* column grade headers */
+.col-header{
+  padding:4px 8px;
+  font-size:.68rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.col-a .col-header{
+  background:#e8f5e9;
+  color:#2e7d32;
+  border-bottom:1px solid #c8e6c9;
+}
+.col-b .col-header{
+  background:#fff8e1;
+  color:#b37a00;
+  border-bottom:1px solid #ffe082;
 }
 
 /* stock list */
 .stock-list{
   list-style:none;
-  border-left:2px solid hsl(var(--ihue),32%,86%);
-  border-radius:0 var(--radius) var(--radius) 0;
-  overflow:hidden;
-  margin-left:2px;
+  margin:0;
+  padding:0;
 }
 .stock-item{
   display:flex;
   align-items:baseline;
   justify-content:space-between;
   gap:6px;
-  padding:3px 7px;
+  padding:3px 8px;
   border-bottom:1px solid var(--line);
   background:var(--tile);
 }
 .stock-item:last-child{border-bottom:none}
-.stock-item:nth-child(even){background:hsl(var(--ihue),30%,98.5%)}
-.stock-item:hover{background:hsl(var(--ihue),40%,95%)}
+.stock-item:nth-child(even){background:var(--tile-b)}
+.col-a .stock-item:hover{background:#f1f8f1}
+.col-b .stock-item:hover{background:#fffaed}
+
+/* empty column placeholder */
+.empty-col{
+  padding:8px 10px;
+  font-size:.72rem;
+  color:var(--muted);
+  font-style:italic;
+}
 
 /* company name */
 .name-cell{
@@ -132,13 +153,14 @@ main{max-width:1480px;margin:0 auto;padding:18px 16px 50px}
   font-size:.74rem;font-weight:500;color:var(--ink);
 }
 
-/* row label — prominent, right-aligned */
+/* qualification label */
 .row-label{
-  font-size:.72rem;font-weight:700;
-  color:hsl(var(--ihue),42%,26%);
+  font-size:.68rem;font-weight:600;
   white-space:nowrap;flex-shrink:0;
   text-align:right;
 }
+.col-a .row-label{color:#2e7d32}
+.col-b .row-label{color:#b37a00}
 
 /* footer */
 footer{
@@ -160,222 +182,314 @@ footer a:hover{text-decoration:underline}
 <option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-15.html">2026-06-15</option>
 <option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-14.html">2026-06-14</option>
 <option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-13.html">2026-06-13</option>
-<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-12.html">2026-06-12</option></select><button id="copy-btn-A" class="copy-btn" onclick="copyNames('A')" title="Copy all Grade A tickers, comma-separated (e.g. DHER.DE), for FactSet/AlphaSense watchlist">Copy A tickers</button><button id="copy-btn-B" class="copy-btn" onclick="copyNames('B')" title="Copy all Grade B tickers, comma-separated (e.g. DHER.DE), for FactSet/AlphaSense watchlist">Copy B tickers</button></div>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-12.html">2026-06-12</option></select><button id="copy-btn-A" class="copy-btn" onclick="copyNames('A')" title="Copy all Grade A tickers">Copy A tickers</button><button id="copy-btn-B" class="copy-btn" onclick="copyNames('B')" title="Copy all Grade B tickers">Copy B tickers</button></div>
 </header>
 <main>
-<section class="grade-section grade-a"><div class="section-head"><h2>Grade A &mdash; Now</h2><span class="count-badge">73 stocks</span></div><div class="industries-wrapper"><div class="industry-group" style="--ihue:38"><h3 class="industry-header">A. Consumer staples</h3><div class="sector-group"><h4 class="sector-header">A.1. Beverages - beer</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">AG Barr</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Fevertree</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.4. Household products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Beiersdorf</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<div class="summary-row"><div class="summary-badge"><span class="badge-dot badge-dot-a"></span>73 Grade A (Now)</div><div class="summary-badge"><span class="badge-dot badge-dot-b"></span>243 Grade B (This fortnight)</div><span style="font-size:.72rem;color:var(--muted);">15 industries</span></div>
+<div class="industry-panel" style="--ihue:38"><div class="industry-header-row">A. Consumer staples</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">AG Barr</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Intercos</span><span class="row-label">Stage 1 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Nestle</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Unilever</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.5. Food retail</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Tesco</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.7. General retail</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Intercos</span><span class="row-label">Stage 1 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:200"><h3 class="industry-header">B. Healthcare</h3><div class="sector-group"><h4 class="sector-header">B.2. Animal healthcare</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Vimian</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.5. Medtech - consumables - mature</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Fresenius</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.7. Pharma/biotech</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Roche</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:205"><h3 class="industry-header">C. Telecoms</h3><div class="sector-group"><h4 class="sector-header">C.1. Telecoms - MNOs</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Vodafone</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Zegona Communications</span><span class="row-label">Stage 2 - Retest</span></li></ul></div></div><div class="industry-group" style="--ihue:140"><h3 class="industry-header">D. Infrastructure</h3><div class="sector-group"><h4 class="sector-header">D.1. Infrastructure - airports/trains</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aeroports de Paris</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Unilever</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Tesco</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Beiersdorf</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Fevertree</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Inter Cars</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Coca-Cola HBC</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Cranswick</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Heineken</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Lagardere</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Greggs</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Danone</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Imperial Brands</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Reckitt Benckiser</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Redcare</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:200"><div class="industry-header-row">B. Healthcare</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Vimian</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Roche</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Fresenius</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Idorsia</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Novartis</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Sandoz</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Uniphar</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Oxford Instruments</span><span class="row-label">Stage 2 pulling back</span></li>
+<li class="stock-item"><span class="name-cell">Convatec</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Haleon</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Eckert &amp; Ziegler</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Merck</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Recordati</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Sanofi</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Alcon</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Xvivo</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">El.En.</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">GSK</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Addlife</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Cellavision</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Galenica</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Hikma Pharmaceuticals</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Lakefront Biotherapeutics</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Medartis</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Philips</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:205"><div class="industry-header-row">C. Telecoms</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Zegona Communications</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Vodafone</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Telecom Italia</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Cellnex</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Freenet</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Deutsche Telekom</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Cyfrowy Polsat</span><span class="row-label">Stage 1 - early</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:140"><div class="industry-header-row">D. Infrastructure</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aeroports de Paris</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Flughafen Wien</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Fraport</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:28"><h3 class="industry-header">E. Utilities</h3><div class="sector-group"><h4 class="sector-header">E.3. Utilities - Water and other non-power</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">MVV Energie</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Tauron</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:175"><h3 class="industry-header">G. Financials</h3><div class="sector-group"><h4 class="sector-header">G.1. Insurance</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">ASR Nederland</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Aviva</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Coface</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Fraport</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Wallenius Wilhelmsen</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Aena</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:28"><div class="industry-header-row">E. Utilities</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">MVV Energie</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Tauron</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Norsk Hydro</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">ENGIE</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Italgas</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Orsted</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Uniper</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">VERBUND</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Voltalia</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Iren</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">National Grid</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Terna</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Polenergia</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:250"><div class="industry-header-row">F. Defence</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Balfour Beatty</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">LISI</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Rolls-Royce</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Theon</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Exosens</span><span class="row-label">Stage 2 basing</span></li>
+<li class="stock-item"><span class="name-cell">Airbus</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Montana Aerospace</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:175"><div class="industry-header-row">G. Financials</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Coface</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Creades</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">ASR Nederland</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Credit Agricole</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Gjensidige Forsikring</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">NN Group</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Powszechny Zaklad Ubezpieczen Spolka Akcyjna</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Wuestenrot &amp; Wuerttembergische</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.13. Banks</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Credit Agricole</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.3. Alternative investment managers</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">3i</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.4. Holding companies</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Creades</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">EXOR</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.6. Asset management software (B2B)</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Moltiply</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:5"><h3 class="industry-header">H. Consumer discretionary</h3><div class="sector-group"><h4 class="sector-header">H.10. Hotels</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Whitbread</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.15. Automotive - OEM or supplier</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Autoneum</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Wuestenrot &amp; Wuerttembergische</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">3i</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Aviva</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">EXOR</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Moltiply</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">HSBC</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">IG Group</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">ING Bank Slaski</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Legal &amp; General</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Lloyds Banking</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">M&amp;G</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Nordnet</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Quilter</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">TP ICAP</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Unipol</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">UNIQA Insurance</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Vienna Insurance</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Admiral</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Euronext</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Munich Re</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Antin</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Deutsche Borse</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Financiere Moncey</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Flow Traders</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Hannover Re</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Linea Directa Aseguradora</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Wendel</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">London Stock Exchange</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Allianz</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Ayvens</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Banca Generali</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Barclays</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">BNP Paribas</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Credito Emiliano</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Erste</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Fineco</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Flatex</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Georgia Capital</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Lancashire</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Nuernberger Beteiligungs</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">SCOR</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Societe Generale</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Zurich Insurance</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">BFF Bank</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">ICG Enterprise Trust  GBP</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Swiss Re</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:5"><div class="industry-header-row">H. Consumer discretionary</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Basic-Fit</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Continental</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Knorr-Bremse</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Michelin</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Pirelli &amp; C.</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Renault</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.17. Consumer products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Fluidra</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Games Workshop</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Howdens</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.2. Retail - apparel</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">SMCP</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.9. Leisure</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Basic-Fit</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:235"><h3 class="industry-header">K. Professional, business and consumer services</h3><div class="sector-group"><h4 class="sector-header">K.5. Advertising and consulting services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">WPP</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">K.8. Outsourcing, admin and other services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Spie</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:22"><h3 class="industry-header">M. Materials</h3><div class="sector-group"><h4 class="sector-header">M.4. Chemicals - Base</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Imerys</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.6. Basic materials and construction</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aurubis</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Bilfinger</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Bouygues</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Knorr-Bremse</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Pirelli &amp; C.</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Autoneum</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Fluidra</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Howdens</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Renault</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">SMCP</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Whitbread</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Kambi</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Cheffelo</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Gym Group</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">OVS</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Salvatore Ferragamo</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Stadler Rail</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">tonies</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">ZIGUP</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Schaeffler</span><span class="row-label">Stage 2 basing</span></li>
+<li class="stock-item"><span class="name-cell">Berkeley</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">BIC</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Wetherspoons</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Hella</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Moncler</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">ASOS</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Pets at Home</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Compagnie des Alpes</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Daimler Truck</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">De&#x27;Longhi</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Next</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Scandic Hotels</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">TRATON</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Brunello Cucinelli</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Entain</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">FDJ United</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Ferrari</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">FirstGroup</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Flutter</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Mitchells &amp; Butlers</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Prosus</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Rightmove</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Scout24</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">TUI</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:158"><div class="industry-header-row">I. Transportation</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Inpost</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">DHL</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Hoegh Autoliners</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Logista Integral,</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">STEF</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Hapag-Lloyd</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">ID Logistics</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">CTT</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:215"><div class="industry-header-row">J. Technology</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Technoprobe</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">VAT Group</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">OVH Groupe</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">ASML</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">BE Semiconductor</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Infineon</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Grupa Pracuj</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Karnov</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Paradox Interactive</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:235"><div class="industry-header-row">K. Professional, business and consumer services</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Spie</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">WPP</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">JCDecaux</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Veolia</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Ipsos</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">YouGov</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:22"><div class="industry-header-row">M. Materials</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aurubis</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Altri</span><span class="row-label">Stage 1 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Breedon</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Imerys</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Lenzing</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Bouygues</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Caltagirone</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">DEME</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Eiffage</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">HOCHTIEF</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">STRABAG</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Titan</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Vesuvius</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">VINCI</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Bilfinger</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Heidelberg Materials</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Kier</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Mota-Engil</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">STRABAG</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Saint-Gobain</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Titan</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">VINCI</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Vesuvius</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Webuild</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.7. Forestry and paper products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Altri</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Lenzing</span><span class="row-label">Stage 1 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:95"><h3 class="industry-header">N. Real assets</h3><div class="sector-group"><h4 class="sector-header">N.1. TBD</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Big Yellow</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Carmila</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Hammerson</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:42"><h3 class="industry-header">O. Industrials and capital goods</h3><div class="sector-group"><h4 class="sector-header">O.1. Industrial services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Fasadgruppen</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.2. Products - various [SPLIT]</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Inwido</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Rotork</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Volution</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.7. Capital goods - factory equipment</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">GEA</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.8. Capital goods - misc.</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Interpump</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:345"><h3 class="industry-header">P. Energy, commodities and metals mining</h3><div class="sector-group"><h4 class="sector-header">P.5. Precious metals mining</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">RHI Magnesita</span><span class="row-label">Stage 1 probing bet</span></li></ul></div></div></div></section>
-<section class="grade-section grade-b"><div class="section-head"><h2>Grade B &mdash; This fortnight</h2><span class="count-badge">243 stocks</span></div><div class="industries-wrapper"><div class="industry-group" style="--ihue:38"><h3 class="industry-header">A. Consumer staples</h3><div class="sector-group"><h4 class="sector-header">A.1. Beverages - beer</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Coca-Cola HBC</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Heineken</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.2. Tobacco</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Imperial Brands</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.3. Automotive repair</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Inter Cars</span><span class="row-label">Stage 2 - Retest</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.4. Household products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Reckitt Benckiser</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.5. Food retail</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Greggs</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.6. Food production</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cranswick</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Danone</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">A.7. General retail</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Lagardere</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Redcare</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:200"><h3 class="industry-header">B. Healthcare</h3><div class="sector-group"><h4 class="sector-header">B.10. Medtech - components</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Eckert &amp; Ziegler</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.5. Medtech - consumables - mature</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Alcon</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">Convatec</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Medartis</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Uniphar</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Xvivo</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.6. Medtech - capital goods</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cellavision</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">El.En.</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Oxford Instruments</span><span class="row-label">Stage 2 pulling back</span></li>
-<li class="stock-item"><span class="name-cell">Philips</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.7. Pharma/biotech</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">GSK</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Haleon</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Hikma Pharmaceuticals</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Idorsia</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Lakefront Biotherapeutics</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Merck</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Novartis</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Recordati</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Sandoz</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Sanofi</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">B.8. Medtech - distributors / retail</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Addlife</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Galenica</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div><div class="industry-group" style="--ihue:205"><h3 class="industry-header">C. Telecoms</h3><div class="sector-group"><h4 class="sector-header">C.1. Telecoms - MNOs</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Deutsche Telekom</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Freenet</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Telecom Italia</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">C.2. Telecoms - towers</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cellnex</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Cyfrowy Polsat</span><span class="row-label">Stage 1 - early</span></li></ul></div></div><div class="industry-group" style="--ihue:140"><h3 class="industry-header">D. Infrastructure</h3><div class="sector-group"><h4 class="sector-header">D.1. Infrastructure - airports/trains</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aena</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">D.2. Infrastructure - ports</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Wallenius Wilhelmsen</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:28"><h3 class="industry-header">E. Utilities</h3><div class="sector-group"><h4 class="sector-header">E.1. Utilities - Integrated power</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">National Grid</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Terna</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">E.2. Utilities - green focused</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Orsted</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Polenergia</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Voltalia</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">E.3. Utilities - Water and other non-power</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">ENGIE</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Iren</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Italgas</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Norsk Hydro</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Uniper</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">VERBUND</span><span class="row-label">Stage 1 - late</span></li></ul></div></div><div class="industry-group" style="--ihue:250"><h3 class="industry-header">F. Defence</h3><div class="sector-group"><h4 class="sector-header">F.1. Defence - Primes</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Airbus</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Balfour Beatty</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">LISI</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Rolls-Royce</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">F.2. Defence - Non-primes</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Exosens</span><span class="row-label">Stage 2 basing</span></li>
-<li class="stock-item"><span class="name-cell">Montana Aerospace</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Theon</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:175"><h3 class="industry-header">G. Financials</h3><div class="sector-group"><h4 class="sector-header">G.1. Insurance</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Admiral</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Allianz</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Hannover Re</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Lancashire</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Legal &amp; General</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Linea Directa Aseguradora</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Munich Re</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Nuernberger Beteiligungs</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">SCOR</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Swiss Re</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">UNIQA Insurance</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Unipol</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Vienna Insurance</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Zurich Insurance</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.11. Traditional asset managers (B2C)</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">M&amp;G</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.12. Specialty finance and other</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ayvens</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">BFF Bank</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.13. Banks</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">BNP Paribas</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Banca Generali</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Barclays</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Credito Emiliano</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Erste</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">HSBC</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">ING Bank Slaski</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Lloyds Banking</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Societe Generale</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.2. Exchanges and brokers</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Deutsche Borse</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Euronext</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Flow Traders</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">London Stock Exchange</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">TP ICAP</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.3. Alternative investment managers</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Antin</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">ICG Enterprise Trust  GBP</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Wendel</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.4. Holding companies</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Financiere Moncey</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Georgia Capital</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.5. Online savings platform (D2C)</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Fineco</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Flatex</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Nordnet</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Quilter</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">G.8. Retail trading platforms (D2C)</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">IG Group</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:5"><h3 class="industry-header">H. Consumer discretionary</h3><div class="sector-group"><h4 class="sector-header">H.1. Luxury goods</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Brunello Cucinelli</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Moncler</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Salvatore Ferragamo</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.10. Hotels</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Scandic Hotels</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.11. Airlines and travel</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">FirstGroup</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">TUI</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.12. Online classifieds/platforms</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Rightmove</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Scout24</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.13. Food delivery</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cheffelo</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Prosus</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.14. Automotive - sales/rentals</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">ZIGUP</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.15. Automotive - OEM or supplier</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Daimler Truck</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Ferrari</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Hella</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Schaeffler</span><span class="row-label">Stage 2 basing</span></li>
-<li class="stock-item"><span class="name-cell">Stadler Rail</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">TRATON</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.16. Homebuilders</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Berkeley</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.17. Consumer products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">BIC</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">De&#x27;Longhi</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">tonies</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.2. Retail - apparel</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Next</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">OVS</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.3. Retail - general/physical</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Pets at Home</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.4. Retail - online</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">ASOS</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.6. Gambling - B2C OSB, Casino-led</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Entain</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Flutter</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Kambi</span><span class="row-label">Stage 2 - Retest</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.7. Gambling - B2C - Lottery-led</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">FDJ United</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">H.9. Leisure</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Compagnie des Alpes</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Gym Group</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Mitchells &amp; Butlers</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Wetherspoons</span><span class="row-label">Stage 1 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:158"><h3 class="industry-header">I. Transportation</h3><div class="sector-group"><h4 class="sector-header">I.1. Logistics</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">CTT</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">DHL</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Hapag-Lloyd</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Hoegh Autoliners</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">ID Logistics</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Inpost</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Logista Integral,</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">STEF</span><span class="row-label">Stage 1 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:215"><h3 class="industry-header">J. Technology</h3><div class="sector-group"><h4 class="sector-header">J.4. Software - B2B Enterprise</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Grupa Pracuj</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Karnov</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">OVH Groupe</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">J.7. Software - Computer games</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Paradox Interactive</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">J.9. Semiconductors</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">ASML</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">BE Semiconductor</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Infineon</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Technoprobe</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">VAT Group</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:235"><h3 class="industry-header">K. Professional, business and consumer services</h3><div class="sector-group"><h4 class="sector-header">K.10. Waste management services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Veolia</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">K.11. Information services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">YouGov</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">K.5. Advertising and consulting services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ipsos</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">JCDecaux</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:22"><h3 class="industry-header">M. Materials</h3><div class="sector-group"><h4 class="sector-header">M.1. Chemicals - Fragrances/ingredients</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Alzchem</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">DKSH</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Puig Brands</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Robertet</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.2. Chemicals - Distributors</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Brenntag</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">IMCD</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.3. Chemicals - Specialty</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Arkema</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">Croda</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Elementis</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Evonik</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">Fuchs SE</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.4. Chemicals - Base</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Akzo Nobel</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Henkel</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">K+S</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">Symrise</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.6. Basic materials and construction</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Alleima</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">BAM Groep</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Budimex</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Friedrich Vorwerk</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Heijmans</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Webuild</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Grupa Kety</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Hill &amp; Smith</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Keller</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">MAIRE</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Porr</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Travis Perkins</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.7. Forestry and paper products</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Corticeira Amorim</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Elopak</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Grupa Kety</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Hill &amp; Smith</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Navigator</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Semapa</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">M.8. Chemicals - Gases</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Air Liquide</span><span class="row-label">Stage 1 - late</span></li></ul></div></div><div class="industry-group" style="--ihue:95"><h3 class="industry-header">N. Real assets</h3><div class="sector-group"><h4 class="sector-header">N.1. TBD</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">British Land</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Deutsche Wohnen</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Entra</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Klepierre</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">LEG Immobilien</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Porr</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Semapa</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Corticeira Amorim</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Croda</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">DKSH</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Henkel</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Puig Brands</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Symrise</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Travis Perkins</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Air Liquide</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Akzo Nobel</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Brenntag</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Arkema</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Evonik</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Fuchs SE</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">IMCD</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">K+S</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Alleima</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Alzchem</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">BAM Groep</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Budimex</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Heijmans</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Elementis</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Elopak</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Friedrich Vorwerk</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Robertet</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:95"><div class="industry-header-row">N. Real assets</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Carmila</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Hammerson</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Big Yellow</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Klepierre</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">MERLIN Properties SOCIMI</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Unibail-Rodamco-Westfield</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Vonovia</span><span class="row-label">Stage 1 - late</span></li></ul></div></div><div class="industry-group" style="--ihue:42"><h3 class="industry-header">O. Industrials and capital goods</h3><div class="sector-group"><h4 class="sector-header">O.1. Industrial services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">SOL</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.10. Capital goods - EV</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Alfen</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.15. Distributors</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Beijer Ref</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Solid State</span><span class="row-label">Stage 1 - early</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.2. Products - various [SPLIT]</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Bufab</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Lifco</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Rational</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Rosebank Industries</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Sdiptech</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Systemair</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Teqnion</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Valmet</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Entra</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Deutsche Wohnen</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Vonovia</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">LEG Immobilien</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">British Land</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:42"><div class="industry-header-row">O. Industrials and capital goods</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Fasadgruppen</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">GEA</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Interpump</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Inwido</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Rotork</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Volution</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Nexans</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Renishaw</span><span class="row-label">Stage 2 - Retest</span></li>
 <li class="stock-item"><span class="name-cell">Volex</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Wacker Neuson</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Weir</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.4. Capital goods - grid</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cembre</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Fugro</span><span class="row-label">Stage 1 - early</span></li>
-<li class="stock-item"><span class="name-cell">Nexans</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Pfisterer</span><span class="row-label">Stage 2 basing</span></li>
-<li class="stock-item"><span class="name-cell">Prysmian</span><span class="row-label">Stage 2 pulling back</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.6. Capital goods - measurement</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Judges Scientific</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Renishaw</span><span class="row-label">Stage 2 - Retest</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.7. Capital goods - factory equipment</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Durr</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Einhell Germany</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Krones</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.8. Capital goods - misc.</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">MTU Aero Engines</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Lu-ve</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Sdiptech</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Senior</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">SOL</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Prysmian</span><span class="row-label">Stage 2 pulling back</span></li>
 <li class="stock-item"><span class="name-cell">Schneider Electric</span><span class="row-label">Stage 2 pulling back</span></li>
-<li class="stock-item"><span class="name-cell">Senior</span><span class="row-label">Stage 2 probing bet</span></li></ul></div><div class="sector-group"><h4 class="sector-header">O.9. Capital goods - HVAC</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ariston</span><span class="row-label">Stage 1 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Lu-ve</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div><div class="industry-group" style="--ihue:345"><h3 class="industry-header">P. Energy, commodities and metals mining</h3><div class="sector-group"><h4 class="sector-header">P.1. Energy - downstream distribution</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Compagnie de l&#x27;Odet</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Pfisterer</span><span class="row-label">Stage 2 basing</span></li>
+<li class="stock-item"><span class="name-cell">Ariston</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Rational</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Systemair</span><span class="row-label">Stage 1 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Alfen</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Durr</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Krones</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Rosebank Industries</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Valmet</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Fugro</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Solid State</span><span class="row-label">Stage 1 - early</span></li>
+<li class="stock-item"><span class="name-cell">Bufab</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Cembre</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Teqnion</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Beijer Ref</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Einhell Germany</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Judges Scientific</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Lifco</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">MTU Aero Engines</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Wacker Neuson</span><span class="row-label">Stage 4 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Weir</span><span class="row-label">Stage 4 - Speculative Bet</span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:345"><div class="industry-header-row">P. Energy, commodities and metals mining</div><div class="two-col"><div class="col-a"><div class="col-header">Grade A &mdash; Now</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">RHI Magnesita</span><span class="row-label">Stage 1 probing bet</span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; This fortnight</div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Granges</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">ORLEN Spolka Akcyjna</span><span class="row-label">Stage 2 - Retest</span></li>
+<li class="stock-item"><span class="name-cell">Tenaris</span><span class="row-label">Stage 2 - Retest</span></li>
 <li class="stock-item"><span class="name-cell">DCC</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Derichebourg</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Greatland Resources</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">KGHM</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">Saipem</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">SFS Group</span><span class="row-label">Stage 2 probing bet</span></li>
+<li class="stock-item"><span class="name-cell">voestalpine</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Glencore</span><span class="row-label">Stage 2 pulling back</span></li>
-<li class="stock-item"><span class="name-cell">ORLEN Spolka Akcyjna</span><span class="row-label">Stage 2 - Retest</span></li></ul></div><div class="sector-group"><h4 class="sector-header">P.2. Energy - upstream E&amp;P</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Energean</span><span class="row-label">Stage 1 - late</span></li>
-<li class="stock-item"><span class="name-cell">Seplat Energy</span><span class="row-label">Stage 2 pulling back</span></li></ul></div><div class="sector-group"><h4 class="sector-header">P.3. Energy - upstream support services</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Anglo American</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
+<li class="stock-item"><span class="name-cell">Salzgitter</span><span class="row-label">Stage 2 pulling back</span></li>
+<li class="stock-item"><span class="name-cell">Seplat Energy</span><span class="row-label">Stage 2 pulling back</span></li>
+<li class="stock-item"><span class="name-cell">Viohalco/</span><span class="row-label">Stage 2 pulling back</span></li>
+<li class="stock-item"><span class="name-cell">Bakkafrost</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Compagnie de l&#x27;Odet</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Energean</span><span class="row-label">Stage 1 - late</span></li>
+<li class="stock-item"><span class="name-cell">Anglo American</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Antofagasta</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
 <li class="stock-item"><span class="name-cell">Aperam</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Hunting</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">Saipem</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Tenaris</span><span class="row-label">Stage 2 - Retest</span></li></ul></div><div class="sector-group"><h4 class="sector-header">P.4. Agriculture</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Bakkafrost</span><span class="row-label">Stage 1 - late</span></li></ul></div><div class="sector-group"><h4 class="sector-header">P.5. Precious metals mining</h4><ul class="stock-list"><li class="stock-item"><span class="name-cell">Derichebourg</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Granges</span><span class="row-label">Stage 2 - Retest</span></li>
-<li class="stock-item"><span class="name-cell">Greatland Resources</span><span class="row-label">Stage 2 probing bet</span></li>
 <li class="stock-item"><span class="name-cell">Hochschild Mining</span><span class="row-label">Stage 3 - Speculative Bet</span></li>
-<li class="stock-item"><span class="name-cell">KGHM</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">SFS Group</span><span class="row-label">Stage 2 probing bet</span></li>
-<li class="stock-item"><span class="name-cell">Salzgitter</span><span class="row-label">Stage 2 pulling back</span></li>
-<li class="stock-item"><span class="name-cell">Viohalco/</span><span class="row-label">Stage 2 pulling back</span></li>
-<li class="stock-item"><span class="name-cell">voestalpine</span><span class="row-label">Stage 2 probing bet</span></li></ul></div></div></div></section>
+<li class="stock-item"><span class="name-cell">Hunting</span><span class="row-label">Stage 3 - Speculative Bet</span></li></ul></div></div></div>
 </main>
 <footer>
   <span>Viewforth Watson &nbsp;&middot;&nbsp; generated 2026-06-16</span>
