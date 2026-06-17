@@ -139,7 +139,8 @@
 </header>
 
 <div class="method-note">
-  <strong>RS (0–100):</strong> IBD-style relative return vs STOXX&nbsp;Europe&nbsp;600 (40%×3M + 20%×6M + 20%×9M + 20%×12M), normalised 0–100 across all 107 rows.&nbsp;
+  <strong>RS (0–100) — Today tab:</strong> IBD-style relative return vs STOXX&nbsp;Europe&nbsp;600 (40%×3M + 20%×6M + 20%×9M + 20%×12M), normalised 0–100 across all 107 rows.&nbsp;
+  <strong>Historical RS tabs:</strong> percentile rank within group per week (0=bottom, 100=top of its 16-industry or 91-sector peer set) — not directly comparable to the Today tab RS scale.&nbsp;
   <strong>Price returns:</strong> average absolute stock price return for each period across stocks in the group.&nbsp;
   1W, 1M, 2Y not available from current pipeline.
 </div>
@@ -281,19 +282,17 @@ function buildTab(id){
 
 // ── Shared helpers ─────────────────────────────────────────
 function heatBg(v, min=0, max=100){
-  const t=(v-min)/(max-min);
-  if(t>0.55){const s=(t-0.55)/0.45; return `rgb(${Math.round(106+s*(106-106))},
-    ${Math.round(170+s*(170-170))},
-    ${Math.round(100+s*(100-100))},0.5)`; }
-  // green→neutral→red
-  const mid=55;
+  // Colour gradient: red(0)→neutral(50)→green(100), neutral at exact midpoint
+  const mid=50;
   if(v>=mid){
     const s=(v-mid)/(max-mid);
-    const g=Math.round(228+s*(106-228)),b=Math.round(239+s*(170-239)),r=Math.round(227+s*(106-227));
+    // neutral rgb(228,239,227) → strong green rgb(106,170,100)
+    const r=Math.round(228+s*(106-228)),g=Math.round(239+s*(170-239)),b=Math.round(227+s*(100-227));
     return `rgb(${r},${g},${b})`;
   } else {
     const s=(mid-v)/mid;
-    const r=Math.round(228+s*(211-228)),g=Math.round(240+s*(67-240)),b=Math.round(227+s*(67-227));
+    // neutral rgb(228,239,227) → strong red rgb(211,67,67)
+    const r=Math.round(228+s*(211-228)),g=Math.round(239+s*(67-239)),b=Math.round(227+s*(67-227));
     return `rgb(${r},${g},${b})`;
   }
 }
@@ -329,7 +328,7 @@ function buildHistTable(panelId, isGrade, isSec){
     const mb=getMonthBoundaries(weeks);
 
     let html='<div class="hist-toolbar">';
-    html+=`<span class="info">${isGrade?'A–F grades':'RS (0–100)'} · ${isSec?'91 sectors':'16 industries'} · ${weeks.length} weeks (${weeks[0]} → ${weeks[weeks.length-1]})</span>`;
+    html+=`<span class="info">${isGrade?'A–F grades (rank within group)':'RS: rank within group (0–100)'} · ${isSec?'91 sectors':'16 industries'} · ${weeks.length} weeks (${weeks[0]} → ${weeks[weeks.length-1]})</span>`;
     html+=`<button class="btn-sm" onclick="tblToggleAll('${panelId}')">${showAll?'Show last 52 ▲':'Show all 220 ▼'}</button>`;
     html+='</div>';
 
@@ -465,6 +464,7 @@ function buildLineChart(chartId, isGrade, isSec){
     border:{dash:[3,3]}
   }:{
     min:0,max:100,
+    title:{display:true,text:'Rank within group (0–100)',font:{size:9},color:'#9a9080'},
     ticks:{font:{size:10},stepSize:20,color:'#7a7060'},
     grid:{color:'rgba(140,130,115,0.12)'},
   };
