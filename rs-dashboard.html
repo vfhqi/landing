@@ -88,16 +88,16 @@
     font-family:var(--font)}
   .hist-toolbar .btn-sm:hover{background:#f0ece0}
   .hist-scroll{overflow:auto;flex:1}
-  .hist-tbl{border-collapse:collapse;font-size:11.5px;min-width:100%}
+  .hist-tbl{border-collapse:collapse;font-size:11.5px;min-width:100%;table-layout:fixed}
   .hist-tbl th{position:sticky;top:0;background:#f0ece2;border-bottom:2px solid #cec8aa;
     padding:4px 5px;font-size:10.5px;font-weight:700;text-align:center;white-space:nowrap;
     color:#4a4030;z-index:9;letter-spacing:.2px;text-transform:uppercase}
   .hist-tbl th.h-name{text-align:left;position:sticky;top:0;left:0;z-index:10;
-    background:#f0ece2;min-width:200px;max-width:200px;padding-left:10px;letter-spacing:.1px}
+    background:#f0ece2;width:200px;min-width:200px;max-width:200px;padding-left:10px;letter-spacing:.1px}
   .hist-tbl td{padding:3px 5px;text-align:center;border-bottom:1px solid #ede9da;
     border-right:0.5px solid #ede9da;font-family:var(--mono);white-space:nowrap;font-size:11px}
   .hist-tbl td.t-name{text-align:left;font-family:var(--font);font-size:11px;
-    position:sticky;left:0;background:#fbf9f1;z-index:1;min-width:200px;max-width:200px;
+    position:sticky;left:0;background:#fbf9f1;z-index:1;width:200px;min-width:200px;max-width:200px;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:10px;
     border-right:2px solid #ddd9cc}
   .hist-tbl tr:hover td{filter:brightness(.95)}
@@ -333,13 +333,13 @@ function buildHistTable(panelId, isGrade, isSec){
     html+=`<button class="btn-sm" onclick="tblToggleAll('${panelId}')">${showAll?'Show last 52 ▲':'Show all 220 ▼'}</button>`;
     html+='</div>';
 
-    html+='<div class="hist-scroll"><table class="hist-tbl"><thead><tr>';
+    html+='<div class="hist-scroll"><table class="hist-tbl"><colgroup><col style="width:200px">';weeks.forEach(()=>{html+='<col style="width:32px">';});html+='</colgroup><thead><tr>';
     html+='<th class="h-name">Name</th>';
     weeks.forEach((w,i)=>{
       const d=new Date(w);
       const mo=d.toLocaleString('en-GB',{month:'short'});
       const yr=d.getFullYear().toString().slice(2);
-      const lbl=mb.yr.has(i+startIdx-startIdx===0?0:i)?`${mo}'${yr}`:(i%4===0?mo:'');
+      const lbl=mb.yr.has(i)?`${mo}'${yr}`:(mb.mo.has(i)?mo:'');
       let cls='';
       if(mb.yr.has(i)) cls='yr-sep';
       else if(mb.mo.has(i)) cls='mo-sep';
