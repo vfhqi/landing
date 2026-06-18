@@ -345,11 +345,17 @@ function buildHistTab(panelId, type) {
   }
   // For rank display: L12M uses index 4 (pre-computed), others computed client-side.
   // Coverage check for rank mode should check the appropriate value index.
+  // For rank display: L12M uses index 4 (pre-computed), others computed client-side.
+  // Coverage check for rank mode: for L12M, check e[3] (l12m_raw) not e[4] (l12m_rank).
+  // Reason: l12m_rank can be non-null even when l12m_raw is null — the build script
+  // computes ranks from whatever raw data exists, including partial weeks with a single
+  // data point. Using e[4] for coverage returns the latest week even when its ranks are
+  // garbage. Checking e[3] ensures we find the last week with valid underlying raw data.
   function findSortWeekRank(wdata, pidx) {
-    if (pidx === 3) { // L12M rank → check index 4
+    if (pidx === 3) { // L12M rank → check e[3] (l12m_raw) for valid coverage
       const threshold = Math.ceil(names.length * 0.8);
       for (let wi = wdata.length-1; wi >= 0; wi--) {
-        const count = wdata[wi].filter(e => e && e[4]!=null).length;
+        const count = wdata[wi].filter(e => e && e[3]!=null).length;
         if (count >= threshold) return wi;
       }
     }
@@ -443,7 +449,10 @@ function buildHistTab(panelId, type) {
           const txt = raw!=null ? (raw>=0?'+':'')+raw.toFixed(1)+'%' : '';
           h += `<td style="background:${bg}" class="${cls}">${txt}</td>`;
         } else {
-          const rank = (histRsPeriod==='L12M') ? e[4] : (ranksByWeek ? ranksByWeek[wi][ni] : null);
+          // For L12M: only use pre-computed rank (e[4]) when l12m_raw (e[3]) is non-null.
+          // Guards against displaying garbage ranks on partial weeks (e.g. 2026-06-16
+          // where only 1/16 industries had real data but all 16 got a rank assigned).
+          const rank = (histRsPeriod==='L12M') ? (e[3]!=null ? e[4] : null) : (ranksByWeek ? ranksByWeek[wi][ni] : null);
           const bg  = rankColor(rank);
           const txt = rank!=null ? Math.round(rank) : '';
           h += `<td style="background:${bg}" class="${cls}">${txt}</td>`;
