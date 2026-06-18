@@ -481,27 +481,47 @@ function buildGradesTab(panelId, type) {
   const DEFAULT_N = 52;
   let showAll = false;
 
-  const grO = {A:0,B:1,C:2,D:3,F:4};
-  const sortedNames = [...names].sort((a,b) => {
-    const da=snap[a]||{}, db=snap[b]||{};
-    const ga=grO[da.grade]??5, gb=grO[db.grade]??5;
-    if (ga!==gb) return ga-gb;
-    return ((db.L12M||db.L12M===0)?db.L12M:-999) - ((da.L12M||da.L12M===0)?da.L12M:-999);
+  // Find last week in histData where >=80% of groups have non-null l12m_raw (index 3).
+  // Use this as the sort reference so row order matches what cells show.
+  const threshold = Math.ceil(names.length * 0.8);
+  let sortWeekAbsIdx = histData.length - 1;
+  for (let wi = histData.length-1; wi >= 0; wi--) {
+    const count = histData[wi].filter(e => e && e[3]!=null).length;
+    if (count >= threshold) { sortWeekAbsIdx = wi; break; }
+  }
+
+  const grO = {A:0, B:1, C:2, D:3, F:4};
+  const sortedIndices = [...names.keys()].sort((ai, bi) => {
+    const ea = histData[sortWeekAbsIdx][ai];
+    const eb = histData[sortWeekAbsIdx][bi];
+    const ra = ea ? ea[4] : null;
+    const rb = eb ? eb[4] : null;
+    const ga = grO[rankToGrade(ra)] ?? 5;
+    const gb = grO[rankToGrade(rb)] ?? 5;
+    if (ga !== gb) return ga - gb;
+    if (ra==null && rb==null) return 0;
+    if (ra==null) return 1; if (rb==null) return -1;
+    return rb - ra;
   });
 
   function render() {
-    const si = showAll ? 0 : Math.max(0,WEEKS.length-DEFAULT_N);
+    const si = showAll ? 0 : Math.max(0, WEEKS.length-DEFAULT_N);
     const wks   = WEEKS.slice(si);
     const wdata = histData.slice(si);
     const mb    = getMonthBoundaries(wks);
     const nLabel = type==='ind' ? '16 industries' : '91 sectors';
+    // Map absolute sort week to display index
+    const sortWi = sortWeekAbsIdx - si;
+    const sortDate = wks[sortWi] || wks[wks.length-1];
+    const sortD  = new Date(sortDate);
+    const sortLbl = sortD.toLocaleString('en-GB',{day:'numeric',month:'short',year:'2-digit'});
 
     let h = '<div class="hist-toolbar">';
-    h += `<span class="info">Ratings (A–F) based on L12M percentile rank &middot; ${nLabel} &middot; sorted by current L12M rating</span>`;
+    h += `<span class="info">Ratings (A–F) based on L12M percentile rank &middot; ${nLabel} &middot; sorted by ${sortLbl} rating</span>`;
     h += `<button class="btn-sm" onclick="toggleGradesAll('${panelId}')">${showAll?'&#9650; Last 52':'&#9660; All '+WEEKS.length}</button>`;
     h += '</div>';
     h += `<div class="hist-scroll"><table class="hist-tbl"><colgroup><col style="width:188px">`;
-    wks.forEach(() => h += `<col style="width:24px">`);
+    wks.forEach((_,i) => h += `<col style="width:${i===sortWi?28:24}px">`);
     h += '</colgroup><thead><tr><th class="h-name">Group (current rating)</th>';
     wks.forEach((w,i) => {
       const d  = new Date(w);
@@ -509,24 +529,29 @@ function buildGradesTab(panelId, type) {
       const mo = d.toLocaleString('en-GB',{month:'long'});
       const yr = d.getFullYear().toString().slice(2);
       const lbl = mb.yr.has(i) ? `${dd} ${mo} '${yr}` : (mb.mo.has(i) ? `${dd} ${mo}` : `${dd}`);
-      const cls = mb.yr.has(i)?'yr-sep':mb.mo.has(i)?'mo-sep':'';
+      let cls = mb.yr.has(i)?'yr-sep':mb.mo.has(i)?'mo-sep':'';
+      if (i===sortWi) cls += (cls?' ':'')+'active-col';
       h += `<th class="${cls}" title="${w}">${lbl}</th>`;
     });
     h += '</tr></thead><tbody>';
 
-    sortedNames.forEach(name => {
-      const ni = names.indexOf(name); if(ni<0) return;
+    sortedIndices.forEach(ni => {
+      const name = names[ni];
       const letter = name[0];
-      const curGrade = (snap[name]||{}).grade||'';
       const disp = type==='sec'
         ? `<span class="ind-tag" style="background:${IND_COLOR[letter]||'#8a8a9a'}">${letter}</span>${escHtml(name)}`
         : escHtml(name);
+      // Row label grade: from sort reference week
+      const refEntry = histData[sortWeekAbsIdx][ni];
+      const curGrade = refEntry && refEntry[3]!=null ? rankToGrade(refEntry[4]) : (snap[name]||{}).grade||'';
       h += `<tr><td class="t-name gr-${curGrade}" title="${escAttr(name)}">${disp}</td>`;
       wdata.forEach((wd,wi) => {
         const e = wd[ni] || [null,null,null,null,null];
-        const grade = rankToGrade(e[4]);
-        const cls = mb.yr.has(wi)?'yr-sep':mb.mo.has(wi)?'mo-sep':'';
-        const gc  = grade ? 'gr-'+grade : '';
+        // Only show grade when l12m_raw (index 3) is non-null — prevents garbage from partial weeks
+        const grade = (e[3] != null) ? rankToGrade(e[4]) : '';
+        let cls = mb.yr.has(wi)?'yr-sep':mb.mo.has(wi)?'mo-sep':'';
+        if (wi===sortWi) cls += (cls?' ':'')+'active-col';
+        const gc = grade ? 'gr-'+grade : '';
         h += `<td class="${cls?cls+' ':''}${gc}">${grade}</td>`;
       });
       h += '</tr>';
