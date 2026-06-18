@@ -1,0 +1,47 @@
+{
+  "schema_version": "memo-1.0",
+  "batch_id": "brav-esa-20260617",
+  "deliverable_type": "aj-memo",
+  "shape": "individual",
+  "stage": "esa",
+  "cohort": "building-services-consolidators",
+  "dials": {
+    "trust": "balanced",
+    "cohort": "normal",
+    "sector": "normal"
+  },
+  "thematics_decision": "proceed",
+  "priority": "high",
+  "created_at": "2026-06-17T10:11:11",
+  "updated_at": "2026-06-18T07:14:01",
+  "stocks": {
+    "BRAV-SE": {
+      "status": "completed",
+      "stage": "esa",
+      "parked": false,
+      "parked_reason": null,
+      "waiting_for_richard": false,
+      "memo_file": "Files/BRAV-SE/A-J-memo/memo.md",
+      "sidecar_file": "Files/BRAV-SE/A-J-memo/context/sidecar-prefill.json",
+      "ratings_file": "Files/BRAV-SE/A-J-memo/ratings.json",
+      "gng_file": "Files/BRAV-SE/A-J-memo/go-no-go.md",
+      "failure_ledger_path": "batches/failure-ledger/BRAV-SE.jsonl",
+      "gate_state": "e6_satisfied",
+      "sponsor_answers_file": "Files/BRAV-SE/ESA/sponsor-e1.json",
+      "key_questions_file": "Files/BRAV-SE/ESA/key-questions.json",
+      "kq_brief_ids": [
+        "brav-kq-1",
+        "brav-kq-2",
+        "brav-kq-3",
+        "brav-kq-4"
+      ],
+      "prior_memo_path": "Files/BRAV-SE/Triaging/BRAV-SE-Triaging-A&J-Memo-2026-06-13.md",
+      "fix_loop_attempts": 3,
+      "render_qc": "2026-06-18T07:14:01Z",
+      "completed_at": "2026-06-18T07:14:01Z",
+      "flags": [],
+      "e6_blocked_at": "2026-06-17T10:55:41",
+      "qc_tally": "70 PASS / 2 HARD FAIL (irreducible: italic+signpost QC bug) / 22 SOFT FLAG"
+    }
+  }
+}
