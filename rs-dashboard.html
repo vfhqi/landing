@@ -119,10 +119,10 @@ tr.waterline td{border-top:2px dashed #b8b0a4;border-bottom:2px dashed #b8b0a4;b
 
 <nav class="tab-nav" role="tablist">
   <button class="tn-btn active" onclick="switchTab('today')" data-tab="today">Today</button>
-  <button class="tn-btn" onclick="switchTab('ind-rs')" data-tab="ind-rs">Ind. RS</button>
-  <button class="tn-btn" onclick="switchTab('sec-rs')" data-tab="sec-rs">Sect. RS</button>
-  <button class="tn-btn" onclick="switchTab('ind-gr')" data-tab="ind-gr">Ind. Grades</button>
-  <button class="tn-btn" onclick="switchTab('sec-gr')" data-tab="sec-gr">Sect. Grades</button>
+  <button class="tn-btn" onclick="switchTab('ind-rs')" data-tab="ind-rs">Industry Relative Price Performance</button>
+  <button class="tn-btn" onclick="switchTab('sec-rs')" data-tab="sec-rs">Sector Relative Price Performance</button>
+  <button class="tn-btn" onclick="switchTab('ind-gr')" data-tab="ind-gr">Industry Ratings</button>
+  <button class="tn-btn" onclick="switchTab('sec-gr')" data-tab="sec-gr">Sector Ratings</button>
 </nav>
 
 <div id="tab-today" class="tab-panel active" style="flex-direction:column">
@@ -197,6 +197,14 @@ function rankColor(v) {
     const s = (50-v)/50;
     return `rgb(${Math.round(228+s*(211-228))},${Math.round(239+s*(67-239))},${Math.round(227+s*(67-227))})`;
   }
+}
+function rankToGrade(rank) {
+  if (rank==null) return '';
+  if (rank>=90) return 'A';
+  if (rank>=75) return 'B';
+  if (rank>=50) return 'C';
+  if (rank>=25) return 'D';
+  return 'F';
 }
 function fmtP(v, dec) {
   if (v==null) return '&mdash;';
@@ -312,17 +320,15 @@ function buildHistTab(panelId, type) {
   const PERIOD_IDX   = {L1M:0, L3M:1, L6M:2, L12M:3};
   const PERIOD_LBL   = {L1M:'1 Month', L3M:'3 Month', L6M:'6 Month', L12M:'12 Month'};
 
-  // Compute within-week percentile rank for a given period column index
   function computeRanksForPeriod(wdata, pidx) {
-    const nameIdx = names.map((_,i) => i);
     return wdata.map(wd => {
-      const vals = nameIdx.map(ni => { const e=wd[ni]; return (e && e[pidx]!=null) ? e[pidx] : null; });
+      const vals = names.map((_,ni) => { const e=wd[ni]; return (e&&e[pidx]!=null)?e[pidx]:null; });
       const sorted = vals.filter(v=>v!=null).slice().sort((a,b)=>a-b);
       const n = sorted.length;
       return vals.map(v => {
-        if (v==null || n===0) return null;
+        if (v==null||n===0) return null;
         const pos = sorted.filter(x=>x<v).length;
-        return Math.round((pos / Math.max(1,n-1)) * 100);
+        return Math.round((pos/Math.max(1,n-1))*100);
       });
     });
   }
@@ -337,17 +343,21 @@ function buildHistTab(panelId, type) {
     const sc12  = COL_SCALES['L12M'] || {min:-30, max:30};
     const pIdx  = PERIOD_IDX[histRsPeriod];
 
-    // Ranks for non-L12M in rank mode (computed client-side)
     let ranksByWeek = null;
     if (!isRaw && histRsPeriod!=='L12M') {
       ranksByWeek = computeRanksForPeriod(wdata, pIdx);
     }
 
-    // Sort by latest week selected-period value (desc, nulls last)
-    const latestWd = wdata[wdata.length-1] || [];
+    // Sort: most-recent non-null value for selected period (handles partial latest week)
+    const latestValForGroup = ni => {
+      for (let wi = wdata.length-1; wi >= 0; wi--) {
+        const e = wdata[wi][ni];
+        if (e && e[pIdx]!=null) return e[pIdx];
+      }
+      return null;
+    };
     const sortedIndices = [...names.keys()].sort((ai,bi) => {
-      const ea=latestWd[ai], eb=latestWd[bi];
-      const va=ea?ea[pIdx]:null, vb=eb?eb[pIdx]:null;
+      const va=latestValForGroup(ai), vb=latestValForGroup(bi);
       if (va==null&&vb==null) return 0;
       if (va==null) return 1; if (vb==null) return -1;
       return vb-va;
@@ -369,9 +379,11 @@ function buildHistTab(panelId, type) {
     h += '</colgroup><thead><tr><th class="h-name">Group</th>';
     wks.forEach((w,i) => {
       const d  = new Date(w);
+      const dd = d.getDate();
       const mo = d.toLocaleString('en-GB',{month:'long'});
       const yr = d.getFullYear().toString().slice(2);
-      const lbl = mb.yr.has(i) ? `${mo} '${yr}` : (mb.mo.has(i) ? mo : '');
+      // Every col shows DD; month-boundary adds month name; year-boundary adds year
+      const lbl = mb.yr.has(i) ? `${dd} ${mo} '${yr}` : (mb.mo.has(i) ? `${dd} ${mo}` : `${dd}`);
       const cls = mb.yr.has(i) ? 'yr-sep' : (mb.mo.has(i) ? 'mo-sep' : '');
       h += `<th class="${cls}" title="${w}">${lbl}</th>`;
     });
@@ -445,11 +457,11 @@ function buildGradesTab(panelId, type) {
 
   function render() {
     const si = showAll ? 0 : Math.max(0,WEEKS.length-DEFAULT_N);
-    const wks = WEEKS.slice(si);
+    const wks   = WEEKS.slice(si);
     const wdata = histData.slice(si);
-    const mb = getMonthBoundaries(wks);
+    const mb    = getMonthBoundaries(wks);
     const nLabel = type==='ind' ? '16 industries' : '91 sectors';
-    const cwi = wks.length-1; // current week index
+    const cwi   = wks.length-1;
 
     let h = '<div class="grade-bar"><span class="lbl">Show value:</span>';
     PERIODS_GRADE.forEach(p => {
@@ -457,56 +469,61 @@ function buildGradesTab(panelId, type) {
     });
     h += '</div>';
     h += '<div class="hist-toolbar">';
-    h += `<span class="info">Grades ALWAYS based on L12M percentile rank &middot; current col (Now) shows ${P_LBL[gradePeriod]} value &middot; ${nLabel}</span>`;
+    h += `<span class="info">Ratings (A–F) always based on L12M percentile rank &middot; current col shows ${P_LBL[gradePeriod]} value &middot; ${nLabel}</span>`;
     h += `<button class="btn-sm" onclick="toggleGradesAll('${panelId}')">${showAll?'&#9650; Last 52':'&#9660; All '+WEEKS.length}</button>`;
     h += '</div>';
     h += `<div class="hist-scroll"><table class="hist-tbl"><colgroup><col style="width:188px">`;
-    wks.forEach((_,i) => h += `<col style="width:${i===cwi?'50':'24'}px">`);
-    h += '</colgroup><thead><tr><th class="h-name">Group (L12M grade)</th>';
+    wks.forEach((_,i) => h += `<col style="width:${i===cwi?'52':'24'}px">`);
+    h += '</colgroup><thead><tr><th class="h-name">Group (L12M rating)</th>';
     wks.forEach((w,i) => {
-      const d=new Date(w), mo=d.toLocaleString('en-GB',{month:'short'}), yr=d.getFullYear().toString().slice(2);
-      const lbl=mb.yr.has(i)?`${mo}'${yr}`:mb.mo.has(i)?mo:'';
-      let cls=mb.yr.has(i)?'yr-sep':mb.mo.has(i)?'mo-sep':'';
-      if (i===cwi) cls+=(cls?' ':'')+'active-col';
-      h += `<th class="${cls}" title="${w}">${i===cwi?'<u>Now</u>':lbl}</th>`;
+      const d  = new Date(w);
+      const dd = d.getDate();
+      const mo = d.toLocaleString('en-GB',{month:'long'});
+      const yr = d.getFullYear().toString().slice(2);
+      const lbl = (i===cwi) ? '<u>Now</u>' :
+                  (mb.yr.has(i) ? `${dd} ${mo} '${yr}` :
+                  (mb.mo.has(i) ? `${dd} ${mo}` : `${dd}`));
+      let cls = mb.yr.has(i)?'yr-sep':mb.mo.has(i)?'mo-sep':'';
+      if (i===cwi) cls += (cls?' ':'')+'active-col';
+      h += `<th class="${cls}" title="${w}">${lbl}</th>`;
     });
     h += '</tr></thead><tbody>';
 
     sortedNames.forEach(name => {
-      const ni=names.indexOf(name); if(ni<0) return;
-      const letter=name[0];
-      const curGrade=(snap[name]||{}).grade||'';
-      const disp=type==='sec'
+      const ni = names.indexOf(name); if(ni<0) return;
+      const letter = name[0];
+      const curGrade = (snap[name]||{}).grade||'';
+      const disp = type==='sec'
         ? `<span class="ind-tag" style="background:${IND_COLOR[letter]||'#8a8a9a'}">${letter}</span>${escHtml(name)}`
         : escHtml(name);
       h += `<tr><td class="t-name gr-${curGrade}" title="${escAttr(name)}">${disp}</td>`;
       wdata.forEach((wd,wi) => {
-        const e=(wd[ni])||[null,null,''];
-        const [raw,rank,grade]=e;
-        let cls=mb.yr.has(wi)?'yr-sep':mb.mo.has(wi)?'mo-sep':'';
-        const gc=grade?'gr-'+grade:'';
+        const e = wd[ni] || [null,null,null,null,null];
+        // Grade always from L12M rank (index 4)
+        const l12mRank = e[4];
+        const grade    = rankToGrade(l12mRank);
+        let cls = mb.yr.has(wi)?'yr-sep':mb.mo.has(wi)?'mo-sep':'';
+        const gc = grade ? 'gr-'+grade : '';
         if (wi===cwi) {
-          // Current week: show grade + selected period value
-          const sv=(snap[name]||{})[gradePeriod];
-          const st=sv!=null?((sv>=0?'+':'')+sv.toFixed(1)+'%'):'';
-          const wid=cls?(cls+' '):'';
-          h += `<td class="${wid}${gc} active-col" style="padding:1px 2px">`;
-          h += `<div class="gc"><span class="gl">${grade||''}</span>`;
+          const sv = (snap[name]||{})[gradePeriod];
+          const st = sv!=null ? ((sv>=0?'+':'')+sv.toFixed(1)+'%') : '';
+          h += `<td class="${(cls?cls+' ':'')}${gc} active-col" style="padding:1px 2px">`;
+          h += `<div class="gc"><span class="gl">${curGrade}</span>`;
           if (st) h += `<span class="gs">${st}</span>`;
           h += `</div></td>`;
         } else {
-          h += `<td class="${cls?cls+' ':''}${gc}">${grade||''}</td>`;
+          h += `<td class="${cls?cls+' ':''}${gc}">${grade}</td>`;
         }
       });
       h += '</tr>';
     });
     h += '</tbody></table></div>';
-    panel.innerHTML=h;
-    panel._render=render;
-    panel._toggleAll=()=>{showAll=!showAll;render();};
+    panel.innerHTML = h;
+    panel._render  = render;
+    panel._toggleAll = () => { showAll=!showAll; render(); };
   }
-  panel._render=render;
-  panel._toggleAll=()=>{showAll=!showAll;render();};
+  panel._render  = render;
+  panel._toggleAll = () => { showAll=!showAll; render(); };
   render();
 }
 
