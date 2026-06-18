@@ -1,0 +1,50 @@
+{
+    "ticker": "BRAV-SE",
+    "company": "Bravida Holding AB",
+    "stage": "dd",
+    "memo_date": "2026-06-18",
+    "memo_path": "Files/BRAV-SE/Deep-Dive/BRAV-SE-Deep-Dive-A-and-J-Memo-2026-06-18.md",
+    "mr": {
+        "MR1": "A",
+        "MR2": "D",
+        "MR3": "B",
+        "MR4": "B",
+        "MR5": "C",
+        "MR6": "C"
+    },
+    "elements": {
+        "E1": "B",
+        "E2": "C",
+        "E3": "D",
+        "E4": "A",
+        "E5": "B",
+        "E6": "D",
+        "E7": "B",
+        "E8": "C",
+        "E9": "B",
+        "E10": "C",
+        "E11": "C",
+        "E12": "C",
+        "E13": "B",
+        "E15": "C",
+        "E16": "C",
+        "E17": "D",
+        "E18": "B",
+        "E19": "C",
+        "E20": "C"
+    },
+    "recommendation": "park_on_price",
+    "conviction": "medium_low",
+    "gating_conditions": [
+        "Gate A: EBITA margin >=6.5% confirmed in Q2 2026 results (est. August 2026)",
+        "Gate B: Price retraces to <=SEK 105"
+    ],
+    "kill_shot": "Missing or cutting guidance, or negative forward commentary",
+    "price_at_memo": 123.2,
+    "currency": "SEK",
+    "forward_pe": 16.2,
+    "eps_24mf": 7.627,
+    "rs_percentile": 84,
+    "mediocrity_gate": "clears",
+    "mediocrity_gate_note": "E9 operator B, E10 competitive advantage C — no D/F on critical quality elements; C on business quality is marginal but gate clears"
+}
