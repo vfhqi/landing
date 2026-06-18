@@ -1,0 +1,87 @@
+{
+  "ticker": "BRAV-SE",
+  "memo_date": "2026-06-17",
+  "stage": "esa",
+  "research_reports": [
+    {
+      "family": "change-forces",
+      "kind": "highlighted",
+      "source": "AlphaSense",
+      "date": "2026-06-02",
+      "path": "Files/BRAV-SE/41-change-forces/highlighted.md",
+      "identity_confirmed": true,
+      "identity_verified_by_meaning": true,
+      "stale": false
+    }
+  ],
+  "data_files": {
+    "prices": {
+      "price": 123.2,
+      "price_prev": 125.0,
+      "date": "2026-06-16",
+      "rs_percentile": 84,
+      "ma_5d": 122.66,
+      "sector": "O.1. Industrial services",
+      "stale": false
+    },
+    "valuation": {
+      "pe_current": 14.7,
+      "pe_percentile": 55,
+      "eps_24mf": 7.627,
+      "stale": true
+    },
+    "ssem": {
+      "tp_rev": {
+        "L1M": 2,
+        "L3M": 9,
+        "L6M": 5,
+        "L12M": null
+      },
+      "eps_rev": {
+        "L1M": 0,
+        "L3M": -1,
+        "L6M": -6,
+        "L12M": -7
+      }
+    }
+  },
+  "cohort_injection": {
+    "pack_path": "Files/_cohort-sector-summaries/BRAV-SE-2026-06-17.md",
+    "cache_hit": true,
+    "cohort_id": "",
+    "cohort_full": "",
+    "peers_used": [],
+    "peers_skipped_stale": [],
+    "tokens_consumed": 0,
+    "budget_cap": 13000,
+    "summary_of_summaries_used": false,
+    "dial_cohort": "normal",
+    "dial_sector": "normal"
+  },
+  "thematics_status": "stale",
+  "thematics_decision": "proceed",
+  "thematics_note": "canonical THEMATICS PAUSE active (active.md stale since 16-Apr; auto-load suspended)",
+  "wisdom_library_models": [
+    {
+      "model": "Flywheel vs Treadmill",
+      "source": "Wisdom Library",
+      "applied_at": "E8 RA4 CQ6",
+      "shaped_judgement": true,
+      "note": "Applied to assess whether BRAVIDA's compounder engine is self-reinforcing (Flywheel) or requires continuous reinvestment to maintain position (Treadmill); conclusion: Treadmill risk active \u2014 ROIC improvement depends on continued M&A and service mix shift"
+    }
+  ],
+  "dial_settings": {
+    "trust": "balanced",
+    "cohort": "normal",
+    "sector": "normal"
+  },
+  "sop_versions": {
+    "thinking": 1781612971,
+    "communicating": 1781612971,
+    "presenting": 1781612971,
+    "source_map": 1781359997
+  },
+  "self_initiated_queries": [],
+  "midflight_consults": [],
+  "render_target_supports_sentiment": false
+}
