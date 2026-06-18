@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes">
+<title>Viewforth — Landing</title>
+<style>
+  :root{
+    --bg:#fbf9f1; --ink:#1c1c1c; --ink-dim:#5c5c5c; --line:#2a2a2a;
+    --muted:#8a8a8a; --neutral:#c8c4b6; --gap:#7a7a7a;
+    --yellow:#e6b800; --magenta:#c66ab0; --orange-fill:#f0a04b;
+    --cyan:#5fb3c7; --blue:#5481c7; --green:#6aaa64;
+    --pink:#e88aa6; --orange-out:#e07a3c; --substrate:#8b6f47;
+    --tile:#fffdf6; --tile-hover:#fff8df;
+    --font-sans:'Aptos','Segoe UI',-apple-system,system-ui,sans-serif;
+    --font-mono:'Aptos Mono','SF Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);height:100%;}
+  body{display:flex;flex-direction:column;overflow:hidden;}
+  header{padding:6px 18px 4px;border-bottom:1px solid #ebe6d4;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;flex-shrink:0;}
+  header h1{margin:0;font-size:15px;font-weight:600;letter-spacing:.3px;}
+  header h1 .sub{color:var(--ink-dim);font-weight:400;margin-left:6px;font-size:11px;}
+  .status-strip{display:flex;gap:8px;font-size:10.5px;color:var(--ink-dim);font-family:var(--font-mono);align-items:center;flex-wrap:wrap;}
+  .status-strip .pill{background:var(--tile);border:1px solid #e2dcc6;padding:2px 7px;border-radius:9px;}
+  .status-strip .pill strong{color:var(--ink)}
+  .legend{display:flex;flex-wrap:wrap;gap:4px 13px;font-size:10px;color:var(--ink-dim);padding:4px 18px;border-bottom:1px solid #ebe6d4;flex-shrink:0;}
+  .legend .sw{display:inline-flex;align-items:center;gap:4px;}
+  .legend .sw i{display:inline-block;width:9px;height:9px;border-radius:2px;border:1px solid rgba(0,0,0,.15);}
+  main.stage{flex:1 1 auto;min-height:0;padding:4px 8px;overflow:auto;}
+  svg.flow{display:block;width:100%;height:100%;font-family:var(--font-sans);min-width:1100px;min-height:560px;}
+  .node rect{fill:var(--tile);stroke:var(--line);stroke-width:1.4;rx:6;ry:6;transition:fill .12s ease;}
+  .node:hover rect{fill:var(--tile-hover);}
+  .node text{fill:var(--ink);pointer-events:none;}
+  .node .title{font-size:13px;font-weight:600;}
+  .node .sub{font-size:10.5px;fill:var(--ink-dim);}
+  .node a{cursor:pointer;}
+  .node a:focus rect{outline:2px solid var(--ink);outline-offset:2px;}
+  .cluster{stroke:none;rx:14;ry:14;}
+  .c-yellow      {fill:rgba(230,184,0,.12);}
+  .c-magenta     {fill:rgba(198,106,176,.12);}
+  .c-orange-fill {fill:rgba(240,160,75,.14);}
+  .c-cyan        {fill:rgba(95,179,199,.13);}
+  .c-blue        {fill:rgba(84,129,199,.12);}
+  .c-green       {fill:rgba(106,170,100,.13);}
+  .c-pink        {fill:rgba(232,138,166,.13);}
+  .c-orange-out  {fill:rgba(224,122,60,.13);}
+  .area-title {font-size:14px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+  .at-yellow      {fill:#7a6300;}
+  .at-magenta     {fill:#7a3568;}
+  .at-cyan        {fill:#1f6f82;}
+  .at-blue        {fill:#2c5398;}
+  .at-green       {fill:#3a6a36;}
+  .at-pink        {fill:#a64869;}
+  .at-orange-out  {fill:#a04920;}
+  .flow-line {stroke:var(--line);stroke-width:1.4;fill:none;}
+  .flow-line.dotted{stroke-dasharray:5 4;stroke:var(--gap);}
+  .inode rect{fill:#ffffff;stroke:var(--line);stroke-width:1.4;rx:8;ry:8;}
+  .inode:hover rect{fill:var(--tile-hover);}
+  .inode text{fill:var(--ink);pointer-events:none;}
+  .inode .title{font-size:11.5px;font-weight:700;}
+  .inode .sub{font-size:9.5px;fill:var(--ink-dim);font-style:italic;}
+  .substrate-bar{fill:rgba(139,111,71,.10);stroke:var(--substrate);stroke-width:1.3;rx:7;ry:7;}
+  .substrate-bar:hover{fill:rgba(139,111,71,.18);}
+  .substrate-label{font-size:12px;font-weight:600;fill:#5b4727;letter-spacing:.4px;}
+  .substrate-sub  {font-size:10px;fill:#7d6647;}
+  .tab-pill rect{fill:#ffffff;stroke:#3a6a36;stroke-width:1.0;rx:9;ry:9;}
+  .tab-pill:hover rect{fill:#e8f3e6;}
+  .tab-pill text{fill:#2e4a2c;font-size:10px;font-weight:600;pointer-events:none;}
+  .cyan-pill rect{fill:#ffffff;stroke:#1f6f82;stroke-width:1.0;rx:9;ry:9;}
+  .cyan-pill:hover rect{fill:#e6f3f6;}
+  .cyan-pill text{fill:#1f6f82;font-size:10px;font-weight:600;pointer-events:none;}
+  .cyan-pill.placeholder rect{stroke-dasharray:3 3;}
+  .reminder-link {cursor:pointer;}
+  .reminder-link text {fill:#3a3a3a;font-size:11.5px;}
+  .reminder-link:hover text {fill:#1c1c1c;text-decoration:underline;}
+  footer{padding:4px 18px 6px;font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #ebe6d4;flex-shrink:0;}
+  footer code{font-family:var(--font-mono);background:#f3eedc;padding:1px 5px;border-radius:3px;color:var(--ink-dim);}
+  footer a{color:var(--ink-dim);}
+  @media (max-width:900px){body{overflow:auto;}header{padding:6px 10px 4px;gap:8px;}header h1{font-size:14px;}.status-strip{font-size:10px;gap:4px;}.legend{padding:4px 10px;gap:3px 8px;font-size:9.5px;}main.stage{padding:4px 4px;}svg.flow{height:auto;}}
+  @media (max-width:600px){header{flex-direction:column;align-items:flex-start;gap:4px;padding:6px 8px;}header h1{font-size:13px;}.status-strip{gap:3px;font-size:9.5px;}.status-strip .pill{padding:1px 5px;font-size:9.5px;}.legend{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap;padding:3px 8px;}main.stage{padding:2px;overflow:auto;}svg.flow{min-width:1300px;}footer{font-size:9px;padding:3px 8px 4px;flex-direction:column;gap:2px;}}
+
+  /* === v10 Visual Polish === */
+  .node rect { stroke: rgba(60,60,60,0.14); stroke-width: 1.0; filter: url(#sh-node); }
+  .tab-pill rect { filter: url(#sh-node); }
+  .cyan-pill rect { filter: url(#sh-node); }
+  .inode rect { filter: url(#sh-inode); }
+  .flow-line { stroke: #8fa3b3; stroke-width: 1.6; opacity: 0.82; }
+  .flow-line.dotted { stroke: #a8b8c4; opacity: 0.65; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Viewforth <span class="sub">— operating system landing page <span id="ver">v9</span></span></h1>
+  <div class="status-strip">
+    <span class="pill">Date <strong id="d-date">—</strong></span>
+    <span class="pill">Market regime <strong>risk-off</strong></span>
+    <span class="pill">Live positions <strong>9</strong></span>
+    <span class="pill">Active projects <strong>8</strong></span>
+    <span class="pill">Mode <strong id="d-mode">local</strong></span>
+  </div>
+</header>
+
+<main class="stage">
+<svg class="flow" viewBox="0 0 1500 950" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Viewforth investing operating system flow diagram v10">
+  <defs>
+    <filter id="sh-cluster" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="2" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sh-node" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="1" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.14"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sh-inode" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+      <feOffset dx="1" dy="1.5"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="g-magenta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fceef4"/><stop offset="100%" stop-color="#f5d0e4"/>
+    </linearGradient>
+    <linearGradient id="g-yellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffae6"/><stop offset="100%" stop-color="#f8edbc"/>
+    </linearGradient>
+    <linearGradient id="g-cyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f8fc"/><stop offset="100%" stop-color="#c4e8f4"/>
+    </linearGradient>
+    <linearGradient id="g-blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f0fc"/><stop offset="100%" stop-color="#c8d8f8"/>
+    </linearGradient>
+    <linearGradient id="g-orange-out" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef2e8"/><stop offset="100%" stop-color="#f8d8b0"/>
+    </linearGradient>
+    <linearGradient id="g-green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#edf8ed"/><stop offset="100%" stop-color="#c8e8c8"/>
+    </linearGradient>
+    <linearGradient id="g-pink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fdeef6"/><stop offset="100%" stop-color="#f0c0d8"/>
+    </linearGradient>
+    <linearGradient id="g-node" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f6f7f9"/>
+    </linearGradient>
+    <linearGradient id="g-inode" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fefefe"/><stop offset="100%" stop-color="#eff1f4"/>
+    </linearGradient>
+    <linearGradient id="g-ttq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0fff4"/><stop offset="100%" stop-color="#d8fce4"/>
+    </linearGradient>
+    <linearGradient id="g-substrate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2c2c44"/><stop offset="100%" stop-color="#1a1828"/>
+    </linearGradient>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4ade80" opacity="0.9"/>
+    </marker>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7a96aa" opacity="0.85"/>
+    </marker>
+    <marker id="arrow-dot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a8b8c4" opacity="0.75"/>
+    </marker>
+  </defs>
+
+  <!-- ============ FLOW LINES — routed AROUND clusters via cluster-free corridors ============ -->
+  <!-- Corridors (no cluster sits in these strips):
+       - Vertical strip x=860-940 between cyan and ST/GAP/Workflow column
+       - Vertical strip x=530-540 between Master Dashboard and cyan
+       - Vertical strip x=1140-1180 between GAP/Workflow/Ratings and right edge
+       - Horizontal strip y=180-200 between top row and middle row
+       - Horizontal strip y=580-600 between middle and Notes Repository
+       - Horizontal strip y=690-730 between bottom clusters and substrate
+  -->
+
+  <!-- ST -> GAP (right-side feeder, dotted) — sits to the right of ST cluster, drops into GAP -->
+  <path class="flow-line dotted" d="M1370,160 C1370,240 1140,240 1140,320" marker-end="url(#arrow-dot)"/>
+
+  <!-- M&E -> GAP (across top corridor y=180-200, around cyan top, down right corridor) -->
+  <path class="flow-line dotted" d="M920,100 C925,100 925,310 940,405" marker-end="url(#arrow-dot)"/>
+
+  <!-- Cyan cluster (Portfolio sub) -> GAP (across right side at y=265, into GAP via right-side corridor) -->
+  <path class="flow-line dotted" d="M860,265 C920,265 940,310 940,405" marker-end="url(#arrow-dot)"/>
+
+  <!-- M&E -> Cyan cluster (top of cyan, via top corridor y=190) -->
+  <path class="flow-line" d="M730,180 C730,188 730,194 730,200" marker-end="url(#arrow)"/>
+
+  <!-- ST -> Cyan cluster (left edge of ST drops to top corridor y=190, then leftward to top of cyan right edge) -->
+  <path class="flow-line" d="M955,300 C920,310 880,308 860,294" marker-end="url(#arrow)"/>
+
+  <!-- Master Dashboard -> Cyan cluster PMS (right edge of Master, via vertical corridor x=535, into cyan PMS at y=540) -->
+  <path class="flow-line" d="M530,500 C542,500 542,540 556,540" marker-end="url(#arrow)"/>
+
+  <!-- Cyan cluster PMS -> Ratings (right edge of cyan at PMS row y=540, via right corridor x=1150-1180, down to Ratings) -->
+  <path class="flow-line" d="M860,540 C960,540 1100,560 1180,560" marker-end="url(#arrow)"/>
+
+  <!-- Workflow -> Ratings (Workflow bottom edge to Ratings top) — both in right column -->
+  <path class="flow-line" d="M1320,490 C1320,498 1320,504 1320,510" marker-end="url(#arrow)"/>
+
+  <!-- Workflow -> Cyan cluster PMS (left edge of Workflow, across right corridor at y=400, drop to PMS top, in via cyan boundary) -->
+  <path class="flow-line" d="M1180,400 C1155,400 1140,505 960,505 C900,505 880,490 860,470" marker-end="url(#arrow)"/>
+
+  <!-- Notes Repository -> Ratings (drop to y=698 below cyan, across to x=1170, up via right corridor to Ratings left edge y=560) -->
+  <path class="flow-line" d="M530,785 C900,785 1180,700 1180,560" marker-end="url(#arrow)"/>
+
+  <!-- Stocks Universe -> Master Dashboard (left side, vertical) -->
+  <path class="flow-line" d="M270,870 C20,870 20,550 160,580" marker-end="url(#arrow)"/>
+
+  <!-- Stocks Universe -> Notes Repository (just above substrate) -->
+  <path class="flow-line" d="M285,870 C285,855 285,845 285,830" marker-end="url(#arrow)"/>
+
+  <!-- Stocks Universe -> Cyan cluster (centre, via bottom corridor y=720) -->
+  <path class="flow-line" d="M700,870 C700,790 700,740 700,690" marker-end="url(#arrow)"/>
+  <!-- ============ NEW INTERMEDIATE NODE ARROWS (v7) ============ -->
+  <!-- Market & Environment → Weekly Changes Memo
+       Route: M&E inner-rect bottom-centre (x=730,y=166) → corridor y=192 → WCM top (x=160,y=600) -->
+  <path class="flow-line" d="M560,180 C20,180 20,610 160,600" marker-end="url(#arrow)"/>
+
+  <!-- Master (Technical) Dashboard → Weekly Changes Memo
+       Route: Green cluster bottom at x=160 → straight drop to WCM top -->
+  <path class="flow-line" d="M160,580 C160,588 160,594 160,600" marker-end="url(#arrow)"/>
+
+  <!-- Workflow Priorities → Quality Control Centre
+       Route: WP left edge y=405 → x=1155 corridor → y=623 → QCC right edge x=505 -->
+  <path class="flow-line" d="M1180,405 C1155,405 1155,720 395,720 C395,700 395,665 395,646" marker-end="url(#arrow)"/>
+
+  <!-- Quality Control Centre → Notes Repository
+       Route: QCC bottom-centre (x=395,y=646) → straight drop to Notes Repo top (y=740) -->
+  <path class="flow-line" d="M395,646 C395,686 395,710 395,740" marker-end="url(#arrow)"/>
+
+  <!-- Master (Technical) Dashboard → Trigger Test Qualification
+       Route: Green cluster bottom x=285 → y=596 corridor → TTQ left edge x=890 → TTQ top y=600 -->
+  <path class="flow-line" d="M285,580 C535,580 535,750 870,750 C870,650 870,625 875,623" marker-end="url(#arrow)"/>
+
+  <!-- Workflow Priorities → Batching
+       Route: WP bottom-centre x=1320,y=490 → y=570 → BAT top-centre x=1000,y=600 -->
+  <path class="flow-line" d="M1320,490 C1175,490 1155,540 1000,580 C1000,620 1000,650 1000,666" marker-end="url(#arrow)"/>
+
+
+  <!-- Trigger Test Qualification → Batching of Research/Analysis Automatically
+       Route: TTQ bottom-centre x=995,y=646 → straight drop to BAT top y=666 -->
+  <path d="M995,646 C995,654 995,660 995,666" style="stroke:#4ade80;stroke-width:1.7;fill:none;opacity:0.88" marker-end="url(#arrow-green)"/>
+
+  <!-- Batching → Notes Repository
+       Route: BAT bottom-centre x=995,y=652 → y=710 corridor → x=285 → Notes Repo top y=740 -->
+  <path class="flow-line" d="M995,718 C995,734 285,726 285,740" marker-end="url(#arrow)"/>
+
+  <!-- Batching → Ratings Dashboard
+       Route: BAT right edge x=1115,y=626 → x=1160 right corridor → y=560 → Ratings left edge x=1180 -->
+  <path class="flow-line" d="M1115,692 C1140,692 1170,630 1180,560" marker-end="url(#arrow)"/>
+
+
+  <!-- ============ REMINDER BLOCK (top-left, clickable) ============ -->
+  <g aria-label="Reminder list of other large system components, clickable">
+    <rect x="40" y="20" width="490" height="178" rx="14" ry="14" fill="#f4efdc" stroke="#cec8aa" stroke-width="1.0" stroke-dasharray="6 4" filter="url(#sh-inode)"/>
+    <text x="55" y="42" style="font-size:10.5px;font-weight:700;fill:#7a6f47;letter-spacing:.5px">REMINDER &#8212; OTHER LARGE COMPONENTS</text>
+    <g class="reminder-link"><a data-href="local:wisdom-library/INDEX.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/wisdom-library/INDEX.md" target="_blank" rel="noopener"><text x="60" y="68">&#8226;&#160;&#160;Wisdom Library</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/INDEX.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/skills/INDEX.md" target="_blank" rel="noopener"><text x="60" y="86">&#8226;&#160;&#160;Roles (skills, memory, other)</text></a></g>
+    <g class="reminder-link"><a data-href="local:communication-presentation-guidelines.html" data-href-gh="https://vfhqi.github.io/landing/communication-presentation-guidelines.html" target="_blank" rel="noopener"><text x="60" y="104">&#8226;&#160;&#160;Comms &amp; presentation guidelines</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/context/values-and-behaviours.md" target="_blank" rel="noopener"><text x="60" y="122">&#8226;&#160;&#160;Principles</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/context/mental-models.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/context/mental-models.md" target="_blank" rel="noopener"><text x="60" y="140">&#8226;&#160;&#160;Frameworks</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/projects/total-system-map.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/projects/total-system-map.md" target="_blank" rel="noopener"><text x="60" y="158">&#8226;&#160;&#160;System architecture</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/systems-architect/SKILL.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/skills/systems-architect/SKILL.md" target="_blank" rel="noopener"><text x="295" y="68">&#8226;&#160;&#160;Auditing</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/systems-architect/pre-write-backup-SOP.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/skills/systems-architect/pre-write-backup-SOP.md" target="_blank" rel="noopener"><text x="295" y="86">&#8226;&#160;&#160;Backing up</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/skills/high-performance-coach/SKILL.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/skills/high-performance-coach/SKILL.md" target="_blank" rel="noopener"><text x="295" y="104">&#8226;&#160;&#160;Coaching / High Performance</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/corrections.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/corrections.md" target="_blank" rel="noopener"><text x="295" y="122">&#8226;&#160;&#160;Calibration log + corrections</text></a></g>
+    <g class="reminder-link"><a data-href="local:PROJECTS/WATSON KAIZEN LESSONS/lessons/INDEX.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/PROJECTS/WATSON%20KAIZEN%20LESSONS/lessons/INDEX.md" target="_blank" rel="noopener"><text x="295" y="140">&#8226;&#160;&#160;Kaizen lessons</text></a></g>
+    <g class="reminder-link"><a data-href="local:memory/context/working-preferences.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/context/working-preferences.md" target="_blank" rel="noopener"><text x="295" y="158">&#8226;&#160;&#160;Scheduled protocols</text></a></g>
+    <g class="reminder-link"><a data-href="local:picking-right-ai-settings-sop.html" data-href-gh="https://vfhqi.github.io/landing/picking-right-ai-settings-sop.html" target="_blank" rel="noopener"><text x="295" y="176">&#8226;&#160;&#160;AI settings SOP</text></a></g>
+  </g>
+
+  <!-- ============ TOP ROW ============ -->
+
+  <!-- MAGENTA: Market & Environment (top-LEFT) -->
+  <g>
+    <rect x="540" y="20" width="380" height="160" rx="16" ry="16" fill="url(#g-magenta)" stroke="#c05478" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <a data-href="local:databases/thematics-dashboard.html" data-href-gh="https://vfhqi.github.io/landing/thematics-dashboard.html" target="_blank" rel="noopener">
+        <rect x="554" y="34" width="352" height="132"/>
+        <text class="area-title at-magenta" x="730" y="56" text-anchor="middle">MARKET &amp; ENVIRONMENT</text>
+        <text class="sub" x="730" y="74" text-anchor="middle" style="font-style:italic">Fit for fighting &middot; Radar process</text>
+        <text class="title" x="730" y="98" text-anchor="middle" style="font-size:11.5px;fill:#8a3d77">Active thematics (3)</text>
+        <text class="sub" x="730" y="116" text-anchor="middle" style="font-weight:600">AI</text>
+        <text class="sub" x="730" y="132" text-anchor="middle" style="font-weight:600">Iran Oil</text>
+        <text class="sub" x="730" y="148" text-anchor="middle" style="font-weight:600">Recession / Bear Market Roll-over</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- YELLOW: Strategic Targets (top-RIGHT) — now lists OKRs too via #st-okr-list -->
+  <g>
+    <rect x="940" y="20" width="420" height="280" rx="16" ry="16" fill="url(#g-yellow)" stroke="#c09020" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <a data-href="local:memory/context/values-and-behaviours.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/context/values-and-behaviours.md" target="_blank" rel="noopener">
+        <rect x="954" y="34" width="392" height="252"/>
+        <text class="area-title at-yellow" x="1150" y="56" text-anchor="middle">STRATEGIC TARGETS</text>
+        <text class="sub" x="1150" y="74" text-anchor="middle" style="font-style:italic;font-size:9.5px">3 anchors &middot; broad to narrow time horizon</text>
+        <text class="sub" x="1150" y="100" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Evergreen Target Conditions</text>
+        <text class="sub" x="1150" y="124" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Portfolio Target Conditions</text>
+        <text class="sub" x="1150" y="148" text-anchor="middle" style="font-weight:600;font-size:11.5px;fill:#1c1c1c">Portfolio OKRs</text>
+        <g id="st-okr-list">
+          <text x="1150" y="170" text-anchor="middle" style="font-size:9px;fill:#5c4400;font-style:italic">(loading OKRs&hellip;)</text>
+        </g>
+      </a>
+    </g>
+  </g>
+
+  <!-- ============ GAP NODE — moved DOWN to y=320 to avoid clash with cyan cluster (which top is at y=200) ============ -->
+  <!-- Box: x=940 width=200 height=170. Sits BELOW Strategic Targets, RIGHT of cyan cluster (cyan ends x=860). 80px gap to cyan. -->
+  <g aria-label="GAP — what the portfolio needs given strategic targets and market environment">
+    <a data-href="local:databases/portfolio-okrs/2026-05.json" data-href-gh="https://vfhqi.github.io/landing/portfolio-okrs/2026-05.json" target="_blank" rel="noopener">
+      <rect x="940" y="320" width="200" height="170" rx="12" ry="12" fill="#fef0d0" stroke="#e0a040" stroke-width="1.8" filter="url(#sh-node)"/>
+      <text x="1040" y="342" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#8a5a10;letter-spacing:.5px">GAP</text>
+      <text x="1040" y="356" text-anchor="middle" style="font-size:9px;fill:#8a5a10;font-style:italic">portfolio shortfall</text>
+      <g id="gap-okr-list">
+        <text x="1040" y="380" text-anchor="middle" style="font-size:9px;fill:#5c4400">(loading OKRs&hellip;)</text>
+      </g>
+    </a>
+  </g>
+
+  <!-- ============ CYAN COMBINED CLUSTER (Portfolio + 3 weekly reports + PMS) — title moved to LEFT-aligned to free GAP boundary ============ -->
+  <g>
+    <rect x="540" y="200" width="320" height="490" rx="16" ry="16" fill="url(#g-cyan)" stroke="#1f8fa8" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <text class="area-title at-cyan" x="556" y="222" text-anchor="start" style="font-size:11px">PORTFOLIO &middot; REPORTS &middot; PMS</text>
+    </g>
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
+        <rect x="556" y="234" width="288" height="58" stroke="#1f6f82" stroke-width="1.2"/>
+        <text class="title" x="700" y="256" text-anchor="middle" style="font-size:12.5px">Portfolio</text>
+        <text class="sub" x="700" y="274" text-anchor="middle" style="font-size:10px">9 live positions &middot; current state of the book</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="298" width="140" height="22"/>
+        <text x="626" y="313" text-anchor="middle">Portfolio Overview</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="704" y="298" width="140" height="22"/>
+        <text x="774" y="313" text-anchor="middle">Portfolio Charts</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="334" width="288" height="32"/>
+        <text x="700" y="354" text-anchor="middle" style="font-size:10.5px">Weekly Developments &middot; A&amp;J Report</text>
+      </a>
+    </g>
+    <g class="cyan-pill">
+      <a data-href="local:databases/html/earnings-calendar.html" data-href-gh="https://vfhqi.github.io/ratings/earnings-calendar.html" target="_blank" rel="noopener">
+        <rect x="556" y="372" width="288" height="32"/>
+        <text x="700" y="392" text-anchor="middle" style="font-size:10.5px">Earnings Calendar &middot; Universe event dates</text>
+      </a>
+    </g>
+    <g class="cyan-pill placeholder">
+      <a href="#" data-placeholder="true">
+        <rect x="556" y="410" width="288" height="32"/>
+        <text x="700" y="430" text-anchor="middle" style="font-size:10.5px">Portfolio Changes &middot; Research Report</text>
+      </a>
+    </g>
+    <g class="node">
+      <a data-href="local:position-manager.html" data-href-gh="https://vfhqi.github.io/landing/position-manager.html" target="_blank" rel="noopener">
+        <rect x="556" y="454" width="288" height="220" stroke="#1f6f82" stroke-width="1.2"/>
+        <text class="title" x="700" y="478" text-anchor="middle">Position Management System</text>
+        <text class="sub" x="700" y="500" text-anchor="middle" style="font-style:italic">Stops, grace clocks, at-risk basis points</text>
+        <text class="sub" x="700" y="520" text-anchor="middle" style="font-style:italic">Slug pyramid &amp; stop-MA enforcement</text>
+        <text class="sub" x="700" y="540" text-anchor="middle" style="font-style:italic">Per-position invalidation tracking</text>
+        <text class="sub" x="700" y="566" text-anchor="middle" style="font-size:9.5px">10 invalidation ACHs monitored live</text>
+        <text class="sub" x="700" y="586" text-anchor="middle" style="font-size:9.5px">Drag-drop reordering &middot; sparklines</text>
+        <text class="sub" x="700" y="612" text-anchor="middle" style="font-style:italic;font-size:9.5px">&rarr; flows back to Portfolio (state up)</text>
+        <text class="sub" x="700" y="632" text-anchor="middle" style="font-style:italic;font-size:9.5px">&rarr; flows out to Ratings Dashboard</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- BLUE: Workflow Priorities (top-right, BELOW Strategic Targets and GAP node — y=510) -->
+  <g>
+    <rect x="1180" y="320" width="280" height="170" rx="16" ry="16" fill="url(#g-blue)" stroke="#3060c0" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <a data-href="local:memory/projects/pipeline.md" data-href-gh="https://github.com/vfhqi/landing/blob/main/memory/projects/pipeline.md" target="_blank" rel="noopener">
+        <rect x="1194" y="334" width="252" height="142"/>
+        <text class="area-title at-blue" x="1320" y="358" text-anchor="middle">WORKFLOW PRIORITIES</text>
+        <text class="title" x="1320" y="384" text-anchor="middle" style="font-size:11.5px">Workflow &amp; Kanban Board</text>
+        <text class="sub" x="1210" y="410" style="font-size:10px">Lanes: Richard &middot; Researcher &middot; APM</text>
+        <text class="sub" x="1210" y="428" style="font-style:italic;font-size:10px">23 active to-dos &middot; 6 overdue</text>
+        <text class="sub" x="1210" y="448" style="font-style:italic;font-size:10px">Priorities flow into PMS execution</text>
+        <text class="sub" x="1210" y="466" style="font-style:italic;font-size:10px">and into Ratings Dashboard reads</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- ORANGE-OUTLINE: Ratings Dashboard (right, y=510) -->
+  <g>
+    <rect x="1180" y="510" width="280" height="180" rx="16" ry="16" fill="url(#g-orange-out)" stroke="#c06020" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/ratings/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
+        <rect x="1194" y="524" width="252" height="152"/>
+        <text class="area-title at-orange-out" x="1320" y="548" text-anchor="middle">RATINGS DASHBOARD</text>
+        <text class="sub" x="1320" y="566" text-anchor="middle" style="font-style:italic;font-size:9.5px">Per-stock composite &middot; 4 columns</text>
+        <g pointer-events="none">
+          <rect x="1200" y="580" width="58" height="32" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1229" y="595" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#a04920">Timeliness</text>
+          <text x="1229" y="606" text-anchor="middle" style="font-size:7.5px;fill:#a04920">how recent</text>
+          <rect x="1262" y="580" width="58" height="32" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1291" y="595" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#a04920">Knowledge</text>
+          <text x="1291" y="606" text-anchor="middle" style="font-size:7.5px;fill:#a04920">depth</text>
+          <rect x="1324" y="580" width="58" height="32" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1353" y="595" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#a04920">Interest</text>
+          <text x="1353" y="606" text-anchor="middle" style="font-size:7.5px;fill:#a04920">conviction</text>
+          <rect x="1386" y="580" width="58" height="32" fill="#fff" stroke="#a04920" stroke-width="1.0" rx="4"/>
+          <text x="1415" y="595" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#a04920">Master</text>
+          <text x="1415" y="606" text-anchor="middle" style="font-size:7.5px;fill:#a04920">composite</text>
+        </g>
+        <text class="sub" x="1320" y="635" text-anchor="middle" style="font-style:italic;font-size:9.5px">A&ndash;F grading &middot; Six Pillars rollup</text>
+        <text class="sub" x="1320" y="650" text-anchor="middle" style="font-style:italic;font-size:9.5px">stage-flexed (Triaging / ESA / DD / Live)</text>
+        <text class="sub" x="1320" y="668" text-anchor="middle" style="font-style:italic;font-size:9.5px">One click opens whole dashboard</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- GREEN: Master (Technical) Dashboard (left, full height) -->
+  <g>
+    <rect x="40" y="200" width="490" height="380" rx="16" ry="16" fill="url(#g-green)" stroke="#4a8a44" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <text class="area-title at-green" x="285" y="222" text-anchor="middle">MASTER (TECHNICAL) DASHBOARD</text>
+    </g>
+    <text class="sub" style="font-weight:700;font-size:10.5px;fill:#3a6a36" x="60" y="246">SCREENS (8)</text>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=bp"     data-href-gh="https://vfhqi.github.io/master/#tab=bp"     target="_blank"><rect x="60"  y="254" width="225" height="24"/><text x="172" y="270" text-anchor="middle">Basing Plateau</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=pb"     data-href-gh="https://vfhqi.github.io/master/#tab=pb"     target="_blank"><rect x="293" y="254" width="225" height="24"/><text x="405" y="270" text-anchor="middle">Probing Bet</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=mm99"   data-href-gh="https://vfhqi.github.io/master/#tab=mm99"   target="_blank"><rect x="60"  y="282" width="225" height="24"/><text x="172" y="298" text-anchor="middle">Mark Minervini 99-Point Screen</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=vcp"    data-href-gh="https://vfhqi.github.io/master/#tab=vcp"    target="_blank"><rect x="293" y="282" width="225" height="24"/><text x="405" y="298" text-anchor="middle">Volatility Contraction Pattern</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=utr"    data-href-gh="https://vfhqi.github.io/master/#tab=utr"    target="_blank"><rect x="60"  y="310" width="225" height="24"/><text x="172" y="326" text-anchor="middle">Uptrend Retest</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=ssem"   data-href-gh="https://vfhqi.github.io/master/#tab=ssem"   target="_blank"><rect x="293" y="310" width="225" height="24"/><text x="405" y="326" text-anchor="middle">Sell-Side Earnings Momentum</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=val"    data-href-gh="https://vfhqi.github.io/master/#tab=val"    target="_blank"><rect x="60"  y="338" width="225" height="24"/><text x="172" y="354" text-anchor="middle">Valuation in Range</text></a></g>
+    <g class="tab-pill"><a data-href="local:master-dashboard/index.html#tab=combos" data-href-gh="https://vfhqi.github.io/master/#tab=combos" target="_blank"><rect x="293" y="338" width="225" height="24"/><text x="405" y="354" text-anchor="middle">Composite / Combination Screens</text></a></g>
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html" data-href-gh="https://vfhqi.github.io/master/" target="_blank" rel="noopener">
+        <rect x="120" y="380" width="330" height="80"/>
+        <text class="title" x="285" y="410" text-anchor="middle">Technical (Master) Dashboard</text>
+        <text class="sub" x="285" y="434" text-anchor="middle" style="font-style:italic">Click any screen above to open at that tab</text>
+      </a>
+    </g>
+
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html#tab=val" data-href-gh="https://vfhqi.github.io/master/#tab=val" target="_blank">
+        <rect x="55" y="478" width="220" height="40"/>
+        <text class="sub" x="165" y="495" text-anchor="middle" style="font-weight:600">Valuation in Range</text>
+        <text class="sub" x="165" y="510" text-anchor="middle" style="font-style:italic;font-size:9.5px">quant input feeding the dashboard</text>
+      </a>
+    </g>
+    <g class="node">
+      <a data-href="local:master-dashboard/index.html#tab=ssem" data-href-gh="https://vfhqi.github.io/master/#tab=ssem" target="_blank">
+        <rect x="295" y="478" width="220" height="40"/>
+        <text class="sub" x="405" y="495" text-anchor="middle" style="font-weight:600">Sell-Side Estimate Momentum</text>
+        <text class="sub" x="405" y="510" text-anchor="middle" style="font-style:italic;font-size:9.5px">quant input feeding the dashboard</text>
+      </a>
+    </g>
+    <text class="sub" x="285" y="538" text-anchor="middle" style="font-style:italic">&uarr; feed the Master Dashboard</text>
+  </g>
+
+
+  <!-- ============ INTERMEDIATE NODES (v7) ============ -->
+
+  <!-- INTERMEDIATE: Weekly Changes Memo
+       Inputs: Market & Environment + Master (Technical) Dashboard
+       Output: APM weekly summary
+       Positioned at x=50-270, y=600-646 — directly below Master Dashboard cluster,
+       between it and Notes Repository -->
+  <g class="inode">
+    <a href="#" data-placeholder="true">
+      <rect x="50" y="600" width="220" height="46" rx="8" ry="8"/>
+      <text class="title" x="160" y="620" text-anchor="middle">Weekly Changes Memo</text>
+      <text class="sub" x="160" y="636" text-anchor="middle">M&amp;E + Technical &#8594; APM</text>
+    </a>
+  </g>
+
+  <!-- INTERMEDIATE: Quality Control Centre
+       Input: Workflow Priorities
+       Output: Notes Repository
+       Positioned at x=290-510, y=600-646 — close to Notes Repository, right of WCM -->
+  <g class="inode">
+    <a data-href="local:repository/qc-centre.html"
+       data-href-gh="https://vfhqi.github.io/repository/qc-centre.html"
+       target="_blank" rel="noopener">
+      <rect x="290" y="600" width="210" height="46" rx="8" ry="8"/>
+      <text class="title" x="395" y="620" text-anchor="middle">Quality Control Centre</text>
+      <text class="sub" x="395" y="636" text-anchor="middle">Research QC gate</text>
+    </a>
+  </g>
+
+
+  <!-- Industry / Sector Relative Strength — added 17-Jun-26
+       Positioned at x=50-270, y=660-706 — directly below Weekly Changes Memo -->
+  <g class="inode">
+    <a data-href="local:rs-dashboard.html"
+       data-href-gh="https://vfhqi.github.io/landing/rs-dashboard.html"
+       target="_blank" rel="noopener">
+      <rect x="50" y="660" width="220" height="46" rx="8" ry="8"/>
+      <text class="title" x="160" y="680" text-anchor="middle">Industry / Sector</text>
+      <text class="title" x="160" y="697" text-anchor="middle">Relative Strength</text>
+    </a>
+  </g>
+
+
+  <!-- APM Portfolio + VSL suggestions page — added 18-Jun-26
+       Slim node directly below the Industry/Sector Relative Strength (rs-dashboard) link,
+       above Notes Repository. Green accent = screening/judgement output page. Opens new window. -->
+  <g class="inode">
+    <a data-href="local:apm-portfolio-vsl.html"
+       data-href-gh="https://vfhqi.github.io/landing/apm-portfolio-vsl.html"
+       target="_blank" rel="noopener">
+      <rect x="50" y="712" width="220" height="24" rx="6" ry="6" style="fill:var(--paper,#fff);stroke:#4ade80;stroke-width:1.6;"/>
+      <text class="title" x="160" y="728" text-anchor="middle" style="fill:#2e7d32;font-size:11px;">APM Portfolio + VSL</text>
+    </a>
+  </g>
+
+
+  <!-- Pipeline Status page — added 11-Jun-26, links to vfhqi.github.io/master/QC.html
+       Positioned at x=290-490, y=660-706 — directly below Quality Control Centre
+       (original x=530-730 position collided with STOCKS OF INTEREST LIST x=540-812) -->
+  <g class="inode">
+    <a data-href="https://vfhqi.github.io/master/QC.html"
+       data-href-gh="https://vfhqi.github.io/master/QC.html"
+       target="_blank" rel="noopener">
+      <rect x="290" y="660" width="200" height="46" rx="8" ry="8" style="fill:var(--paper,#fff);stroke:var(--green,#2e7d32);stroke-width:1.5;"/>
+      <text class="title" x="390" y="680" text-anchor="middle" style="fill:var(--green,#2e7d32);">Pipeline Status</text>
+      <text class="sub" x="390" y="696" text-anchor="middle">Data pipeline health</text>
+    </a>
+  </g>
+
+
+  <!-- INTERMEDIATE: Trigger Test Qualification Report
+       Input: Master (Technical) Dashboard
+       Output: Batching of Research/Analysis Automatically
+       Positioned at x=875-1115, y=600-646 — directly above BAT, right side of diagram.
+       Green accent border signals this is a screening-signal output, not a plain process step. -->
+  <g class="inode">
+    <a href="https://vfhqi.github.io/landing/timeliness-qualified.html" target="_blank" rel="noopener">
+      <rect x="875" y="600" width="240" height="46" rx="8" ry="8" fill="url(#g-ttq)" filter="url(#sh-inode)" style="stroke:#4ade80;stroke-width:1.8;"/>
+      <text class="title" x="995" y="621" text-anchor="middle">A &amp; B Timeliness</text>
+      <text class="sub" x="995" y="637" text-anchor="middle">Qualified Stocks</text>
+    </a>
+  </g>
+  <!-- Shortlist Qualified page — added 18-Jun-26
+       Slim node directly below the A & B Timeliness Qualified link.
+       Green accent = screening output. Same pattern as APM Portfolio + VSL slim node. -->
+  <g class="inode">
+    <a data-href="local:shortlist-qualified.html"
+       data-href-gh="https://vfhqi.github.io/landing/shortlist-qualified.html"
+       target="_blank" rel="noopener">
+      <rect x="875" y="648" width="240" height="16" rx="5" ry="5" style="fill:var(--paper,#fff);stroke:#4ade80;stroke-width:1.5;"/>
+      <text class="title" x="995" y="660" text-anchor="middle" style="fill:#2e7d32;font-size:10px;">Shortlist Qualified Stocks</text>
+    </a>
+  </g>
+
+  <!-- INTERMEDIATE: Batching of Research / Analysis Automatically
+       Inputs: Master (Technical) Dashboard + Workflow Priorities
+       Outputs: Notes Repository + Ratings Dashboard
+       Positioned at x=875-1115, y=600-652 — central-right, between clusters -->
+  <g class="inode">
+    <a href="#" data-placeholder="true">
+      <rect x="875" y="666" width="240" height="52" rx="8" ry="8"/>
+      <text class="title" x="995" y="686" text-anchor="middle">Batching of Research /</text>
+      <text class="title" x="995" y="703" text-anchor="middle">Analysis Automatically</text>
+    </a>
+  </g>
+
+  <!-- PINK: Notes Repository (bottom-left below Master Dashboard) -->
+  <g>
+    <rect x="40" y="740" width="490" height="90" rx="16" ry="16" fill="url(#g-pink)" stroke="#c05878" stroke-width="1.0" opacity="0.88" filter="url(#sh-cluster)"/>
+    <g class="node">
+      <a data-href="local:databases/ic-ratings-dashboard-v2.html" data-href-gh="https://vfhqi.github.io/ratings/ic-ratings-dashboard-v2.html" target="_blank" rel="noopener">
+        <rect x="54" y="754" width="462" height="62"/>
+        <text class="area-title at-pink" x="285" y="776" text-anchor="middle">NOTES REPOSITORY</text>
+        <text class="sub" x="285" y="794" text-anchor="middle">Researcher &middot; APM &middot; Qualitative IC analysis</text>
+        <text class="sub" x="285" y="810" text-anchor="middle" style="font-style:italic">Per-stock memos &middot; IAJA library &middot; feeds Ratings Dashboard</text>
+      </a>
+    </g>
+  </g>
+
+  <!-- SOI: Standardised Stocks of Interest — synthesis node -->
+  <!-- Aggregates from: Master Dashboard (S2 + Setups) + Ratings Dashboard (interest) + Positions -->
+  <!-- Positioned x=540-810, y=600-660 — right of MD green cluster, above Notes Repository -->
+
+  <!-- Flow: Master Dashboard right → SOI left -->
+  <line class="flow-line" x1="530" y1="390" x2="540" y2="620" stroke="#6aaa64" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7"/>
+  <!-- Flow: Ratings Dashboard left → SOI right -->
+  <line class="flow-line" x1="1180" y1="600" x2="812" y2="640" stroke="#e07a3c" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.7"/>
+  <!-- Flow: SOI → Notes Repository (feeds monitoring context) -->
+  <line class="flow-line" x1="675" y1="662" x2="285" y2="740" stroke="#e88aa6" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.55"/>
+
+  <g class="inode" style="--hover-fill:#fff8df;">
+    <a data-href="local:databases/soi-list.html" data-href-gh="https://vfhqi.github.io/ratings/soi-list.html" target="_blank" rel="noopener">
+      <rect x="540" y="600" width="272" height="62" rx="8" ry="8"
+            style="fill:#fffdf0;stroke:#b06b1e;stroke-width:1.8;filter:url(#sh-inode);"/>
+      <text class="title" x="676" y="622" text-anchor="middle" style="font-size:12px;font-weight:700;fill:#7a4010;">STOCKS OF INTEREST LIST</text>
+      <text class="sub" x="676" y="639" text-anchor="middle" style="font-size:9.5px;fill:#5c4400;">S2 · Setups · Short-lists · Live · Cohorts</text>
+      <text class="sub" x="676" y="654" text-anchor="middle" style="font-size:9px;fill:#8a6030;font-style:italic;">6 groups · updated daily 18:00 UK</text>
+    </a>
+  </g>
+
+  <!-- ============ SUBSTRATE GROUND BAR ============ -->
+  <g class="node">
+    <a data-href="local:databases/pullback-watchlist.json" data-href-gh="https://vfhqi.github.io/landing/pullback-watchlist.html" target="_blank" rel="noopener">
+      <rect class="substrate-bar" x="40" y="870" width="1420" height="50"/>
+      <text class="substrate-label" x="750" y="894" text-anchor="middle">STOCKS UNIVERSE DATABASE</text>
+      <text class="substrate-sub" x="750" y="910" text-anchor="middle">973 stocks &middot; 24 industries &middot; 154 sectors &middot; pullback-watchlist.json (substrate everything sits on)</text>
+    </a>
+  </g>
+
+
+  <!-- ============ OKR SCREENING MEMOS — new element (21-May-26) ============ -->
+  <!-- Element: positioned between GAP (bottom y=490) and TTQ (top y=600) -->
+  <!-- Arrows IN: M&E bottom → element; MD right → element; SOI right → element -->
+  <!-- Arrow OUT: element top → GAP bottom -->
+
+  <!-- Arrow: Market & Environment → OKR Screening Memos -->
+  <path class="flow-line" d="M730,180 C730,350 920,480 1000,498" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: Master (Technical) Dashboard → OKR Screening Memos -->
+  <path class="flow-line" d="M530,390 C660,390 780,498 862,520" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: Stocks of Interest → OKR Screening Memos -->
+  <path class="flow-line" d="M812,631 C832,631 850,595 862,570" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: OKR Screening Memos → GAP element -->
+  <path class="flow-line" d="M1000,498 C1012,493 1028,490 1040,490" marker-end="url(#arrow)"/>
+
+  <!-- OKR Screening Memos inode -->
+  <g class="inode" style="--hover-fill:#fff8df;">
+    <a data-href="local:outputs/okr-screening-memos-may26-v3.html" data-href-gh="https://vfhqi.github.io/landing/okr-screening-memos-may26-v3.html" target="_blank" rel="noopener">
+      <rect x="862" y="498" width="276" height="76" rx="8" ry="8"
+            style="fill:#fffdf0;stroke:#e0a040;stroke-width:1.8;filter:url(#sh-inode);"/>
+      <text x="1000" y="520" text-anchor="middle"
+            style="font-size:11px;font-weight:700;fill:#5c4400;font-family:var(--font-sans);">OKR Screening Memos</text>
+      <text x="1000" y="536" text-anchor="middle"
+            style="font-size:9px;fill:#8a5a10;font-style:italic;font-family:var(--font-sans);">20 candidates &#xb7; 4 OKR sectors &#xb7; UCG v4.2</text>
+      <text x="1000" y="551" text-anchor="middle"
+            style="font-size:8.5px;fill:#8a5a10;font-family:var(--font-sans);">Technicals &#xb7; SSEM &#xb7; Thesis &#xb7; Thematic fit</text>
+      <text x="1000" y="565" text-anchor="middle"
+            style="font-size:7.5px;fill:#a07030;font-family:var(--font-sans);">21-May-26 [W]</text>
+    </a>
+  </g>
+
+</svg>
+</main>
+
+<footer>
+  <span>Built 19-May-26 &middot; v10 &middot; <code>PROJECTS/SA - LANDING PAGE/mockups/</code></span>
+  <span><code id="d-host">file://</code> &middot; <a href="#" id="d-toggle">toggle local / GH mode</a></span>
+</footer>
+
+<script type="application/json" id="okrs">
+{"schema_version":"1","period":"2026-05","period_label":"May 2026","portfolio_target_conditions":[{"id":"tc-portfolio-stock-count","name":"Portfolio stock count","type":"count","target":16,"current":9}],"portfolio_okrs":[{"id":"okr-2026-05-healthcare","description":"Add 1 healthcare name","target_count":1,"filled_count":0},{"id":"okr-2026-05-utility","description":"Add 1 utility name","target_count":1,"filled_count":0},{"id":"okr-2026-05-industrial-capgoods","description":"Add 2 industrial / capital goods names","target_count":2,"filled_count":0},{"id":"okr-2026-05-ai-beneficiary","description":"Add 1 AI beneficiary","target_count":1,"filled_count":0}]}
+</script>
+
+<script>
+  // Render OKR list to a target group with wrap-on-spaces (no truncation).
+  // Box width determines max chars per line; we wrap by character count not real width (good enough at this scale).
+  function renderOKRList(targetId, opts){
+    var data = JSON.parse(document.getElementById('okrs').textContent);
+    var list = document.getElementById(targetId);
+    if (!list) return;
+    while (list.firstChild) list.removeChild(list.firstChild);
+    var SVG_NS = 'http://www.w3.org/2000/svg';
+    var x = opts.left;
+    var centreX = opts.centre;
+    var y = opts.y0;
+    var lh = opts.lh;
+    var maxChars = opts.maxChars;
+    var fontSize = opts.fontSize;
+    var tcFontSize = opts.tcFontSize;
+    var stampFontSize = opts.stampFontSize;
+
+    // TC line (centred, bold)
+    data.portfolio_target_conditions.forEach(function(tc){
+      var t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', centreX);
+      t.setAttribute('y', y);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('style', 'font-size:'+tcFontSize+'px;font-weight:700;fill:#5c4400');
+      t.textContent = 'TC: ' + tc.current + '/' + tc.target + ' stocks';
+      list.appendChild(t);
+      y += lh + 2;
+    });
+    y += 4;
+
+    // OKR rows — wrap labels at word boundaries
+    data.portfolio_okrs.forEach(function(o){
+      var box = (o.filled_count >= o.target_count) ? '☑' : '☐';
+      var label = o.description.replace(/^Add /,'');
+      var counts = '(' + o.filled_count + '/' + o.target_count + ')';
+      var prefix = box + ' ';
+      // Wrap label at maxChars per line
+      var words = label.split(' ');
+      var lines = [];
+      var current = '';
+      words.forEach(function(w){
+        var test = current ? (current + ' ' + w) : w;
+        if (test.length <= maxChars) current = test;
+        else { if (current) lines.push(current); current = w; }
+      });
+      if (current) lines.push(current);
+      // Append counts to last line if it fits, else new line
+      if (lines.length && (lines[lines.length-1].length + counts.length + 1) <= maxChars) {
+        lines[lines.length-1] = lines[lines.length-1] + ' ' + counts;
+      } else {
+        lines.push(counts);
+      }
+      // Render lines
+      lines.forEach(function(line, idx){
+        var t = document.createElementNS(SVG_NS, 'text');
+        t.setAttribute('x', x);
+        t.setAttribute('y', y);
+        t.setAttribute('text-anchor', 'start');
+        t.setAttribute('style', 'font-size:'+fontSize+'px;fill:#3a3a3a');
+        t.textContent = (idx === 0) ? (prefix + line) : ('   ' + line);
+        list.appendChild(t);
+        y += lh;
+      });
+      y += 2;
+    });
+
+    // Footer stamp
+    var stamp = document.createElementNS(SVG_NS, 'text');
+    stamp.setAttribute('x', centreX);
+    stamp.setAttribute('y', y + 4);
+    stamp.setAttribute('text-anchor', 'middle');
+    stamp.setAttribute('style', 'font-size:'+stampFontSize+'px;font-style:italic;fill:#8a5a10');
+    stamp.textContent = 'OKRs ' + data.period_label + ' · click to view JSON';
+    list.appendChild(stamp);
+  }
+
+  // GAP card render — narrower, inside box x=940-1140
+  renderOKRList('gap-okr-list', {
+    left: 952, centre: 1040, y0: 378, lh: 11,
+    maxChars: 28, fontSize: 8.5, tcFontSize: 9.5, stampFontSize: 7.5
+  });
+
+  // Strategic Targets render — wider, inside box x=954-1346
+  renderOKRList('st-okr-list', {
+    left: 970, centre: 1150, y0: 170, lh: 12,
+    maxChars: 50, fontSize: 9.5, tcFontSize: 10.5, stampFontSize: 8
+  });
+</script>
+
+<script>
+  (function(){
+    var d=new Date();
+    var dd=String(d.getDate()).padStart(2,'0');
+    var mm=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+    var yy=String(d.getFullYear()).slice(-2);
+    document.getElementById('d-date').textContent=dd+'-'+mm+'-'+yy;
+  })();
+  function applyMode(forceMode){
+    var host=location.hostname;
+    var isGh=(forceMode==='gh') || (host.endsWith('github.io'));
+    document.getElementById('d-mode').textContent=isGh?'github pages':'local';
+    document.getElementById('d-host').textContent=isGh?(host||'github.io'):'file://';
+    document.querySelectorAll('a[data-href]').forEach(function(a){
+      var local=(a.getAttribute('data-href')||'').replace(/^local:/,'');
+      var gh=a.getAttribute('data-href-gh')||local;
+      var target=isGh?gh:local;
+      a.setAttribute('href',target);
+      try{a.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href',target);}catch(e){}
+    });
+  }
+  applyMode();
+  document.getElementById('d-toggle').addEventListener('click',function(e){
+    e.preventDefault();
+    var cur=document.getElementById('d-mode').textContent;
+    applyMode(cur==='local'?'gh':'local');
+  });
+</script>
+
+</body>
+</html>
