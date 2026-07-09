@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analysis and Judgement Investment Case Framework</title>
+<style>
+  :root{
+    --bg:#f7f8fb; --panel:#ffffff; --panel2:#f1f3f8; --border:#d8dce6;
+    --text:#232733; --muted:#6b7285; --accent:#3f6fd1; --accent2:#c17a2e;
+    --pillar1:#c17a2e; --pillar2:#3f6fd1; --pillarM:#8b6fc1;
+    --element:#8b5fc4; --ra:#4a8f3c; --cq:#6b7285; --gap:#c23f3f;
+    --cqbold:#232733;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:14px; line-height:1.45;
+  }
+  header{
+    position:sticky; top:0; z-index:30; background:var(--panel);
+    border-bottom:1px solid var(--border); padding:14px 22px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  h1{margin:0 0 4px 0; font-size:19px; font-weight:650;}
+  .sub{color:var(--muted); font-size:12.5px;}
+  .toolbar{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; align-items:center;}
+  button{
+    background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:6px 12px; font-size:12.5px; cursor:pointer;
+  }
+  button:hover{border-color:var(--accent);}
+  button.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--muted); margin-top:8px;}
+  .legend span{display:inline-flex; align-items:center; gap:5px;}
+  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+  main{max-width:2400px; margin:0 auto; padding:20px 22px 80px;}
+  .note{
+    background:#fbf3e7; border:1px solid #ecd9b8; border-left:3px solid var(--accent2);
+    border-radius:6px; padding:12px 16px; margin-bottom:22px; font-size:13px; color:var(--text);
+  }
+  .note b{color:var(--accent2);}
+  .note.blue{background:#eef3fc; border-color:#c9d9f2; border-left-color:var(--accent);}
+  .note.blue b{color:var(--accent);}
+
+  .pillar-heading{
+    font-size:17px; font-weight:700; margin:26px 0 6px; padding:10px 14px;
+    background:var(--panel); border:1px solid var(--border); border-left:5px solid var(--pillar1);
+    border-radius:6px;
+  }
+  .pillar-heading.p2{border-left-color:var(--pillar2);}
+  .pillar-heading.pm{border-left-color:var(--pillarM);}
+  .pillar-heading .subtitle{font-weight:400; color:var(--muted); font-size:13px; margin-left:8px;}
+
+  .case-row{display:flex; align-items:stretch; gap:0; margin:18px 0 8px; overflow-x:auto;}
+  .case-box{
+    flex:1; min-width:280px; background:var(--panel); border:2px solid var(--pillar1);
+    border-radius:10px; padding:14px 16px; box-shadow:0 2px 6px rgba(193,122,46,0.08);
+  }
+  .arrow-col{
+    display:flex; align-items:center; justify-content:center; min-width:48px; color:var(--pillar1);
+    font-size:26px; font-weight:700;
+  }
+  .case-box h3{margin:0 0 8px; font-size:14.5px; color:var(--pillar1); font-weight:700;}
+  .case-box .tag{font-weight:400; color:var(--muted); font-size:12px;}
+  .case-box .meta{color:var(--muted); font-size:11px; margin-bottom:8px;}
+
+  .flow-arrow-down{
+    text-align:center; color:var(--pillar1); font-size:26px; margin:4px 0; line-height:1;
+  }
+  .flow-arrow-pair{
+    display:flex; align-items:center; justify-content:center; gap:10px; margin:6px 0 10px;
+  }
+  .flow-arrow-pair-item{color:var(--pillarM); font-size:26px; line-height:1; font-weight:700;}
+  .flow-arrow-pair-label{
+    color:var(--muted); font-size:11.5px; font-style:italic; max-width:520px; text-align:center;
+  }
+
+  /* Middle gate layer */
+  .gate-wrap{margin:6px 0 4px;}
+  .gate-box{
+    background:#f7f2fb; border:2px dashed var(--pillarM); border-radius:10px;
+    padding:14px 18px; width:100%; box-shadow:0 2px 6px rgba(139,111,193,0.08);
+  }
+  .gate-box h3{margin:0 0 6px; font-size:15px; color:var(--pillarM); font-weight:700;}
+  .gate-box .meta{color:var(--muted); font-size:11px; margin-bottom:10px;}
+  .gate-setups-row{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; align-items:start;}
+  .gate-guardrails-row{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; align-items:start; margin-top:14px; padding-top:12px; border-top:1px dashed #d9c8ec;}
+  .gate-col{
+    background:#ffffff; border:1px solid #e2d3f0; border-radius:8px; padding:6px 10px; min-width:0;
+  }
+  .gate-col .ra>summary{color:var(--pillarM); padding-left:0;}
+  .gate-col .ra-body{margin-left:0; padding-left:10px; border-left-color:#e2d3f0;}
+  .gate-guardrail-label{
+    font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em;
+    margin-bottom:6px;
+  }
+
+  details{margin:4px 0;}
+  summary{cursor:pointer; list-style:none; padding:6px 6px; border-radius:5px;}
+  summary::-webkit-details-marker{display:none;}
+  summary:hover{background:var(--panel2);}
+  summary::before{content:"▸ "; color:var(--muted); font-size:11px;}
+  details[open]>summary::before{content:"▾ "; color:var(--accent);}
+
+  .ra>summary{font-size:12.8px; font-weight:600; color:var(--ra);}
+  .ra-body{margin-left:8px; padding-left:12px; border-left:1px dashed var(--border);}
+  .foundation-col .ra-body{margin-left:0; padding-left:3px; border-left-width:1px; border-left-style:solid; border-left-color:#e5c9f2;}
+  .foundation-col .element-body{margin-left:0; padding-left:3px; border-left-width:1px; border-left-style:solid; border-left-color:#cfe0f7;}
+  .foundation-col .cq{padding-left:3px; padding-right:2px;}
+  .foundation-col .cq::before{left:0;}
+  .foundation-col summary{padding:4px 1px;}
+  .foundation-col .ra>summary{padding-left:1px;}
+  .cq{font-size:12.3px; color:var(--cq); padding:2px 4px 2px 12px; position:relative;}
+  .cq::before{content:"-"; position:absolute; left:2px; color:var(--border);}
+  .cq b{color:var(--cqbold); font-weight:700;}
+  .tbd{color:var(--gap); font-style:italic;}
+  .weight{
+    display:inline-block; margin-left:6px; font-size:10.5px; font-weight:700;
+    color:var(--pillar1); background:#fbf0e1; border:1px solid #ecd9b8;
+    border-radius:3px; padding:0 5px;
+  }
+  .flag{
+    display:inline-block; margin-left:6px; font-size:10.5px; font-weight:700;
+    color:var(--gap); background:#fbeaea; border:1px solid #eec7c7;
+    border-radius:3px; padding:0 5px;
+  }
+  .count{color:var(--muted); font-weight:400; font-size:11px;}
+  .footref{
+    color:var(--pillarM); font-weight:700; text-decoration:none; margin-left:2px; font-size:0.85em;
+    vertical-align:super;
+  }
+
+  .rests-on{text-align:center; color:var(--pillar2); font-weight:700; font-size:15px; margin:10px 0 4px;}
+  .rests-on .arrow-up{font-size:22px; display:block; margin-bottom:2px;}
+  .foundation-row{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; align-items:start; margin-top:10px;}
+  .foundation-col{
+    background:var(--panel); border:2px solid var(--pillar2); border-radius:10px;
+    padding:12px 12px; box-shadow:0 2px 6px rgba(63,111,209,0.08); min-width:0;
+  }
+  .foundation-col h3{margin:0 0 4px; font-size:13.5px; color:var(--pillar2); font-weight:700; line-height:1.3;}
+  .foundation-col .fcount{color:var(--muted); font-size:10.5px; margin-bottom:8px;}
+
+  /* sub-pillar columns within a foundation column */
+  .subcols{display:flex; gap:5px; align-items:flex-start;}
+  .subcol{flex:1; min-width:0; border-top:1px solid var(--border); padding-top:6px;}
+  .subcol:not(:first-child){border-left:1px dashed var(--border); padding-left:5px;}
+
+  .element{border-top:1px solid var(--border); padding-top:6px; margin-top:6px;}
+  .element:first-child{border-top:none; margin-top:0; padding-top:0;}
+  .subcol .element:first-child{border-top:none; margin-top:0; padding-top:0;}
+  .element>summary{font-size:12.6px; font-weight:650; color:var(--element); line-height:1.35;}
+  .element-body{margin-left:6px; padding-left:10px; border-left:1px dashed var(--border);}
+  .element-meta{display:block; color:var(--muted); font-weight:400; font-size:10.3px; margin-top:2px;}
+  .tagline{color:var(--muted); font-weight:400; font-size:0.85em;}
+  .subtitle-inline{color:var(--muted); font-weight:400; font-size:11.5px;}
+
+  .compare{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:26px 0 30px;}
+  .compare .box{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 16px;}
+  .compare .box h3{margin:0 0 8px; font-size:13px; color:var(--accent2);}
+  .compare .box.right h3{color:var(--accent);}
+  .compare pre{
+    background:var(--panel2); border:1px solid var(--border); border-radius:6px; padding:10px;
+    font-size:11.2px; overflow-x:auto; white-space:pre-wrap; color:var(--text); margin:0;
+  }
+
+  .appendix{margin-top:40px; border-top:2px solid var(--border); padding-top:16px;}
+  .appendix h2{font-size:15px; margin:0 0 12px;}
+  .appendix-item{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:10px; font-size:12.8px;}
+  .appendix-item .marker{color:var(--pillarM); font-weight:700; margin-right:6px;}
+
+  footer{color:var(--muted); font-size:11px; text-align:center; padding:20px; border-top:1px solid var(--border);}
+
+  /* ===== CLEAN MODE ===== */
+  body.clean .tagline,
+  body.clean .tag,
+  body.clean .weight,
+  body.clean .element-meta,
+  body.clean .count,
+  body.clean .cqtag,
+  body.clean .foundation-col > .fcount,
+  body.clean .case-box > .meta,
+  body.clean .gate-box > .meta{
+    display:none !important;
+  }
+  body.clean .flag,
+  body.clean .cq.tbd,
+  body.clean .ra-tbd,
+  body.clean .legend-tbd,
+  body.clean .tbd-phrase{
+    display:none !important;
+  }
+  body.clean summary::before{content:"";}
+  body.clean summary{padding-left:2px;}
+  body.clean .ra-body, body.clean .element-body{border-left:none; padding-left:14px;}
+
+  @media (max-width:1300px){
+    .foundation-row{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:900px){
+    .case-row{flex-direction:column;} .arrow-col{transform:rotate(90deg); min-height:30px;}
+    .foundation-row{grid-template-columns:1fr;}
+    .subcols{flex-direction:column;}
+    .subcol:not(:first-child){border-left:none; border-top:1px dashed var(--border); padding-left:0; padding-top:8px; margin-top:8px;}
+  }
+  @media (max-width:820px){.compare{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Analysis and Judgement Investment Case Framework — the Case, the Gate, and its Foundations</h1>
+  <div class="sub">Every Element, Required Attribute, and Core Question, named in full — the numbered tag is a cross-reference suffix only.</div>
+  <div class="toolbar">
+    <button onclick="setAll(true)">Expand all</button>
+    <button onclick="setAll(false)">Collapse all</button>
+    <button onclick="expandTo('ra')">Expand to Required Attributes</button>
+    <button onclick="expandTo('cq')">Expand to Core Questions</button>
+    <button id="cleanToggle" onclick="toggleClean()">Clean reading mode: OFF</button>
+  </div>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--pillar1)"></span>The Case</span>
+    <span><span class="dot" style="background:var(--pillarM)"></span>The Gate</span>
+    <span><span class="dot" style="background:var(--pillar2)"></span>The Foundations</span>
+    <span><span class="dot" style="background:var(--element)"></span>Element</span>
+    <span><span class="dot" style="background:var(--ra)"></span>Required Attribute</span>
+    <span><span class="dot" style="background:var(--cq)"></span>Core Question <b style="color:var(--cqbold)">(bold</b> = most load-bearing part)</span>
+    <span><span class="weight">Double / Quadruple weight</span> weighting multiplier</span>
+    <span class="legend-tbd"><span class="flag">Not yet defined</span> gap in canonical source, detail in appendix</span>
+  </div>
+</header>
+
+<main>
+
+<div class="note blue">
+  <b>Why this diagram exists.</b> The confusion flagged was how the Analysis and Judgement memos present these
+  topics today. The full framework below is the complete question bank the Investment Analyst thinks through.
+  The comparison panel further down shows what actually reaches the page: a memo does <b>not</b> walk every
+  Required Attribute and every Core Question as its own labelled block — it compresses down to a stage-appropriate
+  minimum of bullets per Element. The full question bank is what gets thought about, not what gets printed
+  verbatim. Use <b>Clean reading mode</b> above to strip out all the numbered tags, weighting badges, and source
+  metadata and read just the plain-English topics and questions.
+</div>
+
+<div class="pillar-heading">The Case <span class="subtitle">— is there enough exciting change to drive the share price? Required Input Change Forces feed Required Case Outputs, which feed Sufficient Total Shareholder Return.</span></div>
+
+<div id="case-row" class="case-row"></div>
+
+<div class="flow-arrow-pair">
+  <span class="flow-arrow-pair-item">&#8595;</span>
+  <span class="flow-arrow-pair-item">&#8593;</span>
+  <span class="flow-arrow-pair-label">the case and the gate are symbiotic — the case must fit a proven setup, and the setup only matters if a case exists</span>
+</div>
+
+<div class="gate-wrap">
+  <div id="gate-box-holder"></div>
+</div>
+
+<div class="pillar-heading p2">The Foundations <span class="subtitle">— is the change happening in a business that can compound it? Five parallel foundations; no sequence between them.</span></div>
+
+<div id="foundation-row" class="foundation-row"></div>
+
+<h2 style="font-size:15px; margin-top:34px;">Framework versus what actually prints in a memo</h2>
+<div class="compare">
+  <div class="box">
+    <h3>Full framework (this diagram)</h3>
+    <pre>Required Input Change Forces (Element 1)
+  Change Forces? (Required Attribute 1)
+    Strong external change forces / tailwinds? (Core Question 1)
+    Strong internal change forces? (Core Question 2)
+  Robust Base? (Required Attribute 2)
+    Absence of external headwinds? (Core Question 1)
+    Well-invested base? (Core Question 2)
+    Past/present fundamental delivery congruency
+      with thesis? (Core Question 3)
+    Large change-from-current / mispricing? (Core Question 4)
+    Low trading multiple? (Core Question 5)
+
+-> 2 Required Attributes, 7 Core Questions in total</pre>
+  </div>
+  <div class="box right">
+    <h3>What the Triaging skeleton actually asks the Investment Analyst to write</h3>
+    <pre>Required Input Change Forces (Element 1) [grade]
+> Element verdict [grade]. {finding, bad-news-first}
+- Required Attribute 1 / Core Question 1 - {short label}
+  [grade]: {verdict + evidence}
+- {...minimum bullets per stage floor, double weight...}
+- Counter-view considered: {...}
+- Downstream actions: (1) ...; (2) ...
+
+-> One verdict line plus as many bullets as the stage floor
+   requires (3 at Triaging, 4 at Early-Stage Assessment,
+   5 at Deep Dive, doubled on this Element) - not one bullet
+   per Core Question. The Investment Analyst selects the most
+   material Required Attribute / Core Question combinations;
+   the rest of the question bank stays implicit.</pre>
+  </div>
+</div>
+
+<div class="note">
+  <b>Practical read.</b> The Required Attributes and Core Questions are the Investment Analyst's internal
+  thinking scaffold, the full set of things to have considered before writing a verdict. The memo itself only
+  ever surfaces a stage-appropriate minimum, doubled or quadrupled on the weighted Elements. Two memos on the
+  same Element can legitimately foreground different Required Attributes and Core Questions from the bank,
+  provided the floor is met.
+</div>
+
+<div class="appendix" id="appendix">
+  <h2>Appendix — gaps and pointers in the canonical source</h2>
+  <div id="appendix-items"></div>
+</div>
+
+</main>
+<footer>Source: memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md &middot; 02-THINKING-SOP.md &middot;
+projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/briefing/04-elements-with-RAs-and-CQs-integrated.md (13-May-26)</footer>
+
+<script>
+// ---------- Helper: bold the load-bearing phrase in a Core Question (judgement call, not perfect) ----------
+function b(text, phrase){
+  // wraps the first case-insensitive match of `phrase` in <b>
+  const idx = text.toLowerCase().indexOf(phrase.toLowerCase());
+  if(idx === -1) return text;
+  return text.slice(0,idx) + "<b>" + text.slice(idx, idx+phrase.length) + "</b>" + text.slice(idx+phrase.length);
+}
+
+const APPENDIX = [];
+function registerFootnote(refKey, elementOrRAName, text){
+  APPENDIX.push({refKey, elementOrRAName, text});
+  return `<a class="footref" href="#appx-${APPENDIX.length}" id="src-${APPENDIX.length}">*</a>`;
+}
+
+// ---------- DATA ----------
+const CASE = [
+  {
+    tag:"Element 1", title:"Required Input Change Forces", subtitle:"(internal / external)", weight:"Double weight",
+    source:"old family: Required Case Inputs",
+    ras:[
+      {tag:"Required Attribute 1", title:"Change Forces?", cqs:[
+        b("Strong external change forces / tailwinds? (Core Question 1)","external change forces / tailwinds"),
+        b("Strong internal change forces? (Core Question 2)","internal change forces")
+      ]},
+      {tag:"Required Attribute 2", title:"Robust Base?", cqs:[
+        b("Absence of external headwinds? (Core Question 1)","Absence of external headwinds"),
+        b("Well-invested base? (Core Question 2)","Well-invested base"),
+        b("Past/present fundamental delivery congruency with thesis? (Core Question 3)","fundamental delivery congruency with thesis"),
+        b("Large change-from-current / mispricing? (Core Question 4)","Large change-from-current / mispricing"),
+        b("Low trading multiple? (Core Question 5)","Low trading multiple")
+      ]}
+    ]
+  },
+  {
+    tag:"Element 2", title:"Required Case Outputs", subtitle:"(financial improvement, not just qualitative narrative)",
+    source:"old family: Required Case Outputs (TC1 + TC4)",
+    ras:[
+      {tag:"Required Attribute 1", title:"Longevity?", cqs:[b("Three-year, mid-term, triple ratchet step-up? (Core Question 1)","triple ratchet step-up")]},
+      {tag:"Required Attribute 2", title:"Growth Rate?", cqs:[b("12-20% earnings-per-share growth per annum? (Core Question 1)","12-20% earnings-per-share growth")]},
+      {tag:"Required Attribute 3", title:"Improving Financials?", cqs:[b("Margin / growth step-up? (Core Question 1)","Margin / growth step-up")]},
+      {tag:"Required Attribute 4", title:"Earnings Upgrades?", cqs:[
+        b("Modal case 18-month earnings-per-share greater than guidance greater than sell-side? (Core Question 1)","18-month earnings-per-share greater than guidance greater than sell-side"),
+        b("3:1 sell-side / guidance earnings-per-share raise-to-lower skew at next financial year? (Core Question 2)","3:1 sell-side / guidance earnings-per-share raise-to-lower skew")
+      ]}
+    ]
+  },
+  {
+    tag:"Element 3", title:"Sufficient Total Shareholder Return / Valuation Upside", subtitle:"",
+    source:"old family: Required Case Outputs (Limited Drawdown Risk — Bankable Multiple)",
+    ras:[
+      {tag:"Required Attribute 1", title:"Bankable Multiple?", cqs:[
+        b("Multiple more company-driven than exogenously-driven? (Core Question 1)","more company-driven than exogenously-driven"),
+        b("More than 20% three-year total shareholder return? (Core Question 2)","More than 20% three-year total shareholder return")
+      ]}
+    ]
+  }
+];
+
+// THE GATE — pulled out on its own, between The Case and The Foundations
+const GATE = {
+  tag:"Element 8", title:"Fit with Acceptable Case Setups", subtitle:"",
+  source:"old family: Required Case Setups (six setups plus two negative guardrails)",
+  ras:[
+    {tag:"Required Attribute 1", title:"Mis-Modelled, High-Quality Earnings-Per-Share Upgrader?", cqs:["__TBD1__"]},
+    {tag:"Required Attribute 2", title:"Big Demand Change-Driven Earnings-Per-Share Upgrade or Earnings-Per-Share Trajectory Change?", cqs:[
+      b("Is there a market-wide demand explosion? (Core Question 1)","market-wide demand explosion"),
+      b("Does the company hold a dominant competitive position? (Core Question 2)","dominant competitive position"),
+      b("Is the business model one-to-many scalable? (Core Question 3)","one-to-many scalable"),
+      b("Is the market an oligopoly, in structure and in behaviour? (Core Question 4)","an oligopoly, in structure and in behaviour"),
+      b("Is there fixed cost leverage for margin expansion? (Core Question 5)","fixed cost leverage for margin expansion")
+    ]},
+    {tag:"Required Attribute 3", title:"Strong Corporate Change Driven Earnings-Per-Share Upgrade / Trajectory Change?", cqs:[
+      b("Change 1 — financial guidance increase? (Core Question 1)","financial guidance increase"),
+      b("Change 2 — shareholder returns increase? (Core Question 2)","shareholder returns increase"),
+      b("Change 3 — balance sheet utilisation increase? (Core Question 3)","balance sheet utilisation increase"),
+      b("Change 4 — perimeter / composition reduction? (Core Question 4)","perimeter / composition reduction"),
+      b("Change 5 — strategically-sensible mergers and acquisitions step-up? (Core Question 5)","strategically-sensible mergers and acquisitions step-up"),
+      b("Change 6 — strategy / strategic priorities change? (Core Question 6)","strategy / strategic priorities change"),
+      b("Change 7 — standards improvement? (Core Question 7)","standards improvement"),
+      b("Change 8 — other leadership / actor changes? (Core Question 8)","other leadership / actor changes"),
+      b("Change 9 — chief executive change? (Core Question 9)","chief executive change")
+    ]},
+    {tag:"Required Attribute 4", title:"Change-From-Current Clearing in a High-Quality Compounder?", cqs:[
+      b("Internal, at-the-moment — no chief executive? (Core Question 1)","no chief executive"),
+      b("Internal, at-the-moment — strategy vacuum? (Core Question 2)","strategy vacuum"),
+      b("Internal, at-the-moment — investment phase, near-term financials down, mid-term financials up? (Core Question 3)","investment phase, near-term financials down, mid-term financials up"),
+      b("Internal, at-the-moment — guidance for mid-term, might be up, to be determined? (Core Question 4)","guidance for mid-term"),
+      b("Internal, at-the-moment — company mis-execution, e.g. products, meaning guidance delivery risk (and weirder / cockroach) down? (Core Question 5)","company mis-execution"),
+      b("External, at-the-moment — market-level demand down? (Core Question 6)","market-level demand down"),
+      b("External, at-the-moment — competition down, at-the-moment pricing, mid-term sustainable relative competitive advantage? (Core Question 7)","competition down"),
+      b("External, mid-term / long-term — disruption to earnings growth profile / investment case bankability down? (Core Question 8)","disruption to earnings growth profile"),
+      b("High quality business on a mid-term / long-term basis? (Core Question 9)","High quality business on a mid-term / long-term basis")
+    ]},
+    {tag:"Required Attribute 5", title:"Huge Change-From-Current Clearing Event in Solid Quality?", cqs:[
+      b("Bottom quartile trading multiple, two years forward normalised margins? (Core Question 1)","Bottom quartile trading multiple"),
+      b("Sell-side estimates cut deeply / fully across all sell-side analysts, to conservative levels? (Core Question 2)","Sell-side estimates cut deeply / fully"),
+      b("Company numerical guidance rebased lower, ideally kitchen-sinked? (Core Question 3)","guidance rebased lower, ideally kitchen-sinked"),
+      b("Disruptive impact on day-to-day operations / revenue in last twelve months delivery, modal forecasts, guidance, sell-side — cockroach / weirder? (Core Question 4)","Disruptive impact on day-to-day operations / revenue"),
+      b("\"You know\" and \"puking / sadness\" check regarding guidance, sell-side, share price — if not, the decision-king-farfalle moment has not occurred yet? (Core Question 5)","\"You know\" and \"puking / sadness\" check")
+    ]},
+    {tag:"Required Attribute 6", title:"Trough-on-Trough Turn in Solid Quality Cyclical?", cqs:[
+      b("Bottom quartile trading multiple, two years forward normalised margins? (Core Question 1)","Bottom quartile trading multiple"),
+      b("End market demand decreased for eighteen months or more? (Core Question 2)","End market demand decreased for eighteen months or more"),
+      b("Competitive behaviour calmed versus price-down for volume gain? (Core Question 3)","Competitive behaviour calmed"),
+      b("New contract pricing levels now stable? (Core Question 4)","New contract pricing levels now stable"),
+      b("Company has executed a right-sizing programme for the last six months or more? (Core Question 5)","executed a right-sizing programme"),
+      b("Competitors / substitutes have retrenched and executed a right-sizing programme for the last six months or more? (Core Question 6)","Competitors / substitutes have retrenched"),
+      b("Sell-side estimates cut deeply / fully across all sell-side analysts, to conservative levels? (Core Question 7)","Sell-side estimates cut deeply / fully"),
+      b("Company guidance rebased lower, ideally kitchen-sinked? (Core Question 8)","guidance rebased lower"),
+      b("\"You know\" and \"puking / sadness\" check regarding guidance, sell-side, share price — if not, the decision-king-farfalle moment has not occurred yet? (Core Question 9)","\"You know\" and \"puking / sadness\" check")
+    ]},
+    {tag:"Required Attribute 7", title:"Fit with Unacceptable Case Setups? (negative guardrail)", cqs:["__TBD1__"]},
+    {tag:"Required Attribute 8", title:"Fit with False Friend Case Setups? (negative guardrail)", cqs:["__TBD1__"]}
+  ]
+};
+
+const FOUNDATIONS = [
+  {
+    key:"business-foundations", title:"Business Foundations", groupTag:"Group 3",
+    subcolumns:[
+      {
+        label:"Operator & advantage",
+        elements:[
+          {
+            tag:"Element 9", title:"Great Operator", subtitle:"(management quality)",
+            source:"old family: Great Operator",
+            ras:[
+              {tag:"Required Attribute 1", title:"Right Direction", cqs:[
+                b("Big, big ambition / vision (force; growth as priority, outcompete, innovate, adapt, push)? (Core Question 1)","Big, big ambition / vision"),
+                b("Great, smart strategy and right, bold strategic priorities (enabler); mid-term moat widening plus growth as priority, plus dynamic strategy to capitalise on plausible range of environments? (Core Question 2)","Great, smart strategy and right, bold strategic priorities")
+              ]},
+              {tag:"Required Attribute 2", title:"Right Resources", cqs:[
+                b("Great chief executive (measured via action, not conjecture; enabler, not ossifier)? (Core Question 1)","Great chief executive"),
+                b("Hiring well is a top chief-executive priority and the chief executive has built a great leadership team (enabler)? (Core Question 2)","great leadership team"),
+                b("Entire business is well-resourced / well-invested (buffer; ant colony; built yesterday for resilience plus accelerating forward today)? (Core Question 3)","well-resourced / well-invested"),
+                b("Holistic, congruent culture plus alignment across total system, e.g. Lifco, Avanza, Ryanair? (Core Question 4)","Holistic, congruent culture plus alignment"),
+                b("Conservative guidance (buffer)? (Core Question 5)","Conservative guidance"),
+                b("Clear, straightforward and helpful communication, strategy and driver transmission mechanism? (Core Question 6)","Clear, straightforward and helpful communication")
+              ]},
+              {tag:"Required Attribute 3", title:"Right Record / Action / Behaviour / Forward Movement", cqs:[
+                b("High return-on-new-invested-capital allocation? (Core Question 1)","High return-on-new-invested-capital allocation"),
+                b("Acts not just talks — recent record of huge delivery / action, not missing (enabler, not ossifier)? (Core Question 2)","Acts not just talks"),
+                b("Track record of delivery, not missing or justification, irrespective of environments, outperforming in tougher even better, mid-term? (Core Question 3)","Track record of delivery"),
+                b("Outlier standards, driving higher / faster / better plus competitor out-execution record? (Core Question 4)","Outlier standards"),
+                b("Shareholders first, above management? (Core Question 5)","Shareholders first, above management"),
+                b("Dynamic repurchaser of share buybacks plus enlightened capital allocator, not just operator / generator? (Core Question 6)","Dynamic repurchaser of share buybacks"),
+                b("Prudent governance / scaffolding — didn't need to, did it, evidence-based? (Core Question 7)","Prudent governance / scaffolding")
+              ]}
+            ]
+          },
+          {
+            tag:"Element 10", title:"Advantaged Business + Widening Competitive Advantage", subtitle:"", weight:"Double weight",
+            source:"old family: Advantaged Business + Widening Sustainable Relative Competitive Advantage",
+            note:"The canonical source gives exactly seven single-line Core Questions under the moat Required Attribute below, with no further sub-breakdown. If a more detailed moat checklist exists, it is not captured in this file.",
+            ras:[
+              {tag:"Required Attribute 1", title:"Strong Operational / Competitive Advantages? (moat)", footnote:true, cqs:[
+                b("Customer-related moats? (Core Question 1)","Customer-related moats"),
+                b("Production-related moats? (Core Question 2)","Production-related moats"),
+                b("Scale advantage moats? (Core Question 3)","Scale advantage moats"),
+                b("Regulatory / political moats? (Core Question 4)","Regulatory / political moats"),
+                b("Culture / knowledge moats? (Core Question 5)","Culture / knowledge moats"),
+                b("High relative scale to competitors and other actors — revenue, full-time-equivalents, etc.? (Core Question 6)","High relative scale to competitors"),
+                b("Large realistic total addressable market, to facilitate 12-20% per annum growth? (Core Question 7)","Large realistic total addressable market")
+              ]},
+              {tag:"Required Attribute 2", title:"Strong Operational Outputs? (operate)", cqs:[
+                b("High surplus customer utility? (Core Question 1)","High surplus customer utility"),
+                b("Leading or non-inferior relative surplus customer utility — hard to prove, easier to disprove, so the aim is to disprove inferiority at Early-Stage Assessment / Deep Dive, e.g. Sophos, Bytes? (Core Question 2)","Leading or non-inferior relative surplus customer utility"),
+                b("High, utilised pricing power around 2% nominal, with de-minimis erosion in relative surplus customer utility, evidence of application not just conjecture? (Core Question 3)","High, utilised pricing power"),
+                b("Scale economies shared? (Core Question 4)","Scale economies shared")
+              ]},
+              {tag:"Required Attribute 3", title:"Strong Financial Outputs? (generate)", cqs:[
+                b("12-20% earnings-per-share growth, and revenue growth? (Core Question 1)","12-20% earnings-per-share growth"),
+                b("Immediate scope to deploy 20%-plus of sales in capital / operating expense per annum at high return-on-new-invested-capital for three to five years? (Core Question 2)","Immediate scope to deploy 20%-plus of sales"),
+                b("High post-tax return-on-new-invested-capital, 25-30%-plus? (Core Question 3)","High post-tax return-on-new-invested-capital, 25-30%-plus"),
+                b("High net income to free cash flow conversion, 80%? (Core Question 4)","High net income to free cash flow conversion, 80%"),
+                b("Post-tax return-on-capital-employed of 15%-plus? (Core Question 5)","Post-tax return-on-capital-employed of 15%-plus"),
+                b("Post-tax return-on-tangible-capital of 30%-plus? (Core Question 6)","Post-tax return-on-tangible-capital of 30%-plus"),
+                b("High gross margins? (Core Question 7)","High gross margins"),
+                b("Solid earnings-before-interest-and-tax margins — 20% solid, 25%-plus great? (Core Question 8)","Solid earnings-before-interest-and-tax margins"),
+                b("Genuine fixed cost operating leverage? (Core Question 9)","Genuine fixed cost operating leverage"),
+                b("Low tax rate, below 30%, or other non-obvious earnings-per-share leakage? (Core Question 10)","Low tax rate, below 30%")
+              ]},
+              {tag:"Required Attribute 4", title:"Gets Stronger as it Gets Bigger / Time Passes? (gravitational pull)", cqs:[
+                b("Gravitational / mechanical forces, not just heroic company dynamism, drive mechanical improvement of sustainable relative competitive advantage versus peers with each period passing? (Core Question 1)","mechanical improvement of sustainable relative competitive advantage"),
+                b("Gravitational / mechanical forces, not just heroic company dynamism, drive improving financial outputs versus peers with each period passing? (Core Question 2)","improving financial outputs versus peers")
+              ]},
+              {tag:"Required Attribute 5", title:"Plausible Scope for Improvement Over Mid-Term in the Financial Outputs? (scope)", cqs:[
+                b("Peer precedents? (Core Question 1)","Peer precedents"),
+                b("Big savings / improvements in a few areas? (Core Question 2)","Big savings / improvements in a few areas"),
+                b("Lots of little savings / improvements in many areas? (Core Question 3)","Lots of little savings / improvements in many areas"),
+                b("Plausibility from congruency with strategy is a question addressed in other sections (Core Question 4)","Plausibility from congruency with strategy")
+              ]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Value chain, structure & growth",
+        elements:[
+          {
+            tag:"Element 11", title:"Value-Chain Dynamics", subtitle:"",
+            source:"old family: Favourable and Improving Value Chain Dynamics",
+            ras:[
+              {tag:"Required Attribute 1", title:"Demand Side — Strong / Robust or Fragile / Negative?", cqs:[
+                b("Customer demand (Core Question 1)","Customer demand"),
+                b("Route to market / intermediaries (Core Question 2)","Route to market / intermediaries")
+              ]},
+              {tag:"Required Attribute 2", title:"Competitive Supportiveness or Aggression?", cqs:[
+                b("Existing competition (Core Question 1)","Existing competition"),
+                b("Adjacencies entering (Core Question 2)","Adjacencies entering"),
+                b("Vanilla new entrants (Core Question 3)","Vanilla new entrants"),
+                b("Orthogonal / innovative new entrants (Core Question 4)","Orthogonal / innovative new entrants"),
+                b("Substitutes / alternatives (Core Question 5)","Substitutes / alternatives")
+              ]},
+              {tag:"Required Attribute 3", title:"Disruption Forces?", cqs:[b("To demand, competition, regulators, suppliers, political, any other actors (Core Question 1)","demand, competition, regulators, suppliers, political")]},
+              {tag:"Required Attribute 4", title:"Political / Regulatory?", cqs:[
+                b("Regulator strengths, weaknesses, opportunities, threats (Core Question 1)","Regulator strengths, weaknesses, opportunities, threats"),
+                b("Political actor strengths, weaknesses, opportunities, threats (Core Question 2)","Political actor strengths, weaknesses, opportunities, threats")
+              ]},
+              {tag:"Required Attribute 5", title:"Supportive Supplier Side?", cqs:[b("Supplier side strengths, weaknesses, opportunities, threats (Core Question 1)","Supplier side strengths, weaknesses, opportunities, threats")]}
+            ]
+          },
+          {
+            tag:"Element 12", title:"Supportive Industry Structure", subtitle:"",
+            source:"old family: Supportive / Concentrated Industry Structure",
+            ras:[
+              {tag:"Required Attribute 1", title:"Concentrated Existing Market Structure?", weight:"Quadruple weight", cqs:[
+                b("This company ranked number one, or number two? (Core Question 1)","ranked number one, or number two"),
+                b("Top five companies hold more than 30% share? (Core Question 2)","Top five companies hold more than 30% share"),
+                b("Steep market share distribution curve — e.g. top five companies hold five times the share of companies ranked six to ten? (Core Question 3)","Steep market share distribution curve")
+              ]},
+              {tag:"Required Attribute 2", title:"Concentrating Gravitational Pull?", cqs:[
+                b("Stability of share over time? (Core Question 1)","Stability of share over time"),
+                b("New entrants' share? (Core Question 2)","New entrants' share"),
+                b("Share consolidates towards largest competitors over time? (Core Question 3)","Share consolidates towards largest competitors"),
+                b("Share consolidates to most advantaged competitors? (Core Question 4)","Share consolidates to most advantaged competitors")
+              ]},
+              {tag:"Required Attribute 3", title:"Benign Competitor Attitudes + Stability Thereof?", cqs:[
+                b("Benign-ness? (Core Question 1)","Benign-ness"),
+                b("Moments-of-life instability or stable attitude? (Core Question 2)","Moments-of-life instability or stable attitude"),
+                b("Shark attack if weakness sensed? (Core Question 3)","Shark attack if weakness sensed"),
+                b("Volume / return-on-capital-employed prioritisation — price down when volume down? (Core Question 4)","Volume / return-on-capital-employed prioritisation")
+              ]},
+              {tag:"Required Attribute 4", title:"Positive or Negative Competitiveness Trends?", cqs:[b("Positive or negative competitiveness trends? (Core Question 1)","Positive or negative competitiveness trends")]}
+            ]
+          },
+          {
+            tag:"Element 13", title:"High Secular / Long-Term Growth Potential", subtitle:"",
+            source:"old family: High Secular / Long-Term Growth Potential",
+            ras:[
+              {tag:"Required Attribute 1", title:"High Long-Term Growth?", cqs:[
+                b("Clear, actionable adjacencies to expand into, where the company might have a sustainable relative competitive advantage over time — adjacent total addressable markets? (Core Question 1)","Clear, actionable adjacencies to expand into"),
+                b("Structurally increasing volume demand for company offerings? (Core Question 2)","Structurally increasing volume demand"),
+                b("Pricing rising faster than costs / inflation in the long term? (Core Question 3)","Pricing rising faster than costs / inflation"),
+                b("Historical growth rate at sector / industry level higher than gross domestic product? (Core Question 4)","growth rate at sector / industry level higher than gross domestic product")
+              ]}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    key:"case-simplicity", title:"Case Simplicity", groupTag:"Group 2",
+    subcolumns:[
+      {
+        label:"Required guardrails",
+        elements:[
+          {
+            tag:"Element 7", title:"Required Case Simplicity Guardrails", subtitle:"", weight:"Double weight",
+            source:"old family: Required Case Simplicity Guardrails",
+            ras:[
+              {tag:"Required Attribute 1", title:"Focused Bet?", cqs:[b("Two or fewer fulcrum drivers and four or fewer key drivers? (Core Question 1)","Two or fewer fulcrum drivers and four or fewer key drivers")]},
+              {tag:"Required Attribute 2", title:"Narrow Perimeter?", cqs:[b("Ten or fewer geographies and / or business units? (Core Question 1)","Ten or fewer geographies and / or business units")]},
+              {tag:"Required Attribute 3", title:"Zero Headwinds?", cqs:[b("Zero value-chain headwind risks to revenue? (Core Question 1)","Zero value-chain headwind risks to revenue")]},
+              {tag:"Required Attribute 4", title:"Handful of Change-From-Current Items?", cqs:[b("Two or fewer change-from-current items or problems? (Core Question 1)","Two or fewer change-from-current items or problems")]},
+              {tag:"Required Attribute 5", title:"Conservative Investor Relations?", cqs:[b("Company confirms guidance is conservative? (Core Question 1)","Company confirms guidance is conservative")]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Clear transmission",
+        elements:[
+          {
+            tag:"Element 18", title:"Clear Transmission Mechanism", subtitle:"(inputs to earnings per share)",
+            source:"old family: Sufficient Case Navigatability + Clear Chief-Executive Transmission Mechanism",
+            ras:[
+              {tag:"Required Attribute 1", title:"Monitorability?", cqs:[
+                b("Helpful investor relations regarding operating momentum? (Core Question 1)","Helpful investor relations"),
+                b("Trackable key leading indicators? (Core Question 2)","Trackable key leading indicators")
+              ]},
+              {tag:"Required Attribute 2", title:"Clear Chief-Executive Transmission Mechanism?", cqs:[b("Clear flow from company's strategy to earnings per share? (Core Question 1)","Clear flow from company's strategy to earnings per share")]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Monitorable transmission",
+        elements:[
+          {
+            tag:"Element 19", title:"Monitorable Transmission Mechanism", subtitle:"(leading tracking indicators to earnings per share)",
+            source:"old family: Clear Tracking-Indicator Transmission Mechanism",
+            ras:[
+              {tag:"Required Attribute 1", title:"Clear Tracking-Indicator Transmission Mechanism?", cqs:[b("Clear flow from value-chain dynamics to earnings per share? (Core Question 1)","Clear flow from value-chain dynamics to earnings per share")]}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    key:"case-riskiness", title:"Case Riskiness", groupTag:"Group 4",
+    subcolumns:[
+      {
+        label:"Invalidating",
+        elements:[
+          {
+            tag:"Element 15", title:"Invalidating Attributes", subtitle:"",
+            source:"old family: Invalidating Attributes",
+            note:"The single Core Question under Required Attribute 1 references the ten general Invalidation thresholds (Analysis of Competing Hypotheses) locked verbatim elsewhere in the system. Treat those ten thresholds as this Required Attribute's real content.",
+            ras:[
+              {tag:"Required Attribute 1", title:"General Analysis of Competing Hypotheses?", weight:"Quadruple weight", footnote:true, cqs:[b("No overlap with the ten general invalidating Analysis of Competing Hypotheses (Core Question 1)","the ten general invalidating Analysis of Competing Hypotheses")]},
+              {tag:"Required Attribute 2", title:"Plain Sight Risks", weight:"Double weight", cqs:[
+                b("No slowing of core engine versus company's identity? (Core Question 1)","No slowing of core engine"),
+                b("No mediocre chief executives or weird, silly simple choices? (Core Question 2)","No mediocre chief executives"),
+                b("No big \"Hmmms\"? (Core Question 3)","No big \"Hmmms\"")
+              ]},
+              {tag:"Required Attribute 3", title:"No Mediocrity?", cqs:[
+                b("Three or more D or F grades? (Core Question 1)","Three or more D or F grades"),
+                b("Eight or more C grades? (Core Question 2)","Eight or more C grades")
+              ]},
+              {tag:"Required Attribute 4", title:"Negative Earnings Momentum?", cqs:[
+                b("No recent earnings cuts, unless change-from-current is part of the case? (Core Question 1)","No recent earnings cuts"),
+                b("No peers having problems? (Core Question 2)","No peers having problems")
+              ]},
+              {tag:"Required Attribute 5", title:"Lessons Check?", cqs:[
+                b("No overlap with negative lessons and setups? (Core Question 1)","No overlap with negative lessons and setups"),
+                b("No fit with unacceptable / false friend setups? (Core Question 2)","No fit with unacceptable / false friend setups")
+              ]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Seek-to-avoid",
+        elements:[
+          {
+            tag:"Element 16", title:"Strenuously Seek-to-Avoid Attributes", subtitle:"",
+            source:"old family: Strenuously Seek-to-Avoid Attributes",
+            ras:[
+              {tag:"Required Attribute 1", title:"Crash Through Stops Risk?", cqs:[
+                b("Risk of fundamental sudden, high magnitude, low probability risks? (Core Question 1)","sudden, high magnitude, low probability risks"),
+                b("How wide is the skew in plausible outcomes, i.e. low case predictability? (Core Question 2)","wide is the skew in plausible outcomes")
+              ]},
+              {tag:"Required Attribute 2", title:"Mark-to-Market Risk?", cqs:[
+                b("How large is the downside to fair trough multiple? (Core Question 1)","downside to fair trough multiple"),
+                b("How much is the trading multiple influenced by the industry rather than the company? (Core Question 2)","trading multiple influenced by the industry")
+              ]},
+              {tag:"Required Attribute 3", title:"Sector Strength?", cqs:[b("Are peers' technicals' relative strength greater than 70% versus industry and market? Are any peers suffering deterioration in fundamentals, sell-side earnings momentum or technicals? (Core Question 1)","relative strength greater than 70% versus industry and market")]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Capital-constraining",
+        elements:[
+          {
+            tag:"Element 17", title:"Capital-Constraining Attributes", subtitle:"",
+            source:"old family: Assets-Under-Management-Constraining Attributes",
+            ras:[
+              {tag:"Required Attribute 1", title:"Sentiment Risk?", cqs:[b("Sentiment-related sudden, high magnitude, low probability risks? (Core Question 1)","Sentiment-related sudden, high magnitude, low probability risks")]}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    key:"case-momentum", title:"Case Momentum", groupTag:"Group 1",
+    subcolumns:[
+      {
+        label:"Technical",
+        elements:[
+          {
+            tag:"Element 4", title:"Technical Momentum", subtitle:"", flag:"Not yet defined",
+            source:"old family: Technical Momentum",
+            note:"Old canonical source leaves all three Required Attributes and their Core Questions blank<span class=\"tbd-phrase\"> (marked &ldquo;not yet defined&rdquo;)</span>. Substantive content lives informally in the Master Dashboard (composite momentum score, moving-average test, relative-strength excess returns) but is not yet formalised here.",
+            footnote:true,
+            ras:[
+              {tag:"Required Attribute 1", title:"Not yet defined", cqs:["__TBD1__"]},
+              {tag:"Required Attribute 2", title:"Not yet defined", cqs:["__TBD1__"]},
+              {tag:"Required Attribute 3", title:"Not yet defined", cqs:["__TBD1__"]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Thematic",
+        elements:[
+          {
+            tag:"Element 5", title:"Thematic Fit", subtitle:"(or inverse fit with thematic momentum)", weight:"Double weight",
+            source:"old family: Fit for Market Paradigm + Paradigm Fit",
+            ras:[
+              {tag:"Required Attribute 1", title:"Suitability for Bear Market / Economic Downturn", cqs:["__TBD1__"]},
+              {tag:"Required Attribute 2", title:"Suitability for Artificial-Intelligence Disruption", cqs:["__TBD1__"]},
+              {tag:"Required Attribute 3", title:"Suitability for Iran Oil-Price Induced Input Cost Inflation or Demand Deterioration", cqs:["__TBD1__"]},
+              {tag:"Required Attribute 4", title:"Summarise Paradigm Fit from a Business (not just investment case) Perspective", cqs:[b("Summarise the answer given to that Pillar elsewhere in the memo (Core Question 1)","Summarise the answer given to that Pillar elsewhere in the memo")]}
+            ]
+          }
+        ]
+      },
+      {
+        label:"Sell-side",
+        elements:[
+          {
+            tag:"Element 6", title:"Strong / Improving Sell-Side Earnings Momentum", subtitle:"",
+            source:"old family: Strong Sell-Side Earnings Momentum",
+            ras:[
+              {tag:"Required Attribute 1", title:"Sell-Side Earnings Momentum Direction and Magnitude", cqs:[
+                b("Earnings-per-share change (Core Question 1)","Earnings-per-share change"),
+                b("Earnings-before-interest-tax-depreciation-and-amortisation change (Core Question 2)","Earnings-before-interest-tax-depreciation-and-amortisation change"),
+                b("Revenue change (Core Question 3)","Revenue change"),
+                b("Price target change (Core Question 4)","Price target change"),
+                b("Percentage of \"buy\" rating change (Core Question 5)","Percentage of \"buy\" rating change")
+              ]}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    key:"case-optionality", title:"Case Optionality", groupTag:"Group 5",
+    subcolumns:[
+      {
+        label:"Optionality",
+        elements:[
+          {
+            tag:"Element 20", title:"Nice-to-Have Attributes", subtitle:"(minor)",
+            source:"old family: Nice to Have Attributes",
+            ras:[
+              {tag:"Required Attribute 1", title:"Additional Upside", cqs:[b("Big positive optionality above / beyond modal case? (Core Question 1)","Big positive optionality above / beyond modal case")]},
+              {tag:"Required Attribute 2", title:"Self-Righting Behaviour At-The-Moment", cqs:[b("Rapid self-righting means / motive / opportunity? (Core Question 1)","Rapid self-righting means / motive / opportunity")]}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+function wrapCqTag(text){
+  // Wrap the trailing "(Core Question N)" suffix in a span so clean mode can hide it.
+  return text.replace(/\(Core Question (\d+)\)\s*$/, '<span class="cqtag">(Core Question $1)</span>');
+}
+function renderCQ(cq){
+  if(cq === "__TBD1__") return `<div class="cq tbd">${wrapCqTag("Not yet defined in canonical source (Core Question 1)")}</div>`;
+  return `<div class="cq">${wrapCqTag(cq)}</div>`;
+}
+
+function renderRA(ra, parentNote){
+  const w = ra.weight ? `<span class="weight">${ra.weight}</span>` : "";
+  const fn = ra.footnote && parentNote ? registerFootnote(null, ra.title, parentNote) : "";
+  const tbdClass = ra.title === "Not yet defined" ? " ra-tbd" : "";
+  return `
+  <details class="ra${tbdClass}">
+    <summary>${ra.title}${fn} <span class="tagline">(${ra.tag})</span> <span class="count">${ra.cqs.length} core question${ra.cqs.length>1?"s":""}</span>${w}</summary>
+    <div class="ra-body">${ra.cqs.map(renderCQ).join("")}</div>
+  </details>`;
+}
+
+function renderElement(el){
+  const w = el.weight ? `<span class="weight">${el.weight}</span>` : "";
+  const totalCQ = el.ras.reduce((n,r)=>n+r.cqs.length,0);
+  let elementFootnote = "";
+  if(el.flag && el.note){
+    elementFootnote = registerFootnote(null, el.title, el.note);
+  }
+  const flag = el.flag ? `<span class="flag">${el.flag}</span>` : "";
+  return `
+  <details class="element">
+    <summary>${el.title}${elementFootnote} <span class="tagline">(${el.tag})</span>${el.subtitle?` <span class="subtitle-inline">${el.subtitle}</span>`:""}${w}${flag}
+      <span class="element-meta">${el.ras.length} required attribute${el.ras.length>1?"s":""}, ${totalCQ} core question${totalCQ>1?"s":""} &middot; ${el.source}</span>
+    </summary>
+    <div class="element-body">
+      ${el.ras.map(ra => renderRA(ra, (!el.flag && ra.footnote) ? el.note : null)).join("")}
+    </div>
+  </details>`;
+}
+
+// ---- Render Pillar 1: three side-by-side boxes with arrows ----
+const caseRow = document.getElementById("case-row");
+CASE.forEach((el, i) => {
+  const box = document.createElement("div");
+  box.className = "case-box";
+  const w = el.weight ? `<span class="weight">${el.weight}</span>` : "";
+  box.innerHTML = `
+    <h3>${el.title} <span class="tag">(${el.tag})</span>${w}</h3>
+    ${el.subtitle ? `<div class="meta">${el.subtitle}</div>` : ""}
+    <div class="meta">source: ${el.source}</div>
+    ${el.ras.map(ra=>renderRA(ra)).join("")}
+  `;
+  caseRow.appendChild(box);
+  if(i < CASE.length - 1){
+    const arrow = document.createElement("div");
+    arrow.className = "arrow-col";
+    arrow.innerHTML = "&#8594;";
+    caseRow.appendChild(arrow);
+  }
+});
+
+// ---- Render The Gate: 6 case setups as columns, 2 negative guardrails as a second row ----
+const gateHolder = document.getElementById("gate-box-holder");
+{
+  const box = document.createElement("div");
+  box.className = "gate-box";
+
+  const setups = GATE.ras.slice(0, 6);
+  const guardrails = GATE.ras.slice(6);
+
+  function renderGateCol(ra){
+    // Reuses the shared renderRA() so the Gate's Required Attributes are genuinely collapsible
+    // <details> elements like every other Element on the page — Collapse All, Expand to Required
+    // Attributes, and Expand to Core Questions all now work correctly here too.
+    return `<div class="gate-col">${renderRA(ra)}</div>`;
+  }
+
+  box.innerHTML = `
+    <h3>${GATE.title} <span class="tag" style="font-size:11px; font-weight:400; color:var(--muted);">(${GATE.tag})</span></h3>
+    <div class="meta">${GATE.source}</div>
+    <div class="gate-setups-row">
+      ${setups.map(renderGateCol).join("")}
+    </div>
+    <div class="gate-guardrails-row">
+      <div>
+        <div class="gate-guardrail-label">Negative guardrail</div>
+        ${renderGateCol(guardrails[0])}
+      </div>
+      <div>
+        <div class="gate-guardrail-label">Negative guardrail</div>
+        ${renderGateCol(guardrails[1])}
+      </div>
+    </div>
+  `;
+  gateHolder.appendChild(box);
+}
+
+// ---- Render Pillar 2: five foundation columns, with sub-columns where specified ----
+const foundationRow = document.getElementById("foundation-row");
+FOUNDATIONS.forEach(group => {
+  const col = document.createElement("div");
+  col.className = "foundation-col";
+  const totalElements = group.subcolumns.reduce((n,s)=>n+s.elements.length,0);
+  const subHtml = group.subcolumns.map(sc => `
+    <div class="subcol">
+      ${sc.elements.map(renderElement).join("")}
+    </div>
+  `).join("");
+  col.innerHTML = `
+    <h3>${group.title} <span class="tag" style="font-size:10.5px;">(${group.groupTag})</span></h3>
+    <div class="fcount">${totalElements} element${totalElements>1?"s":""}</div>
+    <div class="subcols">${subHtml}</div>
+  `;
+  foundationRow.appendChild(col);
+});
+
+// ---- Render appendix ----
+const appendixHolder = document.getElementById("appendix-items");
+if(APPENDIX.length === 0){
+  document.getElementById("appendix").style.display = "none";
+} else {
+  appendixHolder.innerHTML = APPENDIX.map((item,i) => `
+    <div class="appendix-item" id="appx-${i+1}">
+      <span class="marker">*</span><b>${item.elementOrRAName}</b> — ${item.text}
+      <a href="#src-${i+1}" style="margin-left:8px; font-size:11px; color:var(--muted);">back to diagram</a>
+    </div>
+  `).join("");
+}
+
+function setAll(open){
+  document.querySelectorAll("details").forEach(d=>d.open=open);
+}
+function expandTo(level){
+  // "Expand to Required Attributes" opens every Element (so RA summary lines — title, tag,
+  // core-question count — become visible) but leaves each RA's own <details> CLOSED, which
+  // keeps its Core Questions (native <details> content, only shown when that details is open)
+  // hidden. "Expand to Core Questions" additionally opens every RA's <details>, revealing them.
+  document.querySelectorAll("details.element").forEach(d=>d.open=true);
+  document.querySelectorAll("details.ra").forEach(d=>d.open = (level === "cq"));
+}
+function toggleClean(){
+  document.body.classList.toggle("clean");
+  const btn = document.getElementById("cleanToggle");
+  const on = document.body.classList.contains("clean");
+  btn.textContent = "Clean reading mode: " + (on ? "ON" : "OFF");
+  btn.classList.toggle("active", on);
+}
+</script>
+</body>
+</html>

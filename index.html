@@ -509,7 +509,7 @@
   </g>
 
 
-  <!-- APM Portfolio + VSL suggestions page — added 18-Jun-26
+  <!-- APM Portfolio + Short List suggestions page — added 18-Jun-26
        Slim node directly below the Industry/Sector Relative Strength (rs-dashboard) link,
        above Notes Repository. Green accent = screening/judgement output page. Opens new window. -->
   <g class="inode">
@@ -517,7 +517,7 @@
        data-href-gh="https://vfhqi.github.io/landing/apm-portfolio-vsl.html"
        target="_blank" rel="noopener">
       <rect x="50" y="712" width="220" height="24" rx="6" ry="6" style="fill:var(--paper,#fff);stroke:#4ade80;stroke-width:1.6;"/>
-      <text class="title" x="160" y="728" text-anchor="middle" style="fill:#2e7d32;font-size:11px;">APM Portfolio + VSL</text>
+      <text class="title" x="160" y="728" text-anchor="middle" style="fill:#2e7d32;font-size:11px;">APM Portfolio + Short List</text>
     </a>
   </g>
 
@@ -546,6 +546,17 @@
       <rect x="875" y="600" width="240" height="46" rx="8" ry="8" fill="url(#g-ttq)" filter="url(#sh-inode)" style="stroke:#4ade80;stroke-width:1.8;"/>
       <text class="title" x="995" y="621" text-anchor="middle">A &amp; B Timeliness</text>
       <text class="sub" x="995" y="637" text-anchor="middle">Qualified Stocks</text>
+    </a>
+  </g>
+  <!-- Long-List Qualified page — added 18-Jun-26
+       Slim node directly below the A & B Timeliness Qualified link.
+       Green accent = screening output. Same pattern as APM Portfolio + Short List slim node. -->
+  <g class="inode">
+    <a data-href="local:longlist-qualified.html"
+       data-href-gh="https://vfhqi.github.io/landing/longlist-qualified.html"
+       target="_blank" rel="noopener">
+      <rect x="875" y="648" width="240" height="16" rx="5" ry="5" style="fill:var(--paper,#fff);stroke:#4ade80;stroke-width:1.5;"/>
+      <text class="title" x="995" y="660" text-anchor="middle" style="fill:#2e7d32;font-size:10px;">Long-List Qualified Stocks</text>
     </a>
   </g>
 
@@ -635,6 +646,36 @@
             style="font-size:8.5px;fill:#8a5a10;font-family:var(--font-sans);">Technicals &#xb7; SSEM &#xb7; Thesis &#xb7; Thematic fit</text>
       <text x="1000" y="565" text-anchor="middle"
             style="font-size:7.5px;fill:#a07030;font-family:var(--font-sans);">21-May-26 [W]</text>
+    </a>
+  </g>
+
+
+  <!-- ============ INVESTMENT CASE EVALUATION FRAMEWORK — added 09-Jul-26 ============ -->
+  <!-- Links to the IA A&J investment case framework diagram (self-contained HTML page,
+       hosted alongside this landing page at investment-case-framework.html). Maps every
+       Element / Required Attribute / Core Question in the A&J case-building framework.
+       Positioned bottom-right, in the open strip between Ratings Dashboard (above) and
+       the substrate bar (below) — x=1180-1460, y=740-830, same column width as Ratings
+       Dashboard, same row height as Notes Repository.
+       Two arrows show the relationship: this diagram is the map that explains how a case
+       gets built and rated (Ratings Dashboard) and where the qualitative record lives
+       (Notes Repository) — it doesn't feed data into either, it explains the framework
+       both of them operate within. -->
+
+  <!-- Arrow: Investment Case Evaluation Framework -> Ratings Dashboard (short vertical hop, same column) -->
+  <path class="flow-line" d="M1320,740 C1320,722 1320,706 1320,690" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: Investment Case Evaluation Framework -> Notes Repository (routed low, below the existing
+       Notes Repository -> Ratings Dashboard arrow at y=560-785, clear of the substrate bar at y=870) -->
+  <path class="flow-line" d="M1180,800 C900,850 700,850 530,800" marker-end="url(#arrow)"/>
+
+  <g class="inode">
+    <a data-href="local:investment-case-framework.html" data-href-gh="https://vfhqi.github.io/landing/investment-case-framework.html" target="_blank" rel="noopener">
+      <rect x="1180" y="740" width="280" height="90" rx="8" ry="8"/>
+      <text class="title" x="1320" y="762" text-anchor="middle">Investment Case</text>
+      <text class="title" x="1320" y="778" text-anchor="middle">Evaluation Framework</text>
+      <text class="sub" x="1320" y="798" text-anchor="middle" style="font-style:italic">A&amp;J framework map &middot; all Elements, RAs &amp; CQs</text>
+      <text class="sub" x="1320" y="813" text-anchor="middle" style="font-size:9px">relates to Ratings Dashboard &amp; Notes Repository</text>
     </a>
   </g>
 
