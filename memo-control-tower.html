@@ -11,6 +11,12 @@ h2{font-size:16px;margin:34px 0 12px;letter-spacing:-.2px;display:flex;align-ite
 h2 .n{font-weight:400;color:#64748b;font-size:13px}
 .sub{color:#64748b;font-size:13px;margin:0 0 18px}
 .stale{padding:10px 14px;border-radius:8px;margin:0 0 18px;font-size:13.5px;display:none}
+td.when{white-space:nowrap;color:#334155;font-variant-numeric:tabular-nums}
+td.qc{font-size:13px;line-height:1.45}
+td.qc.ok{color:#166534}
+td.qc.warn{color:#92400e}
+td.qc.bad{color:#991b1b;font-weight:600}
+td.qc.unchecked{color:#6b21a8}
 .stale.warn{display:block;background:#fef3c7;border:1px solid #f59e0b;color:#78350f}
 .stale.bad{display:block;background:#fee2e2;border:1px solid #dc2626;color:#7f1d1d}
 .strip{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
@@ -51,14 +57,14 @@ td.issue{color:#475569}
 <body><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Wednesday 29 July 2026, 12:06 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Wednesday 29 July 2026, 12:36 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
 
 
 <div class="strip">
   <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>39m ago</b></div>
+  <div class="pill">Last dispatch <b>9m ago</b></div>
   <div class="pill">Ready to read <b>62</b></div>
   <div class="pill">In flight <b>1</b></div>
   <div class="pill">Next arrival <b>~4h</b></div>
@@ -83,71 +89,71 @@ td.issue{color:#475569}
 <div class="none">Nothing here right now.</div>
 
 <h2>In flight <span class="n">1 &middot; soonest first</span></h2>
-<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">COLO.B-DK</td><td><span class="tag" style="background:#6366f1">Writing + QC</span></td><td class="hide-s">triaging</td><td><span class="eta">~4h<span class="w">Wed 16:06</span></span></td><td class="issue">&mdash;</td></tr></table>
+<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">COLO.B-DK</td><td><span class="tag" style="background:#6366f1">Writing + QC</span></td><td class="hide-s">triaging</td><td><span class="eta">~4h<span class="w">Wed 16:36</span></span></td><td class="issue">&mdash;</td></tr></table>
 
 <h2>Ready to read <span class="n">62 published</span></h2>
-<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th></tr><tr><td class="tk">BESI-NL</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ROKO.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">SMWH-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BT.A-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ALIF.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">JDG-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">NSIS.B-DK</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ALC-CH</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">KNOS-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">LTMC-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BUFAB-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ADYEN-NL</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">GAW-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">EKTA.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ICOS-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">LIFCO.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">DHER-DE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">IGG-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">KPN-NL</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ELISA-FI</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ZEG-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">TELIA-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">VOD-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">FNTN-DE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">OEM.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">QLT-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">DIE-BE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">CVSG-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BRAV-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">dd</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BRAV-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">esa</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">NKT-DK</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">esa</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">NKT-DK</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">PRY-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BWLPG-NO</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ALFA-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ATCO.A-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">HIAB-FI</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">DPLM-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">BUCN-CH</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">LUVE-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">CMB-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">MTRS-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">HLMA-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">MOVE-CH</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ABBN-CH</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">TIT-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">SDIP.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">OBEL-BE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">SCMN-CH</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">PROX-BE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">HEXA.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">TEL2.B-SE</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">LBTYA-US</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">SESG-FR</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">CLNX-ES</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ETL-FR</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">INW-IT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">HTWS-GB</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">OPL-PL</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">TEF-ES</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">NOS-PT</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr>
-<tr><td class="tk">ORA-FR</td><td><span class="tag" style="background:#16a34a">Published</span></td><td class="hide-s">triaging</td><td><span class="eta">—</span></td></tr></table>
+<table><tr><th>Stock</th><th class='hide-s'>Memo type</th><th>Published</th><th>Quality check</th></tr><tr><td class="tk">HIAB-FI</td><td class="hide-s">triaging</td><td class="when">29 Jul, 10:37</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">CMB-IT</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:36</td><td class="qc warn">Published with 1 minor issue left open: prior defect re-verify: SWEEP (F7) of the same invented figure</td></tr>
+<tr><td class="tk">BUCN-CH</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:35</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">LUVE-IT</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:35</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">MTRS-SE</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:35</td><td class="qc warn">Published with 1 minor issue left open: Contradiction-reconciliation (two-value metric) — sweep instance 5, missed by prior fix</td></tr>
+<tr><td class="tk">ATCO.A-SE</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:34</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">HLMA-GB</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:34</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ALFA-SE</td><td class="hide-s">triaging</td><td class="when">29 Jul, 07:33</td><td class="qc warn">Published with 2 minor issues left open: Grounding + anti-fabrication / memo-arithmetic contradiction; Contradiction-reconciliation (two source values for one metric)</td></tr>
+<tr><td class="tk">ALIF.B-SE</td><td class="hide-s">triaging</td><td class="when">29 Jul, 05:40</td><td class="qc warn">Published with 4 minor issues left open: contradiction-reconciliation (net debt/EBITDA deleveraging starting-point conflict); contradiction-reconciliation (net debt/EBITDA deleveraging starting-point conflict); +2 more</td></tr>
+<tr><td class="tk">DPLM-GB</td><td class="hide-s">triaging</td><td class="when">29 Jul, 05:40</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">SESG-FR</td><td class="hide-s">triaging</td><td class="when">28 Jul, 22:31</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">PROX-BE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:44</td><td class="qc warn">Published with 5 minor issues left open: ma200_value_mismatch / false_absence_claim; ma200_value_mismatch / false_absence_claim; +3 more</td></tr>
+<tr><td class="tk">ROKO.B-SE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 3 minor issues left open: unread_research_families / false_absence_claim (Section A + F.2); ma200_value_mismatch / 200-day-average label check (Section A); +1 more</td></tr>
+<tr><td class="tk">SMWH-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 3 minor issues left open.</td></tr>
+<tr><td class="tk">JDG-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">OEM.B-SE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 1 minor issue left open: a research report on file was never opened</td></tr>
+<tr><td class="tk">ORA-FR</td><td class="hide-s">triaging</td><td class="when">28 Jul, 20:38</td><td class="qc warn">Published with 1 minor issue left open: contradiction reconciliation</td></tr>
+<tr><td class="tk">HEXA.B-SE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 20:37</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ALC-CH</td><td class="hide-s">triaging</td><td class="when">28 Jul, 19:46</td><td class="qc warn">Published with 2 minor issues left open: a research report on file was never opened; the memo says a report was not read, then quotes from it</td></tr>
+<tr><td class="tk">DHER-DE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 19:46</td><td class="qc warn">Published with 1 minor issue left open: unread_research_families / stage_recommendation_contradiction</td></tr>
+<tr><td class="tk">SDIP.B-SE</td><td class="hide-s">triaging</td><td class="when">28 Jul, 18:59</td><td class="qc warn">Published with 3 minor issues left open: source provenance; specifics retention; +1 more</td></tr>
+<tr><td class="tk">SCMN-CH</td><td class="hide-s">triaging</td><td class="when">28 Jul, 18:44</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">KNOS-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc warn">Published with 2 minor issues left open: unread research families; 920p target / upside arithmetic mismatch</td></tr>
+<tr><td class="tk">IGG-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">CVSG-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">PRY-IT</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ABBN-CH</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">HTWS-GB</td><td class="hide-s">triaging</td><td class="when">28 Jul, 16:54</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">NSIS.B-DK</td><td class="hide-s">triaging</td><td class="when">28 Jul, 04:36</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">MOVE-CH</td><td class="hide-s">triaging</td><td class="when">24 Jul, 17:55</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">OPL-PL</td><td class="hide-s">triaging</td><td class="when">24 Jul, 15:36</td><td class="qc warn">Published with 1 minor issue left open: 1. Grounding + anti-fabrication (cohort peer comparison, non-load-bearing)</td></tr>
+<tr><td class="tk">NOS-PT</td><td class="hide-s">triaging</td><td class="when">21 Jul, 10:31</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">LBTYA-US</td><td class="hide-s">triaging</td><td class="when">21 Jul, 08:33</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">INW-IT</td><td class="hide-s">triaging</td><td class="when">21 Jul, 05:20</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">TEL2.B-SE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 14:36</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">TIT-IT</td><td class="hide-s">triaging</td><td class="when">20 Jul, 08:33</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">TEF-ES</td><td class="hide-s">triaging</td><td class="when">19 Jul, 18:05</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">CLNX-ES</td><td class="hide-s">triaging</td><td class="when">19 Jul, 17:55</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ETL-FR</td><td class="hide-s">triaging</td><td class="when">19 Jul, 17:53</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">DIE-BE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:59</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">QLT-GB</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:56</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">VOD-GB</td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:36</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">TELIA-SE</td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:32</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">NKT-DK</td><td class="hide-s">esa</td><td class="when">18 Jul, 20:29</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">NKT-DK</td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:29</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ZEG-GB</td><td class="hide-s">triaging</td><td class="when">17 Jul, 02:38</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BWLPG-NO</td><td class="hide-s">triaging</td><td class="when">16 Jul, 14:27</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BT.A-GB</td><td class="hide-s">triaging</td><td class="when">16 Jul, 12:35</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BESI-NL</td><td class="hide-s">triaging</td><td class="when">9 Jul, 06:53</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">LIFCO.B-SE</td><td class="hide-s">triaging</td><td class="when">8 Jul, 16:56</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">ADYEN-NL</td><td class="hide-s">triaging</td><td class="when">6 Jul, 20:54</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">ELISA-FI</td><td class="hide-s">triaging</td><td class="when">6 Jul, 16:55</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">KPN-NL</td><td class="hide-s">triaging</td><td class="when">6 Jul, 15:28</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">FNTN-DE</td><td class="hide-s">triaging</td><td class="when">6 Jul, 15:24</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">BRAV-SE</td><td class="hide-s">dd</td><td class="when">19 Jun, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">BRAV-SE</td><td class="hide-s">esa</td><td class="when">19 Jun, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">LTMC-IT</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">BUFAB-SE</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">GAW-GB</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">EKTA.B-SE</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">ICOS-IT</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">OBEL-BE</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr></table>
 
 <div class="foot">
 <b>How the arrival estimate works.</b> A memo still needs a number of dispatch fires to finish: about one if it
@@ -164,7 +170,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1785323161 * 1000, el = document.getElementById('stale');
+  var gen = 1785324961 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
