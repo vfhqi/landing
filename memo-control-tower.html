@@ -57,14 +57,14 @@ td.issue{color:#475569}
 <body><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Sunday 02 August 2026, 23:36 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Monday 03 August 2026, 00:06 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
 
 
 <div class="strip">
   <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>11m ago</b></div>
+  <div class="pill">Last dispatch <b>41m ago</b></div>
   <div class="pill">Ready to read <b>66</b></div>
   <div class="pill">In flight <b>0</b></div>
   <div class="pill">Next arrival <b>nothing in flight</b></div>
@@ -171,7 +171,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1785710162 * 1000, el = document.getElementById('stale');
+  var gen = 1785711962 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
