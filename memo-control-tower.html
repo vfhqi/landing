@@ -57,22 +57,22 @@ td.issue{color:#475569}
 <body><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Monday 03 August 2026, 12:36 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Monday 03 August 2026, 12:50 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
 
 
 <div class="strip">
   <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>10m ago</b></div>
-  <div class="pill">Ready to read <b>66</b></div>
-  <div class="pill">In flight <b>0</b></div>
+  <div class="pill">Last dispatch <b>25m ago</b></div>
+  <div class="pill">Ready to read <b>112</b></div>
+  <div class="pill">In flight <b>7</b></div>
   <div class="pill">Next arrival <b>nothing in flight</b></div>
   <div class="pill">Needs you <b>5</b></div>
 </div>
 
 <h2>The line <span class="n">happy path, left to right</span></h2>
-<div class="line"><div class="st"><div class="lab">Briefed</div><div class="num" style="color:#64748b">0</div><div class="bar"><i style="width:0.0%;background:#64748b"></i></div></div><div class="st"><div class="lab">Awaiting you</div><div class="num" style="color:#d97706">5</div><div class="bar"><i style="width:7.0%;background:#d97706"></i></div></div><div class="st"><div class="lab">Researching</div><div class="num" style="color:#2563eb">0</div><div class="bar"><i style="width:0.0%;background:#2563eb"></i></div></div><div class="st"><div class="lab">Writing + QC</div><div class="num" style="color:#6366f1">0</div><div class="bar"><i style="width:0.0%;background:#6366f1"></i></div></div><div class="st"><div class="lab">Judging</div><div class="num" style="color:#7c3aed">0</div><div class="bar"><i style="width:0.0%;background:#7c3aed"></i></div></div><div class="st"><div class="lab">Repairing</div><div class="num" style="color:#db2777">0</div><div class="bar"><i style="width:0.0%;background:#db2777"></i></div></div><div class="st"><div class="lab">Publishing</div><div class="num" style="color:#ea580c">0</div><div class="bar"><i style="width:0.0%;background:#ea580c"></i></div></div><div class="st"><div class="lab">Published</div><div class="num" style="color:#16a34a">66</div><div class="bar"><i style="width:93.0%;background:#16a34a"></i></div></div></div>
+<div class="line"><div class="st"><div class="lab">Briefed</div><div class="num" style="color:#64748b">7</div><div class="bar"><i style="width:5.6%;background:#64748b"></i></div></div><div class="st"><div class="lab">Awaiting you</div><div class="num" style="color:#d97706">5</div><div class="bar"><i style="width:4.0%;background:#d97706"></i></div></div><div class="st"><div class="lab">Researching</div><div class="num" style="color:#2563eb">0</div><div class="bar"><i style="width:0.0%;background:#2563eb"></i></div></div><div class="st"><div class="lab">Writing + QC</div><div class="num" style="color:#6366f1">0</div><div class="bar"><i style="width:0.0%;background:#6366f1"></i></div></div><div class="st"><div class="lab">Judging</div><div class="num" style="color:#7c3aed">0</div><div class="bar"><i style="width:0.0%;background:#7c3aed"></i></div></div><div class="st"><div class="lab">Repairing</div><div class="num" style="color:#db2777">0</div><div class="bar"><i style="width:0.0%;background:#db2777"></i></div></div><div class="st"><div class="lab">Publishing</div><div class="num" style="color:#ea580c">0</div><div class="bar"><i style="width:0.0%;background:#ea580c"></i></div></div><div class="st"><div class="lab">Published</div><div class="num" style="color:#16a34a">112</div><div class="bar"><i style="width:90.3%;background:#16a34a"></i></div></div></div>
 <div class="line"><div class="st"><div class="lab">Parked</div><div class="num" style="color:#475569">0</div></div><div class="st"><div class="lab">QC blocked</div><div class="num" style="color:#dc2626">0</div></div><div class="st"><div class="lab">Stuck</div><div class="num" style="color:#b91c1c">0</div></div></div>
 
 <h2>Needs you <span class="n">5 &middot; nothing moves on these until you act</span></h2>
@@ -85,11 +85,19 @@ td.issue{color:#475569}
 <h2>Blocked <span class="n">0 &middot; stuck, and the line will NOT clear these on its own</span></h2>
 <div class="none">Nothing here right now.</div>
 
-<h2>In flight <span class="n">0 &middot; soonest first</span></h2>
-<div class="none">Nothing here right now.</div>
+<h2>In flight <span class="n">7 &middot; soonest first</span></h2>
+<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">EVK-DE</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">FPE3-DE</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">GRG-GB</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">GVS-IT</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">HFG-GB</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">LNZ-AT</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr>
+<tr><td class="tk">NEM-DE</td><td><span class="tag" style="background:#64748b">Briefed</span></td><td class="hide-s">triaging</td><td><span class="eta">in progress (hand-authored)</span></td><td class="issue">Hand-authored by the Investment Analyst, outside the automated conveyor. This reflects metadata.json only, not a live conveyor status -- there is no dispatch queue or ETA for it.</td></tr></table>
 
-<h2>Ready to read <span class="n">66 published</span></h2>
-<table><tr><th>Stock</th><th class='hide-s'>Memo type</th><th>Published</th><th>Quality check</th></tr><tr><td class="tk">COLO.B-DK</td><td class="hide-s">triaging</td><td class="when">30 Jul, 15:00</td><td class="qc warn">Published with 5 minor issues left open (deliberately not repaired: every one was graded immaterial, so no fix was attempted): MISUSE</td></tr>
+<h2>Ready to read <span class="n">112 published</span></h2>
+<table><tr><th>Stock</th><th class='hide-s'>Memo type</th><th>Published</th><th>Quality check</th></tr><tr><td class="tk">DSCV-GB</td><td class="hide-s">triaging</td><td class="when">1 Aug, 08:58</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">SOLI-GB</td><td class="hide-s">triaging</td><td class="when">1 Aug, 07:56</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">COLO.B-DK</td><td class="hide-s">triaging</td><td class="when">30 Jul, 15:00</td><td class="qc warn">Published with 5 minor issues left open (deliberately not repaired: every one was graded immaterial, so no fix was attempted): MISUSE</td></tr>
 <tr><td class="tk">AAF-GB</td><td class="hide-s">triaging</td><td class="when">29 Jul, 19:25</td><td class="qc warn">Published with 1 minor issue left open (deliberately not repaired: every one was graded immaterial, so no fix was attempted): summary-to-body consistency (internal sentiment-tag contradiction)</td></tr>
 <tr><td class="tk">COM-IT</td><td class="hide-s">triaging</td><td class="when">29 Jul, 16:43</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">FAST-NL</td><td class="hide-s">triaging</td><td class="when">29 Jul, 16:43</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
@@ -127,13 +135,53 @@ td.issue{color:#475569}
 <tr><td class="tk">NOS-PT</td><td class="hide-s">triaging</td><td class="when">21 Jul, 10:31</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">LBTYA-US</td><td class="hide-s">triaging</td><td class="when">21 Jul, 08:33</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">INW-IT</td><td class="hide-s">triaging</td><td class="when">21 Jul, 05:20</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">CLN-CH</td><td class="hide-s">triaging</td><td class="when">20 Jul, 17:26</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">SGE-GB</td><td class="hide-s">triaging</td><td class="when">20 Jul, 17:11</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">HLAG-DE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 16:52</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">TEL2.B-SE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 14:36</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">LSG-NO</td><td class="hide-s">triaging</td><td class="when">20 Jul, 11:54</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">HEIA-NL</td><td class="hide-s">triaging</td><td class="when">20 Jul, 10:43</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">HOLN-CH</td><td class="hide-s">triaging</td><td class="when">20 Jul, 10:37</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">IPS-FR</td><td class="hide-s">triaging</td><td class="when">20 Jul, 10:25</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">ML-FR</td><td class="hide-s">triaging</td><td class="when">20 Jul, 09:30</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">LDA-ES</td><td class="hide-s">triaging</td><td class="when">20 Jul, 09:16</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">NIBE.B-SE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 09:16</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
 <tr><td class="tk">TIT-IT</td><td class="hide-s">triaging</td><td class="when">20 Jul, 08:33</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">STF-FR</td><td class="hide-s">triaging</td><td class="when">20 Jul, 07:59</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">RHIM-GB</td><td class="hide-s">triaging</td><td class="when">20 Jul, 07:55</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">RED-ES</td><td class="hide-s">triaging</td><td class="when">20 Jul, 07:53</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">RWAY-IT</td><td class="hide-s">triaging</td><td class="when">20 Jul, 07:35</td><td class="qc warn">Passed the audit; 15 soft flags noted, none blocking.</td></tr>
+<tr><td class="tk">GAMA-GB</td><td class="hide-s">triaging</td><td class="when">20 Jul, 07:09</td><td class="qc warn">Passed the audit; 10 soft flags noted, none blocking.</td></tr>
+<tr><td class="tk">DIGI-RO</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:59</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">O2D-DE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:59</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">TRST-GB</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:54</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">TEP-GB</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:53</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">TELENOR-NO</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:38</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">TKA-AT</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:34</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">DTE-DE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:29</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">VIMIAN-SE</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:26</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">CPS-PL</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:16</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">TECN-CH</td><td class="hide-s">triaging</td><td class="when">20 Jul, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">TEF-ES</td><td class="hide-s">triaging</td><td class="when">19 Jul, 18:05</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">CLNX-ES</td><td class="hide-s">triaging</td><td class="when">19 Jul, 17:55</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">ETL-FR</td><td class="hide-s">triaging</td><td class="when">19 Jul, 17:53</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">CENER-GR</td><td class="hide-s">triaging</td><td class="when">19 Jul, 16:47</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">EQT-SE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 16:32</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">PTEC-GB</td><td class="hide-s">triaging</td><td class="when">19 Jul, 15:34</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">WISE-GB</td><td class="hide-s">triaging</td><td class="when">19 Jul, 15:18</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">PRX-NL</td><td class="hide-s">triaging</td><td class="when">19 Jul, 15:13</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">LSEG-GB</td><td class="hide-s">triaging</td><td class="when">19 Jul, 14:16</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">FTK-DE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 13:57</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">AKZA-NL</td><td class="hide-s">triaging</td><td class="when">19 Jul, 13:48</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">ARIS-IT</td><td class="hide-s">triaging</td><td class="when">19 Jul, 13:05</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">VITR-SE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 13:03</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
+<tr><td class="tk">MED-CH</td><td class="hide-s">triaging</td><td class="when">19 Jul, 13:00</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">DIE-BE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:59</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">QLT-GB</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:56</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BNR-DE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:37</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">AZE-BE</td><td class="hide-s">triaging</td><td class="when">19 Jul, 11:29</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">IMCD-NL</td><td class="hide-s">triaging</td><td class="when">19 Jul, 10:06</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">DKSH-CH</td><td class="hide-s">triaging</td><td class="when">19 Jul, 09:53</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
 <tr><td class="tk">VOD-GB</td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:36</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">TELIA-SE</td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:32</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">NKT-DK</td><td class="hide-s">esa</td><td class="when">18 Jul, 20:29</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
@@ -141,6 +189,9 @@ td.issue{color:#475569}
 <tr><td class="tk">ZEG-GB</td><td class="hide-s">triaging</td><td class="when">17 Jul, 02:38</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">BWLPG-NO</td><td class="hide-s">triaging</td><td class="when">16 Jul, 14:27</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">BT.A-GB</td><td class="hide-s">triaging</td><td class="when">16 Jul, 12:35</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">AENA-ES</td><td class="hide-s">triaging</td><td class="when">15 Jul, 12:58</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">UTDI-DE</td><td class="hide-s">triaging</td><td class="when">9 Jul, 16:01</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">SUNN-CH</td><td class="hide-s">triaging</td><td class="when">9 Jul, 15:42</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
 <tr><td class="tk">BESI-NL</td><td class="hide-s">triaging</td><td class="when">9 Jul, 06:53</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">LIFCO.B-SE</td><td class="hide-s">triaging</td><td class="when">8 Jul, 16:56</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">ADYEN-NL</td><td class="hide-s">triaging</td><td class="when">6 Jul, 20:54</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
@@ -149,6 +200,7 @@ td.issue{color:#475569}
 <tr><td class="tk">FNTN-DE</td><td class="hide-s">triaging</td><td class="when">6 Jul, 15:24</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">BRAV-SE</td><td class="hide-s">dd</td><td class="when">19 Jun, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">BRAV-SE</td><td class="hide-s">esa</td><td class="when">19 Jun, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
+<tr><td class="tk">BRAV-SE</td><td class="hide-s">deep dive</td><td class="when">19 Jun, 06:03</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">LTMC-IT</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">BUFAB-SE</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">GAW-GB</td><td class="hide-s">triaging</td><td class="when">unknown</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
@@ -171,7 +223,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1785756962 * 1000, el = document.getElementById('stale');
+  var gen = 1785757850 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
