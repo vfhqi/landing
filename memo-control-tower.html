@@ -56,17 +56,17 @@ td.issue{color:#475569}
 }
 </style></head>
 <body>
-<div id="watson-watchdog" style="margin:8px 0;padding:8px 12px;border-left:4px solid #c62828;background:#fdecea;font:13px/1.5 system-ui,sans-serif;color:#8e1b16"><b>Watchdog: 1 problem(s) found.</b><ul style="margin:4px 0 0 18px"><li>conveyor-stall — RESEARCH CONVEYOR: STALLED</li></ul></div><div class="wrap">
+<div id="watson-watchdog" style="margin:8px 0;padding:8px 12px;border-left:4px solid #c62828;background:#fdecea;font:13px/1.5 system-ui,sans-serif;color:#8e1b16"><b>Watchdog: 1 problem(s) found.</b><ul style="margin:4px 0 0 18px"><li>conveyor-stall — RESEARCH CONVEYOR: LATE</li></ul></div><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Saturday 08 August 2026, 11:36 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Saturday 08 August 2026, 12:06 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
 
 
 <div class="strip">
   <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>2h 11m ago</b></div>
+  <div class="pill">Last dispatch <b>2h 41m ago</b></div>
   <div class="pill">Ready to read <b>196</b></div>
   <div class="pill">In flight <b>7</b></div>
   <div class="pill">Next arrival <b>nothing in flight</b></div>
@@ -308,7 +308,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1786185363 * 1000, el = document.getElementById('stale');
+  var gen = 1786187163 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
