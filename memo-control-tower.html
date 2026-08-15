@@ -59,14 +59,14 @@ td.issue{color:#475569}
 <div id="watson-watchdog" style="margin:8px 0;padding:8px 12px;border-left:4px solid #c62828;background:#fdecea;font:13px/1.5 system-ui,sans-serif;color:#8e1b16"><b>Watchdog: 4 problem(s) found.</b><ul style="margin:4px 0 0 18px"><li>conveyor-stall — RESEARCH CONVEYOR: LATE</li><li>job-backup-daily-local — JOB REPORTED FAILURE: COWORK daily local backup (06:00)</li><li>job-ratings-qc — JOB REPORTED FAILURE: IC Ratings Dashboard QC (07:10 daily)</li><li>job-drive-backup-weekly — JOB REPORTED FAILURE: COWORK weekly Google Drive backup (Sun 07:00)</li></ul></div><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Saturday 15 August 2026, 05:06 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Saturday 15 August 2026, 05:36 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
 
 
 <div class="strip">
   <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>38m ago</b></div>
+  <div class="pill">Last dispatch <b>7m ago</b></div>
   <div class="pill">Ready to read <b>250</b></div>
   <div class="pill">In flight <b>0</b></div>
   <div class="pill">Next arrival <b>nothing in flight</b></div>
@@ -99,8 +99,8 @@ td.issue{color:#475569}
 <h2>Blocked <span class="n">4 &middot; stuck, and the line will NOT clear these on its own</span></h2>
 <table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">BNR-DE<span class="co">Brenntag</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 1.9 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr>
 <tr><td class="tk">DKSH-CH<span class="co">DKSH</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 1.9 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr>
-<tr><td class="tk">AZE-BE<span class="co">Azelis</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 2.4 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr>
-<tr><td class="tk">IMCD-NL<span class="co">IMCD</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 2.4 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr></table>
+<tr><td class="tk">AZE-BE<span class="co">Azelis</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 2.5 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr>
+<tr><td class="tk">IMCD-NL<span class="co">IMCD</span></td><td><span class="tag" style="background:#b91c1c">Stuck</span></td><td class="hide-s">esa</td><td><span class="eta">blocked</span></td><td class="issue">STUCK, not in progress: status says &#x27;blocked&#x27; but the pipeline is asking for no work on this memo, and nothing has changed for 2.5 days. It has fallen out of the queue and will not move on its own. Needs an engineer.</td></tr></table>
 
 <h2>In flight <span class="n">0 &middot; soonest first</span></h2>
 <div class="none">Nothing here right now.</div>
@@ -372,7 +372,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1786766763 * 1000, el = document.getElementById('stale');
+  var gen = 1786768563 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
