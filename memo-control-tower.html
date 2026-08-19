@@ -56,25 +56,25 @@ td.issue{color:#475569}
 }
 </style></head>
 <body>
-<div id="watson-watchdog" style="margin:8px 0;padding:8px 12px;border-left:4px solid #c62828;background:#fdecea;font:13px/1.5 system-ui,sans-serif;color:#8e1b16"><b>Watchdog: 5 problem(s) found.</b><ul style="margin:4px 0 0 18px"><li>conveyor-stall — RESEARCH CONVEYOR: STALLED</li><li>job-backup-daily-local — JOB REPORTED FAILURE: COWORK daily local backup (06:00)</li><li>job-ratings-qc — JOB REPORTED FAILURE: IC Ratings Dashboard QC (07:10 daily)</li><li>job-aj-dispatch-probe — JOB HAS STOPPED RUNNING: A&amp;J memo dispatch fires (hourly)</li><li>job-drive-backup-weekly — JOB REPORTED FAILURE: COWORK weekly Google Drive backup (Sun 07:00)</li></ul></div><div class="wrap">
+<div id="watson-watchdog" style="margin:8px 0;padding:8px 12px;border-left:4px solid #c62828;background:#fdecea;font:13px/1.5 system-ui,sans-serif;color:#8e1b16"><b>Watchdog: 4 problem(s) found.</b><ul style="margin:4px 0 0 18px"><li>conveyor-stall — RESEARCH CONVEYOR: STALLED</li><li>job-backup-daily-local — JOB REPORTED FAILURE: COWORK daily local backup (06:00)</li><li>job-ratings-qc — JOB REPORTED FAILURE: IC Ratings Dashboard QC (07:10 daily)</li><li>job-drive-backup-weekly — JOB REPORTED FAILURE: COWORK weekly Google Drive backup (Sun 07:00)</li></ul></div><div class="wrap">
 
 <h1>A&amp;J Memo Control Tower</h1>
-<p class="sub">Generated Wednesday 19 August 2026, 05:24 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
+<p class="sub">Generated Wednesday 19 August 2026, 08:06 &middot; every stock in the memo pipeline, what is blocking it, and when you can expect to read it.</p>
 
 <div id="stale" class="stale"></div>
-
+<div class="stale bad" style="display:block">Dispatch is paused. dispatch is STARTING but not FINISHING: ticks are 0.0h fresh, yet no fire has run to completion for 10.6h (last completion 2026-08-18T20:21:39Z) with 2 work item(s) pending. Fires are being killed part-way, so nothing drains. Not halting -- only a completed fire can clear this. Look for HELD entries in briefings/dispatch-log.md and for work exceeding the 45s shell ceiling.<br><span style="opacity:.8">Recorded 2026-08-19T07:54:57</span></div>
 
 <div class="strip">
-  <div class="pill"><span class="dot" style="background:#16a34a"></span>Line <b>GREEN</b></div>
-  <div class="pill">Last dispatch <b>8h 5m ago</b></div>
-  <div class="pill">Ready to read <b>281</b></div>
-  <div class="pill">In flight <b>3</b></div>
+  <div class="pill"><span class="dot" style="background:#d97706"></span>Line <b>AMBER</b></div>
+  <div class="pill">Last dispatch <b>0m ago</b></div>
+  <div class="pill">Ready to read <b>285</b></div>
+  <div class="pill">In flight <b>1</b></div>
   <div class="pill">Next arrival <b>~3h</b></div>
   <div class="pill">Needs you <b>18</b></div>
 </div>
 
 <h2>The line <span class="n">happy path, left to right</span></h2>
-<div class="line"><div class="st"><div class="lab">Briefed</div><div class="num" style="color:#64748b">0</div><div class="bar"><i style="width:0.0%;background:#64748b"></i></div></div><div class="st"><div class="lab">Awaiting you</div><div class="num" style="color:#d97706">18</div><div class="bar"><i style="width:6.0%;background:#d97706"></i></div></div><div class="st"><div class="lab">Researching</div><div class="num" style="color:#2563eb">0</div><div class="bar"><i style="width:0.0%;background:#2563eb"></i></div></div><div class="st"><div class="lab">Writing + QC</div><div class="num" style="color:#6366f1">2</div><div class="bar"><i style="width:0.7%;background:#6366f1"></i></div></div><div class="st"><div class="lab">Judging</div><div class="num" style="color:#7c3aed">1</div><div class="bar"><i style="width:0.3%;background:#7c3aed"></i></div></div><div class="st"><div class="lab">Repairing</div><div class="num" style="color:#db2777">0</div><div class="bar"><i style="width:0.0%;background:#db2777"></i></div></div><div class="st"><div class="lab">Publishing</div><div class="num" style="color:#ea580c">0</div><div class="bar"><i style="width:0.0%;background:#ea580c"></i></div></div><div class="st"><div class="lab">Published</div><div class="num" style="color:#16a34a">281</div><div class="bar"><i style="width:93.0%;background:#16a34a"></i></div></div></div>
+<div class="line"><div class="st"><div class="lab">Briefed</div><div class="num" style="color:#64748b">0</div><div class="bar"><i style="width:0.0%;background:#64748b"></i></div></div><div class="st"><div class="lab">Awaiting you</div><div class="num" style="color:#d97706">18</div><div class="bar"><i style="width:5.9%;background:#d97706"></i></div></div><div class="st"><div class="lab">Researching</div><div class="num" style="color:#2563eb">0</div><div class="bar"><i style="width:0.0%;background:#2563eb"></i></div></div><div class="st"><div class="lab">Writing + QC</div><div class="num" style="color:#6366f1">0</div><div class="bar"><i style="width:0.0%;background:#6366f1"></i></div></div><div class="st"><div class="lab">Judging</div><div class="num" style="color:#7c3aed">1</div><div class="bar"><i style="width:0.3%;background:#7c3aed"></i></div></div><div class="st"><div class="lab">Repairing</div><div class="num" style="color:#db2777">0</div><div class="bar"><i style="width:0.0%;background:#db2777"></i></div></div><div class="st"><div class="lab">Publishing</div><div class="num" style="color:#ea580c">0</div><div class="bar"><i style="width:0.0%;background:#ea580c"></i></div></div><div class="st"><div class="lab">Published</div><div class="num" style="color:#16a34a">285</div><div class="bar"><i style="width:93.8%;background:#16a34a"></i></div></div></div>
 <div class="line"><div class="st"><div class="lab">Parked</div><div class="num" style="color:#475569">0</div></div><div class="st"><div class="lab">QC blocked</div><div class="num" style="color:#dc2626">0</div></div><div class="st"><div class="lab">Stuck</div><div class="num" style="color:#b91c1c">0</div></div></div>
 
 <h2>Needs you <span class="n">18 &middot; nothing moves on these until you act</span></h2>
@@ -100,13 +100,17 @@ td.issue{color:#475569}
 <h2>Blocked <span class="n">0 &middot; stuck, and the line will NOT clear these on its own</span></h2>
 <div class="none">Nothing here right now.</div>
 
-<h2>In flight <span class="n">3 &middot; soonest first</span></h2>
-<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">OEM.B-SE<span class="co">OEM International</span></td><td><span class="tag" style="background:#7c3aed">Judging</span></td><td class="hide-s">esa</td><td><span class="eta">~3h<span class="w">Wed 08:24</span></span></td><td class="issue">&mdash;</td></tr>
-<tr><td class="tk">BT.A-GB<span class="co">BT</span></td><td><span class="tag" style="background:#6366f1">Writing + QC</span></td><td class="hide-s">esa</td><td><span class="eta">~4h<span class="w">Wed 09:24</span></span></td><td class="issue">&mdash;</td></tr>
-<tr><td class="tk">TELIA-SE<span class="co">Telia</span></td><td><span class="tag" style="background:#6366f1">Writing + QC</span></td><td class="hide-s">esa</td><td><span class="eta">~4h<span class="w">Wed 09:24</span></span></td><td class="issue">&mdash;</td></tr></table>
+<h2>In flight <span class="n">1 &middot; soonest first</span></h2>
+<table><tr><th>Stock</th><th>Status</th><th class='hide-s'>Memo type</th><th>Ready in</th><th>Issue</th></tr><tr><td class="tk">TELIA-SE<span class="co">Telia</span></td><td><span class="tag" style="background:#7c3aed">Judging</span></td><td class="hide-s">esa</td><td><span class="eta">~3h<span class="w">Wed 11:06</span></span></td><td class="issue">&mdash;</td></tr></table>
 
-<h2>Ready to read <span class="n">281 published</span></h2>
-<table><tr><th>Stock</th><th class='hide-s'>Memo type</th><th>Published</th><th>Quality check</th></tr><tr><td class="tk">RR-GB<span class="co">Rolls-Royce</span></td><td class="hide-s">triaging</td><td class="when">18 Aug, 13:38</td><td class="qc warn">Published after a repair round; last auditor verdict on file was REVISE.</td></tr>
+<h2>Ready to read <span class="n">285 published</span></h2>
+<table><tr><th>Stock</th><th class='hide-s'>Memo type</th><th>Published</th><th>Quality check</th></tr><tr><td class="tk">BT.A-GB<span class="co">BT</span></td><td class="hide-s">triaging</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">OEM.B-SE<span class="co">OEM International</span></td><td class="hide-s">triaging</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">OEM.B-SE<span class="co">OEM International</span></td><td class="hide-s">esa</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BT.A-GB<span class="co">BT</span></td><td class="hide-s">esa</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">BT.A-GB<span class="co">BT</span></td><td class="hide-s">early-stage assessment</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">OEM.B-SE<span class="co">OEM International</span></td><td class="hide-s">early-stage assessment</td><td class="when">19 Aug, 08:04</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
+<tr><td class="tk">RR-GB<span class="co">Rolls-Royce</span></td><td class="hide-s">triaging</td><td class="when">18 Aug, 13:38</td><td class="qc warn">Published after a repair round; last auditor verdict on file was REVISE.</td></tr>
 <tr><td class="tk">MRK-DE<span class="co">Merck</span></td><td class="hide-s">triaging</td><td class="when">18 Aug, 09:01</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">SYSR-SE<span class="co">Systemair</span></td><td class="hide-s">triaging</td><td class="when">18 Aug, 08:57</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">TTG-GB<span class="co">TT Electronics</span></td><td class="hide-s">triaging</td><td class="when">18 Aug, 01:38</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
@@ -275,7 +279,6 @@ td.issue{color:#475569}
 <tr><td class="tk">ROKO.B-SE<span class="co">Roko</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 3 minor issues left open: a research report on file was never opened; false absence claim (Section A + F.2); +3 more</td></tr>
 <tr><td class="tk">SMWH-GB<span class="co">WH Smith</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 3 minor issues left open.</td></tr>
 <tr><td class="tk">JDG-GB<span class="co">Judges Scientific</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
-<tr><td class="tk">OEM.B-SE<span class="co">OEM International</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 21:43</td><td class="qc warn">Published with 1 minor issue left open.</td></tr>
 <tr><td class="tk">ORA-FR<span class="co">Orange</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 20:38</td><td class="qc warn">Published with 1 minor issue left open: contradiction reconciliation</td></tr>
 <tr><td class="tk">HEXA.B-SE<span class="co">Hexagon</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 20:37</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">ALC-CH<span class="co">Alcon</span></td><td class="hide-s">triaging</td><td class="when">28 Jul, 19:46</td><td class="qc warn">Published with 2 minor issues left open: a research report on file was never opened; the memo says a report was not read, then quotes from it</td></tr>
@@ -346,7 +349,6 @@ td.issue{color:#475569}
 <tr><td class="tk">NKT-DK<span class="co">NKT</span></td><td class="hide-s">triaging</td><td class="when">18 Jul, 20:29</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">ZEG-GB<span class="co">Zegona Communications</span></td><td class="hide-s">triaging</td><td class="when">17 Jul, 02:38</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">BWLPG-NO<span class="co">BW LPG</span></td><td class="hide-s">triaging</td><td class="when">16 Jul, 14:27</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
-<tr><td class="tk">BT.A-GB<span class="co">BT</span></td><td class="hide-s">triaging</td><td class="when">16 Jul, 12:35</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">AENA-ES<span class="co">Aena</span></td><td class="hide-s">triaging</td><td class="when">15 Jul, 12:58</td><td class="qc ok">Clean. Passed the audit with no defects recorded.</td></tr>
 <tr><td class="tk">UTDI-DE<span class="co">United Internet</span></td><td class="hide-s">triaging</td><td class="when">9 Jul, 16:01</td><td class="qc unchecked">No record that the automated quality check ran on this memo.</td></tr>
 <tr><td class="tk">SUNN-CH<span class="co">Sunrise</span></td><td class="hide-s">triaging</td><td class="when">9 Jul, 15:42</td><td class="qc ok">Quality check ran and recorded no failures. No auditor verdict on file.</td></tr>
@@ -403,7 +405,7 @@ say so itself rather than quietly showing you old numbers.
 </div>
 <script>
 (function(){
-  var gen = 1787113464 * 1000, el = document.getElementById('stale');
+  var gen = 1787123165 * 1000, el = document.getElementById('stale');
   function tick(){
     var mins = Math.floor((Date.now() - gen) / 60000);
     if (mins < 60) { el.className = 'stale'; el.textContent = ''; return; }
