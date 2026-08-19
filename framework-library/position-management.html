@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Position Management — Investment System Library</title>
+<style>:root{--accent:#9a7ac9;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Portfolio and Position Management</div>
+  <h1 class="doc">Position Management</h1>
+  <p class="desc">Entry timing, position sizing, stop placement and exit rules, including the base-counting and stop-loss system.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/assistant-portfolio-manager/annexes/annex-01-position-management.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 30-Jul-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="position-management-entry-sizing-stops-exit">Position management — entry, sizing, stops, exit</h1>
+<p><strong>Annex to</strong> <code>memory/skills/assistant-portfolio-manager/SKILL.md</code>. <strong>Cut 30-Jul-26</strong> in the lean-core restructure.</p>
+<p><strong>When to load:</strong> Loads when sizing, entering, adding to, trimming or exiting a position.</p>
+<p><em>Verbatim from the manual except where a 29-Jul Notion ruling correction applied.</em></p>
+<hr>
+<h3 id="6c-minervini-position-sizing-stop-loss-system">6c. Minervini Position Sizing &amp; Stop-Loss System</h3>
+<p>Source: high-performance-coach.md, risk-management-lessons.md, Minervini conversation summary (15-Apr-26)</p>
+<h4 id="the-five-layer-sell-system">The Five-Layer Sell System</h4>
+<p>Minervini's sell discipline operates on five interconnected layers — APM applies all five to every live position:</p>
+<p><strong>Layer 1 — Pre-trade risk definition:</strong> Before entry, stop-loss level identified at a structurally meaningful price (below VCP final contraction low, most recent swing low, or below pivot/buy point). Position size reverse-engineered from stop distance: <code>Position size = Portfolio risk per trade ÷ Stop distance</code>. At 1.5% portfolio risk, a 6% stop = 25% position. Maximum single-position concentration: 25%.</p>
+<p><strong>Layer 2 — Violation monitoring (days 1–10):</strong> Trade monitored for violations — bad closes, volume anomalies, moving average breaks. Accumulating violations trigger early exits at smaller losses than the stop would require (compressing average loss to 3–5% even when stops are set at 7–8%).</p>
+<p><strong>Layer 3 — Mechanical stop-loss:</strong> Hard floor if violations don't trigger early exit. Maximum loss 10%, typical 5–8%. Insurance for trades where deterioration happens faster than the violation framework can capture.</p>
+<p><strong>Layer 4 — Partial profit-taking and stop progression:</strong> Partial profits taken at 2× stop target; stop raised to breakeven; then trailed using 20-day and 50-day SMAs. Climax signals from base counting and price behaviour prompt full exits.</p>
+<p><strong>Layer 5 — Portfolio-level progressive exposure:</strong> Stopped-out trades reduce invested capital. Successful trades allow larger positions. Portfolio self-adjusts to environment.</p>
+<h4 id="mechanical-stop-loss-thresholds">Mechanical Stop-Loss Thresholds</h4>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Stop Range</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strong bull market</td>
+<td>7–8%</td>
+<td>Higher follow-through probability</td>
+</tr>
+<tr>
+<td>Choppy / deteriorating</td>
+<td>5–6%</td>
+<td>Failed trades fail faster</td>
+</tr>
+<tr>
+<td>Absolute maximum</td>
+<td>10%</td>
+<td>"Uncle point" — never exceeded</td>
+</tr>
+<tr>
+<td>Career average loss</td>
+<td>3–5%</td>
+<td>Violation framework triggers exits early</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key rule:</strong> If the structurally correct stop exceeds 10%, the trade is passed on entirely.</p>
+<h4 id="stop-adjustment-protocol">Stop Adjustment Protocol</h4>
+<p>Stops only move up. Never down. Never widened.</p>
+<table>
+<thead>
+<tr>
+<th>Position gain</th>
+<th>Stop action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>At entry</td>
+<td>Stop at structural level (below swing low / below pivot)</td>
+</tr>
+<tr>
+<td>At +7%</td>
+<td>Move stop to breakeven — position is now risk-free</td>
+</tr>
+<tr>
+<td>At +10–15%</td>
+<td>Trail with 20-day SMA or 3-day pullback low</td>
+</tr>
+<tr>
+<td>At +20%+</td>
+<td>Trail with 50-day SMA (or 20-day for steep advances)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-violation-framework-eight-individual-violations">The Violation Framework — Eight Individual Violations</h4>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Violation</th>
+<th>Severity</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Close below 20-day SMA post-breakout</td>
+<td>Warning</td>
+<td>Halves probability of success</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Close below 50-day SMA on above-average volume</td>
+<td>Major</td>
+<td>Institutional distribution confirmed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3+ consecutive lower lows on increasing volume</td>
+<td>Major</td>
+<td>Accelerating sell pressure</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Low volume on breakout, high volume on reversal</td>
+<td>Major</td>
+<td>Weak buying, strong selling</td>
+</tr>
+<tr>
+<td>5</td>
+<td>More down days than up days in first 2 weeks</td>
+<td>Warning</td>
+<td>Breakout lacks follow-through</td>
+</tr>
+<tr>
+<td>6</td>
+<td>More bad closes than good closes</td>
+<td>Warning</td>
+<td>Institutional selling into close</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Full retracement of meaningful gain</td>
+<td>Major</td>
+<td>Market rejected thesis</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Close below pivot price on volume</td>
+<td>Critical</td>
+<td>Breakout failed — often 1–3% loss</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cumulative assessment rule:</strong> 1 violation = warning. 2 = serious concern. 3+ simultaneously = exit immediately regardless of stop distance. Violation #8 is automatically critical. No single other violation (except #8) is automatic.</p>
+<p><strong>Healthy pullback vs. distribution:</strong>
+- Healthy: declining volume on pullback, holds above 20-day SMA, rebounds within 2–5 days, volatility contracts
+- Distribution: heavy volume on declines, MA violations, expanding volatility, bad closes dominating</p>
+<h4 id="trailing-stop-hierarchy-all-smas-simple-not-exponential">Trailing Stop Hierarchy (All SMAs — simple, not exponential)</h4>
+<ul>
+<li><strong>20-day SMA:</strong> Short-term trail for fast movers. First warning line. Post-entry, close below = Violation #1.</li>
+<li><strong>50-day SMA:</strong> Primary sell trigger for most positions at +20%+ gain. A decisive close below on above-average volume = exit.</li>
+<li><strong>150-day SMA:</strong> Structural boundary only. Not a trailing stop. Being tested here means upstream sell signals were missed.</li>
+<li><strong>200-day SMA:</strong> Structural boundary. Must be rising for Stage 2. Declining = Stage 4 confirmed.</li>
+</ul>
+<p><strong>Hierarchy rule:</strong> 20-day warns → 50-day sells → 150/200-day should never be tested.</p>
+<h4 id="the-sell-half-profit-taking-framework">The "Sell Half" Profit-Taking Framework</h4>
+<p><strong>Core rule:</strong> Sell half when unrealised gain ≈ 2× initial stop distance. Move remaining stop to breakeven.</p>
+<table>
+<thead>
+<tr>
+<th>Position size</th>
+<th>Protocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large (15–25%)</td>
+<td>Standard — sell half at 2× stop, move remainder to breakeven</td>
+</tr>
+<tr>
+<td>Small (5–10%)</td>
+<td>May just move to breakeven at +7%</td>
+</tr>
+<tr>
+<td>Hostile/choppy market</td>
+<td>Sell entire position at 7–10% gain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Staggered stops for leaders (mature positions):</strong> 30% at 3%, 30% at 5%, 30% at 8%, 10% at 10%. Weighted average ~5%.</p>
+<h4 id="when-minervini-tightens-stops-three-categories">When Minervini Tightens Stops — Three Categories</h4>
+<p>Any one of these three is sufficient to tighten:</p>
+<p><strong>1. Individual stock deterioration:</strong>
+- 1–2 violations present (grey zone) → shift from 50-day trail to 20-day
+- Single bad close on above-average volume
+- Stock stalling at resistance
+- Close below 20-day that's quickly reclaimed but shows vulnerability</p>
+<p><strong>2. Market environment deterioration:</strong>
+- Distribution days accumulating on indices (4–5 in 2–3 weeks)
+- Breadth deteriorating
+- Multiple positions stopped out in succession
+- VIX rising / daily ranges widening
+- Response: new stops move from 7–8% to 5–6%; trailing stops shift from 50-day to 20-day</p>
+<p><strong>3. Position maturity (base counting):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Base count</th>
+<th>Stop tightness</th>
+<th>Trail</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st–2nd base</td>
+<td>Standard 7–8%</td>
+<td>50-day</td>
+<td>Full position</td>
+</tr>
+<tr>
+<td>3rd base</td>
+<td>Tighten to 5–7%</td>
+<td>20-day</td>
+<td>Reduce 25–50%</td>
+</tr>
+<tr>
+<td>4th–5th base</td>
+<td>Tighten to 3–5%</td>
+<td>20-day or 3-day pullback low</td>
+<td>Cut 50%+, tactical only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Categories compound multiplicatively:</strong> stock deterioration + late base + market weakness = tightest possible stop or full exit immediately.</p>
+<h4 id="the-4-slug-entry-model">The 4-Slug Entry Model</h4>
+<p>Divide intended position into 4 equal tranches. Enter each separately:</p>
+<table>
+<thead>
+<tr>
+<th>Slug</th>
+<th>Entry</th>
+<th>Stop</th>
+<th>Max Loss</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Price_A</td>
+<td>MA_A</td>
+<td>50bps of portfolio</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Price_B</td>
+<td>MA_B</td>
+<td>50bps of portfolio</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Price_C</td>
+<td>MA_C</td>
+<td>50bps of portfolio</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Price_D</td>
+<td>MA_D</td>
+<td>50bps of portfolio</td>
+<td>25%</td>
+</tr>
+</tbody>
+</table>
+<p>Mechanical exit on breach. No analytical override.</p>
+<p>Advantages:
+- Caps maximum loss per entry attempt
+- Creates natural averaging discipline — only add when working
+- Eliminates stages 2–4 of Minervini emotional cycle (Denial → Frustration → Hope)
+- Each tranche is a new independent trade with its own stop</p>
+<h4 id="adding-to-winners">Adding to Winners</h4>
+<p>Only on constructive pullback to 20-day SMA on declining volume AFTER initial breakout has moved in favour. Each add is a new trade with its own stop. Never more than 2–3 adds. Never add to underwater positions. Pyramiding structure — each add smaller than prior.</p>
+<h4 id="time-based-selling">Time-Based Selling</h4>
+<ul>
+<li><strong>8-week hold rule:</strong> If stock advances 20%+ in first 3 weeks → hold minimum 8 weeks. Override: serious violations or climax characteristics.</li>
+<li><strong>Time stop for stalled positions:</strong> No 5%+ advance within 5–10 trading days → setup likely failed. Dead money = negative expected value.</li>
+</ul>
+<h4 id="key-pivotal-data-point-minervini-retroactive-cap-study">Key Pivotal Data Point (Minervini Retroactive Cap Study)</h4>
+<p>Minervini retroactively capped every loss in his journal at 10%. Compounded return shifted from −12.05% to +79.89%. Same stocks, same entries — only exits changed. A 90+ percentage point swing from sell discipline alone. The buy is a probability bet. The sell is a certainty.</p>
+<p><strong>APM responsibilities:</strong>
+- For every live position, maintain slug entry prices and current MA levels
+- Daily violation tracking during first 10 days post-entry (run through 8-violation checklist)
+- Flag when trailing stop levels are approaching
+- Flag when base count reaches 3rd base or beyond
+- Flag market environment deterioration (distribution days, breadth, multiple stops triggered)
+- Never recommend widening stops under any circumstances</p>
+<h2 id="position-sizing-protocol-operational">Position Sizing Protocol (Operational)</h2>
+<h3 id="entry-sizing-decision-checklist">Entry Sizing Decision Checklist</h3>
+<p><strong>Before sizing a new position, run through:</strong></p>
+<ol>
+<li>
+<p><strong>Conviction assessment</strong> — Score the 8 elements. Weakest element caps sizing.
+   - All 8 strong = 10-15% entry OK
+   - 6-7 strong = 8-10% entry
+   - 4-5 strong = 5-8% entry
+   - &lt;4 strong = 0-3% bench position</p>
+</li>
+<li>
+<p><strong>Resilience-Optionality scoring</strong> — 12-dimension framework
+   - 10+ dimensions high = 10-15% sustainable
+   - 7-9 dimensions high = 8-10% sustainable
+   - &lt;7 dimensions high = 5-8% sustainable</p>
+</li>
+<li>
+<p><strong>Case clarity</strong> — Can Richard articulate transmission mechanism in one paragraph?
+   - Clear = full sizing OK
+   - Fuzzy = reduce by 30%</p>
+</li>
+<li>
+<p><strong>Liquidity floor</strong> — Minimum $2m ADV, ideally $5m+
+   - &lt;$2m ADV = 0-3% maximum
+   - $2-5m ADV = cap at 8%
+   - &gt;$5m ADV = no constraint</p>
+</li>
+<li>
+<p><strong>Circle of competence</strong> — Years of sector knowledge?
+   - Deep expertise (5+ years) = no reduction
+   - Medium (2-5 years) = reduce 20%
+   - First time = reduce 30-40%</p>
+</li>
+<li>
+<p><strong>Technical setup</strong> — Minervini base + volume?
+   - Strong = normal sizing
+   - Weak = reduce 25-50%</p>
+</li>
+<li>
+<p><strong>Portfolio fit</strong> — Diversification rules OK?
+   - If sector &gt;20% after = reduce size
+   - If &gt;2 similar thesis = reduce size</p>
+</li>
+<li>
+<p><strong>Painful prudence</strong> — Size at 70-80% of max
+   - Theoretical max = 12%
+   - Actual entry = 8-10%</p>
+</li>
+</ol>
+<h3 id="minervini-4-slug-system">Minervini 4-Slug System</h3>
+<p>Define 4 equal tranches with 50bps stops each:</p>
+<table>
+<thead>
+<tr>
+<th>Slug</th>
+<th>Entry</th>
+<th>Stop</th>
+<th>Max Loss</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Price_A</td>
+<td>MA_A</td>
+<td>50bps</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Price_B</td>
+<td>MA_B</td>
+<td>50bps</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Price_C</td>
+<td>MA_C</td>
+<td>50bps</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Price_D</td>
+<td>MA_D</td>
+<td>50bps</td>
+<td>25%</td>
+</tr>
+</tbody>
+</table>
+<p>Mechanical exit on breach. No override.</p>
+<h3 id="position-upsizing-rules">Position Upsizing Rules</h3>
+<p><strong>Upsize to 10-12% if:</strong>
+- ≥3 months passed
+- Thesis validated by earnings/catalyst
+- Framework confidence increased
+- Stock pulled back 10-15%
+- Capital available
+- Portfolio construction OK</p>
+<p><strong>Do NOT upsize if:</strong>
+- Stock significantly up, valuation stretched
+- Thesis still in early stage (UHPYHQI)
+- Conviction weakening on any dimension
+- Portfolio construction at max</p>
+<h3 id="position-downsizing-rules">Position Downsizing Rules</h3>
+<p><strong>Trim 20-30% if:</strong>
+- Thesis validated, stock near all-time highs
+- Valuation stretched vs. growth
+- Risk/reward no longer compelling
+- Better opportunity available
+- Catalyst delivered</p>
+<p><strong>Trim 50%+ if:</strong>
+- Key question breached
+- ACH threshold breached
+- Cockroach pattern triggered
+- Operator quality deteriorated
+- Driver deterioration (5%+ EPS impact)
+- Mediocre quality + weak inflection</p>
+<p><strong>Exit 0% if:</strong>
+- Thesis invalidated
+- 30-day shot clock expired
+- Cockroach pattern confirmed
+- Management change to weaker operator
+- Sector dynamics deteriorated
+- Liquidity &lt;$1.5m ADV</p>
+<hr>
+<h2 id="entry-decision-checklist-full-aligned-with-17-step-initiating-checklist">Entry Decision Checklist (Full) — Aligned with 17-Step Initiating Checklist</h2>
+<p><strong>Cross-reference:</strong> Full 17-step gate process in investment-process.md "Initiating Investment Checklist"</p>
+<h3 id="part-a-thesis-clarity-must-pass">Part A: Thesis Clarity (MUST PASS)</h3>
+<ul>
+<li>[ ] 3Y+ earnings case (bull/base/bear)</li>
+<li>[ ] 18-24M EPS plausible</li>
+<li>[ ] Transmission mechanism clear</li>
+<li>[ ] Key Questions defined (4-6)</li>
+<li>[ ] Pre-mortem completed</li>
+<li>[ ] ACH profiles drafted</li>
+<li>[ ] Metacognition Checklist run (business model/competitive/strategic considerations)</li>
+</ul>
+<h3 id="part-b-quality-conviction-target-88">Part B: Quality &amp; Conviction (Target 8/8)</h3>
+<ul>
+<li>[ ] Management verified</li>
+<li>[ ] Sector expertise confirmed</li>
+<li>[ ] Eyes-on work done</li>
+<li>[ ] Bear case explored</li>
+<li>[ ] Recent research (≥5 sources/3 months)</li>
+<li>[ ] Fragilities assessed</li>
+<li>[ ] Competitor landscape understood</li>
+<li>[ ] Governance verified</li>
+<li>[ ] Gene pool test: above 50th percentile quality?</li>
+<li>[ ] Historical lessons cross-checked: any pattern repeats?</li>
+</ul>
+<h3 id="part-c-setup-catalysts-must-have-2">Part C: Setup &amp; Catalysts (MUST HAVE ≥2)</h3>
+<ul>
+<li>[ ] HQI setup confirmed (Resilience × Inflection × Returns × Conviction)</li>
+<li>[ ] Catalyst identified</li>
+<li>[ ] Timing window (0-6 months)</li>
+<li>[ ] Sentiment fragility assessed</li>
+<li>[ ] Narrative evolution planned</li>
+<li>[ ] Straight to 8%: comfortable going immediately to that size?</li>
+</ul>
+<h3 id="part-d-portfolio-fit">Part D: Portfolio Fit</h3>
+<ul>
+<li>[ ] Sector diversification OK</li>
+<li>[ ] Thesis clustering OK</li>
+<li>[ ] Liquidity adequate (≥$2m ADV)</li>
+<li>[ ] Size proportional to conviction (8-dimension framework)</li>
+<li>[ ] Stress test passed (-40% scenario)</li>
+<li>[ ] Capital allocation OK</li>
+<li>[ ] 1-in-1-out: which stock exits if at max?</li>
+<li>[ ] No reverse: can't exit in F3M/F6M? (conviction gate)</li>
+</ul>
+<h3 id="part-e-risk-management">Part E: Risk Management</h3>
+<ul>
+<li>[ ] <strong>Minervini 4-slug system defined:</strong> 4 equal tranches, 50bps max loss per slug, MA stops assigned per tranche</li>
+<li>[ ] <strong>Stop placed at structurally meaningful level:</strong> Below VCP final contraction low, most recent swing low, or below pivot/buy point — NOT an arbitrary % from entry</li>
+<li>[ ] <strong>Stop distance ≤ 10%:</strong> If structurally correct stop requires &gt;10%, pass on the trade entirely</li>
+<li>[ ] <strong>Position size reverse-engineered:</strong> Portfolio risk per trade ÷ stop distance = position size (e.g. 1.5% risk ÷ 6% stop = 25% position cap)</li>
+<li>[ ] <strong>Chase zone check:</strong> Entry within 5% of pivot price. Beyond 5% = extended, risk/reward degraded — do NOT widen stop to accommodate; wait for new base or pullback to 20-day SMA</li>
+<li>[ ] <strong>Stage 2 criteria confirmed:</strong> Stock in Stage 2 (full bullish stack: 50D &gt; 150D &gt; 200D, all rising, price above all). NOT Stage 1 (pre-breakout), NOT Stage 3 (topping), NOT Stage 4 (declining)</li>
+<li>[ ] <strong>Base count assessed:</strong> 1st–2nd base = full position OK. 3rd base = reduce 25–50%, tighter stops. 4th–5th base = tactical only (50%+ size cut), very tight stops</li>
+<li>[ ] <strong>Violation monitoring plan set:</strong> Days 1–10 daily checklist. 3 simultaneous violations = exit immediately regardless of stop distance</li>
+<li>[ ] <strong>Position sizing justified:</strong> HQI scorecard + conviction assessment + base count overlay</li>
+<li>[ ] <strong>Risk Matrix (F×I×R) completed</strong></li>
+<li>[ ] <strong>Monitoring plan drafted:</strong> Position Monitoring Checklist applied + MA levels logged for trailing stop reference</li>
+<li>[ ] <strong>30-day shot clock understood</strong></li>
+<li>[ ] <strong>Maximum loss psychologically acceptable</strong> — worst case known before trade begins</li>
+<li>[ ] <strong>Toe-hold discipline:</strong> Resisted premature positions before research complete?</li>
+</ul>
+<h3 id="part-f-time-horizon-discipline">Part F: Time Horizon &amp; Discipline</h3>
+<ul>
+<li>[ ] 18-month expected hold articulated</li>
+<li>[ ] Grace period expectations set (prove by month 4-6)</li>
+<li>[ ] Alpha decay timeline understood</li>
+<li>[ ] Exit criteria defined (6M/12M/18M)</li>
+<li>[ ] Minimum 1-week percolation time before investing</li>
+<li>[ ] Team review meeting (Chris checklist): 30+ minutes</li>
+</ul>
+<hr>
+<h3 id="30-day-shot-clock-trigger">30-Day Shot Clock Trigger</h3>
+<p>When deterioration emerges:
+- Key driver deteriorates
+- Management change
+- Analyst downgrade
+- Guidance cut
+- Competitor move
+- Regulatory/legal issue
+- Governance problem
+- Cockroach pattern begins</p>
+<p><strong>Default: reduce to 0%.</strong> 30 days to provide evidence thesis still YES.</p>
+<p>Evidence required:
+1. Thesis still intact (ACH = YES)
+2. Why deterioration doesn't impact 18-24M EPS
+3. New KQs to monitor
+4. Revised plan</p>
+<p>If no evidence → EXIT.</p>
+<h3 id="ach-threshold-exit">ACH Threshold = EXIT</h3>
+<p>When evidence shifts to FALSE FRIEND:
+- Transmission mechanism unclear
+- Quality assumptions deteriorated
+- Operator capability questioned
+- Competitive position eroding
+- EPS trajectory unpredictable</p>
+<p>Exit to 3-5% bench. Re-attack if risk disproved.</p>
+<h3 id="cockroach-pattern-exit">Cockroach Pattern = EXIT</h3>
+<p>One problem found = assume 2-3 more:
+- Governance issue
+- Management deterioration
+- Hiring/culture problem
+- IR fragility
+- Capital allocation misalignment</p>
+<p>Exit and move on.</p>
+<h3 id="technical-exit-overlay-stage-23-transition-checklist">Technical Exit Overlay — Stage 2→3 Transition Checklist</h3>
+<p><strong>Key insight:</strong> A stock breaking its 50-day SMA on heavy volume shortly after a catalyst event is the market telling you something your fundamental analysis hasn't captured yet. Technical signals are a leading indicator of fundamental deterioration — not a substitute for fundamental analysis, but a mandatory overlay on it.</p>
+<p>Use this checklist for any live position showing price weakness. Signals are classified across three categories. Count signals across categories — the more signals, and the more categories they span, the stronger the sell signal.</p>
+<h4 id="moving-average-collapse-sequence-watch-in-order">Moving Average Collapse Sequence (watch in order)</h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Signal</th>
+<th>Stage</th>
+<th>APM Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Price whipsaws around 50-day SMA (floor → centreline)</td>
+<td>Early Stage 3 warning</td>
+<td>Tighten stop to 20-day trail</td>
+</tr>
+<tr>
+<td>2</td>
+<td>50-day SMA flattens and curves down</td>
+<td>Stage 3 beginning</td>
+<td>Reduce position 25–50%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>50-day crosses below 150-day (bullish stack breaks)</td>
+<td>Stage 3 confirmed</td>
+<td>Exit or reduce to bench (3–5%)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>200-day SMA flattens</td>
+<td>Late Stage 3 — too late</td>
+<td>Should already be out</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do not wait for Step 4.</strong> By then, the majority of damage is done.</p>
+<h4 id="volume-distribution-signatures-watch-concurrently">Volume Distribution Signatures (watch concurrently)</h4>
+<ul>
+<li>Down days show above-average volume; up days below-average ← primary signal</li>
+<li>Heaviest-volume day is a down day ← institutional distribution</li>
+<li>Average volume rising while price flat ← accumulating supply pressure</li>
+<li>Rallies on declining volume ← no institutional sponsorship</li>
+<li>Volume climax on apparent good news ← institutions selling into retail buying</li>
+</ul>
+<p><strong>Practical rule:</strong> If 3+ of these are present simultaneously, the stock is distributing regardless of what the fundamentals appear to show.</p>
+<h4 id="price-behaviour-warning-signs">Price Behaviour Warning Signs</h4>
+<ul>
+<li>Expanding daily ranges, increasing gap-downs</li>
+<li>Failure to hold new highs (false breakouts / upthrusts)</li>
+<li>Lower highs within consolidation (rounding top structure)</li>
+<li>Bad closes dominating (stock selling off into close)</li>
+<li>Former support levels failing on retest</li>
+</ul>
+<h4 id="fundamental-signals-accompanying-stage-3-cross-reference-these">Fundamental Signals Accompanying Stage 3 (cross-reference these)</h4>
+<p>These often appear alongside — not before — the technical signals:
+- Earnings deceleration (still positive, but rate slowing)
+- Revenue misses with EPS beats (unsustainable cost-cutting)
+- Margin compression beginning
+- Estimate revisions flattening (sell-side catching up)
+- Insider selling increasing</p>
+<h4 id="signal-count-apm-response">Signal Count → APM Response</h4>
+<table>
+<thead>
+<tr>
+<th>Signals from 1 category</th>
+<th>Signals from 2+ categories</th>
+<th>APM Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2</td>
+<td>—</td>
+<td>Normal vigilance. Monitor daily.</td>
+</tr>
+<tr>
+<td>3–5</td>
+<td>Any</td>
+<td>Tighten stops to 20-day. Reduce size. Stop adding.</td>
+</tr>
+<tr>
+<td>6+</td>
+<td>3+ categories</td>
+<td>Exit into next available strength.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> These signals apply additively with fundamental deterioration signals. Technical + fundamental deterioration = highest urgency exit. Technical alone (strong fundamentals) = tighten and monitor, do not immediately exit. Fundamental alone (no technical signals) = standard 30-day shot clock applies.</p>
+<hr>
+<h3 id="base-counting-as-exit-risk-calibration">Base Counting as Exit Risk Calibration</h3>
+<p>The base count of a stock is the primary risk calibration tool for a live position. APM tracks base count at all times for portfolio positions.</p>
+<table>
+<thead>
+<tr>
+<th>Base count</th>
+<th>Risk level</th>
+<th>Position management</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st base</td>
+<td>Lowest risk</td>
+<td>Full position. Aggression warranted.</td>
+</tr>
+<tr>
+<td>2nd base</td>
+<td>Low risk</td>
+<td>Full position. Standard trailing stops.</td>
+</tr>
+<tr>
+<td>3rd base</td>
+<td>Inflection point</td>
+<td>Reduce 25–50%. Tighten stops. Stop adding. Flag to Richard.</td>
+</tr>
+<tr>
+<td>4th–5th base</td>
+<td>Highest risk</td>
+<td>Small tactical position only (50%+ cut). Very tight stops (3–5%). Quick exit mindset.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What a base is:</strong> A period of consolidation following an advance, during which the stock forms a new setup (ideally a VCP — contracting price range with declining volume). The count resets only if the stock undergoes a significant decline (Stage 4 territory) and then re-advances from a new Stage 1.</p>
+<p><strong>Why this matters for fundamental investors:</strong> Former leaders (stocks making 4th–5th bases) have a 50% probability of declining 80% from peak and 80% probability of declining 50%. The fundamental thesis may still look intact even as the stock tops. Base counting provides objective risk calibration that is independent of the fundamental view.</p>
+<p><strong>APM action at 3rd base:</strong> Proactively flag to Richard: "This stock is on its Xth base. Minervini base-count framework says reduce and tighten. Review thesis for any deterioration signals before adding."</p>
+<hr>
+<h3 id="stock-price-down-exit-fundamental-default">Stock Price Down ≠ Exit (Fundamental Default)</h3>
+<p>Exit triggers are FUNDAMENTAL FIRST, technical overlay second:
+- Driver deterioration
+- ACH breach
+- Cockroach pattern
+- Management change
+- Operator downgrade
+- <strong>OR</strong> Stage 3 technical signals accumulating (3+ from 2+ categories above)</p>
+<p>Stock down 15% but thesis intact and no Stage 3 signals? Hold or upsize.
+Stock down 15% with 4+ technical deterioration signals across 2+ categories? Escalate immediately — market is leading the fundamentals.</p>
+<h3 id="mediocre-quality-weak-inflection-sell">Mediocre Quality + Weak Inflection = SELL</h3>
+<p>Position scores 5.5-6/10 on quality and inflection, stock up 30% from entry.</p>
+<p>Action: SELL. Reallocate. Don't hold stretched "meh" positions.</p>
+<hr>
+<h2 id="portfolio-construction-rules">Portfolio Construction Rules</h2>
+<h3 id="monthly-review">Monthly Review</h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Target</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sector</td>
+<td>&lt;20%</td>
+<td>Trim if breached</td>
+</tr>
+<tr>
+<td>Thesis type</td>
+<td>&lt;30% (max 3)</td>
+<td>Reduce if breached</td>
+</tr>
+<tr>
+<td>Top 3</td>
+<td>40-50%</td>
+<td>Trim if &gt;55%</td>
+</tr>
+<tr>
+<td>Risk-on/off</td>
+<td>8/8 or 9/7</td>
+<td>Rebalance if breached</td>
+</tr>
+<tr>
+<td>Position size</td>
+<td>12-15% max</td>
+<td>Trim if &gt;15%</td>
+</tr>
+<tr>
+<td>Stage mix</td>
+<td>Diverse</td>
+<td>Check diversity</td>
+</tr>
+<tr>
+<td>Liquidity</td>
+<td>&gt;$1.5m ADV</td>
+<td>Flag &lt;$1.5m</td>
+</tr>
+<tr>
+<td>Geography</td>
+<td>&lt;40% per country</td>
+<td>Rebalance if breached</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quarterly-review">Quarterly Review</h3>
+<ul>
+<li>Stress test -20%, -40%, -60%</li>
+<li>Grace period positions: proving winners by month 4-6?</li>
+<li>Approaching 18-month alpha decay?</li>
+<li>Capital reallocation opportunities?</li>
+<li>Watchlist stepping readiness?</li>
+</ul>
+<h3 id="ballast-positions">Ballast Positions</h3>
+<p>Identify 2-3 high-quality compounders:
+- Lower beta (8-10% vol vs 15%+ rest)
+- Consistent earnings
+- Limited downside surprise
+- Hold 3-5 years without thinking</p>
+<hr>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

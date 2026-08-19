@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Investment System, Mapped — Investment System Library</title>
+<style>:root{--accent:#5a2f8f;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; This Session</div>
+  <h1 class="doc">The Investment System, Mapped</h1>
+  <p class="desc">Watson&#x27;s map of how the whole system fits together, the confusions found in the source documents, the decisions taken on 19-Aug-26, and what was considered and rejected.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>projects/ALL - Entire Investment System Mapped Out/system-map-and-session-record.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 19-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is <b>written by Watson</b>. It is not a conversion of an existing document. Read it as one view of the system, to be checked against the source documents in this library.
+</div></div>
+<div class="wrap">
+<div class="warn"><b>Note on this document.</b> Version 1, provisional. The section headed &#x27;My current reading of the shape&#x27; is Watson&#x27;s inference and has NOT yet been verified against the source documents. Version 2 replaces it once every claim has been checked.</div>
+<main>
+<h1 id="the-investment-system-mapped">The Investment System, Mapped</h1>
+<p><strong>Status: version 1, provisional.</strong> Written 19-Aug-26, <em>before</em> the deep reading pass.
+Everything in the section headed "My current reading of the shape" is <strong>Watson's inference and has
+not yet been verified against the source documents</strong>. It is published now, clearly labelled, so
+Richard can read the source documents alongside it while the verification work is done. Version 2
+will replace it once every claim has been checked against a named file.</p>
+<hr>
+<h2 id="why-this-exists">Why this exists</h2>
+<p>Richard asked one question: <em>"Explain the investment case framework so I understand how you think
+about it, and can assess how aligned we are."</em></p>
+<p>That question is not really a request for an explanation. It is a <strong>fidelity check</strong>. Richard has
+built a large body of investing doctrine into the COWORK folder over five months. A machine now
+reads that doctrine and produces analysis from it. If the machine's model of the system has drifted
+from Richard's own, then every memo, every rating and every park decision drifts with it, quietly
+and at scale.</p>
+<p>So the real purpose is: <strong>read the codified system back to Richard accurately enough that he can
+spot where it is wrong.</strong></p>
+<hr>
+<h2 id="what-this-session-set-out-to-do">What this session set out to do</h2>
+<p>Three things, in order.</p>
+<ol>
+<li><strong>Explain the investment case framework</strong> — what it is, how it decomposes, and how Watson holds
+   it in mind when analysing a stock</li>
+<li><strong>Explain the concept ladder</strong> — what is meant by investment philosophy, system, strategy,
+   approach, process and framework, where each is written down, and how they nest</li>
+<li><strong>Explain the linkage</strong> — how those concepts connect to the Investment Analyst role and to the
+   Analysis and Judgement memos, and where they do <em>not</em> connect</li>
+</ol>
+<hr>
+<h2 id="the-reading-library-built-first">The reading library, built first</h2>
+<p>Twenty-three source documents were converted to readable web pages and published together as the
+<strong>Investment System Library</strong>, so Richard can examine the system directly at source rather than
+through anyone's summary of it. Each page is an unedited conversion: nothing summarised, reordered
+or reworded.</p>
+<p>The library is grouped into four families plus this page:</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>What is in it</th>
+<th>In today's analysis?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Philosophy and Strategy</strong></td>
+<td>What Richard believes makes money, and what he therefore tries to own</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>The Investment Case Framework</strong></td>
+<td>The shape of a complete investment case: pillars, elements, questions</td>
+<td>Yes, this is the core</td>
+</tr>
+<tr>
+<td><strong>Process and the Analyst Role</strong></td>
+<td>How a stock travels from idea to decision, and who does what</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Portfolio and Position Management</strong></td>
+<td>Sizing, stops, exits, live monitoring, risk</td>
+<td><strong>No.</strong> Published to be read, deliberately outside today's scope</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="my-current-reading-of-the-shape">My current reading of the shape</h2>
+<p><strong>This is the part to attack.</strong> It is Watson's inference from a first pass, not established fact.</p>
+<svg width="900" height="620" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="display:block;max-width:100%;height:auto;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a8ab5"/>
+    </marker>
+  </defs>
+  <rect x="30" y="20" width="640" height="62" rx="8" fill="#f3eefb" stroke="#6b3fa0" stroke-width="1.6"/>
+  <text x="46" y="44" font-size="13" font-weight="700" fill="#4a2a70">WHY &#183; The three perpetual goals</text>
+  <text x="46" y="64" font-size="11.5" fill="#5f5b6b">Outlier returns &#183; elite execution of the process &#183; a viable solo operation</text>
+  <text x="690" y="56" font-size="10.5" fill="#8d879b">investing-system</text>
+
+  <rect x="30" y="102" width="640" height="62" rx="8" fill="#f6f2fc" stroke="#7b52b0" stroke-width="1.6"/>
+  <text x="46" y="126" font-size="13" font-weight="700" fill="#4a2a70">BELIEF &#183; Philosophy</text>
+  <text x="46" y="146" font-size="11.5" fill="#5f5b6b">Four patterns &#183; right to left from earnings &#183; disprove, do not prove</text>
+  <text x="690" y="138" font-size="10.5" fill="#8d879b">investment-philosophy</text>
+
+  <rect x="30" y="184" width="640" height="62" rx="8" fill="#f8f5fd" stroke="#8a66bd" stroke-width="1.6"/>
+  <text x="46" y="208" font-size="13" font-weight="700" fill="#4a2a70">WHAT &#183; Strategy</text>
+  <text x="46" y="228" font-size="11.5" fill="#5f5b6b">Quality plus inflection &#183; acceptable setups &#183; the conviction bar &#183; fragilities</text>
+  <text x="690" y="220" font-size="10.5" fill="#8d879b">investment-strategy</text>
+
+  <rect x="30" y="266" width="640" height="104" rx="8" fill="#fff8e6" stroke="#d99b1c" stroke-width="2"/>
+  <text x="46" y="290" font-size="13" font-weight="700" fill="#6a4c05">SHAPE &#183; What a complete investment case IS</text>
+  <text x="46" y="311" font-size="11.5" fill="#6a4c05">Richard&#8217;s ruling, 19-Aug-26: this means the memo architecture.</text>
+  <text x="46" y="330" font-size="11.5" font-weight="600" fill="#6a4c05">Three Pillars &#183; eight Groups &#183; Elements E1 to E32</text>
+  <text x="46" y="352" font-size="11" fill="#8a6a1a">Two other &#8220;pillar&#8221; structures also exist in the files. See the confusions section.</text>
+  <text x="690" y="322" font-size="10.5" fill="#8d879b">case framework</text>
+
+  <rect x="30" y="390" width="640" height="62" rx="8" fill="#f8f5fd" stroke="#8a66bd" stroke-width="1.6"/>
+  <text x="46" y="414" font-size="13" font-weight="700" fill="#4a2a70">HOW &#183; Process</text>
+  <text x="46" y="434" font-size="11.5" fill="#5f5b6b">Ideas Generation &#8594; Triaging &#8594; Early-Stage Assessment &#8594; Deep Dive &#8594; Live</text>
+  <text x="690" y="426" font-size="10.5" fill="#8d879b">investment-process</text>
+
+  <rect x="30" y="472" width="640" height="62" rx="8" fill="#f6f2fc" stroke="#7b52b0" stroke-width="1.6"/>
+  <text x="46" y="496" font-size="13" font-weight="700" fill="#4a2a70">WHO &#183; Roles</text>
+  <text x="46" y="516" font-size="11.5" fill="#5f5b6b">Researcher &#8594; Analyst recommends &#8594; Portfolio Manager decides portfolio &#8594; Richard decides capital</text>
+  <text x="690" y="508" font-size="10.5" fill="#8d879b">role manuals</text>
+
+  <rect x="30" y="554" width="640" height="46" rx="8" fill="#f3eefb" stroke="#6b3fa0" stroke-width="1.6"/>
+  <text x="46" y="574" font-size="13" font-weight="700" fill="#4a2a70">OUTPUT &#183; One memo per stock per stage</text>
+  <text x="46" y="592" font-size="11.5" fill="#5f5b6b">Sections A to F &#183; six top-of-memo ratings &#183; each stage builds on the last</text>
+
+  <path d="M350,82 L350,102" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M350,164 L350,184" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M350,246 L350,266" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M350,370 L350,390" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M350,452 L350,472" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+  <path d="M350,534 L350,554" stroke="#9a8ab5" stroke-width="1.6" marker-end="url(#ar)"/>
+</svg>
+<p><strong>How to read that stack.</strong> Each layer answers a different question, and each one constrains the
+layer below it. The perpetual goals say what winning looks like. The philosophy says what kind of
+thing tends to win. The strategy says which specific things to go after. The case framework says
+what a finished argument for one of those things has to contain. The process says how you build
+that argument in stages. The roles say who does which part. The memo is what falls out at the end.</p>
+<p><strong>The load-bearing claim, and the one most worth challenging:</strong> the case framework is the hinge.
+Everything above it is belief; everything below it is machinery. If the framework is right, the
+machinery produces good analysis. If it is wrong, the machinery produces confident, well-formatted,
+wrong analysis.</p>
+<hr>
+<h2 id="the-confusions-found-so-far">The confusions found so far</h2>
+<p>Richard's instruction was to <strong>name confusions clearly, not to fix them today</strong>. Six are recorded.
+Each was found by reading the files this session, not inferred.</p>
+<h3 id="1-the-word-pillar-carries-four-different-meanings">1. The word "pillar" carries four different meanings</h3>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>Structure</th>
+<th>What it organises</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The memo architecture</td>
+<td><strong>Three</strong> Pillars</td>
+<td>Change, Building Blocks, Live-monitoring components</td>
+</tr>
+<tr>
+<td>The dashboards and ratings</td>
+<td><strong>Six</strong> Pillars</td>
+<td>The six top-level ratings for a stock</td>
+</tr>
+<tr>
+<td>The strategy document</td>
+<td><strong>Four</strong> Pillars</td>
+<td>What makes a great investment, setups, predictability, operator quality</td>
+</tr>
+<tr>
+<td>The case playbook</td>
+<td><strong>Four</strong> pillars again, different content</td>
+<td>Foundations, change forces, outputs, case</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why it matters.</strong> Four structures share one word. Two people can agree entirely about "the
+pillars" and mean different things.</p>
+<p><strong>Richard's ruling, 19-Aug-26.</strong> The six-rating framework is to be renamed <strong>the Six Master Ratings
+of Capital Deployment Worthiness</strong>, because that name says without ambiguity what the thing is for.
+The rename is agreed in principle and scheduled, not yet executed.</p>
+<h3 id="2-the-link-between-the-frameworks-is-one-line-long">2. The link between the frameworks is one line long</h3>
+<p>Only one connection between the three-pillar memo architecture and the six ratings is written down
+anywhere: the memo's third rating is the same thing as the second of the six ratings, locked
+09-Jul-26. Three of the six ratings have <strong>no written mapping at all</strong> to the memo architecture.</p>
+<h3 id="3-five-framework-gaps-have-been-open-since-30-jul-26">3. Five framework gaps have been open since 30-Jul-26</h3>
+<p>The question bank states of itself that it is not complete. Three elements carry unanswered
+placeholders, one element's ten invalidation thresholds were never written into it, and one
+structural split was Watson's editorial decision awaiting Richard's ruling. These are elements the
+machine grades every week.</p>
+<h3 id="4-a-possibly-stale-machinery-layer">4. A possibly stale machinery layer</h3>
+<p>Two documents describe a set of twenty-six portfolio-manager deliverables per stock per stage, plus
+a ratings database, as the live machinery. That description dates from 15-Apr-26. The memo system
+dated 13-May-26 appears to have taken over memo authoring. Whether the older machinery is retired,
+running in parallel, or folded in <strong>is not recorded anywhere Watson has found</strong>. This is flagged for
+verification, not asserted.</p>
+<h3 id="5-a-document-that-contradicts-itself-in-its-first-two-lines">5. A document that contradicts itself in its first two lines</h3>
+<p>The process document is titled "5-Stage Research Funnel" and its overview paragraph immediately
+below begins "Four stages". The renumbering note at the top explains why: it was renumbered on
+29-Jul-26 and the overview line was not updated with it.</p>
+<h3 id="6-numbers-that-differ-between-files">6. Numbers that differ between files</h3>
+<p>Portfolio size appears as twelve to twenty, sixteen fixed, eight to ten core, and five to fifteen.
+Minimum daily liquidity appears as five million dollars in two files and ten million in two others.
+Minimum company size appears as one and a half billion of market value in one place and a five
+billion sweet-spot floor in another. Individually minor. In aggregate, a screen built from the wrong
+file returns a different universe.</p>
+<hr>
+<h2 id="what-we-decided-today">What we decided today</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>The <strong>investment case framework</strong> means the memo architecture: three Pillars, Elements E1 to E32. Not the six ratings</td>
+<td>Richard's ruling. He holds a reason he will explain at the appropriate point</td>
+</tr>
+<tr>
+<td>D2</td>
+<td><strong>Mirror the doctrine first, critique second, fix nothing today</strong></td>
+<td>Richard cannot assess alignment against a picture Watson has already tidied</td>
+</tr>
+<tr>
+<td>D3</td>
+<td><strong>Explain at a high to medium level first</strong>, going deeper by conversation</td>
+<td>Avoids tunnelling into one part of a large system too early</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>The six-rating framework is renamed <strong>the Six Master Ratings of Capital Deployment Worthiness</strong>, in due course</td>
+<td>The old name is ambiguous against the other three uses of "pillar"</td>
+</tr>
+<tr>
+<td>D5</td>
+<td><strong>Build the reading library before the analysis</strong></td>
+<td>Richard reads source material while Watson works. Removes a serial dependency</td>
+</tr>
+<tr>
+<td>D6</td>
+<td><strong>Every document Watson reads is disclosed</strong>, with a full reading list at the end of the write-up</td>
+<td>Alignment is impossible if the evidence base is hidden</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>Portfolio and position management are <strong>published but excluded from the analysis</strong></td>
+<td>Real material, different subject. Reading it does not require analysing it today</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>Landing-page boxes carry <strong>plain-English names</strong>; internal filenames appear only in small print</td>
+<td>Richard, verbatim: the existing filenames are "incredibly confusing"</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>Watson decides execution questions alone from this point</td>
+<td>Richard: involve him only on strategic, goal or outcome decisions, or on execution that is material, risky, costly or complex</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="what-we-considered-and-rejected">What we considered and rejected</h2>
+<p>Recorded so a later session does not re-propose them.</p>
+<ul>
+<li><strong>Explaining the six-rating framework as a sibling of the memo architecture.</strong> Rejected by
+  Richard. It appears only in the confusions section</li>
+<li><strong>Fixing the pillar-naming ambiguity today.</strong> Rejected as too distracting from the core goal.
+  Noted for a future session</li>
+<li><strong>A single hub box on the landing page opening a library index.</strong> Tidier, fewer boxes, but puts
+  the documents one extra click further away. Rejected in favour of one box per document</li>
+<li><strong>Element-by-element explanation in the main write-up.</strong> Roughly fifteen thousand words. Rejected:
+  that is a reference document, not an explanation</li>
+<li><strong>Watson's own inferred mapping between the two frameworks.</strong> Watson formed a hypothesis on a
+  first pass. Deliberately not published as doctrine, because an inference presented as a fact is
+  exactly the failure this session exists to catch</li>
+<li><strong>Including the writing and presentation standards in the library.</strong> Excluded as out of subject</li>
+<li><strong>Extending the existing framework-visualisation project rather than opening a new one.</strong> Rejected
+  by Richard in favour of a new project</li>
+</ul>
+<hr>
+<h2 id="risks-carried-into-the-next-pass">Risks carried into the next pass</h2>
+<ul>
+<li><strong>Manufactured coherence.</strong> The strongest temptation is to present a tidy unified framework that
+  is partly Watson's own tidying-up. That would look like alignment and be misalignment. Every claim
+  in version 2 must name the file it came from</li>
+<li><strong>Recency bias.</strong> The newest file is not automatically the live one. Confusion 4 above is exactly
+  this risk</li>
+<li><strong>Watson auditing its own model using its own reading.</strong> A deliberately hostile pass is required
+  before version 2, not optional</li>
+<li><strong>Volume.</strong> A faithful explanation could run long enough to be unreadable. Compression is where
+  fidelity dies, so the answer is layering, not cutting</li>
+</ul>
+<hr>
+<h2 id="still-open">Still open</h2>
+<ul>
+<li>Verification of every claim in "My current reading of the shape"</li>
+<li>Whether the twenty-six portfolio-manager deliverables are live, retired or folded in</li>
+<li>Whether the stage-progression procedure ever left its trial period</li>
+<li>The five framework gaps, open since 30-Jul-26</li>
+<li>Execution of the rename agreed in D4</li>
+<li>Whether the pillar-naming ambiguity gets cleaned up, and when</li>
+</ul>
+<hr>
+<p><em>Version 1, 19-Aug-26. Provisional and unverified. Project record:
+<code>COWORK/projects/ALL - Entire Investment System Mapped Out/</code>.</em></p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

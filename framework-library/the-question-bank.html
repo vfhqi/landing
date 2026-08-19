@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Question Bank — Investment System Library</title>
+<style>:root{--accent:#7b52b0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; The Investment Case Framework</div>
+  <h1 class="doc">The Question Bank</h1>
+  <p class="desc">Every element with its required attributes and its core questions: roughly 60 attributes and 170 questions across 19 elements.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/briefing/04-elements-with-RAs-and-CQs-integrated.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 17-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+<div class="warn"><b>Note on this document.</b> This file states of itself: do not treat it as complete. Five gaps flagged on 30-Jul-26 are still open and awaiting Richard&#x27;s answers.</div>
+<main>
+<h1 id="required-attributes-and-core-questions-integrated-under-the-new-framework-elements">Required Attributes and Core Questions, integrated under the new-framework Elements</h1>
+<p><strong>Date:</strong> 13-May-26
+<strong>Source for old Required Attributes + Core Questions:</strong> <code>databases/pillar-tree-canonical.json</code> (sourced from "For Watson - Families - 29-Apr.xlsx" NEW tab, last updated 29-Apr-26). This is the canonical source that informed the HTRO mockup at <code>https://vfhqi.github.io/ratings/memo-style-sheet3-htro.html?v=20</code>.
+<strong>Mapping approach:</strong> Content-based, not number-based. Every Required Attribute and every Core Question from the old framework is lifted into the matching new-framework Element. Old family identifiers (IC#1, IC#2, IC#3, BB#1-BB#9) noted in brackets for traceability. Nothing else from the old material is lifted.</p>
+<p><strong>Mapping retrospectively signed off by Richard, 30-Jul-26 (ruling 14). The five gaps flagged at the foot of this file remain OPEN as Richard's unfinished answers (ruling 13) — do not treat this file as complete.</strong></p>
+<hr>
+<h2 id="the-mapping-at-a-glance">The mapping at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>New-framework Element</th>
+<th>Old family source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E1</strong> Required input change forces</td>
+<td>IC#2 Required Case INPUTS</td>
+</tr>
+<tr>
+<td><strong>E2</strong> Required case outputs</td>
+<td>IC#1 Required Case OUTPUTS (most)</td>
+</tr>
+<tr>
+<td><strong>E3</strong> Sufficient TSR / valuation upside</td>
+<td>IC#1 Required Case OUTPUTS (TC5 Limited drawdown risk — Bankable multiple)</td>
+</tr>
+<tr>
+<td><strong>E4</strong> Technical momentum</td>
+<td>BB#7 Technical Momentum (content TBD in old source)</td>
+</tr>
+<tr>
+<td><strong>E5</strong> Thematic fit</td>
+<td>BB#3 Fit for Market Paradigm + BB#2 TC6 Paradigm fit</td>
+</tr>
+<tr>
+<td><strong>E6</strong> Sell-side earnings momentum</td>
+<td>BB#4 Strong Sell-Side Earnings Momentum</td>
+</tr>
+<tr>
+<td><strong>E7</strong> Required case simplicity guardrails</td>
+<td>BB#1 Required Case Simplicity Guardrails</td>
+</tr>
+<tr>
+<td><strong>E8</strong> Fit with acceptable case setups</td>
+<td>IC#3 Required Case SETUPS (the 6 setups + 2 negative guardrails)</td>
+</tr>
+<tr>
+<td><strong>E9</strong> Great operator</td>
+<td>BB#2 TC1 Great operator</td>
+</tr>
+<tr>
+<td><strong>E10</strong> Advantaged business + widening competitive advantage</td>
+<td>BB#2 TC2 Advantaged business + widening SRCA</td>
+</tr>
+<tr>
+<td><strong>E11</strong> Value-chain dynamics</td>
+<td>BB#2 TC3 Favourable and improving value chain dynamics</td>
+</tr>
+<tr>
+<td><strong>E12</strong> Supportive industry structure</td>
+<td>BB#2 TC4 Supportive / concentrated industry structure</td>
+</tr>
+<tr>
+<td><strong>E13</strong> High secular growth potential</td>
+<td>BB#2 TC5 High secular / long-term growth potential</td>
+</tr>
+<tr>
+<td><strong>E15</strong> Invalidating attributes</td>
+<td>BB#6 Invalidating Attributes</td>
+</tr>
+<tr>
+<td><strong>E16</strong> Strenuously seek-to-avoid attributes</td>
+<td>BB#8 Strenuously Seek-to-Avoid Attributes</td>
+</tr>
+<tr>
+<td><strong>E17</strong> Capital-constraining attributes</td>
+<td>BB#5 AUM-Constraining Attributes</td>
+</tr>
+<tr>
+<td><strong>E18</strong> Clear transmission mechanism (inputs to EPS)</td>
+<td>IC#1 TC3 Sufficient case navigatability + BB#1 TC6 Clear CEO transmission mechanism</td>
+</tr>
+<tr>
+<td><strong>E19</strong> Monitorable transmission mechanism (LTIs to EPS)</td>
+<td>IC#1 TC3 Sufficient case navigatability + BB#1 TC7 Clear TI transmission mechanism</td>
+</tr>
+<tr>
+<td><strong>E20</strong> Nice-to-have attributes</td>
+<td>BB#9 Nice to Have Attributes</td>
+</tr>
+</tbody>
+</table>
+<p>Where an old family maps to <strong>more than one</strong> new Element (e.g. IC#1 splits across E2 and E3, BB#2 splits across E9–E13), the Required Attributes have been split by content. Where two old sources both contribute to one new Element (e.g. E5 draws from BB#3 + BB#2 TC6), they are merged.</p>
+<hr>
+<h2 id="pillar-i-case-change-elements">PILLAR I — Case CHANGE elements</h2>
+<h3 id="e1-required-input-change-forces-internal-external">E1 — Required input change forces (internal / external)</h3>
+<p><em>Lifted from IC#2 Required Case INPUTS.</em></p>
+<p><strong>RA1 [from IC#2 TC1] — Change forces?</strong>
+- CQ1: Strong external change forces / tailwinds?
+- CQ2: Strong internal change forces?</p>
+<p><strong>RA2 [from IC#2 TC2] — Robust base?</strong>
+- CQ1: Absence of external headwinds?
+- CQ2: Well-invested base?
+- CQ3: Past/present fundamental delivery congruency with thesis?
+- CQ4: Large change-from-current / mispricing?
+- CQ5: Low trading multiple?</p>
+<hr>
+<h3 id="e2-required-case-outputs-financial-improvement-not-just-qualitative-narrative">E2 — Required case outputs (financial improvement, not just qualitative narrative)</h3>
+<p><em>Lifted from IC#1 Required Case OUTPUTS, TC1 + TC4 (the OUTPUTS-focused content).</em></p>
+<p><strong>RA1 [from IC#1 TC1 / RA1] — Longevity?</strong>
+- CQ1: Three-year, mid-term, triple ratchet step-up?</p>
+<p><strong>RA2 [from IC#1 TC1 / RA2] — Growth rate?</strong>
+- CQ1: 12-20% EPS growth per annum?</p>
+<p><strong>RA3 [from IC#1 TC1 / RA3] — Improving financials?</strong>
+- CQ1: Margin / growth step-up?</p>
+<p><strong>RA4 [from IC#1 TC4 / RA7] — Earnings upgrades?</strong>
+- CQ1: Modal case 18M EPS greater than guidance greater than sell-side?
+- CQ2: 3:1 sell-side / guidance EPS raise-to-lower skew at next financial year?</p>
+<hr>
+<h3 id="e3-sufficient-total-shareholder-return-valuation-upside">E3 — Sufficient total-shareholder-return / valuation upside</h3>
+<p><em>Lifted from IC#1 Required Case OUTPUTS, TC5 Limited drawdown risk.</em></p>
+<p><strong>RA1 [from IC#1 TC5 / RA8] — Bankable multiple?</strong>
+- CQ1: Multiple more company-driven than exogenously-driven?
+- CQ2: More than 20% 3-year total-shareholder-return?</p>
+<hr>
+<h2 id="pillar-ii-case-building-blocks">PILLAR II — Case BUILDING BLOCKS</h2>
+<h3 id="group-1-case-momentum">Group 1 — Case momentum</h3>
+<h4 id="e4-technical-momentum">E4 — Technical momentum</h4>
+<p><em>Lifted from BB#7 Technical Momentum. Note: old source has Required Attribute and Core Question content marked TBD — this is a known gap in the canonical pillar tree. The substantive content for technical momentum is captured elsewhere in the system (Master Dashboard 11-test, MM99 score, RS excess returns, MA levels) but is NOT formalised as RAs+CQs in the old framework. Watson flag: this Element will need RAs+CQs authored fresh, or the master-dashboard technical fields used directly as the "questions answered" content.</em></p>
+<p><strong>RA1 [from BB#7 RA1] — TBD</strong>
+- CQ1: TBD</p>
+<p><strong>RA2 [from BB#7 RA2] — TBD</strong>
+- CQ2: TBD</p>
+<p><strong>RA3 [from BB#7 RA3] — TBD</strong>
+- CQ3: TBD</p>
+<hr>
+<h4 id="e5-thematic-fit-or-inverse-fit-with-thematic-momentum">E5 — Thematic fit (or inverse fit with thematic momentum)</h4>
+<p><em>Lifted from BB#3 Fit for Market Paradigm PLUS BB#2 TC6 Fit with stock market paradigm.</em></p>
+<p><strong>RA1 [from BB#3 RA1] — Suitability for bear market / economic downturn</strong>
+- CQ1: TBD (placeholder in old source)</p>
+<p><strong>RA2 [from BB#3 RA2] — Suitability for AI disruption</strong>
+- CQ1: TBD (placeholder in old source)</p>
+<p><strong>RA3 [from BB#3 RA3] — Suitability for Iran oil-price induced input cost inflation or demand deterioration</strong>
+- CQ1: TBD (placeholder in old source)</p>
+<p><strong>RA4 [from BB#2 TC6 / RA19] — Summarise paradigm fit from a business (not just investment case) perspective</strong>
+- CQ1: Summarise answer given to that Pillar in C.II.3</p>
+<p><em>Watson flag: BB#3 also has TBD content for its Core Questions in the old canonical source. The live operating reference for which paradigms are in force is <code>memory/thematics/active.md</code>. (Path corrected 31-Jul-26; the previous path <code>memory/context/active-thematics.md</code> does not exist.) </em><em>Correction 2026-08-07:</em><em> the file is LIVE, not paused — the 31-Jul-26 pause note above was itself already stale by the time it was written into this briefing, and this exact sentence, copied verbatim into every Triaging <code>elements-briefing-scoped.md</code> slice and every ESA/DD full-briefing load, caused a batch-wide defect: 48 memos asserted a false pause against sidecars that correctly read <code>thematics_status: fresh</code>, 21 published uncaught. Do NOT state a fixed "stale-frame caveat" here — read the ticker's own sidecar <code>thematics_status</code>/<code>thematics_decision</code>/<code>thematics_note</code> fields (or <code>memory/thematics/active.md</code>'s own header) at the time of grading, and state whatever that says. <code>active.md</code> was substantively rebuilt 3-Aug-26 (Thematic 4 added; Thematics 1-3 explicitly marked carried-forward-not-re-reviewed, which is a currency caveat on THOSE three thematics specifically, not a pause on the file).</em></p>
+<hr>
+<h4 id="e6-strong-improving-sell-side-earnings-momentum">E6 — Strong / improving sell-side earnings momentum</h4>
+<p><em>Lifted from BB#4 Strong Sell-Side Earnings Momentum.</em></p>
+<p><strong>RA1 [from BB#4 TC1 / RA1] — Sell-side earnings momentum direction and magnitude</strong>
+- CQ1: EPS change
+- CQ2: EBITDA change
+- CQ3: Revenue change
+- CQ4: Price target change
+- CQ5: Percentage of "buy" rating change</p>
+<hr>
+<h3 id="group-2-case-simplicity">Group 2 — Case simplicity</h3>
+<h4 id="e7-required-case-simplicity-guardrails">E7 — Required case simplicity guardrails</h4>
+<p><em>Lifted from BB#1 Required Case Simplicity Guardrails.</em></p>
+<p><strong>RA1 [from BB#1 TC1] — Focused bet?</strong>
+- CQ1: 2 or less fulcrum drivers AND 4 or less key drivers?</p>
+<p><strong>RA2 [from BB#1 TC2] — Narrow perimeter?</strong>
+- CQ1: 10 or less geographies and / or business units?</p>
+<p><strong>RA3 [from BB#1 TC3] — Zero headwinds?</strong>
+- CQ1: Zero value-chain headwind risks to revenue?</p>
+<p><strong>RA4 [from BB#1 TC4] — Handful of change-from-current items?</strong>
+- CQ1: 2 or less change-from-current items or problems?</p>
+<p><strong>RA5 [from BB#1 TC5] — Conservative investor relations?</strong>
+- CQ1: Company confirms guidance is conservative?</p>
+<p><em>Note: BB#1 TC6 "Clear CEO transmission mechanism" and TC7 "Clear TI transmission mechanism" are NOT included here — they map to E18 and E19 respectively. See those Elements below.</em></p>
+<hr>
+<h4 id="e8-fit-with-acceptable-case-setups">E8 — Fit with acceptable case setups</h4>
+<p><em>Lifted from IC#3 Required Case SETUPS. This is the full six-setup taxonomy plus the two negative guardrails (unacceptable and false-friend setups).</em></p>
+<p><strong>RA1 [from IC#3 TC1] — Mis-modelled, high-quality EPS upgrader?</strong></p>
+<p><strong>WHAT THIS SETUP IS.</strong> The first of the six acceptable case setups. It has <strong>two conditions
+that must BOTH hold</strong>, and the common failure is grading on one of them alone.</p>
+<ol>
+<li><strong>MIS-MODELLED.</strong> The market's forward earnings model is wrong, and wrong in a knowable,
+   nameable way. Not "the market is too pessimistic" as a mood, but a specific line the
+   consensus model gets wrong: a mix shift it has not built in, a cost programme it has not
+   credited, an under-promising management whose guidance it takes at face value, a segment
+   it aggregates away. <strong>Name the line and say why consensus has it wrong.</strong></li>
+<li><strong>HIGH-QUALITY.</strong> The business clears Richard's quality bar on its own terms, stated
+   verbatim in <code>AI Prompts/investment-philosophy.md</code> and <code>memory/context/investment-strategy.md</code>
+   as three dimensions: <strong>right direction</strong> (big ambition, great strategy with growth as the
+   priority, dynamic strategy across environments); <strong>right resources</strong> (great chief executive
+   measured via action, hiring as top priority, well-resourced and well-invested business,
+   holistic congruent culture, conservative guidance, clear communication); <strong>right record,
+   action and behaviour</strong> (high return on newly invested capital, acts rather than talks,
+   outlier standards, shareholders first, dynamic buybacks, prudent governance).</li>
+</ol>
+<p><strong>WHAT THIS SETUP IS NOT.</strong> <em>(Written because the measured D/F rate of 52.9% suggests
+over-firing on the same class of confusion that broke RA8.)</em>
+- <strong>A cheap stock is not a mis-modelled one.</strong> A low multiple is the market's PRICE, not its
+  MODEL. Mis-modelling is about the earnings forecast being wrong, not the rating being low.
+- <strong>A well-covered stock is not automatically excluded.</strong> Heavy analyst coverage lowers the
+  prior on mis-modelling and is worth stating, but coverage count is not itself the test —
+  several memos graded D on analyst count alone, which is evidence, not a verdict.
+- <strong>Negative near-term revisions do not settle it.</strong> The setup is about where earnings GO,
+  not where the last revision went. A negative revision cycle in a business that is
+  structurally under-modelled is the setup, not its refutation.
+- <strong>A high-quality business that is correctly modelled is a C, not a D.</strong> It simply is not
+  this setup. Reserve D and F for a case that fails the QUALITY bar, since that is the
+  condition Richard will not compromise on.</p>
+<p><strong>WHERE A NON-FITTING FINDING MUST GO INSTEAD.</strong> Do not suppress it; route it and say so here.</p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Owning home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demand-driven upgrade rather than a modelling error</td>
+<td><strong>Element E8 RA2 — Big demand change-driven earnings upgrade</strong></td>
+</tr>
+<tr>
+<td>Corporate-action-driven upgrade (guidance, buyback, disposal, new chief executive)</td>
+<td><strong>Element E8 RA3 — Strong corporate change driven upgrade</strong></td>
+</tr>
+<tr>
+<td>Cheap multiple attached to deteriorating fundamentals</td>
+<td><strong>Element E1 RA2 — Robust base?</strong></td>
+</tr>
+<tr>
+<td>Quality doubts about accounting, cash conversion or the earnings base</td>
+<td><strong>Element E1 RA2 — Robust base?</strong></td>
+</tr>
+<tr>
+<td>Transmission mechanism cannot be traced at all</td>
+<td><strong>Element E8 RA8 — False friend guardrail</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>CORE QUESTIONS.</strong> Both are mandatory; CQ1 is the mis-modelling test, CQ2 the quality gate.</p>
+<ul>
+<li>CQ1: <strong>Is this a high-quality business whose forward earnings the market is demonstrably
+  mis-modelling?</strong> Name the specific line consensus has wrong and the evidence that it is
+  wrong. <strong>"Consensus looks low" without a named mechanism is not a pass.</strong></li>
+<li>CQ2: <strong>Is consensus demonstrably too low, and is the business high-quality on Richard's
+  three dimensions?</strong> State the direction of recent revisions, and grade quality against
+  right direction / right resources / right record explicitly. <strong>Both halves must hold: a
+  mis-modelled low-quality business fails this Required Attribute and belongs elsewhere.</strong></li>
+</ul>
+<p><strong>GRADE ANCHORS.</strong> <strong>A</strong> — both conditions plainly hold, the mis-modelled line is named and
+evidenced, quality is unambiguous. <strong>B</strong> — both hold, one with less evidence. <strong>C</strong> — one
+condition holds cleanly and the other is partial or unproven; also the correct grade for a
+high-quality business that is simply modelled correctly. <strong>D</strong> — the quality bar fails, or
+neither condition is evidenced. <strong>F</strong> — the premise is contradicted (consensus is demonstrably
+too HIGH, or quality fails on multiple dimensions).</p>
+<p><strong>RA2 [from IC#3 TC2] — Big demand change-driven EPSU or EPT?</strong>
+- CQ1: Is there a market-wide demand explosion?
+- CQ2: Does the company hold a dominant competitive position?
+- CQ3: Is the business model one-to-many scalable?
+- CQ4: Is the market an oligopoly (structure AND behaviour)?
+- CQ5: Is there fixed cost leverage for margin expansion?</p>
+<p><strong>RA3 [from IC#3 TC3] — Strong corporate change driven EPSU / EPT?</strong>
+- CQ1: 1 ∆ = Financial guidance increase?
+- CQ2: 2 ∆ = Shareholder returns increase?
+- CQ3: 3 ∆ = Balance sheet utilisation increase?
+- CQ4: 4 ∆ = Perimeter / composition reduction?
+- CQ5: 5 ∆ = Strategically-sensible mergers and acquisitions step-up?
+- CQ6: 6 ∆ = Strategy / strategic priorities change?
+- CQ7: 7 ∆ = Standards improvement?
+- CQ8: 8 ∆ = Other leadership / actor changes?
+- CQ9: 9 ∆ = CEO change?</p>
+<p><strong>RA4 [from IC#3 TC4] — Change-from-current clearing in a high-quality compounder?</strong>
+- CQ1: 1. Change-from-current = Internal — at-the-moment — No CEO?
+- CQ2: 2. Change-from-current = Internal — at-the-moment — Strategy vacuum?
+- CQ3: 3. Change-from-current = Internal — at-the-moment — Investment phase (near-term financials down, mid-term financials up)
+- CQ4: 4. Change-from-current = Internal — at-the-moment — Guidance for mid-term? (might be up — to be determined)
+- CQ5: 5. Change-from-current = Internal — at-the-moment — Company mis-execution (e.g. products) = guidance delivery risk (and weirder / cockroach) down
+- CQ6: 6. Change-from-current = External — at-the-moment — Market-level demand down
+- CQ7: 7. Change-from-current = External — at-the-moment — Competition down (at-the-moment pricing, mid-term sustainable relative competitive advantage)
+- CQ8: 8. Change-from-current = External — mid-term / long-term — Disruption to earnings growth profile / investment case bankability down
+- CQ9: 9. High quality business on mid-term / long-term basis</p>
+<p><strong>RA5 [from IC#3 TC4 / RA5] — Huge change-from-current clearing event in solid quality?</strong>
+- CQ1: 1. Bottom quartile trading multiple (2 years forward normalised margins)?
+- CQ2: 2. Sell-side estimates cut deeply / fully across all sell-side analysts, to conservative levels?
+- CQ3: 3. Company numerical guidance rebased lower, ideally kitchen-sinked?
+- CQ4: 4. Disruptive impact on day-to-day operations / revenue in last twelve months delivery, modal forecasts, guidance, sell-side? (Cockroach / Weirder)
+- CQ5: 5. "You know" and "puking / sadness" check re. guidance, sell-side, share price? (If not, decision-king-farfalle not occurred yet)</p>
+<p><strong>RA6 [from IC#3 TC5] — Trough-on-trough turn in solid quality cyclical?</strong>
+- CQ1: 1. Bottom quartile trading multiple (2 years forward normalised margins)?
+- CQ2: 2. End market demand decreased for 18 months or more?
+- CQ3: 3. Competitive behaviour calmed versus price-down for volume gain?
+- CQ4: 4. New contract pricing levels now stable?
+- CQ5: 5. Company has executed right-sizing programme for last 6 months or more?
+- CQ6: 6. Competitors / substitutes have retrenched and executed right-sizing programme for last 6 months or more?
+- CQ7: 7. Sell-side estimates cut deeply / fully across all sell-side analysts, to conservative levels?
+- CQ8: 8. Company guidance rebased lower, ideally kitchen-sinked?
+- CQ9: 9. "You know" and "puking / sadness" check re. guidance, sell-side, share price? (If not, decision-king-farfalle not occurred yet)</p>
+<p><strong>RA7 [from IC#3 TC6] — Fit with unacceptable case setups? [NEGATIVE GUARDRAIL]</strong>
+- CQ1: TBD (placeholder in old source)</p>
+<p><strong>RA8 [from IC#3 TC7] — Fit with false friend case setups? [NEGATIVE GUARDRAIL]</strong></p>
+<p><strong>WHAT A FALSE FRIEND IS.</strong> Richard's definition, verbatim from <code>memory/context/investment-strategy.md</code>
+Pillar 2: a setup that looks good but has structural flaws, whose <strong>defining characteristic is zero
+clarity of the transmission mechanism from company actions to earnings per share.</strong> His test: <em>"if
+Richard cannot clearly explain how strategy translates into financial outputs — and predict what
+tracking data will look like quarter by quarter — it's a false friend."</em> Named historical examples:
+<strong>HBX</strong> (no clarity of tracking inputs to earnings), <strong>Adevinta</strong> (no "soul"), <strong>S4</strong> (egotism in
+communication), <strong>Nexi</strong> (deep value but defensive strategy only). Plus <strong>"Pret sandwich risk"</strong> —
+nothing individually offensive, the collection fatal.</p>
+<p><strong>WHAT A FALSE FRIEND IS NOT. This is the load-bearing correction and it is where the guardrail has
+been over-firing.</strong> A weak business is not a false friend. A deteriorating business is not a false
+friend. A cheap multiple attached to falling margins is not a false friend. <strong>None of these is a false
+friend if the path from company action to earnings is perfectly traceable — they are simply a bad
+case, and other Elements own them.</strong> A false friend is defined by OPACITY, not by badness.</p>
+<p><strong>WHERE A NON-OPACITY FINDING MUST GO INSTEAD.</strong> Do not suppress the finding; route it to the Element
+that owns it, and say in RA8 that you have done so. <strong>At Triaging the in-scope destinations are:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Owning home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accounting or earnings-quality concern (capitalisation, adjusted-versus-reported gap, one-offs, off-balance-sheet items)</td>
+<td><strong>Element E1 RA2 — Robust base?</strong></td>
+</tr>
+<tr>
+<td>Cash conversion, working-capital build, free-cash-flow divergence from earnings</td>
+<td><strong>Element E1 RA2 — Robust base?</strong></td>
+</tr>
+<tr>
+<td>Cheap multiple plus deteriorating fundamentals</td>
+<td><strong>Element E1 RA2 — Robust base?</strong> (and E3 valuation at ESA/Deep Dive)</td>
+</tr>
+<tr>
+<td>Margin or volume decay driven by competitive or value-chain forces</td>
+<td><strong>Element E11 — Value-chain dynamics</strong></td>
+</tr>
+<tr>
+<td>Too many concurrent moving parts</td>
+<td><strong>Element E7 — Required case simplicity guardrails</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>THE RISKS REPORT IS AN INPUT, NEVER THE VERDICT.</strong> Where a Risks family report's Analysis of
+Competing Hypotheses names "false friend" as its winning hypothesis, <strong>that is evidence to be tested,
+not a finding to be reported.</strong> Three rules, all mandatory:
+1. <strong>State what that report's false-friend finding actually rests on.</strong> If it rests on accounting,
+   cash conversion or valuation rather than transmission opacity, say so, route it per the table
+   above, and do NOT let it drive this grade.
+2. <strong>Reach your own view on the opacity test independently</strong>, and say explicitly whether you agree
+   with the report or not.
+3. <strong>Never describe the Risks report as independent corroboration of your own finding.</strong> Its
+   three-profile matrix ("no" / "false friend" / "yes") is Richard's own framework, so it is a second
+   reading of the same idea, not a second witness. <em>(Open verification item: whether the vendor would
+   have run a standard Heuer competing-hypotheses analysis regardless has not been confirmed — but
+   even if so, rule 1 still binds.)</em></p>
+<p><strong>CORE QUESTIONS.</strong> All four are mandatory. CQ1 and CQ2 are the test; CQ3 and CQ4 are the guards.</p>
+<ul>
+<li>CQ1: <strong>Can the transmission mechanism be traced, link by link, with each link named?</strong> Use Richard's own chain, stated in <code>memory/context/investing-system.md</code> and in the Wisdom Library's False Friends entry: <strong>chief executive and strategy → operational execution → qualitative change → key fundamental milestones → financial statement outputs → earnings per share → share price.</strong> Walk it explicitly. <strong>If ANY link cannot be named, say which one and why — that is the finding.</strong> <em>(This is also Richard's earnings-predictability checklist items 1 and 3.)</em></li>
+<li>CQ2: <strong>Can the quarter-by-quarter tracking data that would confirm or refute this case be named in advance, and is it actually obtainable?</strong> Name the specific series. "The company reports segment revenue" is an answer; "results will show it" is not. <em>(Checklist items 5 and 7.)</em></li>
+<li>CQ3: <strong>Pret sandwich check — does the case rest on a collection of individually tolerable weaknesses that are fatal in combination?</strong> List them and assess the combination, not the items.</li>
+<li>CQ4: <strong>If a source report names a false friend, what does its finding actually rest on?</strong> Apply the three Risks-report rules above and route anything that is not opacity.</li>
+</ul>
+<p><strong>GRADE ANCHORS.</strong> Grades remain relative percentiles against a <strong>named comparison set</strong> per the
+Viewforth scale (A = top 10%, B = 75–89%, C = 50–74%, D = 25–49%, F = bottom 25%). <strong>Name the
+comparison set and state the base rate.</strong> These anchors describe what each band typically looks like
+on the opacity test; they do not override the percentile system.</p>
+<ul>
+<li><strong>A / B — transmission unusually clear and fully instrumented.</strong> Every step nameable, tracking data specific and obtainable. <strong>This band is currently used on 4.5% of memos, which is itself evidence of skew — do not avoid it when the evidence supports it.</strong></li>
+<li><strong>C — guardrail tested and not tripped.</strong> Transmission traceable end to end; tracking data nameable, if imperfect.</li>
+<li><strong>D — ONE leg fails.</strong> Either one step in the transmission cannot be named, OR the tracking data cannot be obtained. Not both. The case remains monitorable with a named, specific gap.</li>
+<li><strong>F — this IS a false friend.</strong> The transmission cannot be traced at all, or BOTH legs fail. Richard's four named historical examples all sit here.</li>
+</ul>
+<p><strong>MEASURED BASE RATE, for calibration against the corpus (17-Aug-26, 157 memos):</strong> A 0.0%, B 4.5%,
+C 23.6%, D 47.1%, F 24.2%. <strong>D is running at roughly double its expected share. If your grade is D,
+check that it is not simply the default.</strong></p>
+<hr>
+<h3 id="group-3-core-philosophy">Group 3 — Core philosophy</h3>
+<h4 id="e9-business-quality-great-operator-management-quality">E9 — Business quality: Great operator (management quality)</h4>
+<p><em>Lifted from BB#2 TC1 Great operator.</em></p>
+<p><strong>RA1 [from BB#2 TC1 / RA1] — Right direction</strong>
+- CQ1: 1. Big, big ambition / vision (force; growth as priority, outcompete, innovate, adapt, push)
+- CQ2: 2. Great, smart strategy and right, bold strategic priorities (enabler); mid-term moat widening + growth as priority, plus dynamic strategy to capitalise on plausible range of environments</p>
+<p><strong>RA2 [from BB#2 TC1 / RA2] — Right resources</strong>
+- CQ1: 1. Great CEO (measured via action, not conjecture; enabler, not ossifier)
+- CQ2: 2. Hiring well is a top CEO priority + CEO has built a great leadership team (enabler)
+- CQ3: 3. Entire business is well-resourced / well-invested (buffer; ant colony; built yesterday for resilience + accelerating forward today)
+- CQ4: 4. Holistic, congruent culture + alignment across total system, e.g. Lifco, Avanza, Ryanair
+- CQ5: 5. Conservative guidance (buffer)
+- CQ6: 6. Clear, straightforward and helpful communication, strategy and driver transmission mechanism</p>
+<p><strong>RA3 [from BB#2 TC1 / RA3] — Right record / action / behaviour / forward movement</strong>
+- CQ1: 1. High return-on-new-invested-capital allocation
+- CQ2: 2. Acts not just talks [recent record of huge delivery / action, not missing] (enabler, not ossifier)
+- CQ3: 3. Track record of delivery (not missing / justification; irrespective of environments [outperforming in tougher = even better]) [mid-term]
+- CQ4: 4. Outlier standards, driving higher / faster / better + competitor out-execution record
+- CQ5: 5. Shareholders first &gt; management
+- CQ6: 6. Dynamic repurchaser of share buybacks + enlightened "capital allocator", not just operator / generator
+- CQ7: 7. Prudent governance / scaffolding (didn't need to, did it; evidence-based)</p>
+<hr>
+<h4 id="e10-business-quality-advantaged-business-widening-sustainable-relative-competitive-advantage">E10 — Business quality: Advantaged business + widening sustainable relative competitive advantage</h4>
+<p><em>Lifted from BB#2 TC2 Advantaged business + widening sustainable relative competitive advantage.</em></p>
+<p><strong>RA1 [from BB#2 TC2 / RA4] — Strong operational / competitive advantages? ("Does company demonstrably have…?") [MOAT]</strong>
+- CQ1: 1. Customer-related moats
+- CQ2: 2. Production-related moats
+- CQ3: 3. Scale advantage moats
+- CQ4: 4. Regulatory / political moats
+- CQ5: 5. Culture / knowledge moats
+- CQ6: 6. High relative scale (to competitors, other actors; revenue, full-time-equivalents, etc.)
+- CQ7: 7. Large realistic total-addressable-market (to facilitate 12-20% per annum growth)</p>
+<p><strong>RA2 [from BB#2 TC2 / RA5] — Strong operational outputs? ("Does company demonstrably deliver…?") [OPERATE]</strong>
+- CQ1: 1. High surplus customer utility
+- CQ2: 2. Leading or non-inferior relative surplus customer utility (hard to prove, easier to disprove. Ergo, aim is to disprove inferiority in ESA / DD. e.g. Sophos, Bytes, etc.)
+- CQ3: 3. High, utilised pricing power (2% nominal), with de minimis erosion in relative surplus customer utility (evidence of application, not just conjecture)
+- CQ4: 4. (Scale economies shared)</p>
+<p><strong>RA3 [from BB#2 TC2 / RA6] — Strong financial outputs? ("Does company demonstrably generate…?") [GENERATE]</strong>
+- CQ1: 1. 12-20% EPS growth? And revenue growth?
+- CQ2: 2. Immediate scope to deploy 20%+ of sales in capital / operating expense per annum at high return-on-new-invested-capital for 3-5 years (i.e., grow opex / capex at 20% per annum — drives mid-term / long-term potential and higher fair multiple)
+- CQ3: 3. High post-tax return-on-new-invested-capital (25-30%+)
+- CQ4: 4. High net income to free cash flow conversion (80%) [net working capital, etc.]
+- CQ5: 5. Post-tax return-on-capital-employed of 15%+?
+- CQ6: 6. Post-tax return-on-tangible-capital of 30%+?
+- CQ7: 7. High gross margins?
+- CQ8: 8. Solid earnings-before-interest-and-tax margins? (20% is solid, 25%+ is great)
+- CQ9: 9. Genuine fixed cost operating leverage?
+- CQ10: 10. Low tax rate (below 30%) or other non-obvious EPS leakage?</p>
+<p><strong>RA4 [from BB#2 TC2 / RA7] — Gets stronger as it gets bigger / time passes? Gravitational pull?</strong>
+- CQ1: 1. Gravitational / mechanical forces (not just heroic company dynamism) drive mechanical improvement of sustainable relative competitive advantage versus peers with each period passing?
+- CQ2: 2. Gravitational / mechanical forces (not just heroic company dynamism) drive improving financials outputs versus peers with each period passing?</p>
+<p><strong>RA5 [from BB#2 TC2 / RA8] — Plausible scope for improvement over mid-term in the financial outputs? [SCOPE]</strong>
+- CQ1: 1. Peer precedents?
+- CQ2: 2. Big savings / improvements in a few areas?
+- CQ3: 3. Lots of little savings / improvements in many areas?
+- CQ4: 4. (Plausibility from congruency with strategy is question for other sections)</p>
+<hr>
+<h4 id="e11-business-quality-value-chain-dynamics">E11 — Business quality: Value-chain dynamics</h4>
+<p><em>Lifted from BB#2 TC3 Favourable and improving value chain dynamics.</em></p>
+<p><strong>RA1 [from BB#2 TC3 / RA9] — Demand side — strong / robust or fragile / negative?</strong>
+- CQ1: 1. Customer demand
+- CQ2: 2. Route to market / intermediaries</p>
+<p><strong>RA2 [from BB#2 TC3 / RA10] — Competitive supportiveness or aggression?</strong>
+- CQ1: 1. Existing competition
+- CQ2: 2. Adjacencies entering
+- CQ3: 3. Vanilla new entrants
+- CQ4: 4. Orthogonal / innovative new entrants
+- CQ5: 5. Substitutes / alternatives</p>
+<p><strong>RA3 [from BB#2 TC3 / RA11] — Disruption forces?</strong>
+- CQ1: To demand, competition, regulators, suppliers, political, any other actors</p>
+<p><strong>RA4 [from BB#2 TC3 / RA12] — Political / regulatory?</strong>
+- CQ1: 1. Regulator strengths-weaknesses-opportunities-threats
+- CQ2: 2. Political actor strengths-weaknesses-opportunities-threats</p>
+<p><strong>RA5 [from BB#2 TC3 / RA13] — Supportive supplier side?</strong>
+- CQ1: 1. Supplier side strengths-weaknesses-opportunities-threats</p>
+<hr>
+<h4 id="e12-business-quality-supportive-industry-structure">E12 — Business quality: Supportive industry structure</h4>
+<p><em>Lifted from BB#2 TC4 Supportive / concentrated industry structure.</em></p>
+<p><strong>RA1 [from BB#2 TC4 / RA14] — Concentrated existing market structure?</strong>
+- CQ1: 1. This company #1 (or #2)?
+- CQ2: 2. Top 5 companies more than 30% share?
+- CQ3: 3. Steep market share distribution curve? E.g. Top 5 companies 5x share of #6-10, etc.</p>
+<p><strong>RA2 [from BB#2 TC4 / RA15] — Concentrating gravitational pull?</strong>
+- CQ1: 1. Stability of share over time?
+- CQ2: 2. New entrants' share?
+- CQ3: 3. Share consolidates towards largest competitors over time?
+- CQ4: 4. Share consolidates to most advantaged competitors?</p>
+<p><strong>RA3 [from BB#2 TC4 / RA16] — Benign competitor attitudes + stability thereof?</strong>
+- CQ1: 1. Benign-ness?
+- CQ2: 2. Moments-of-life instability or stable attitude?
+- CQ3: 3. Shark attack if weakness sensed?
+- CQ4: 4. Volume / return-on-capital-employed prioritisation? (Price down when volume down?)</p>
+<p><strong>RA4 [from BB#2 TC4 / RA17] — Positive or negative competitiveness trends?</strong>
+- CQ1: 1. Positive or negative competitiveness trends?</p>
+<hr>
+<h4 id="e13-business-quality-high-secular-long-term-growth-potential">E13 — Business quality: High secular / long-term growth potential</h4>
+<p><em>Lifted from BB#2 TC5 High secular / long-term growth potential.</em></p>
+<p><strong>RA1 [from BB#2 TC5 / RA18] — High long-term growth?</strong>
+- CQ1: Clear, actionable adjacencies to expand into (where company might have a sustainable relative competitive advantage over time)? Adjacent total-addressable-markets?
+- CQ2: Structurally increasing volume demand for company offerings?
+- CQ3: Pricing rising faster than costs / inflation in long term?
+- CQ4: Historical growth rate at sector / industry level higher than gross domestic product?</p>
+<hr>
+<h3 id="group-4-case-riskiness">Group 4 — Case riskiness</h3>
+<h4 id="e15-invalidating-attributes">E15 — Invalidating attributes</h4>
+<p><em>Lifted from BB#6 Invalidating Attributes.</em></p>
+<p><strong>RA1 [from BB#6 TC1] — General Analysis of Competing Hypotheses ACHs?</strong>
+- CQ1: No overlap with the 10 general invalidating ACHs</p>
+<p><strong>RA2 [from BB#6 TC2] — Plain sight risks</strong>
+- CQ1: No slowing of core engine versus company's DNA
+- CQ2: No mediocre CEOs or weird, silly simple choices?
+- CQ3: No big "Hmmms"?</p>
+<p><strong>RA3 [from BB#6 TC3] — No mediocrity?</strong>
+- CQ1: 3 or more Ds or Fs?
+- CQ2: 8 or more Cs?</p>
+<p><strong>RA4 [from BB#6 TC4] — Negative earnings momentum?</strong>
+- CQ1: No recent earnings cuts (unless change-from-current part of case)?
+- CQ2: No peers having problems?</p>
+<p><strong>RA5 [from BB#6 TC5] — Lessons check?</strong>
+- CQ1: No overlap with negative lessons and setups?
+- CQ2: No fit with unacceptable / false friend setups?</p>
+<hr>
+<h4 id="e16-strenuously-seek-to-avoid-attributes">E16 — Strenuously seek-to-avoid attributes</h4>
+<p><em>Lifted from BB#8 Strenuously Seek-to-Avoid Attributes.</em></p>
+<p><strong>RA1 [from BB#8 TC1] — Crash through stops risk?</strong>
+- CQ1: Risk of fundamental sudden, high magnitude, low probability (SHMLP) risks?
+- CQ2: How wide is the skew in plausible outcomes (i.e. low case predictability)?</p>
+<p><strong>RA2 [from BB#8 TC2] — Mark-to-market risk?</strong>
+- CQ1: How large is the downside to fair trough multiple?
+- CQ2: How much is the trading multiple influenced by the industry rather than the company?</p>
+<p><strong>RA3 [from BB#8 TC3] — Sector strength?</strong>
+- CQ1: Are peers' technicals' relative strength greater than 70% versus industry and market? Are any peers suffering deterioration in fundamentals, sell-side earnings momentum or technicals?</p>
+<hr>
+<h4 id="e17-capital-constraining-attributes">E17 — Capital-constraining attributes</h4>
+<p><em>Lifted from BB#5 AUM-Constraining Attributes.</em></p>
+<p><strong>RA1 [from BB#5 TC1] — Sentiment risk?</strong>
+- CQ1: Sentiment-related sudden, high magnitude, low probability risks?</p>
+<hr>
+<h4 id="e18-clear-transmission-mechanism-inputs-to-earnings-per-share">E18 — Clear transmission mechanism (inputs to earnings per share)</h4>
+<p><em>Lifted from IC#1 TC3 Sufficient case navigatability AND BB#1 TC6 Clear CEO transmission mechanism. Merged because both describe the same transmission mechanism — IC#1 from the "is the case monitorable" angle, BB#1 from the "is the CEO-to-EPS flow clear" angle.</em></p>
+<p><strong>RA1 [from IC#1 TC3 / RA6 — monitorability angle] — Monitorability?</strong>
+- CQ1: Helpful investor relations re. operating momentum?
+- CQ2: Trackable key leading indicators?</p>
+<p><strong>RA2 [from BB#1 TC6 / RA6 — CEO transmission angle] — Clear CEO transmission mechanism?</strong>
+- CQ1: Clear flow from company's strategy to EPS?</p>
+<hr>
+<h4 id="e19-monitorable-transmission-mechanism-leading-tracking-indicators-to-earnings-per-share">E19 — Monitorable transmission mechanism (leading tracking indicators to earnings per share)</h4>
+<p><em>Lifted from BB#1 TC7 Clear TI transmission mechanism.</em></p>
+<p><strong>RA1 [from BB#1 TC7 / RA7] — Clear tracking-indicator transmission mechanism?</strong>
+- CQ1: Clear flow from value-chain dynamics to EPS?</p>
+<hr>
+<h3 id="group-5-case-optionality">Group 5 — Case optionality</h3>
+<h4 id="e20-nice-to-have-attributes-minor">E20 — Nice-to-have attributes (minor)</h4>
+<p><em>Lifted from BB#9 Nice to Have Attributes.</em></p>
+<p><strong>RA1 [from BB#9 TC1] — Additional upside</strong>
+- CQ1: Big positive optionality above / beyond modal case?</p>
+<p><strong>RA2 [from BB#9 TC2] — Self-righting behaviour at-the-moment</strong>
+- CQ1: Rapid self-righting Means / Motive / Opportunity?</p>
+<hr>
+<h2 id="what-watson-flagged-during-the-integration">What Watson flagged during the integration</h2>
+<p>Five gaps where the old canonical source has "TBD" placeholders or thin content. These are NOT failings of the integration — they reflect gaps in the old source itself. Watson surfaces them for Richard's decision:</p>
+<ol>
+<li>
+<p><strong>E4 Technical momentum</strong> — old BB#7 Required Attributes and Core Questions all marked TBD. The substantive technical content is in the Master Dashboard (MM99 score, 11-test, relative strength excess returns, moving averages) but not formalised as RAs+CQs. Watson recommendation: author RAs+CQs fresh from the Master Dashboard fields when building the SOP, OR have the SOP say "for E4 the questions answered are the technical-momentum fields from the Master Dashboard."</p>
+</li>
+<li>
+<p><strong>E5 Thematic fit</strong> — BB#3 has three Required Attributes (bear market, AI disruption, Iran oil) but their Core Questions are TBD. Watson recommendation: link to <code>memory/thematics/active.md</code> (path corrected 31-Jul-26; <strong>LIVE as of 2026-08-07, not paused — see the correction note at line ~122 above</strong>) which carries the live operating thematics; the Core Questions then become "is the case suitable for each currently-active thematic?"</p>
+</li>
+<li>
+<p><strong>E8 Fit with acceptable case setups</strong> — the six setups (IC#3 TC1 through TC5 plus negative guardrails TC6, TC7) are richly defined for some setups and TBD for others (TC1 Mis-modelled EPS upgrader has CQ TBD; TC6 unacceptable setups and TC7 false-friend setups both have CQs TBD).</p>
+</li>
+<li>
+<p><strong>E15 Invalidating attributes</strong> — BB#6 TC1 "General ACHs" references "the 10 general invalidating ACHs" — these are the 10 INVALIDATION ACHs locked verbatim in the Ratings Dashboard decisions.md. Watson recommendation: in the SOP, replace BB#6 TC1's single Core Question with the full 10 thresholds verbatim. They already live at Section D.II of the new framework's memo spine.</p>
+</li>
+<li>
+<p><strong>E18 + E19 split</strong> — Watson made an editorial decision to map BB#1 TC6 (CEO transmission) to E18 and BB#1 TC7 (TI transmission) to E19. This matches the labels in the new framework but is a slight re-interpretation of the old material, which kept both under BB#1 simplicity guardrails. If Richard prefers, both could remain under E7 simplicity guardrails and E18+E19 could be authored fresh. Watson default: split as shown — it matches the spirit of the new framework which has E18+E19 as a separate Group 4 risk-transmission Element pair.</p>
+</li>
+</ol>
+<h2 id="total-count">Total count</h2>
+<ul>
+<li><strong>19</strong> new-framework Elements receive content from old families (E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E15, E16, E17, E18, E19, E20). <em>(Corrected 31-Jul-26: the prior text said 18; the list itself has always contained 19.)</em> E14 reserved/null. E6 and E5 each draw from one old family. E18 and E19 each draw from BB#1 TC6+TC7 (split).</li>
+<li>Approximately <strong>60 Required Attributes</strong> lifted.</li>
+<li>Approximately <strong>170 Core Questions</strong> lifted.</li>
+</ul>
+<h2 id="decision-record-converted-from-the-original-sign-off-request-31-jul-26">Decision record  <em>(converted from the original sign-off request, 31-Jul-26)</em></h2>
+<ul>
+<li>Mapping: <strong>SIGNED OFF retrospectively by Richard, 30-Jul-26</strong></li>
+<li>The five flagged gaps (E4, E5, E8 TBDs; E15's un-inlined 10 ACHs; the E18/E19 split): <strong>OPEN — awaiting Richard's answers</strong></li>
+<li>Rendering as a diagram: not requested; superseded</li>
+</ul>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

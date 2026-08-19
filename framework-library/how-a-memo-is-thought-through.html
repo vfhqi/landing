@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a Memo Is Thought Through — Investment System Library</title>
+<style>:root{--accent:#8a66bd;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Process and the Analyst Role</div>
+  <h1 class="doc">How a Memo Is Thought Through</h1>
+  <p class="desc">The step-by-step analytical procedure for each stage. The heaviest and most load-bearing document in the whole set.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/investment-analyst/aj-memo/02-THINKING-SOP.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 17-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="investment-analyst-analysis-and-judgement-memo-thinking-sop">Investment Analyst Analysis-and-Judgement Memo — THINKING SOP</h1>
+<p><strong>Status:</strong> LIVE V1, 13-May-26
+<strong>Owner:</strong> Investment Analyst role (Watson)
+<strong>Parent:</strong> <code>01-SYSTEM-OVERVIEW.md</code>
+<strong>Weight:</strong> 10× the Communicating SOP and 100× the Presenting SOP. Spend time accordingly.</p>
+<hr>
+<h2 id="standing-instruction">Standing instruction</h2>
+<p><strong>Every minimum in this SOP is a MINIMUM, never a maximum</strong> — full rule: <code>01-SYSTEM-OVERVIEW.md</code>, "Standing instruction", the single statement. Skirting an important topic to hit a number is failure.</p>
+<hr>
+<h2 id="how-to-use-this-sop">How to use this SOP</h2>
+<p>Three stage-specific linear procedures live in this SOP — one for Triaging, one for Early-Stage Assessment, one for Deep Dive. When Watson sits down to write a memo, Watson opens the procedure for the relevant stage and walks it top to bottom. Each numbered step tells Watson exactly what to write, at what depth, with what minimum bullet count.</p>
+<p>The three procedures are <strong>cumulative deltas</strong>:
+- The <strong>Triaging procedure</strong> starts from the <strong>canonical V4.3 skeleton</strong> (<code>memory/skills/investment-analyst/aj-memo/skeletons/TRIAGING-skeleton.md</code>): copy it into <code>Files/{TICKER}/Triaging/</code>, rename to the memo filename, then fill in every <code>{…}</code> placeholder by walking the procedure below. It is <strong>not</strong> written from a blank file.
+- The <strong>Early-Stage Assessment procedure</strong> says "carry forward everything the Triaging memo produced, unchanged, then add these deltas".
+- The <strong>Deep Dive procedure</strong> says "carry forward everything the Early-Stage Assessment memo produced, unchanged, then add these deltas".</p>
+<p>Watson does NOT rewrite from scratch at each stage. The prior memo is preserved.</p>
+<h3 id="mandatory-start-from-the-skeleton-finish-through-the-gate-added-2026-06-12">MANDATORY — start from the skeleton, finish through the gate [added 2026-06-12]</h3>
+<p>Two structural guarantees make the memo right-by-construction, so a simple brief ("write the {TICKER} Triaging A&amp;J memo to a very high standard") reliably yields a compliant memo:</p>
+<ol>
+<li>
+<p><strong>Start from the canonical skeleton.</strong> Copy <code>skeletons/TRIAGING-skeleton.md</code> (ESA/Deep-Dive skeletons follow the same shape with their added Sections). The skeleton already carries the exact required structure: Section A — Summary Snapshot (R3 fields only), Section B Executive Summary B.1–B.6 in full, the six Master-Rating headings, Section C Pillar I/II with blockquote summaries and inline <code>[A]</code>–<code>[F]</code> grade slots, Section D (Pillar III — note-only at Triaging), Section E, Section F, and a reminder to author the paired Go-No-Go Checks one-pager. Do not delete any heading; fill them in.</p>
+</li>
+<li>
+<p><strong>The QC gate now enforces the structure.</strong> <code>generate_qc_audit.py</code> (run in Phase 4, per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6) HARD-fails — and blocks close-out — on a missing/non-canonical Section A heading, any missing B.1–B.6 subsection, fewer than six MR headings, any major Section lacking a <code>&gt;</code> blockquote summary, a banned <code>**JUDGEMENT SUMMARY</code> label, or an absent paired Go-No-Go file. A memo built on the old skeleton, or one that stops at B.3, cannot pass. Run the script in-loop until it returns exit 0 before declaring the memo done.</p>
+</li>
+</ol>
+<hr>
+<h2 id="pre-flight-run-before-any-stage-specific-procedure">Pre-flight — run before any stage-specific procedure</h2>
+<p>Before opening the stage procedure, run the four Phase 0 checks (per <code>01-SYSTEM-OVERVIEW.md</code> Phase 0):</p>
+<p><strong>MANDATORY DATA SOURCING + SCOPE [added 2026-06-12].</strong></p>
+<ul>
+<li><strong>Price, technical, valuation and sell-side data come from the master-dashboard data files FIRST, at every stage including Triaging.</strong> Read <code>master-dashboard/data/prices.json</code> (live price, 52-week range, moving averages including the 200-day, RS percentile, technical signals), <code>factset-valuation.json</code> (P/E, P/E percentile, forward EPS), and <code>factset-ssem.json</code> (revision counts, %Buy, momentum score). These feed Section A, MR1, MR2, E4, E1's entry-point read, and E3. <strong>The master-dashboard files are the ONLY permitted source for price, technical, valuation and sell-side quantitative data. There is no external fallback. [D, Richard, 28-Jul-26.]</strong> If the stock is absent from a file, or the file is stale beyond the §4c threshold, do <strong>NOT</strong> substitute a web fetch, a web search, a broker page, a data-aggregator site, or any other external source, and do <strong>NOT</strong> estimate, interpolate or carry a figure across from a peer. Instead: (1) write the affected field as <code>n/a — not in master-dashboard data</code>; (2) record it as an explicit <strong>data gap</strong> in Section A and the Appendix; (3) mark any grade that would have leaned on the missing figure <strong>ungradeable, with the reason stated</strong>, rather than grading it on a substituted number; and (4) flag the ticker for master-dashboard universe coverage so the gap is fixed at source. A memo that is honestly short of a number is correct; a memo carrying an externally-sourced or estimated number is not, because it silently mixes two different data vintages and methodologies into one comparison and destroys cohort comparability. <strong>Why this rule is absolute:</strong> the dashboard pipeline exists precisely so every stock is measured the same way on the same date; the moment one stock's price or multiple comes from somewhere else, every cohort-relative grade struck against it is unsound. This closes a real failure observed on 28-Jul-26, when a Triaging batch found five tickers missing from the local files and proposed to "pull live price and valuation data by web search instead". Related standing rule: never fabricate or sample price data (<code>feedback_no_fabricated_prices.md</code>). Full file / field / staleness map: <code>06-RESEARCH-SOURCE-MAP.md</code> §4c.</li>
+<li><strong>Triaging loads the Change Forces family report, NOT key-question research.</strong> The Triaging research input is the Change Forces report (the floor) plus any other family reports already on disk. The IA does <strong>NOT</strong> load or run Key-Question (KQ) research reports at Triaging. "Key questions" in this procedure and in Section E are the questions raised <em>for the next stage</em> (an output), not reports to load now.</li>
+</ul>
+<ol>
+<li><strong>Cohort check</strong> — is this stock in an active comparison-group? If yes, read cohort manifest + shared-context memo + prior per-stock cohort memos.</li>
+<li><strong>Research Report coverage and identity check</strong> — are the required 4-report family reports for this stage present, fresh, and the right family? Read each family folder (<code>Files/{TICKER}/41-change-forces/</code>, <code>42-business-foundations/</code>, <code>43-leadership-foundations/</code>, <code>44-risks/</code>) and verify the content matches the claimed family (AlphaSense occasionally returns the wrong family). Stage minimums: Triaging = Change Forces; ESA = Change Forces + Business Foundation; Deep Dive = all four. If a required report is missing or fails identity, brief the Chief of Staff to generate it, front-of-queue (do not fall back to legacy reports for the subject stock). Full gate and the semantic Element→report map: <code>06-RESEARCH-SOURCE-MAP.md</code>.</li>
+<li><strong>Wisdom Library consult</strong> — query <code>wisdom-library/INDEX.json</code> for matching models by industry, sector, business-model, setup-archetype, risk profile. <strong>Load 10-30 models (floor 10, cap 30)</strong> [Richard 2026-07-22: raised from 5-10 — richer lesson context; models are ~200 words each so 10-30 = ~2-10k words, efficient].</li>
+<li><strong>Standing inputs hunt</strong> — current share price (TODAY, not stale), Richard's Notion notes on the stock, existing Excel model if any, recent catalysts (last 60 days), peer multiples.
+   - <strong>Live price is mandatory at every stage, including Triaging (D-IA-4RR-08).</strong> Load the current share price, the 52-week range, and the sell-side target range now; do not defer to Early-Stage Assessment. The recent share-price move feeds E1 RA2 (robust base / low multiple) and the Master Ratings (technical momentum, the entry-point read). A Triaging memo that omits the price grades the base too generously.
+   - <strong>Data source — canonical internal-ONLY (D-IA-4RR-17, updated 05-Jun-26; tightened to internal-only by Richard 28-Jul-26):</strong> read the local master-dashboard data files, and <strong>only</strong> those. Three files: <code>master-dashboard/data/prices.json</code> (price, 52-week range, MAs, RS percentile, technical signals), <code>master-dashboard/data/factset-valuation.json</code> (current P/E, P/E percentile vs 10Y, forward EPS), <code>master-dashboard/data/factset-ssem.json</code> (sell-side revision counts 1M–12M). All three are JSON keyed by full geographic ticker. <strong>There is NO web-fetch fallback.</strong> If a file is absent or stale, or the stock is not covered, declare the gap (<code>n/a — not in master-dashboard data</code>), mark dependent grades ungradeable with the reason, and flag the ticker for universe coverage. Never substitute an external source, never estimate, never carry a peer's figure across. Never use <code>filter-results.json</code> or pipeline intermediate files. Full detail, staleness thresholds, and memo-use map: <code>06-RESEARCH-SOURCE-MAP.md</code> section 4c.
+   - <strong>Stock Notes case notes read — MANDATORY at Early-Stage Assessment and Deep Dive [D-AJ-30, 2026-07-03].</strong> Richard: "IA is to go to Stock Notes database in Notion and read all my notes, particularly ones tagged as 'case notes'; they should include my requested specific request questions and my general view on the investment case." Query the Stock Notes database (<code>collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2</code>) filtered to this stock, and read every note. <strong>Tag-mapping note (unconfirmed, flag to Richard if it matters for a specific memo):</strong> the database schema as it exists today has no property literally named "case notes". The closest matches are the <code>Depth of note</code> option <strong>"RB investment case file"</strong> and the <code>Case component</code> property (which tags a note as Financial outputs / Inputs-change forces / Foundations / Key confusions / Key risks / Monitoring activities / Case ratings and judgements). Until Richard confirms which of these (or a differently-named tag not yet seen) is what he means by "case notes", read ALL notes for the stock rather than filtering — under-reading a signal from Richard is worse than over-reading. Give particular weight to any note carrying his own specific questions or his general view on the case; carry these into Phase 0.5's back-brief and, where they bear on a specific Element, into that Element's analysis. Not required at Triaging (Triaging is a light first pass; this full-notes read is reserved for ESA and Deep Dive where the depth justifies it).</li>
+<li><strong>Briefing dials</strong> — confirm the three calibration dials (RR-trust/scepticism, cohort integration, sector integration) with Richard as one lightweight line, defaults balanced/normal/normal. They set how hard to lean on the reports and how strongly to weight cohort and sector peers; the cohort/sector dials modulate the D-BATCH-25 injection below. Record the settings at the memo top. Detail: <code>06-RESEARCH-SOURCE-MAP.md</code> section 3.</li>
+</ol>
+<p>Then run Phase 0.5 — <strong>back-brief Richard and lay out the plan</strong> (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §1). Restate objective, higher intent, resources, constraints, context, and the specific plan in the chat window; create the self-review debrief file with this as §0. Then proceed.</p>
+<p>Then run Phase 1 — read every Research Report in scope, read Richard's Notion notes, read local master-dashboard data files (prices, valuation multiples, sell-side revision data — per <code>06-RESEARCH-SOURCE-MAP.md</code> section 4c; internal-first, not external websites), tag the stock archetype, form initial calibrated view.</p>
+<p>THEN open the procedure for this stock's current stage below.</p>
+<p><strong>Throughout the procedure</strong> — per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §2 and §3: consult Richard in chat on any <em>what-to-do</em> decision that exceeds Investment Analyst authority (never on <em>what the analysis says</em>), and run self-initiated research queries (1–5 per memo, via the RESEARCHER Research SOP) whenever the analysis needs a research gap closed.</p>
+<hr>
+<h2 id="required-attributes-and-core-questions-the-lift-from-the-old-framework">Required Attributes and Core Questions — the lift from the old framework</h2>
+<p>Every Element in Pillar I and Pillar II carries a set of Required Attributes (containers) and Core Questions (the specific analytical questions Watson answers). These were lifted from the old framework's pillar-tree-canonical.json into the new framework's Elements, mapping by content. Full list of all 60 Required Attributes and 170 Core Questions: <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/briefing/04-elements-with-RAs-and-CQs-integrated.md</code>.</p>
+<p>In every Element section of every memo, Watson writes:
+1. A short opening synthesis bullet — the Element's headline finding
+2. For each Required Attribute in the Element: a Required Attribute summary block (minimum bullet count per the pass-depth floor and any multipliers) PLUS each Core Question inside it answered at minimum bullet count per the floor and multipliers
+3. <strong>A grade on every judgement-bearing Core Question [D-AJ-21, 16-Jun-26].</strong> Any Core Question that asks for an assessment or a verdict carries an inline <code>[A]</code>–<code>[F]</code> grade in its label, e.g. <code>RA1 CQ1 — Strong external change forces? [D]</code>. A purely factual or descriptive Core Question (one that reports a number or a fact with no judgement) is left ungraded but TAGGED <code>[factual]</code> in its label so the QC gate can tell an intended-ungraded question from a missed grade. A judgement-bearing Core Question with no grade is a HARD QC fail. This Core-Question grade is IN ADDITION to the existing Element and Required-Attribute grades, which are unchanged. Applies to all three stages (Triaging, Early-Stage Assessment, Deep Dive). <strong>v2 answer-lines [D-AJ-24, 16-Jun-26]:</strong> each Core Question's MAIN bullet carries a one-line ANSWER (the verdict) before its evidence sub-bullets, and each Required Attribute leads its body with a one-line ANSWER bullet; the same verdict is also carried in the Element's one consolidated judgement-summary box. The verdict appearing twice (in the summary box and at the RA/CQ) is intentional.</p>
+<hr>
+<hr>
+<h2 id="standing-refinements-locked-02-jun-26-from-the-elekta-early-stage-assessment-ab-test-apply-in-every-procedure">Standing refinements (locked 02-Jun-26, from the Elekta Early-Stage Assessment A/B test) — apply in every procedure</h2>
+<p>These are checklist / discipline refinements. They do NOT change the Elements, Pillars, multipliers, depths or floors.</p>
+<h3 id="grade-discipline-calibration-d-ia-4rr-11-the-tighter-grade-discipline">Grade-discipline calibration (D-IA-4RR-11) — the "tighter grade discipline"</h3>
+<p>Before finalising any A-F grade on any Element, Required Attribute or Core Question, run this calibration step:</p>
+<ol>
+<li><strong>Name the comparison set.</strong> State the set the grade is struck against: the live cohort peers whose reports are on disk, or, where no cohort exists, the named sector-peer set or an explicit universe base rate. A grade with no named comparison set is not finished.</li>
+<li><strong>Place the stock in the set.</strong> State where the stock ranks within that set (top, upper-half, median, lower-half, bottom).</li>
+<li><strong>Apply the bell-curve definitions</strong> from the canonical Viewforth scale stated once in <code>memory/context/CLAUDE-CANONICAL.md</code> (loads every session). Grades are relative percentiles of the named comparison set, not absolute scores. <em>(Corrected 31-Jul-26: this line previously misstated the B, D and F bands.)</em></li>
+<li><strong>Apply the validation-horizon and mediocrity-shunning lens at Early-Stage Assessment already</strong> for the management-quality, business-quality, case-predictability and driver-trackability Elements (E9, E10, E11, E12, E18, E19). Do not defer the strict lens to Deep Dive. An Early-Stage Assessment quality grade that runs half a notch generous pre-judges the Deep Dive mediocrity-shunning gate, which parks C/D/F on exactly these dimensions.</li>
+<li><strong>Write the one-line justification.</strong> Every Element grade carries one line in this form: <em>"[B] vs cohort because X; held off A by Y; held off C by Z."</em> This forces the grade to be defended against both the notch above and the notch below.</li>
+<li><strong>Sanity-check the roll-up.</strong> The Element headline grade must sit within ~1 notch of the mean of its own Required-Attribute and Core-Question sub-grades. A headline more than one notch above the weighted sub-grades is grade inflation; either re-justify it explicitly or lower it. The Quality Control Audit script flags this automatically.</li>
+</ol>
+<p><em>Source: the Elekta Early-Stage Assessment A/B test (02-Jun-26) found the new memo's grades ran about half a notch generous versus the disciplined 14-May baseline, sharpest on E9 operator [B] versus baseline [C], where the [B] headline sat above the weighted sub-ratings.</em></p>
+<h3 id="specifics-retention-sweep-when-consolidating-from-the-4-reports-d-ia-4rr-13">Specifics-retention sweep when consolidating from the 4 reports (D-IA-4RR-13)</h3>
+<p>Consolidating four long family reports into one memo loses hard, high-salience datapoints in the compression. Before close-out, sweep the four source reports for high-salience specifics and confirm each material one has carried into the memo: named survey percentages, specific broker price targets with the broker names, specific invalidation thresholds and trigger levels, named management quotes, and hard financial datapoints (margins, returns, leverage, growth rates with their period). Where a material specific did not carry, add it.</p>
+<p><em>Source: the Elekta Early-Stage Assessment A/B test dropped 5 hard specifics the baseline carried (a 76% Unity-rejection survey datum; broker bear targets ~SEK39 and ~SEK35-36 with names; an R&amp;D-capitalisation earnings-quality nuance; and others).</em></p>
+<h3 id="when-no-prior-stage-memo-exists-in-the-new-structure-d-ia-4rr-15">When no prior-stage memo exists in the new structure (D-IA-4RR-15)</h3>
+<p>The procedures are cumulative deltas over the prior-stage memo. When NO prior-stage memo exists in the 4-report structure to carry forward (for example, the first Early-Stage Assessment or Deep Dive built under the new structure, with only a legacy-era prior memo or none at all), do NOT treat the absent carry-forward as a licence to write thin. Build the full stage memo at that stage's depth from scratch, every in-scope Element at its stage floor, exactly as if the prior-stage content had been carried forward. The cumulative-delta discipline is a labour-saving device, never a depth-reduction.</p>
+<h3 id="floor-enforcement-sync-note-d-ia-4rr-16">Floor-enforcement sync note (D-IA-4RR-16)</h3>
+<p>The per-Element, per-Required-Attribute and per-Core-Question bullet floors stated in Procedures 1, 2 and 3 (with the ×2 / ×4 multipliers) are now ENFORCED at Early-Stage Assessment and Deep Dive by <code>scripts/generate_qc_audit.py</code>, not merely stated here. The script holds a mirror copy of these floors in <code>ELEMENT_BULLET_FLOOR</code>, <code>RA_FLOOR_OVERRIDE</code> and <code>CARVE_OUT_ELEVATED</code>. <strong>If any floor in these procedures changes, update the script's floors tables in the same change.</strong> The script carries the reciprocal maintenance note.</p>
+<hr>
+<h1 id="procedure-1-triaging-memo-stage-iii-first-aj-pass">PROCEDURE 1 — TRIAGING memo (Stage III, first A&amp;J pass)</h1>
+<p><strong>Stage purpose.</strong> Lightly triage the case's attractiveness. First A&amp;J pass through the funnel. Light depth across in-scope Elements.</p>
+<p><strong>Stage qualitative test (NOT rated; alignment language).</strong> Does the case have large amounts of positive change forces?</p>
+<p><strong>Decision pivot at end of memo.</strong> Progress to Early-Stage Assessment, or park.</p>
+<blockquote>
+<p><strong>PARK IS A VERDICT, NOT A GATE ON PUBLICATION (Richard's ruling, 03-Aug-26).</strong> A memo that
+recommends park is published exactly like one that recommends progress. The recommendation is
+CONTENT; it never decides whether the memo is released. A parked case is frequently the more
+valuable document: it is the written record of why Viewforth is not spending further money or
+research hours on the name, and it carries the reassessment criteria that say what would change
+the answer. The only gate on publication is quality: zero HARD FAILs on the Quality Control
+Audit and no unresolved judge escalation. Full rule: <code>05-IA-EXECUTION-DISCIPLINE.md</code> §7d.
+The same paragraph forbids the memo pipeline reusing the word "park" for a mechanism failure.</p>
+</blockquote>
+<p><strong>Approximate memo length floor.</strong> ~9,000 words minimum (excluding Section A and Section F). The Investment Analyst writes more when the analysis warrants.</p>
+<p><strong>Cohort-relative grading (D-IA-4RR-09).</strong> If the stock is in an active cohort, strike every A-F grade in this memo against the live cohort peers (whose Change Forces reports are on disk), not against an abstract universe base rate, even at the default cohort dial. Universe-anchored grading floats grades upward and loses decision-useful sharpness. Anchor each grade explicitly. See 06-RESEARCH-SOURCE-MAP.md section 4b.</p>
+<p><strong>Elements in scope at Triaging.</strong> E1 (first pass — light, ×2 double-weight); E5 (second pass; ×2 double-weight); E7 (first pass — light; ×2 double-weight); E8 (first pass — light; carve-out at 3 minimum); E11 (second pass — light from prior Filtering Out first pass). Group ratings G1, G2, G3, G4 all first pass — light.</p>
+<p><strong>Elements NOT in scope at Triaging (no content).</strong> E2, E3, E4 (carry-forward from Generation), E6, E9, E10, E12, E13, E15, E16, E17, E18, E19, E20. All of Pillar III. Watson does NOT write content on these — they are explicitly noted as "not applicable at this stage" in the memo where relevant.</p>
+<hr>
+<h2 id="step-1-section-b-executive-summary-page-level-bluf-third-pass">Step 1 — Section B Executive Summary (page-level BLUF) — third pass</h2>
+<p>Write the page-level Bottom Line Up Front at the top of Section B. Three to five judgement bullets immediately after the title. Each captures one element of the case. No data, no hedging, no padding.</p>
+<p>Master Ratings fold in here as part of the BLUF opening. The six Master Ratings get a short summary line each (first pass — light at Triaging) — e.g.:</p>
+<blockquote>
+<p>Master Ratings (first pass — light at Triaging):
+- Technical momentum: [grade] — [one-sentence rationale]
+- Sell-side earnings momentum: [grade] — [one-sentence rationale]
+- Thematic fit: [grade] — [one-sentence rationale]
+- Pillar I Case change elements: [grade] — [one-sentence rationale]
+- Pillar II Case building blocks: [grade] — [one-sentence rationale]
+- Pillar III Investment case components: not applicable at this stage</p>
+</blockquote>
+<p>Master Ratings are loosely-derived qualitative summaries. They are informed by underlying ratings but the Investment Analyst retains discretion to weight and override.</p>
+<p><strong>Section B target length at Triaging:</strong> ~700 words minimum.</p>
+<h2 id="step-2-section-c1-pillar-i-body-e1-required-input-change-forces-first-pass-2-double-weight">Step 2 — Section C.1 Pillar I body (E1 Required input change forces — FIRST PASS, ×2 double-weight)</h2>
+<p>Open Section C, sub-section 1 (Pillar I body). E1 is the only Pillar I Element in scope at Triaging.</p>
+<p>Light / first pass = <strong>3 bullets minimum</strong> per Required Attribute and per Core Question. <strong>×2 double-weight</strong> applies on E1 — so the floor doubles to <strong>6 bullets minimum</strong> per Required Attribute and per Core Question.</p>
+<p>Required Attributes and Core Questions to answer:</p>
+<p><strong>E1 — Required input change forces (internal / external)</strong> [Section C.1]</p>
+<ul>
+<li><strong>RA1 — Change forces? — summary (6 bullets minimum)</strong></li>
+<li>CQ1 Strong external change forces / tailwinds? (6 bullets minimum)</li>
+<li>CQ2 Strong internal change forces? (6 bullets minimum)</li>
+<li><strong>RA2 — Robust base? — summary (6 bullets minimum)</strong></li>
+<li>CQ1 Absence of external headwinds? (6 bullets minimum)</li>
+<li>CQ2 Well-invested base? (6 bullets minimum)</li>
+<li>CQ3 Past/present fundamental delivery congruency with thesis? (6 bullets minimum)</li>
+<li>CQ4 Large change-from-current / mispricing? (6 bullets minimum)</li>
+<li>CQ5 Low trading multiple? (6 bullets minimum)</li>
+</ul>
+<p><strong>Element rating for E1:</strong> A/B/C/D/F grade with rationale (informed by RA + CQ findings; Watson retains discretion).</p>
+<p><strong>Approximate E1 word floor at Triaging:</strong> ~1,200 words minimum.</p>
+<h2 id="step-3-section-c2-pillar-ii-body-4-in-scope-elements-at-triaging">Step 3 — Section C.2 Pillar II body (4 in-scope Elements at Triaging)</h2>
+<p>Open Section C, sub-section 2 (Pillar II body). At Triaging, only E5, E7, E8, E11 are in scope. Each Element's section is written separately under its Group heading.</p>
+<h3 id="step-3a-group-1-case-momentum-first-pass-light">Step 3a — Group 1 Case momentum (first pass — light)</h3>
+<p><strong>Element E5 — Thematic fit</strong> (second pass at Triaging; ×2 double-weight; floor doubles to 6 minimum per RA / per CQ)</p>
+<ul>
+<li><strong>RA1 — Suitability for bear market / economic downturn (6 bullets minimum)</strong> — Watson authors Core Questions fresh per current active thematics in <code>memory/thematics/active.md</code></li>
+<li><strong>RA2 — Suitability for AI disruption (6 bullets minimum)</strong></li>
+<li><strong>RA3 — Suitability for Iran oil-price induced inflation or demand deterioration (6 bullets minimum)</strong></li>
+<li><strong>RA4 — Paradigm fit from business perspective summary (6 bullets minimum)</strong></li>
+</ul>
+<p>Element rating for E5: A-F grade with rationale.</p>
+<p><strong>Approximate E5 word floor at Triaging:</strong> ~1,400 words minimum.</p>
+<p><strong>Element E4 — Technical momentum</strong> — [no change] at Triaging. Carry forward from Generation stage rating; no new content.</p>
+<p><strong>Element E6 — Sell-side earnings momentum</strong> — not applicable at Triaging.</p>
+<p>Group 1 rating: A-F first pass — light.</p>
+<h3 id="step-3b-group-2-case-simplicity-first-pass-light">Step 3b — Group 2 Case simplicity (first pass — light)</h3>
+<p><strong>Element E7 — Required case simplicity guardrails</strong> (first pass at Triaging; ×2 double-weight; floor 6 minimum)</p>
+<ul>
+<li><strong>RA1 — Focused bet? (6 bullets minimum)</strong></li>
+<li>CQ1 2 or less fulcrum drivers AND 4 or less key drivers? (6 bullets minimum)</li>
+<li><strong>RA2 — Narrow perimeter? (6 bullets minimum)</strong></li>
+<li>CQ1 10 or less geographies and/or business units? (6 bullets minimum)</li>
+<li><strong>RA3 — Zero headwinds? (6 bullets minimum)</strong></li>
+<li>CQ1 Zero value-chain headwind risks to revenue? (6 bullets minimum)</li>
+<li><strong>RA4 — Handful of change-from-current items? (6 bullets minimum)</strong></li>
+<li>CQ1 2 or less change-from-current items or problems? (6 bullets minimum)</li>
+<li><strong>RA5 — Conservative investor relations? (6 bullets minimum)</strong></li>
+<li>CQ1 Company confirms guidance is conservative? (6 bullets minimum)</li>
+</ul>
+<p>Element rating for E7: A-F grade.</p>
+<p><strong>Approximate E7 word floor at Triaging:</strong> ~1,300 words minimum.</p>
+<p><strong>Element E8 — Fit with acceptable case setups</strong> (first pass at Triaging; E8 carve-out applies — 3 bullets minimum per RA and per CQ, no multiplier)</p>
+<p>At Triaging Watson sweeps ALL six acceptable setups + the two negative guardrails:</p>
+<ul>
+<li><strong>RA1 — Mis-modelled, high-quality EPS upgrader (3 bullets minimum)</strong> + CQ1 (3 bullets)</li>
+<li><strong>RA2 — Big demand change-driven EPSU or EPT (3 bullets minimum)</strong> + 5 CQs (each 3 bullets)</li>
+<li><strong>RA3 — Strong corporate change driven EPSU / EPT (3 bullets minimum)</strong> + 9 CQs (each 3 bullets)</li>
+<li><strong>RA4 — Change-from-current clearing in high-quality compounder (3 bullets minimum)</strong> + 9 CQs (each 3 bullets)</li>
+<li><strong>RA5 — Huge change-from-current clearing event in solid quality (3 bullets minimum)</strong> + 5 CQs (each 3 bullets)</li>
+<li><strong>RA6 — Trough-on-trough turn in solid quality cyclical (3 bullets minimum)</strong> + 9 CQs (each 3 bullets)</li>
+<li><strong>RA7 — Fit with unacceptable case setups? [NEGATIVE GUARDRAIL] (3 bullets minimum)</strong> + CQ (3 bullets)</li>
+<li><strong>RA8 — Fit with false friend case setups? [NEGATIVE GUARDRAIL] (3 bullets minimum)</strong> + <strong>4 CQs (each 3 bullets)</strong></li>
+</ul>
+<blockquote>
+<p><strong>RA8 WAS TIGHTENED ON 17-Aug-26 (Richard's ruling). Read its full definition in the canonical
+elements briefing before grading it — it is no longer a one-line placeholder.</strong></p>
+<p><strong>The correction in one line: a false friend is defined by OPACITY of the transmission mechanism from
+company actions to earnings per share, not by the case being bad.</strong> A weak business, a deteriorating
+business, or a cheap multiple attached to falling margins is <strong>not</strong> a false friend if the path from
+action to earnings is traceable. Those findings are real and must be <strong>routed to the Element that
+owns them</strong> (accounting, cash conversion and cheap-but-deteriorating go to <strong>E1 RA2 Robust base</strong>;
+margin or volume decay from competitive forces goes to <strong>E11</strong>; too many moving parts goes to <strong>E7</strong>),
+never suppressed and never left driving this grade.</p>
+<p><strong>A Risks report's competing-hypotheses matrix naming "false friend" is an INPUT, not a verdict.</strong> It
+tests Richard's own three-profile framework, so it is a second reading of the same idea, not a second
+witness. State what its finding actually rests on, reach your own view on the opacity test, and say
+whether you agree.</p>
+<p><strong>Why this changed, measured not assumed:</strong> across 157 memos the guardrail graded D or F on <strong>71.3%</strong>
+of stocks and A or B on <strong>4.5%</strong>; of 100 D/F blocks read, <strong>between 6% and 25%</strong> applied the opacity
+test (6% strictly, 25% on a deliberately over-inclusive reading, so <strong>at best three quarters rest on
+something else</strong>), while <strong>72%</strong> deferred to the Risks report. Root cause: the canonical briefing defined this Required
+Attribute as <code>TBD (placeholder in old source)</code> — <strong>the writer had no test to apply.</strong> Evidence and
+full reasoning: <code>projects/SA - IA A&amp;J Memo Batching Automation/SESSION-RECORD-2026-08-17c-...md</code> §7.</p>
+</blockquote>
+<p><strong>At end of E8 at Triaging, Watson identifies the 1-2 setups (primary and secondary) that best fit this stock.</strong> This selection drives the E8 carve-out at Early-Stage Assessment and Deep Dive.</p>
+<p>Element rating for E8: A-F grade.</p>
+<p><strong>Approximate E8 word floor at Triaging:</strong> ~3,500 words minimum.</p>
+<p>Group 2 rating: A-F first pass — light.</p>
+<h3 id="step-3c-group-3-core-philosophy-first-pass-light">Step 3c — Group 3 Core philosophy (first pass — light)</h3>
+<p><strong>Element E11 — Value-chain dynamics</strong> (second pass at Triaging; light floor 4 minimum per RA and per CQ; no multiplier)</p>
+<ul>
+<li><strong>RA1 — Demand side strong / fragile? (4 bullets minimum)</strong> + 2 CQs (each 4 bullets)</li>
+<li><strong>RA2 — Competitive supportiveness / aggression? (4 bullets minimum)</strong> + 5 CQs (each 4 bullets)</li>
+<li><strong>RA3 — Disruption forces? (4 bullets minimum)</strong> + 1 CQ (4 bullets)</li>
+<li><strong>RA4 — Political / regulatory? (4 bullets minimum)</strong> + 2 CQs (each 4 bullets)</li>
+<li><strong>RA5 — Supportive supplier side? (4 bullets minimum)</strong> + 1 CQ (4 bullets)</li>
+</ul>
+<p>Element rating for E11: A-F grade.</p>
+<p><strong>Approximate E11 word floor at Triaging:</strong> ~1,600 words minimum.</p>
+<p><strong>Elements E9, E10, E12, E13</strong> — not applicable at Triaging. Watson notes "not applicable at this stage; first written at Early-Stage Assessment" in the memo.</p>
+<p>Group 3 rating: A-F first pass — light.</p>
+<h3 id="step-3d-group-4-case-riskiness-first-pass-light-no-elements-in-scope">Step 3d — Group 4 Case riskiness (first pass — light, no Elements in scope)</h3>
+<p>Group 4 gets a Group rating at first pass — light but no Element-level content (E15, E16, E17, E18, E19 all not in scope at Triaging).</p>
+<p>Watson writes a 100-word framing on Group 4 case riskiness at this stage (broad observations only; no Element-level work yet). The 10 Invalidation thresholds reference moves to Section D.II — but Section D is not in scope at Triaging.</p>
+<p>Group 4 rating: A-F first pass — light, with explicit note that risk Elements are first-rated at Deep Dive.</p>
+<h3 id="step-3e-group-5-case-optionality-not-in-scope-at-triaging">Step 3e — Group 5 Case optionality (NOT in scope at Triaging)</h3>
+<p>Group 5 not in scope at Triaging. Note "first written at Early-Stage Assessment" in memo.</p>
+<h2 id="step-4-section-d-not-in-scope-at-triaging">Step 4 — Section D not in scope at Triaging</h2>
+<p>Section D (Investment case components, Pillar III) is not in scope at Triaging. Note in the memo: "Pillar III content first appears at Early-Stage Assessment." Zero words.</p>
+<h2 id="step-5-section-e-actions">Step 5 — Section E Actions</h2>
+<p>Recommendation only — Richard decides at Friday review meeting.</p>
+<p>Write either:</p>
+<p><strong>If progressing:</strong> the recommended next-stage actions, the key questions to investigate at Early-Stage Assessment, the expected timeline.</p>
+<p><strong>If parking:</strong> park reasons (specific Elements failing the qualitative test); reassessment criteria (what would re-activate); the watchlist placement.</p>
+<p><strong>Section E target length at Triaging:</strong> ~850 words minimum.</p>
+<h2 id="step-6-section-f-appendices">Step 6 — Section F Appendices</h2>
+<p>Sources, process notes. Excluded from word-count targets. ~400 words. Section F also carries a one-line pointer to the §7 Quality Control Audit, which lives in the self-review debrief file (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6).</p>
+<h2 id="triaging-memo-completion-checklist">Triaging memo completion checklist</h2>
+<ul>
+<li>Section B BLUF written with six Master Ratings folded in (light)</li>
+<li>Section C.1 — E1 written at 6-bullet floor (×2 double-weight)</li>
+<li>Section C.2 — E5, E7, E8, E11 written per their floors (E5 and E7 at ×2 double-weight; E8 at 3-bullet carve-out floor)</li>
+<li>All other Elements explicitly noted as "not applicable at this stage"</li>
+<li>Section D zero content</li>
+<li>Section E with progress or park recommendation</li>
+<li>Section F appendices, including the one-line pointer to the §7 Quality Control Audit</li>
+<li>Quality Control Audit run and clean of HARD FAILs (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6 — if any hard fail, fix the memo and re-audit before close-out)</li>
+</ul>
+<p><strong>Decision pivot.</strong> Progress to Early-Stage Assessment, or park. Hand off to Richard for Friday review meeting decision.</p>
+<hr>
+<h1 id="procedure-2-early-stage-assessment-memo-stage-iv-second-aj-pass">PROCEDURE 2 — EARLY-STAGE ASSESSMENT memo (Stage IV, second A&amp;J pass)</h1>
+<p><strong>Cumulative-delta discipline.</strong> This procedure says: <strong>carry forward everything the Triaging memo produced, unchanged, then add the deltas below.</strong> Watson does NOT rewrite Triaging content. The Triaging memo is preserved as the starting point.</p>
+<p><strong>Stage purpose.</strong> Broadly test the case's attractiveness. Second A&amp;J pass.</p>
+<p><strong>Stage qualitative test (NOT rated).</strong> Do change forces manifest in financials AND is there a bankable foundation?</p>
+<p><strong>Decision pivot.</strong> Progress to Deep Dive, or park. <em>(Park never withholds the memo — see the ruling under Procedure 1's decision pivot, and <code>05-IA-EXECUTION-DISCIPLINE.md</code> §7d.)</em></p>
+<p><strong>Approximate memo length floor.</strong> ~31,500 words minimum (excluding Section A and Section F), of which ~9,000 is carried forward from Triaging (raised +50%, 2026-07-03 -- Richard: "ESA and DD memos to be 50% longer"). The Investment Analyst writes more when the analysis warrants.</p>
+<p><strong>Standing refinements at Early-Stage Assessment (D-IA-4RR-08 live price, D-IA-4RR-09 cohort grading; apply at every stage).</strong> (i) The live share price, 52-week range and sell-side target range (loaded at pre-flight) are <em>doubly</em> load-bearing here because E3 (Sufficient total-shareholder-return / valuation upside) is first written at this stage: the entry-point read, how far the stock has already re-rated, where it sits versus the sell-side target range and its 52-week range, is the valuation anchor for E3 and a direct input to the conviction tier. A re-rated stock has a thinner remaining change-from-current; do not write E3 without the live multiple. (ii) Strike every A-F grade against the live cohort peers (whose Change Forces and Business Foundation reports are on disk), not against an abstract universe base rate, and run the cohort A/B explicitly. See <code>06-RESEARCH-SOURCE-MAP.md</code> sections 4b and 4c.</p>
+<p><strong>Elements that DEEPEN at Early-Stage Assessment:</strong> E1 (second pass — solid; ×2 multiplier; floor doubles to 8 minimum). E5 (third pass; ×2; floor doubles to 10 minimum). E7 (second pass — solid; ×2; floor doubles to 8). E11 (first pass — re-engagement at solid depth; no multiplier; floor 4).</p>
+<p><strong>Elements first written at Early-Stage Assessment:</strong>
+- E2 Required case outputs (first pass; ×2; floor doubles to 6)
+- E3 Sufficient TSR / valuation upside (first pass; floor 3)
+- E4 Technical momentum (second pass — solid; floor 4)
+- E8 Fit with acceptable case setups — CARVE-OUT: only the 1-2 fit setups identified at Triaging deepen to second pass — solid (floor 4); other 4-5 setups carry forward at 3
+- E9 Great operator (first pass; floor 3)
+- E10 Advantaged business + widening competitive advantage (first pass; ×2 multiplier; floor doubles to 6) — CARVE-OUT applies: Watson identifies the 6-10 Core Questions most material to this specific stock at the higher floor; others stay at light depth (3)
+- E12 Supportive industry structure (first pass; floor 3) — RA1 Sector strength ×4 quadruple-weight (floor 12)
+- E13 High secular growth potential (first pass; floor 3)
+- E18 Clear transmission mechanism (first pass — light; floor 3)
+- E19 Monitorable transmission mechanism (first pass — light; floor 3)
+- E20 Nice-to-have attributes (first pass; floor 3)
+- E6 Sell-side earnings momentum — NOT in scope at Early-Stage Assessment</p>
+<p><strong>Pillar III first appears.</strong> Section D now has content (light pass).</p>
+<h2 id="step-1-delta-section-b-executive-summary-deepens">Step 1 (delta) — Section B Executive Summary deepens</h2>
+<p>Re-write the page-level BLUF and Master Ratings at second pass — solid. Master Ratings now reflect deeper understanding from the Early-Stage Assessment work.</p>
+<p>Section B target length: ~1,400 words minimum.</p>
+<h2 id="step-2-delta-section-c1-pillar-i-deepens-e1-second-pass-add-e2-and-e3">Step 2 (delta) — Section C.1 Pillar I deepens (E1 second pass; add E2 and E3)</h2>
+<p><strong>Element E1 — Required input change forces</strong> — second pass — solid; ×2 multiplier; floor doubles to <strong>8 bullets minimum per RA and per CQ</strong></p>
+<p>Re-engage E1 with the Change Forces report (deepening from its earnings-delivery, forward-guidance-credibility, historical-delivery-track-record and key-drivers content) and the Business Foundation report (financial-profile and peer-benchmarking content), per the Element→report map in <code>06-RESEARCH-SOURCE-MAP.md</code> section 5. Deepen all Required Attributes and Core Questions.</p>
+<p><strong>Element E2 — Required case outputs (FIRST PASS at Early-Stage Assessment; ×2 multiplier; floor 6 minimum per RA and per CQ)</strong></p>
+<ul>
+<li><strong>RA1 — Longevity? (6 bullets minimum)</strong> + CQ1 Three-year mid-term triple ratchet step-up? (6 bullets)</li>
+<li><strong>RA2 — Growth rate? (6 bullets minimum)</strong> + CQ1 12-20% EPS growth per annum? (6 bullets)</li>
+<li><strong>RA3 — Improving financials? (6 bullets minimum)</strong> + CQ1 Margin / growth step-up? (6 bullets)</li>
+<li><strong>RA4 — Earnings upgrades? (6 bullets minimum)</strong> + CQ1 (6 bullets) + CQ2 (6 bullets)</li>
+</ul>
+<p>Element rating for E2.</p>
+<p><strong>Element E3 — Sufficient TSR / valuation upside (FIRST PASS at Early-Stage Assessment; floor 3 minimum per RA and per CQ)</strong></p>
+<ul>
+<li><strong>RA1 — Bankable multiple? (3 bullets minimum)</strong> + CQ1 (3 bullets) + CQ2 (3 bullets)</li>
+</ul>
+<p>Element rating for E3.</p>
+<h2 id="step-3-delta-section-c2-pillar-ii-deepens-significantly">Step 3 (delta) — Section C.2 Pillar II deepens significantly</h2>
+<h3 id="step-3a-group-1-case-momentum-deepens">Step 3a — Group 1 Case momentum deepens</h3>
+<p><strong>E4 Technical momentum</strong> — second pass — solid; floor 4 minimum per RA and per CQ. First substantive Investment Analyst write-up.</p>
+<p><strong>E5 Thematic fit</strong> — third pass; ×2 multiplier; floor doubles to <strong>10 bullets minimum</strong>. Deepen all RAs and CQs.</p>
+<p><strong>E6 Sell-side earnings momentum</strong> — still not in scope at Early-Stage Assessment.</p>
+<p>Group 1 rating: A-F second pass — solid.</p>
+<h3 id="step-3b-group-2-case-simplicity-deepens-e8-carve-out-fires">Step 3b — Group 2 Case simplicity deepens; E8 carve-out fires</h3>
+<p><strong>E7 Required case simplicity guardrails</strong> — second pass — solid; ×2; floor doubles to <strong>8 bullets minimum</strong>.</p>
+<p><strong>E8 Fit with acceptable case setups — CARVE-OUT FIRES:</strong>
+- The 1-2 fit setups identified at Triaging (primary + secondary fit) are now deepened to second pass — solid; floor 4 minimum per RA and per CQ for those 1-2 setups only
+- The other 4-5 setups carry forward from Triaging at 3 bullets unchanged
+- The two negative guardrails (RA7 unacceptable, RA8 false friend) carry forward unchanged</p>
+<p>Element rating for E8: A-F second pass — solid (focused on the fit setups).</p>
+<p>Group 2 rating: A-F second pass — solid.</p>
+<h3 id="step-3c-group-3-core-philosophy-fills-in-e9-e10-e11-re-engaged-e12-e13">Step 3c — Group 3 Core philosophy fills in (E9, E10, E11 re-engaged, E12, E13)</h3>
+<p><strong>E9 Great operator (FIRST PASS; floor 3 minimum)</strong></p>
+<p>Three Required Attributes (Right direction, Right resources, Right record). Each RA gets 3-bullet summary minimum. Each Core Question (15 total) gets 3 bullets minimum.</p>
+<p><strong>E10 Advantaged business + widening competitive advantage (FIRST PASS; ×2 multiplier; floor 6 minimum)</strong></p>
+<p>E10 CARVE-OUT FIRES at Early-Stage Assessment:
+- Watson identifies the <strong>6-10 Core Questions most material to this specific stock</strong> at the higher floor (6 bullets minimum, doubled to 6 because of ×2 multiplier)
+- The other Core Questions stay at light depth (3 bullets minimum)
+- This focuses Watson's analytical depth on the parts of E10 that matter for THIS stock, rather than blanket-covering all 28 Core Questions at full depth</p>
+<p>Element rating for E10.</p>
+<p><strong>E11 Value-chain dynamics (first pass re-engagement at solid depth; floor 4 minimum)</strong></p>
+<p>E11 was already written at Triaging at second pass — light. At Early-Stage Assessment, deepen at solid level.</p>
+<p><strong>E12 Supportive industry structure (FIRST PASS; floor 3; RA1 Sector strength ×4 QUADRUPLE-WEIGHT — floor 12 minimum for RA1 and its 3 CQs)</strong></p>
+<ul>
+<li><strong>RA1 — Concentrated existing market structure ×4 (12 bullets minimum)</strong> + 3 CQs (each 12 bullets minimum)</li>
+<li><strong>RA2 — Concentrating gravitational pull? (3 bullets minimum)</strong> + 4 CQs (each 3 bullets)</li>
+<li><strong>RA3 — Benign competitor attitudes? (3 bullets minimum)</strong> + 4 CQs (each 3 bullets)</li>
+<li><strong>RA4 — Competitiveness trends? (3 bullets minimum)</strong> + 1 CQ (3 bullets)</li>
+</ul>
+<p>Element rating for E12.</p>
+<p><strong>E13 High secular growth potential (FIRST PASS; floor 3 minimum)</strong></p>
+<ul>
+<li><strong>RA1 — High long-term growth (3 bullets minimum)</strong> + 4 CQs (each 3 bullets)</li>
+</ul>
+<p>Element rating for E13.</p>
+<p>Group 3 rating: A-F second pass — solid.</p>
+<h3 id="step-3d-group-4-case-riskiness-fills-in-partially-e18-e19">Step 3d — Group 4 Case riskiness fills in partially (E18, E19)</h3>
+<p>E15, E16, E17 still not in scope at Early-Stage Assessment.</p>
+<p><strong>E18 Clear transmission mechanism (inputs to EPS) — first pass — light; floor 3 minimum</strong></p>
+<ul>
+<li><strong>RA1 — Monitorability? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+<li><strong>RA2 — Clear CEO transmission mechanism? (3 bullets minimum)</strong> + 1 CQ (3 bullets)</li>
+</ul>
+<p>Element rating for E18.</p>
+<p><strong>E19 Monitorable transmission mechanism (LTIs to EPS) — first pass — light; floor 3 minimum</strong></p>
+<ul>
+<li><strong>RA1 — Clear TI transmission mechanism? (3 bullets minimum)</strong> + 1 CQ (3 bullets)</li>
+</ul>
+<p>Element rating for E19.</p>
+<p>Group 4 rating: A-F second pass — solid (with explicit note that E15, E16, E17 are first-rated at Deep Dive).</p>
+<h3 id="step-3e-group-5-case-optionality-first-appears-e20">Step 3e — Group 5 Case optionality first appears (E20)</h3>
+<p><strong>E20 Nice-to-have attributes (FIRST PASS; minor; floor 3 minimum)</strong></p>
+<ul>
+<li><strong>RA1 — Additional upside (3 bullets minimum)</strong> + CQ1 (3 bullets)</li>
+<li><strong>RA2 — Self-righting behaviour at-the-moment (3 bullets minimum)</strong> + CQ1 (3 bullets)</li>
+</ul>
+<p>Element rating for E20.</p>
+<p>Group 5 rating: A-F first pass — light.</p>
+<h2 id="step-4-delta-section-d-pillar-iii-first-appears-light">Step 4 (delta) — Section D Pillar III first appears (light)</h2>
+<p>Section D first appears at Early-Stage Assessment at light depth.</p>
+<p><strong>Section D.I — Position management playbook (first pass — light)</strong></p>
+<p>Write the position-management playbook framework. Entry rules, sizing rules, trim and add triggers, exit triggers. Light depth — this gets deepened at Deep Dive and matured at Live.</p>
+<p><strong>Section D.II — Monitoring plan (first pass — light)</strong></p>
+<p>Write the monitoring plan structure. Light depth.</p>
+<p><strong>MANDATORY: include the 10 Invalidation thresholds verbatim</strong> as the bottom of Section D.II. Per Stream A V2-FULL section 24 and Richard's locked decisions, these 10 thresholds live at D.II of every memo <strong>from Early-Stage Assessment onwards</strong>. <em>(Corrected 31-Jul-26: this line previously said "from Triaging onwards", contradicting Procedure 1 Step 4 ("Section D not in scope at Triaging — zero words"), the 01 memo spine ("ZERO content at Triaging"), the teaching matrix (Pillar III first pass at Early-Stage Assessment), and every shipped memo. Caught by the cold-restart test.)</em></p>
+<p>The 10 Invalidation thresholds (verbatim):</p>
+<ol>
+<li><strong>Top-line invalidation</strong> — One probable/actual near-term revenue cut to sell-side/guidance caused by exogenous problem</li>
+<li><strong>Cockroach invalidation</strong> — One actual AND one probable, OR three probable/likely current/near-term problems</li>
+<li><strong>Ditherer invalidation</strong> — Deterioration in operator assessment AND one or more current/near-term probable/actual problems</li>
+<li><strong>Cyclical invalidation</strong> — Share-price underperformance of 15% or 3M FOLLOWED BY a plausible+ near-term revenue cut caused by threshold+ exogenous problem</li>
+<li><strong>Near-term/mid-term one-two invalidation</strong> — Share-price underperformance of 15% or 3M FOLLOWED BY any probable/actual near-term cut</li>
+<li><strong>Wisdom of crowd invalidation</strong> — Share-price underperformance of 15% or 3M FOLLOWED BY any plausible+ Viewforth or actual sell-side momentum threshold+ concerns re. mid/long-term growth rate, margins, SRCAs or predictability thereof</li>
+<li><strong>Market catch-up with our existential concerns invalidation</strong> — Viewforth (not sell-side momentum) plausible+ threshold+ concerns FOLLOWED BY share-price underperformance of 15% or 3M</li>
+<li><strong>Narrow frame invalidation</strong> — Peerset underperformance of 15% or 3M FOLLOWED BY any actual cut/problem</li>
+<li><strong>Sell-side earnings expectation invalidation</strong> — 2% or greater sell-side EPS cuts AND share-price underperformance of 15% or 3M</li>
+<li><strong>Case outputs/attributes invalidation</strong> — 8 or more case-output thresholds at D or F</li>
+</ol>
+<p><strong>Definition of the "underperformance of 15% or 3M" leg [Richard's ruling, 31-Jul-26]:</strong> a 15% negative excess return versus the stock's sector, or any sustained negative excess versus sector over 3 months — both measured off the master dashboard's excess-return fields (the same source at the same date for every stock). "Peerset underperformance" (threshold 8) uses the same measures against the named cohort peers instead of the sector. This definition is stated once, here; memos apply it without restating it.</p>
+<p><strong>Section D.III — Key drivers Upstream and Downstream (first pass — light)</strong></p>
+<p>Write the two driver tables per the 7-column tabular spec:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td>What specifically (the case 'key driver', defined in general terms)</td>
+</tr>
+<tr>
+<td>J</td>
+<td>The best associated 'leading tracking indicator' (LTI) to monitor</td>
+</tr>
+<tr>
+<td>K</td>
+<td>The number of key drivers to define and monitor</td>
+</tr>
+<tr>
+<td>L</td>
+<td>What specifically we expect in our modal case</td>
+</tr>
+<tr>
+<td>M</td>
+<td>What specifically is in management guidance (explicit/inferred)</td>
+</tr>
+<tr>
+<td>N</td>
+<td>What specifically does the sell-side expect</td>
+</tr>
+<tr>
+<td>O</td>
+<td>What specific threshold would be "invalidation"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Upstream table</strong> (5 rows): E23 Key hygiene assumptions, E24 Primary case drivers, E25 Secondary case drivers, E26 Key risks/fragilities (upstream), E27 Key positive optionality.</p>
+<p><strong>Downstream table</strong> (5 rows): E28 Key financial metrics, E29 Key forecast outputs, E30 Key risks/fragilities (downstream), E31 Peers/sector developments, E32 Key technical developments.</p>
+<p>At Early-Stage Assessment, both tables are first-pass — light: write each row but with provisional content; full depth comes at Deep Dive.</p>
+<p>Pillar III rating: A-F first pass — light.</p>
+<h2 id="step-5-delta-section-e-actions">Step 5 (delta) — Section E Actions</h2>
+<p>Re-write the actions per the second-pass-solid level of conviction. Either progress to Deep Dive with key questions for that stage, or park with reassessment criteria.</p>
+<p>Section E target length: ~1,000 words minimum.</p>
+<h2 id="step-6-delta-section-f-appendices">Step 6 (delta) — Section F Appendices</h2>
+<p>Update with new sources and process notes from the Early-Stage Assessment work. Section F carries a one-line pointer to the §7 Quality Control Audit in the self-review debrief file (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6).</p>
+<h2 id="early-stage-assessment-memo-completion-checklist">Early-Stage Assessment memo completion checklist</h2>
+<ul>
+<li>Section B BLUF re-written at second pass — solid; Master Ratings at second pass — solid (Pillar III rating now appears)</li>
+<li>Section C.1 — E1 deepened at second pass — solid; E2 and E3 first-written</li>
+<li>Section C.2 — E4 second pass — solid; E5 third pass; E7 second pass — solid; E8 carve-out (1-2 fit setups deepened); E9 first pass; E10 first pass with carve-out; E11 first pass at solid; E12 first pass with RA1 ×4 multiplier; E13 first pass; E18 + E19 first pass — light; E20 first pass</li>
+<li>Section D first appears with D.I, D.II (including 10 Invalidation thresholds verbatim), D.III (7-column tables for upstream and downstream)</li>
+<li>Section E with progress or park recommendation</li>
+<li>Section F appendices updated, including the one-line pointer to the §7 Quality Control Audit</li>
+<li>Quality Control Audit run and clean of HARD FAILs (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6 — if any hard fail, fix the memo and re-audit before close-out)</li>
+</ul>
+<p><strong>Decision pivot.</strong> Progress to Deep Dive, or park. Hand off to Richard for Friday review meeting decision.</p>
+<hr>
+<h1 id="procedure-3-deep-dive-memo-stage-v-third-aj-pass">PROCEDURE 3 — DEEP DIVE memo (Stage V, third A&amp;J pass)</h1>
+<p><strong>Cumulative-delta discipline.</strong> This procedure says: <strong>carry forward everything the Early-Stage Assessment memo produced, unchanged, then add the deltas below.</strong></p>
+<p><strong>Stage purpose.</strong> Robustly probe the case's riskiness. Third A&amp;J pass.</p>
+<p><strong>Stage qualitative test (NOT rated).</strong> Shun mediocrity in management quality, business quality, case predictability, driver trackability. Avoid "weirder, worser, further (down), for longer" patterns. Avoid "cockroach" patterns. Only top decile / top quartile A or B cases progress.</p>
+<p><strong>Decision pivot.</strong> Progress to Live (invest), or park, or size. <em>(Park never withholds the memo — see the ruling under Procedure 1's decision pivot, and <code>05-IA-EXECUTION-DISCIPLINE.md</code> §7d.)</em></p>
+<p><strong>Approximate memo length floor.</strong> ~42,000 words minimum (excluding A, F), of which ~31,500 is carried forward from Early-Stage Assessment (raised +50%, 2026-07-03, same instruction).</p>
+<p><strong>MEDIOCRITY-SHUNNING GATE.</strong> At Deep Dive, the mediocrity-shunning discipline fires. C/D/F grades on management quality, business quality, case predictability, or driver trackability mean <strong>PARK, not progress</strong>. Only A or B cases clear Deep Dive.</p>
+<p><strong>Standing refinements at Deep Dive (D-IA-4RR-08 live price, D-IA-4RR-09 cohort grading; apply at every stage).</strong> (i) The live share price, 52-week range and sell-side target range stay load-bearing: at Deep Dive the entry-point read feeds E3 at solid depth and the mediocrity-shunning gate (a case that has fully re-rated on an unproven thesis is exactly the pattern the gate exists to catch). (ii) Strike every A-F grade against the live cohort peers (whose full four-report sets are on disk at this stage), not against an abstract universe base rate, and run the cohort A/B explicitly; the risk Elements (E15, E16, E17) in particular are graded cohort-relative. See <code>06-RESEARCH-SOURCE-MAP.md</code> sections 4b and 4c.</p>
+<p><strong>Elements that DEEPEN at Deep Dive:</strong>
+- E4 — deepens per the matrix <em>(added 31-Jul-26: this list omitted E4, though Group 1 below states "E4, E5 deepen per the matrix"; depth per the 01 teaching matrix — the procedure body defers to it)</em>
+- E1 third pass — robust; ×2; floor 10 minimum
+- E2 second pass — solid; ×2; floor 8 minimum
+- E3 second pass — solid; floor 4
+- E5 fourth pass (treated as third pass — robust); ×2; floor 10 minimum
+- E7 third pass — robust; ×2; floor 10 minimum
+- E8 third pass — robust on the 1-2 fit setups (carve-out continues); floor 5 minimum for fit setups; others carry forward at 3
+- E9 second pass — solid; floor 4
+- E10 second pass — solid; ×2; carve-out continues (deepen the material 6-10 Core Questions to floor 8 minimum; others stay at 3)
+- E11 second pass — solid; floor 4
+- E12 second pass — solid; RA1 Sector strength ×4 (floor 16 for RA1 and its 3 CQs)
+- E13 second pass — solid; floor 4
+- E18 second pass — solid; floor 4
+- E19 second pass — solid; floor 4
+- E20 second pass; floor 4</p>
+<p><strong>Elements first written at Deep Dive (the risk Elements + E6):</strong>
+- E6 Sell-side earnings momentum (first pass; floor 3 minimum)
+- E15 Invalidating attributes (first pass; RA1 General ACHs ×4 — floor 12 minimum; RA2 Plain sight risks ×2 — floor 6 minimum; others floor 3)
+- E16 Strenuously seek-to-avoid attributes (first pass; floor 3 minimum)
+- E17 Capital-constraining attributes (first pass; floor 3 minimum)</p>
+<p><strong>Pillar III deepens.</strong> Section D goes to solid pass.</p>
+<h2 id="step-1-delta-section-b-executive-summary-at-robust-depth">Step 1 (delta) — Section B Executive Summary at robust depth</h2>
+<p>Re-write the page-level BLUF at third pass — robust. Master Ratings at third pass — robust. Conviction language reflects the maturity of the analysis.</p>
+<p>Section B target length: ~2,000 words minimum.</p>
+<h2 id="step-2-delta-section-c1-pillar-i-deepens-to-robust">Step 2 (delta) — Section C.1 Pillar I deepens to robust</h2>
+<p><strong>E1</strong> — third pass — robust; ×2; floor 10 minimum per RA and per CQ. Re-engage with the Risks report (FX sensitivity, short-sellers, pre-mortem/ACH — what could break the change) and the Leadership report (CEO record, governance — management's ability to drive the change), on top of the Change Forces and Business Foundation base, per <code>06-RESEARCH-SOURCE-MAP.md</code> section 5.</p>
+<p><strong>E2</strong> — second pass — solid; ×2; floor 8 minimum.</p>
+<p><strong>E3</strong> — second pass — solid; floor 4 minimum.</p>
+<h2 id="step-3-delta-section-c2-pillar-ii-deepens-to-robust-risk-elements-first-appear">Step 3 (delta) — Section C.2 Pillar II deepens to robust; risk Elements first appear</h2>
+<h3 id="group-1-e6-first-appears">Group 1 — E6 first appears</h3>
+<p><strong>E6 Sell-side earnings momentum (FIRST PASS at Deep Dive; floor 3 minimum)</strong></p>
+<ul>
+<li><strong>RA1 — Sell-side earnings momentum direction and magnitude (3 bullets minimum)</strong> + 5 CQs (each 3 bullets — EPS Δ, EBITDA Δ, Revenue Δ, Price target Δ, % Buy Δ)</li>
+</ul>
+<p>Element rating for E6.</p>
+<p>E4, E5 deepen per the matrix.</p>
+<h3 id="group-2-e7-third-pass-e8-robust-on-fit-setups">Group 2 — E7 third pass; E8 robust on fit setups</h3>
+<p>E7 robust at floor 10 (×2). E8 carve-out continues — fit setups now at floor 5 (third pass); others carry forward.</p>
+<h3 id="group-3-e9-e13-deepen-to-solid">Group 3 — E9-E13 deepen to solid</h3>
+<p>E9 solid floor 4. E10 solid with carve-out floor 8 on material CQs. E11 solid floor 4. E12 solid with RA1 ×4 floor 16. E13 solid floor 4.</p>
+<h3 id="group-4-risk-elements-first-appear">Group 4 — risk Elements first appear</h3>
+<p><strong>E15 Invalidating attributes (FIRST PASS at Deep Dive; ×4 on RA1; ×2 on RA2; floor 3 on others)</strong></p>
+<ul>
+<li><strong>RA1 — General ACHs ×4 (12 bullets minimum)</strong> + 1 CQ: "No overlap with the 10 general invalidating ACHs" (12 bullets minimum). </li>
+<li>This RA is the case-level review against the 10 Invalidation thresholds at D.II. Watson explicitly walks each of the 10 thresholds and notes "no overlap" or "overlap — flag X." This is the most load-bearing RA in the whole memo at Deep Dive.</li>
+<li><strong>RA2 — Plain sight risks ×2 (6 bullets minimum)</strong> + 3 CQs (each 6 bullets)</li>
+<li><strong>RA3 — No mediocrity? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+<li><strong>RA4 — Negative earnings momentum? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+<li><strong>RA5 — Lessons check? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+</ul>
+<p>Element rating for E15. This is the MEDIOCRITY-SHUNNING GATE step — if E15 produces a D or F rating, the case parks, full stop.</p>
+<p><strong>E16 Strenuously seek-to-avoid attributes (FIRST PASS at Deep Dive; floor 3 minimum)</strong></p>
+<ul>
+<li><strong>RA1 — Crash through stops risk? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+<li><strong>RA2 — Mark-to-market risk? (3 bullets minimum)</strong> + 2 CQs (each 3 bullets)</li>
+<li><strong>RA3 — Sector strength? (3 bullets minimum)</strong> + 1 CQ (3 bullets)</li>
+</ul>
+<p>Element rating for E16.</p>
+<p><strong>E17 Capital-constraining attributes (FIRST PASS at Deep Dive; floor 3 minimum)</strong></p>
+<ul>
+<li><strong>RA1 — Sentiment risk? (3 bullets minimum)</strong> + 1 CQ (3 bullets)</li>
+</ul>
+<p>Element rating for E17.</p>
+<p><strong>E18 and E19</strong> deepen to second pass — solid (floor 4).</p>
+<h3 id="group-5-e20-deepens">Group 5 — E20 deepens</h3>
+<p>E20 second pass; floor 4.</p>
+<h2 id="step-4-delta-section-d-pillar-iii-deepens-to-solid">Step 4 (delta) — Section D Pillar III deepens to solid</h2>
+<p><strong>D.I Position management playbook — second pass — solid.</strong> Concrete entry/sizing/trim/exit rules now firm.</p>
+<p><strong>D.II Monitoring plan — second pass — solid.</strong> Detail per driver. The 10 Invalidation thresholds remain verbatim at bottom — and Watson explicitly addresses each as part of the E15 RA1 work in Section C.</p>
+<p><strong>D.III Driver tables — second pass — solid.</strong> The 5 Upstream and 5 Downstream driver rows are now filled with stock-specific content at solid depth. The L modal / M guidance / N sell-side / O invalidation columns are substantively populated for each driver.</p>
+<p>Pillar III rating: A-F second pass — solid.</p>
+<h2 id="step-5-delta-section-e-actions_1">Step 5 (delta) — Section E Actions</h2>
+<p>Re-write actions at robust conviction. Recommendation is one of: progress to Live (invest), park, or size (with sizing recommendation).</p>
+<p>If progressing to Live: the position-management playbook (Section D.I) becomes the operational layer. The 10 Invalidation thresholds (Section D.II) become the live exit-trigger framework.</p>
+<p>Section E target length: ~1,400 words minimum.</p>
+<h2 id="step-6-delta-section-f-appendices_1">Step 6 (delta) — Section F Appendices</h2>
+<p>Update with Deep Dive sources. Section F carries a one-line pointer to the §7 Quality Control Audit in the self-review debrief file (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6).</p>
+<h2 id="deep-dive-memo-completion-checklist">Deep Dive memo completion checklist</h2>
+<ul>
+<li>Section B BLUF re-written at third pass — robust; Master Ratings at third pass — robust</li>
+<li>Section C.1 — E1 third pass — robust; E2 + E3 second pass — solid</li>
+<li>Section C.2 — all Pillar II Elements at second pass — solid OR robust per matrix; E15, E16, E17 first-written; E6 first-written; E10 carve-out continues</li>
+<li>Mediocrity-shunning gate fired (E15 RA1 review against 10 Invalidation thresholds); case has A or B rating on management / business quality / predictability / trackability</li>
+<li>Section D at solid pass with full driver tables</li>
+<li>Section E with progress (invest), park, or size recommendation</li>
+<li>Section F appendices, including the one-line pointer to the §7 Quality Control Audit</li>
+<li>Quality Control Audit run and clean of HARD FAILs (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6 — if any hard fail, fix the memo and re-audit before close-out)</li>
+</ul>
+<p><strong>Decision pivot.</strong> Progress to Live (invest), park, or size. Hand off to Richard for Friday review meeting decision.</p>
+<hr>
+<h2 id="after-every-memo-phase-4-validation-audit-hot-wash-self-review">After every memo — Phase 4 validation, audit, hot wash, self-review</h2>
+<p>Per <code>01-SYSTEM-OVERVIEW.md</code> Phase 4 and <code>05-IA-EXECUTION-DISCIPLINE.md</code> §4–§6:</p>
+<ol>
+<li>Run structural checks on the memo</li>
+<li>Publish to the repository (dashboard). <strong>Do NOT post to Notion</strong> (stopped 02-Jul-26)</li>
+<li>Produce the separate Go-No-Go Checks artefact paired with the memo (6-10 stack-ranked questions; one-page distillation)</li>
+<li><strong>Run the A&amp;J memo Quality Control Audit</strong> — generate §7 of the self-review debrief file via <code>generate_qc_audit.py</code>: an auto-generated structured compliance audit (word/bullet floors, validator gates, communication and presentation discipline, source provenance, dual-source coverage, Wisdom Library models, self-initiated research log, and more) plus an auto-generated explanatory narrative (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6)</li>
+<li><strong>If the audit returns any HARD FAIL: gate.</strong> Go back and fix the memo, re-run the audit, repeat until the audit is clean of hard fails. Only then continue. SOFT FLAGs are recorded but do not block. The fix loop is narrated in the hot wash (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6)</li>
+<li><strong>Write the A&amp;J memo execution hot wash</strong> — deliver in chat, append to <code>hot-wash-log.md</code> with the stable anchor, add the short cross-reference stub to <code>corrections.md</code> (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §4)</li>
+<li><strong>Write §1-§6 of the A&amp;J memo self-review debrief</strong> — into the file in <code>self-review-debriefs/</code> whose §0 was created at memo pickup; §7 (the QC Audit) was already written at steps 4-5 (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §5–§6)</li>
+<li><strong>Wisdom Library save — MANDATORY, default-on [Richard 2026-07-22]. Save AT LEAST 3 lessons to the Wisdom Library per memo.</strong> This is the growing per-sector/industry learning wiki (Karpathy-style: the system compounds what it learns about how businesses and stock prices work). Rules:
+   - <strong>Default is ALWAYS save.</strong> Only skip if Richard actively says do not this time. Trust IA judgement on WHICH lessons.
+   - <strong>The IA picks the ≥3 lessons by merit</strong> (what genuinely has most analytical value from this memo), across any of sector / industry / general / other levels — BUT <strong>at least 2 of the 3 must be at the sector OR industry level</strong> (not all general/other); this is what grows the per-sector/industry wiki.
+   - <strong>Bronze-if-new / elevate-if-exists.</strong> A genuinely NEW lesson is saved at <strong>Bronze</strong>. If the concept already exists in the library, do NOT duplicate it — <strong>elevate its tier</strong> on independent re-confirmation: Bronze → <strong>Silver</strong> on the 2nd independent confirmation → <strong>Gold</strong> on the 4th+ (or an explicitly high-conviction confirmation). Record the confirming case in the entry's Change Log.
+   - <strong>Mechanics:</strong> file per <code>wisdom-library/SKILL.md</code> §2 (frontmatter + Definition + Why It Matters + Application + Examples + Cross-References + Change Log); validate + update <code>wisdom-library/INDEX.json</code> (back up INDEX first); FUSE-safe write (durable CLI / atomic mv + byte-verify), never the Write/Edit tools on the mount.</li>
+<li>Hand off</li>
+</ol>
+<hr>
+<hr>
+<h2 id="cohort-and-sector-context-injection-d-batch-25-locked-19-may-26-delivery-mechanism-updated-2026-07-25">Cohort and Sector Context Injection (D-BATCH-25, locked 19-May-26; DELIVERY MECHANISM updated 2026-07-25)</h2>
+<p><strong>MECHANISM UPDATE (2026-07-25) — the REASONING in this section still governs; the old DELIVERY is retired.</strong> The analytical intent is unchanged: grade Stock X against a named, comparable peer set and integrate cross-fertilisable peer judgement. What changed is HOW the peer context reaches the writer. The writer no longer reads peer A&amp;J memos and peer research reports directly, and there is no 50,000-token peer budget or "summary-of-summaries" cache. Instead the pipeline assembles a <strong>PEER CHANNEL</strong> at context-assembly (Station 1, <code>peer_resolver.py</code>): for each cohort/sector peer it supplies ONE grade-free qualitative <strong>peer master-digest</strong> (<code>Files/{PEER}/master-digest.md</code>) plus that peer's <strong><code>ratings.json</code></strong> (the peer's grades). The writer reads each digest's SNAPSHOT + NET READ slice by default (the built-in economy; open a full peer digest only to drill a specific comparison). Any peer GRADE the memo cites is cross-checked deterministically against the peer's <code>ratings.json</code> (surfaced as a soft-flag), so the writer never hunts peer figures. Where a peer has no master-digest yet (cold-start), use that peer's <code>ratings.json</code> plus the universe base rate and say so in Section F. The grade-calibration, J-then-A-then-I, conflict-surfacing and conviction guidance below still apply verbatim; the mechanical paragraphs (peer-memo/report reads, the token budget, summary-of-summaries, legacy-report fallback, per-injection audit log) have been rewritten below to match the peer channel.</p>
+<p><strong>Rule.</strong> Before authoring any Analysis-and-Judgement memo for Stock X, the Investment Analyst integrates relevant cross-fertilisable judgement and analysis about Stock X's (a) cohort peers and (b) sector peers into the new memo, using the PEER CHANNEL described above (per-peer master-digests + <code>ratings.json</code>, assembled automatically at Station 1). Stock X is the subject of the memo; peer content is context, not duplicated content. Applies inside AND outside the batch pipeline; universal default for the IA role.</p>
+<p><strong>Scope.</strong> Applies to every A&amp;J memo the IA authors, at every stage (Triaging, Early-Stage Assessment, Deep Dive). The peer-context read fires during the Pre-flight phase, before the LLM prompt is built for any memo section. Replaces and extends the prior Pre-flight item 1 "Cohort check" with the full D-BATCH-25 rule.</p>
+<p><strong>Why this rule exists for the IA role.</strong> The IA's analytical edge is judgement, and judgement is sharper when calibrated against a comparable set. Reading peer A&amp;J memos surfaces what <em>other reasonable analyses</em> concluded about similar businesses; reading peer research reports surfaces the cross-fertilisable structural information (business model, sector dynamics, regulatory environment) that the IA should weight before making a Stock X judgement. Five-year evidence per UWB-6: picking the right thematic dominates picking the right stock; cohort and sector peers carry the load-bearing thematic information.</p>
+<p><strong>Difference from the Researcher's version of the rule.</strong> The IA's peer channel carries BOTH the peer's research-derived content (via the master-digest, which synthesises the peer's family reports) AND the peer's prior A&amp;J judgement (via its <code>ratings.json</code> grades, and any prior comparison-judgements the master-digest records); the Researcher works only from peer research reports (there is typically no prior memo when a research report is authored). The IA still asks the same questions of the peer set: how the cohort was previously rated, what comparison-judgements were made, what counter-factuals were considered.</p>
+<p><strong>Four guardrails</strong> — same as the Researcher rule, scoped for IA.</p>
+<p><strong>Dial modulation (D-IA-4RR-02).</strong> The cohort and sector integration dials (set at brief intake, default "normal"; see <code>06-RESEARCH-SOURCE-MAP.md</code> section 3) modulate this injection: "lot" widens the peer set and leans harder on cohort/sector base-rates when grading; "little" treats the stock as idiosyncratic and minimises peer weighting. "Normal" is the behaviour described below.</p>
+<ol>
+<li>
+<p><strong>Staleness gate</strong> — D-BATCH-17 three-tier rule. Peer memos and reports older than the threshold do NOT auto-inject. Change-sensitive content skipped if older than 2 months; other content skipped if older than 6 months. The IA notes in the memo's Section F Appendices any peer content that exists but was too stale to inject.</p>
+</li>
+<li>
+<p><strong>Relevance gate</strong> — the IA's LLM prompt explicitly instructs: <em>"Integrate peer context ONLY where directly relevant to Stock X's analysis or to a comparison judgement. Do not blur Stock X's specifics with peer specifics. Flag where peer judgement conflicts with Stock X's observed facts. Quote Stock X's own facts when peer context could overwrite them. When the cohort base rate matters for a grade or rating, state the cohort base rate and grade Stock X against it."</em></p>
+</li>
+<li>
+<p><strong>Built-in economy (replaces the old 50,000-token budget and summary-of-summaries).</strong> The peer channel is already compact: one grade-free master-digest per peer, of which the writer reads only the SNAPSHOT + NET READ slice by default. There is no per-memo peer token budget to police and no summary-of-summaries cache to build — the master-digests are pre-built once per peer (out of the memo loop) and reused. The writer opens a full peer digest only to drill a specific comparison it is actually making.</p>
+</li>
+<li>
+<p><strong>Audit logging</strong> — the peer set the writer received is recorded in the sidecar <code>peer_injection</code> (each peer, whether its master-digest and <code>ratings.json</code> were present, and the cold-start <code>backfill_needed</code> list). This replaces the old per-injection audit record of peer-memo/report token counts and summary-of-summaries usage (D-BATCH-23).</p>
+</li>
+</ol>
+<p><strong>Cohort context presented first, sector context second</strong> (same as Researcher rule). Cohort peers have higher relevance than sector peers. The IA's prompt orders cohort context first, sector context second; <code>peer_resolver.py</code> selects cohort peers first, then sector (then the broad industry only if the pool is short).</p>
+<p><strong>What the writer receives per peer (the peer channel; assembled automatically at Station 1 by <code>peer_resolver.py</code>).</strong></p>
+<p>For each cohort peer (then each sector peer, cohort-first):
+1. The peer's <strong>master-digest</strong> (<code>Files/{PEER}/master-digest.md</code>) — one grade-free qualitative synthesis of that peer's family research (Change Forces, Business Foundation, and at deeper stages Leadership and Risks), built once per peer and reused. The writer reads its SNAPSHOT + NET READ slice by default.
+2. The peer's <strong><code>ratings.json</code></strong> — the peer's A-F grades (the canonical grade source; the master-digest is deliberately grade-free).
+3. Cold-start (no master-digest yet): use the peer's <code>ratings.json</code> plus the universe base rate, and flag the cold-start in Section F. The backfill list is in the sidecar <code>peer_injection.backfill_needed</code>.</p>
+<p>The writer does NOT itself go and read peer A&amp;J memos or a peer's raw four-report family — the master-digests carry the cross-fertilisable content, and <code>peer_resolver.py</code> selects the peer set (cohort first, then sector, extending to the broad industry only if the pool is short).</p>
+<p><strong>What the IA does with the injected context.</strong></p>
+<ul>
+<li><strong>Calibrate grades.</strong> When grading Stock X on a Required Attribute (A-F bell curve), state the cohort base rate explicitly and grade Stock X against it. Example: <em>"Capital efficiency: cohort base rate is C across the four Nordic facilities-services peers (Caverion B+, Coor C, ISS C-, Bravida A-). Bravida grades A on capital efficiency against the cohort base rate; the regulatory-mandated electrical-work segment generates significantly higher returns on tangible capital than the discretionary services peers."</em></li>
+<li><strong>Apply the J-then-A-then-I order at cohort scope.</strong> Lead with the comparative judgement, then the analysis behind it, then the supporting peer-level information.</li>
+<li><strong>Cite the peer channel explicitly.</strong> Format: <code>[per CAV-FI master-digest]</code> for a qualitative read-across, or <code>[per CAV-FI ratings.json, E9 = B]</code> when citing a peer's grade (peer-grade citations are cross-checked deterministically against the peer's ratings.json).</li>
+<li><strong>Surface cohort-level conflicts.</strong> When the IA's Stock X analysis conflicts with the prior cohort-level pattern, name the conflict in Section C (Pillar II) and resolve it explicitly: which view wins, why, what new evidence Stock X provides.</li>
+<li><strong>Use cohort context to inform conviction qualifier.</strong> When the cohort is well-covered and consistent, conviction can be higher because the comparative frame is sharper. When the cohort is sparse or inconsistent, conviction qualifier should reflect that.</li>
+</ul>
+<p><strong>Where the rule reads cohort and sector definitions from</strong> (same as Researcher rule).</p>
+<ul>
+<li>Cohort membership: <code>databases/data/cohorts-v3.json</code> (canonical cohort definitions v3; 972 tickers, Third Pass, full 15-zone framework; integrated 26-May-26; supersedes cohorts-v2.json 336 tickers).</li>
+<li>Sector membership: <code>databases/data/universe.json</code> (Viewforth taxonomy: Industry BROAD, Sector NARROW; INVERSE of GICS per reference memory entry <code>reference_viewforth_taxonomy.md</code>).</li>
+<li>The peer channel itself: each peer's <code>Files/{PEER}/master-digest.md</code> (grade-free qualitative synthesis) and <code>Files/{PEER}/A-J-memo/ratings.json</code> (the peer's grades), resolved by <code>peer_resolver.py</code>. Each master-digest is built once per peer, out of the memo loop, from that peer's four family folders (<code>41-change-forces|42-business-foundations|43-leadership-foundations|44-risks</code>).</li>
+</ul>
+<p><strong>Pre-flight integration.</strong> The Pre-flight section above (item 1 Cohort check) is now replaced by this full D-BATCH-25 rule. The IA reads cohorts-v3.json and universe.json, identifies cohort and sector peers, applies the four guardrails, loads peer content into the working context BEFORE opening any procedure. This happens before Phase 0.5 back-brief.</p>
+<p><strong>Mode mapping for batching.</strong> Inside the batch pipeline, the orchestrator pre-loads cohort and sector peers per stock at Layer 4 Phase A fire-time. Outside batching (Watson asked to author a memo manually), the same rule fires.</p>
+<p><strong>Cross-references.</strong></p>
+<ul>
+<li>D-BATCH-25 in <code>PROJECTS/SA - Batching and Automating Investment Research Process/decisions.md</code>.</li>
+<li>Researcher version of the rule at <code>memory/skills/researcher/SKILL-V2.md</code> section "Cohort and Sector Context Injection".</li>
+<li>Note in <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/cohort-sector-context-injection-note-2026-05-19.md</code> captures the rationale and rollout plan.</li>
+<li>Staleness rules from D-BATCH-17.</li>
+<li>Audit logging from D-BATCH-23.</li>
+<li>IA Execution Discipline (<code>05-IA-EXECUTION-DISCIPLINE.md</code>) §3 self-initiated research queries continue to fire on top of cohort/sector context injection; the rules are layered, not exclusive.</li>
+</ul>
+<h2 id="cross-references">Cross-references</h2>
+<ul>
+<li><code>01-SYSTEM-OVERVIEW.md</code> — system map and the matrix as teaching exhibit</li>
+<li><code>03-COMMUNICATING-SOP.md</code> — how to write up the analysis (J → A → I, peer base-rates, grading, invert, outliers, no skirting)</li>
+<li><code>04-PRESENTING-SOP.md</code> — how to render the writing (header hierarchy, bullets, signposting, ratings pills, sentiment highlighting)</li>
+<li><code>05-IA-EXECUTION-DISCIPLINE.md</code> — the process wrapper around every memo (back-brief, mid-flight PM consult, self-initiated research, execution hot wash, self-review debrief)</li>
+<li><code>06-RESEARCH-SOURCE-MAP.md</code> — where each Element draws its inputs in the 4-report era (semantic map, stage minimums, dials, coverage-and-identity gate)</li>
+<li><code>briefing/04-elements-with-RAs-and-CQs-integrated.md</code> — full text of all 60 Required Attributes and 170 Core Questions</li>
+<li><code>briefing/03-understanding-08may-in-detail.md</code> — the conceptual understanding document Richard signed off</li>
+</ul>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

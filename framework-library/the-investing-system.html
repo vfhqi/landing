@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Investing System — Investment System Library</title>
+<style>:root{--accent:#6b3fa0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Philosophy and Strategy</div>
+  <h1 class="doc">The Investing System</h1>
+  <p class="desc">The whole approach described as six connected domains, from the three perpetual goals down to daily workflow.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/context/investing-system.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 29-Jul-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="investing-system-architecture">Investing System Architecture</h1>
+<p>Richard views his approach as a <strong>complex system</strong>, not a linear process. The system has six interconnected domains, each feeding the others.</p>
+<hr>
+<h2 id="the-six-domains">The Six Domains</h2>
+<h3 id="1-etcs-evergreen-target-conditions">1. ETCs (Evergreen Target Conditions)</h3>
+<p>Three perpetual goals that never "complete" — they set the direction. Everything else serves them.</p>
+<ul>
+<li><strong>ETC 1 — Investing:</strong> Have a portfolio and squad that makes outlier returns (5-10% outperformance per annum) on a rolling next-two-year basis by continually, fluidly and successfully adapting to any unfolding circumstances.</li>
+<li><strong>ETC 2 — Self/Performance:</strong> Consistently execute the process at an elite level. Mark Douglas style. Conservative analysis, aggressive execution.</li>
+<li><strong>ETC 3 — Business/Viewforth:</strong> Build and sustain a viable solo investment operation with appropriate infrastructure, tools, and professional standards.</li>
+</ul>
+<h3 id="2-investment-strategy">2. Investment Strategy</h3>
+<p>The "what" — defines what to own, what to avoid, and the frameworks for deciding. Centred on the <strong>Six Pillars of a Target Investment Case</strong> (15-Apr-26, supersedes prior 4-pillar framework):</p>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Name</th>
+<th>Nature</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td>Technical Momentum</td>
+<td>Quantitative/Technical</td>
+<td>Dashboard (formulaic)</td>
+</tr>
+<tr>
+<td>II</td>
+<td>Market Paradigm Fit</td>
+<td>Thematic/Qualitative</td>
+<td>APM judgement</td>
+</tr>
+<tr>
+<td>III</td>
+<td>Fundamental Change</td>
+<td>Fundamental/Qualitative</td>
+<td>APM analysis + judgement (Inputs + Outputs + Setup)</td>
+</tr>
+<tr>
+<td>IV</td>
+<td>Building Blocks — Robustness</td>
+<td>Fundamental/Qualitative</td>
+<td>APM analysis + judgement (Guardrails + Foundations + Constraints)</td>
+</tr>
+<tr>
+<td>V</td>
+<td>SS Earnings Momentum</td>
+<td>Quantitative</td>
+<td>Dashboard (formulaic, EPS 2x weighted)</td>
+</tr>
+<tr>
+<td>VI</td>
+<td>Valuation</td>
+<td>Returns/Quantitative</td>
+<td>Financial Analyst / APM</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rating scale:</strong> A = top decile (rare, exceptional), B = good (75-90%), C = fair (50-75%), D = weak (35-50%), F = fail (bottom third).</p>
+<p><strong>Rollup methodology:</strong> Weighted worst-of — 60% bottom quartile of rated attributes, 40% overall weighted average. Conservative by design: a mix of B's and C's rounds toward C, not B. Family-specific weights for P4 (HEAVY: Guardrails/Foundations/Invalidating; MEDIUM: Seek-to-avoid/Size/Congruency/FFF; LIGHT: Nice-to-have). P5: EPS = 2x weight, rest = 1x.</p>
+<p><strong>Investment Case Drivers (ICD) framework:</strong> APM classifies all drivers per stock: Fulcrum Drivers (1-2, SP-defining), Key Drivers (up to 4), Secondary (minor), Tertiary (noise). Each FD has qualitative description + financial output mapping + 1-2 Leading Tracking Indicators. Transmission mechanism: INPUT (CEO/strategy) → INPUT (operational execution) → INPUT (qualitative change) → KFM → FSO → EPS → SP.</p>
+<p><strong>26 APM deliverables per stock per stage:</strong> Scaled by stage depth (Triaging light, ESA moderate, DD full). Four sections: B (Financials, produce first), A (IC Analysis), C (Summary, produce after A+B), D (Actions). Reading order: C → A → D → B.</p>
+<p><strong>IC Ratings Database:</strong> JSON source of truth with five layers — Decision (Master, ~20 fields), Detail (~107 fields across 6 pillars), Historical (snapshots), Information (RESEARCHER/Dashboard), Presentation (Notion + HTML dashboard). Rollup script computes master scores from detail. Dashboard shows colour-coded pillar ratings, monitoring plan, findings log.</p>
+<p>Cross-reference: <code>investment-strategy.md</code>, <code>fundamental-change-screen/SKILL.md</code> (V7+), <code>databases/</code> folder</p>
+<h3 id="3-market-environment-fit-for-fighting">3. Market Environment ("Fit for Fighting")</h3>
+<p>Macro awareness that shapes portfolio construction and industry tilts. Not macro forecasting — environmental awareness that determines which setups to prioritise.</p>
+<p>Current state (Mar 2026): Risk-off mode. Iran conflict driving industry-level analysis. Targeting: recurring non-cyclical revenues, domestic EU footprint, banks/insurance, cable companies, healthcare. Avoiding: European chems, consumer discretionary, beverages.</p>
+<h4 id="resilience-optionality-12-dimension-framework-aug-2023">Resilience-Optionality 12-Dimension Framework (Aug 2023)</h4>
+<p>Deep assessment of portfolio position fragility. 12 dimensions of resilience + optionality; drives position sizing and monitoring intensity. Resilient positions can hold at larger sizes (15%) with lower stress. Fragile positions capped at 5% unless optionality is visible. Core insight: resilience ≠ safety (defensive stocks can be illiquid). Optionality (paths forward, expansion opportunities) ≠ growth (hard to forecast, binary risk).</p>
+<h4 id="end-game-logic-tarasoff-test-jul-2023">End-Game Logic / Tarasoff Test (Jul 2023)</h4>
+<p>When a position breaks thesis or deteriorates materially, apply Josh Tarasoff's "end-game logic": What is the realistic probability of recovery to entry valuation within the holding period? If &lt;30%, cut immediately. Don't hold deteriorating positions hoping for mean reversion. The market will likely get worse before better. Default action: exit, rebuild conviction, re-attack if case clears.</p>
+<h4 id="18-4-time-horizon-discipline-aug-2023">18-4+ Time Horizon Discipline (Aug 2023)</h4>
+<p>Framework for managing multiple time horizons simultaneously:
+- <strong>18M thesis:</strong> The core investment case. What drives 18M EPS?
+- <strong>4Y thesis:</strong> The strategic direction and longer-term optionality.
+- <strong>"+":</strong> The "why own it forever?" aspiration if thesis is exactly right.
+Entry and exit decisions must respect all three horizons. If 18M thesis breaks but 4Y is intact, trim but don't fully exit. If 18M + 4Y both break, cut immediately.</p>
+<h4 id="smpfsokfmoo-monitoring-framework-nov-2023">SMP/FSO/KFM/OO Monitoring Framework (Nov 2023)</h4>
+<p>Four-dimension monitoring system for live positions:
+- <strong>SMP:</strong> Share price momentum. Is the stock trading higher/lower on fundamentals or sentiment?
+- <strong>FSO:</strong> Fundamental strength/opportunity. Are drivers still intact? Is case thesis advancing?
+- <strong>KFM:</strong> Key fundamental milestones. Are quarterly/annual updates confirming thesis?
+- <strong>OO:</strong> Operator outlook / competitive positioning. Is management executing? Is competitive position strengthening/weakening?</p>
+<p>Monitor all four fortnightly. A deterioration in any dimension triggers 30-day shot clock unless the other three are clearly positive.</p>
+<h4 id="hqi-scorecard-high-quality-inflection-core-sizing-framework">HQI Scorecard — High Quality Inflection (Core Sizing Framework)</h4>
+<p>Four-dimensional quality rating that drives position sizing:
+1. <strong>Resilience</strong> — Business quality, moat sustainability, downside protection, margin of safety vs. intrinsic value
+2. <strong>Inflection/Optionality</strong> — Growth optionality magnitude and probability; range of outcomes vs. consensus
+3. <strong>Potential Returns</strong> — 3Y IRR potential, CAGR projections (targets 100-120%+ on probabilistic view)
+4. <strong>Conviction</strong> — Confidence in assessment of above three (information breadth, circle of expertise, eyes-on work, bear case explored)</p>
+<p><strong>HQI Categories</strong> (drive position sizing):
+- <strong>Robust HQI:</strong> High quality + proven inflection + very high conviction → 10-15% sizing
+- <strong>Resilient &amp; Intense HQI:</strong> Rounded profile + strong quality + growth optionality → 10-15% sizing
+- <strong>Ultra High Potential but Fragile (UHPYHQI):</strong> High growth potential but execution/thesis risk → 0-5% (research/de-risking mode)
+- <strong>Resilient but Low Optionality HQI:</strong> Strong defensive quality + limited growth → 8% sizing</p>
+<h4 id="portfolio-management-framework-tci-target-condition-portfolio">Portfolio Management Framework — TCI (Target Condition Portfolio)</h4>
+<p>8-10 core positions on the "pitch" with specific concentration discipline:
+- Top 3 names represent <strong>40-50% of capital</strong> (15-20% of AUM each)
+- Handful at 5%, 8%, 10%, 12%
+- Expect 2-3 position swaps per year (1-in-1-out discipline)
+- Emphasis on core portfolio quality: high conviction, resilience-optionality scoring 8+/12 dimensions</p>
+<h4 id="risk-matrix-framework-forecastability-impact-resource-intensity">Risk Matrix Framework (Forecastability × Impact × Resource Intensity)</h4>
+<p>Three dimensions to assess risk severity:
+- <strong>Forecastability (F):</strong> Can we predict/see this coming? Sudden vs. drip-drip-drip? Epistemic (knowable) vs. aleatory (randomness)?
+- <strong>Impact (I):</strong> How much damage if occurs? (25%+ vs. 5% on intrinsic value?) Timely (N6M) vs. far (5Y+)? Non-linear chain reactions? Thesis-invalidating?
+- <strong>Resource Intensity (R):</strong> How much attention/expertise needed? Outside circle of excellence?</p>
+<p>Aggregate by: range/number of risks, complexity, F/I/R mapping, team bias/weakness alignment.</p>
+<h4 id="radar-process-four-step-environmental-monitoring">Radar Process — Four-Step Environmental Monitoring</h4>
+<p>Top-down macro/environmental framework (not forecasting, situational awareness):
+1. <strong>Mapping:</strong> Get high-altitude view of macro forces, risk environment, turning points vs. trends. Define time frames for persistence.
+2. <strong>Planning/Acting:</strong> Identify which portfolio ideas flow forward, what triggers acceleration, leading indicators vs. contra-indicators.
+3. <strong>Here &amp; Now:</strong> Are we concentrated in best stocks? Sized correctly? Maximizing N2Y return targets vs. minimizing next-month loss?
+4. <strong>Insights to Monitor:</strong> "All roads lead to The Fed and US stock market." Stock markets globally fungible. Market psychology often matters more than fundamentals in positioning.</p>
+<h3 id="4-stock-specific-research">4. Stock-Specific Research</h3>
+<p>The 4-stage pipeline from idea to investment (IG → ESA → DD → LIVE). Each stage has a Target Condition (TC) and SOP, with defined inputs, outputs, and decision gates.</p>
+<p><strong>Forecastability Life Cycle Framework:</strong> Implicit in many decisions — used for assessing predictability windows at each stage. Earlier stages offer wider forecastability; later stages narrow focus to near-term drivers. Key question at each gate: how far forward can we reliably forecast?</p>
+<p><strong>Key Questions Framework as Foundational SOP (Jan 2023):</strong> At every stage, the work produces a prioritised Key Questions list. KQs are the explicit gaps in conviction. By stage 2 (ESA), the top 3-5 KQs should define the research roadmap. By DD, all KQs must be answered or explicitly parked. KQs serve as the true guardrail against analytical rabbit holes — if it doesn't address a KQ, don't do the work.</p>
+<p>Cross-reference: <code>investment-process.md</code></p>
+<h3 id="5-monitoring">5. Monitoring</h3>
+<p>Ongoing surveillance of live positions and watchlist names. Two modes:
+- <strong>Portfolio monitoring:</strong> Track all drivers fortnightly, rate any deterioration RED, review monthly, move to disprove-or-invalidate if needed
+- <strong>Squad monitoring:</strong> Lighter touch — developments checks, earnings reviews, information funnel processing</p>
+<p><strong>Monitoring Plan Database (15-Apr-26):</strong> Structured JSON database (<code>databases/monitoring/monitoring-plan.json</code>) where APM defines WHAT to monitor, WHY (higher intent/mission command), HOW, and FREQUENCY. RESEARCHER executes the monitoring. Findings logged to <code>databases/monitoring/findings-log.json</code> as time-series observations. APM reviews findings at next cycle. Default frequency: slower than instinct (Monthly unless specific reason for faster). Each monitoring item links to a driver tier (Fulcrum/Key/Secondary/Macro).</p>
+<p><strong>Leakage Journal Concept (Sept 2023):</strong> Systematic daily log of portfolio "leaks" — the way capital is haemorrhaging from the portfolio through (a) deteriorating positions held too long, (b) winners trimmed too early, (c) missed inflection points, (d) poor exits. Every month, analyse leakage patterns. Most leakage is systematic (endowment bias, FOFR, complexity avoidance). Coaching: focus on leakage reduction, not absolute return maximisation.</p>
+<h3 id="6-workflowplanning">6. Workflow/Planning</h3>
+<p>The operating system layer — how work gets prioritised, sequenced, and executed day-to-day. Mission command principles applied to investment workflow.</p>
+<p><strong>Radar Process:</strong>
+- <strong>Step 1 — Mapping:</strong> "Get your head out of the game" — high-altitude view of opportunity set, industry positioning, risk environment, watchlist development. No immediate action orientation.
+- <strong>Step 2 — Planning/Acting:</strong> From the map, identify which ideas flow to the pipeline, what triggers acceleration, what warrants new research emphasis.</p>
+<hr>
+<h2 id="how-the-domains-connect">How the Domains Connect</h2>
+<p>The system operates as a feedback loop, not a waterfall:</p>
+<pre><code>ETCs (direction) → Strategy (what to own) → Environment (industry tilts)
+     ↓                    ↓                        ↓
+  Process (pipeline) ← Monitoring (signals) ← Workflow (execution)
+     ↑_________________________________________________↑
+</code></pre>
+<p>Key principles:
+- <strong>System execution &gt; process compliance.</strong> The system serves the strategy. The process serves the system. Everything is means to an end. "Doing investing" is not the priority — profiting in the environment is.
+- <strong>Thematic and style agnosticism.</strong> The system watches all industries with no extreme preferences for sector, business model, or investment style (value vs growth). Preferences are fine; dogmatisms are not. This creates "knowledge optionality" — exposure to the full opportunity set, reducing blind spots. (Tao Jones concept: Structured Serendipity)</p>
+<hr>
+<h2 id="operating-system-map">Operating System Map</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Contains</th>
+<th>Updates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETCs</td>
+<td>3 perpetual goals</td>
+<td>Rarely — fundamental direction</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Setups, profiles, predictability tests</td>
+<td>Quarterly review, evolving</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Macro tilts, industry analysis, risk posture</td>
+<td>Continuous — journal entries</td>
+</tr>
+<tr>
+<td>Process</td>
+<td>5-stage funnel, SOPs, checklists</td>
+<td>Refined after each major position</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Driver tracking, threshold alerts</td>
+<td>Daily/weekly cadence</td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>Task management, prioritisation, Watson protocols</td>
+<td>Daily</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="complex-systems-thinking-applied">Complex Systems Thinking Applied</h2>
+<p>See <code>mental-models.md</code> / <code>wisdom-library/</code> for full framework (principles, degradation indicators, self-management application). Key investing application: three degradation indicators (slower recovery rates, rising autocorrelation, rising variance) signal loss of resilience before collapse becomes visible.</p>
+<hr>
+<h2 id="cross-fertilisation-note-tsds-corporate-change-screen-2026-07-03">Cross-fertilisation note — TS/DS Corporate-Change Screen — 2026-07-03</h2>
+<p>Relevant to the Monitoring and Process layers above: a systematic screen of existing TS/DS research reports for corporate-change language identified 33 stocks with genuine, current corporate-change signals (live M&amp;A/carve-out/demerger situations, activist campaigns, leadership resets), tiered by how open each situation still is. This is a cheap, repeatable monitoring signal worth folding into the radar/mapping step of the Environment domain going forward — it draws entirely on research already on file, no new commissioning required to run it again. Full memo and methodology: <code>projects/COS - Research Batching 2026-05-21/SESSION-2026-07-03-TS-DS-CORPORATE-CHANGE-SCREEN.md</code>. Known limitation: the method only catches change that has already moved the share price, so a clean result is not proof nothing quiet is building elsewhere.</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

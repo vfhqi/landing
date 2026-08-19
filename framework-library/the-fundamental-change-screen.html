@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fundamental Change Screen — Investment System Library</title>
+<style>:root{--accent:#8a66bd;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Process and the Analyst Role</div>
+  <h1 class="doc">The Fundamental Change Screen</h1>
+  <p class="desc">The six top-level ratings used across the dashboards, the A to F grading scale, and how sub-ratings roll up into a single score.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/fundamental-change-screen/SKILL.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 07-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+<div class="warn"><b>Note on this document.</b> This is the home of the framework Richard has ruled should be renamed the Six Master Ratings of Capital Deployment Worthiness. The file still uses the older wording.</div>
+<main>
+<h1 id="fundamental-change-screen-sop">Fundamental Change Screen — SOP</h1>
+<blockquote>
+<p><strong>SOP Citation Required.</strong> Per CLAUDE.md Universal Winning Behaviour 3 (SOP CITATION GATE), any proposal involving the workflow described in this file must include an in-turn citation to the specific §X.Y of this file. No citation = proposal not allowed.</p>
+</blockquote>
+<h2 id="purpose">Purpose</h2>
+<p>This SOP governs the <strong>Fundamental Change Screen</strong> — the qualitative analytical framework Watson uses to classify whether a European equity is exhibiting genuine fundamental change that could drive an Earnings Power Step-Up (EPSU) or Earnings Power Transformation (EPT).</p>
+<p>The screen exists because Richard's alpha comes from one source: <strong>identifying stocks where 18M-3Y EPS will be materially higher than the market currently expects</strong>. The market makes specific, identifiable errors in how it processes fundamental change. Each of the 6 setup profiles below exploits a different type of market error. The screen's job is to identify the error type, assess the evidence, and classify the stock accordingly.</p>
+<p>This is NOT a technical screen and NOT a mechanical filter. It is a structured qualitative assessment framework — a disciplined way of asking "what is changing at this company and why is the market wrong about it?"</p>
+<p><strong>Framework version:</strong> Six Pillars of a Target Investment Case (V7, 15-Apr-26). This version supersedes the 4-pillar framework. The existing 4 pillars (Foundations, Inputs, Checks, Outputs) are retained as Pillars III and IV. Three new pillars are added: I (Technical Momentum), II (Market Paradigm Fit), V (SS Earnings Momentum), VI (Valuation).</p>
+<hr>
+<h2 id="referenced-sops">Referenced SOPs</h2>
+<table>
+<thead>
+<tr>
+<th>SOP</th>
+<th>File</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>APM Analysis SOP</strong></td>
+<td><code>apm-analysis-sop.md</code></td>
+<td>How to produce the Analysis component: PRE-ANALYSIS GATE, Triaging format (1-3pp), ESA format (3-5pp), evidence standards, rating scale, posting rules</td>
+</tr>
+<tr>
+<td><strong>APM Judgement SOP</strong></td>
+<td><code>apm-judgement-sop.md</code></td>
+<td>How to produce the Judgement component: setup classification, false friend detection, ACH sketch, IAJ+2DSA, meta questions check. Triaging (combined with Analysis), ESA (separate Notion page)</td>
+</tr>
+<tr>
+<td><strong>Notion Posting SOP</strong></td>
+<td><code>researcher/notion-posting-sop.md</code></td>
+<td>Highlighting, formatting, chunking, property verification</td>
+</tr>
+<tr>
+<td><strong>RESEARCHER SKILL</strong></td>
+<td><code>researcher/SKILL-V2.md</code> (V2.13)</td>
+<td>Research pipeline, 22 v2.1 query templates + Q23 thematic (legacy), per-query source assignment, merged [C+AS] page protocol, stage-specific RESEARCHER outputs</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="architecture-target-investment-criteria-vs-process">Architecture: Target Investment Criteria vs. Process</h2>
+<p><strong>This distinction is fundamental.</strong> The FCS operates across two independent dimensions:</p>
+<h3 id="target-investment-criteria-the-what">TARGET INVESTMENT CRITERIA (the "WHAT")</h3>
+<p>What makes a strong investment case. Organised as:
+- <strong>4 PILLARS:</strong> Foundations, Inputs, Checks, Outputs
+- <strong>13 ATTRIBUTE FAMILIES</strong> (grouped under the 4 pillars)
+- <strong>Individual ATTRIBUTES</strong> (under each family)
+- <strong>6 SETUPS</strong> (the patterns being matched against)
+- <strong>6 META QUESTIONS + 11 SPECIFIC QUESTIONS</strong> (the judgements to form — see Meta Questions section)
+- <strong>20+ CASE COMPONENTS</strong> (the deliverables to produce per stage — tracked separately)</p>
+<h3 id="the-six-pillars-master-framework-supersedes-4-pillar-structure">THE SIX PILLARS (master framework, supersedes 4-pillar structure)</h3>
+<table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Name</th>
+<th>Nature</th>
+<th>Rating Scale</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>I</strong></td>
+<td>Technical Momentum</td>
+<td>Quantitative/Technical</td>
+<td>A-F</td>
+<td><strong>Master Dashboard</strong> (formulaic: MM99 score, filter qualification stages, RS excess returns from <code>filter-results.json</code>; MA data from <code>prices.json</code>) + RESEARCHER Query #3 qualitative analysis. APM synthesises both.</td>
+</tr>
+<tr>
+<td><strong>II</strong></td>
+<td>Market Paradigm Fit</td>
+<td>Thematic/Qualitative</td>
+<td>A-F</td>
+<td>APM judgement</td>
+</tr>
+<tr>
+<td><strong>III</strong></td>
+<td>Fundamental Change</td>
+<td>Fundamental/Qualitative</td>
+<td>A-F</td>
+<td>APM analysis + judgement (Inputs + Outputs + Setup)</td>
+</tr>
+<tr>
+<td><strong>IV</strong></td>
+<td>Building Blocks — Robustness</td>
+<td>Fundamental/Qualitative</td>
+<td>A-F</td>
+<td>APM analysis + judgement (Guardrails + Foundations + Constraints)</td>
+</tr>
+<tr>
+<td><strong>V</strong></td>
+<td>SS Earnings Momentum</td>
+<td>Quantitative</td>
+<td>A-F</td>
+<td><strong>Master Dashboard</strong> <code>factset-ssem.json</code> (formulaic: revision %, momentum count, EPS 2x weighted) + RESEARCHER earnings analysis. AlphaSense is primary qualitative source.</td>
+</tr>
+<tr>
+<td><strong>VI</strong></td>
+<td>Valuation</td>
+<td>Returns/Quantitative</td>
+<td>A-F</td>
+<td>Financial Analyst / APM. <strong>Master Dashboard</strong> <code>factset-valuation.json</code> (P/E, percentiles) as supplementary input.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mapping from old 4-pillar to new Six Pillars:</strong>
+- Old Pillar I (Foundations) → Now part of new Pillar IV (Building Blocks, "Foundation Quality" family)
+- Old Pillar II (Inputs) → Now Pillar III (Fundamental Change)
+- Old Pillar III (Checks) → Now part of new Pillar IV (Building Blocks, "Simplicity Guardrails" family + constraint families)
+- Old Pillar IV (Outputs) → Now part of Pillar III (Fundamental Change, "Required Case Output Attributes")
+- NEW: Pillar I (Technical Momentum) — was always checked via Dashboard/Minervini but not a formal FCS pillar. Now sourced from <strong>Master Dashboard</strong> (<code>filter-results.json</code> MM99 filter + <code>prices.json</code> MA data)
+- NEW: Pillar V (SS Earnings Momentum) — was embedded in GTH/momentum attributes, now a standalone pillar. Quantitative data from <strong>Master Dashboard</strong> <code>factset-ssem.json</code>
+- NEW: Pillar VI (Valuation) — was attribute 4.12/1.6, now a standalone pillar</p>
+<h3 id="rating-scale-a-f-replaces-gyor">RATING SCALE (A-F, replaces G/Y/O/R)</h3>
+<table>
+<thead>
+<tr>
+<th>Grade</th>
+<th>Percentile</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>90-100%</td>
+<td>Top decile. Rare/great. Reserved for genuinely exceptional attributes.</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>75-90%</td>
+<td>Good. Strong positive signal.</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>50-75%</td>
+<td>Fine. Acceptable, no concern.</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>35-50%</td>
+<td>Weak. Concern, needs monitoring or resolution.</td>
+</tr>
+<tr>
+<td><strong>F</strong></td>
+<td>Bottom ~33%</td>
+<td>Fail. Material negative. May be invalidating depending on attribute.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Roll-up logic per pillar:</strong> Detail attribute ratings roll up to pillar scores using weighted worst-of methodology. Negatives weight more heavily than positives. Family-specific weights apply (see database architecture).</p>
+<p><strong>Unclear-excluded rule (15-Apr-26):</strong> If the evidence for an attribute is genuinely insufficient at the current stage depth, rate it as <strong>"—" (unclear)</strong> rather than defaulting to C. Unclear ratings are <strong>excluded from rollup weighting</strong> entirely — they do not drag pillar scores. The distinction: a C means "we assessed this and it's acceptable, not great." Unclear means "we literally do not have enough information to rate this." Common at Triaging: IR helpfulness (no interaction), insider activity (no data), management quality (new appointment too early). As the stock progresses to ESA/DD, unclear attributes should resolve to a letter grade.</p>
+<h3 id="database-integration">DATABASE INTEGRATION</h3>
+<p>All ratings are stored in the IC Ratings database system (<code>databases/</code> on COWORK drive):
+- <strong>Master DB</strong> (<code>databases/master/ic-ratings-current.json</code>): One row per stock, six pillar scores, summary fields
+- <strong>Detail DBs</strong> (<code>databases/detail/p3-fundamental-change.json</code>, <code>p4-building-blocks.json</code>, etc.): Per-attribute ratings
+- <strong>Historical snapshots</strong> (<code>databases/historical/snapshots.json</code>): Point-in-time copies at stage transitions
+- <strong>Monitoring Plan</strong> (<code>databases/monitoring/monitoring-plan.json</code>): TI monitoring items for RESEARCHER
+- <strong>Dashboard</strong> (<code>databases/ic-ratings-dashboard-live.html</code>): Standalone HTML presentation layer</p>
+<p><strong>APM write protocol:</strong> After completing Analysis + Judgement, APM writes attribute ratings to detail DBs → runs rollup script → updates master DB → rebuilds dashboard. See <code>databases/scripts/rollup.py</code> and <code>databases/scripts/build-dashboard.py</code>.</p>
+<h3 id="research-process-the-how">RESEARCH PROCESS (the "HOW")</h3>
+<p>How to analyse the criteria, at progressively deeper levels:
+- <strong>IG → Triaging → ESA → DD → Live</strong>
+- Each stage defines the DEPTH at which each attribute family is assessed (light / medium / robust)
+- Each stage has specific RESEARCHER prerequisites and CASE COMPONENT deliverables</p>
+<h3 id="analytical-priority-change-first-quality-as-probability-gate">ANALYTICAL PRIORITY — CHANGE FIRST, QUALITY AS PROBABILITY GATE</h3>
+<p>The primary objective is assessing the <strong>magnitude of fundamental change</strong> in INPUTS and OUTPUTS. Is something big changing? How big? FOUNDATIONS (quality) then serves as the <strong>probability gate</strong> — it tells you how likely the change is to actually manifest versus being derailed by weak management, no moat, competitive pressure, or demand softness. Quality is the bankability check on the change thesis, not the starting point.</p>
+<p><strong>Flow:</strong> "How much is changing?" (Inputs + Outputs) → "How likely is it to actually happen?" (Foundations as probability filter) → "Is the case investable and simple enough?" (Checks as complexity filter)</p>
+<h3 id="the-6-meta-questions-judgement-framework">THE 6 META QUESTIONS (Judgement Framework)</h3>
+<p>After APM has completed Analysis and Judgement on attributes and setups, these meta questions serve as the final qualitative catch-all. The aim is to have positive, robust answers for all six — or the case is invalidated (the most common outcome):</p>
+<ol>
+<li><strong>Winning pattern fit?</strong> — Does it fit a strong target setup? Any false friend/unacceptable fit?</li>
+<li><strong>Bankable beat-and-raise + growth + EPSU + 3Y triple ratchet?</strong> — Are the modal case outputs compelling?</li>
+<li><strong>Bankability externally?</strong> — Headwinds? Compelling tailwinds? Favourable value chain?</li>
+<li><strong>Bankability internally?</strong> — Business quality compelling? Internal change compelling?</li>
+<li><strong>Timely?</strong> — CfC clearing? Past trends supportive?</li>
+<li><strong>Sufficient TSR?</strong> — Low multiple in fair range? Compelling return?</li>
+</ol>
+<p>These are nebulous, qualitative questions held at the back of the mind throughout the process. They don't replace the attribute analysis — they sit above it as a meta-level sense-check.</p>
+<hr>
+<h2 id="conceptual-foundation">Conceptual Foundation</h2>
+<h3 id="two-types-of-fundamental-change">Two Types of Fundamental Change</h3>
+<p>Fundamental change manifests in two fundamentally different ways:</p>
+<p><strong>1. Pushing of a Force</strong> — something NEW is being added or intensified:
+- A demand explosion arrives at the sector level (Demand-Driven EPSU/EPT)
+- A new CEO, strategy, or corporate transformation creates internal push (Corporate Change EPSU/EPT)
+- These are ADDITIVE change forces — the market error is failing to model the new force</p>
+<p><strong>2. Removal of a Concern</strong> — something NEGATIVE is abating or clearing:
+- A Cause for Concern (CfC) is clearing in a high-quality compounder (CfC Clearing in HQC)
+- A cyclical trough is forming and operating conditions are stabilising (Trough-on-Trough)
+- An extreme CfC is clearing in a viable but medium-quality business (Huge CfC Clearing)
+- These are SUBTRACTIVE change forces — the market error is continuing to price a concern that is resolving</p>
+<p>This "pushing vs. removal" distinction shapes everything: the data sources, the assessment criteria, and the conviction framework. Pushing-of-a-force setups require evidence of the NEW thing (demand data, CEO actions, strategy changes). Removal-of-a-concern setups require evidence of CLEARING — that the negative is abating — plus a quality floor (the business must deserve to re-rate once the concern clears).</p>
+<p><strong>CfC + CLEARING:</strong> For Setups 4, 5, and 6, the emphasis is on CLEARING. A Cause for Concern alone is not a setup — it's just a problem. The setup only exists when there is credible evidence that the CfC is clearing or will clear within a defined timeframe. "CfC clearing" is the operative phrase, not just "CfC."</p>
+<p><strong>CfC SCEPTICISM RULE:</strong> Do NOT dismiss CfCs as "transient." Issues the market is worried about often drag longer, go further, and get weirder than expected ("worser, odder, longer, further"). The correct approach: identify a handful of specific issues the market is worried by, assume they are MORE persistent than they appear, and require hard evidence of clearing before downgrading severity. "Transient-looking" issues are precisely the ones that catch investors out. Default to scepticism.</p>
+<h3 id="naming-convention">Naming Convention</h3>
+<p><strong>Always refer to setups by their word-based titles, not numbers.</strong> The numeric labels (1-6) are internal shorthand only — all output, Notion posts, and analysis should use the full names:</p>
+<table>
+<thead>
+<tr>
+<th>Short</th>
+<th>Full Title</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—</td>
+<td><strong>Stable Serial Acquirer</strong> (DEFERRED)</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Demand-Driven EPSU/EPT</strong></td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Corporate Change EPSU/EPT</strong></td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>CfC Clearing in HQC</strong></td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Trough-on-Trough</strong></td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Huge CfC Clearing (Medium Quality)</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-market-errors-being-exploited">The Market Errors Being Exploited</h3>
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th>Type</th>
+<th>Market Error</th>
+<th>What the Market Gets Wrong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demand-Driven EPSU/EPT</td>
+<td>Pushing</td>
+<td><strong>Analytical — future ≠ past</strong></td>
+<td>Extrapolates historical demand levels. Fails to model structural demand explosion. Underestimates operating leverage.</td>
+</tr>
+<tr>
+<td>Corporate Change EPSU/EPT</td>
+<td>Pushing</td>
+<td><strong>Analytical — future ≠ past</strong></td>
+<td>Anchors to old strategy/structure/management. Fails to model corporate transformation. Underestimates pace of INPUT changes translating to OUTPUT changes.</td>
+</tr>
+<tr>
+<td>CfC Clearing in HQC</td>
+<td>Removal</td>
+<td><strong>Emotional/myopia</strong></td>
+<td>Overweights a temporary CfC. Prices a permanent quality discount into a business whose underlying quality is intact. Misses clearing evidence.</td>
+</tr>
+<tr>
+<td>Trough-on-Trough</td>
+<td>Removal</td>
+<td><strong>Emotional/myopia</strong></td>
+<td>At cyclical trough, extrapolates further decline. Fails to recognise operating stabilisation and estimate conservatism.</td>
+</tr>
+<tr>
+<td>Huge CfC Clearing</td>
+<td>Removal</td>
+<td><strong>Emotional/myopia</strong></td>
+<td>Extreme fear prices in worst case for a viable business. Misses clearing event that creates powerful mean-reversion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="relationship-to-richards-4-patterns">Relationship to Richard's 4 Patterns</h3>
+<p>Richard's best investments combine 2-3 of four recurring patterns. The setups are the mechanism through which these patterns manifest:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>How It Maps to Setups</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Animal CEO</strong> (Slootman archetype)</td>
+<td>Corporate Change EPSU/EPT (layer 1 RESOURCES change) is the strongest single signal. Also feeds CfC Clearing in HQC sub-type 1 (no-CEO CfC clearing when a strong appointment is made). An Animal CEO presence upgrades conviction for ANY setup.</td>
+</tr>
+<tr>
+<td><strong>Massive corporate change plan</strong></td>
+<td>Corporate Change EPSU/EPT directly. Most attractive variant: company emerging from a large investment phase — multi-year margin/EPS depression from doing the right thing, then revenue accelerates + margins expand as one-off costs fall away + operating leverage materialises.</td>
+</tr>
+<tr>
+<td><strong>Huge demand explosion</strong></td>
+<td>Demand-Driven EPSU/EPT criterion 1. Must be genuinely structural or multi-year. High growth is AMAZING in Demand-Driven — the key is catching the inflection from low/medium to HIGH growth. Goldilocks 20-30% growth applies to other setups, NOT this one.</td>
+</tr>
+<tr>
+<td><strong>Very large SP decline</strong></td>
+<td>CfC Clearing in HQC, Trough-on-Trough, and Huge CfC Clearing all feature bottom-quartile multiples. The SP decline is raw material; setup classification determines whether the decline represents opportunity (CfC clearing, cyclical trough) or trap (false friend, structural deterioration).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-three-profiles-from-pillar-2">The Three Profiles (from Pillar 2)</h3>
+<ul>
+<li><strong>Predictable CfC clearing:</strong> Bankable earnings + clearing catalyst + reasonable multiple → CfC Clearing in HQC and Huge CfC Clearing</li>
+<li><strong>EPT (Earnings Power Transformation):</strong> Demand surge driving earnings transformation → Demand-Driven EPSU/EPT</li>
+<li><strong>EPSU (Earnings Power Step-Up):</strong> Internal change/push driving earnings step-up → Corporate Change EPSU/EPT, and the cyclical variant Trough-on-Trough</li>
+</ul>
+<hr>
+<h2 id="entry-trigger-which-stocks-enter-the-fcs">Entry Trigger: Which Stocks Enter the FCS?</h2>
+<p><strong>Trigger: 8/8+ on the Master Dashboard MM99 filter score (from <code>filter-results.json</code>).</strong></p>
+<p>A stock enters the FCS queue when it scores 8 or above on the Master Dashboard's MM99 technical screening filter (11-test, 5 groups: Long-term, Mid-term, Short-term, 52W Leadership, Relative Strength). This is a necessary condition — no stock enters the FCS without it. Data source: <code>master-dashboard/data/filter-results.json</code> → <code>mm99.score</code> field per stock.</p>
+<p><strong>Recency rule:</strong> Prioritise stocks that have RECENTLY passed 8/8 (weeks, not months). Stocks that passed 12+ months ago are at elevated risk of trend exhaustion or reversal. The FCS is designed to catch inflections early, not to validate extended moves.</p>
+<p><strong>Gate decision:</strong> Richard decides which 8/8 stocks enter the FCS queue. Watson does not auto-promote stocks from IG to Triaging based on the score alone. Watson surfaces 8/8 passes to Richard; Richard decides whether to advance.</p>
+<p><strong>Future:</strong> Rules for automatic promotion may be formalised. For now, Richard's discretion is the gate.</p>
+<hr>
+<h2 id="stage-gating-depth-of-analysis-per-process-stage">Stage-Gating: Depth of Analysis per Process Stage</h2>
+<p><strong>The FCS is executed at different depths depending on where the stock is in Richard's 5-stage process.</strong> The current analysis depth is TRIAGING-level. ESA and DD require progressively more. Watson MUST know which stage is being executed — if unclear, ASK before starting.</p>
+<h3 id="depth-requirements-by-stage">Depth Requirements by Stage</h3>
+<p>The 13 Case Attribute categories require different levels of analytical depth at each stage. "Light" = quick assessment from available information. "Medium" = structured analysis using multiple sources. "Robust" = comprehensive analysis using full research SOPs and primary sources.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Case Attribute Category</th>
+<th>Triaging</th>
+<th>ESA</th>
+<th>DD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Business foundations</td>
+<td>light</td>
+<td>light</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Case inputs</td>
+<td>light</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Setups — acceptable, unacceptable, false friend</td>
+<td>light</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Past trend attributes</td>
+<td>light</td>
+<td>robust</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Transmission mechanism</td>
+<td>n/a</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Required simplicity input attributes (guardrails)</td>
+<td>light</td>
+<td>robust</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Required case output attributes</td>
+<td>light</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Invalidating attributes</td>
+<td>n/a</td>
+<td>light</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Strenuously seek-to-avoid attributes</td>
+<td>n/a</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Small-size constraining attributes</td>
+<td>n/a</td>
+<td>medium</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Nice-to-have attributes</td>
+<td>n/a</td>
+<td>light</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Me-state attributes</td>
+<td>n/a</td>
+<td>light</td>
+<td>robust</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Fitness-for-fighting attributes</td>
+<td>light</td>
+<td>light</td>
+<td>robust</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference file:</strong> <code>Files/Attributes_Depth_per_stage.xlsx</code></p>
+<h3 id="practical-implications">Practical Implications</h3>
+<p><strong>TRIAGING (current FCS default):</strong> Categories 1-4, 6-7, 13 assessed at LIGHT depth. Categories 5, 8-12 are n/a — do not assess. Sources: Claude research, dashboard data, public filings. Adequate for setup classification and pass/fail gating.</p>
+<p><strong>ESA:</strong> All 13 categories assessed. Many at MEDIUM or ROBUST depth. This requires the RESEARCHER role to have completed the full 4-page research package (BD + CF × Claude + AlphaSense). Categories 4 and 6 jump to ROBUST — these need detailed financial history and guardrail verification that LIGHT assessment cannot provide.</p>
+<p><strong>DD:</strong> ALL categories at ROBUST depth. Full research stack required. RESEARCHER role must provide guidance/earnings research SOPs, primary source verification, management contact analysis. This is the final gate before investment.</p>
+<h3 id="resource-requirements-by-stage">Resource Requirements by Stage</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Minimum RESEARCHER Input</th>
+<th>Additional APM Resources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triaging</td>
+<td>IG outputs (BD + CF × [C] + [AS]) + Most Recent Earnings Review [C] + [AS] + GTA + GTH + Peer GTH + Sell Side (SS) Analysis + Business Model &amp; Sector Primer + Guidance + <strong>Master Dashboard data</strong> (<code>prices.json</code>, <code>filter-results.json</code>, <code>factset-ssem.json</code>)</td>
+<td>None — ad hoc analysis sufficient</td>
+</tr>
+<tr>
+<td>ESA</td>
+<td>All Triaging + History of Earnings Delivery + Tracking vs Guidance + Value Chain Analysis + Value Chain Map + Pre-mortem + CEO/CFO Questions + Technical Momentum research (all dual-source)</td>
+<td>Financial model (basic), peer comparison</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>Everything from ESA + Case Summarisation + Management/Governance Checks + CEO Research + Insider Comments + FX Exposure + any KQs (all dual-source)</td>
+<td>Full financial model, scenario analysis, ACH</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CRITICAL:</strong> Before starting analysis at ANY stage, Watson must check Notion and the Dashboard for existing RESEARCHER output. If gaps exist, brief the RESEARCHER on what's needed (see PRE-ANALYSIS GATE in the Three-Role Process section below). Do not attempt ESA or DD depth on TRIAGING-level information.</p>
+<p><strong>RESEARCHER SEQUENCING AT TRIAGING:</strong> The Most Recent Earnings Review [C] and [AS] is NOT automatically produced as part of IG. Richard must brief the RESEARCHER to run it. When APM hits the PRE-ANALYSIS GATE and finds Most Recent Earnings Review missing, the correct action is to escalate to Richard — not to self-task the RESEARCHER. Richard decides when and whether to commission that work.</p>
+<p><strong>APM INFORMATION INGESTION RULE:</strong> APM-Analysis ALWAYS reads ALL available Notion pages AND source files for the stock — not a subset. The aim is maximum information ingestion to give the broadest possible analytical base for conducting Analysis, forming Judgement, and proposing Actions + 2 downstream actions (IAJ + 2DSA). At Triaging depth the assessment is LIGHT, but the reading is COMPREHENSIVE. Light depth means shorter evidence statements and fewer sources cited per attribute, not less reading.</p>
+<hr>
+<h2 id="the-three-role-process-information-analysis-judgement">The Three-Role Process: INFORMATION → ANALYSIS → JUDGEMENT</h2>
+<p>The Fundamental Change Screen is executed across three Watson roles in sequence. Each role has a distinct responsibility and output. <strong>Skipping or conflating these steps degrades quality.</strong></p>
+<h3 id="role-1-researcher-information-gathering">Role 1: RESEARCHER — Information Gathering</h3>
+<p><strong>Purpose:</strong> Provide the raw information base that Analysis and Judgement work from.
+<strong>Master reference:</strong> <code>memory/skills/researcher/SKILL-V2.md</code> + prompt templates in <code>AI Prompts/</code></p>
+<h4 id="researcher-output-requirements-by-stage">RESEARCHER Output Requirements by Stage</h4>
+<p>The RESEARCHER must produce specific outputs BEFORE APM Analysis can begin at each stage. Watson must check what exists and brief the RESEARCHER on gaps.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Required RESEARCHER Outputs</th>
+<th>Prompt Templates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IG</strong></td>
+<td>BD [C], BD [AS], CF [C], CF [AS] — <strong>4 Notion pages per stock</strong></td>
+<td><code>Watson - IG - Business description - REV V03_RB.docx</code>, <code>Watson - IG - Change forces - REFV04_RB.docx</code></td>
+</tr>
+<tr>
+<td><strong>Triaging</strong></td>
+<td>IG outputs (above) + Most Recent Earnings Review [C], [AS] + GTA Unknown KDs [C], [AS] + GTH Analysis [C], [AS] + Peer GTH [C], [AS] + Sell Side (SS) Analysis [C], [AS] + Business Model &amp; Sector Primer [C], [AS] + Guidance [C], [AS] + <strong>Master Dashboard data</strong> (<code>prices.json</code>, <code>filter-results.json</code>, <code>factset-ssem.json</code>)</td>
+<td><code>Watson - Triaging - *.docx</code> prompts + BM&amp;Sector Primer + Guidance (moved from ESA 13-Apr-26)</td>
+</tr>
+<tr>
+<td><strong>ESA</strong></td>
+<td>All Triaging outputs + History of Earnings Delivery [C], [AS] + Tracking vs Guidance [C], [AS] + Value Chain Analysis [C], [AS] + Value Chain Map [C], [AS] + Pre-mortem [C], [AS] + CEO/CFO Questions + Technical Momentum research</td>
+<td><code>Watson - ESA - *.docx</code> prompts (7+ types, dual-source each)</td>
+</tr>
+<tr>
+<td><strong>DD</strong></td>
+<td>All ESA outputs + Case Summarisation + Management &amp; Governance Checks + Researching a CEO + Insider Comments + FX Exposure + any KQs briefed</td>
+<td><code>Watson - DD - *.docx</code> prompts (5+ types, dual-source)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The CF output is the primary input for setup classification.</strong> Its 14 sections map directly to setup criteria (see Appendix A). The BD output feeds the quality assessment that gates Foundations and CfC Clearing in HQC.</p>
+<h4 id="pre-analysis-gate-mandatory">PRE-ANALYSIS GATE — MANDATORY</h4>
+<p><strong>Before starting ANY attribute analysis or APM judgement, Watson MUST:</strong></p>
+<ol>
+<li><strong>Search Notion</strong> for all existing RESEARCHER output on the stock (search Stock Notes DB by ticker). List what exists.</li>
+<li><strong>Check the Master Dashboard</strong> data files (<code>master-dashboard/data/prices.json</code> + <code>filter-results.json</code>) for current MM99 scores, filter qualification stages, MA data, and RS excess returns.</li>
+<li><strong>Compare existing output against the stage requirements table above.</strong> Identify gaps.</li>
+<li><strong>If gaps exist → ESCALATION PROTOCOL</strong> (see below).</li>
+<li><strong>Only proceed with analysis once the information base is sufficient for the declared stage.</strong></li>
+</ol>
+<p>This is non-negotiable. Watson does not start attribute analysis on incomplete information. The quality of the analysis is bounded by the quality of the information base.</p>
+<h4 id="researcher-gap-escalation-protocol">RESEARCHER GAP ESCALATION PROTOCOL</h4>
+<p>When Watson identifies missing RESEARCHER outputs:</p>
+<p><strong>Option A — Brief and wait:</strong> Flag the gaps to Richard, recommend briefing the RESEARCHER to run the missing SOPs. Hold analysis until output is posted.</p>
+<p><strong>Option B — Brief and start:</strong> Flag the gaps, brief the RESEARCHER, begin analysis on available information with explicit caveats on which attributes are under-supported. Re-assess affected attributes once RESEARCHER gaps are filled.</p>
+<p><strong>The briefing must be specific:</strong>
+- Which stock
+- Which SOP/prompt is needed (exact template name)
+- Which stage this serves
+- Which attributes in the FCS are blocked or under-supported without it
+- Priority relative to other pipeline work</p>
+<p><strong>Example gap brief:</strong></p>
+<blockquote>
+<p>"NKT ESA: Missing Guidance Analysis [C] and [AS]. Template: <code>Watson - ESA - Guidance - REFV05_RB.docx</code>. Without this, attributes 1.M4 (company delivery), 4.1 (triple ratchet), 4.9 (modal case &gt; guidance &gt; SS), and 4.10 (EPS raise/lower skew) cannot be assessed beyond TRIAGING depth. Recommend RESEARCHER runs this before APM proceeds to ESA-level analysis."</p>
+</blockquote>
+<h3 id="role-2-apm-investment-case-analysis-attributes">Role 2: APM — Investment Case Analysis (Attributes)</h3>
+<p><strong>Full SOP:</strong> <code>fundamental-change-screen/apm-analysis-sop.md</code></p>
+<p><strong>Purpose:</strong> Assess the stock against every applicable attribute. This is ANALYSIS — factual assessment of what the stock exhibits, rated objectively.
+<strong>Input:</strong> ALL available Notion pages + source files + <strong>Master Dashboard data</strong> (<code>prices.json</code>, <code>filter-results.json</code>, <code>factset-ssem.json</code>, <code>factset-valuation.json</code>) + company disclosures. APM reads EVERYTHING — light depth means shorter evidence per attribute, not less reading.
+<strong>Output:</strong> Structured attribute assessment posted to Notion Stock Notes + entered into the Fundamental Change Analysis database.</p>
+<p>The APM rates every applicable attribute across the 4 Pillars (excluding me-state) at the depth appropriate to the declared stage. Each attribute receives a G/Y/O/R rating with evidence.</p>
+<p><strong>What Analysis IS:</strong> "This company has a great operator — evidence: X, Y, Z." "There are strong internal change forces at layers 1-3." "The transmission mechanism from strategy to EPS is unclear." These are factual assessments grounded in evidence.
+<strong>What Analysis is NOT:</strong> "This stock fits Setup 3." That's Judgement. Watson should be explicit about when it is analysing vs. when it is forming a judgement.</p>
+<h3 id="role-3-apm-investment-case-judgement-setup-classification-iaj2dsa">Role 3: APM — Investment Case Judgement (Setup Classification + IAJ+2DSA)</h3>
+<p><strong>Full SOP:</strong> <code>fundamental-change-screen/apm-judgement-sop.md</code></p>
+<p><strong>Purpose:</strong> Map the attribute ratings to setup profiles. Determine which setup(s) the stock fits, how strongly, and at what maturity stage. Form a view. Propose actions.
+<strong>Input:</strong> The attribute assessment from Analysis.
+<strong>Output:</strong> Setup classification with checklist verdict, score, maturity stage, false friend check, recommended action, and <strong>2+ downstream actions</strong> (IAJ+2DSA). Posted to Notion Stock Notes + entered into database.</p>
+<p><strong>Analysis and Judgement are linked but distinct skills.</strong> If in doubt about whether a statement is analysis or judgement, Watson should label it explicitly. Analysis = evidence-based factual assessment. Judgement = forming a view by synthesising multiple analyses into a conclusion.</p>
+<p><strong>What Judgement IS:</strong> "Given these attribute ratings, the pattern matches Demand-Driven EPSU/EPT at full-output maturity." "This is a false friend — transmission mechanism from strategy to EPS is absent."
+<strong>What Judgement is NOT:</strong> "Richard should buy this stock." That's Richard's decision.</p>
+<p><strong>IAJ+2DSA:</strong> Every Judgement output must include at least 2 concrete downstream actions. These might be: progress to next stage, park with specific reassessment criteria, run specific KQ research, build financial model for specific attributes, commission RESEARCHER for specific gap. Future: COS (Chief of Staff) role may drive these actions.</p>
+<hr>
+<h2 id="the-4-analytical-pillars-and-13-attribute-families-pillars-iii-and-iv-detail">The 4 Analytical Pillars and 13 Attribute Families (Pillars III and IV detail)</h2>
+<p>The TARGET INVESTMENT CRITERIA are organised in <strong>4 PILLARS</strong>, containing <strong>13 ATTRIBUTE FAMILIES</strong> with individual attributes beneath each. The pillar numbering in the ESA checklist (3, 1, 2, 4) reflects the original tab layout; the conceptual order is: Foundations → Inputs → Checks → Outputs. Pillar 5 (Fitness-for-Fighting) sits as a constraint layer across all pillars.</p>
+<p><strong>Note:</strong> These 4 analytical pillars map into the Six Pillars framework as Pillars III (Fundamental Change) and IV (Building Blocks). The attribute detail below is unchanged — only the framing and rating scale are updated.</p>
+<p><strong>Analytical priority:</strong> Assess magnitude of CHANGE (Inputs + Outputs) first. Then test PROBABILITY of that change manifesting (Foundations). Then test INVESTABILITY (Checks). See "Analytical Priority" in Architecture section.</p>
+<h3 id="pillar-i-business-foundations-6-attributes">PILLAR I: BUSINESS — FOUNDATIONS (6 attributes)</h3>
+<p>The <strong>probability gate</strong>. Foundations tell you how likely the change thesis is to actually happen. A company with a great operator, widening moat, favourable value chain, and concentrated industry structure has a high probability of translating change forces into financial outputs. A company without these has a hypothesis, not a case.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>Theme</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1</td>
+<td>Great operator?</td>
+<td>Strong company (internal)</td>
+<td>CEO/management quality, execution track record, commercial ambition, culture. Animal CEO = A.</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td>Advantaged business + widening SRCA?</td>
+<td>Strong company (internal)</td>
+<td>Hard + soft competitive advantages. Pricing power, switching costs, network effects, moats. 1% company characteristics.</td>
+</tr>
+<tr>
+<td>3.3</td>
+<td>Favourable value chain dynamics?</td>
+<td>Favourable value chain (external)</td>
+<td>Position in value chain. Supplier/customer power balance. Value capture vs. value creation.</td>
+</tr>
+<tr>
+<td>3.4</td>
+<td>Supportive / concentrated industry structure?</td>
+<td>Favourable value chain (external)</td>
+<td>Oligopoly, barriers to entry, rational competitive behaviour, limited new entrants.</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>High secular / long-term growth potential?</td>
+<td>Growth</td>
+<td>Structural tailwinds (5%+ minimum). Multi-year demand drivers. S-curve positioning.</td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>Fit with stock market paradigm / regime / thematics?</td>
+<td>Stock market fit</td>
+<td>Alignment with current market themes, risk regime, sector rotation.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>FOUNDATIONS SOPs — CRITICAL REFERENCE:</strong></p>
+<p>Section 3 attributes MUST be assessed using Richard's Notion Journal SOPs. These are the canonical check-do lists that define what "great operator", "advantaged business", etc. actually mean in Richard's system. Watson must read and internalise these SOPs before assessing Foundations at ANY stage.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Notion Journal SOP</th>
+<th>Page ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1 Great operator?</td>
+<td><strong>Investing SOP: 'Check-do' lists for 'great operator/allocator'</strong></td>
+<td><code>2d235e90-9b0b-80be-a5b1-f4edbe29aa50</code></td>
+</tr>
+<tr>
+<td>3.2 Advantaged business + SRCA?</td>
+<td><strong>Investing SOP: 'Check-do' list for "Advantaged business + widening moats"</strong></td>
+<td><code>2c635e90-9b0b-80ac-ae6b-f1b6e6bc6c4a</code></td>
+</tr>
+<tr>
+<td>3.3 Value chain dynamics?</td>
+<td><strong>Investing SOP: 10x 'supportive value chain dynamics' check-do list</strong></td>
+<td><code>2d235e90-9b0b-808c-97c4-fc1c5cec9e53</code></td>
+</tr>
+<tr>
+<td>3.4 Industry structure?</td>
+<td><strong>Investing SOP: 'Check-do' list for 'supportive industry structure'</strong></td>
+<td><code>2d235e90-9b0b-801c-83a7-ec4a5e844feb</code></td>
+</tr>
+<tr>
+<td>(Meta-reference)</td>
+<td><strong>Investing SOP: Check-pick refer-to list for assessing business/industry quality</strong></td>
+<td><code>2e635e90-9b0b-8084-ba7a-fb9572bdc238</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Loading protocol:</strong> Before any FCS execution, fetch and read the relevant SOPs from Notion. For TRIAGING, a light pass against these frameworks is sufficient. For ESA/DD, the assessment must systematically address the SOP checkpoints and cite specific evidence against each.</p>
+<h3 id="pillar-ii-case-inputs-change-forces-momentum-setup-classification">PILLAR II: CASE — INPUTS (Change Forces + Momentum + Setup Classification)</h3>
+<p><strong>Change forces (the core of the screen):</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>Theme</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>External change forces / tailwinds?</td>
+<td>Sufficient change forces (PUSHING)</td>
+<td>Demand shifts, regulatory changes, policy support, technological disruption benefiting the company.</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>Internal change forces?</td>
+<td>Sufficient change forces (PUSHING)</td>
+<td>CEO change, strategy shift, restructuring, M&amp;A, operational improvement. Assessed via the 6-layer framework for Setup 3.</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>Absence of external headwinds?</td>
+<td>Sufficient base</td>
+<td>No material headwinds undermining the thesis. Or headwinds identified and manageable.</td>
+</tr>
+<tr>
+<td>1.3b</td>
+<td>Well-invested base?</td>
+<td>Sufficient base</td>
+<td>Company has the operational/financial foundation to execute on the change thesis.</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>Thesis congruency with past/present?</td>
+<td>Sufficient base</td>
+<td>Does the change thesis flow logically from observable evidence? Does it make sense given the company's history?</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>Large CfC/mispricing?</td>
+<td>Mispricing</td>
+<td>Is there a CfC creating a discount (REMOVAL setups)? Or a growth mispricing (PUSHING setups)?</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>Low trading multiple?</td>
+<td>Mispricing</td>
+<td>Is valuation attractive on forward normalised earnings?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Momentum / GTH attributes (past trend constraints):</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>Theme</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.M1</td>
+<td>Technicals — relative, absolute (MAs, etc.)</td>
+<td>Price momentum</td>
+<td>Minervini score, MA relationships, RS direction, excess returns.</td>
+</tr>
+<tr>
+<td>1.M2</td>
+<td>SS — estimates, ratings, PTs, narrative</td>
+<td>Fundamental momentum</td>
+<td>Estimate revision direction, rating changes, target price moves, narrative shift.</td>
+</tr>
+<tr>
+<td>1.M3</td>
+<td>Peers — technicals, SS</td>
+<td>Peer momentum</td>
+<td>Are peers confirming or diverging from the stock's momentum pattern?</td>
+</tr>
+<tr>
+<td>1.M4</td>
+<td>Company — delivery</td>
+<td>Delivery momentum</td>
+<td>Is the company meeting/beating expectations? Guidance trajectory?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GTH Sourcing by Stage:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Peer technicals (M1, M3)</th>
+<th>Company delivery (M4)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Triaging</strong></td>
+<td>Base on <strong>Master Dashboard MM99 scores, filter qualification stages, and RS excess returns from <code>filter-results.json</code></strong> only. No additional research required.</td>
+<td>Acceptable at LIGHT depth from public filings and recent results.</td>
+</tr>
+<tr>
+<td><strong>ESA / DD</strong></td>
+<td>Master Dashboard data AND run the <strong>RESEARCHER Query #3 (Technical Momentum) SOP</strong> for qualitative depth (stage analysis, base formation, volume patterns, pullback health).</td>
+<td>Base on <strong>Guidance and Earnings Research SOPs</strong> + Master Dashboard <code>factset-ssem.json</code> as supplementary context. If RESEARCHER queries have not been run and posted, escalate to RESEARCHER role first.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Setup classification:</strong> Output of Judgement step (see Setup sections below).</p>
+<h3 id="pillar-iii-case-checks-simplicity-guardrails-transmission-mechanism">PILLAR III: CASE — CHECKS (Simplicity Guardrails + Transmission Mechanism)</h3>
+<p>These are gatekeepers — they test whether the case is INVESTABLE, not whether it's attractive.</p>
+<p><strong>COMPLEXITY GATEKEEPER — WATSON'S ACTIVE ROLE:</strong> Richard has a tendency to let too many cases through on Checks. Watson's responsibility in APM is to be the disciplined enforcer here. When a stock has 3+ CfCs, a sprawling perimeter, unclear transmission mechanism, or too many drivers — Watson should flag this as a hard problem in a neutral but challenging tone, and recommend parking or downgrading conviction. Do not accommodate complexity with generous Y-ratings. If ≥2 of the 7 guardrails fail, Watson should actively recommend parking or requiring significant additional evidence before progressing, regardless of how strong the other pillars look. Richard decides, but Watson's job is to surface the complexity risk prominently.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>Theme</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.1</td>
+<td>2 or less fulcrum drivers and 4 or less key drivers?</td>
+<td>Narrowly focused bet</td>
+<td>Is the case simple enough to track and invalidate?</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>10 or less geographies × business units?</td>
+<td>Narrow perimeter</td>
+<td>Is the business simple enough to understand thoroughly?</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Zero value chain headwinds to revenue?</td>
+<td>No headwinds</td>
+<td>Are there material value chain obstacles to revenue growth?</td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>2 or less CfCs or problems?</td>
+<td>Narrow range of issues</td>
+<td>Pret sandwich risk check — too many CfCs = fatal regardless of individual severity.</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>Company confirms conservative guidance?</td>
+<td>Conservative IR</td>
+<td>Is guidance set at a level that creates conditions for beats?</td>
+</tr>
+<tr>
+<td>2.6</td>
+<td>Clear strategy-to-EPS transmission mechanism?</td>
+<td>Clear investment case</td>
+<td>Can you trace strategy → actions → financial outputs → EPS? <strong>If not = false friend.</strong></td>
+</tr>
+<tr>
+<td>2.7</td>
+<td>Clear VC/Co inputs-to-EPS transmission mechanism?</td>
+<td>Trackable case drivers</td>
+<td>Can you trace value chain/company inputs → leading indicators → EPS quarter by quarter?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pillar-iv-case-outputs-financial-profile-navigatability">PILLAR IV: CASE — OUTPUTS (Financial Profile + Navigatability)</h3>
+<p><strong>THE MOST IMPORTANT ATTRIBUTE FAMILY.</strong> The Required Case Output Attributes (12 attributes below) are the attributes that most directly drive the stock price. They are the financial translation of the change thesis into investable reality. These should be assessed at EVERY stage from Triaging onwards — they are not deferred to ESA.</p>
+<p><strong>Financial output attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>Theme</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1</td>
+<td>Three-year, mid-term, triple ratchet step-up?</td>
+<td>Longevity of case</td>
+<td>Is the earnings improvement multi-year and self-reinforcing?</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>12-20% EPS growth p.a.?</td>
+<td>Growth rate</td>
+<td>Is growth in the sweet spot for other setups? (Note: for Setup 2, high growth above 20% is POSITIVE — see Setup 2 section.)</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Margin/growth step-up?</td>
+<td>Financial improvement</td>
+<td>Is there visible margin expansion or revenue acceleration?</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Fit with required setups?</td>
+<td>Setup fit</td>
+<td>Does the case match an acceptable setup profile?</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>Post CfC clearing / SP turn?</td>
+<td>Timeliness</td>
+<td>Is the CfC clearing and/or SP turning?</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>Less than 6M after turn?</td>
+<td>Timeliness</td>
+<td>Is entry within the 0-6M window of the turn?</td>
+</tr>
+<tr>
+<td>4.7</td>
+<td>Helpful IR re. operating momentum?</td>
+<td>Navigatability</td>
+<td>Will investor relations provide useful intra-quarter data?</td>
+</tr>
+<tr>
+<td>4.8</td>
+<td>Trackable key leading indicators?</td>
+<td>Navigatability</td>
+<td>Can key drivers be monitored fortnightly?</td>
+</tr>
+<tr>
+<td>4.9</td>
+<td>Modal case 18M EPS &gt; guidance &gt; SS?</td>
+<td>Earnings upgrades</td>
+<td>Is the modal case above both guidance and SS consensus?</td>
+</tr>
+<tr>
+<td>4.10</td>
+<td>3:1 SS/G EPS raise/lower skew NFY?</td>
+<td>Earnings upgrades</td>
+<td>Is the estimate revision skew strongly positive?</td>
+</tr>
+<tr>
+<td>4.11</td>
+<td>Multiple more company than exogenously driven?</td>
+<td>Limited drawdown risk</td>
+<td>Is the valuation supported by company fundamentals, not sector/macro?</td>
+</tr>
+<tr>
+<td>4.12</td>
+<td>More than 20% 3Y TSR?</td>
+<td>Returns</td>
+<td>Does the case deliver sufficient total shareholder return?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Stage-specific notes on Output Attributes:</strong>
+- <strong>4.9 (Modal case &gt; guidance &gt; SS):</strong> Requires a financial model to answer with conviction. At Triaging, assess directionally — if the company is known for conservative guidance and IR actively anchors SS estimates low to create room for beat-and-raise (e.g. Helios Towers pattern), and if available analysis shows SS estimates sit at the low end of guidance, a directional judgement is possible. At ESA/DD, requires the actual Excel model.
+- <strong>4.10 (3:1 raise/lower skew):</strong> Requires DD-level judgement for high conviction. At Triaging/ESA, assess from available SS data — estimate revision direction, breadth of upgrades/downgrades, and whether the pattern is consistent with beat-and-raise dynamics.
+- <strong>4.12 (&gt;20% 3Y TSR):</strong> At Triaging, a rough TSR estimate from current multiple, consensus EPS trajectory, and normalised exit multiple. At ESA, modelled in Excel.</p>
+<p><strong>Me-state attributes (Richard only — APM does NOT rate these):</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>What Richard Assesses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.MS1</td>
+<td>Believe in 'IT, NT and MT'</td>
+<td>Conviction across all timeframes</td>
+</tr>
+<tr>
+<td>4.MS2</td>
+<td>Very understandable + clear + predictable</td>
+<td>Fingertip feel</td>
+</tr>
+<tr>
+<td>4.MS3</td>
+<td>Excited</td>
+<td>Emotional engagement with the case</td>
+</tr>
+<tr>
+<td>4.MS4</td>
+<td>Feel comfortable</td>
+<td>Sense of control</td>
+</tr>
+<tr>
+<td>4.MS5</td>
+<td>"Sit three steps ahead"-able</td>
+<td>Anticipation of market moves</td>
+</tr>
+<tr>
+<td>4.MS6</td>
+<td>Faster OODA loop speed than the SP</td>
+<td>Information processing advantage</td>
+</tr>
+<tr>
+<td>4.MS7</td>
+<td>Erosion spottable early</td>
+<td>Deterioration detection confidence</td>
+</tr>
+<tr>
+<td>4.MS8</td>
+<td>ACH-able</td>
+<td>Can compete hypothesis profiles</td>
+</tr>
+<tr>
+<td>4.MS9</td>
+<td>Crisply trackable KDs (Enav)</td>
+<td>vs. fuzzily trackable KDs (HBX)</td>
+</tr>
+<tr>
+<td>4.MS10</td>
+<td>Updateable [new info]</td>
+<td>Can incorporate new information</td>
+</tr>
+<tr>
+<td>4.MS11</td>
+<td>Hold-all-in-head-able</td>
+<td>Cognitive manageability</td>
+</tr>
+<tr>
+<td>4.MS12</td>
+<td>Granularly extrapolatable from qualitative to EPS</td>
+<td>vs. noisy/blackbox extrapolation</td>
+</tr>
+<tr>
+<td>4.MS13</td>
+<td>Easily defined and clear invalidation thresholds</td>
+<td>vs. vague invalidation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pillar-iv-continued-constraint-families-esa-onwards">PILLAR IV (continued): CONSTRAINT FAMILIES — ESA onwards</h3>
+<p><strong>The following attribute families sit under Pillar IV but are NOT assessed at Triaging.</strong> They come in at ESA (light or medium depth) and DD (robust). The Required Case Output Attributes above ARE assessed at Triaging. This split is deliberate: at Triaging, you focus on whether the case OUTPUTS are compelling. At ESA, you additionally check whether they survive the constraint filters.</p>
+<h3 id="fitness-for-fighting-constraints-family-13">FITNESS-FOR-FIGHTING CONSTRAINTS (Family 13)</h3>
+<p><strong>Environmental constraints:</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.1</td>
+<td>Market cycle — downturn</td>
+<td>Does current macro regime support or undermine the case?</td>
+</tr>
+<tr>
+<td>5.2</td>
+<td>AI disruption</td>
+<td>Is the business exposed to AI disruption risk?</td>
+</tr>
+<tr>
+<td>5.3</td>
+<td>Input cost inflation (geopolitical)</td>
+<td>Is the business exposed to input cost spikes?</td>
+</tr>
+<tr>
+<td>5.4</td>
+<td>No overlap with 10x general invalidating ACHs</td>
+<td>Does the case survive the general invalidation checklist?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Invalidating constraints (any "yes" = serious concern):</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.I1</td>
+<td>No slowing of core engine vs. company's DNA</td>
+<td>Is the core business momentum intact?</td>
+</tr>
+<tr>
+<td>5.I2</td>
+<td>No mediocre CEOs or weird, silly simple choices?</td>
+<td>Management quality check</td>
+</tr>
+<tr>
+<td>5.I3</td>
+<td>No big 'Hmmms'?</td>
+<td>Gut-level discomfort check</td>
+</tr>
+<tr>
+<td>5.I4</td>
+<td>No to red flags/achilles heel = 2+ "F"s?</td>
+<td>Red flag count</td>
+</tr>
+<tr>
+<td>5.I5</td>
+<td>No to mediocrity = 8+ "D"s?</td>
+<td>Weak flag count (too many weak = mediocre)</td>
+</tr>
+<tr>
+<td>5.I6</td>
+<td>No recent earnings cuts (unless CfC part of case)?</td>
+<td>Earnings trajectory</td>
+</tr>
+<tr>
+<td>5.I7</td>
+<td>No peers having problems?</td>
+<td>Sector health</td>
+</tr>
+<tr>
+<td>5.I8</td>
+<td>No overlap with negative lessons and setups?</td>
+<td>Track record pattern check</td>
+</tr>
+<tr>
+<td>5.I9</td>
+<td>No fit with unacceptable / false friend setups?</td>
+<td>Setup disqualification</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strenuously seek-to-avoid constraints:</strong></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Attribute</th>
+<th>What You're Assessing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.A1</td>
+<td>Fundamental SHMLP risks?</td>
+<td>Avoiding invalidation at trough SP</td>
+</tr>
+<tr>
+<td>5.A2</td>
+<td>Wide skew in outcomes (low case predictability)?</td>
+<td>Case predictability</td>
+</tr>
+<tr>
+<td>5.A3</td>
+<td>Large downside to trough multiple?</td>
+<td>Mark-to-market risk</td>
+</tr>
+<tr>
+<td>5.A4</td>
+<td>Multiple more influenced by industry than company?</td>
+<td>Valuation independence</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="stable-serial-acquirer-mis-modelled-high-quality-eps-upgrader">Stable Serial Acquirer (Mis-Modelled High Quality EPS Upgrader)</h2>
+<p><strong>STATUS: DEFERRED.</strong> To be designed and added in a future session. Placeholder only.</p>
+<p><strong>Market error:</strong> Modelling error — consensus fails to properly model the compounding effect of serial M&amp;A in a VMS/platform acquirer with disciplined capital allocation.</p>
+<hr>
+<h2 id="demand-driven-epsu-or-ept">Demand-Driven EPSU or EPT</h2>
+<h3 id="the-thesis">The Thesis</h3>
+<p>A structural or sustained cyclical demand explosion is underway at the sector or market level. The company is positioned — through competitive dominance, scalable business model, and operating leverage — to translate that demand into a non-linear earnings step-up or transformation that the market is not modelling.</p>
+<h3 id="market-error-exploited">Market Error Exploited</h3>
+<p><strong>Analytical error: future ≠ past.</strong> The sell-side models historical demand run-rates and applies modest growth assumptions. They fail to model the S-curve inflection in demand. The buy-side anchors to historical multiples appropriate for the old growth profile. Both miss the operating leverage: fixed cost base means revenue growth flows disproportionately to EBIT and EPS.</p>
+<h3 id="growth-rate-calibration-specific-to-setup-2">Growth Rate Calibration — SPECIFIC TO SETUP 2</h3>
+<p><strong>High growth is AMAZING in Setup 2.</strong> Unlike other setups where Goldilocks growth of 20-30% is the sweet spot, Setup 2 actively seeks the moment when growth INFLECTS from low/medium to HIGH. Catching this inflection — from 5-10% historical growth to 30%+ or even 50%+ — is the entire point of the setup. The demand explosion IS the high growth.</p>
+<p>The critical discipline is not avoiding high growth but avoiding OVER-EXTRAPOLATION: most demand pulses totally reverse to trend. The edge is capturing the high-growth phase while it lasts, sizing appropriately, and not projecting it into perpetuity. Assume the demand explosion is 100% cyclical/temporary until proven structural. The burden of proof is on the bull case.</p>
+<p><strong>Goldilocks 20-30% growth applies to other setups (3, 4, 5, 6)</strong> where the case is about normalised earnings improvement, not demand-driven transformation.</p>
+<h3 id="the-5-criteria">The 5 Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>What You're Looking For</th>
+<th>Red Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Market-wide demand explosion?</strong></td>
+<td>A sector/market-level demand surge — NOT company-specific outperformance. Must be structural (multi-year secular shift) or a cyclical upswing with 2+ years of visibility. Evidence: industry data showing significant growth acceleration, order book expansion across the sector, capex announcements by customers, government policy/stimulus driving adoption.</td>
+<td>Company-specific one-off wins. Covid-style temporary demand spikes. Demand driven purely by channel stuffing or pull-forward.</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Dominant competitive position?</strong></td>
+<td>Top 1-3 market share position in the segment benefiting from demand. Evidence the company captures DISPROPORTIONATE demand vs. competitors. Ideally: 1% company characteristics (hard + soft SRCA). Pricing power demonstrated in the market.</td>
+<td>Fragmented market with no clear leader. Company growing but losing relative share. Market share achieved through price concessions.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>One-to-many scalability (Avanza not Theon)?</strong></td>
+<td>Revenue growth requires MINIMAL incremental resource. Platform economics: each new customer/transaction generates revenue with near-zero marginal cost. Software, marketplaces, subscription models, regulatory monopolies, toll-road/infrastructure concessions.</td>
+<td>Project-based model where revenue = headcount × utilisation (Theon archetype). Revenue growth requiring proportional capex, inventory build, or hiring.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Oligopoly (structure AND behaviour)?</strong></td>
+<td>Industry structure concentrated AND competitive behaviour rational. Stable or rising ASPs, limited new entrants, high barriers to entry. Monopoly or near-monopoly structures score highest.</td>
+<td>Many competitors (&gt;10 material players). History of price wars. Low barriers to entry. Commodity-like product.</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Fixed cost leverage (margin expansion)?</strong></td>
+<td>High proportion of fixed costs means revenue growth → disproportionate margin expansion. Evidence: historical proof of margin expansion in prior upturn, or underutilised capacity ready to absorb demand.</td>
+<td>Predominantly variable cost structure. Cost inflation eating margins. Company investing in growth that ADDS costs before revenue materialises.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-logic">Decision Logic</h3>
+<p><strong>Checklist mode (pass/fail):</strong>
+- <strong>Mandatory:</strong> Criterion 1 must be A or B. Without a genuine demand explosion, there is no Setup 2 thesis.
+- <strong>Threshold:</strong> ≥ 3 of 5 criteria must be A or B.
+- <strong>Pass =</strong> A or B on #1 AND ≥ 3 of 5 total A or B.</p>
+<p><strong>Scored mode (0-15):</strong>
+- Each criterion rated: A = 5, B = 4, C = 3, D = 2, F = 1, Blank = 0.
+- <strong>Strong (≥ 12):</strong> Highly likely demand-driven EPSU/EPT. Prioritise.
+- <strong>Possible (9-11):</strong> Credible but incomplete evidence. Needs more data.
+- <strong>Fail (&lt; 9):</strong> Demand thesis does not hold. Park or reclassify.</p>
+<h3 id="worked-example-getlink-get-fr-setup-2-assessment">Worked Example: Getlink (GET-FR) — Setup 2 Assessment</h3>
+<p>[Note: In worked examples below, historical ratings use the old G/Y/O/R scale. New analysis uses A-F. Mapping: G→B, Y→C, O→D, R→F, with A reserved for top-decile exceptional cases.]</p>
+<p><strong>Context:</strong> Getlink operates the Channel Tunnel (monopoly concession to 2086). High-speed cross-Channel rail passengers expected to grow from 12M to 22M over the next decade as new operators (Virgin, Trenitalia, Evolyn, Gemini) enter the market. EU rail liberalisation and carbon policy create structural tailwinds.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>Rating</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Market-wide demand explosion?</td>
+<td><strong>G</strong></td>
+<td>Sector-level: 4 new operators submitted ORR applications. Passenger growth 12M→22M structural (new routes to Germany, Switzerland, Bordeaux). EU rail liberalisation + carbon modal shift. Not company-specific.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Dominant competitive position?</td>
+<td><strong>G</strong></td>
+<td>Natural monopoly — no competing fixed link between UK and continent. Benefits from ALL operators' growth via access charges.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>One-to-many (Avanza not Theon)?</td>
+<td><strong>G</strong></td>
+<td>Classic toll-road economics. Tunnel is built. Each additional train = access charges at near-zero marginal cost. Pure platform leverage.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Oligopoly (structure, behaviour)?</td>
+<td><strong>G</strong></td>
+<td>Better than oligopoly: natural monopoly. No fixed-link competitors. Substitute competition (ferries, flights) structurally disadvantaged.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Fixed cost leverage (margin up)?</td>
+<td><strong>G</strong></td>
+<td>Tunnel maintenance largely fixed. Eurotunnel EBITDA margin ~56% and expanding. Incremental trains flow through at very high incremental margin.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Checklist: PASS</strong> (G on #1, 5 of 5 G). <strong>Score: 15/15 — Strong.</strong></p>
+<p>The demand thesis is structural, the competitive position is a monopoly, and the economics are pure platform leverage. The Getlink case is an unusually clean Setup 2. The key uncertainty is TIMING — when do new operators actually start running trains and contributing to Getlink's revenue? (2027-2028 most likely.)</p>
+<hr>
+<h2 id="corporate-change-driven-epsu-or-ept">Corporate Change-Driven EPSU or EPT</h2>
+<h3 id="the-thesis_1">The Thesis</h3>
+<p>A material change in corporate leadership, strategy, structure, or ambition is driving an earnings step-up or transformation. The market anchors to the company's historical earnings profile and fails to model the impact of the change programme.</p>
+<h3 id="market-error-exploited_1">Market Error Exploited</h3>
+<p><strong>Analytical error: future ≠ past.</strong> The sell-side models historical margin structures and growth rates. When change INPUTS are visible (new CEO, new strategy) but change OUTPUTS have not yet appeared in the financials, the market's backward-looking models systematically underestimate the pace and magnitude of improvement.</p>
+<h3 id="the-6-layer-inputoutput-framework">The 6-Layer Input/Output Framework</h3>
+<p>Setup 3 assessment requires understanding the distinction between INPUTS and OUTPUTS of corporate change. This is critical: inputs are leading indicators that predict output changes. A stock can be classified as Setup 3 at different maturity stages depending on how far down the 6 layers the change has propagated.</p>
+<p><strong>INPUT LAYERS (leading, qualitative, screenable by RESEARCHER):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Category</th>
+<th>What It Contains</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. RESOURCES</strong></td>
+<td>People/assets that make choices</td>
+<td>CEO change, CFO change, board refresh, key hires, management team overhaul. These are the "actors" who drive change.</td>
+<td>New CEO appointed. New CFO from cost-cutting background. Board refreshed with industry experts.</td>
+</tr>
+<tr>
+<td><strong>2. STRATEGIC CHOICES</strong></td>
+<td>Direction, goals, perimeter decisions</td>
+<td>Strategy change, new targets, guidance level, market perimeter, priorities, ambition level. These are the DECISIONS the resources make.</td>
+<td>New €1bn EBITDA target set at CMD. Strategy pivoted from product to platform. Guidance raised. Exited 3 non-core markets.</td>
+</tr>
+<tr>
+<td><strong>3. STRATEGIC ACTIONS</strong></td>
+<td>Execution of those choices</td>
+<td>Product launches, market exits, restructuring, M&amp;A execution, cost programmes, capex allocation, hiring/firing. These are the THINGS DONE based on the choices.</td>
+<td>Launched new product line. Completed bolt-on acquisition. Downsized workforce by 15%. Initiated $500M buyback.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OUTPUT LAYERS (lagging, financial, require analysis):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Category</th>
+<th>What It Contains</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>4. KFM (Key Financial Metrics)</strong></td>
+<td>Company-specific operational KPIs</td>
+<td>ARPU, NRR, ARR, order book, utilisation, win rates, churn rates, cost-per-unit, headcount per unit — the metrics that prove inputs are translating.</td>
+<td>ARPU up 8% YoY. Order book at record levels. Customer churn rate falling. Cost-per-unit down 12%.</td>
+</tr>
+<tr>
+<td><strong>5. FSO (Financial Statement Outputs)</strong></td>
+<td>Standard financial statement items</td>
+<td>Revenue growth, margins, EPS growth, ROIC, cash conversion, working capital efficiency — the P&amp;L/B-S/CF evidence visible in reported accounts.</td>
+<td>Revenue growth accelerated from 5% to 15%. EBIT margin expanded 200bps. FCF conversion improved to 90%.</td>
+</tr>
+<tr>
+<td><strong>6. SS ESTIMATES</strong></td>
+<td>Sell-side consensus changes</td>
+<td>Revision direction and magnitude for EPS, EBITDA, revenue. Target price changes. Rating upgrades. The market's catch-up to the change story.</td>
+<td>FY2 EPS revised up 8% in L3M. 3 analysts upgraded to Buy. Average PT raised 15%.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-read-the-6-layers">How to Read the 6 Layers</h3>
+<p>The layers form a <strong>transmission chain</strong>: Resources (layer 1) → make Strategic Choices (layer 2) → execute Strategic Actions (layer 3) → which change KFMs (layer 4) → which flow into FSOs (layer 5) → which the sell-side eventually models (layer 6).</p>
+<p><strong>The key insight:</strong> Inputs are NOT always clearly "telegraphed" into outputs. A company might appoint a CEO with a cost-cutting record (layer 1 input) without yet announcing cost cuts (layer 3 action) or showing margin improvement (layer 5 output). But the PROBABILITY of cost cuts → higher margins → higher EPS is high. The market, anchored to current financials, fails to model this forward chain. That's the analytical error Setup 3 exploits.</p>
+<p><strong>Setup maturity = how far down the 6 layers the change has propagated:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Maturity Stage</th>
+<th>Layers Visible</th>
+<th>Example</th>
+<th>Conviction Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input-only</strong></td>
+<td>Layers 1-2 (maybe early 3)</td>
+<td>SMWH: New CEO with superb operational track record. No new guidance yet. No output evidence.</td>
+<td>Lower — thesis is probabilistic. Size small (UHPYHQI 0-5%).</td>
+</tr>
+<tr>
+<td><strong>Input + Early Output</strong></td>
+<td>Layers 1-4</td>
+<td>New CEO has set targets (layer 2), initiated restructuring (layer 3), KFMs starting to improve (layer 4). FSOs not yet visible.</td>
+<td>Medium — transmission chain working. Size building.</td>
+</tr>
+<tr>
+<td><strong>Full Output</strong></td>
+<td>All 6 layers</td>
+<td>Inputs visible, KFMs improving, financial statements showing margin/EPS improvement, SS upgrading estimates.</td>
+<td>High — full conviction. Size to core position.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ideally, a strong Setup 3 case has BOTH inputs AND outputs clearly communicated</strong> by the company, sell-side, or primary research. But the screen must also identify stocks at the Input-only stage — these are EARLIER in the lifecycle, higher uncertainty but potentially higher reward (catching the opportunity before the market).</p>
+<h3 id="input-assessment-criteria">Input Assessment Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Input Criterion</th>
+<th>Layer</th>
+<th>What You're Looking For</th>
+<th>Red Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>I1</strong></td>
+<td><strong>CEO change?</strong></td>
+<td>1-RESOURCES</td>
+<td>New CEO appointed. Strongest single signal of corporate change. First 12-18 months = highest probability period for earnings power transformation. Animal CEO (Slootman archetype) = maximum conviction.</td>
+<td>Internal promotion signalling continuity. Crisis-forced change without succession plan. No relevant industry experience. Caretaker/transition figure.</td>
+</tr>
+<tr>
+<td><strong>I2</strong></td>
+<td><strong>Other leadership/actor changes?</strong></td>
+<td>1-RESOURCES</td>
+<td>New CFO, COO, board members, division heads. New CFO often signals financial discipline change. Activist investor involvement can catalyse change.</td>
+<td>Revolving door (dysfunction). Crisis-driven changes. Cost-cutter CFO without growth vision.</td>
+</tr>
+<tr>
+<td><strong>I3</strong></td>
+<td><strong>Strategy/strategic priorities change?</strong></td>
+<td>2-CHOICES</td>
+<td>Material shift in direction, markets, products. New end-markets targeted. Geographic expansion. Digital transformation. Strategy articulated clearly AND backed by resource allocation.</td>
+<td>"PowerPoint transformation" — strategy announced but no resources allocated. Frequent pivots. New strategy cannibalises existing business without clear net benefit.</td>
+</tr>
+<tr>
+<td><strong>I4</strong></td>
+<td><strong>Financial guidance increase?</strong></td>
+<td>2-CHOICES</td>
+<td>Raised guidance, MT targets, financial ambitions. New CMD with higher targets. Upgraded margin/growth guidance. Puts management credibility on the line.</td>
+<td>Trivial increase (1-2% EPS). Driven by one-off tailwind. History of raising then cutting. "Aspirational" without milestones.</td>
+</tr>
+<tr>
+<td><strong>I5</strong></td>
+<td><strong>Standards improvement?</strong></td>
+<td>2-CHOICES / 3-ACTIONS</td>
+<td>Execution standards improving. Operational KPIs trending up. Governance upgrades. Cost discipline. Quality metrics strengthening.</td>
+<td>Cosmetic changes. KPI improvement from one-off. Standards up but no financial translation within 2-3 quarters.</td>
+</tr>
+<tr>
+<td><strong>I6</strong></td>
+<td><strong>Perimeter/composition reduction?</strong></td>
+<td>3-ACTIONS</td>
+<td>Divesting non-core assets. Simplifying portfolio. Exiting low-ROIC businesses. Improving revenue quality and margin mix.</td>
+<td>Divesting to survive. Selling crown jewels. Removing diversification in a cyclical business.</td>
+</tr>
+<tr>
+<td><strong>I7</strong></td>
+<td><strong>Strategically-sensible M&amp;A step-up?</strong></td>
+<td>3-ACTIONS</td>
+<td>M&amp;A accelerating AND strategically coherent. Fills capability gaps, expands addressable market, consolidates fragments. Disciplined integration with post-deal ROIC meeting targets.</td>
+<td>Empire-building. Pace outstrips integration capacity. Excessive multiples. M&amp;A papering over organic weakness.</td>
+</tr>
+<tr>
+<td><strong>I8</strong></td>
+<td><strong>B/S utilisation increase?</strong></td>
+<td>3-ACTIONS</td>
+<td>Balance sheet used more aggressively. Leverage for strategic M&amp;A. Working capital efficiency improvements. Asset monetisation.</td>
+<td>Dangerous leverage levels. Supplier stretch disguised as WC improvement. Asset stripping.</td>
+</tr>
+<tr>
+<td><strong>I9</strong></td>
+<td><strong>Shareholder returns increase?</strong></td>
+<td>3-ACTIONS</td>
+<td>Buyback initiation/step-up. Special dividend. Progressive dividend policy. Higher payout ratio. Signals management views stock as undervalued.</td>
+<td>Buyback funded by debt. Buyback at stretched valuation. Unsustainable dividend increase.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-assessment-criteria">Output Assessment Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Output Criterion</th>
+<th>Layer</th>
+<th>What You're Looking For</th>
+<th>Red Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>O1</strong></td>
+<td><strong>KFM improvement visible?</strong></td>
+<td>4-KFM</td>
+<td>Company-specific operational KPIs trending in right direction. ARPU, NRR, order book, utilisation, cost metrics, win rates — the leading evidence that inputs are translating.</td>
+<td>KFMs flat or deteriorating despite input changes (inputs not working). KFM improvement from one-off or seasonal.</td>
+</tr>
+<tr>
+<td><strong>O2</strong></td>
+<td><strong>Revenue growth step-up?</strong></td>
+<td>5-FSO</td>
+<td>Revenue growth rate accelerating vs. prior periods. New products/markets contributing visibly. Organic growth improving (not just M&amp;A).</td>
+<td>Revenue growth but margin-dilutive (buying growth). FX-driven. Channel stuffing.</td>
+</tr>
+<tr>
+<td><strong>O3</strong></td>
+<td><strong>Margin/EPS step-up?</strong></td>
+<td>5-FSO</td>
+<td>EBIT/EBITDA margins expanding. EPS growth rate accelerating. Operating leverage materialising. One-off costs rolling off.</td>
+<td>Margin improvement from cost cuts only (no revenue growth = unsustainable). Margin expansion at expense of investment (starving the business).</td>
+</tr>
+<tr>
+<td><strong>O4</strong></td>
+<td><strong>FCF / balance sheet improvement?</strong></td>
+<td>5-FSO</td>
+<td>Free cash flow improving. Working capital efficiency. Debt reduction. Cash generation supporting the change thesis.</td>
+<td>FCF decline despite reported EPS growth (earnings quality issue). Working capital deterioration.</td>
+</tr>
+<tr>
+<td><strong>O5</strong></td>
+<td><strong>SS estimate revisions upward?</strong></td>
+<td>6-SS</td>
+<td>Consensus EPS/EBITDA/revenue revised upward. Target prices raised. Ratings upgraded. The market catching up.</td>
+<td>SS upgrading but stock price not responding (already priced?). Only 1-2 analysts upgrading (not broad-based).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-logic_1">Decision Logic</h3>
+<p><strong>Checklist mode (pass/fail) — INPUT side:</strong>
+- <strong>Minimum:</strong> ≥ 3 of 9 input criteria rated G.
+- <strong>Automatic pass (override):</strong> CEO change (I1) G + guidance increase (I4) G. New leader raising ambitions = highest conviction variant.</p>
+<p><strong>Checklist mode — OUTPUT side:</strong>
+- <strong>Input-only stage:</strong> 0 output G acceptable — stock is classified as Setup 3 (early stage), sized as UHPYHQI (0-5%).
+- <strong>Input + Early Output:</strong> ≥ 1 of 5 output criteria G. Conviction building.
+- <strong>Full Output:</strong> ≥ 3 of 5 output criteria G. Full conviction, core sizing.</p>
+<p><strong>Scored mode (0-42):</strong>
+- 9 input criteria × G=3/Y=2/U=1/Blank=0 = max 27
+- 5 output criteria × G=3/Y=2/U=1/Blank=0 = max 15
+- Total maximum: 42
+- <strong>Strong (≥ 28):</strong> Multi-dimensional corporate transformation with financial evidence. High priority.
+- <strong>Possible (18-27):</strong> Partial change story. May be early stage (strong inputs, weak outputs) or broad but shallow.
+- <strong>Fail (&lt; 18):</strong> Insufficient evidence of corporate change.</p>
+<h3 id="worked-example-getlink-get-fr-setup-3-assessment">Worked Example: Getlink (GET-FR) — Setup 3 Assessment</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Input Criterion</th>
+<th>Rating</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1</td>
+<td>CEO change?</td>
+<td><strong>U</strong></td>
+<td>No. Leriche appointed 2020 (6 years ago).</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Other leadership changes?</td>
+<td><strong>U</strong></td>
+<td>No material changes. Stable team.</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Strategy change?</td>
+<td><strong>Y</strong></td>
+<td>Feb-26 CMD: proactive operator recruitment, new routes targeted, AI/data strategy. Acceleration of existing strategy, not a pivot.</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>Guidance increase?</td>
+<td><strong>Y</strong></td>
+<td>€1bn EBITDA by 2030 target is ambitious vs. €859M in 2025. But 2026 guidance €820-860M is flat. MT ambition up, NT cautious.</td>
+</tr>
+<tr>
+<td>I5</td>
+<td>Standards improvement?</td>
+<td><strong>Y</strong></td>
+<td>AI/data operational optimisation. Improved Eurotunnel availability. Gradual, not transformational.</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>Perimeter reduction?</td>
+<td><strong>U</strong></td>
+<td>No. Actually diversifying (Eleclink, Europorte, Customs Services).</td>
+</tr>
+<tr>
+<td>I7</td>
+<td>M&amp;A step-up?</td>
+<td><strong>U</strong></td>
+<td>No M&amp;A activity. Organic strategy.</td>
+</tr>
+<tr>
+<td>I8</td>
+<td>B/S utilisation?</td>
+<td><strong>Y</strong></td>
+<td>Net debt reduced €184M. Cash €1.5bn. Deleveraging, not leveraging up.</td>
+</tr>
+<tr>
+<td>I9</td>
+<td>Shareholder returns?</td>
+<td><strong>G</strong></td>
+<td>New progressive dividend: €0.80 (from €0.58) with +€0.05/yr to €1.00 by 2030. Material step-up.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Output Criterion</th>
+<th>Rating</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O1</td>
+<td>KFM improvement?</td>
+<td><strong>Y</strong></td>
+<td>Eurostar record 20M passengers. Shuttle traffic solid. Eleclink 94% availability. New operators not yet in traffic data.</td>
+</tr>
+<tr>
+<td>O2</td>
+<td>Revenue growth?</td>
+<td><strong>U</strong></td>
+<td>Group revenue -1% (Eleclink drag). Eurotunnel +4%. Modest.</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Margin/EPS step-up?</td>
+<td><strong>Y</strong></td>
+<td>EBITDA +4% above guidance. Eurotunnel EBITDA margin ~56%. Improving but not inflecting.</td>
+</tr>
+<tr>
+<td>O4</td>
+<td>FCF/balance sheet?</td>
+<td><strong>Y</strong></td>
+<td>FCF €374M. Net debt down €184M. Solid but not transformational.</td>
+</tr>
+<tr>
+<td>O5</td>
+<td>SS estimates up?</td>
+<td><strong>U</strong></td>
+<td>Mixed consensus: 8 buy, 6 hold, 2 sell. Avg PT €18 below current ~€20. SS not catching up.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Checklist: FAIL</strong> — Only 1 input G (I9). Need 3, or I1+I4 auto-pass. Neither met.
+<strong>Score: 19/42</strong> — Possible range (barely), but driven by Y-ratings not G-ratings. Inputs: G=3 + 4×Y(=8) + 4×U(=4) = 15. Outputs: 0×G + 3×Y(=6) + 2×U(=2) = 8. Total = 23. [Correction from trial run: more accurate scoring with the expanded criteria.]</p>
+<p><strong>Verdict: Does not qualify as standalone Setup 3.</strong> Corporate change elements are real but insufficient — they are supporting factors to the Setup 2 demand thesis, not a corporate transformation in their own right.</p>
+<hr>
+<h2 id="cfc-clearing-in-high-quality-compounder-hqc">CfC Clearing in High Quality Compounder (HQC)</h2>
+<h3 id="the-thesis_2">The Thesis</h3>
+<p>A high-quality compounding business is trading at a discount because of a specific, identifiable Cause for Concern. The CfC is clearing or will clear within 6-12 months. The market's emotional/myopic overweighting of the CfC has created a buying opportunity in a business whose underlying quality is intact.</p>
+<p><strong>CfC + CLEARING is the operative concept.</strong> A CfC alone is just a problem. The setup only exists when there is credible evidence of CLEARING.</p>
+<h3 id="quality-gate-prerequisite">Quality Gate (PREREQUISITE)</h3>
+<p><strong>Before assessing any CfC, the business must pass the quality gate.</strong> Setup 4 ONLY works in high-quality compounders. In medium-quality businesses, the same CfC dynamics are classified under Setup 6 (with much stricter requirements).</p>
+<p>Quality gate evidence: BD quality average ≥ B, demonstrable hard + soft SRCA, historical compounding through prior downturns, top 1-3 competitive position.</p>
+<p>If the quality gate fails → reclassify to Setup 6 if CfC is large enough, or park.</p>
+<h3 id="the-8-cfc-sub-types">The 8 CfC Sub-Types</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>CfC Sub-Type</th>
+<th>What It Looks Like</th>
+<th>What "CLEARING" Means</th>
+<th>Typical Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Internal — No CEO</strong></td>
+<td>CEO departed. Uncertainty about direction.</td>
+<td>Credible successor appointed (ideally Animal CEO). Market begins pricing new vision.</td>
+<td>3-9 months</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Internal — Strategy vacuum</strong></td>
+<td>No clear strategic direction. Previous strategy exhausted.</td>
+<td>New strategy articulated, backed by resources, showing early proof points.</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Internal — Investment phase</strong></td>
+<td>NT financials depressed by deliberate investment (capex, R&amp;D, expansion). Margins compressed. Company doing the RIGHT THING but market punishing NT financials.</td>
+<td>Investment phase completing. New products gaining traction, new markets generating revenue, capex peaking, one-off costs rolling off. MT financials inflecting upward.</td>
+<td>12-24 months</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Internal — Guidance for MT?</strong></td>
+<td>MT guidance unclear/withdrawn. Market discounting for uncertainty.</td>
+<td>Guidance set/reinstated/raised. CMD with MT financial targets. The ACT of providing guidance reduces uncertainty premium.</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Internal — Company mis-execution</strong></td>
+<td>Product failures, operational stumbles, project delays. Creates guidance delivery risk AND cockroach/weirder risk.</td>
+<td>Demonstrable execution improvement over 2+ consecutive quarters. No further surprises. Root cause identified and addressed. <strong>Highest risk sub-type — clearing takes longest and false clearings most common.</strong></td>
+<td>6-12+ months</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>External — Market demand ↓</strong></td>
+<td>Sector-level demand weakness. Not company-specific.</td>
+<td>Demand stabilisation: leading indicators turning, destocking complete, comparable companies reporting stabilisation. Stabilisation IS clearing — don't need recovery.</td>
+<td>6-18 months</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>External — Competition ↓</strong></td>
+<td>ATM pricing pressure from competitors. SRCA risk.</td>
+<td>Competitive behaviour calming: pricing stabilising, irrational competitors retrenching/exiting, industry consolidating.</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>External — Disruption to EGP</strong></td>
+<td>Long-term disruption risk to earnings growth profile and investment-base-case bankability. Most existential CfC category.</td>
+<td>Disruption thesis disproved with evidence OR company demonstrating successful pivot/adaptation. Requires STRUCTURAL conviction, not just "disruption won't happen."</td>
+<td>12-36 months</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-logic_2">Decision Logic</h3>
+<p><strong>Checklist mode:</strong>
+- Quality gate: MUST pass.
+- ≥ 1 identifiable CfC from the 8 sub-types.
+- Credible evidence the CfC is CLEARING or will clear within 6-12 months.
+- <strong>Pass =</strong> Quality gate + ≥ 1 CfC + clearing evidence.</p>
+<p><strong>Scored mode (per CfC sub-type, 0-6):</strong>
+- CfC severity (how depressed): Bottom quartile = 3, second quartile = 2, above median = 1
+- Clearing evidence: Clear = 3, Emerging = 2, Speculative = 1, None = 0
+- <strong>Strong (≥ 5):</strong> Deep discount + strong clearing. <strong>Possible (3-4):</strong> Moderate. <strong>Fail (&lt; 3).</strong></p>
+<h3 id="key-pitfalls">Key Pitfalls</h3>
+<ul>
+<li><strong>"Pret sandwich risk"</strong> — &gt;2 simultaneous CfCs = escalate caution materially (Sdiptech lesson)</li>
+<li><strong>Sub-type 5 cockroach risk</strong> — management lies to themselves before lying to market. Wait for 2+ quarters of demonstrable improvement.</li>
+<li><strong>Sub-type 8 requires structural conviction</strong> — "disruption won't happen" is NOT a clearing thesis</li>
+<li><strong>Quality gate is NON-NEGOTIABLE</strong> — medium quality + CfC clearing = Setup 6, not Setup 4 (Nexi lesson)</li>
+</ul>
+<hr>
+<h2 id="trough-on-trough-turn-in-quality-cyclical">Trough-on-Trough Turn in Quality Cyclical</h2>
+<h3 id="the-thesis_3">The Thesis</h3>
+<p>A quality cyclical business has experienced a prolonged downturn (18M+). Operating conditions are stabilising: demand troughing, competitive behaviour calming, costs restructured, estimates rebased, guidance kitchen-sinked. The market, anchored to the downturn narrative, is failing to model the coming recovery.</p>
+<h3 id="the-9-criteria">The 9 Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>What You're Looking For</th>
+<th>Gate?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Bottom quartile trading multiple (2YF normalised margins)?</strong></td>
+<td>Stock at bottom 25% of its own 10-year P/E range on normalised margins.</td>
+<td><strong>MANDATORY</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>End market demand decreased for 18M+?</strong></td>
+<td>Sustained demand decline — long enough to reset expectations.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Competitive behaviour calmed?</strong></td>
+<td>Competitors stopped price-cutting for volume. Rational behaviour returning.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>New contract pricing levels now stable?</strong></td>
+<td>Forward-looking pricing stabilised. Leading indicator.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Company has executed right-sizing for L6M+?</strong></td>
+<td>Cost restructuring underway ≥ 6 months. Benefits flowing.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>Competitors/substitutes retrenched for L6M+?</strong></td>
+<td>Industry-wide capacity reduction. Supply discipline returning.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>SS estimates cut deeply/fully across all analysts?</strong></td>
+<td>Consensus comprehensively rebased to conservative levels. Creates conditions for positive surprise.</td>
+<td><strong>MANDATORY</strong></td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>Company guidance rebased lower, ideally KSed?</strong></td>
+<td>Guidance kitchen-sinked. Future beats probable.</td>
+<td><strong>MANDATORY</strong></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>"You know" and "puking/sadness" check — DK farfalle?</strong></td>
+<td>Gut-level capitulation. Emotional texture of exhausted despair in SS commentary, buy-side positioning, media, and Richard's instinct. <strong>If not present, trough may not be in.</strong> Cannot be faked or analytically constructed.</td>
+<td><strong>MANDATORY</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-logic_3">Decision Logic</h3>
+<p><strong>Checklist:</strong> Mandatory gates #1, 7, 8, 9 ALL must pass + ≥ 3 of remaining 5 (#2-6). Minimum 7 of 9.
+<strong>Scored (0-27):</strong> G=3, Y=2, U=1. Strong ≥ 21, Possible 15-20, Fail &lt; 15. Gates #1, 8, 9 must each score ≥ 2 regardless of total.</p>
+<h3 id="key-pitfalls_1">Key Pitfalls</h3>
+<ul>
+<li><strong>"Worser, odder, longer, further"</strong> — things get worse than expected, in stranger ways, for longer, and go further</li>
+<li><strong>Never try to solve deteriorations analytically</strong> — too complex, fast negative OODA loop. Wait for the PATTERN.</li>
+<li><strong>DK farfalle is not optional</strong> — emotional capitulation IS the bottom signal</li>
+</ul>
+<hr>
+<h2 id="huge-cfc-with-clearing-event-medium-quality">Huge CfC with Clearing Event (Medium Quality)</h2>
+<h3 id="the-thesis_4">The Thesis</h3>
+<p>A very large CfC has driven extreme SP decline in a company that is NOT best-in-class but IS viable. The clearing event creates powerful mean-reversion. Lower quality floor = stricter requirements.</p>
+<h3 id="how-it-differs-from-setup-4">How It Differs from Setup 4</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Setup 4 (HQC)</th>
+<th>Setup 6 (Medium Quality)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business quality</td>
+<td>High (A/B rated)</td>
+<td>Medium (C/B rated)</td>
+</tr>
+<tr>
+<td>CfC severity</td>
+<td>Moderate to large</td>
+<td>Very large — disrupted operations</td>
+</tr>
+<tr>
+<td>Margin for error</td>
+<td>Higher</td>
+<td>Lower — must be right on clearing</td>
+</tr>
+<tr>
+<td>Return profile</td>
+<td>Quality re-rating + compounding</td>
+<td>Mean-reversion (limited beyond normalised)</td>
+</tr>
+<tr>
+<td>Criteria strictness</td>
+<td>Quality gate + ≥1 CfC clearing</td>
+<td>ALL 5 criteria must pass</td>
+</tr>
+<tr>
+<td>Holding period</td>
+<td>Long (compounding)</td>
+<td>Short (6-12M tactical)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-5-criteria_1">The 5 Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Criterion</th>
+<th>What You're Looking For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Bottom quartile trading multiple (2YF normalised margins)?</td>
+<td>Extreme discount required — medium quality needs bigger margin of safety.</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>SS estimates cut deeply/fully?</td>
+<td>Comprehensive rebasing across ALL analysts.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Company guidance rebased lower, ideally KSed?</td>
+<td>Kitchen-sinked. Future beats probable.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Disruptive impact on operations/revenue in LTM?</td>
+<td>CfC has ACTUALLY disrupted business. Must assess: is disruption abating? Cockroach/weirder risk addressed?</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>"You know" and "puking/sadness" check — DK farfalle?</td>
+<td>Gut-level capitulation. Must be MORE extreme than Setup 5 given lower quality floor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-logic_4">Decision Logic</h3>
+<p><strong>Checklist: ALL 5 must pass.</strong> Strictest setup — lowest quality floor = minimal margin for error.
+<strong>Scored (0-15):</strong> G=3, Y=2, U=1. Strong ≥ 12, Possible 9-11, Fail &lt; 9. Gate: #5 must score ≥ 2.</p>
+<h3 id="key-pitfalls_2">Key Pitfalls</h3>
+<ul>
+<li><strong>Cockroach risk highest here</strong> — medium quality + severe CfC = high probability of undisclosed problems</li>
+<li><strong>Value traps look like Setup 6</strong> — Nexi lesson: deep value (5x) but BCG Cash Cow strategy, no genuine EPSU post-clearing</li>
+<li><strong>Shortest holding period</strong> — 6-12M tactical position, not core holding. Size max 5-8%.</li>
+</ul>
+<hr>
+<h2 id="setup-interaction-and-multi-setup-classifications">Setup Interaction and Multi-Setup Classifications</h2>
+<p>Setups are not mutually exclusive. Common combinations:</p>
+<table>
+<thead>
+<tr>
+<th>Combination</th>
+<th>Example</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demand-Driven + Corporate Change</td>
+<td>Demand explosion + new CEO capturing it</td>
+<td>Very strong</td>
+</tr>
+<tr>
+<td>Corporate Change + CfC Clearing</td>
+<td>Corporate transformation in a quality compounder</td>
+<td>Strong — change programme IS the clearing event</td>
+</tr>
+<tr>
+<td>CfC Clearing + Trough-on-Trough</td>
+<td>Quality cyclical at trough with specific CfC on top</td>
+<td>Strong — cyclical and company-specific clearing converge</td>
+</tr>
+<tr>
+<td>Setup 3 + Setup 5</td>
+<td>Corporate restructuring in a cyclical trough</td>
+<td>Very strong — internal and external aligned</td>
+</tr>
+</tbody>
+</table>
+<p>Getlink exemplifies a strong Setup 2 with minor Setup 3 supporting elements — the demand explosion thesis is the primary driver, corporate change (CMD, dividend policy) amplifies it but doesn't standalone.</p>
+<h3 id="false-friend-detection">False Friend Detection</h3>
+<p>A stock matching a setup pattern but with structural flaws is a <strong>false friend</strong>:</p>
+<ul>
+<li>Zero clarity of transmission mechanism from company actions to 18M-3Y EPS → false friend</li>
+<li>No "soul" — company doesn't believe in anything (Adevinta lesson)</li>
+<li>Egotism in management communication (S4 Capital lesson)</li>
+<li>Deep value with defensive/stagnant strategy (Nexi lesson — BCG Cash Cow)</li>
+<li>"Pret sandwich risk" — individually inoffensive concerns collectively fatal (Sdiptech lesson)</li>
+<li>HBX archetype — no clarity of tracking inputs to EPS</li>
+</ul>
+<hr>
+<h2 id="formatting-rules">Formatting Rules</h2>
+<h3 id="rating-word-highlighting-notion-local-files">Rating Word Highlighting (Notion + local files)</h3>
+<p>When writing rating words, ALWAYS highlight them in their corresponding colour:</p>
+<ul>
+<li><span color="green_bg"><strong>GREEN</strong></span> — use <code>&lt;span color="green_bg"&gt;GREEN&lt;/span&gt;</code> in Notion</li>
+<li><span color="yellow_bg"><strong>YELLOW</strong></span> — use <code>&lt;span color="yellow_bg"&gt;YELLOW&lt;/span&gt;</code> in Notion</li>
+<li><span color="orange_bg"><strong>ORANGE</strong></span> — use <code>&lt;span color="orange_bg"&gt;ORANGE&lt;/span&gt;</code> in Notion (note: Notion uses <code>orange_bg</code>)</li>
+<li><span color="red_bg"><strong>RED</strong></span> — use <code>&lt;span color="red_bg"&gt;RED&lt;/span&gt;</code> in Notion</li>
+</ul>
+<p>This applies everywhere a rating word appears: attribute ratings, summary counts, setup verdicts, cross-stock comparisons. The colour makes scanning ratings instant.</p>
+<h3 id="notion-posting-standards">Notion Posting Standards</h3>
+<p>All FCS Notion posts MUST follow the RESEARCHER role's <code>notion-posting-sop.md</code> formatting standards. Key requirements:</p>
+<ul>
+<li><strong>Sentiment highlighting:</strong> 30%+ of text highlighted (green_bg / yellow_bg / red_bg). Sentence-level, not paragraph-level.</li>
+<li><strong>Header density:</strong> 8-15 H2 headers, 15-25 H3 headers per full memo.</li>
+<li><strong>Bold density:</strong> All financial metrics, ratings, percentages, analyst names, key terms bolded.</li>
+<li><strong>Bullet points:</strong> Each 1-3 sentences / up to ~100 words. Nested for sub-points. Split if longer.</li>
+<li><strong>Pre-flight checklist:</strong> Run the SOP's quality gate before posting (header count, highlight coverage, bold density, content completeness).</li>
+<li><strong>Full reference:</strong> <code>memory/skills/researcher/notion-posting-sop.md</code></li>
+</ul>
+<hr>
+<h2 id="output-format">Output Format</h2>
+<p><strong>The detailed output templates for Analysis and Judgement are defined in the two SOPs:</strong>
+- <strong>Analysis format:</strong> <code>apm-analysis-sop.md</code> — Triaging (1-3pp, combined) and ESA (3-5pp, separate page)
+- <strong>Judgement format:</strong> <code>apm-judgement-sop.md</code> — Triaging (combined with Analysis) and ESA (separate page)</p>
+<p><strong>Key structural points:</strong>
+- At <strong>Triaging:</strong> Analysis + Judgement in a single Notion page. Sections clearly demarcated.
+- At <strong>ESA:</strong> Two separate Notion pages. Judgement page includes context recap for standalone reading.
+- <strong>Analytical priority order:</strong> Inputs (change magnitude) → Outputs (financial translation) → Foundations (probability) → Checks (investability)
+- <strong>Rating scale:</strong> G (GREEN) / Y (YELLOW) / O (ORANGE) / R (RED)
+- All standard Notion posting rules apply (30%+ highlighting, rating word colours, header density, bold density)</p>
+<hr>
+<h2 id="evaluation-checklist-vs-scored">Evaluation: Checklist vs. Scored</h2>
+<p>Run both modes in parallel for 8-12 weeks. Track divergences (stocks where checklist says FAIL but scored says POSSIBLE), Richard's verdict on each divergence, and downstream outcomes. After 8 weeks, adopt one mode, a hybrid, or continue both.</p>
+<hr>
+<h2 id="appendix-a-cf-prompt-section-setup-criteria-mapping">Appendix A: CF Prompt Section → Setup Criteria Mapping</h2>
+<table>
+<thead>
+<tr>
+<th>CF Prompt Section</th>
+<th>Primary Setup(s) Fed</th>
+<th>Specific Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Change in leadership</td>
+<td>Setup 3</td>
+<td>Input I1 (CEO), I2 (other leadership)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 4</td>
+<td>Sub-types 1 (no CEO), 2 (strategy vacuum)</td>
+</tr>
+<tr>
+<td>Change in strategy/structure</td>
+<td>Setup 3</td>
+<td>Input I3 (strategy), I6 (perimeter), I7 (M&amp;A)</td>
+</tr>
+<tr>
+<td>Change in priorities/ambition</td>
+<td>Setup 3</td>
+<td>Input I3 (strategy), I5 (standards)</td>
+</tr>
+<tr>
+<td>Change in growth/investment</td>
+<td>Setup 3</td>
+<td>Input I7 (M&amp;A), I8 (B/S)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 4</td>
+<td>Sub-type 3 (investment phase)</td>
+</tr>
+<tr>
+<td>Change in margins/financials</td>
+<td>Setup 3</td>
+<td>Output O3 (margin step-up), Input I4 (guidance)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 5</td>
+<td>Criterion 5 (right-sizing)</td>
+</tr>
+<tr>
+<td>Change in shareholder returns</td>
+<td>Setup 3</td>
+<td>Input I9 (shareholder returns)</td>
+</tr>
+<tr>
+<td>Change in demand</td>
+<td>Setup 2</td>
+<td>Criteria 1 (demand), 3 (scalability)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 4</td>
+<td>Sub-type 6 (market demand ↓)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 5</td>
+<td>Criterion 2 (end market demand)</td>
+</tr>
+<tr>
+<td>Value chain — Competition</td>
+<td>Setup 2</td>
+<td>Criteria 2 (position), 4 (oligopoly)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 4</td>
+<td>Sub-type 7 (competition ↓)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 5</td>
+<td>Criteria 3 (behaviour), 4 (pricing), 6 (retrenchment)</td>
+</tr>
+<tr>
+<td>Value chain — Disruption</td>
+<td>Setup 4</td>
+<td>Sub-type 8 (disruption to EGP)</td>
+</tr>
+<tr>
+<td>Value chain — Political/regulatory</td>
+<td>Setup 4</td>
+<td>Sub-type 8 (regulatory variant)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 6</td>
+<td>Criterion 4 (disruptive impact)</td>
+</tr>
+<tr>
+<td>Value chain — Supply side</td>
+<td>Setup 2</td>
+<td>Criteria 4 (oligopoly), 5 (cost leverage)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 5</td>
+<td>Criterion 6 (competitor retrenchment)</td>
+</tr>
+<tr>
+<td>Revenue/demand cycle</td>
+<td>Setup 2</td>
+<td>Criterion 1 (demand)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 5</td>
+<td>Criteria 2 (demand duration), 4 (pricing)</td>
+</tr>
+<tr>
+<td>Value chain — Macroeconomic</td>
+<td>Setup 5</td>
+<td>Criteria 1 (valuation), 2 (demand)</td>
+</tr>
+<tr>
+<td></td>
+<td>Setup 6</td>
+<td>Criterion 1 (valuation)</td>
+</tr>
+<tr>
+<td>Historical track record</td>
+<td>Setup 4</td>
+<td>Quality gate evidence</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-b-parking-reasons-taxonomy">Appendix B: Parking Reasons Taxonomy</h2>
+<p><strong>Long list (revisit in 3-6 months):</strong>
+NT/MT headwinds · Unclear mid-term investment case · Unexciting mid-term investment case · IT reseller · Slightly challenged business/weak mid-term · Unproven model ATM and complex MT conviction · Excessive customer/revenue concentration · Other reason</p>
+<p><strong>Very long list (revisit only on material change):</strong>
+Serial acquirer VMS (deferred Setup 1) · AI disruption risk — pricing model (consulting) · AI disruption risk — core activity · AI disruption risk — aggregator/matcher · AI disruption risk — curator · AI disruption risk — searcher · AI disruption risk — beneficiary of high search costs · Structural regulatory risks · Structural political risks · Other reason</p>
+<hr>
+<h2 id="key-files">Key Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>This file</td>
+<td>Master SOP for Fundamental Change Screen</td>
+</tr>
+<tr>
+<td><code>Files/Book5.xlsx</code></td>
+<td>ESA checklist — full attribute framework (long form + visual map)</td>
+</tr>
+<tr>
+<td><code>Files/Setups_SubSetups_12Apr26.xlsx</code></td>
+<td>Setup criteria and stock-level ratings</td>
+</tr>
+<tr>
+<td><code>memory/skills/assistant-portfolio-manager/SKILL.md</code></td>
+<td>APM operational manual</td>
+</tr>
+<tr>
+<td><code>memory/skills/researcher/SKILL-V2.md</code></td>
+<td>Research pipeline logic (BD + CF prompts)</td>
+</tr>
+<tr>
+<td><code>memory/context/investment-strategy.md</code></td>
+<td>4 Pillars, HQI framework, setup profiles</td>
+</tr>
+<tr>
+<td><code>memory/context/richard-investing-approach.md</code></td>
+<td>Philosophy, 4 patterns, playbook</td>
+</tr>
+<tr>
+<td><code>AI Prompts/Watson - IG - Change forces - REFV04_RB.docx</code></td>
+<td>CF prompt template</td>
+</tr>
+<tr>
+<td><code>AI Prompts/Watson - IG - Business description - REV V03_RB.docx</code></td>
+<td>BD prompt template</td>
+</tr>
+<tr>
+<td><code>memory/coaching/stock-archetypes.md</code></td>
+<td>19 archetypes for pattern recognition</td>
+</tr>
+<tr>
+<td><code>memory/coaching/track-record-by-stock.md</code></td>
+<td>Historical parallels</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="version-history">Version History</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12-Apr-26</td>
+<td>V1: Initial creation. 5 active setups (Setup 1 deferred). Both checklist and scored modes.</td>
+</tr>
+<tr>
+<td>12-Apr-26</td>
+<td>V2: Removed Minervini 8-point and Mechanical EPS Upgrader (separate tools). Focused on fundamental change. Expanded criteria detail.</td>
+</tr>
+<tr>
+<td>12-Apr-26</td>
+<td>V3: Major restructure. Added pushing/removal framing. Corrected Setup 2 growth calibration. Overhauled Setup 3 with 6-layer input/output framework (Resources → Strategic Choices → Strategic Actions → KFM → FSO → SS). Added 3-role process (RESEARCHER → APM Analysis → APM Judgement). Integrated full ESA attribute framework from Book5.xlsx (Sections 3, 1, 2, 4, 5). Added Getlink worked examples for Setup 2 and Setup 3. Added stock assessment output template.</td>
+</tr>
+<tr>
+<td>12-Apr-26</td>
+<td>V4: Structural feedback integration. (1) Stage-gating: 13 attribute categories mapped to light/medium/robust depth across Triaging/ESA/DD from Attributes_Depth_per_stage.xlsx. Watson must know which stage before starting. (2) GTH sourcing by stage: Triaging = dashboard 8-point scores only; ESA/DD = dashboard + AS/Claude Technical Momentum research SOP + Guidance/Earnings research SOPs. (3) CfC scepticism rule: never dismiss as "transient" — default to scepticism, require hard clearing evidence. (4) Foundations SOPs: linked 5 Notion Journal SOPs (Great Operator, SRCA, value chain, industry structure, meta-quality) as canonical references. (5) Formatting: rating word colour highlighting (GREEN/YELLOW/ORANGE/RED), full Researcher notion-posting-sop.md compliance. (6) Word-based setup naming convention enforced.</td>
+</tr>
+<tr>
+<td>12-Apr-26</td>
+<td>V5: RESEARCHER prerequisites overhaul. (1) Full RESEARCHER output requirements table by stage (IG/Triaging/ESA/DD) with exact prompt template references. (2) PRE-ANALYSIS GATE: mandatory Notion search + dashboard check before any attribute analysis. (3) RESEARCHER GAP ESCALATION PROTOCOL: two options (brief-and-wait or brief-and-start) with specific briefing template. (4) Output template updated to include stage declaration and prerequisite check section. (5) Resource requirements table updated with specific SOP names per stage.</td>
+</tr>
+<tr>
+<td>15-Apr-26</td>
+<td>V7: Six Pillars framework supersedes 4-pillar structure. (1) Introduced Six Pillars (I: Technical Momentum, II: Market Paradigm Fit, III: Fundamental Change, IV: Building Blocks, V: SS Earnings Momentum, VI: Valuation). (2) Rating scale A-F replaces G/Y/O/R. (3) Database integration architecture: master + detail DBs, historical snapshots, monitoring plan, HTML dashboard. (4) 26 APM Deliverables framework added with production/reading order, investment case drivers hierarchy, and six reference frameworks.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="the-26-apm-deliverables-per-stock-per-stage">The 26 APM Deliverables (per stock, per stage)</h2>
+<p>The APM produces 26 numbered deliverables for each stock at each stage of the research process. These replace the previous combined "FCS Analysis + Judgement" format.</p>
+<h3 id="reading-order-how-richard-consumes-the-output">Reading Order (how Richard consumes the output)</h3>
+<table>
+<thead>
+<tr>
+<th>Order</th>
+<th>#</th>
+<th>Deliverable</th>
+<th>Triaging</th>
+<th>ESA</th>
+<th>DD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C</td>
+<td>4</td>
+<td>IC written summary</td>
+<td>1 page</td>
+<td>2 pages</td>
+<td>3 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>Ratings — all pillars, TCs, As, Qs [tabular]</td>
+<td>Completed</td>
+<td>Completed</td>
+<td>Completed</td>
+</tr>
+<tr>
+<td>A</td>
+<td>2</td>
+<td>Written judgements — all pillars, TCs, As, Qs</td>
+<td>2 pages</td>
+<td>4 pages</td>
+<td>6 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>3</td>
+<td>Written analysis — all pillars, TCs, As, Qs</td>
+<td>4 pages</td>
+<td>8 pages</td>
+<td>10 pages</td>
+</tr>
+<tr>
+<td>B</td>
+<td>5</td>
+<td>Guidance</td>
+<td>0.5 page</td>
+<td>2 pages</td>
+<td>3 pages</td>
+</tr>
+<tr>
+<td>B</td>
+<td>6</td>
+<td>Financial estimates — SS</td>
+<td>0.5 page</td>
+<td>2 pages</td>
+<td>3 pages</td>
+</tr>
+<tr>
+<td>B</td>
+<td>7</td>
+<td>Financial forecasts — modal case (RB/FA)</td>
+<td>RB</td>
+<td>RB</td>
+<td>RB</td>
+</tr>
+<tr>
+<td>B</td>
+<td>8</td>
+<td>TSR DuPont (RB/FA)</td>
+<td>RB</td>
+<td>RB</td>
+<td>RB</td>
+</tr>
+<tr>
+<td>A</td>
+<td>9</td>
+<td>Basic checks (ADV, market cap, listing age)</td>
+<td>0.5 page</td>
+<td>0.5 page</td>
+<td>0.5 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>10</td>
+<td>Investment Case Drivers — qualitative + financial</td>
+<td>1 page (hypothesising)</td>
+<td>2 pages</td>
+<td>3 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>11</td>
+<td>10 general/standard invalidation ACH scenarios</td>
+<td>n.a.</td>
+<td>1 page (hypothesising)</td>
+<td>1-2 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>12</td>
+<td>Key confusions (KCs) and key unknowns (KUs)</td>
+<td>1 page</td>
+<td>2 pages</td>
+<td>0.5 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>13</td>
+<td>Key concerns/risks (KRs)</td>
+<td>1 page</td>
+<td>2 pages</td>
+<td>2 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>14</td>
+<td>Key hygiene factors/assumptions (KHF/As)</td>
+<td>n.a.</td>
+<td>0.5 page</td>
+<td>1 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>15</td>
+<td>Key positive optionality (KPOs)</td>
+<td>0.5 page</td>
+<td>0.5 page</td>
+<td>0.5 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>16</td>
+<td>Key questions (KQs) before capital deployed</td>
+<td>1 page</td>
+<td>2 pages</td>
+<td>1 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>17</td>
+<td>Key actions for next stage (KAs)</td>
+<td>1 page</td>
+<td>1 page</td>
+<td>1 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>18</td>
+<td>Invalidation thresholds ("if X, exit")</td>
+<td>0.5 page</td>
+<td>2 pages</td>
+<td>3 pages</td>
+</tr>
+<tr>
+<td>A</td>
+<td>19</td>
+<td>Negative expected developments</td>
+<td>0.5 page</td>
+<td>1 page</td>
+<td>1 page</td>
+</tr>
+<tr>
+<td>A</td>
+<td>20</td>
+<td>Monitoring plan for TIs/ICDs/peers (for RESEARCHER)</td>
+<td>n.a.</td>
+<td>1 page (hypothesising)</td>
+<td>1-2 pages</td>
+</tr>
+<tr>
+<td>D</td>
+<td>21</td>
+<td>Recommendation to prioritise vs other opportunities</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D</td>
+<td>22</td>
+<td>Next-stage KQs/KAs if progressed</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D</td>
+<td>23</td>
+<td>Parking reasons ("gaps" analysis) if parked</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D</td>
+<td>24</td>
+<td>Re-assessment criteria for re-activation</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D</td>
+<td>25</td>
+<td>Monitoring plan for re-assessment criteria</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>—</td>
+<td>26</td>
+<td>Appendices [optional]</td>
+<td>Any supplementary</td>
+<td>Any supplementary</td>
+<td>Any supplementary</td>
+</tr>
+</tbody>
+</table>
+<h3 id="production-order-how-apm-produces-the-output">Production Order (how APM produces the output)</h3>
+<p>B (Financials: #5, #6, #7, #8) → A (IC Analysis: #1, #2, #3, #9-#20) → C (Summary: #4) → D (Actions: #21-#25)</p>
+<p><strong>Note:</strong> Deliverables #7 and #8 are marked "RB" — these are produced by Richard / the Financial Analyst role (not yet briefed). APM uses available SS estimates and directional analysis until FA produces the modal case model.</p>
+<h3 id="investment-case-drivers-10-icd-framework">Investment Case Drivers (#10) — ICD Framework</h3>
+<p>The ICD deliverable is the connective tissue between ratings, monitoring, and workflow planning.</p>
+<p><strong>Driver hierarchy:</strong>
+- <strong>Fulcrum Drivers (FDs):</strong> 1-2 things that DEFINE the thesis for the share price. If these go wrong, the case is dead. Commercial judgement about what drives the SP, not general business importance.
+- <strong>Key Drivers (KDs):</strong> Up to 4 material factors. Pretty important but not thesis-defining.
+- <strong>Secondary Drivers (SDs):</strong> Minor, but documented. May be upstream sub-drivers of FDs. Captured to avoid re-analysis.
+- <strong>Tertiary Drivers (TDs):</strong> Noise. Captured explicitly as "we looked at this, it doesn't matter" to prevent future re-work.</p>
+<p><strong>Each driver has:</strong>
+- Qualitative description (what's happening)
+- Financial output mapping (transmission to KFMs → FSOs → EPS)
+- 1-2 Leading Tracking Indicators (TIs) per FD — observable, monitorable data</p>
+<p><strong>The APM's judgement on WHERE in the transmission chain the SP-moving fulcrum sits is one of the most important analytical outputs.</strong> This is stock-specific and often sector-specific. For some stocks the SP reacts to input-level strategic deliverables (e.g. regulatory approval). For others it only reacts to financial outputs (SS upgrades, guidance beats).</p>
+<p>Deliverable #20 (Monitoring Plan) translates the ICD output into actionable RESEARCHER instructions via the Monitoring Plan database.</p>
+<h3 id="six-frameworks-mandatory-reference-placeholder">Six Frameworks — Mandatory Reference (PLACEHOLDER)</h3>
+<p>The APM should reference six investing frameworks when producing deliverables. Full codification pending — integrate at current understanding level where HELPFUL:</p>
+<ol>
+<li><strong>10x Invalidation Criteria</strong> — codified in Pillar IV, family 8 (Invalidating Attributes)</li>
+<li><strong>Reductionist Quality Framework</strong> — the 6 Foundations attributes + Notion Journal SOPs</li>
+<li><strong>Holistic Quality Framework</strong> — PLACEHOLDER (Scale Economies Shared / emergent business model properties)</li>
+<li><strong>Mispricings Framework</strong> — PLACEHOLDER (feeds Pillar III attributes 1.5, 1.6 and setup market error taxonomy)</li>
+<li><strong>Inflection/Change + Inputs/Outputs</strong> — fully codified in this SOP (6-layer framework, transmission mechanism)</li>
+<li><strong>Patterns/Chain Patterns</strong> — individual attribute patterns combine into chain patterns (setups). The 6 setups ARE chain patterns.</li>
+</ol>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

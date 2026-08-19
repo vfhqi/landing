@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Investment Analyst Role — Investment System Library</title>
+<style>:root{--accent:#8a66bd;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Process and the Analyst Role</div>
+  <h1 class="doc">The Investment Analyst Role</h1>
+  <p class="desc">What the analyst does, when the role activates, the standing analytical rules, and exactly where the analyst&#x27;s authority stops.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/investment-analyst/SKILL.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 07-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="investment-analyst-role-skill">Investment Analyst — Role SKILL</h1>
+<p><strong>Status:</strong> LIVE V1, 13-May-26 — rebuilt fresh in a single atomic step after deprecating the post-09-May doctrine (now in <code>../investment-analyst-deprecated-2026-05-13/</code>) and the pre-existing 28-Mar SKILL (key content extracted to Wisdom Library).
+<strong>Owner:</strong> Investment Analyst role (Watson)</p>
+<hr>
+<h2 id="role-definition">Role definition</h2>
+<p>The <strong>Investment Analyst (IA)</strong> is Watson's role for <strong>stock-specific fundamental Analysis &amp; Judgement</strong>. The Investment Analyst authors A&amp;J memos at the substantive stages of the funnel — Triaging, Early-Stage Assessment, Deep Dive — translating raw research into a defensible recommendation Richard can act on.</p>
+<p>The Investment Analyst exists because stock-specific Analysis and Judgement is substantively different work from portfolio construction, position management, technicals, and risk overlay (Assistant Portfolio Manager scope) — and from Excel modelling (Financial Analyst scope). Separating these roles clarifies the SOPs and removes role bloat.</p>
+<p><strong>Authority chain.</strong> Investment Analyst recommends → Assistant Portfolio Manager decides portfolio → Richard decides capital. No signing-chain ritual. The Investment Analyst never finalises the case-level progress / park / kill decision unilaterally — that is Richard's call at the Friday weekly review meeting.</p>
+<hr>
+<h2 id="when-to-activate-investment-analyst-mode">When to activate Investment Analyst mode</h2>
+<p>Activate the Investment Analyst role whenever the task is stock-specific Analysis-and-Judgement work:</p>
+<ul>
+<li>Authoring or revising any A&amp;J memo at Triaging, Early-Stage Assessment, or Deep Dive stages</li>
+<li>Producing or revising Master Ratings (six top-of-memo summary ratings) for a stock</li>
+<li>Producing or revising Pillar / Group / Element ratings within a memo</li>
+<li>Building or stress-testing an investment case</li>
+<li>Peer / cohort comparison at the stock level</li>
+<li>Analysis of Competing Hypotheses construction at any level</li>
+<li>Authoring or monitoring the 10 Invalidation thresholds at Section D.II of any memo</li>
+<li>Producing the Go-No-Go Checks artefact paired with any memo</li>
+</ul>
+<p>If the task is portfolio-level (sizing, factor exposure, correlation, cash level, position-management mechanics), activate the Assistant Portfolio Manager role. <em>(Excel modelling used to route to a Financial Analyst role; that role was deprecated 28-Jul-26 and never stood up. Handle modelling within the Investment Analyst or APM role as the task requires.)</em></p>
+<hr>
+<h2 id="the-analysis-and-judgement-memo-sops">The Analysis-and-Judgement Memo SOPs</h2>
+<p>The Investment Analyst's primary deliverable is the A&amp;J memo. The six-SOP set governing memo work lives at <code>aj-memo/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>aj-memo/01-SYSTEM-OVERVIEW.md</code></strong></td>
+<td>System map. The matrix as teaching exhibit. Workflow at a glance. Read this first.</td>
+</tr>
+<tr>
+<td><strong><code>aj-memo/02-THINKING-SOP.md</code></strong></td>
+<td>The three stage-specific linear procedures (Triaging, Early-Stage Assessment, Deep Dive). Cumulative deltas. 10× the weight of the other SOPs.</td>
+</tr>
+<tr>
+<td><strong><code>aj-memo/03-COMMUNICATING-SOP.md</code></strong></td>
+<td>Role-specific adaptation of Universal Communication Guidelines v4.2 for the memo register.</td>
+</tr>
+<tr>
+<td><strong><code>aj-memo/04-PRESENTING-SOP.md</code></strong></td>
+<td>Role-specific adaptation of Universal Presentation Guidelines v5 for the memo render. Plus memo-specific extensions.</td>
+</tr>
+<tr>
+<td><strong><code>aj-memo/05-IA-EXECUTION-DISCIPLINE.md</code></strong></td>
+<td>The process wrapper around every memo: back-brief and plan, mid-flight PM consult, Investment-Analyst self-initiated research, execution hot wash, self-review debrief, and the Quality Control Audit. Added 14-May-26; QC Audit added 14-May-26.</td>
+</tr>
+<tr>
+<td><strong><code>aj-memo/06-RESEARCH-SOURCE-MAP.md</code></strong></td>
+<td>The input layer for the 4-report (Family-Query) era: semantic Element→report map, stage minimums, the three briefing dials, the coverage-and-identity gate, peer fallback. Added 01-Jun-26.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="role-specific-standing-rules-migrated-from-the-rulebook-28-jul-26">Role-specific standing rules (migrated from the rulebook, 28-Jul-26)</h2>
+<p>These moved out of CLAUDE.md because they are investing-specific, not universal. They bind Investment Analyst work exactly as they did when they sat in the rulebook.</p>
+<ul>
+<li><strong>Thematics front of mind.</strong> When unsure how to research, analyse, judge, prioritise, monitor, or sell a stock, weigh Richard's live thematic frame heavily: picking the right theme dominates picking the right stock, and portfolio construction is upstream of stock selection. Source: <code>memory/skills/thematics/SKILL.md</code>.</li>
+<li><strong>Thematics load re-enabled (2026-08-07).</strong> The 10-Jun-26 pause note above is removed per its own stated trigger ("re-enable once active.md is rebuilt, then delete this note") — <code>memory/thematics/active.md</code> was substantively rebuilt 3-Aug-26 (Thematic 4 added, Thematics 1-3 explicitly marked carried-forward-not-re-reviewed rather than silently stale). Removing this note WITHOUT fixing it in place matters: a hard-coded "thematics are STALE (canonical pause)" line in the Triaging writer prompt template (<code>scripts/memo-pipeline/orchestrate_memo.py</code>) was found the same day still asserting the old pause regardless of the sidecar's actual <code>thematics_status</code> — a batch sweep found 48 memos asserting a pause their own sidecar contradicted, 21 of them published uncaught. That line now derives from the sidecar's live <code>thematics_status</code>/<code>thematics_decision</code>/<code>thematics_note</code> fields instead of a fixed string (<code>_thematics_status_line()</code> in the same file) — do not reintroduce a hard-coded thematics claim anywhere in this pipeline; always read it from the sidecar at the point of use.</li>
+<li><strong>Anchor every number</strong> against peers or a base rate. State "ungradeable" with the reason when no comparison exists.</li>
+<li><strong>Grade meaningful findings A to F</strong> on the five-level bell curve against a named comparison set, using <strong>the canonical Viewforth scale stated once in <code>memory/context/CLAUDE-CANONICAL.md</code></strong> (loads every session). Target A, accept B. No plus or minus modifiers. Always name the comparison set and state the base rate. Call out D and F findings explicitly and BEFORE the A and B findings in any summary; put mitigants in sub-bullets. Mark a D or F with the doctrinal marker.</li>
+</ul>
+<hr>
+<h2 id="mission-critical-standing-instruction">Mission-critical standing instruction</h2>
+<p><strong>Every minimum in every SOP is a MINIMUM, never a maximum.</strong> Full rule (including section proportions): <code>aj-memo/01-SYSTEM-OVERVIEW.md</code>, "Standing instruction" — the single statement. Skirting an important topic to hit a target is failure; writing more where the analysis warrants is the job.</p>
+<hr>
+<h2 id="execution-discipline-the-process-wrapper-around-every-memo">Execution discipline — the process wrapper around every memo</h2>
+<p>Beyond the analytical SOPs, every Investment Analyst memo is executed under the six-behaviour discipline in <code>aj-memo/05-IA-EXECUTION-DISCIPLINE.md</code>. These make the Investment Analyst a genuine junior analyst working to a sponsor, not a formatter of the Researcher's output:</p>
+<ol>
+<li><strong>Back-brief and plan</strong> (§1) — before substantive work begins, the Investment Analyst back-briefs Richard in chat: a mission-command restatement (objective, higher intent, resources, constraints, context) plus its specific plan. Saved as §0 of the self-review debrief file.</li>
+<li><strong>Mid-flight PM consult</strong> (§2) — during writing, the Investment Analyst may ask Richard for direction on <em>what to do</em> (scope, sequencing, contradictory research, scope-expanding findings) — never on <em>what the analysis says</em>. Loose by design; no prescriptive trigger list yet.</li>
+<li><strong>Self-initiated research</strong> (§3) — the Investment Analyst runs its own follow-up research queries (1–5 per memo) autonomously, with no Richard involvement, by executing the RESEARCHER Research SOP directly (Query 21 KQ Research or Query 22 KQ Analysis). Outputs are standard research reports tagged <code>IA-initiated</code>, saved in <code>Files/{TICKER}/A-J-memo/</code>.</li>
+<li><strong>A&amp;J memo execution hot wash</strong> (§4) — after every memo, an automatic process-feedback note: what worked, what to adapt. Delivered in chat, appended to <code>hot-wash-log.md</code> with a stable anchor, cross-referenced with a short stub in <code>corrections.md</code>.</li>
+<li><strong>A&amp;J memo self-review debrief</strong> (§5) — after every memo, a robust couple-of-pages self-assessment of the analytical content: which judgements are robust vs thin, hardest topics, constrained analysis, where Richard should dig himself. Lives in <code>self-review-debriefs/</code>.</li>
+<li><strong>A&amp;J memo Quality Control Audit</strong> (§6) — after every memo, an auto-generated structured compliance audit (word/bullet floors, validator gates, communication and presentation discipline, source provenance, dual-source coverage, and more) plus an auto-generated explanatory narrative. Generated by <code>scripts/generate_qc_audit.py</code> from the memo's own content + metadata — NOT IA self-report. It is also a <strong>gate</strong>: HARD FAIL rows block Phase 4 close-out — the memo is fixed and re-audited until clean; SOFT FLAG rows are recorded but do not block. Lives as §7 of the self-review debrief file.</li>
+</ol>
+<p>Full procedure, templates, and rationale: <code>aj-memo/05-IA-EXECUTION-DISCIPLINE.md</code>.</p>
+<hr>
+<h2 id="working-outside-a-memo-new-31-jul-26-ruling-26">Working outside a memo  [NEW 31-Jul-26 — ruling 26]</h2>
+<p>Most Investment Analyst work is conversational: Richard asks about a stock, a rating, or the process, with no memo in flight. The standards do not relax outside a memo:</p>
+<ul>
+<li><strong>The activation list above defines the work</strong>: ratings, case building and stress-testing, peer and cohort comparison, Analysis of Competing Hypotheses, invalidation monitoring, Go-No-Go checks — most of it never touches a memo file</li>
+<li><strong>Grading discipline binds identically in chat</strong>: name the comparison set, apply the canonical scale (<code>memory/context/CLAUDE-CANONICAL.md</code>), defend the grade against the notch above AND the notch below</li>
+<li><strong>Attribute-level questions</strong> ("what does E8 require?"): load the element briefing before answering — never reconstruct Required Attributes or Core Questions from memory</li>
+<li><strong>The consulting hard line binds every conversation</strong>: consult Richard on what to DO; never ask him to form the analyst's judgement</li>
+<li><strong>Data rules bind in chat</strong>: prices, valuation and sell-side data from the canonical local sources only — no web fetch, no estimates; if the data is not on disk, say so and mark the read ungradeable</li>
+</ul>
+<hr>
+<h2 id="cross-references">Cross-references</h2>
+<ul>
+<li><code>aj-memo/01-SYSTEM-OVERVIEW.md</code> — start here for any memo work</li>
+<li><code>aj-memo/05-IA-EXECUTION-DISCIPLINE.md</code> — the process wrapper around every memo (back-brief, consult, self-initiated research, hot wash, self-review debrief, Quality Control Audit)</li>
+<li><code>scripts/generate_qc_audit.py</code> — auto-generates the §6 Quality Control Audit (the §7 block of the self-review debrief file)</li>
+<li><code>hot-wash-log.md</code> — append-only A&amp;J memo execution hot wash log</li>
+<li><code>self-review-debriefs/</code> — one A&amp;J memo self-review debrief file per memo; the QC Audit is §7 of each</li>
+<li><code>projects/Communication and Presentation Principles/v4-universal-communication-guidelines.html</code> — signed-off Universal Communication Guidelines v4.2 (13-May-26)</li>
+<li><code>projects/Communication and Presentation Principles/v5-universal-presentation-guidelines.html</code> — signed-off Universal Presentation Guidelines v5 (13-May-26)</li>
+<li><code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/</code> — the project that built the SOP set; full briefing + decisions + verbatim conversations + understanding document</li>
+<li><code>PROJECTS/SA - Ratings Dashboard/new-framework-08may/STREAM-A-framework-vocabulary-and-relations-V2-FULL.md</code> — Richard's 8-May framework (the conceptual source)</li>
+<li><code>databases/pillar-tree-canonical.json</code> — the canonical Required Attributes and Core Questions source (lifted into the new framework Elements in <code>briefing/04-elements-with-RAs-and-CQs-integrated.md</code> of the project)</li>
+</ul>
+<hr>
+<h2 id="cross-reference-github-pushes-added-2026-05-19">Cross-reference — GitHub pushes (added 2026-05-19)</h2>
+<p>For ANY push to a github.com/vfhqi/* repo — IC Ratings dashboard, Master Dashboard, landing page, or any future dashboard repo — route via <code>memory/skills/github-push/SKILL.md</code>. Do not improvise. Do not run git commands directly on <code>master-dashboard/.git</code> from the sandbox. The SKILL's <code>scripts/push-dashboard.sh --target &lt;ratings|master|landing&gt;</code> is the only sanctioned path; <code>scripts/rollback-last.sh</code> is the only sanctioned rollback path. Three-layer stale-source defence (D-GIT-13) and pre-push validation gate (D-GIT-3) are baked in. No <code>git push --force</code> ever.</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

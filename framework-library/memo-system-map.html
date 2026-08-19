@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Memo System Map — Investment System Library</title>
+<style>:root{--accent:#7b52b0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; The Investment Case Framework</div>
+  <h1 class="doc">Memo System Map</h1>
+  <p class="desc">How the framework becomes a written memo: the three pillars, the six top-of-memo ratings, how deep each stage goes, and the memo&#x27;s section structure.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 11-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="investment-analyst-analysis-and-judgement-memo-system-overview">Investment Analyst Analysis-and-Judgement Memo System — Overview</h1>
+<p><strong>Status:</strong> LIVE V1, 13-May-26 — Richard signed off the understanding document on which this is built.
+<strong>Owner:</strong> Investment Analyst role (Watson)
+<strong>Authority chain:</strong> stated once in <code>SKILL.md</code>, "Role definition" (Investment Analyst recommends → Assistant Portfolio Manager decides portfolio → Richard decides capital).</p>
+<hr>
+<h2 id="how-to-read-this-file">How to read this file</h2>
+<p>This is the parent file of the five-SOP set. Read this first; then drop into the specific SOP for the work you are doing.</p>
+<p>The set:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Weight relative to other SOPs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01-SYSTEM-OVERVIEW.md</strong> (this file)</td>
+<td>The system map. Where everything sits. The matrix as teaching exhibit. The workflow at a glance.</td>
+<td>Navigation only</td>
+</tr>
+<tr>
+<td><strong>02-THINKING-SOP.md</strong></td>
+<td>How to <em>think</em> through the analysis. Three stage-specific linear procedures (Triaging, Early-Stage Assessment, Deep Dive).</td>
+<td>10× the communicating and presenting SOPs</td>
+</tr>
+<tr>
+<td><strong>03-COMMUNICATING-SOP.md</strong></td>
+<td>How to <em>write up</em> what was thought. Role-specific adaptation of the Universal Communication Guidelines v4.2 for the memo register.</td>
+<td>1×</td>
+</tr>
+<tr>
+<td><strong>04-PRESENTING-SOP.md</strong></td>
+<td>How to <em>present</em> the writing. Role-specific adaptation of the Universal Presentation Guidelines v5 for the memo register. Plus memo-specific render conventions.</td>
+<td>0.1×</td>
+</tr>
+<tr>
+<td><strong>05-IA-EXECUTION-DISCIPLINE.md</strong></td>
+<td>How to <em>execute the memo as a process</em> — the wrapper around the analytical work: back-brief and plan, mid-flight PM consult, Investment-Analyst self-initiated research, execution hot wash, self-review debrief. Added 14-May-26. Also carries the recurring <strong>Frictions Review</strong> (weekly, or every 5 memos) that mines accumulated frictions to amend the SOPs (added 15-Jun-26).</td>
+<td>Process discipline — surrounds every memo; does not govern the analysis itself</td>
+</tr>
+<tr>
+<td><strong>06-RESEARCH-SOURCE-MAP.md</strong></td>
+<td>Where the memo draws its INPUTS in the 4-report (Family-Query) era: the semantic Element→report map, stage minimums, the three briefing dials, the coverage-and-identity gate, peer fallback. Added 01-Jun-26.</td>
+<td>Input layer only; the analysis itself is unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>A&amp;J memo quality is roughly 10× more important than communication, which is roughly 10× more important than formatting. Spend time accordingly. The execution discipline SOP is the process wrapper around all of that — read it at memo pickup.</p>
+<hr>
+<h2 id="standing-instruction-at-the-top-of-every-watson-session-in-investment-analyst-mode">Standing instruction at the top of every Watson session in Investment Analyst mode</h2>
+<p><strong>Every number in every SOP — minimum bullet counts, minimum word counts, section proportions, depth labels — is a MINIMUM. NEVER a maximum.</strong></p>
+<p>The Investment Analyst always writes MORE on a topic when the analysis is interesting, surprising, material to the case, or worth Richard's attention. The discipline is "no skirting on important topics" — the upper bound is "what serves the analysis", never a fixed number.</p>
+<p>Skirting an important topic to hit a target is failure. Writing more than the target on a topic that justifies it is the job.</p>
+<hr>
+<h2 id="the-role">The role</h2>
+<p>The Investment Analyst is the role Watson activates whenever the task is stock-specific Analysis and Judgement work:</p>
+<ul>
+<li>Authoring or revising an Analysis-and-Judgement memo at the Triaging, Early-Stage Assessment, or Deep Dive stages of the funnel</li>
+<li>Producing or revising Master Ratings (the six top-of-memo summary ratings) for a stock</li>
+<li>Producing or revising Pillar / Group / Element ratings within a memo</li>
+<li>Building or stress-testing an investment case (Pillar I Case Change Elements + Pillar II Case Building Blocks + Pillar III Investment Case Components)</li>
+<li>Peer / cohort comparison work at the stock level</li>
+<li>Analysis of Competing Hypotheses construction at any level</li>
+<li>Authoring or monitoring the ten Invalidation thresholds at Section D.II of any memo</li>
+<li>Producing the Go-No-Go Checks artefact paired with any memo</li>
+</ul>
+<p>If the task is portfolio-level (sizing, factor exposure, correlation, cash level, position-management mechanics), activate the Assistant Portfolio Manager role instead. <em>(The Financial Analyst role was deprecated 28-Jul-26 and was never stood up; Excel-modelling tasks route per <code>CLAUDE-CANONICAL.md</code>.)</em></p>
+<p>Role boundary and authority chain: see <code>SKILL.md</code>, "Role definition" — the single statement.</p>
+<hr>
+<h2 id="the-funnel-five-stages">The funnel — five stages</h2>
+<p>Stocks move through five discrete stages of research and analysis <em>(Richard's ruling, 29-Jul-26: the former "Filtering out" step folds into Ideas Generation and screening; "Live" is named "Live/invested")</em>. Each stage is a sequential filter, not a deepening pass. A stock that fails a stage's qualitative test is parked. A stock that clears the test graduates to the next.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Stage</th>
+<th>Purpose</th>
+<th>Qualitative test (NOT rated; alignment language)</th>
+<th>Investment Analyst Memo?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Ideas Generation (incl. screening and filtering)</td>
+<td>Qualify a candidate; side-step obvious headwinds</td>
+<td>Sufficient technical momentum; no large or worsening exogenous risks</td>
+<td>No memo</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Triaging</td>
+<td>Lightly triage attractiveness</td>
+<td>Large amounts of positive change forces</td>
+<td><strong>YES — Memo 1, LIGHT pass</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Early-Stage Assessment</td>
+<td>Broadly test attractiveness</td>
+<td>Change forces manifesting in financials AND bankable foundation</td>
+<td><strong>YES — Memo 2, SOLID pass (cumulative delta over Memo 1)</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Deep Dive</td>
+<td>Robustly probe riskiness</td>
+<td>Shun mediocrity; top decile / top quartile A and B cases only</td>
+<td><strong>YES — Memo 3, ROBUST pass (cumulative delta over Memo 2)</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Live/invested</td>
+<td>Mitigate / avoid / reduce risk of capital loss</td>
+<td>Drivers tracking to plan or moving toward invalidation thresholds</td>
+<td>NO MEMO (separate operating system — out of scope here)</td>
+</tr>
+</tbody>
+</table>
+<p><em>(The teaching matrix below keeps its historical six columns as an exhibit; its column numbering predates this ruling.)</em></p>
+<p><strong>Key rule.</strong> Stage tests are qualitative alignment language. The Investment Analyst does NOT rate the stage test. The go-or-park signal comes from the combination of ratings on the topics in scope at that stage, integrated through the Investment Analyst's judgement.</p>
+<hr>
+<h2 id="the-3-pillar-architecture-of-the-case">The 3-Pillar architecture of the case</h2>
+<p>Every investment case decomposes into three Pillars.</p>
+<p><strong>Pillar I — Case CHANGE Elements.</strong> Is there enough exciting change to drive the share price? Three Elements: E1 Required input change forces; E2 Required case outputs; E3 Sufficient total-shareholder-return / valuation upside.</p>
+<p><strong>Pillar II — Case BUILDING BLOCKS.</strong> Is the change happening in a business that can compound it? Five Groups, 14 Elements:
+- Group 1 Case momentum: E4 Technical, E5 Thematic fit, E6 Sell-side earnings momentum
+- Group 2 Case simplicity: E7 Simplicity guardrails, E8 Fit with acceptable setups
+- Group 3 Core philosophy: E9 Operator, E10 Advantaged business + competitive advantage, E11 Value-chain, E12 Industry structure, E13 Secular growth
+- Group 4 Case riskiness: E15 Invalidating, E16 Strenuously seek-to-avoid, E17 Capital-constraining, E18 Clear transmission, E19 Monitorable transmission
+- Group 5 Case optionality: E20 Nice-to-have (minor)</p>
+<p><strong>Pillar III — Investment case COMPONENTS.</strong> The operational distillation for live position management. Three Groups: Position management playbook, Key drivers Upstream (5 categories), Key drivers Downstream (5 categories).</p>
+<p><strong>The aircraft analogy.</strong> Pillars I and II are the <em>aircraft teaching manual</em> — how the plane flies (Pillar I) and what enables it to fly (Pillar II). Pillar III is the <em>in-flight checklist</em> — simple, scannable, no cognitive overload. Once Pillar III is defined and the position is live, Watson mostly works from Pillar III; Pillars I and II become reference-only.</p>
+<hr>
+<h2 id="pillar-iii-elements-the-live-monitoring-layer-e21e32-added-31-jul-26-source-stream-a-comprehensive-v2-67-richard-approved-the-addition-30-jul-26">Pillar III elements — the Live monitoring layer (E21–E32)  <em>(added 31-Jul-26; source: STREAM-A COMPREHENSIVE V2 §6–7; Richard approved the addition 30-Jul-26)</em></h2>
+<p>The framework defines E1–E32. E1–E20 are covered above; the Pillar III elements are built post-Deep-Dive and become the operating layer at Live/invested:</p>
+<ul>
+<li><strong>E21 Monitoring plan</strong> (framework for monitoring once Live; links to RR23) and <strong>E22 Position management playbook</strong> (entry rules, sizing, trim/add triggers, exit triggers — short, scannable). <em>Labelling note: Stream A treats E21/E22 as standalone elements alongside the driver groups; the teaching matrix labels the playbook "Group 6". Corrected 31-Jul-26 — an earlier version of this section asserted "G6" for both, which neither source states</em></li>
+<li><strong>G7 — Key drivers Upstream (E23–E27):</strong> key case assumptions / headwind forces, primary case drivers, secondary case drivers, risks, optionality</li>
+<li><strong>G8 — Key drivers Downstream (E28–E32):</strong> financial metrics, financial-statement outputs, risks, peers/sector, key technical developments (E32)</li>
+</ul>
+<p>The full per-driver 7-column tabular spec and tree diagram live in STREAM-A V2 §7; the memo rendering format is <code>04-PRESENTING-SOP.md</code> (driver tables).</p>
+<hr>
+<h2 id="the-six-master-ratings">The six Master Ratings</h2>
+<p>At the top of every memo from Triaging onwards, six Master Ratings give the full-case picture at the current level of confidence. They fold into the Section B Executive Summary opening (the BLUF).</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Master Rating</th>
+<th>What it summarises</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Technical momentum</td>
+<td>Needed for profitable risk-and-reward. <strong>Scope [D-AJ-28, 2026-07-03]: share-price technicals only — moving-average position, RS percentile, momentum signal. NOT sell-side price targets, DCF-derived fair value, broker coverage, or consensus TP (that content belongs to MR2 or the Valuation Context in Section A). The Hexatronic and NKT ESA memos both filled this rating with broker-target commentary and zero price-action content — a confirmed 2+ pattern, fixed in the authoring skeletons (<code>aj-memo/skeletons/*.md</code>) as of this date.</strong> <strong>Grade source [locked 09-Jul-26, Richard]: the MR1 Technical Momentum grade = the stock's Timeliness rating (Richard's canonical source is the Master Dashboard #combos / timeliness view, <code>https://vfhqi.github.io/master/#combos</code>), the same value shown in the Ratings Dashboard's Technical-momentum column and stored as <code>p1_technical_momentum</code> in <code>ratings-snapshot.json</code>. Every stock should carry one; where the pipeline has no timeliness value the dashboard shows "ERROR" (a flag for Richard to investigate, not a real grade). Data-pinned, not analyst discretion — same treatment as MR2 SSEM.</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sell-side earnings momentum</td>
+<td>Needed for a Stage-2 technical-momentum stock to "keep going". <strong>Grade source [locked 09-Jul-26, Richard]: the MR2 (and E6) Sell-Side Earnings Momentum grade must equal the Master Dashboard's SSEM grade for the stock — the bell-curve percentile grade (A=top decile, B=next 15%, C=next 25%, D=next 25%, F=bottom quartile) computed from the FactSet revision data, the same value shown in the Ratings Dashboard's "SS earnings" column and stored as <code>p5_ssem</code> in <code>ratings-snapshot.json</code>. It is NOT a free analyst judgement and NOT a hand-graded read of the raw momentum score: source it from the dashboard. Canonical implementations: <code>ssemAssignRatings</code> / <code>ssemDimScore</code> in <code>master-dashboard/index.html</code>, and the faithful Python port <code>build_ssem_index_bellcurve()</code> in <code>databases/scripts/build-ratings-snapshot.py</code>. Root cause 09-Jul-26: an earlier absolute-threshold hand-grade disagreed with the dashboard on ~two-thirds of the universe (BT was graded C in-memo vs the dashboard's correct D). The "loosely-derived / analyst-discretion" note below does NOT apply to this pillar — MR2's SSEM grade is data-pinned.</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Thematic fit</td>
+<td>Right thematics = stock picking easy</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Pillar I — Case change elements</td>
+<td>Big Change Case</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Pillar II — Case building blocks</td>
+<td>Building Blocks (bankability)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Pillar III — Investment case components</td>
+<td>In-flight playbook + monitoring plan</td>
+</tr>
+</tbody>
+</table>
+<p>Master Ratings are <strong>loosely-derived qualitative summaries</strong> — informed by the underlying topic ratings but not programmatically derived. The Investment Analyst retains discretion to weight and override. <strong>Exception [09-Jul-26]: MR2 Sell-Side Earnings Momentum is data-pinned to the Master Dashboard bell-curve SSEM value (see the MR2 row above), not discretionary — the other five Master Ratings remain analyst-weighted.</strong></p>
+<p><strong>Terminology equivalence, locked 09-Jul-26 (Richard, verbatim: "MR3 Thematic fit = market paradigm fit. They are equivalent."):</strong> MR3 "Thematic fit" above is the same underlying concept as <strong>Pillar II — Market Paradigm Fit</strong> in Richard's personal Six Pillars of a Target Investment Case framework (<code>memory/context/investing-system.md</code>, Investment Strategy section — Pillar II, Thematic/Qualitative, APM judgement) and the same field as the Ratings Dashboard's <code>p2_market_paradigm_fit</code> column. The two names are additive, not competing: "Thematic fit" is the memo-internal Master Rating label (MR-numbering, 1-6, ordered by where it sits in the memo), "Market Paradigm Fit" is Richard's personal-framework label for the same content (Roman-numeral Pillar ordering, I-VI, which maps 1:1 to the dashboard's p1-p6 columns). This is an <strong>equivalence/glossary note, not a rename</strong> — existing memo headings keep saying "Thematic fit" (MR3); do not batch-rename ~40+ published memo files on the strength of this note alone. The dashboard's <code>p2_market_paradigm_fit</code> field is sourced from MR3 wherever the primary IC-rating join is null (see <code>databases/scripts/build-ratings-snapshot.py</code>, MRFB patch, 09-Jul-26).</p>
+<hr>
+<h2 id="the-memo-document-spine">The memo document spine</h2>
+<p>The memo is structured A through F. Section A and Section F are excluded from word-count targets.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Title</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>Financials</td>
+<td>Top-line financial picture. Excluded from word-count targets.</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Investment case — Executive summary</td>
+<td>Bottom Line Up Front. The six Master Ratings live here at the top of the BLUF. Three layers: page-level (3-5 bullets after the title), section-level (1-2 sentences at the top of each major section), section-closing (one-sentence summary at the bottom of each major section).</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>Investment case attributes (Pillars I + II)</td>
+<td>The heaviest analytical section. Section C.1 holds Pillar I body content (the three Case-change Elements). Section C.2 holds Pillar II body content (the five Groups and their Elements).</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>Investment case components (Pillar III)</td>
+<td>The in-flight checklist. Section D.I position-management playbook. Section D.II monitoring plan with the 10 Invalidation thresholds verbatim. Section D.III key drivers Upstream and Downstream per the 7-column tabular spec. ZERO content at Triaging; LIGHT at Early-Stage Assessment; SOLID at Deep Dive.</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>Actions</td>
+<td>If progressing: next-stage actions and key questions. If parking: park reasons, gap analysis, reassessment criteria. Recommendation only — Richard decides at Friday review meeting.</td>
+</tr>
+<tr>
+<td><strong>F</strong></td>
+<td>Appendices</td>
+<td>Sources, process notes, and a one-line pointer to the §7 Quality Control Audit in the self-review debrief file. Excluded from word-count targets.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="the-workflow-five-phases">The workflow — five phases</h2>
+<p>Every Investment Analyst memo session follows this sequence. The five-behaviour execution discipline in <code>05-IA-EXECUTION-DISCIPLINE.md</code> layers onto these phases — read that SOP at memo pickup.</p>
+<p><strong>Phase 0 — Pre-flight (run before any analytical writing begins).</strong> Four pre-checks:
+- 0.0 — Cohort check: is this stock part of an active comparison-group of stocks?
+- 0.1 — Research Report coverage and identity check: are the required 4-report family reports for this stage present, fresh, and confirmed as the right family? Stage minimums and the full gate live in <code>06-RESEARCH-SOURCE-MAP.md</code> (Triaging needs Change Forces; ESA needs Change Forces + Business Foundation; Deep Dive needs all four). If a required report is missing or fails identity, brief the Chief of Staff to generate it, prioritised to front-of-queue.
+- 0.2 — Wisdom Library consult: which mental models from prior cases apply here?
+- 0.3 — Standing inputs hunt: current share price, Richard's Notion notes on the stock, existing model, recent catalysts (last 60 days), peer multiples. <strong>If a recent catalyst needs research the stock does not yet have, that is a FAILED check, not a note to carry.</strong> Request the research, register it against this memo, and wait — see 0.5a below. This resolves a real ambiguity: 0.1's family-report floor could pass cleanly while 0.3 had found an open catalyst gap, and read literally the floor alone let writing begin.
+- 0.4 — Briefing dials: confirm the three calibration dials with Richard as one lightweight line, defaults pre-filled (RR-trust/scepticism = balanced; cohort integration = normal; sector integration = normal). They set how hard the IA leans on the reports versus re-derives, and how strongly cohort and sector peers are weighted. Record the settings at the memo top. Detail in <code>06-RESEARCH-SOURCE-MAP.md</code> section 3; in unattended production, default all three.</p>
+<p>If any check fails: stop, fill the gap or flag it explicitly. Do not skip.</p>
+<p><strong>Phase 0.5a — Requested-research gate, ESA and Deep Dive only (Richard's ruling, 11-Aug-26).</strong> Any research report Richard or the Investment Analyst has asked for <em>to support this memo</em>, of any type, is treated as floor for this memo even when it sits above the stage minimum. <strong>Writing does not begin until every one of them is complete and readable, with no timeout and no proceed-and-flag.</strong> The memo waits. Register each request so the machine holds the gate rather than a person remembering it:</p>
+<pre><code>python3 scripts/memo-pipeline/required_reports.py require &lt;TICKER&gt; --report-type &lt;type&gt; --by &lt;richard|ia&gt; --note "why" --raise-card
+</code></pre>
+<p><code>--raise-card</code> queues it on the research conveyor at high priority. <code>orchestrate_memo.advance()</code> refuses to dispatch an ESA or Deep Dive writer while any entry is outstanding. Full rule and rationale: <code>06-RESEARCH-SOURCE-MAP.md</code> §2. Triaging is unaffected: it has no key-question research loop and its floor is the Change Forces report.</p>
+<p><strong>Phase 0.5 — Back-brief and plan (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §1).</strong> Once the brief is understood, back-brief Richard in the chat window: a mission-command restatement (objective, higher intent, resources, constraints, context) plus the specific plan for completing the memo, with an explicit alignment check. Create the self-review debrief file and write this back-brief into it as §0. Then proceed — do not block waiting for Richard.</p>
+<p><strong>Phase 1 — Read and calibrate.</strong> Read every Research Report in scope at this stage. Read Richard's Notion notes on the stock. Read local master-dashboard data files (prices, valuation multiples, sell-side revision data — per <code>06-RESEARCH-SOURCE-MAP.md</code> section 4c; internal-first, not external websites). Identify which of Richard's investment archetypes the stock most resembles. Form an initial calibrated view.</p>
+<p><strong>Phase 2 — Walk the stage-specific procedure.</strong> This is the production phase. Open the Thinking SOP (<code>02-THINKING-SOP.md</code>). Find the procedure for this stock's current funnel stage — Triaging, Early-Stage Assessment, or Deep Dive. Walk the procedure top to bottom. Produce content per step. Each procedure step names the topic, the pass-depth, the minimum bullet count (×2 or ×4 if double-weight or quadruple-weight), what good output looks like.</p>
+<p><strong>Phase 3 — Synthesise and judge.</strong> Write Section D (risk decomposition, ten Invalidation thresholds verbatim, gaps analysis). Write Section B (executive summary BLUF — written LAST among analytical sections so it summarises what was found, not what was expected). Write Section E (next-stage actions if progressing, or park reasons and reassessment criteria if parking).</p>
+<p><strong>Throughout Phases 1–3 — mid-flight PM consult and self-initiated research (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §2 and §3).</strong> Whenever a <em>what-to-do</em> decision exceeds Investment Analyst authority — contradictory research, a scope-expanding finding, a constraint collision — consult Richard in chat (never consult on <em>what the analysis says</em>). Whenever the analysis needs a research gap closed, run a self-initiated research query (1–5 per memo, executed directly via the RESEARCHER Research SOP, no Richard involvement, output saved as a standard <code>IA-initiated</code> research report).</p>
+<p><strong>Phase 4 — Validate, ship, audit, hot-wash, self-review.</strong> Run structural checks on the memo. Publish to the repository (dashboard); do not post to Notion (stopped 02-Jul-26). Produce a separate Go-No-Go Checks artefact paired with the memo. <strong>Run the A&amp;J memo Quality Control Audit</strong> — generate §7 of the self-review debrief file via <code>generate_qc_audit.py</code>, an auto-generated structured compliance audit plus explanatory narrative (§6 of <code>05-IA-EXECUTION-DISCIPLINE.md</code>). <strong>If the audit returns any HARD FAIL: gate</strong> — go back and fix the memo, re-run the audit, repeat until clean of hard fails before proceeding. <strong>Write the A&amp;J memo execution hot wash</strong> — deliver in chat, append to <code>hot-wash-log.md</code> with a stable anchor, add the cross-reference stub to <code>corrections.md</code> (§4). <strong>Write §1-§6 of the A&amp;J memo self-review debrief</strong> into the file in <code>self-review-debriefs/</code> whose §0 was created at Phase 0.5 (§5). Survey for Wisdom Library entry candidates. Hand off.</p>
+<hr>
+<h2 id="the-xlsx-matrix-teaching-exhibit-only">The xlsx matrix — teaching exhibit only</h2>
+<p>Richard's 8-May xlsx workbook contains a matrix at rows 45 to 125 showing every topic × every stage with a cell instruction for what depth applies at each intersection. The matrix is the <strong>high-level teaching artefact</strong> — it shows the shape of the system at a glance.</p>
+<p>It is <strong>NOT the production SOP.</strong> Watson does not "walk the matrix" at memo authoring time. Watson walks the <strong>stage-specific linear procedure</strong> in the Thinking SOP, which is <em>derived from</em> the matrix but rendered as numbered instructions.</p>
+<p>The matrix appears once below as the teaching exhibit. Treat it as orientation for new readers and as the audit truth-table if the three Thinking SOP procedures ever drift from each other.</p>
+<h3 id="the-matrix-verbatim-from-xlsx-rows-45-125">The matrix (verbatim from xlsx rows 45-125)</h3>
+<p>Columns: I Generation/screening · II Filter out · III Triaging · IV Early-Stage Assessment · V Deep Dive · VI Live.</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>I Gen/screen</th>
+<th>II Filter out</th>
+<th>III Triage</th>
+<th>IV ESA</th>
+<th>V DD</th>
+<th>VI Live</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executive summary judgement</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>Third pass</td>
+<td>Fourth pass</td>
+<td>Fifth pass</td>
+<td>(continues)</td>
+</tr>
+<tr>
+<td>Master ratings (the 6 ratings)</td>
+<td>No</td>
+<td>No</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>(stable)</td>
+</tr>
+<tr>
+<td>Pillar I — Case change elements</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E1 Required input change forces</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>Third pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E2 Required case outputs</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E3 Sufficient TSR / valuation upside</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Pillar II — Case building blocks</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Group 1 Case momentum</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E4 Technical momentum</td>
+<td>First pass</td>
+<td>[no change]</td>
+<td>[no change]</td>
+<td>Second pass</td>
+<td>[no change]</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E5 Thematic fit</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>Third pass</td>
+<td>Fourth pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E6 Sell-side earnings momentum</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Group 2 Case simplicity</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E7 Required case simplicity guardrails</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>Third pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E8 Fit with acceptable case setups</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>Third pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Group 3 Core philosophy</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E9 Great operator</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E10 Advantaged business + widening competitive advantage</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E11 Value-chain dynamics</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E12 Supportive industry structure</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E13 High secular growth potential</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Group 4 Case riskiness</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E15 Invalidating attributes</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E16 Strenuously seek-to-avoid attributes</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E17 Capital-constraining attributes</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E18 Clear transmission mechanism</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>—</td>
+</tr>
+<tr>
+<td>E19 Monitorable transmission mechanism</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Group 5 Case optionality</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+</tr>
+<tr>
+<td>E20 Nice-to-have attributes</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass</td>
+<td>Second pass</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Pillar III — Investment case components</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+</tr>
+<tr>
+<td>Group 6 Position management playbook</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+</tr>
+<tr>
+<td>Group 7 Key drivers Upstream</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+</tr>
+<tr>
+<td>Group 8 Key drivers Downstream</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>First pass — light</td>
+<td>Second pass — solid</td>
+<td>Third pass — robust</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cell-instruction vocabulary.</strong> Blank = not applicable at this stage. First pass = first time written, light depth. Second pass = re-engage, deepen to solid. Third pass = mature, robust. First pass — light / Second pass — solid / Third pass — robust = explicit depth labels. [no change] = carry forward unchanged from prior stage. Rated = a rating is produced.</p>
+<hr>
+<h2 id="the-cumulative-delta-discipline">The cumulative-delta discipline</h2>
+<p>The three memos are NOT independent documents. Each builds on the prior:</p>
+<ul>
+<li><strong>Triaging memo</strong> = fresh memo. Written from scratch.</li>
+<li><strong>Early-Stage Assessment memo</strong> = <strong>carry forward the Triaging memo unchanged, then add the deltas from the Early-Stage Assessment procedure.</strong> Triaging content is preserved (with light editing to integrate new content). Watson does not rewrite Triaging from scratch at Early-Stage Assessment.</li>
+<li><strong>Deep Dive memo</strong> = <strong>carry forward the Early-Stage Assessment memo unchanged, then add the deltas from the Deep Dive procedure.</strong> Same logic.</li>
+</ul>
+<p>This is what makes the three procedures cumulative, not duplicative. Each procedure is a delta on the prior.</p>
+<hr>
+<h2 id="length-guardrails-minimums-never-maximums">Length guardrails (MINIMUMS, never maximums)</h2>
+<p><strong>Bullet floors per Required Attribute and per Core Question, in Section C only:</strong>
+- Light / first pass = <strong>3 bullets minimum</strong>
+- Solid / second pass = <strong>4 bullets minimum</strong>
+- Robust / third pass = <strong>5 bullets minimum</strong></p>
+<p><strong>Multipliers</strong> apply at all stages where the affected Element / Required Attribute / Core Question is in scope:
+- Double-weight (×2) on: E1, E2, E5, E7, E10
+- Double-weight (×2) on: E15 RA2 "Plain sight risks"
+- Quadruple-weight (×4) on: E12 RA1 "Sector strength"
+- Quadruple-weight (×4) on: E15 RA1 "General ACHs"</p>
+<p><strong>E8 setups carve-out (D-IA-AJ-16):</strong> at Triaging, all 6 acceptable setups (8 Required Attributes + 44 Core Questions) get 3 bullets minimum. At Early-Stage Assessment and Deep Dive, only the 1-2 setups identified as fitting the stock at Triaging get deepened to that stage's pass-depth floor. The other 4-5 setups carry forward at 3 bullets unchanged.</p>
+<p><strong>E10 advantaged business carve-out:</strong> at Triaging E10 is not in scope. At Early-Stage Assessment and Deep Dive, Watson uses judgement to identify the 6-10 Core Questions most material to THIS specific stock and writes them at the higher floor depth; the other Core Questions stay at light depth (3 bullets) and are noted as such.</p>
+<p><strong>Approximate whole-memo targets</strong> (mid-points, MINIMUM not maximum, excluding Section A and Section F):
+- Triaging memo: ~9,000 words floor
+- Early-Stage Assessment memo: ~31,500 words floor (raised +50%, 2026-07-03 -- Richard: "ESA and DD memos to be 50% longer")
+- Deep Dive memo: ~42,000 words floor (raised +50%, 2026-07-03, same instruction)</p>
+<p>Reading time: ~30-40 minutes for Triaging; ~105-135 minutes for Early-Stage Assessment; ~150-195 minutes for Deep Dive.</p>
+<hr>
+<h2 id="vocabulary-lock">Vocabulary lock</h2>
+<p>Three terms, three meanings (from 8-May briefing):</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Stands for</th>
+<th>Produced by</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Report</strong></td>
+<td>Research Report (RR) — in the current era, one of the 4 Family-Query reports (Change Forces, Business Foundation, Leadership, Risks); see <code>06-RESEARCH-SOURCE-MAP.md</code></td>
+<td>Researcher / Chief of Staff</td>
+<td>Per stage, per stock; weekly at Live</td>
+</tr>
+<tr>
+<td><strong>Memo</strong></td>
+<td>Analysis-and-Judgement Memo</td>
+<td>Investment Analyst role</td>
+<td>Per stage, per stock</td>
+</tr>
+<tr>
+<td><strong>Note</strong></td>
+<td>Monitoring Note</td>
+<td>Investment Analyst role at Live</td>
+<td>Monthly + event-triggered</td>
+</tr>
+</tbody>
+</table>
+<p>Use precise terms.</p>
+<hr>
+<h2 id="conflict-resolution-priority">Conflict-resolution priority</h2>
+<p>When sources appear to conflict:</p>
+<ol>
+<li><strong>Stream A V2-FULL framework</strong> (<code>PROJECTS/SA - Ratings Dashboard/new-framework-08may/STREAM-A-framework-vocabulary-and-relations-V2-FULL.md</code>) wins on concepts.</li>
+<li><strong>Today's signed-off Universal Communication Guidelines v4.2</strong> wins on communication.</li>
+<li><strong>Today's signed-off Universal Presentation Guidelines v5</strong> wins on presentation.</li>
+<li><strong>This six-file SOP set</strong> wins on the Investment Analyst memo workflow specifically.</li>
+<li><strong>Richard's 8-May Round-by-Round answers</strong> win on the original framework intent (verbatim files preserved at <code>PROJECTS/SA - Ratings Dashboard/new-framework-08may/</code>).</li>
+</ol>
+<p>If a conflict cannot be resolved, surface to Richard with the conflict named explicitly. Do not silently pick a side.</p>
+<hr>
+<h2 id="cross-references">Cross-references</h2>
+<ul>
+<li><code>02-THINKING-SOP.md</code> — the three stage-specific linear procedures</li>
+<li><code>03-COMMUNICATING-SOP.md</code> — the writing layer</li>
+<li><code>04-PRESENTING-SOP.md</code> — the render layer</li>
+<li><code>05-IA-EXECUTION-DISCIPLINE.md</code> — the execution wrapper around every memo: back-brief, consults, QC audit, publishing <em>(added to this list 31-Jul-26; it was the one SOP the list omitted)</em></li>
+<li><code>06-RESEARCH-SOURCE-MAP.md</code> — where the memo draws its inputs (4-report era): semantic Element→report map, stage minimums, dials, coverage-and-identity gate</li>
+<li>Project briefing folder at <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/briefing/</code> — verbatim conversations and the understanding document</li>
+<li>Decisions log at <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/decisions/decisions.md</code> — 27 locked decisions</li>
+<li>The 60 Required Attributes and 170 Core Questions lifted from the old framework into the new Elements: <code>projects/SA - IA A&amp;J Memo Batching Automation/folded-projects/SA - Investment Analyst A&amp;J memos/briefing/04-elements-with-RAs-and-CQs-integrated.md</code></li>
+</ul>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

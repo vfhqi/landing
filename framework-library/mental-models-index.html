@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mental Models Library, Index — Investment System Library</title>
+<style>:root{--accent:#6b3fa0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Philosophy and Strategy</div>
+  <h1 class="doc">Mental Models Library, Index</h1>
+  <p class="desc">Index of the mental-model library: investing models, business-quality models and decision-making models, with the tier each sits in.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>wisdom-library/INDEX.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 18-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+<div class="warn"><b>Note on this document.</b> Roughly half the decision-making entries in this library are lessons about Watson&#x27;s own software and quality-control pipelines, not about stock picking. The folder structure does not separate them.</div>
+<main>
+<h1 id="wisdom-library-index">Wisdom Library — Index</h1>
+<p><strong>Total models:</strong> 145 (per INDEX.json direct count, 07-Aug-26 — this header had drifted stale at 129 since 18-Jun-26; corrected here, not investigated further)
+<strong>Last updated:</strong> 2026-08-07
+<strong>Latest contribution (18-Jun-26):</strong> 3 new Silver entries from the APM Portfolio/VSL re-run hot-wash. New: <code>composite-signal-masks-component-deterioration</code> (sentiment/sell-side) — a positive blended estimate-momentum score can hide EPS/EBITDA/sales cuts propped by target-price and rating revisions; decompose before trusting, decisive for proven/extended names. New: <code>extended-trend-banked-upside</code> (situational/portfolio-construction) — a year-long uptrend has mostly banked its move; prefer proven-but-young (5-7mo) records. New: <code>cross-sectional-grade-not-absolute-level</code> (research-methodology) — a universe bell-curve grade is a relative rank, not an own-history threshold; re-derive each run rather than inheriting per-name labels. Anchored to the 18-Jun-26 valuation-grade and SSEM corrections.</p>
+<p><strong>Latest contribution (22-May-26):</strong> 2 new Silver entries from LTM-IT Triaging research hot-wash. New: <code>leverage-to-eps-transmission</code> — post-PE-IPO deleverage creates mechanical EPS tailwind that flatters consensus CAGR vs true earnings quality; includes normalised-leverage diagnostic. New: <code>regulatory-moat-hardening</code> — licensing consolidation events hardcode competitive moats for surviving incumbents, anti-pattern to usual "regulatory risk" framing; Italy ADM 407→52 licensed domains as anchor.
+<strong>Previous contribution (13-May-26):</strong> 8 new stock-specific archetype entries (Bronze tier) extracted from the deprecated pre-existing 28-Mar Investment Analyst SKILL Analytical Pitfalls table during the Investment Analyst A&amp;J memo SOP build, PLUS 2 new Silver entries surfaced during the same session — <code>matrix-as-teaching-not-procedure</code> and <code>cumulative-delta-procedure-pattern</code> — both governing how Watson should design multi-stage SOPs. New: <code>xvivo-trees-not-wood</code>, <code>execution-not-potential</code>, <code>event-angle-icing-not-cake</code>, <code>lazy-cyclical-extrapolation</code>, <code>insider-ownership-not-alignment</code>, <code>vague-financial-analysis</code>, <code>legacy-moat-vs-execution-moat</code>, <code>growth-too-fast-to-forecast</code>. Plus 9th lesson <code>pret-sandwich-risk</code> already existed in library — content preserved. Each entry has stock-specific origin anchor (XVIVO, Flatex, Avanza/Covid, MasMovil/Orange, Medartis/Wise/Cazoo) to fire on archetype match during Investment Analyst Phase 0.2 pre-flight Wisdom Library consult.
+<strong>Previous contribution (11-May-26):</strong> 1 new entry from SA Pre-Ship Discipline reform. New: <code>procedural-gate-vs-acknowledged-value</code> (Gold) — diagnoses why declarative rules drift under load in transformer reasoning; kin to <code>memory-needs-workflow-binding</code>. Source: 04-May-26 Kaizen Lesson Root Cause A.
+<strong>Previous contribution (4-May-26):</strong> 4 new entries + 2 augmentations from GYM-TRIO Triaging+ESA hotwash. New: <code>quantitative-data-anchor-first</code> (Gold), <code>ss-buy-rating-vs-revisions-divergence</code> (Silver), <code>stage-scope-flex-doctrine</code> (Silver), <code>sandbagging-precision-management-archetype</code> (Silver). Augmented: <code>peer-and-base-rate-anchoring</code>, <code>outlier-flagging-rare-data</code>. See <code>_meta/promotion-log.md</code> for detail.</p>
+<h2 id="taxonomy">Taxonomy</h2>
+<h3 id="generalbusiness">general/business</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="general/business/creative-destruction.md">Creative Destruction</a></td>
+<td>🥈 Silver</td>
+<td>disruption, innovation, Schumpeter, competition</td>
+</tr>
+<tr>
+<td><a href="general/business/customer-concentration-risk.md">Customer Concentration Risk</a></td>
+<td>🥈 Silver</td>
+<td>concentration, customers, fragility, revenue, risk</td>
+</tr>
+<tr>
+<td><a href="general/business/economies-of-scale.md">Economies of Scale</a></td>
+<td>🥇 Gold</td>
+<td>scale, cost, moat, competitive-advantage, growth</td>
+</tr>
+<tr>
+<td><a href="general/business/flywheel-vs-treadmill.md">Flywheel vs Treadmill vs Fragile</a></td>
+<td>🥇 Gold</td>
+<td>flywheel, treadmill, fragile, business-quality, moat</td>
+</tr>
+<tr>
+<td><a href="general/business/incentives-drive-behaviour.md">Incentives Drive All Behaviour</a></td>
+<td>🥇 Gold</td>
+<td>incentives, compensation, alignment, management, governance</td>
+</tr>
+<tr>
+<td><a href="general/business/incumbent-dilemma.md">Incumbent Dilemma</a></td>
+<td>🥈 Silver</td>
+<td>disruption, incumbent, innovation, competitive-dynamics</td>
+</tr>
+<tr>
+<td><a href="general/business/mission-critical-products.md">Mission-Critical Products</a></td>
+<td>🥈 Silver</td>
+<td>mission-critical, switching-costs, recurring-revenue, defensive</td>
+</tr>
+<tr>
+<td><a href="general/business/moats-and-srca.md">Moats &amp; SRCA (Hard + Soft)</a></td>
+<td>🥇 Gold</td>
+<td>moat, SRCA, competitive-advantage, pricing-power, switching-costs</td>
+</tr>
+<tr>
+<td><a href="general/business/network-effects.md">Network Effects</a></td>
+<td>🥇 Gold</td>
+<td>network, moat, platform, marketplace, competitive-advantage</td>
+</tr>
+<tr>
+<td><a href="general/business/pricing-power.md">Pricing Power</a></td>
+<td>🥇 Gold</td>
+<td>pricing, moat, inflation, margin, competitive-advantage</td>
+</tr>
+<tr>
+<td><a href="general/business/red-queen-effect.md">Red Queen Effect (Running to Stand Still)</a></td>
+<td>🥈 Silver</td>
+<td>competition, effort, treadmill, market-share</td>
+</tr>
+<tr>
+<td><a href="general/business/value-chain-analysis.md">Value Chain Analysis</a></td>
+<td>🥈 Silver</td>
+<td>value-chain, profit-pools, positioning, industry-structure</td>
+</tr>
+<tr>
+<td><a href="general/business/win-win-win-strategy.md">Win-Win-Win Strategy</a></td>
+<td>🥈 Silver</td>
+<td>strategy, ecosystem, stakeholders, sustainability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="generaldecision-making">general/decision-making</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="general/decision-making/and-not-or.md">AND Not OR (2x2 Reframing)</a></td>
+<td>🥇 Gold</td>
+<td>reframing, 2x2, dimensions, false-dichotomy, thinking</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/anti-ambiguity-descriptor-pattern.md">Anti-Ambiguity Descriptor Pattern</a></td>
+<td>🥇 Gold</td>
+<td>communication, ambiguity, descriptors, naming, plain-english, jargon, acronyms, vocabulary</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/base-rates-vs-case-rates.md">Base Rates vs Case Rates</a></td>
+<td>🥈 Silver</td>
+<td>statistics, base-rate, probability, forecasting, outside-view</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/bayesian-updating.md">Bayesian Updating</a></td>
+<td>🥇 Gold</td>
+<td>probability, updating, evidence, beliefs, forecasting</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/bill-walsh-playbook.md">Bill Walsh Playbook Analogy</a></td>
+<td>🥈 Silver</td>
+<td>process, playbook, preparation, execution, systems</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/bruce-lee-synthesis.md">Bruce Lee Synthesis</a></td>
+<td>🥇 Gold</td>
+<td>synthesis, adaptation, eclecticism, best-practices, pruning, kaizen, continuous-improvement</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/chimp-vs-observer.md">Chimp vs Observer (Peters)</a></td>
+<td>🥇 Gold</td>
+<td>psychology, emotional-regulation, nervous-system, reactivity</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/complex-systems.md">Complex Systems Thinking</a></td>
+<td>🥇 Gold</td>
+<td>complexity, systems, non-linear, emergence, feedback-loops</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/cone-of-outcomes.md">Cone of Outcomes (Time Horizon)</a></td>
+<td>🥈 Silver</td>
+<td>uncertainty, forecasting, time-horizon, probability</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/douglas-five-fears.md">Five Fears (Mark Douglas)</a></td>
+<td>🥇 Gold</td>
+<td>psychology, fear, trading, execution, emotion</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/good-plan-executed.md">Good Plan Executed &gt; Great Plan in Drawer</a></td>
+<td>🥇 Gold</td>
+<td>execution, action, simplicity, perfectionism, speed</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/iaja.md">IAJA / IAJ+2DSA</a></td>
+<td>🥇 Gold</td>
+<td>process, analysis, judgement, action, downstream-actions</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/invert-and-call-out-bottom-quartile.md">Invert and Call Out the Bottom Quartile (D/F Markers)</a></td>
+<td>🥇 Gold</td>
+<td>inversion, Jacobi, Munger, mediocrity, communication, D-F</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/inversion-jacobi.md">Inversion (Jacobi / Popper)</a></td>
+<td>🥇 Gold</td>
+<td>inversion, Jacobi, Popper, disconfirmation, thinking</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/matrix-as-teaching-not-procedure.md">Matrix as Teaching Artefact, Not Procedure</a></td>
+<td>🥈 Silver</td>
+<td>matrix, procedure, linear-execution, teaching-vs-doing, drift, SOP-design</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/cumulative-delta-procedure-pattern.md">Cumulative-Delta Procedure Pattern</a></td>
+<td>🥈 Silver</td>
+<td>cumulative, delta, procedure, stage-gated, sequence, SOP-design, deduplication</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/mission-command.md">Mission Command (von Moltke)</a></td>
+<td>🥇 Gold</td>
+<td>delegation, communication, intent, constraints, leadership</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/non-ergodicity.md">Non-Ergodicity Risk</a></td>
+<td>🥈 Silver</td>
+<td>risk, ergodicity, drawdown, survival, regime</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/ooda-loop.md">OODA Loop (Boyd)</a></td>
+<td>🥇 Gold</td>
+<td>speed, decision-cycle, observe, orient, decide</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/outlier-flagging-rare-data.md">Outlier Flagging — The 'Hmmmmm' Marker (🚩 RARE)</a></td>
+<td>🥇 Gold</td>
+<td>outlier, rare, unusual, edge-case, signal, communication, variant-perception</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/p-equals-p-minus-i.md">P = p - i (Performance Equation)</a></td>
+<td>🥈 Silver</td>
+<td>psychology, interference, potential, performance, coaching</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/judgement-analysis-information-ordering.md">Judgement → Analysis → Information ordering</a></td>
+<td>🥇 Gold</td>
+<td>communication, ordering, judgement-first, BLUF, layer-cake, signposting</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/peer-and-base-rate-anchoring.md">Peer &amp; Base Rate Anchoring</a></td>
+<td>🥇 Gold</td>
+<td>peer-comparison, base-rate, anchoring, percentile, communication</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/pre-mortem.md">Pre-Mortem</a></td>
+<td>🥈 Silver</td>
+<td>risk, scenario, failure, imagination, pre-commitment</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/procedural-gate-vs-acknowledged-value.md">Procedural Gate vs Acknowledged Value (Knowing ≠ Running)</a></td>
+<td>🥇 Gold</td>
+<td>behavioural-prior, gate-discipline, knowing-vs-running, sop-design, transformer-reasoning</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/quantitative-data-anchor-first.md">Quantitative-Data-Anchor-First (Anti-Pattern)</a></td>
+<td>🥇 Gold</td>
+<td>anchoring, narrative-bias, comp-table, skeleton-bias, data-discipline, sequencing, process</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/second-order-effects.md">Second-Order Effects</a></td>
+<td>🥇 Gold</td>
+<td>second-order, consequences, thinking, cascading, systems</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/self-image-performance.md">Self-Image = Performance (Bassham)</a></td>
+<td>🥇 Gold</td>
+<td>psychology, self-image, identity, visualisation, performance</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/simplification-pass-before-first-plan.md">Simplification Pass Before First Plan</a></td>
+<td>🥇 Gold</td>
+<td>simplification, planning, 20-80-rule, pareto, scope-discipline, over-engineering, design</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/ss-buy-rating-vs-revisions-divergence.md">SS Buy Rating vs Revisions Divergence</a></td>
+<td>🥈 Silver</td>
+<td>sell-side, factset, ssem, revisions, buy-rating, divergence, conviction-vs-modelling, rare-pattern</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/stage-scope-flex-doctrine.md">Stage-Scope Flex Doctrine</a></td>
+<td>🥈 Silver</td>
+<td>stage-gating, scope-flex, triaging-plus, esa-pre-research, sop-deviation, doctrine-discipline</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/strong-views-weakly-held.md">Strong Views, Weakly Held</a></td>
+<td>🥇 Gold</td>
+<td>conviction, flexibility, judgement, decisiveness, updating</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/survivorship-bias.md">Survivorship Bias</a></td>
+<td>🥈 Silver</td>
+<td>bias, data, selection, analysis, error</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/three-gaps-art-of-action.md">Three Gaps (Art of Action)</a></td>
+<td>🥇 Gold</td>
+<td>alignment, understanding, execution, delegation, gaps</td>
+</tr>
+<tr>
+<td><a href="general/decision-making/top-decile-top-quartile-grading.md">Top Decile / Top Quartile Grading (A-F Bell Curve)</a></td>
+<td>🥇 Gold</td>
+<td>grading, percentile, decile, quartile, bell-curve, A-F, communication</td>
+</tr>
+</tbody>
+</table>
+<h3 id="generalinvesting">general/investing</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="general/investing/circle-of-competence.md">Circle of Competence</a></td>
+<td>🥇 Gold</td>
+<td>competence, expertise, knowledge, edge, limitations</td>
+</tr>
+<tr>
+<td><a href="general/investing/conservative-analysis-aggressive-execution.md">Conservative Analysis, Aggressive Execution</a></td>
+<td>🥇 Gold</td>
+<td>execution, analysis, decisiveness, action, discipline</td>
+</tr>
+<tr>
+<td><a href="general/investing/disprove-dont-prove.md">Disprove, Don't Prove (ACH)</a></td>
+<td>🥇 Gold</td>
+<td>ACH, inversion, hypothesis, disproval, false-friend</td>
+</tr>
+<tr>
+<td><a href="general/investing/four-patterns.md">Four Patterns (Confluences)</a></td>
+<td>🥇 Gold</td>
+<td>patterns, CEO, corporate-change, demand, valuation</td>
+</tr>
+<tr>
+<td><a href="general/investing/fragility-assessment.md">Fragility Assessment (Forces x Fragilities = Movement)</a></td>
+<td>🥇 Gold</td>
+<td>fragility, risk, revenue, margin, financial</td>
+</tr>
+<tr>
+<td><a href="general/investing/goldilocks-growth.md">Goldilocks Growth (20-30%)</a></td>
+<td>🥇 Gold</td>
+<td>growth, forecasting, sweet-spot, revenue, EPS</td>
+</tr>
+<tr>
+<td><a href="general/investing/hqi-framework.md">High Quality Inflection (HQI)</a></td>
+<td>🥇 Gold</td>
+<td>quality, inflection, growth, optionality, framework</td>
+</tr>
+<tr>
+<td><a href="general/investing/key-questions-framework.md">Key Questions Framework</a></td>
+<td>🥇 Gold</td>
+<td>KQ, research, process, framing, direction</td>
+</tr>
+<tr>
+<td><a href="general/investing/margin-of-safety.md">Margin of Safety</a></td>
+<td>🥇 Gold</td>
+<td>valuation, safety, downside, risk, entry</td>
+</tr>
+<tr>
+<td><a href="general/investing/painful-prudence.md">Painful Prudence (9-10/10 Bar)</a></td>
+<td>🥇 Gold</td>
+<td>conviction, entry, standards, opportunity-cost, discipline</td>
+</tr>
+<tr>
+<td><a href="general/investing/compounding.md">Power of Compounding</a></td>
+<td>🥇 Gold</td>
+<td>compounding, growth, long-term, returns, time</td>
+</tr>
+<tr>
+<td><a href="general/investing/predictability-obsession.md">Predictability Obsession</a></td>
+<td>🥇 Gold</td>
+<td>predictability, EPS, forecasting, tracking, information-channels</td>
+</tr>
+<tr>
+<td><a href="general/investing/reflexivity.md">Reflexivity (Soros)</a></td>
+<td>🥈 Silver</td>
+<td>feedback-loop, sentiment, price, fundamentals, self-fulfilling</td>
+</tr>
+<tr>
+<td><a href="general/investing/regression-to-mean.md">Regression to the Mean</a></td>
+<td>🥈 Silver</td>
+<td>statistics, mean-reversion, expectations, base-rates</td>
+</tr>
+<tr>
+<td><a href="general/investing/revenue-optionality.md">Revenue Optionality Framework</a></td>
+<td>🥇 Gold</td>
+<td>optionality, growth, M&amp;A, geographic, product</td>
+</tr>
+<tr>
+<td><a href="general/investing/right-to-left-thinking.md">Right-to-Left Thinking</a></td>
+<td>🥇 Gold</td>
+<td>process, EPS, financial-output, transmission-mechanism, analysis</td>
+</tr>
+<tr>
+<td><a href="general/investing/risk-matrix.md">Risk Matrix (F x I x R)</a></td>
+<td>🥈 Silver</td>
+<td>risk, forecastability, impact, resource-intensity, assessment</td>
+</tr>
+<tr>
+<td><a href="general/investing/sizing-is-superpower.md">Sizing Is the Superpower</a></td>
+<td>🥇 Gold</td>
+<td>sizing, position-management, capital-allocation, returns, superpower</td>
+</tr>
+</tbody>
+</table>
+<h3 id="macromonetary-regime-added-3-aug-26">macro/monetary-regime <em>(added 3-Aug-26)</em></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="tightening-without-moving-rates-term-premium.md">A Central Bank Can Tighten Financial Conditions Without Moving Rates</a></td>
+<td>🥈 Silver</td>
+<td>forward-guidance, term-premium, discount-rate, long-duration, yield-curve, us-to-europe-transmission</td>
+</tr>
+</tbody>
+</table>
+<h3 id="behaviouralinterpretation-added-3-aug-26">behavioural/interpretation <em>(added 3-Aug-26)</em></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="market-interpretation-flips-while-position-constant.md">Market Interpretation Flips While the Position Stays Constant</a></td>
+<td>🥈 Silver</td>
+<td>interpretation-drift, contested-premise, hawk-dove, conditional-guidance, primary-source-discipline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalchain-patterns">situational/chain-patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/chain-patterns/scale-economies-shared.md">Scale Economies Shared</a></td>
+<td>🥈 Silver</td>
+<td>scale, sharing, customers, pricing, moat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalindustries">situational/industries</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/industries/consulting-utilisation.md">Consulting Business Economics</a></td>
+<td>🥉 Bronze</td>
+<td>consulting, utilisation, margins, FTE, professional-services</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalportfolio-construction">situational/portfolio-construction</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/portfolio-construction/love-portfolio-test.md">Love Portfolio Test</a></td>
+<td>🥈 Silver</td>
+<td>portfolio, conviction, review, holding, quality</td>
+</tr>
+<tr>
+<td><a href="situational/portfolio-construction/shadow-concentration-via-shared-cohort.md">Shadow Concentration via Shared Cohort</a></td>
+<td>🥉 Bronze</td>
+<td>concentration, cohort, correlation, thematic-exposure, position-sizing, hidden-risk</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalposition-managementexit">situational/position-management/exit</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/position-management/exit/30-day-shot-clock.md">30-Day Shot Clock (Disprove-or-Exit)</a></td>
+<td>🥇 Gold</td>
+<td>exit, deterioration, discipline, clock, default-zero</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalposition-managementmanagement">situational/position-management/management</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/position-management/management/alpha-decay-lifecycle.md">Alpha Decay Lifecycle (18M)</a></td>
+<td>🥈 Silver</td>
+<td>holding-period, lifecycle, alpha, timing, decay</td>
+</tr>
+<tr>
+<td><a href="situational/position-management/management/base-counting.md">Base Counting (Minervini)</a></td>
+<td>🥈 Silver</td>
+<td>technical, base, Minervini, sizing, VCP</td>
+</tr>
+<tr>
+<td><a href="situational/position-management/management/drawdown-expectations.md">Drawdown Expectations &amp; Psychology</a></td>
+<td>🥇 Gold</td>
+<td>drawdown, volatility, expectations, psychology, resilience</td>
+</tr>
+<tr>
+<td><a href="situational/position-management/management/emotional-overreaction-chimp.md">Emotional Overreaction (Chimp Trading)</a></td>
+<td>🥇 Gold</td>
+<td>psychology, chimp, overreaction, trimming, panic</td>
+</tr>
+</tbody>
+</table>
+<h3 id="situationalsimple-patterns">situational/simple-patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tier</th>
+<th>Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="situational/simple-patterns/animal-ceo.md">Animal CEO (Slootman Archetype)</a></td>
+<td>🥇 Gold</td>
+<td>CEO, leadership, management, operator, ambition</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/boiling-frog.md">Boiling Frog (Paper Cuts Compound)</a></td>
+<td>🥈 Silver</td>
+<td>deterioration, gradual, cuts, complacency, slow-decline</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/cockroaches-never-alone.md">Cockroaches Never Alone</a></td>
+<td>🥇 Gold</td>
+<td>deterioration, exit, red-flag, management, IR</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/demand-pulse-reversion.md">Demand Pulse Reversion</a></td>
+<td>🥇 Gold</td>
+<td>demand, cyclical, reversion, growth, extrapolation</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/event-angle-icing.md">Event Angle = Icing, Not Cake</a></td>
+<td>🥈 Silver</td>
+<td>event-driven, catalyst, icing, thesis, setup</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/false-friends.md">False Friends</a></td>
+<td>🥇 Gold</td>
+<td>false-friend, trap, setup, transmission-mechanism, red-flag</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/founder-led-tiger-risk.md">Founder-Led / Owner-Operator Tiger Risk</a></td>
+<td>🥈 Silver</td>
+<td>founder, owner-operator, alignment, governance, minority-shareholder</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/management-cant-explain.md">Management That Can't Explain</a></td>
+<td>🥈 Silver</td>
+<td>management, communication, clarity, red-flag, conviction</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/massive-corporate-change.md">Massive Corporate Change Plan</a></td>
+<td>🥇 Gold</td>
+<td>corporate-change, restructuring, transformation, catalyst, pattern</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/operator-quality-dimensions.md">Operator Quality (Three Dimensions)</a></td>
+<td>🥇 Gold</td>
+<td>management, operator, CEO, quality, assessment</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/pret-sandwich-risk.md">Pret Sandwich Risk</a></td>
+<td>🥈 Silver</td>
+<td>risk, accumulation, minor-issues, false-friend, death-by-cuts</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/sandbagging-precision-management-archetype.md">Sandbagging Precision Management Archetype</a></td>
+<td>🥈 Silver</td>
+<td>management-quality, guidance, sandbagging, exact-target-delivery, conservatism, evidence-anchored</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/xvivo-trees-not-wood.md">Trees Not Wood — XVIVO archetype</a></td>
+<td>🥉 Bronze</td>
+<td>detail-without-strategy, granularity-trap, strategic-view, xvivo</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/execution-not-potential.md">Execution Not Potential</a></td>
+<td>🥉 Bronze</td>
+<td>execution, potential, judge-on-doing, xvivo</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/event-angle-icing-not-cake.md">Event Angle Is Icing Not Cake — Flatex archetype</a></td>
+<td>🥉 Bronze</td>
+<td>event-driven, catalyst, fundamentals-first, flatex</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/lazy-cyclical-extrapolation.md">Lazy Cyclical Extrapolation — Avanza / Covid archetype</a></td>
+<td>🥉 Bronze</td>
+<td>cyclical, demand-pulse, extrapolation, mean-reversion, avanza, covid-stocks</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/insider-ownership-not-alignment.md">Insider Ownership Is Not Alignment — MasMovil / Orange archetype</a></td>
+<td>🥉 Bronze</td>
+<td>insider-ownership, alignment, follow-the-money, compensation, masmovil, orange</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/vague-financial-analysis.md">Vague Financial Analysis — Avanza archetype</a></td>
+<td>🥉 Bronze</td>
+<td>model-ready, walk-the-PL, financial-rigour, avanza</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/legacy-moat-vs-execution-moat.md">Legacy Moat vs Execution Moat — XVIVO archetype</a></td>
+<td>🥉 Bronze</td>
+<td>moat, durability, reinvestment, legacy-decay, xvivo</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/leverage-to-eps-transmission.md">Leverage-to-EPS Transmission Mechanic</a></td>
+<td>🥈 Silver</td>
+<td>leverage, EPS, deleveraging, PE-IPO, interest-expense, quality, consensus, transmission-mechanic</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/growth-too-fast-to-forecast.md">Growth Too Fast to Forecast — Medartis / Wise / Cazoo archetype</a></td>
+<td>🥉 Bronze</td>
+<td>hypergrowth, forecast-error, stumbles, multiple-compression, goldilocks-growth, medartis, wise, cazoo</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/quality-compounder.md">Quality Compounder Pattern</a></td>
+<td>🥇 Gold</td>
+<td>quality, compounder, recurring-revenue, moat, pattern</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/regulatory-moat-hardening.md">Regulatory Moat Hardening</a></td>
+<td>🥈 Silver</td>
+<td>regulation, moat, licensing, consolidation, incumbent, concession, anti-fragile, regulatory-event</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/s-curve-stacking.md">S-Curve Stacking &amp; Co-Evolution</a></td>
+<td>🥈 Silver</td>
+<td>disruption, innovation, theme, demand, S-curve</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/supply-chain-physics.md">Supply Chain Physics (Embedded Positioning)</a></td>
+<td>🥈 Silver</td>
+<td>supply-chain, positioning, EPSU, tight-supply, moat</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/tennis-balls-vs-eggs.md">Tennis Balls vs Eggs</a></td>
+<td>🥈 Silver</td>
+<td>momentum, quality, resilience, rebound, fragility</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/transformation-play.md">Transformation Play (Q-Turn)</a></td>
+<td>🥈 Silver</td>
+<td>transformation, restructuring, margin-expansion, catalyst, pattern</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/turnaround-duration.md">Turnarounds Take Longer Than You Think</a></td>
+<td>🥈 Silver</td>
+<td>turnaround, duration, patience, expectations, timing</td>
+</tr>
+<tr>
+<td><a href="situational/simple-patterns/worser-odder-longer-further.md">Worser, Odder, Longer, Further</a></td>
+<td>🥇 Gold</td>
+<td>deterioration, risk, duration, severity, expectations</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quant-signal-evaluation-insights-added-18-jun-26-apm-rs-momentum-review">Quant signal-evaluation insights (added 18-Jun-26, APM — RS-Momentum review)</h2>
+<ul>
+<li><strong>Judge Signals on Excess, Not Absolute, Returns</strong> [Bronze] — general/investing — measure alpha, not beta; absolute returns flatter signals in rising markets.</li>
+<li><strong>Persistence Is Not Prediction</strong> [Bronze] — general/decision-making — overlapping look-backs make level-autocorrelation mechanical; test forward return directly.</li>
+<li><strong>Robustness Quartet Before Conviction</strong> [Bronze] — general/decision-making — liquidity, skip-a-period, regime split, survivorship before trusting any signal.</li>
+<li><strong>Cross-Sectional vs Time-Series Momentum</strong> [Bronze] — situational/portfolio-construction — distinct, can oppose; cross-sector momentum is regime-conditional, within-sector mean-reversion is robust.</li>
+<li><a href="situational/portfolio-construction/shadow-concentration-via-shared-cohort.md">Shadow Concentration via Shared Cohort</a> — bronze (1 conf.) — two live holdings sharing one cohort/thesis is invisible to per-position review; only a deliberate cross-holding check surfaces the combined thematic weight (Arteche/Alfen, ~6.6% of assets, 07-Aug-26).</li>
+<li><a href="situational/industries/chemicals-single-end-market-concentration-fails-downturn-test.md">Chemicals: Single-End-Market Concentration Fails the Downturn-Robustness Test</a> — bronze (1 conf.)</li>
+<li><a href="situational/industries/chemicals-gdp-gearing-not-hedge.md">Chemicals Sector GDP-Gearing: A Geared, Not Hedged, Cyclical Play</a> — bronze (1 conf.)</li>
+</ul>
+<h2 id="process-research-methodology-added-18-aug-26-sa-ia-aj-memo-batching-phase-3">Process / research-methodology (added 18-Aug-26, SA — IA A&amp;J Memo Batching Phase 3)</h2>
+<ul>
+<li><a href="research-methodology/stale-status-markers-outlive-the-facts-they-recorded.md">Stale Status Markers Outlive the Facts They Recorded</a> — 🥉 Bronze — a one-shot injected banner/flag never updates itself when the facts it recorded later change; verify the actual rendered artefact, not just the backing metadata.</li>
+</ul>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Investment System Library — Viewforth</title>
+<style>:root{--accent:#6b3fa0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+
+.fam{margin:38px 0 0;}
+.fam h2{font-size:21px;margin:0 0 3px;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:6px;}
+.famblurb{margin:8px 0 16px;color:#5f5b6b;font-size:14.5px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;}
+.card{display:block;background:#fff;border:1px solid #e2dded;border-left:5px solid var(--accent);
+  border-radius:8px;padding:15px 17px;text-decoration:none;color:#1c1b22;
+  box-shadow:0 1px 2px rgba(40,20,80,.05);transition:box-shadow .12s,transform .12s;}
+.card:hover{box-shadow:0 4px 12px rgba(40,20,80,.13);transform:translateY(-1px);}
+.card h3{margin:0 0 6px;font-size:16px;line-height:1.3;}
+.card p{margin:0 0 9px;font-size:13.5px;color:#5f5b6b;line-height:1.5;}
+.card .src{font-size:11.5px;color:#8d879b;font-family:ui-monospace,Menlo,Consolas,monospace;}
+.flag{display:inline-block;background:#f5e2b0;color:#6a4c05;font-size:10px;font-weight:700;
+  padding:1px 6px;border-radius:9px;margin-left:7px;vertical-align:middle;letter-spacing:.4px;text-transform:uppercase;}
+.lede{background:#fff;border:1px solid #e2dded;border-radius:10px;padding:22px 26px;margin-top:26px;}
+.lede p{margin:0 0 11px;}
+.lede p:last-child{margin-bottom:0;}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="../">Viewforth landing page</a></div>
+  <h1 class="doc">Investment System Library</h1>
+  <p class="desc">Every document that defines the Viewforth investment philosophy, strategy,
+  case framework and process, in one place and in readable form.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>24 documents</b> &nbsp;&middot;&nbsp; <b>Built</b> 19-Aug-26 &nbsp;&middot;&nbsp;
+  Source files live in <code>COWORK/</code> and remain the originals
+</div></div>
+<div class="wrap">
+<div class="lede">
+  <p><b>What this is.</b> Each page below is an unedited conversion of one source document
+  held in the COWORK folder. Nothing is summarised, reordered or reworded. Only the
+  presentation changes, so the documents can be read comfortably rather than as raw text files.</p>
+  <p><b>Why it exists.</b> So that the investment system can be examined directly at source,
+  rather than through anyone's summary of it.</p>
+  <p><b>A note on the fourth group.</b> Portfolio and position management sit outside the
+  19-Aug-26 analysis of the investment case framework. They are published here to be read,
+  not because they form part of that analysis.</p>
+</div>
+<section class="fam" style="--accent:#6b3fa0"><h2>Philosophy and Strategy</h2><p class="famblurb">What I believe makes money, and what I therefore try to own.</p><div class="grid">
+<a class="card" href="investment-philosophy.html"><h3>Investment Philosophy</h3><p>The core belief about what makes money, what makes a great investment, the acceptable setups, and the definition of a false friend.</p><span class="src">investment-philosophy.md &middot; 30-Mar-26</span></a>
+<a class="card" href="how-i-invest.html"><h3>How I Invest</h3><p>The four patterns behind the best ideas, right-to-left thinking, disprove-do-not-prove, and the lessons drawn from individual stocks.</p><span class="src">richard-investing-approach.md &middot; 19-May-26</span></a>
+<a class="card" href="investment-strategy.html"><h3>Investment Strategy</h3><p>What to own and what to avoid: the quality-plus-inflection idea, the conviction bar, setup profiles, fragilities, sizing and exits.</p><span class="src">investment-strategy.md &middot; 30-Jul-26</span></a>
+<a class="card" href="the-investing-system.html"><h3>The Investing System</h3><p>The whole approach described as six connected domains, from the three perpetual goals down to daily workflow.</p><span class="src">investing-system.md &middot; 29-Jul-26</span></a>
+<a class="card" href="values-and-winning-behaviours.html"><h3>Values and Winning Behaviours</h3><p>The three perpetual goals, and the behaviours judged to create or destroy investment returns.</p><span class="src">values-and-behaviours.md &middot; 19-May-26</span></a>
+<a class="card" href="mental-models-index.html"><h3>Mental Models Library, Index<span class="flag">note</span></h3><p>Index of the mental-model library: investing models, business-quality models and decision-making models, with the tier each sits in.</p><span class="src">INDEX.md &middot; 18-Aug-26</span></a>
+</div></section>
+<section class="fam" style="--accent:#7b52b0"><h2>The Investment Case Framework</h2><p class="famblurb">The shape of a complete investment case: pillars, elements, questions.</p><div class="grid">
+<a class="card" href="case-framework-full-reference.html"><h3>The Case Framework, Full Reference</h3><p>The 8-May framework in full: every pillar, group and element, and how they relate to one another.</p><span class="src">STREAM-A-COMPREHENSIVE-V2.html &middot; 08-May-26</span></a>
+<a class="card" href="case-framework-words-and-relationships.html"><h3>The Case Framework, Words and Relationships</h3><p>The definitions layer: what each term in the framework means and how the parts connect. This is the document that outranks the memo procedures whenever the two disagree on a concept.</p><span class="src">STREAM-A-framework-vocabulary-and-relations-V2-FULL.md &middot; 08-May-26</span></a>
+<a class="card" href="framework-plain-english-walkthrough.html"><h3>Plain-English Walkthrough of the Framework</h3><p>Watson&#x27;s explanation of the 8-May framework written back to Richard for sign-off, in ordinary language rather than framework vocabulary.</p><span class="src">03-understanding-08may-in-detail.md &middot; 13-May-26</span></a>
+<a class="card" href="the-question-bank.html"><h3>The Question Bank<span class="flag">note</span></h3><p>Every element with its required attributes and its core questions: roughly 60 attributes and 170 questions across 19 elements.</p><span class="src">04-elements-with-RAs-and-CQs-integrated.md &middot; 17-Aug-26</span></a>
+<a class="card" href="memo-system-map.html"><h3>Memo System Map</h3><p>How the framework becomes a written memo: the three pillars, the six top-of-memo ratings, how deep each stage goes, and the memo&#x27;s section structure.</p><span class="src">01-SYSTEM-OVERVIEW.md &middot; 11-Aug-26</span></a>
+</div></section>
+<section class="fam" style="--accent:#8a66bd"><h2>Process and the Analyst Role</h2><p class="famblurb">How a stock travels from idea to decision, and who does what.</p><div class="grid">
+<a class="card" href="five-stage-research-funnel.html"><h3>The Five-Stage Research Funnel</h3><p>Ideas Generation, Triaging, Early-Stage Assessment, Deep Dive, Live. What each stage is for, what it produces, and how a stock either progresses or is parked.</p><span class="src">investment-process.md &middot; 07-Aug-26</span></a>
+<a class="card" href="how-ideas-move-between-stages.html"><h3>How Ideas Move Between Stages<span class="flag">note</span></h3><p>The stage-progression procedure: who decides a stock moves, on what evidence, and how parking and reactivation work.</p><span class="src">SKILL.md &middot; 29-Jul-26</span></a>
+<a class="card" href="the-investment-analyst-role.html"><h3>The Investment Analyst Role</h3><p>What the analyst does, when the role activates, the standing analytical rules, and exactly where the analyst&#x27;s authority stops.</p><span class="src">SKILL.md &middot; 07-Aug-26</span></a>
+<a class="card" href="how-a-memo-is-thought-through.html"><h3>How a Memo Is Thought Through</h3><p>The step-by-step analytical procedure for each stage. The heaviest and most load-bearing document in the whole set.</p><span class="src">02-THINKING-SOP.md &middot; 17-Aug-26</span></a>
+<a class="card" href="the-fundamental-change-screen.html"><h3>The Fundamental Change Screen<span class="flag">note</span></h3><p>The six top-level ratings used across the dashboards, the A to F grading scale, and how sub-ratings roll up into a single score.</p><span class="src">SKILL.md &middot; 07-Aug-26</span></a>
+</div></section>
+<section class="fam" style="--accent:#9a7ac9"><h2>Portfolio and Position Management</h2><p class="famblurb">Reference only. Not part of the 19-Aug analysis, included so it can be read.</p><div class="grid">
+<a class="card" href="assistant-portfolio-manager-role.html"><h3>The Assistant Portfolio Manager Role</h3><p>The portfolio-level role: sizing, exposure, correlation, cash, and how it takes the analyst&#x27;s stock work and turns it into a portfolio decision.</p><span class="src">SKILL.md &middot; 03-Aug-26</span></a>
+<a class="card" href="portfolio-analysis-and-judgement.html"><h3>Portfolio-Level Analysis and Judgement</h3><p>The portfolio manager&#x27;s own analysis and judgement procedure, including its quality gates.</p><span class="src">analysis-judgement-SOP-V3.md &middot; 07-Aug-26</span></a>
+<a class="card" href="position-management.html"><h3>Position Management</h3><p>Entry timing, position sizing, stop placement and exit rules, including the base-counting and stop-loss system.</p><span class="src">annex-01-position-management.md &middot; 30-Jul-26</span></a>
+<a class="card" href="monitoring-a-live-position.html"><h3>Monitoring a Live Position</h3><p>What is tracked once a stock is owned, and how the ten invalidation thresholds are watched.</p><span class="src">annex-02-live-monitoring.md &middot; 30-Jul-26</span></a>
+<a class="card" href="stress-testing-a-rating.html"><h3>Stress-Testing a Rating</h3><p>How to attack a rating the analyst has given, and how a case-level judgement is formed from the individual ratings.</p><span class="src">annex-05-rating-stress-test.md &middot; 30-Jul-26</span></a>
+<a class="card" href="twice-daily-position-review.html"><h3>The Twice-Daily Position Review</h3><p>The standing conversation about live positions: price, volume, stops, risk and valuation reconciliation.</p><span class="src">SKILL.md &middot; 14-Aug-26</span></a>
+<a class="card" href="risk-management-lessons.html"><h3>Risk Management Lessons</h3><p>A long synthesis of risk-management lessons drawn from Richard&#x27;s own journals, track record and mistakes.</p><span class="src">risk-management-lessons.md &middot; 15-Apr-26</span></a>
+</div></section>
+<section class="fam" style="--accent:#5a2f8f"><h2>This Session</h2><p class="famblurb">Watson&#x27;s map of the system and the record of how it was built.</p><div class="grid">
+<a class="card" href="the-investment-system-mapped.html"><h3>The Investment System, Mapped<span class="flag">note</span></h3><p>Watson&#x27;s map of how the whole system fits together, the confusions found in the source documents, the decisions taken on 19-Aug-26, and what was considered and rejected.</p><span class="src">system-map-and-session-record.md &middot; 19-Aug-26</span></a>
+</div></section>
+<footer><a href="../">&larr; Viewforth landing page</a> &nbsp;&middot;&nbsp; Built 19-Aug-26</footer>
+</div></body></html>

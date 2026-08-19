@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Values and Winning Behaviours — Investment System Library</title>
+<style>:root{--accent:#6b3fa0;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Philosophy and Strategy</div>
+  <h1 class="doc">Values and Winning Behaviours</h1>
+  <p class="desc">The three perpetual goals, and the behaviours judged to create or destroy investment returns.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/context/values-and-behaviours.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 19-May-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="values-and-behaviours">Values and Behaviours</h1>
+<h2 id="etcs-evergreen-target-conditions">ETCs (Evergreen Target Conditions)</h2>
+<p>Three perpetual goals that set direction. They never "complete" — they define what success looks like on a rolling basis.</p>
+<ol>
+<li>
+<p><strong>Investing ETC:</strong> Have a portfolio and squad that makes outlier returns (5-10% outperformance per annum) on a rolling next-two-year basis by continually, fluidly and successfully adapting to any unfolding circumstances.</p>
+</li>
+<li>
+<p><strong>Self/Performance ETC:</strong> Consistently execute the process at an elite level. Mark Douglas style. Conservative analysis, aggressive execution. Simple + completed beats complicated + incomplete.</p>
+</li>
+<li>
+<p><strong>Business/Viewforth ETC:</strong> Build and sustain a viable solo investment operation with appropriate infrastructure, tools, and professional standards.</p>
+</li>
+</ol>
+<hr>
+<h2 id="winning-behaviours">Winning Behaviours</h2>
+<h3 id="what-drives-alpha">What Drives Alpha</h3>
+<ul>
+<li>Breadth (rate tonnes of stocks) creates context for depth</li>
+<li>Speed of OODA loop — observe, orient, decide, act faster than consensus</li>
+<li>Predictability obsession — only own what you can track and forecast</li>
+<li>Paranoid monitoring of live positions</li>
+<li>Decisive exits — 30-day shot clock, default reduce to 0%</li>
+<li>Meeting management teams — first-hand operator quality evidence</li>
+</ul>
+<h3 id="what-destroys-alpha">What Destroys Alpha</h3>
+<ul>
+<li>Holding deteriorating positions too long (endowment bias, normalcy bias, cockroach theory)</li>
+<li>Solving deteriorations analytically instead of cutting</li>
+<li>Over-complication — solving for "perfect" not "alpha test"</li>
+<li>Creativity/growth drive pulling away from execution</li>
+<li>Demand exceeding capacity — trying to do too much</li>
+<li>Lazy extrapolation of cyclical highs</li>
+</ul>
+<hr>
+<h2 id="standards">Standards</h2>
+<h3 id="investment-quality-standards">Investment Quality Standards</h3>
+<ul>
+<li>Every dimension must rate A/B or top quartile — anything less is "fail"</li>
+<li>"This is not a business where second-best gets rewarded"</li>
+<li>D or C rated predictability = structural risk that rarely changes. Only viable strategy: avoidance.</li>
+<li><strong>Painful Prudence:</strong> Only own stocks where conviction is 9-10/10. Rest of capital better deployed elsewhere.</li>
+</ul>
+<h3 id="execution-standards">Execution Standards</h3>
+<ul>
+<li>IAJA on every judgement — no analysis without a conclusion</li>
+<li>2 downstream actions minimum from every judgement</li>
+<li>No open loops — every thread resolved or explicitly parked</li>
+<li>Back-briefs before and after execution</li>
+<li>Session handoffs every day</li>
+<li><strong>30-day shot clock on deterioration:</strong> Default action is exit (0%). Re-argue from zero if risk is genuinely disproved.</li>
+<li><strong>Stop starting, start finishing:</strong> Creativity loop once per month. Remaining days devoted to disciplined execution of existing playbook.</li>
+</ul>
+<h3 id="watson-standards">Watson Standards</h3>
+<ul>
+<li>Show full reasoning chain</li>
+<li>Always have a directional view — never end with "it depends"</li>
+<li>Flag confidence level and key assumptions</li>
+<li>Update memory files automatically</li>
+<li>Log corrections immediately</li>
+<li>Parallel [C] + [AS] execution on all research</li>
+</ul>
+<hr>
+<h2 id="behavioural-standards-from-2022-23-journals">Behavioural Standards (from 2022-23 journals)</h2>
+<h3 id="speak-your-truth-without-fear-of-judgment">"Speak Your Truth Without Fear of Judgment"</h3>
+<p>From Steve Ward coaching (2023): The ability to form your own view and communicate it clearly, even when others disagree, is the foundation of good decision-making. Richard's pattern: sometimes holds back controversial views to avoid friction. The standard: speak plainly. Your judgment matters. Let others disagree; that's what dialogue is for.</p>
+<h3 id="standards-executed-without-being-asked">Standards Executed Without Being Asked</h3>
+<p>Not "I should do this." Not "I'll try to do this." Just do it. The execution standard is habitual, not aspirational. If the standard is real, it's executed whether someone asks or not. This is the test: are your standards real or performative?</p>
+<hr>
+<h2 id="behavioural-self-awareness">Behavioural Self-Awareness</h2>
+<h3 id="core-tension">Core Tension</h3>
+<p>Richard loves to tinker, create, and improve — but this often comes at the expense of consistently executing what already works.</p>
+<h3 id="solution">Solution</h3>
+<p>Creativity loop: one day per month for strategic reflection and course-correction. Remaining days devoted to disciplined execution of checklists.</p>
+<h3 id="key-reframing">Key Reframing</h3>
+<p>"I am on the path to becoming a great investor" — not "there" or "not there," but "going towards." Gives emotional room that the gold medallist platform does not.</p>
+<hr>
+<h2 id="with-winning-in-mind-detailed-practices">"With Winning in Mind" — Detailed Practices</h2>
+<p>Core principle: <strong>What you picture vividly and focus on intently becomes reality.</strong> The nervous system and self-image cannot distinguish imagined from actual experience — rehearsal builds confidence equivalently to live performance.</p>
+<h3 id="mental-imagery-visualisation">Mental Imagery &amp; Visualisation</h3>
+<ul>
+<li><strong>Focus only on what you wish to happen.</strong> Neural pathways are carved by vividly imagined success. Avoid picturing failure; the nervous system treats it as real.</li>
+<li><strong>Rehearse mentally before every key action.</strong> Pre-event: see yourself calm, decisive, executing well. During action: trust the rehearsal. Post-event: reinforce wins.</li>
+<li><strong>Self-image cannot distinguish imagined from actual.</strong> This is the power and the peril. Rehearse relentlessly; catastrophising mentally is equally real to the nervous system.</li>
+</ul>
+<h3 id="language-self-talk">Language &amp; Self-Talk</h3>
+<ul>
+<li><strong>Positive language only.</strong> Ban: "better," "worse," "mistake," "improve," "fix," "problem" (these imply deficiency and weakness).</li>
+<li><strong>Replace with:</strong> "done differently," "adjusted approach," "discovery," "version 2.0" (growth-focused, not deficit-focused).</li>
+<li><strong>No negative self-talk.</strong> Ever. No complaining. No judging others. All language shapes the nervous system toward or away from winners' mindset.</li>
+<li><strong>No internal narrative of failure.</strong> "I never three-putted" (Jack Nicklaus). Don't record bad performances mentally. They ossify into identity.</li>
+<li><strong>Tone check:</strong> "Would I be proud of this self-talk on a Jumbotron?" If no, don't say it.</li>
+</ul>
+<h3 id="three-arenas-of-self-image-growth">Three Arenas of Self-Image Growth</h3>
+<ol>
+<li><strong>Pre-event anticipation:</strong> Vivid mental rehearsal. See yourself calm, executing, winning. Creates neural pathways.</li>
+<li><strong>Action phase:</strong> Confidence comes from doing, not thinking. Execute the rehearsed plan. Small wins build momentum.</li>
+<li><strong>Reinforcement phase:</strong> Celebrate wins — big and small. "That's like me" after every positive event. This anchors winner identity in behaviour.</li>
+</ol>
+<h3 id="critique-protocol">Critique Protocol</h3>
+<ul>
+<li><strong>No critique mid-action.</strong> Only in review sessions (Friday afternoons, post-market, calm context).</li>
+<li><strong>During action:</strong> Trust the rehearsal. Adapt if needed, but don't second-guess.</li>
+<li><strong>In review:</strong> Assess dispassionately. Capture what went well (reinforce). Note adjustments for next time (learning, not blame).</li>
+</ul>
+<h3 id="success-journal">Success Journal</h3>
+<ul>
+<li><strong>Record what went well, every day.</strong> Capture: decisions made well, communication that landed, process executed cleanly, markets read correctly.</li>
+<li><strong>Review weekly.</strong> Anchor wins in memory. Reinforce the pattern: "This is what I do."</li>
+<li><strong>Do not record bad performances.</strong> Let them go. They have no place in your identity narrative.</li>
+</ul>
+<h3 id="implementation-for-richard">Implementation for Richard</h3>
+<ul>
+<li>Mental rehearsal 5-10 minutes before key portfolio actions (entering, exiting, calling managers)</li>
+<li>Post-call/post-trade: "That went well" + 30-second record of what worked (tone, logic, timing)</li>
+<li>Friday recap: Celebrate week's wins. Adjust next week's approach — never critique self</li>
+<li>Ban "I made a mistake" — instead "I adjusted approach on X, learned Y, will do Z next time"</li>
+</ul>
+<h3 id="limiting-beliefs-to-manage">Limiting Beliefs to Manage</h3>
+<ul>
+<li>Catastrophising about permanence of negative developments (bad returns = no job = erroneous)</li>
+<li>Gold medallist mindset — drop it (ref. Jonny Wilkinson, others who felt unworthy)</li>
+<li>"Unbung" (Kahneman): what is blocking me from doing what I know I need to do?</li>
+</ul>
+<h3 id="three-drivers-of-behaviour-change-steve-ward-change-or-die">Three Drivers of Behaviour Change (Steve Ward / "Change or Die")</h3>
+<ol>
+<li>Relationships/social support — not trying to solve it alone</li>
+<li>Mindset/reframing — see myself as a checklist executor who is creative monthly</li>
+<li>Repetition until habitual</li>
+</ol>
+<hr>
+<h2 id="1q-2026-okrs-14-input-actions">1Q 2026 OKRs (14 Input Actions)</h2>
+<ol>
+<li>No avoidable portfolio leakage (ACH run, sizing adapted, earnings SOP checks on all live stocks)</li>
+<li>Huge flow/throughput of new ideas</li>
+<li>4-5 new stocks by mid-Feb (Phase 1)</li>
+<li>6-8 new stocks by mid-Mar (Phase 2)</li>
+<li>Three steps ahead information-wise on all live stocks</li>
+<li>Consistent/total application of case-centric checklists</li>
+<li>Target fluidity/feel + case fit-centricity — not ossifying process-consistency</li>
+<li>Sufficient depth of research (no rushing)</li>
+<li>Proactively seek challenging discussion (Ed/James early; MJ for own stocks, Sloan for Ed's)</li>
+<li>Trust and act on MY judgement (accept disagreement, circle back to case-fit centricity)</li>
+<li>Create me-clarity in case-centric format on every stock</li>
+<li>Decisive capital action (scale in after case fit-centric work, exit fast on invalidation)</li>
+<li>Explosive work ethic ("now or never" 1Q dig-deep)</li>
+<li>Right targeted restoration + protect sleep (force it, embrace it, do not shun it)</li>
+</ol>
+<p><strong>Target conditions for inputs:</strong> Consistent execution, right focus, conservative analysis, congruency with values, ultra aggressive execution, universality (no matter time/place/state), disciplined commitment.</p>
+<hr>
+<h2 id="eight-meta-winning-behaviours-for-portfolio-management">Eight Meta Winning Behaviours for Portfolio Management</h2>
+<p>Richard has identified eight key winning behaviours that define how he operates as an investor. The test: "Have I done these day-in, day-out, week-in, week-out?"</p>
+<ol>
+<li>
+<p><strong>Drive Chris Hohn decisiveness</strong> — Swift, conviction-based capital allocation. Not reckless; just faster decision cycles than consensus. Move capital decisively into/out of positions based on case fit.</p>
+</li>
+<li>
+<p><strong>"Be the engine"</strong> — Self-directed momentum. Not waiting for external validation or perfect information. Creating forward motion through hard work, iteration, idea generation. Drive the process, don't follow.</p>
+</li>
+<li>
+<p><strong>Flooding the pipeline</strong> — Sustain high throughput of ideas. Breadth creates context for depth. 100+ stocks rated creates the filter for 5-15 portfolio positions.</p>
+</li>
+<li>
+<p><strong>Nimbleness</strong> — Ability to pivot quickly when thesis breaks. Not attached to "being right." Quick exits when evidence shifts. Fluid portfolio rebalancing.</p>
+</li>
+<li>
+<p><strong>Radar Process system</strong> — Systematic monitoring of live positions and pipeline. Know what's moving, why, and how it impacts conviction. No surprises.</p>
+</li>
+<li>
+<p><strong>Uncomplicating lives of team</strong> — Clear communication. Avoiding jargon. Making decisions fast so others can act. Being easy to work with, not a bottleneck.</p>
+</li>
+<li>
+<p><strong>Upholding standards</strong> — Every position meets A/B rating. Every analysis includes IAJA. Every decision has 2 downstream actions. No cutting corners on process.</p>
+</li>
+</ol>
+<p>~~8. [Dropped]~~ — Richard decided 7 is sufficient (27-Mar-26 PM session). [D]</p>
+<hr>
+<h2 id="peter-kaufman-framework-five-deep-things-all-humans-want">Peter Kaufman Framework — Five Deep Things All Humans Want</h2>
+<p>Core principle: People desperately want to be deeply valued. This applies to team, to callers/connections, to yourself.</p>
+<p>Richard notes he sometimes "leaks negativity" and loses this edge. When you radiate positivity and make people feel valued, they're more open, collaborative, and generous with time/insight.</p>
+<h3 id="the-five-dimensions-of-valuation">The Five Dimensions of Valuation</h3>
+<ol>
+<li><strong>Pay deep attention to the person.</strong> Put the phone down. Eyes up. Mental energy 100% on them, not on the next call or the email in your inbox.</li>
+<li><strong>Listen intently, actively.</strong> Not waiting for your turn to talk. Not half-listening. Listening to understand their world, their constraints, their aspirations.</li>
+<li><strong>Respect the person</strong> — make it crystal clear. In tone, in language, in follow-through. "I value your view. I want to understand your thinking."</li>
+<li><strong>Make them feel they really, really matter.</strong> Not performative. Genuine. "Your insight here is exactly what I needed. Thank you."</li>
+<li><strong>Make them feel loved.</strong> Not in a romantic sense. In the "I genuinely want good things for you" sense. This is the hardest and most powerful.</li>
+<li><strong>Allow no distraction.</strong> Phone silent. Meeting notes optional. All mental cycles on them.</li>
+</ol>
+<h3 id="implementation-for-richard_1">Implementation for Richard</h3>
+<ul>
+<li>Pre-call: Set intention. "What does this person want to know I understand about them?"</li>
+<li>During call: Ask 3-4 clarifying questions before stating your view. Let them speak 60%+.</li>
+<li>Post-call: One-liner to them saying what you learned/valued. Keep the door open.</li>
+</ul>
+<hr>
+<h2 id="positivity-as-competitive-edge">Positivity as Competitive Edge</h2>
+<p>Richard notes he's "leaking negativity" in some contexts and needs to "radiate positivity" as a conscious operating mode.</p>
+<h3 id="the-mechanism">The Mechanism</h3>
+<ul>
+<li>Negativity is contagious and draining. It signals doubt, fear, and weakness.</li>
+<li>Positivity is infectious. It signals conviction, energy, and forward momentum. People want to follow it.</li>
+<li>In team/partner contexts, your emotional tone sets the room. Negative tone = people contract. Positive tone = people expand and contribute.</li>
+<li>"Do you want to be world class?" — Inspire with "moving towards" energy, not "told off" feeling.</li>
+</ul>
+<h3 id="the-balance">The Balance</h3>
+<ul>
+<li>This is NOT Pollyannaism. You still identify problems, manage risks, cut positions.</li>
+<li><strong>Tone shift:</strong> "We're seeing this risk; here's how we adapt" (positive action) vs. "This is broken; we're in trouble" (dread and complaint).</li>
+<li><strong>Language shift:</strong> "Here's what we'll do" (agency) vs. "Here's what's wrong" (blame).</li>
+<li><strong>Energy shift:</strong> Radiate "we've got this" not "we're drowning."</li>
+</ul>
+<h3 id="the-test">The Test</h3>
+<ul>
+<li>When discussing challenges (market downturn, position going wrong, team issue), do you leave people energised or depleted?</li>
+<li>Are you the radiator or the drain in the room?</li>
+<li>Do your team/partners want to work with you more, or do they avoid you?</li>
+</ul>
+<h3 id="implementation-for-richard_2">Implementation for Richard</h3>
+<ul>
+<li>Morning check-in: "What's my baseline energy today? Where am I leaking negativity?"</li>
+<li>Decision calls: Lead with "Here's the opportunity/action" not "Here's the risk."</li>
+<li>Team/partner interactions: 2 positives (genuine) for every 1 critical feedback. Keep culture radiator, not drain.</li>
+</ul>
+<hr>
+<h2 id="winning-behaviours-from-roam-aspirational">Winning Behaviours (from Roam, aspirational)</h2>
+<ol>
+<li>Explosive action (do, then let them improve)</li>
+<li>Emotional acceptance of volatility</li>
+<li>Micro-communications over silence</li>
+<li>Listening &gt; talking (10-20x more questions)</li>
+<li>Deep, values-based conversation over small talk</li>
+<li>Recovery periods = non-negotiable</li>
+<li>Clarity of intent over process dictation</li>
+<li>Capital allocation decisiveness &gt; analysis refinement</li>
+<li><strong>"The only limiter is my intensity"</strong> — From 2023 journals. When faced with a hard problem, the default is more effort, more focus, more intensity. Energy and effort can solve most problems. Scarcity comes from insufficient intensity, not insufficient skill.</li>
+<li><strong>"Stop starting, start finishing"</strong> — Creativity is a default; execution is the constraint. Identify what is already 80% done and finish it before starting new ideas.</li>
+</ol>
+<hr>
+<hr>
+<h2 id="quality-of-delivery-over-speed-of-delivery-09-apr-26">Quality of Delivery Over Speed of Delivery [09-Apr-26]</h2>
+<p>See <strong>CLAUDE.md</strong> for the Quality &gt; Speed value and UWB structural enforcement. See <strong>working-preferences.md</strong> for operational mechanisms (first-one-right protocol, batch verification, SOP currency checks).</p>
+<hr>
+<h2 id="key-behavioural-patterns-from-roam-journals">Key Behavioural Patterns (from Roam journals)</h2>
+<p><strong>Strengths:</strong>
+- Instincts on market dislocations are reliably correct
+- Portfolio management playbook is sound
+- High self-awareness of own biases and patterns
+- "I am the decision-maker" — forms own judgement, doesn't abrogate to analysts</p>
+<p><strong>Vulnerabilities:</strong>
+- Starter not finisher — loves creating, resists disciplined execution of existing knowledge
+- Knows the answers (80/20) but executes them (20/80)
+- Tendency to pontificate in meetings / talk to think / meander
+- Overthinking in quiet moments, leading to paralysis
+- Recovery deficit — goes sleep → stress → sleep without shoulder periods
+- Constrains major decisions to before lunch (decision quality degrades with fatigue/hunger)
+- Weight of words: "Remember the weight my words have. Only say things if I want the outcomes it precipitates."</p>
+<p><strong>The Through-Line (when Richard invests best):</strong>
+- Trusts his judgment over others' opinions
+- Forces conviction into action despite discomfort/friction
+- Maintains emotional equanimity through volatility
+- Communicates clearly and listens deeply
+- Prioritises capital allocation decisiveness
+- Stays physically recovered and mentally fresh
+- Leads from conviction, not consensus-seeking</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

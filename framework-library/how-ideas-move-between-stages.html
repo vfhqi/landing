@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Ideas Move Between Stages — Investment System Library</title>
+<style>:root{--accent:#8a66bd;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Process and the Analyst Role</div>
+  <h1 class="doc">How Ideas Move Between Stages</h1>
+  <p class="desc">The stage-progression procedure: who decides a stock moves, on what evidence, and how parking and reactivation work.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/stage-progression/SKILL.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 29-Jul-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+<div class="warn"><b>Note on this document.</b> This document still carries its original trial-period banner from 1-May-26. Whether the trial was ever formally closed is not recorded in the file.</div>
+<main>
+<h1 id="stage-progression-sop-cross-role-skill">STAGE PROGRESSION SOP — Cross-Role Skill</h1>
+<blockquote>
+<p><strong>Layer header (added 13-May-26 at sign-off).</strong> Layers below UCG v4.2 + UPG v5 (<code>projects/Communication and Presentation Principles/</code>). Cross-references to UCG: G2 (Three Gaps), G19 (next actions), G21 (back-brief). The 4-step pipeline mechanics are stage-progression-specific. Universal layer wins on any rule overlap.</p>
+</blockquote>
+<p><strong>Status:</strong> — governs how Richard, APM, COS, and RES coordinate to move investment ideas through the 5-stage research process (Ideas Generation → Triaging → ESA → DD → Live/invested). Layered below UCG v4.2 + UPG v5 (13-May-26).
+<strong>Created:</strong> 1-May-26 | <strong>Owner:</strong> Cross-role (skills layer)
+<strong>Locked by:</strong> Richard, 1-May-26 morning</p>
+<blockquote>
+<h2 id="trial-mode-1-may-26-mid-may-26">★ TRIAL MODE (1-May-26 → ~mid-May-26) ★</h2>
+<p><strong>Status:</strong> TRIAL. Use this SOP as-written for the next 2-3 weekly review meetings (i.e. ~3 cycles). DO NOT rewrite the AJ SOP to v2.2 yet — wait for trial outcomes. Capture friction in <code>memory/apm/open-issues-stage-progression.md</code> as it surfaces. Iterate based on real evidence, not anticipation.</p>
+<p><strong>Trial success criteria (informal):</strong>
+- Step 4 weekly review meetings happen on cadence (Friday PM UK)
+- Decisions get made and filed (no open loops)
+- GNG CHECKS prove useful as agenda driver
+- APM-Richard alignment improves (fewer surprise disagreements)
+- COS scribe + APM proposal pattern works</p>
+<p><strong>Re-assessment:</strong> ~mid-May-26 (3rd weekly meeting). Decide whether to (a) lock as v1.1 with friction-driven refinements, (b) v2.2 rewrite of AJ SOP using trial evidence, (c) revise scope.</p>
+<p><strong>SOP Citation Required.</strong> Per CLAUDE.md Universal Winning Behaviour 3 (SOP CITATION GATE), any proposal involving the workflow described in this file must include an in-turn citation to the specific §X.Y of this file. No citation = proposal not allowed.</p>
+</blockquote>
+<hr>
+<h2 id="higher-intent">Higher intent</h2>
+<p>Richard's higher intent (verbatim, 1-May-26 morning):</p>
+<blockquote>
+<p><em>"For me to skim your judgement, analysis, and information clearly (in that order), and decide where I disagree (hopefully rarely), enabling us to drive rapid/huge movement of investment ideas through our RESEARCH PROCESS (from IG to TRIAGING to ESA to DD to CAPITAL)."</em></p>
+<p><em>"Just like I do with human colleagues."</em></p>
+</blockquote>
+<p>The system this SOP describes is the <strong>operational discipline that makes that higher intent achievable.</strong> Without it: APM produces memos in isolation, Richard reads them ad-hoc, decisions drift, ideas pile up unparked. With it: every stock has a clear path from one stage to the next, governed by a brief → analysis → review → decision rhythm.</p>
+<hr>
+<h2 id="what-this-sop-governs">What this SOP governs</h2>
+<p>This SOP governs the <strong>stage transitions</strong> within the 5-stage research process:</p>
+<pre><code>IG → Triaging → ESA → DD → Capital → (Live monitoring → Exit)
+</code></pre>
+<p>A stage transition is not a passive event. It requires:
+1. A clear brief (Step 1)
+2. APM A&amp;J work (Step 2)
+3. Richard's review (Step 3)
+4. A weekly review meeting (Step 4)</p>
+<p>The transition decision (progress / park / kill) is made at Step 4, NEVER at Step 2 unilaterally.</p>
+<hr>
+<h2 id="scope-by-stage">Scope by stage</h2>
+<table>
+<thead>
+<tr>
+<th>Stage transition</th>
+<th>Heavyweight</th>
+<th>Memo authored</th>
+<th>Weekly review meeting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IG → Triaging</strong></td>
+<td><strong>EXEMPT</strong> (light pipeline only)</td>
+<td>Triaging memo (light)</td>
+<td>Optional — quick chat, not formal meeting</td>
+</tr>
+<tr>
+<td><strong>Triaging → ESA</strong></td>
+<td><strong>Full heavyweight</strong></td>
+<td><strong>ESA memo (deep)</strong></td>
+<td><strong>Required — formal weekly review meeting</strong></td>
+</tr>
+<tr>
+<td><strong>ESA → DD</strong></td>
+<td><strong>Full heavyweight</strong></td>
+<td><strong>DD memo (deepest)</strong></td>
+<td><strong>Required — formal weekly review meeting</strong></td>
+</tr>
+<tr>
+<td><strong>DD → Capital</strong></td>
+<td><strong>Maximal</strong></td>
+<td>DD memo final + position sizing</td>
+<td><strong>Required — formal weekly review meeting + entry sizing decision</strong></td>
+</tr>
+<tr>
+<td>Live → Exit</td>
+<td>Conditional</td>
+<td>Exit proposal memo</td>
+<td>Required if exit triggered</td>
+</tr>
+</tbody>
+</table>
+<p>The heavyweight 4-step pipeline (Brief → APM A&amp;J → Richard review → Review meeting) applies in full from <strong>Triaging→ESA onward</strong>. IG→Triaging is <strong>EXEMPT</strong> from the heavyweight version (per Richard, 1-May-26). </p>
+<h3 id="light-pipeline-for-igtriaging-new-1-may-26">Light pipeline for IG→Triaging (NEW 1-May-26)</h3>
+<p>For the IG→Triaging transition only:
+- RESEARCHER does most of the work (IG-stage queries: Business Description + Change Forces dual-source, scanner triage, etc.)
+- APM produces a 2-line judgement (NOT a full memo; NO GNG CHECKS; NO formal review meeting)
+- Decision (progress to Triaging / park) made by APM with light Richard sign-off (chat-only, ad-hoc OK)
+- Pipeline.md updated; no Step 4 weekly meeting required for IG→Triaging
+- Rationale: heavyweight at this stage would burn time on stocks that obviously fail the first screen; light triage is the right tool</p>
+<p>The heavyweight pipeline kicks in from Triaging→ESA onward — that is when APM authors a full memo, produces GNG CHECKS, Richard reviews, and the weekly meeting decides progression.</p>
+<hr>
+<h2 id="the-4-steps">The 4 Steps</h2>
+<h3 id="step-1-brief">Step 1 — Brief</h3>
+<p><strong>Owner:</strong> Richard (originator) → APM (recipient).
+<strong>Mediator (optional):</strong> COS, when Richard delegates briefing or batches multiple briefs.</p>
+<p><strong>What happens:</strong>
+- Richard briefs APM (or COS briefs APM on Richard's behalf, if pre-agreed) on the stock at the stage.
+- APM back-briefs via <strong>Mission Command parse</strong> (Context / Objective / Higher Intent / Specific Requests / Constraints) + <strong>Three Gaps diagnostic</strong> (Understanding / Alignment / How-to). See <code>CLAUDE.md</code> Operating Method.
+- APM surfaces clarifying questions BEFORE starting analytical work. Empty back-brief diagnostic = suspicious.
+- Alignment locked when Richard confirms the back-brief.</p>
+<p><strong>Output:</strong> Brief acknowledged + understood, gaps surfaced, alignment locked. Stored as a 3-line summary at the top of the stock's APM working file (<code>memory/staging/apm-active/{TICKER}-{stage}.md</code> — append-only working log).</p>
+<p><strong>Quality gate:</strong> APM must have an explicit back-brief artefact (not just a chat acknowledgement) BEFORE starting Step 2.</p>
+<p><strong>Cross-ref:</strong> <code>CLAUDE.md</code> Operating Method (Mission Command + Three Gaps + Back-brief).</p>
+<hr>
+<h3 id="step-2-apm-aj">Step 2 — APM A&amp;J</h3>
+<p><strong>Owner:</strong> APM role.</p>
+<p><strong>What happens:</strong>
+- APM executes the <strong>APM A&amp;J SOP</strong> (<code>memory/skills/assistant-portfolio-manager/analysis-judgement-SOP.md</code>) at the relevant stage (Triaging / ESA / DD).
+- Produces memo per V20 template (memo doctrine v3.8 + SKILL v2.8) with all weight tiers, signposting, summary blocks, content scaffolds.
+- Produces <strong>GNG CHECKS</strong> artefact (formerly called "GO/NO GO ACTION QUESTIONS"; renamed 1-May-26) — 6-10 questions, stack-ranked, varied form, direct/challenging tone — separate Notion page, linkable from Ratings Dashboard RESEARCH STAGES tab.
+- Logs uncertainty per the <strong>judgement-importance-weighted escalation</strong> rule (more important judgement = more checking with Richard; case-level NEVER finalised unilaterally).</p>
+<p><strong>Output:</strong>
+- Memo posted to Notion Stock Notes DB + baked into Ratings Dashboard
+- GNG CHECKS posted to Notion (separate page, linkable)
+- 3-line handoff written to <code>memory/staging/apm-output-queue.md</code> so COS knows there's review-pending work
+- Pipeline.md updated: stock state = "Stage X memo shipped, awaiting Richard review"</p>
+<p><strong>Quality gate:</strong> APM cannot ship without 12 quality gates passing per AJ SOP §Quality Gates + new G13 (GNG CHECKS posted, 6-10 questions).</p>
+<p><strong>Cross-ref:</strong> <code>memory/skills/assistant-portfolio-manager/analysis-judgement-SOP.md</code> (governs the analytical work) + <code>databases/memo-view-formatting-principles.md</code> v3.8 (governs memo output spec).</p>
+<hr>
+<h3 id="step-3-richards-review">Step 3 — Richard's review</h3>
+<p><strong>Owner:</strong> Richard (reviewer).
+<strong>Chase / accountability:</strong> COS role.</p>
+<p><strong>What happens:</strong>
+- Richard skims memo: judgement → analysis → information ordering. If he agrees with the judgement layer, he's done — no need to drop deeper.
+- Richard reviews the GNG CHECKS to surface his disagreements / additions / probes BEFORE the weekly meeting.
+- COS chases Richard via the morning routine to ensure review happens within 24-48 hours of APM ship (avoid memo backlog).</p>
+<p><strong>COS responsibilities (from <code>chief-of-staff/SKILL.md</code> Daily Cadence):</strong>
+- Morning routine surfaces "APM memos pending Richard review" queue from <code>memory/staging/apm-output-queue.md</code>
+- If a memo has been pending review for &gt;48 hours: COS escalates ("APM shipped HTRO ESA memo on 1-May-26, still pending your review — aiming for review meeting Friday")
+- COS is NOT a passive reminder system. Richard expects to be chased.</p>
+<p><strong>Output:</strong> Richard's review notes — captured either as inline annotations in the GO/NO GO ACTION QUESTIONS Notion page, or in chat with APM. Stored at <code>memory/apm/richard-review-notes/{TICKER}-{stage}-{date}.md</code> if formalised.</p>
+<p><strong>Quality gate:</strong> Richard review COMPLETE before weekly review meeting (not concurrent — separation matters so meeting is for debate, not for first-read).</p>
+<p><strong>Cross-ref:</strong> <code>memory/skills/chief-of-staff/SKILL.md</code> §Daily Cadence + COS→APM handoff triggers + <code>memory/skills/morning-routine/SKILL.md</code>.</p>
+<hr>
+<h3 id="step-4-weekly-review-meeting">Step 4 — Weekly review meeting</h3>
+<p><strong>Owner:</strong> Richard (chair) + APM (defendant/adapter).
+<strong>Optional attendees:</strong> COS (scribe — verifies + files decisions), RES (contextualises information layer if disputed).</p>
+<p><strong>Cadence:</strong> <strong>Weekly batch</strong> (multiple stocks per meeting). Establishes regular weekly rhythm. Default day: Friday afternoon UK (after EOD routine, before WFP meeting). If multiple stocks awaiting review, prioritise by: (a) Triaging→ESA decisions due, (b) DD→Capital decisions due (highest stakes), (c) ESA→DD decisions due.</p>
+<p><strong>No upper-bound on batch size (NEW 1-May-26):</strong> Weekly batch is OPEN-ENDED — no cap on number of stocks per meeting. Meeting closes when each stock has a decision. If a meeting runs unusually long, that is a SIGNAL TO APM to brief better in future cycles (reduce open questions per stock; surface uncertainty earlier in GNG CHECKS) — NOT a signal to cap stocks. Capping would create open loops; the higher intent (rapid/huge movement of ideas through research process) requires every stock to exit with a decision.</p>
+<p><strong>Format:</strong> <strong>Chat-async first, voice escalation optional.</strong>
+- Default mode: Richard + APM debate in chat (e.g., Cowork session, or Slack-equivalent). APM is in APM mode (Opus model required).
+- Open-ended duration — meeting closes when each stock has a decision.
+- Voice escalation if a single stock's debate is too dense for chat (rare).</p>
+<p><strong>Meeting agenda (default — driven by GNG CHECKS):</strong>
+- Per stock, walk through the 6-10 GNG CHECKS in stack-ranked order.
+- For each question, Richard responds; APM defends or adapts.
+- After all questions resolved, Richard makes the case-level decision: <strong>progress to next stage / park / kill</strong>.
+- COS captures the decision; APM logs any rating revisions to calibration log (<code>memory/apm/calibration-log.md</code>).</p>
+<p><strong>Decision logic at meeting:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Trigger</th>
+<th>Downstream action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Progress to next stage</strong></td>
+<td>Case-level judgement = A or B; majority of GO/NO GO ACTION QUESTIONS resolved positively; no live invalidation ACH triggered</td>
+<td>APM produces case components (Phase 5 of AJ SOP) for the stock; RESEARCHER briefed on next-stage research queue; pipeline.md updated to next stage</td>
+</tr>
+<tr>
+<td><strong>Park</strong></td>
+<td>Case-level judgement = C or borderline; key questions unresolved; awaiting external trigger (earnings, catalyst)</td>
+<td>Pipeline.md updated to "parked at Stage X with re-activation trigger Y"; COS adds re-check date to monitoring</td>
+</tr>
+<tr>
+<td><strong>Kill</strong></td>
+<td>Case-level judgement = D or F; thesis broken; multiple invalidation ACHs triggered</td>
+<td>Pipeline.md removes; APM logs final lesson to <code>memory/coaching/lessons-and-mistakes.md</code>; track-record updated</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output capture mechanism:</strong>
+- <strong>APM proposes capture</strong> — at meeting close, APM writes a 5-line summary per stock to a draft <code>memory/apm/stage-decisions-log.md</code> entry.
+- <strong>COS verifies + files</strong> — COS reviews the draft within 4 hours, confirms accuracy with Richard if any ambiguity, then commits to the canonical log + propagates updates to pipeline.md, monitoring-plan.json, and (if progress decision) RESEARCHER queue.
+- <strong>Calibration log</strong> — APM separately logs any rating revisions Richard made to <code>memory/apm/calibration-log.md</code> per AJ SOP v2.2 §Calibration log.</p>
+<p><strong>Quality gate:</strong> Every stock that enters a weekly review meeting EXITS with a decision. No "we'll revisit next week" allowed unless explicitly parked.</p>
+<p><strong>Cross-ref:</strong> <code>memory/apm/stage-decisions-log.md</code> (NEW — to be created) + <code>memory/apm/calibration-log.md</code> (NEW — to be created) + <code>memory/skills/chief-of-staff/SKILL.md</code> §Weekly Cadence.</p>
+<hr>
+<h2 id="per-step-ownership-matrix">Per-step ownership matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Richard</th>
+<th>APM</th>
+<th>COS</th>
+<th>RES</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Brief</td>
+<td><strong>Originator</strong></td>
+<td>Recipient + back-briefer</td>
+<td>Mediator (optional)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2. APM A&amp;J</td>
+<td>—</td>
+<td><strong>Owner — produces memo + questions</strong></td>
+<td>—</td>
+<td>Provides info layer (briefed by APM if gaps)</td>
+</tr>
+<tr>
+<td>3. Richard's review</td>
+<td><strong>Reviewer</strong></td>
+<td>—</td>
+<td><strong>Chaser — enforces 24-48h SLA</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>4. Review meeting</td>
+<td><strong>Chair + decision-maker</strong></td>
+<td><strong>Defendant + adapter + capture-proposer</strong></td>
+<td><strong>Scribe — verifies + files</strong></td>
+<td>Optional — contextualises disputes</td>
+</tr>
+<tr>
+<td>5. Post-meeting (if progress)</td>
+<td>—</td>
+<td><strong>Owner — produces case components</strong></td>
+<td>Updates pipeline + monitoring</td>
+<td>Briefed for next-stage research</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="per-step-quality-gates-summary">Per-step quality gates summary</h2>
+<ol>
+<li><strong>Step 1:</strong> Back-brief artefact exists (not just chat acknowledgement). Mission Command parse + Three Gaps diagnostic complete.</li>
+<li><strong>Step 2:</strong> All 13 quality gates pass (12 from AJ SOP v2.1 + new G13 GO/NO GO ACTION QUESTIONS posted).</li>
+<li><strong>Step 3:</strong> Richard review complete BEFORE meeting (not concurrent). COS chases enforced 24-48h SLA.</li>
+<li><strong>Step 4:</strong> Every stock exits meeting with a decision. APM proposes capture; COS verifies + files within 4h.</li>
+<li><strong>Post-meeting (if progress):</strong> Case components artefact produced by APM. Pipeline + monitoring updated.</li>
+</ol>
+<hr>
+<h2 id="anti-patterns-what-we-are-not-doing">Anti-patterns (what we are NOT doing)</h2>
+<ol>
+<li><strong>Slide-it-under-the-door publishing.</strong> APM does NOT ship memo + walk away. Memo + GNG CHECKS form a unit. The questions are the bridge to the meeting.</li>
+<li><strong>APM unilateral case-level decision.</strong> Even if APM rates a stock A or F, the case-level decision (progress / park / kill) is Richard's at the weekly meeting. APM RECOMMENDS, never decides.</li>
+<li><strong>Ad-hoc reviews.</strong> No "let's do this stock now" mid-week reviews unless Richard explicitly requests. Weekly batch maintains rhythm + protects Richard's deep-work time.</li>
+<li><strong>Open loops.</strong> Every stock entering a meeting MUST exit with a decision. No "park for further thought" without an explicit re-activation trigger and a re-check date.</li>
+<li><strong>Capture by Richard.</strong> Richard chairs; he does NOT scribe. APM proposes capture; COS verifies + files. If COS is absent, APM files solo and flags for COS verification.</li>
+<li><strong>Skipping the back-brief.</strong> Step 1 is non-negotiable even on "obvious" briefs. The schema-driven parse is what catches misalignment before 30 min of memo work goes wrong.</li>
+</ol>
+<hr>
+<h2 id="cross-references">Cross-references</h2>
+<ul>
+<li><code>memory/skills/assistant-portfolio-manager/analysis-judgement-SOP.md</code> — Step 2 SOP (governing APM A&amp;J work)</li>
+<li><code>memory/skills/assistant-portfolio-manager/SKILL.md</code> — APM role definition + Six Pillars framework</li>
+<li><code>memory/skills/chief-of-staff/SKILL.md</code> — Step 3 chase + Step 4 scribe responsibilities</li>
+<li><code>memory/skills/researcher/SKILL-V2.md</code> — RES role; Step 1 (briefed by APM if Step 2 needs more info) + Step 4 (optional attendance)</li>
+<li><code>memory/skills/morning-routine/SKILL.md</code> — COS surfaces APM memos pending review</li>
+<li><code>memory/skills/memo-view-formatting/SKILL.md</code> v2.8 — memo template (output spec for Step 2)</li>
+<li><code>databases/memo-view-formatting-principles.md</code> v3.8 — memo doctrine SSoT (weight tiers, signposting, summary blocks)</li>
+<li><code>memory/skills/communication-principles/SKILL.md</code> — cross-role communication doctrine (4 principles)</li>
+<li><code>memory/context/investment-process.md</code> — 5-stage research process (this SOP governs the GATE TRANSITIONS within that process)</li>
+<li><code>memory/context/investment-strategy.md</code> — 4-pillar framework (case-level decision criteria)</li>
+<li><code>memory/projects/ratings-dashboard/v11-v20-summary.md</code> — V20 memo template informs Step 2 output spec</li>
+<li><code>wisdom-library/general/decision-making/judgement-analysis-information-ordering.md</code> — Gold tier model (J→A→I)</li>
+<li><code>wisdom-library/general/decision-making/mission-command.md</code> — Step 1 back-brief discipline</li>
+<li><code>wisdom-library/general/decision-making/three-gaps-art-of-action.md</code> — Step 1 diagnostic</li>
+</ul>
+<hr>
+<h2 id="files-this-sop-creates-requires-new-today">Files this SOP creates / requires (NEW today)</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Owner</th>
+<th>Purpose</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>memory/staging/apm-active/{TICKER}-{stage}.md</code></td>
+<td>APM</td>
+<td>Step 1 back-brief artefact + Step 2 working log</td>
+<td>Per-stock as needed</td>
+</tr>
+<tr>
+<td><code>memory/staging/apm-output-queue.md</code></td>
+<td>APM writes; COS reads</td>
+<td>Step 2→3 handoff queue</td>
+<td>NEW — to be created on first APM ship under v2.2</td>
+</tr>
+<tr>
+<td><code>memory/apm/richard-review-notes/{TICKER}-{stage}-{date}.md</code></td>
+<td>Richard or APM</td>
+<td>Step 3 review notes (formalised)</td>
+<td>Per-stock as needed</td>
+</tr>
+<tr>
+<td><code>memory/apm/stage-decisions-log.md</code></td>
+<td>APM proposes; COS verifies + files</td>
+<td>Step 4 meeting decisions canonical log</td>
+<td>NEW — to be created at first weekly review meeting</td>
+</tr>
+<tr>
+<td><code>memory/apm/calibration-log.md</code></td>
+<td>APM</td>
+<td>APM rating vs Richard revision tracking</td>
+<td>NEW — to be created at first weekly review meeting where any rating revision happens</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="versioning">Versioning</h2>
+<ul>
+<li><strong>v1.0 (1-May-26)</strong> — Initial creation. 4-step pipeline locked. Cross-refs to AJ SOP v2.1 (pre-v2.2 rewrite), memo doctrine v3.8, COS SKILL.</li>
+</ul>
+<hr>
+<p><em>[W] Created 1-May-26 ~07:35 UK by SA role at Richard's instruction. Step 4 weekly review meeting cadence + chat-async format + open-ended duration confirmed by Richard. Heavyweight scope from Triaging→ESA onward confirmed by Richard.</em></p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

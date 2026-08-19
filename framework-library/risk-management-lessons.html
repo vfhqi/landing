@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Risk Management Lessons — Investment System Library</title>
+<style>:root{--accent:#9a7ac9;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Portfolio and Position Management</div>
+  <h1 class="doc">Risk Management Lessons</h1>
+  <p class="desc">A long synthesis of risk-management lessons drawn from Richard&#x27;s own journals, track record and mistakes.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/coaching/risk-management-lessons.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 15-Apr-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="risk-management-lessons-synthesised-from-personal-journal-track-record">Risk Management Lessons — Synthesised from Personal Journal &amp; Track Record</h1>
+<p><strong>Last Updated:</strong> 9 April 2026
+<strong>Source:</strong> Exhaustive synthesis of roam-risk-management.md, roam-self-analysis.md, roam-stock-mentions.md, lessons-and-mistakes.md, investing-reflections.md, high-performance.md, PLUS 2022-23 deep sweeps (roam-2022-deep-sweep.md, roam-2023-deep-sweep.md, notion-journal-insights.md)
+<strong>Status:</strong> Complete, comprehensive framework — Major integration of 2022-23 Roam journal data complete (9-Apr-26)</p>
+<hr>
+<h2 id="how-to-use-this-file">How to Use This File</h2>
+<p><strong>Primary audience:</strong> Watson (HPC role) and APM role when coaching Richard on position management, sizing decisions, entry/exit discipline, portfolio construction, and drawdown psychology.</p>
+<p><strong>Key principle:</strong> All rules are Richard's own. These are not imposed externally; they're extracted from his journal, track record, and self-analysis. When using these in coaching, frame them as "your own rules" not "the rules you should follow."</p>
+<p><strong>Format notes:</strong>
+- Each section has <strong>Non-Negotiable Rules</strong> (hard stops Richard has set for himself), <strong>Framework</strong> (his explicit models), <strong>Lessons from Mistakes</strong> (stock-specific examples with direct quotes), and <strong>Watson Coaching Prompts</strong> (questions to ask when Richard is in relevant decisions).</p>
+<h3 id="cross-references-to-sibling-coaching-files">Cross-References to Sibling Coaching Files</h3>
+<p>This file is part of a 4-file coaching knowledge base. When using any section, check the related file for complementary context:</p>
+<table>
+<thead>
+<tr>
+<th>This file's section</th>
+<th>Also check...</th>
+<th>For...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§1 Position Sizing</td>
+<td><code>stock-archetypes.md</code> §Sizing is Archetype-Specific</td>
+<td>Archetype-specific sizing caps (e.g., Liquidity Trap = 50% of equivalent liquid)</td>
+</tr>
+<tr>
+<td>§2 Entry</td>
+<td><code>track-record-by-stock.md</code> (that stock or similar)</td>
+<td>Has Richard held this before? What happened?</td>
+</tr>
+<tr>
+<td>§3 Exit / Cockroach / ACH</td>
+<td><code>stock-archetypes.md</code> #6 (Cockroach), #12 (Mgmt Red Flag), #13 (Inflation Denier)</td>
+<td>Full pattern recognition for the deterioration type</td>
+</tr>
+<tr>
+<td>§3 Exit (30-day shot clock)</td>
+<td><code>stock-trigger-cards.md</code> (that stock)</td>
+<td>Stock-specific exit triggers already defined</td>
+</tr>
+<tr>
+<td><strong>§3a Technical Exit Validation</strong></td>
+<td><code>APM SKILL.md</code> §Technical Exit Overlay — Stage 2→3 Transition Checklist</td>
+<td>Full signal count tables, MA collapse sequence, base counting rules</td>
+</tr>
+<tr>
+<td>§3a Technical Exit Validation</td>
+<td><code>memory/skills/researcher/minervini-inverted-screen-sop.md</code></td>
+<td>Inverted Screen SOP — entry-side complement to exit validation</td>
+</tr>
+<tr>
+<td>§6 Construction</td>
+<td><code>APM SKILL.md</code> §Portfolio Construction Rules</td>
+<td>Operational checklist for the same principles</td>
+</tr>
+<tr>
+<td>§7 Drawdown / §8 Psychology</td>
+<td><code>HPC SKILL.md</code> §2022 Crisis Protocol, §Minervini Emotional Cycle</td>
+<td>Coaching protocols for the emotional dimension</td>
+</tr>
+<tr>
+<td>Any Watson Coaching Prompts</td>
+<td><code>stock-trigger-cards.md</code> (that stock)</td>
+<td>Stock-specific coaching question already written</td>
+</tr>
+<tr>
+<td>All Lessons from Mistakes</td>
+<td><code>track-record-by-stock.md</code> (that stock)</td>
+<td>Full quant + qual history for the referenced stock</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="0-key-questions-framework-foundational-sop-jan-2023">0. KEY QUESTIONS FRAMEWORK (Foundational SOP — Jan 2023)</h2>
+<p><strong>Source:</strong> January 10, 2023 journal entry (15,090 characters). Central to Richard's process rebuild after 2022 catastrophe.</p>
+<h3 id="the-core-principle">The Core Principle</h3>
+<p>Direct quote (Jan 10, 2023): "Combining a lot of research process insights (over the last few weeks), I feel strongly we need to have 'key questions' front-and-centre in all we do."</p>
+<p><strong>Why this matters:</strong> The Marlowe project (2022) revealed that analysis without clear framing leads to biased conclusions. Key Questions provides the frame.</p>
+<h3 id="the-process-loop-not-linear">The Process Loop (Not Linear)</h3>
+<ol>
+<li><strong>Establish the key questions</strong> — Define 4-6 critical questions that determine thesis validity</li>
+<li><strong>Make them public</strong> — Share KQs with team, integrate into all documents/discussions</li>
+<li><strong>Conduct work in congruence with KQs</strong> — Every research task answers one or more KQs</li>
+<li><strong>Adjust as you learn</strong> — If work reveals KQs are wrong, amend them. If work goes tangential, ask: "Is work wrong or are KQs wrong?"</li>
+</ol>
+<p>Direct quote: "This approach maximises directed opportunism... It's a loop, not a linear process. You constantly adjust the key questions and work as you learn more."</p>
+<h3 id="integration-with-memo-structure">Integration with Memo Structure</h3>
+<p><strong>Memo cover sheet standard</strong> (from Evolution meeting with JL): All research memos must include:
+1. <strong>Key Questions</strong> — Front and centre
+2. <strong>Key Drivers</strong> — Business model levers
+3. <strong>Ratings</strong> — Quality, resilience, optionality
+4. <strong>Potential Returns</strong> — Bull/base/bear case with inputs</p>
+<p>"There is huge benefit to having a cover sheet for all memos... Because it provides our 'frame.'"</p>
+<h3 id="key-distinction-kqs-vs-analysis">Key Distinction: KQs vs. Analysis</h3>
+<ul>
+<li><strong>KQs drive work directionality</strong> — What information would change the thesis?</li>
+<li><strong>Analysis provides scaffolding</strong> — Building conviction or demolishing it</li>
+<li><strong>Judgment calls KQs</strong> — Once work is done, KQs force a conclusion</li>
+</ul>
+<p>Not: "Here's all the information; what should I do?"
+But: "These are my key questions; I need answers to these 4 specific things."</p>
+<h3 id="watson-coaching-prompts-key-questions">Watson Coaching Prompts — Key Questions</h3>
+<ol>
+<li>
+<p><strong>On research briefs:</strong> What are your 4-6 key questions for this case? Can you state them in one sentence each?</p>
+</li>
+<li>
+<p><strong>On work prioritization:</strong> Are you spending time on KQs or tangential details? If tangential, should you adjust KQs or stop the work?</p>
+</li>
+<li>
+<p><strong>On team alignment:</strong> Have you shared KQs with team? Do they understand which questions matter most?</p>
+</li>
+<li>
+<p><strong>On conclusion-forcing:</strong> Once work is done, do your KQs force a definite conclusion (8/10 conviction) or leave you in "could be X or Y" purgatory?</p>
+</li>
+</ol>
+<hr>
+<h2 id="1-position-sizing">1. POSITION SIZING</h2>
+<h3 id="non-negotiable-rules">Non-Negotiable Rules</h3>
+<p><strong>Max position size: 12-15% of AUM.</strong> Three top names should represent 40-50% of portfolio (15-20% each). If position gets above 15%, something is wrong with conviction or the business changed.</p>
+<p><strong>The 80% rule (empirical, critical).</strong> Looking at share price charts, positions fall 10-15% on noise then recover. Richard's observation: "If we top up (and definitely don't cut a super-sized position), we'd be better off. Don't cut super-sized positions into drawdowns." Corollary: If position reaches max size, don't increase. Stay at 80% of max instead to preserve dry powder for adding into volatility.</p>
+<p><strong>Ultra High Potential but Fragile (UHPYHQI) rule: 0-5% maximum.</strong> Never add capital when thesis is still in "skunkworks." Accept volatility; ignore the position while de-risking. Once it moves to Resilient &amp; Intense HQI, can upsize.</p>
+<p><strong>Toe-hold positions: almost always avoid.</strong> Particularly dangerous for UHPYHQIs and Young HQIs. Only possibly useful in genuinely Resilient and Intense HQIs you're late to finding (second third of lifecycle). Toe-holds create commitment bias before thesis is proven.</p>
+<h3 id="conviction-based-sizing-framework-6-dimensions">Conviction-Based Sizing Framework (6 Dimensions)</h3>
+<p>Position size should reflect conviction across these six:</p>
+<ol>
+<li><strong>Resilience</strong> — Quality of business, no permanent impairment risk</li>
+<li><strong>Inflection/Optionality</strong> — Clear catalyst, market mispricing, range of outcomes</li>
+<li><strong>Potential returns</strong> — Targets 100-120%+ on 3Y probabilistic view</li>
+<li><strong>Conviction in assessment</strong> — Information widely gathered, bear case explored, own eyes on work, deep expertise, recent analysis</li>
+<li><strong>Market sentiment</strong> — Fragility of sentiment, trend, margin-of-safety vs. expectations</li>
+<li><strong>Near-term beats</strong> — Clear, high-conviction forecasts of near-term surprises</li>
+</ol>
+<p><strong>Conviction checklist (before sizing up):</strong>
+- Have you done lots of primary research (10+ quality sources minimum)?
+- Is this in your circle of deep expertise (years following sector/company, previously invested)?
+- Have you done your own work (model, memo, re-read all notes quarterly)?
+- Have you explored the bear case recently (two-hat brainstorms, pre-mortems)?
+- What's your monitoring process quality on this stock?</p>
+<p><strong>Critical insight:</strong> "Sizing is a superpower. What separates average investors from superinvestors is their ability to make big bets when they think they're right. Sizing is the control rod for emotional bandwidth."</p>
+<h3 id="sizing-and-volatility-the-oversizing-trap">Sizing and Volatility (The Oversizing Trap)</h3>
+<p><strong>Richard's known weakness:</strong> "I also make a consistent over-sizing error where I oversize stocks with volatile share prices and that volatility shakes me out of my conviction because I have made the position too large."</p>
+<p><strong>Correction rule:</strong> Assign simple expected volatility bands to each stock. All stocks can fall 30% on earnings/rotation. Size inversely to expected volatility:
+- High-volatility positions: max 8-10% (not 12-15%)
+- Normal volatility: 10-12%
+- Low volatility/quality compounders: can go to 15%</p>
+<p><strong>Psychology note:</strong> "People hate feeling stupid. That's why they don't add a lot. When you size large in a position, the opposite happens—when it goes down, you feel negative. This dynamic is why many investors under-add and why oversizing creates emotional fragility."</p>
+<h3 id="four-sizing-approaches-for-different-market-conditions">Four Sizing Approaches for Different Market Conditions</h3>
+<p><strong>Framework 1: Strategic Sizing (Normal Conditions)</strong>
+- Maps HQI dimensions (Resilience, Inflection, Returns, Conviction) + market sentiment
+- Right for sizing in normal markets
+- Emphasizes: resilience, quality, mid-20% growth rates
+- Approach: 8-10 core position philosophy; top 3 at 40-50% of capital</p>
+<p><strong>Framework 2: Tactical Overlay (Temporary Market Dislocations)</strong>
+- For capitalizing on temporary market mispricings and technical overshoots
+- De-risks core robust HQIs selectively (trim 2-3% to create dry powder)
+- Identifies "trading slugs" (4-5% tranches recycled for high IRR additions into panic bottoms)
+- Approach: Keep core intact; rotate 10-15% of portfolio tactically
+- Timing: Huge market dislocations (March 2020 pattern) — emphasize N2Y return-to-mean potential over resilience</p>
+<p><strong>Framework 3: Risk-Off Environment Overlay (Macro Retrenchment)</strong>
+- Tweak standard sizing framework toward resilience and domestic footprint
+- Reduce illiquid/speculative positions; add to defensive ballast
+- Maintain concentration in highest-quality/lowest-volatility subset
+- Approach: Maintain position count; reduce average position size to 8% (down from 10%)
+- Example (March 2026): Iran conflict context — prioritize recurring non-cyclical revenues, domestic EU footprint, banks/insurance, cable, healthcare</p>
+<p><strong>Framework 4: Skunkworks Positions (Pre-Research Accumulation)</strong>
+- Don't add positions while thesis is still forming
+- Accept volatility; don't try to time; don't trade
+- Cap at 0-5% (UHPYHQI sizing rule)
+- Approach: Build conviction through monitoring; upgrade sizing once thesis crystallises and Resilient &amp; Intense HQI score hits 8+/12</p>
+<p><strong>Dynamic Adjustment Principle:</strong> The six-dimension framework is a map, not terrain. Use all four approaches; divergences between them are where it's interesting. The right approach depends on: environment assessment (Radar Process output), portfolio construction stage, and conviction confidence.</p>
+<hr>
+<h2 id="risk-categories-framework-structured-risk-taxonomy">Risk Categories Framework — Structured Risk Taxonomy</h2>
+<h3 id="external-fundamental-market-environmental-factors-beyond-company-control">External — Fundamental (Market &amp; Environmental Factors Beyond Company Control)</h3>
+<p><strong>Macroeconomic:</strong>
+- Recession/growth slowdown, inflation cycles, interest rate movements, FX movements, credit cycle turns</p>
+<p><strong>Societal/Geopolitical:</strong>
+- War, pandemics, demographics, gig economy shifts, labor market disruption, vulnerable population protection policies</p>
+<p><strong>Political:</strong>
+- Trade wars, regulatory leanings, voter optics, regulatory favours/penalties, political transitions</p>
+<p><strong>Regulatory:</strong>
+- Industry-specific regulation changes, anti-trust action, environmental/ESG mandates, preferential treatment, licensing changes</p>
+<p><strong>Competitive &amp; Industry:</strong>
+- New entrants, substitute products, existing competitor aggression, industry consolidation/fragmentation, structural capacity changes</p>
+<p><strong>Disruptive Innovation:</strong>
+- Technological disruption, business model disruption, supply chain circumvention, customer behaviour shifts</p>
+<p><strong>Ecosystem Dynamics:</strong>
+- Supplier concentration risk, customer concentration risk, regulatory dependency, partnership fragility, co-investor stability</p>
+<h3 id="internal-fundamental-company-specific-factors-within-management-control">Internal — Fundamental (Company-Specific Factors Within Management Control)</h3>
+<p><strong>Execution Risk:</strong>
+- Management capability, strategy clarity, operational agility, capital allocation discipline, incentive misalignment</p>
+<p><strong>People Risk:</strong>
+- Key person dependency, organizational depth, culture fragility, turnover risk</p>
+<p><strong>Strategic Risk:</strong>
+- Strategy/plan complexity (if &gt;3 Excel tabs to understand, too complex), pace of change, degree of operational transformation required</p>
+<p><strong>Balance Sheet Risk:</strong>
+- High operating leverage (thin margins), high financial leverage (debt serviceability), high NWC leverage (negative cash conversion), external funding dependency (M&amp;A engines)</p>
+<h3 id="external-sentiment-market-perception-pricing-factors">External — Sentiment (Market Perception &amp; Pricing Factors)</h3>
+<p><strong>Valuation Risk:</strong>
+- Trading at high multiples (sentiment leverage), technical stretched positions, valuation fragility</p>
+<p><strong>Sector/Market Dynamics:</strong>
+- Sector in bear market (risk of sympathy selling), market index moves dragging stocks down, liquidity risk (&lt;$2m-4m ADV), momentum/retail positioning</p>
+<p><strong>Narrative Fragility:</strong>
+- Short seller attacks, "story stock" risk (narrative matters more than fundamentals), consensus estimate fragility, meet/beat guidance risk, analyst coverage disruption</p>
+<h3 id="risk-assessment-aggregation">Risk Assessment &amp; Aggregation</h3>
+<p><strong>Severity scoring</strong> combines:
+- Range and number of identified risks
+- Complexity (breadth of risk types; interconnectedness)
+- Forecastability (F) — can we see these coming?
+- Impact (I) — how much damage?
+- Resource intensity (R) — how much attention required?</p>
+<p><strong>Decision gate:</strong> Positions with &gt;4 material risks (F×I×R) in red zones require either:
+- Smaller position sizing (reduce to 50% of conviction sizing)
+- Higher conviction requirement (move to conviction + 2 standard deviations)
+- Explicit decision to accept risk as thesis-beta (documented pre-mortem)</p>
+<h3 id="trading-slugs-accumulation-the-4-5-recycling-strategy">Trading Slugs &amp; Accumulation (The 4-5% Recycling Strategy)</h3>
+<p><strong>Ideal situation:</strong> One stock at a time, gracefully selling off to create superb top-up window. 4-5% trading slugs, two to three at a time.</p>
+<p><strong>The math example:</strong> If 10% position falls 30% to 7%, buy 4% at 70-80 to take it back to 11%. If underlying IRR is 25%, the new slug IRR is 40%.</p>
+<p><strong>When to deploy:</strong> Before technical inflection turns, when contractual catalysts aren't yet priced.</p>
+<h3 id="liquidity-discipline">Liquidity Discipline</h3>
+<p><strong>Liquidity is almost universally bad.</strong> Materially hampers position management. An illiquid name should be sized at 50% discount to liquid comparables.</p>
+<p><strong>Keep core buffer liquid.</strong> Must have funding source. Opportunity cost of being in all illiquid small-caps means can't readjust if opportunity comes up (Lecher/Vinall insight).</p>
+<p><strong>Liquidity floor: &gt;$2m ADV minimum (May 21, 2022 discovery).</strong> This lesson came harshly during 2022 drawdown. XVIVO and FASADGRUPPEN trap: illiquid positions force holding through stress, preventing nimbleness.</p>
+<p><strong>The specific case (May 21, 2022):</strong> "We've snookered ourselves with liquidity in Fasadgruppen and XVIVO." XVIVO position was only 3% but represented 10%+ of company; couldn't scale up or exit efficiently. FASADGRUPPEN similarly trapped.</p>
+<p><strong>Position sizing rule linked to liquidity:</strong> Can't hold &gt;10% of a company (creates illiquidity). If you can only own 3%, do you really have conviction in the thesis, or are you just locked in? Force yourself to confront this.</p>
+<p><strong>Portfolio impact:</strong> Illiquid portfolio can't trade opportunistically. "My irritation is not having a portfolio suited for current conditions. I value nimbleness and dynamism and I've not done it" (May 21, 2022).</p>
+<p><strong>Sell into strength on surprise moves (May 21, 2022):</strong> If surprised by price move up, market will likely soften next day on lower volume. Execute sizing framework immediately; don't wait for "perfect moment." Liquidity dries fast.</p>
+<h3 id="watson-coaching-prompts-sizing-decisions">Watson Coaching Prompts — Sizing Decisions</h3>
+<ol>
+<li>
+<p><strong>Pre-entry:</strong> What's the volatility profile of this stock? Are you sizing it inverse to volatility or are you oversizing the volatile ones? (Check for known oversizing trap.)</p>
+</li>
+<li>
+<p><strong>When considering adding:</strong> Does this position still meet conviction across all six dimensions? Or are you adding because you like the company + share price fell? (Different decisions.)</p>
+</li>
+<li>
+<p><strong>When position hits 12%+:</strong> What would make you add to 15%? What would trigger you to hold at 10%? Have you pre-committed to the trigger or are you deciding in real-time? (Real-time sizing is emotional.)</p>
+</li>
+<li>
+<p><strong>On illiquid positions:</strong> Are you sizing this at 50% of what you'd size an equivalent liquid company? Are you counting the liquidity cost in your IRR target?</p>
+</li>
+<li>
+<p><strong>When position gets volatile:</strong> Are you staying at this size because conviction is still high, or because you've anchored to the position? Ask: "If I were selling this today at 70% of entry price, would I buy it back immediately at current price?" If yes, conviction is real. If no, size is wrong.</p>
+</li>
+</ol>
+<hr>
+<h2 id="2-entry-decisions">2. ENTRY DECISIONS</h2>
+<h3 id="the-four-investment-setups-richards-repeatable-patterns">The Four Investment Setups (Richard's Repeatable Patterns)</h3>
+<p>Richard has identified these four consistent setups that work for him:</p>
+<h4 id="1-demand-explosion-ept">1. <strong>Demand Explosion (EPT)</strong></h4>
+<p>Revenue or earnings per share pulse from sudden demand increase. Market hasn't yet realized it will persist.
+- Example: COVID-driven infrastructure / datacentre demand surge (AI theme)
+- Entry signal: Clear, near-term visibility of demand (contractual, announced, evident in data)
+- Exit signal: When demand pulse looks like it will normalize or competing supply comes online</p>
+<h4 id="2-transformative-corporate-change-epsu">2. <strong>Transformative Corporate Change (EPSU)</strong></h4>
+<p>Management, strategic pivot, M&amp;A, operational restructuring creating earnings-per-share uplift.
+- Example: Hilton cost-out initiatives, Rightmove platform transition
+- Entry signal: New management team with proven track record, or clear value-add case
+- Risk: Takes longer than expected; must have quality operator</p>
+<h4 id="3-oversold-quality-predictable-high-conviction-rebounds">3. <strong>Oversold Quality (Predictable, High-Conviction Rebounds)</strong></h4>
+<p>Quality business selling off on temporary, non-fundamental concerns. Market sentiment fragile. But 18-month EPS clearly visible with margin of safety.
+- Examples: Entain (March 2020), Protector (March 2020), oversold quality after macro shocks
+- Entry signal: Business is fundamentally good; share price is just low due to short-term noise
+- Key discipline: Only works if you've done the work ex ante so you're not reactive ex post</p>
+<h4 id="4-trough-on-trough-cyclical-rebound-quality-growth">4. <strong>Trough on Trough (Cyclical Rebound + Quality Growth)</strong></h4>
+<p>Cyclical demand bottom coinciding with quality growth business in sweet spot. Compounding ahead.
+- Entry signal: Demand indicators bottoming (hard data, not sentiment)
+- Key risk: Timing the trough is hard; requires patience and discipline</p>
+<h3 id="entry-checklist-esa-stage-early-stage-assessment">Entry Checklist (ESA Stage — Early-Stage Assessment)</h3>
+<p>Before committing meaningful capital, verify ALL of these:</p>
+<p><strong>1. Quality Test (Non-negotiable gate)</strong>
+- Is it a solid or high-quality business? (Minimum 7.5/10 LT/DT rating)
+- If not, reject immediately. "Any investment case involving a mediocre business (less than 8/10 LT/DT) is a hypothesis trade with very tight red-line criteria."</p>
+<p><strong>2. Mispricing Identification</strong>
+- Market has clear cause(s) for concern sending multiple into bottom 50th percentile of fair range
+- Can you articulate exactly why the market is worried? (Not vague; specific)</p>
+<p><strong>3. Return Target</strong>
+- Gets to 20-30% IRR through: EPS growth 10-15% p.a. over 3-4 years + cash returns 0-5% p.a. + trading multiple re-rating adding 10-20% p.a. over 2-3 years
+- 18-month target holding period (unless lots of positive optionality)</p>
+<p><strong>4. Edge / Right to Play</strong>
+- Genuine conviction that market's cause for concern will reverse following specific catalysts
+- Is this in your circle of excellence? (Years following sector/company, primary source knowledge)</p>
+<p><strong>5. Clear Catalysts</strong>
+- Development/catalyst clear, allowing precise Bayesian updating on key triggers
+- Avoid vague fading away of concerns; prefer clear developments (reduces risk of getting judgment wrong)</p>
+<p><strong>6. No Speculating on Bottoms</strong>
+- Don't try to time the exact bottom. Identify where you are in the S-curve and enter accordingly.
+- Enter with bottom quartile/50th valuation range. Don't enter on stretched multiples.</p>
+<p><strong>7. Thesis Mapping (Per Timeframe)</strong>
+- Map investment case for IT (immediate term), NT (near-term), MT (mid-term), LT/DT (long-term)
+- Financials and outputs per timeframe
+- Assess degree to which will positively surprise market
+- What's the base case, bear case, bull case for each timeframe?</p>
+<p><strong>8. Red-Line Invalidation Criteria (Per Timeframe)</strong>
+- Defined red-line criteria tightly for fundamental developments that would invalidate thesis
+- NOT lazy on IT (map expectations precisely, set ratings accordingly)
+- Avoid boiling frog</p>
+<p><strong>9. Risk Mapping</strong>
+- Mapped all plausible/probable risks (real and perceivable) per timeframe
+- Investigated thoroughly in DD
+- Identified impact, forecastability, resource intensity of each risk</p>
+<p><strong>10. Two-Hat Bear Case Exploration</strong>
+- How would skeptic/bear view recent developments?
+- Run bear brainstorms
+- Are there "tip of iceberg" risks you're not seeing?</p>
+<h3 id="entry-mistakes-to-avoid-lessons-from-track-record">Entry Mistakes to Avoid (Lessons from Track Record)</h3>
+<p><strong>Mistake 1: Overstaying Complexity</strong>
+From XVIVO: "Too much detail, no simple ACH invalidation guide fails. Got lost in trees, missed forest. Learning all that stuff was trees not wood. Not hell yeah = don't invest."
+- <strong>Lesson:</strong> If you can't state the case simply, don't invest. If case is more than 3-4 clear drivers, it's probably too complex for your circle.</p>
+<p><strong>Mistake 2: Mediocre Quality + Weak Inflection</strong>
+From Attendo, Intertrust, Fagron, Britvic: "All too weak as inflection intensity is mediocre; all materially underperformed the fund in the subsequent 6-12 months by 10 to 30%."
+- <strong>Lesson:</strong> Don't let quality be a 7/10 and inflection be 6/10 and hope it works out. It doesn't. One or both must be strong.</p>
+<p><strong>Mistake 3: Falling for Management Reassurance</strong>
+From Instalco/Corbion: "Companies often say 'no drama' to start with, then they start to point out the issues. So be sceptical."
+- <strong>Lesson:</strong> When inflation/structural headwinds emerge, management downplays initially. Listen for the second message, not the first.</p>
+<p><strong>Mistake 4: Oversizing Hypotheses (Sdiptech Pattern)</strong>
+"Sdiptech was speculating in mid-term earnings power transformation of a mediocre business. Must have clearly defined ex ante invalidation criteria and tight stop-loss(es)."
+- <strong>Lesson:</strong> Hypothesis trades on mediocre businesses are OK, but they must have tight red lines. Assume 50% failure rate and size accordingly.</p>
+<h3 id="watson-coaching-prompts-entry-decisions">Watson Coaching Prompts — Entry Decisions</h3>
+<ol>
+<li>
+<p><strong>Before initiating position:</strong> Can you state the investment case in one sentence? If not, go do more work before entering.</p>
+</li>
+<li>
+<p><strong>On conviction checklist:</strong> Which of the 10 boxes are you unsure about? Don't enter if more than 1-2 are uncertain. You need 8/10 minimum.</p>
+</li>
+<li>
+<p><strong>On return targets:</strong> Are you getting to 20-30% IRR? Or are you hoping for it? Show the math: growth rate + multiple re-rating + cash return = total.</p>
+</li>
+<li>
+<p><strong>On risk mapping:</strong> What would you see first if this thesis was wrong? Define that signal right now (not later). If you don't know, go back to research.</p>
+</li>
+<li>
+<p><strong>On catalysts:</strong> Is your catalyst "conviction in the market eventually realizing quality" or "specific event X happens in 6 months"? The second is much better than the first.</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-exit-decisions">3. EXIT DECISIONS</h2>
+<h3 id="exit-philosophy-the-core-rules">Exit Philosophy (The Core Rules)</h3>
+<p><strong>Rule 1: Short-term concern = wait. Fundamental, mid-term concern = exit.</strong>
+If it's a short-term shock (earnings miss, temporary sector weakness), hold and prepare to add. If it's fundamental and nagging for 3-6+ months, exit decisively.</p>
+<p><strong>Rule 2: Three-thirds lifecycle framework — exit when moving into third third.</strong>
+- <strong>First third:</strong> Waiting, researching (Ultra High Potential but Fragile)
+- <strong>Second third:</strong> Riding the wave (guidance upgrades, beat-and-raise, sentiment improving) ← <strong>ALPHA DECAY RISK GROWS HERE</strong>
+- <strong>Third third:</strong> Optionality slowing, multiple near top of range → EXIT and recycle</p>
+<p>Greggs case study: "Trading multiple was in top quartile. No immediate/near-term thesis re. high-conviction forecast beats ahead. Therefore, share price would be fragile when fundamental momentum rolls over." Edward called it perfectly. Lesson: Be objective about position sizing in second third.</p>
+<p><strong>Rule 3: "Tip of iceberg" vigilance.</strong>
+When you spot any negative brewing, be SUPER paranoid there may be more to come. That's often the pattern. From Ambu case: "People hate cutting once and cutting hard; they do the opposite (hope it improves). Anytime negatives brewing, we need to be extremely paranoid."</p>
+<p><strong>Rule 4: ACH threshold breached = exit decisively; don't wait.</strong>
+From BFF: "Endowment bias, commitment bias held too long despite mounting evidence. ACH threshold breached = EXIT; don't wait until getting closer. Don't let fallen SP stop right action."</p>
+<h3 id="exit-framework-decision-tree">Exit Framework — Decision Tree</h3>
+<table>
+<thead>
+<tr>
+<th>Trigger Type</th>
+<th>Signal</th>
+<th>Action</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Thesis invalidation</strong> (red-line hit)</td>
+<td>Fundamental development that invalidates thesis</td>
+<td>Exit decisively (SF sell: one go, one day)</td>
+<td>Existential/strategic risk. No debate.</td>
+</tr>
+<tr>
+<td><strong>Fundamental, mid-term concern</strong> (nagging 3-6M+)</td>
+<td>Recurring negatives in earnings, execution, or conditions</td>
+<td>Propose exit (write memo, run checks)</td>
+<td>If in purgatory for months, fine to exit.</td>
+</tr>
+<tr>
+<td><strong>Moving into third third</strong></td>
+<td>Inflection slowing, multiple rising, sentiment fragility</td>
+<td>Plan exit (no fixed timeline yet)</td>
+<td>Reduce or monitor, prepare to exit if optionality doesn't recover.</td>
+</tr>
+<tr>
+<td><strong>Narrow optionality played out</strong></td>
+<td>Forecast that was "narrow" and now played out</td>
+<td>Trim 30-40% (take profits)</td>
+<td>Ask: is range of outcomes narrowing (good) or was this just one-off? If one-off, trim. Rarely evolves into broad optionality.</td>
+</tr>
+<tr>
+<td><strong>Short-term shock</strong></td>
+<td>Earnings miss, sector rotation, temporary concern</td>
+<td>Hold, prepare to add if disproven</td>
+<td>Don't confuse short-term noise with fundamental deterioration.</td>
+</tr>
+<tr>
+<td><strong>Deterioration in technical indicators</strong></td>
+<td>Sentiment support gone, trading multiple compressed, momentum negative</td>
+<td>Monitor closely; if deterioration continues, exit</td>
+<td>Deterioration in TIs makes sentiment far more fragile. Cockroaches never alone.</td>
+</tr>
+<tr>
+<td><strong>Co-investor / Management instability</strong></td>
+<td>Key management leaves, co-owners unstable, capital support questioned</td>
+<td>Exit to monitoring; exit fully if instability confirmed</td>
+<td>Exasol lesson: co-investor risk is critical, underappreciated.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exit-sop-formal-process">Exit SOP (Formal Process)</h3>
+<ol>
+<li><strong>Run all normal checks.</strong> Rigorous analysis re-validation.</li>
+<li><strong>Hold investment team discussion.</strong> Critically challenge thinking/judgement/decision. Is this emotional or rational?</li>
+<li><strong>Write "Proposal to Exit" memo.</strong> Rigor, judgment, decision documented.</li>
+<li><strong>Allocate to monitoring list.</strong> Gold/Silver/longer list. Keep tabs without holding capital.</li>
+<li><strong>Write specific tracking indicator</strong> that would make you reconsider (tilt positive to avoid scepticism bias).</li>
+<li><strong>Document investing lessons learned.</strong> What will you do differently next time?</li>
+</ol>
+<h3 id="special-exit-patterns">Special Exit Patterns</h3>
+<p><strong>The Mediocre Quality + Weak Inflection Rule:</strong>
+If business is 6-7/10 LT/DT and inflection is 5-6/10, exit. This combination underperforms by 10-30% over subsequent 6-12 months. (Attendo, Intertrust, Fagron, Britvic pattern.)</p>
+<p><strong>The "Boiling Frog" Defense:</strong>
+If thesis tracking below expectations, ask: "Invalidation or just update ratings?" If in doubt, tilt to invalidation. "Sticking in things too long has been my major problem." Strongly default to exiting and moving on.</p>
+<h3 id="binary-exit-vs-downsize-nuanced-positioning">Binary Exit vs. Downsize (Nuanced Positioning)</h3>
+<p>Richard's pattern: Don't like pure binary exit. Prefer "15% = full-sized, 3% = monitoring" (TCI tail approach).</p>
+<p><strong>When to downsize:</strong> Near-term issues, execution risk, temporary concerns that might resolve
+<strong>When to exit:</strong> Existential/strategic/resilience issues that are fundamental to the thesis</p>
+<p>Use analyst portfolio/monitoring list to keep tabs on exited positions. Sometimes they re-enter if risks clear.</p>
+<h3 id="watson-coaching-prompts-exit-decisions">Watson Coaching Prompts — Exit Decisions</h3>
+<ol>
+<li>
+<p><strong>When Richard is defending a position:</strong> "How long has this concern been nagging? If it's been 3-6+ months as a mid-term worry, what are you waiting for?"</p>
+</li>
+<li>
+<p><strong>On third-thirds identification:</strong> "Where are we in the three-thirds framework for this stock? If in second third, what's your conviction in near-term beats? Is multiple fragile?"</p>
+</li>
+<li>
+<p><strong>On red-line triggers:</strong> "You defined red-line criteria at entry. Has any red-line been triggered? If yes, why are you still holding?"</p>
+</li>
+<li>
+<p><strong>On sentiment deterioration:</strong> "What happened first to make you concerned? (That's usually the tip of the iceberg.) What's the second cockroach you're expecting?"</p>
+</li>
+<li>
+<p><strong>On taking profits (narrow optionality):</strong> "This forecast was narrow and played out. Is the range of outcomes narrowing or was that just one-off? If one-off, take profits. Rarely evolves into broad."</p>
+</li>
+</ol>
+<h3 id="3a-technical-exit-validation-minervini-overlay">§3a. Technical Exit Validation — Minervini Overlay</h3>
+<h4 id="the-core-principle_1">The Core Principle</h4>
+<p><strong>A stock breaking its 50-day SMA on heavy volume shortly after a catalyst event is the market telling you something your fundamental analysis hasn't yet captured.</strong> Technical signals lead fundamental deterioration — sometimes by weeks, sometimes by a full earnings cycle. The sell discipline (not stock selection) is the primary mechanism of long-term outperformance.</p>
+<p>Minervini's retroactive cap study: capping every loss at 10% shifted compounded return from −12.05% to +79.89%. Same stocks, same entries — only the exit discipline changed. A 90+ percentage point swing from exits alone.</p>
+<h4 id="non-negotiable-technical-rules">Non-Negotiable Technical Rules</h4>
+<ol>
+<li><strong>Stop-loss maximum: 10%.</strong> Never exceed. If the structurally correct stop requires &gt;10%, pass on the trade entirely.</li>
+<li><strong>Stops only move up.</strong> Never widened. Never moved down "to give it more room." No exceptions.</li>
+<li><strong>Three simultaneous violations = exit immediately</strong>, regardless of stop distance.</li>
+<li><strong>Stage 3 distribution confirmed (50D crosses below 150D) = reduce to bench or exit.</strong> Do not wait for Stage 4 to be fully confirmed.</li>
+<li><strong>Never average down.</strong> Only add to winning positions on constructive pullbacks to 20-day SMA. "Losers average losers."</li>
+</ol>
+<h4 id="the-8-violation-checklist-run-daily-for-first-10-days-post-entry">The 8-Violation Checklist — Run Daily for First 10 Days Post-Entry</h4>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Violation</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Close below 20-day SMA post-breakout</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Close below 50-day SMA on above-average volume</td>
+<td>Major</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3+ consecutive lower lows on increasing volume</td>
+<td>Major</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Low volume on breakout, high volume on reversal</td>
+<td>Major</td>
+</tr>
+<tr>
+<td>5</td>
+<td>More down days than up days in first 2 weeks</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>6</td>
+<td>More bad closes than good closes</td>
+<td>Warning</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Full retracement of meaningful gain</td>
+<td>Major</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Close below pivot price on volume</td>
+<td>Critical</td>
+</tr>
+</tbody>
+</table>
+<p>1 violation = noted. 2 = serious concern, tighten. 3+ simultaneously = exit immediately.</p>
+<h4 id="stage-23-transition-early-warning-signals">Stage 2→3 Transition — Early Warning Signals</h4>
+<p>Watch for the MA collapse sequence (in order):</p>
+<ol>
+<li>Price whipsaws around 50-day SMA (floor → centreline) → tighten to 20-day trail</li>
+<li>50-day SMA flattens and curves down → reduce 25–50%</li>
+<li>50-day crosses below 150-day (bullish stack breaks) → exit or bench position</li>
+<li>200-day SMA flattens → too late, should be out</li>
+</ol>
+<p><strong>Volume distribution signals (concurrent):</strong>
+- Down days on above-average volume; up days on below-average volume
+- Heaviest volume day is a down day
+- Average volume rising while price flat (supply building)
+- Rallies on declining volume (no institutional sponsorship)
+- Volume climax on apparently good news (institutions selling into retail excitement)</p>
+<p><strong>Price behaviour signals:</strong>
+- Expanding daily ranges, increasing gap-downs
+- Failure to hold new highs (upthrusts / false breakouts)
+- Lower highs within consolidation (rounding top)
+- Bad closes dominating</p>
+<h4 id="signal-count-response-framework">Signal Count → Response Framework</h4>
+<table>
+<thead>
+<tr>
+<th>Signal count</th>
+<th>Across categories</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2</td>
+<td>1 category</td>
+<td>Normal vigilance. Monitor daily.</td>
+</tr>
+<tr>
+<td>3–5</td>
+<td>Any</td>
+<td>Tighten to 20-day trail. Reduce 25–50%. Stop adding.</td>
+</tr>
+<tr>
+<td>6+</td>
+<td>3+ categories</td>
+<td>Exit into next available strength.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical distinction:</strong>
+- Technical signals + fundamental deterioration = highest urgency, exit immediately
+- Technical signals alone (strong fundamentals) = tighten and monitor, escalate shot clock to 2 weeks
+- Fundamental deterioration alone (no technical signals) = standard 30-day shot clock</p>
+<h4 id="base-counting-as-risk-calibration-non-negotiable-rule">Base Counting as Risk Calibration — Non-Negotiable Rule</h4>
+<table>
+<thead>
+<tr>
+<th>Base count</th>
+<th>Risk level</th>
+<th>Hard rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st–2nd</td>
+<td>Lowest</td>
+<td>Full position, standard stops</td>
+</tr>
+<tr>
+<td>3rd</td>
+<td>Inflection</td>
+<td>Reduce 25–50%, tighten to 20-day, stop adding</td>
+</tr>
+<tr>
+<td>4th–5th</td>
+<td>Highest</td>
+<td>Max 50% of normal size, 3–5% stops, quick exit mindset</td>
+</tr>
+</tbody>
+</table>
+<p>Former leaders (4th–5th base) have 50% probability of declining 80% from peak and 80% probability of declining 50%. The fundamental thesis often still looks intact at the top. Base count is an objective risk calibration independent of the fundamental view.</p>
+<h4 id="trailing-stop-hierarchy-all-smas-simple-not-exponential">Trailing Stop Hierarchy (All SMAs — simple, not exponential)</h4>
+<ul>
+<li><strong>20-day SMA</strong> → short-term trail for fast movers; first warning level</li>
+<li><strong>50-day SMA</strong> → primary sell trigger at +20%+ gain; decisive close below on above-average volume = exit</li>
+<li><strong>150/200-day SMA</strong> → structural boundaries only; these should never be tested on a position managed correctly</li>
+</ul>
+<p><strong>Progressive exposure rule:</strong> Trade largest when trading best. Start new cycles small (5–10%). Winning trades → increase size. Losing trades → scale down aggressively, move toward cash. Never fight the signal.</p>
+<h4 id="watson-coaching-prompts-technical-exit-validation">Watson Coaching Prompts — Technical Exit Validation</h4>
+<ol>
+<li>
+<p><strong>When Richard is holding a position showing MA deterioration:</strong> "The 50-day has flattened. Volume on down days is above average. That's two of the five distribution signals. What's the fundamental picture telling you — and does it explain the technical picture, or is the market ahead of you?"</p>
+</li>
+<li>
+<p><strong>When a position is on its 3rd+ base:</strong> "This stock is on its [X]th base. Minervini's base-count framework says reduce and tighten at the 3rd base, tactical only at the 4th or 5th. What's your current size and stop level?"</p>
+</li>
+<li>
+<p><strong>When Richard is debating holding through a violation:</strong> "You have [X] simultaneous violations. At 3 simultaneous violations, the rule is exit regardless of stop distance. Is this a case where you're making an exception — and if so, what specifically changes the rule?"</p>
+</li>
+<li>
+<p><strong>On the retroactive cap study:</strong> "Minervini ran the numbers: capping every loss at 10% shifted his compounded return by over 90 percentage points. Same stocks, same entries. The exit is the edge. What's your stop on this position, and has it been tightened as the stock has moved?"</p>
+</li>
+<li>
+<p><strong>When a stock breaks the 50-day on heavy volume post-catalyst:</strong> "The 50-day has broken on above-average volume right after a catalyst event. That's the market telling you something. What does the market know that your analysis might not have captured yet?"</p>
+</li>
+</ol>
+<hr>
+<h2 id="4-adding-to-positions">4. ADDING TO POSITIONS</h2>
+<h3 id="when-to-add-the-discipline">When to Add (The Discipline)</h3>
+<p><strong>Add before technical inflection turns.</strong> Don't wait until everyone sees the inflection; add beforehand.</p>
+<p><strong>Add when contractual catalysts not yet priced.</strong> BFF lesson: "The market sometimes overreacts and sometimes underreacts to events. Sometimes the market prices them in well in advance, and sometimes it waits for the event to literally happen, even though it has been contractually agreed many months earlier."</p>
+<p><strong>Add on dislocations in core robust HQIs.</strong> If quality is proven and sentiment is temporarily panicky, add 5-10% on drawdowns (assuming position isn't already max-sized).</p>
+<p><strong>Add before earnings beats / upgrade cycles.</strong> "Try and be disciplined about adding before the turn in technical momentum" (Edward's XVIVO reminder).</p>
+<h3 id="adding-mistakes-what-not-to-do">Adding Mistakes (What Not to Do)</h3>
+<p><strong>Mistake 1: Adding to UHPYHQIs while thesis in skunkworks.</strong>
+Richard's rule: "Don't add capital when thesis still in skunkworks. Accept volatility and ignore the position while in that state."</p>
+<p><strong>Mistake 2: Adding without conviction across six dimensions.</strong>
+If conviction fades on any dimension, don't add. This is different from "stock went down so it's cheaper" (which might not be a good reason to add).</p>
+<p><strong>Mistake 3: Adding after you've already sized aggressively.</strong>
+If already at 12-14% and position fell 20%, you don't have dry powder to add meaningfully anyway. This is why staying at 80% of max is smart.</p>
+<h3 id="the-trading-slug-strategy-4-5-recycling">The Trading Slug Strategy (4-5% Recycling)</h3>
+<p>When position recovers from drawdown, don't hold it all at peak. Trim 4-5% to recycle capital or take profits. Allows for dynamic management without binary exit.</p>
+<h3 id="watson-coaching-prompts-adding-decisions">Watson Coaching Prompts — Adding Decisions</h3>
+<ol>
+<li>
+<p><strong>Before adding:</strong> Does conviction across six dimensions still hold? Or are you adding because price fell? (Check the motive.)</p>
+</li>
+<li>
+<p><strong>On ammunition:</strong> How much dry powder do you have in terms of position capacity? Can you actually add meaningfully, or are you already at 90% of max?</p>
+</li>
+<li>
+<p><strong>On timing:</strong> Is this technical dislocation or fundamental deterioration? If fundamental, be cautious about adding. If technical (share price fell on noise), this is optimal adding time.</p>
+</li>
+<li>
+<p><strong>On size:</strong> If adding, what will the position be post-add? Still below 15%? Good. If it'll be 16%+, wait until you trim something first.</p>
+</li>
+</ol>
+<hr>
+<h2 id="5-trimming-reducing-vs-exiting">5. TRIMMING / REDUCING vs. EXITING</h2>
+<h3 id="downsize-when-near-term-concerns">Downsize When: Near-Term Concerns</h3>
+<p><strong>Use case:</strong> Company hit a real but temporary issue (supply chain, earning miss, sector rotation). Fundamentals still intact. But you're nervous.</p>
+<p><strong>Action:</strong> Reduce from 12% to 8% to manage risk while you figure out if this is temporary or fundamental.</p>
+<p><strong>Monitor:</strong> Watch for inflection recovery. If inflection returns to normal, can re-add back to 12%. If deterioration continues, exit completely.</p>
+<h3 id="exit-when-existential-strategic-resilience-issues">Exit When: Existential / Strategic / Resilience Issues</h3>
+<p><strong>Use case:</strong> Business model is broken, management changed materially for worse, permanent structural decline emerging, capital allocation deteriorating.</p>
+<p><strong>Action:</strong> Exit fully, decisively. No partial positions.</p>
+<p><strong>Note:</strong> Once you've exited, move to monitoring list. Don't keep a tiny position for FOMO (fear of missing out). Either own it or don't.</p>
+<h3 id="top-slicing-winners-the-nuanced-approach">Top-Slicing Winners (The Nuanced Approach)</h3>
+<p>Richard's learning: "There's beguiling but incorrect naivety about not top-slicing big winners. The nuance is <strong>when</strong> it is right to do it."</p>
+<p><strong>Conditions for riding a winner without trimming:</strong>
+- Company is a <strong>snowball/flywheel</strong> — business AND investment case getting stronger with time, not just share price rising
+- Range of outcomes is <strong>narrowing</strong> (improving conviction), not expanding
+- <strong>More positive optionality</strong> is emerging (new catalysts, new markets, new management initiatives)
+- You have <strong>margin of safety</strong> (cone of uncertainty still wide even at higher price)</p>
+<p><strong>Conditions for trimming:</strong>
+- Share price went up but business/case fundamentally didn't improve
+- Range of outcomes <strong>expanded</strong> (new uncertainties emerged)
+- Multiple is now <strong>extended</strong> relative to quality and growth
+- No new positive optionality emerged; just riding old inflection</p>
+<p><strong>The test:</strong> "Do I see better risk/reward at current price than entry price?" If no, trim 20-30%.</p>
+<h3 id="the-instalco-lesson-emotional-discipline">The Instalco Lesson (Emotional Discipline)</h3>
+<p>"SP up 30% since we trimmed 4% due to raw material inflation worries. We overreacted. We were not calm. The fascinating thing is it feels 'mature' and 'calm' to take risk off in that scenario, but that's the <strong>chimp brain tricking you</strong>."</p>
+<p><strong>Key insight:</strong> Panicky reactions disguise themselves as mature risk management. The urge to "derisque" when analyst is nervous is often the chimp brain, not the executive function.</p>
+<h3 id="watson-coaching-prompts-trimreduce-decisions">Watson Coaching Prompts — Trim/Reduce Decisions</h3>
+<ol>
+<li>
+<p><strong>Before trimming:</strong> Is this a near-term concern (downsize to 8%) or a fundamental concern (exit to 0%)? Be clear on the distinction.</p>
+</li>
+<li>
+<p><strong>On winners:</strong> Has the business gotten stronger, or just the share price? Are you still seeing new positive optionality, or are you coasting on old thesis?</p>
+</li>
+<li>
+<p><strong>On the emotional urge to derisque:</strong> Are you calm and objective, or is the chimp brain speaking? Pause. Breathe. Reorient. Then decide.</p>
+</li>
+<li>
+<p><strong>On trimming frequency:</strong> Are you top-slicing winners regularly (every 20-30% move), or trimming them once every 1-2 years? If too frequent, you're probably being sentimental about positions.</p>
+</li>
+</ol>
+<hr>
+<h2 id="5b-circle-of-competence-enforcement-management-quality-2022-key-learnings">5B. CIRCLE OF COMPETENCE ENFORCEMENT &amp; MANAGEMENT QUALITY (2022 Key Learnings)</h2>
+<p><strong>Source:</strong> 2022 drawdown discoveries. Critical lessons that came from portfolio construction failures.</p>
+<h3 id="circle-of-competence-non-negotiables">Circle of Competence Non-Negotiables</h3>
+<p>From 2022 journal (Jan 10 entry, building on Paolo Mortarotti lessons):</p>
+<p><strong>What doesn't work (from experience):</strong>
+1. <strong>Distant geographies</strong> — Lack holistic ecosystem understanding. False confidence from valuation multiples instead of deep knowledge.
+2. <strong>New sectors without deep knowledge</strong> — Technology and medtech are high-risk zones. Haven't done medtech in 10+ years. Risk of overconfidence.</p>
+<p><strong>Mortarotti's lessons (5 years of learning):</strong>
+- Going into distant geographies unsuccessful
+- Going into new sectors unsuccessful
+- <strong>Why:</strong> Lacked holistic ecosystem understanding; relied on valuation multiples instead of deep business knowledge
+- "When you look at new sector with high-level indicators you like, easy to get dangerously sucked in even lacking deep business knowledge"</p>
+<p><strong>Richard's correction:</strong> Explicitly enforce circle of competence. No cases like EXASOL (database software, deep IT knowledge required) or MEDARTIS-level medtech.</p>
+<p><strong>Better:</strong> Simplicity preferred to premium complexity. Sectors where you have 5-10 year track record + primary source network.</p>
+<h3 id="management-quality-monitoring-xvivo-case-study">Management Quality Monitoring (XVIVO Case Study)</h3>
+<p><strong>The 2022 discovery (May 21, 2022):</strong></p>
+<p>From XVIVO position management, Richard identified management quality red flags that he should have acted on earlier:
+- CFO called investor "Robert" (informality concerning)
+- CEO not on top of details
+- Head of North America left after few months (disorganization signal)</p>
+<p>Direct quote (May 21, 2022): "I'm increasingly concerned about management quality"</p>
+<p><strong>Framework for detecting management quality issues:</strong></p>
+<ol>
+<li>
+<p><strong>CFO Assessment</strong> — Competence level, detail awareness, communication clarity
+   - XVIVO: CFO bottom quartile → should have triggered exit
+   - Signal: Informality mixed with opacity = bad sign</p>
+</li>
+<li>
+<p><strong>CEO Focus</strong> — On top of details or delegating blindly?
+   - XVIVO: CEO not deeply engaged = concern
+   - Signal: When you ask about specifics, can they articulate?</p>
+</li>
+<li>
+<p><strong>Talent Departures</strong> — Especially early-stage hires, especially GMs/heads of regions
+   - XVIVO: Head of NA left months in = disorganization
+   - Signal: Why did they leave? Role clarity? Culture?</p>
+</li>
+<li>
+<p><strong>IR Quality</strong> — Responsive, thoughtful, or lawyerly/defensive?
+   - Defensive IR often signals information asymmetry or something to hide</p>
+</li>
+<li>
+<p><strong>Hiring and Culture</strong> — Do they respect great people? Can they attract talent?
+   - From BFF (2026 exit): "Bad hiring, no respect for great people" = red flag combo</p>
+</li>
+</ol>
+<h3 id="red-lines-for-management-quality">Red Lines for Management Quality</h3>
+<p>Richard's post-2022 framework:</p>
+<p><strong>Any ONE of these would warrant deep concern:</strong>
+- CFO assessed as bottom quartile competence
+- CEO not on top of business details
+- Key regional leader departs early (&lt;1 year)
+- Defensive/lawyerly investor relations
+- Management messaging shifts ("no drama" → quiet admissions of issues)</p>
+<p><strong>Multiple of these together = exit signal. Don't wait for clarity.</strong></p>
+<h3 id="lesson-from-corbion-instalco-2022">Lesson from Corbion / Instalco (2022)</h3>
+<p>Direct quote (Jan-Feb 2022): "Companies often say 'no drama' to start with, then they start to point out the issues. So be sceptical."</p>
+<p><strong>Pattern:</strong> When inflation/structural headwinds emerge, management downplays initially. Listen for the second message, not the first.</p>
+<p><strong>Process:</strong> Multiple calls with IR to track narrative evolution. If narrative shifts from "we've got this" to "we're managing a headwind," that's escalation signal.</p>
+<h3 id="watson-coaching-prompts-competence-management-quality">Watson Coaching Prompts — Competence &amp; Management Quality</h3>
+<ol>
+<li>
+<p><strong>On new sectors:</strong> Have you followed this sector/company type for 5+ years? If not, are you in your circle? Or are you rationalizing entry on "valuation is cheap"?</p>
+</li>
+<li>
+<p><strong>On CEO quality:</strong> Can you call and get specific answers on key metrics? Or do you get hand-waving and vague reassurance?</p>
+</li>
+<li>
+<p><strong>On team departures:</strong> When senior person leaves, do you dig into why? Is it normal? Or signal of deeper issue?</p>
+</li>
+<li>
+<p><strong>On IR quality:</strong> Is management responsive and transparent, or lawyerly/defensive? Does this feel like first cockroach?</p>
+</li>
+<li>
+<p><strong>On narrative shifts:</strong> On your second/third IR call this year, is management narrative the same, or have problems emerged? If emerged, what's the second cockroach?</p>
+</li>
+</ol>
+<hr>
+<h2 id="6-portfolio-construction">6. PORTFOLIO CONSTRUCTION</h2>
+<h3 id="portfolio-structure-the-framework-richard-uses">Portfolio Structure (The Framework Richard Uses)</h3>
+<p><strong>Core discipline:</strong> 16 stocks, expected to rotate 2-3 per year.</p>
+<p><strong>Allocation split:</strong> 8 risk-on + 8 risk-off (overlayable depending on market conditions)</p>
+<p><strong>Diversification by:</strong>
+- <strong>Sector</strong> (avoid correlation clustering — use factor diversity as control rod)
+- <strong>Geography</strong> (listing and end-market; especially domestic EU footprint in risk-off)
+- <strong>Business model</strong> (compounders, cyclicals, transformations, oversold quality)
+- <strong>Demand profile</strong> (recurring vs. transactional, consumption vs. industrial)
+- <strong>Investment lifecycle</strong> (don't cluster in first third; have seasoned, proven positions)</p>
+<h3 id="gross-exposure-management">Gross Exposure Management</h3>
+<p><strong>Target range:</strong> 85-100% gross long (not 150% leverage)
+<strong>Typical structure:</strong> 95% at start of month, trim into strength, drop to 70-80% by month-end on good rallies
+<strong>Rationale:</strong> Preserve dry powder to top-up on dislocations; avoid overextending into stretched markets</p>
+<h3 id="ballast-positions-the-control-rod">Ballast Positions (The Control Rod)</h3>
+<p>Use defensive, high-quality compounders (e.g., Rightmove, Avanza profile) as "ballast" to stabilize portfolio during drawdowns.</p>
+<p><strong>Characteristics:</strong>
+- Recurring non-cyclical revenue
+- Domestic EU footprint (not exotic geo risk)
+- 10-12% growth, low leverage, strong ROIC
+- Can be bought and held; not dependent on inflection timing</p>
+<p><strong>Role:</strong> Funding source for dislocations; emotionally stabilizing; acts like control rod reducing risk that many positions drawdown simultaneously.</p>
+<h3 id="the-love-portfolio-test-weekly-governance">The "Love Portfolio" Test (Weekly Governance)</h3>
+<p><strong>Question:</strong> Every week, is every holding one you'd be happy owning at 25% of AUM?</p>
+<p>If not, why not? Either thesis is wrong (exit) or position is wrong-sized (adjust).</p>
+<p><strong>This test surfaces:</strong> Positions where conviction has faded but you haven't exited, or positions where size is too large relative to conviction.</p>
+<h3 id="factor-neutrality-imperative">Factor Neutrality Imperative</h3>
+<p>Even in concentrated portfolio, maximize diversity of factors: geography, sector, momentum, business model, market cap, liquidity, theme.</p>
+<p>"Factor diversity acts like control rod reducing risk that many names are in drawdown simultaneously."</p>
+<h3 id="dynamic-capital-allocation-strategic-vs-tactical">Dynamic Capital Allocation (Strategic vs. Tactical)</h3>
+<p><strong>Strategic sizing</strong> (baseline): Sizing framework minus 20% (even accounting for sentiment fragility)</p>
+<p><strong>Tactical overlay:</strong> 20% of capital for dislocations in core robust HQIs</p>
+<p><strong>Skunkworks:</strong> Don't add capital when thesis still in skunkworks; accept volatility, ignore there</p>
+<h3 id="largest-portfolio-lesson-to-date">Largest Portfolio Lesson to Date</h3>
+<p>"Need to make early, big decisions and get them <strong>right</strong>. Getting those wrong/missing them/not making them cleanly/decisively tends to lead to five-ish much smaller, more myopic/minor decisions that aren't that important."</p>
+<p><strong>Translation:</strong> Focus on the 2-3 big allocation calls (exit Sdiptech, size up Avanza, add Hilton). Don't try to optimize everything with small tweaks.</p>
+<h3 id="watson-coaching-prompts-portfolio-construction">Watson Coaching Prompts — Portfolio Construction</h3>
+<ol>
+<li>
+<p><strong>On diversification:</strong> Count your 16 stocks by sector, geography, setup type. Are 8+ from one cluster? If yes, violating control rod principle.</p>
+</li>
+<li>
+<p><strong>On ballast:</strong> Do you have 2-3 boring, high-quality, low-volatility positions that stabilize the portfolio? Or are all 16 exciting/volatile?</p>
+</li>
+<li>
+<p><strong>On gross exposure:</strong> Where are you at right now (%)? If &gt;100%, why? If &lt;75%, are you being too cautious?</p>
+</li>
+<li>
+<p><strong>On love test:</strong> This week, are there any positions you wouldn't be happy owning at 25% of AUM? If yes, that's your agenda item (exit or resize).</p>
+</li>
+<li>
+<p><strong>On big decisions:</strong> What are the 2-3 largest portfolio decisions you're facing? Are you making them decisively, or tinkering at the edges?</p>
+</li>
+</ol>
+<hr>
+<h2 id="7-drawdown-management">7. DRAWDOWN MANAGEMENT</h2>
+<h3 id="historical-context">Historical Context</h3>
+<p>Richard's worst drawdown: <strong>-54.75%</strong> in 2022 (a catastrophic year). He recovered to +12% the following year.</p>
+<p><strong>Key learning from recovery:</strong> Conviction in process, not panic selling, and disciplined rebalancing enabled recovery.</p>
+<h3 id="expectation-setting-accept-drawdowns-as-default">Expectation-Setting (Accept Drawdowns as Default)</h3>
+<p><strong>Empirical pattern from studying 20%+ multi-decade CAGR stocks:</strong>
+- <strong>15% drawdown</strong> multiple times per year (normal)
+- <strong>20%+ drawdown</strong> most years (regular)
+- <strong>50% drawdown</strong> every decade (expect it)</p>
+<p><strong>Target condition:</strong> Accept 10-40% of portfolio will be in slight to medium drawdown at any time. It's the default state.</p>
+<p><strong>Reframe:</strong> "Happiness = reality - expectations." If you expect 20% drawdowns and get them, you're not disappointed.</p>
+<h3 id="the-key-question-test-of-real-conviction">The Key Question (Test of Real Conviction)</h3>
+<p><strong>This cannot be seared into eyes enough:</strong></p>
+<p>"If market completely crapped out and shares down 30%, 40%, 50%, am I doing a 'protector' or buying more, even if I feel sick? Am I willing to say, 'One-year investment frame from here, given radar risks and stock-specific risks, looks safe enough that I will add big chunk—5-10%—on share price weakness'?"</p>
+<p><strong>If answer is "I'd be a protector,"</strong> you don't have real conviction. Don't size up now.</p>
+<p><strong>If answer is "I'd add 5-10%,"</strong> you likely have conviction. Size accordingly.</p>
+<h3 id="preparing-for-drawdowns-fire-avoidance-sop">Preparing for Drawdowns (Fire Avoidance SOP)</h3>
+<p><strong>Before positions even exist:</strong></p>
+<ol>
+<li>
+<p><strong>Rehearse really bad futures.</strong> Role-play bad scenarios (recession, rate shock, scandal, industry disruption). Ask: "Would I add on this outcome?"</p>
+</li>
+<li>
+<p><strong>Identify 6-12 month risks.</strong> Look ahead and identify any likely relevant events/developments that could cause share price to fall 25% on semi-fundamental news such that you wouldn't want to add on 6-month view.</p>
+</li>
+<li>
+<p><strong>Identify all risks that could make SP fall 25% such that you don't think it retraces.</strong> These are your red lines.</p>
+</li>
+<li>
+<p><strong>If you can see the risk ex ante, you're less likely to panic-sell ex post.</strong></p>
+</li>
+</ol>
+<h3 id="conviction-during-drawdowns-ooda-loop-principle">Conviction During Drawdowns (OODA Loop Principle)</h3>
+<p><strong>Framework: Knowledge → Clarity → Position capital → Mentally be ready to pivot.</strong>
+- <strong>Observe/know:</strong> What's happening? Is it macro, sector, or stock-specific?
+- <strong>Orient/understand:</strong> What could happen based on this development? Is this a red-line trigger or noise?
+- <strong>Decide/Act:</strong> Position capital proactively (add, hold, reduce, exit)
+- <strong>Adapt/pivot:</strong> Mentally be ready to adjust if new information emerges</p>
+<p><strong>Key reminder:</strong> "If right on resilience, optionality, inflection, market sentiment, share price will rebound on 3-6 month timeframe. Trust the process. Average intra-year peak-to-trough swings are 40% for all stocks."</p>
+<h3 id="emotional-state-in-drawdowns">Emotional State in Drawdowns</h3>
+<p><strong>Target condition:</strong> Hope for / welcome the counter-punch. Not annoyance (which is fragility).</p>
+<p>Richard's framing: "Want short-term storm-in-teacup 30% decline to add 50%."</p>
+<p><strong>Work on mindset.</strong> Flip it. When stock falls 30% on noise:
+- Excitement (opportunity to add at better prices)
+- Confidence (if conviction is real, this is perfect)
+- Calm (process is working; volatility is expected)</p>
+<p>NOT:
+- Anxiety (position is blowing up)
+- Regret (should have been smaller)
+- Doubt (was I wrong to enter?)</p>
+<h3 id="selective-burning-trading-slugs-strategy">Selective Burning / Trading Slugs Strategy</h3>
+<p>"Ideal situation is stock selling off in controlled fashion. Symphonic and harmonious. One stock at a time, gracefully selling off to create superb top-up window."</p>
+<p><strong>Mechanics:</strong> 4-5% trading slugs, two to three at a time.
+- If 10% position falls 30% to 7%, buy 4% at 70-80 to take it to 11%.
+- If underlying IRR is 25%, new slug IRR is 40%.
+- Keeps position managed; prevents all-or-nothing dynamics</p>
+<h3 id="market-oversold-opportunities-entain-protector-lessons">Market Oversold Opportunities (Entain / Protector Lessons)</h3>
+<p>"When there is a market-level sell-off, do not exit stocks that were previously worrying you because of 'mediocre quality'. They were oversold. The stock will recover as it is low in its range almost purely due to technical pressure, not fundamental concerns; baby and bathwater."</p>
+<p><strong>Key lesson:</strong> "I can make a lot of money buying oversold companies. In fact, this is a big P&amp;L opportunity. Be opportunistic."</p>
+<p>BUT only if you've done the work ex ante. You can't opportunistically buy at lows if you don't have conviction beforehand. Pre-analysis is critical.</p>
+<h3 id="watson-coaching-prompts-drawdown-management">Watson Coaching Prompts — Drawdown Management</h3>
+<ol>
+<li>
+<p><strong>When market is down 10%+:</strong> Are you welcoming the opportunity or feeling anxious? Which positions would you be buying more of at current prices?</p>
+</li>
+<li>
+<p><strong>On conviction test:</strong> Pick one position. Imagine it falls 40% tomorrow on sector shock. Would you add or protect? Honest answer?</p>
+</li>
+<li>
+<p><strong>On red-line tracking:</strong> As positions fall, are you checking whether red-line invalidation criteria have been triggered? Or are you in denial?</p>
+</li>
+<li>
+<p><strong>On fire avoidance:</strong> Did you rehearse this scenario before entering? Do you know your response, or are you deciding in real-time?</p>
+</li>
+<li>
+<p><strong>On oversold opportunities:</strong> Are there stocks that have fallen but fundamentals haven't changed? What's your plan to add on the dislocation?</p>
+</li>
+</ol>
+<hr>
+<h2 id="8-psychology-emotional-discipline">8. PSYCHOLOGY &amp; EMOTIONAL DISCIPLINE</h2>
+<h3 id="the-chimp-brain-pattern-steve-peters-peters-model">The Chimp Brain Pattern (Steve Peters / Peters Model)</h3>
+<p>Richard's pattern: Chimp brain panic disguises itself as mature risk management.</p>
+<p><strong>Instalco example:</strong> "It feels 'mature' and 'calm' to take risk off in that scenario, but that's the chimp brain tricking you."</p>
+<p><strong>How to recognize Chimp mode:</strong>
+- Urge to de-risk is sudden and strong (not calm)
+- Feeling anxious or threatened (not clear)
+- Making decisions fast without re-analysis (not deliberate)
+- Justifying the decision with selective facts (confirmation bias)</p>
+<p><strong>How to move to Observer mode:</strong>
+1. <strong>Recognize:</strong> "I'm in Chimp mode right now." (Non-judgment, just observation)
+2. <strong>Pause and breathe.</strong> 10 deep breaths shifts nervous system.
+3. <strong>Move to neutral observation.</strong> "What are the facts? What can I control? What's my process?"
+4. <strong>Then act from Observer mode.</strong> Decision quality is radically better.</p>
+<h3 id="conviction-is-an-emotion-denise-shull-insight">Conviction is an Emotion (Denise Shull Insight)</h3>
+<p>"You can't take emotion out of conviction." Conviction is not a rational checklist; it's a felt sense.</p>
+<p><strong>Implication:</strong> You need both analysis (the intellectual conviction checklist) AND emotional comfort (you feel good about the thesis).</p>
+<p>If you have analysis but don't feel it, conviction is weak. You'll panic-sell when volatility hits.</p>
+<p>If you feel it but can't articulate the analysis, conviction is also weak (you don't have enough scaffolding to hold through draws).</p>
+<p><strong>Both required.</strong></p>
+<h3 id="team-dynamics-independent-judgment">Team Dynamics &amp; Independent Judgment</h3>
+<p><strong>Richard's pattern:</strong> Strong tendency to dismiss others' analysis, preferring his own judgment.</p>
+<p><strong>His quote:</strong> "I am the decision maker. ALWAYS form my own judgment on a stock. Force myself to get to a conclusion. Never abrogate responsibilities to the analyst for judgement. They're an advisory resource. I'm the Decision-maker."</p>
+<p><strong>But he also learned:</strong> "I let Pedro's lack of attention to detail and his emotional flappiness influence me. I need to trust my own assessment and judgement far, far more highly than his, and preserve my independent emotional energy."</p>
+<p><strong>The skill:</strong> Trust your own judgment on the investment case. Don't let team nervousness or emotional contagion override your analysis.</p>
+<p><strong>But also:</strong> Integrate team analysis on details (supply chains, management quality, competitive dynamics). They're experts on those things.</p>
+<h3 id="signal-escalation-failures-kainos-keywords-lesson">Signal Escalation Failures (Kainos / Keywords Lesson)</h3>
+<p>Richard's team saw the AI slowdown and market demand slowdown, but "didn't shout loudly enough" and Richard "didn't default to capital reduction/risk-off."</p>
+<p><strong>Root cause:</strong> Analysis detected, but escalation failed. Richard was "drowning in unnecessary detail/info/analysis" rather than acting on clear signals.</p>
+<p><strong>Lesson:</strong> Create explicit escalation protocol. Team flags: "This doesn't pass 'hell yeah or no' test." Richard's response: Default to capital reduction.</p>
+<h3 id="commitment-vs-motivation-4cs-framework">Commitment vs. Motivation (4Cs Framework)</h3>
+<p>Steve Ward distinction: <strong>Commitment is different from motivation.</strong></p>
+<p><strong>Motivation</strong> fluctuates (you feel energetic some days, flat others).</p>
+<p><strong>Commitment</strong> is a structural decision: "I am committed to executing my process consistently, regardless of emotional state."</p>
+<p><strong>For Richard:</strong> Set pre-commitments to rules (max size, exit criteria, adding discipline) BEFORE emotional state matters. Then execute those pre-commitments, not your current feelings.</p>
+<h3 id="solving-for-desired-outcome-bias">Solving for Desired Outcome Bias</h3>
+<p>Richard's self-awareness: "Can feel that if you like stock, will give slightly higher marks throughout. Circularity and non-objectivity."</p>
+<p><strong>Mitigation:</strong> Use multiple frameworks to cross-check. Where frameworks diverge, dig deeper. Trust gut over granular when you have a system.</p>
+<h3 id="trust-gut-not-granular-when-you-have-a-system">Trust Gut, Not Granular (When You Have a System)</h3>
+<p>"Divergences between frameworks are where it's interesting. Divergences between gut and granular buildup. Generally trust gut, not granular, when you have a system."</p>
+<p><strong>Meaning:</strong> Once you have analysis frameworks in place, if your gut says "this doesn't feel right" but the checklist says "looks good," that divergence is interesting. Investigate why gut and head are misaligned. Often the gut is seeing pattern-recognition risk the granular analysis missed.</p>
+<h3 id="watson-coaching-prompts-psychology">Watson Coaching Prompts — Psychology</h3>
+<ol>
+<li>
+<p><strong>On emotional urges:</strong> Before acting on an urge to trim/add/exit, pause and ask: "Is this Chimp or Observer mode?" Describe how you're feeling.</p>
+</li>
+<li>
+<p><strong>On team influence:</strong> When team member raises concern, do you want to (a) dismiss and override, or (b) integrate and reconsider? How did you decide?</p>
+</li>
+<li>
+<p><strong>On commitment:</strong> Did you pre-commit to an exit rule on this stock, or are you deciding in real-time based on current feelings?</p>
+</li>
+<li>
+<p><strong>On conviction:</strong> Can you articulate the bull and bear case for this position? If yes, conviction has scaffolding. If you can only do bull, conviction is weaker.</p>
+</li>
+<li>
+<p><strong>On gut vs. granular:</strong> Anything in your portfolio where granular analysis says "hold" but gut says "something's off"? What's the pattern recognition risk?</p>
+</li>
+</ol>
+<hr>
+<h2 id="9-resilience-optionality-framework-aug-2023-quality-assessment">9. RESILIENCE-OPTIONALITY FRAMEWORK (Aug 2023 — Quality Assessment)</h2>
+<p><strong>Source:</strong> August 15-17, 2023 journal entries. Introduced after Josh Tarasoff essay integration and deep reflection on what makes companies exceptional.</p>
+<h3 id="the-12-dimension-framework-for-investment-quality">The 12-Dimension Framework for Investment Quality</h3>
+<p>Richard developed this framework to systematically assess whether a company has the characteristics needed for long-term outperformance:</p>
+<p><strong>1. Positive Optionality</strong> — Multiple sources, multiple time frames, not just lumpy big ones. Visualized as "planes stacked about an airport" (various catalysts, different timeframes).</p>
+<p><strong>2. Negative Optionality</strong> — Accept it in 0-6 and 6-18, plan accordingly. Want to see it be small as % of fundamental business value (FBV).</p>
+<p><strong>3. Balancing Feedback Loops</strong> — When negative events occur, there should be offsetting mechanisms (e.g., share price falls triggers share buyback, or customer switches spark cost-cutting).</p>
+<p><strong>4. Resilience (to negative optionality)</strong> — Limited negative optionality on mid- to long-term; absence of reinforcing feedback loops that compound negative events.</p>
+<p><strong>5. Grabbing of Positive Optionality</strong> — Habitual behavior of company seizing opportunities to widen SRCA (Structural Relative Competitive Advantage); proactive not reactive.</p>
+<p><strong>6. Leverage (all forms)</strong> — Financial, operating, multiple, NWC, liquidity. Magnifies up/down cones; narrows management degrees of freedom. More leverage = less resilience.</p>
+<p><strong>7. Positive Gravitational Pull Upwards</strong> — "Seemingly inevitable" pull towards SRCA widening. Time widens the moat, not shrinks it.</p>
+<p><strong>8. Non-Ergodicity Risk</strong> — Path is critical to outcome. Avoid cases where negative event at point A eliminates or reduces probability of positive optionality from point B onwards.</p>
+<p><strong>9. Opacity/Clarity/Predictability</strong> — How confident are you in predicting all this? Lower opacity = more edge.</p>
+<p><strong>10. Soft &amp; Hard SRCA</strong> — Degree of both determines extent of resilience and ability to grab positive optionality. (Hard = structural/patent-like; Soft = culture/mission-driven.)</p>
+<p><strong>11. Skew and Cone of Outcomes</strong> — Want positive skew; want cone to improve over time with upside widening and downside narrowing.</p>
+<p><strong>12. MDF Thesis (Materiality-of-Difference Framework)</strong> — Thesis is variant and material (not marginal).</p>
+<h3 id="target-condition-for-ownership">Target Condition for Ownership</h3>
+<p>Direct quote (Aug 17, 2023): "Only own companies that have:
+1. High resilience-optionality
+2. Manifesto congruency (mission-driven culture)
+3. Ratings in the quality framework"</p>
+<p>"Lots of positive optionality along multiple sources and time frames; Little negative optionality; Resilience to negative optionality; Grabbing of positive optionality; Minimal leverage; Positive gravitational pull upwards; Clear path; Positive skew that improves over time"</p>
+<h3 id="sizing-based-on-cone-width">Sizing Based on Cone Width</h3>
+<p>Direct quote (Aug 17): "Size positions based on the probable share price downside volatility... accepting a cone of up and down scenarios means being sized probably c. 50-70% of what I (RB) would want [based on conviction alone]."</p>
+<p><strong>Implication:</strong> Two positions with equal conviction might be sized differently based on the width of potential outcomes. Wide cone = smaller position.</p>
+<h3 id="whats-priced-in">What's Priced In</h3>
+<p>Critical insight (Aug 17): "Very little optionality or resilience in the price. The visualization is that the what's-in-the-price line is below the base case line and should be materially above and widening with each future period."</p>
+<p><strong>Question:</strong> If market is only pricing base case (no optionality premium), is it worth owning? Only if there's genuine positive surprise probability.</p>
+<h3 id="integration-into-capital-allocation">Integration into Capital Allocation</h3>
+<p>(August 17, 2023): Position size should reflect:
+- 18-4+ timeframe conviction first (this is the fulcrum)
+- Cone width (wide cone = discount size)
+- Resilience score (fragile = smaller)
+- Optionality depth (lumpy optionality = smaller vs. distributed)</p>
+<h3 id="watson-coaching-prompts-resilience-optionality">Watson Coaching Prompts — Resilience-Optionality</h3>
+<ol>
+<li>
+<p><strong>On positive optionality:</strong> Can you name 4-5 sources of optionality for this stock? Or is it all lumped into one "if growth accelerates"?</p>
+</li>
+<li>
+<p><strong>On resilience:</strong> If this company faced a material negative event tomorrow, what's your confidence it could recover? What feedback loops prevent recovery?</p>
+</li>
+<li>
+<p><strong>On cone width:</strong> What's your upside scenario? Your downside scenario? The width of that cone tells you what % of AUM to own.</p>
+</li>
+<li>
+<p><strong>On leverage:</strong> How many forms of leverage (financial, operating, multiple, etc.) is this company taking? More leverage = less resilience = smaller position.</p>
+</li>
+<li>
+<p><strong>On gravitational pull:</strong> Is there "seemingly inevitable" SRCA widening over time, or is maintenance of current moat all you can count on?</p>
+</li>
+</ol>
+<hr>
+<h2 id="10-market-environment-adaptation">10. MARKET ENVIRONMENT ADAPTATION</h2>
+<h3 id="risk-off-positioning-iran-march-2026-context">Risk-Off Positioning (Iran / March 2026 Context)</h3>
+<p>When macro turns negative (geopolitical shocks, rate surprises, fiscal uncertainty), sector-level positioning matters.</p>
+<p><strong>Target exposure:</strong>
+- Recurring non-cyclical revenues (utilities, software, telecom)
+- Domestic EU footprint (not exotic geo risk)
+- Banks/insurance (margin beneficiaries in rate-up scenarios)
+- Cable companies (infrastructure, recurring revenue)
+- Healthcare (defensive consumer, growing)</p>
+<p><strong>Avoid:</strong>
+- European chemicals (COGS exposure, cyclical)
+- Consumer discretionary (demand elasticity)
+- Beverages (pricing power limited, input cost exposure)
+- High leverage (balance sheet stress in tightening environment)</p>
+<p><strong>Key mental model:</strong> Own liquidity, own earnings momentum, own perception of safety, have low gross (85% not 100%+).</p>
+<h3 id="bear-market-playbook-two-phase-approach">Bear Market Playbook (Two-Phase Approach)</h3>
+<p><strong>Phase 1 (Selling off hard):</strong> Own what IS fundamental quality + what's PERCEIVED to be quality (holds up best)</p>
+<p><strong>Phase 2 (Stabilizing):</strong> Rotate to what IS quality but PERCEIVED to be low quality (will rebound first)</p>
+<p>"Needs to be systematized to avoid biases/emotion of being in drawdown."</p>
+<h3 id="normalbull-conditions">Normal/Bull Conditions</h3>
+<p>Use standard sizing framework (six dimensions): resilience, inflection, returns, conviction, market sentiment, near-term beats.</p>
+<p>Can afford to own more "high potential but fragile" stocks because sentiment is buoyant and risk-on is priced.</p>
+<h3 id="radar-process-top-down-risk-management">Radar Process (Top-Down Risk Management)</h3>
+<p>"Radar process and market/environmental conditions top-down factor risks cross-check. Assesses exposures of stocks to likely macro meta-themes."</p>
+<p><strong>In risk-off Iran scenario:</strong> What's your exposure to oil shock beneficiaries? Which stocks benefit from flight-to-safety? Which suffer from demand shock?</p>
+<p><strong>Tilt portfolio to beneficiaries, reduce exposure to harmed.</strong></p>
+<h3 id="watson-coaching-prompts-environment-adaptation">Watson Coaching Prompts — Environment Adaptation</h3>
+<ol>
+<li>
+<p><strong>On macro shifts:</strong> If market environment shifted from risk-on to risk-off, which 3-4 positions are most at risk? Which are most beneficiary?</p>
+</li>
+<li>
+<p><strong>On sector tilts:</strong> Given current environment, are you over-concentrated in any vulnerable sectors? Any gaps in beneficiary sectors?</p>
+</li>
+<li>
+<p><strong>On gross exposure:</strong> Is your 95% gross exposure right for current environment? Should you be lighter or heavier?</p>
+</li>
+</ol>
+<h3 id="time-horizon-discipline-aug-2023-critical-reorientation">Time Horizon Discipline (Aug 2023 — Critical Reorientation)</h3>
+<p><strong>The Core Problem Identified (Aug 15, 2023):</strong> "We are currently too focused in our attention and time spent on 0-6 developments affecting our stocks. Not 6-18. And certainly not 18-4+."</p>
+<p><strong>Direct quote:</strong> "Our focus ATM is too much about us getting the short-term details right. But the ROT on that activity is low. Because the key focus should be 18-4+. The 3-4Y time-frame is the fulcrum one, in particular."</p>
+<h3 id="the-super-question-time-horizon-test">The Super-Question (Time Horizon Test)</h3>
+<p>"How does [X] information, analysis, question, etc. change the 18-4+ investment case?"</p>
+<p>Apply this ruthlessly to work prioritization. If work doesn't materially affect the 3-4Y thesis, is it worth doing?</p>
+<h3 id="the-nvidia-lesson-aug-15-2023">The Nvidia Lesson (Aug 15, 2023)</h3>
+<p>"On the path to 100x, the 0-6 developments were irrelevant. But obviously the 0-6 is only irrelevant to Nvidia's investment case because Nvidia is/was such a strong investment case on the 18-4+ timeframe."</p>
+<p><strong>Implication:</strong> If you have conviction in 18-4+ case, 0-6 noise becomes irrelevant. If 0-6 noise is keeping you up at night, your 18-4+ case isn't strong enough.</p>
+<h3 id="avoiding-firefighting-aug-15-2023">Avoiding Firefighting (Aug 15, 2023)</h3>
+<p>Direct quote: "Entain's results: Javier feels pressured to write an analysis and update a memo within a day. Why? If we own it for 3-4Y, what is the rush?"</p>
+<p><strong>Principle:</strong> "Slow is smooth. Smooth is fast." (Eisenhower/military discipline.)</p>
+<p>Firefighting on urgent-but-not-important 0-6 tasks creates false momentum. The important work is 18-4+.</p>
+<h3 id="reducing-time-waste-via-prioritization">Reducing Time-Waste via Prioritization</h3>
+<p>3-step filter:
+1. <strong>Is this 18-4+ material?</strong> (If no, don't do it)
+2. <strong>Is this 6-18 material?</strong> (If yes, batch it into quarterly reviews)
+3. <strong>Is this 0-6 noise?</strong> (Monitor only; don't research)</p>
+<h3 id="watson-coaching-prompts-time-horizon-discipline">Watson Coaching Prompts — Time Horizon Discipline</h3>
+<ol>
+<li>
+<p><strong>On current work agenda:</strong> Which items on your agenda directly impact the 18-4+ case? Which are 0-6 noise?</p>
+</li>
+<li>
+<p><strong>On Entain-type situations:</strong> When latest earnings come out, do you feel obligated to analyze within 24h? If so, ask: "Does this change 3-4Y case?"</p>
+</li>
+<li>
+<p><strong>On position conviction:</strong> If 0-6 volatility is shaking your conviction, is your 18-4+ case actually strong? Or are you relying on near-term momentum?</p>
+</li>
+</ol>
+<hr>
+<h2 id="11-process-discipline">11. PROCESS DISCIPLINE</h2>
+<h3 id="iaja-loop-information-analysis-judgement-action-2dsa">IAJA Loop (Information → Analysis → Judgement → Action + 2DSA)</h3>
+<p>Richard's core decision-making framework:</p>
+<ol>
+<li><strong>Information:</strong> Gather widely. Multiple sources. Primary research where possible.</li>
+<li><strong>Analysis:</strong> Structure findings. Build models. Map scenarios.</li>
+<li><strong>Judgement:</strong> Make a call. Not "could be X or Y." A conclusion. "I believe X."</li>
+<li><strong>Action:</strong> Execute the decision.</li>
+<li><strong>2 Downstream Actions:</strong> What's the next move regardless of outcome?</li>
+</ol>
+<p><strong>Discipline note:</strong> Every decision should output at least 2 downstream actions. Prevents open loops.</p>
+<h3 id="hell-yeah-or-no-filter">"Hell Yeah or No" Filter</h3>
+<p>"If it's not a 'hell yeah,' it's a no."</p>
+<p><strong>Meaning:</strong> For new ideas, demand outlier conviction. Don't settle for "pretty good" ideas. They dilute portfolio and require lots of monitoring.</p>
+<p><strong>Applied:</strong> Xvivo was "not hell yeah" (too complex). Exited. Greggs was "hell yeah" (clear, simple setup). Held.</p>
+<h3 id="analysis-paralysis-prevention-lighter-writing">Analysis Paralysis Prevention (Lighter Writing)</h3>
+<p>Richard's pattern: "Drowning in unnecessary detail/info/analysis" on Keywords.</p>
+<p><strong>Mitigation:</strong> Lighter writing in specific domains to avoid information overload.</p>
+<p>"Information overload causes indecision on key judgements. This is what every experienced PM says."</p>
+<p><strong>Practical:</strong> State investment case clearly. Not "could be X or Y." Make a judgement. Specify thesis per timeframe. Tilt prudent. Define hypotheses. State invalidation criteria. Don't over-complicate.</p>
+<h3 id="signal-to-action-conversion-the-keywords-lesson">Signal-to-Action Conversion (The Keywords Lesson)</h3>
+<p>Richard's team detected signals but failed to escalate/action them.</p>
+<p><strong>Three steps missing:</strong>
+1. <strong>Clear escalation:</strong> "This is a red-line breach; we reduce 50%."
+2. <strong>Speed:</strong> Same day or next day, not "let's think about it."
+3. <strong>Default to action:</strong> If in doubt and signal is real, default to de-risquing, not holding.</p>
+<p><strong>Fix:</strong> Create explicit signal-to-action protocols. "If hiring indicator goes negative, reduce by 3-5%." Not a discussion; a rule.</p>
+<h3 id="monitoring-discipline-avoiding-ostriching">Monitoring Discipline (Avoiding "Ostriching")</h3>
+<p>Richard's pattern: "Avoided looking at prices. Still ostriching. Should be checking at 1000h. It is ostriching."</p>
+<p>Also: "Didn't see BFF earnings!" (Not monitoring positions is not risk management; it's avoidance.)</p>
+<p><strong>Discipline:</strong> Weekly SF (Stock Framework) review. Check technical indicators. Check valuation. Check management developments. Flag any red-line triggers.</p>
+<h3 id="watson-coaching-prompts-process-discipline">Watson Coaching Prompts — Process Discipline</h3>
+<ol>
+<li>
+<p><strong>On IAJA:</strong> Walk me through a recent decision. Did you follow Information → Analysis → Judgement → Action? Any step skipped?</p>
+</li>
+<li>
+<p><strong>On hell yeah:</strong> Is every position in your portfolio a "hell yeah"? If any are "pretty good," that's your exit candidate.</p>
+</li>
+<li>
+<p><strong>On case clarity:</strong> Can you state the investment case for each position in 2-3 sentences? If not, it's too complex.</p>
+</li>
+<li>
+<p><strong>On signal escalation:</strong> When your team flags a concern, do you have a pre-committed protocol for what triggers a 3-5% reduction? Or are you debating each time?</p>
+</li>
+<li>
+<p><strong>On monitoring:</strong> When did you last check technical indicators and valuation for each position? This week? Do you have a weekly ritual?</p>
+</li>
+</ol>
+<hr>
+<h2 id="12-painful-prudence-capital-allocation-standards-oct-2023">12. PAINFUL PRUDENCE &amp; CAPITAL ALLOCATION STANDARDS (Oct 2023)</h2>
+<p><strong>Source:</strong> October 12, 2023 (51KB entry). Major watershed moment on raising capital allocation standards post-2022.</p>
+<h3 id="core-principle-prudence-must-be-painful">Core Principle: Prudence Must Be Painful</h3>
+<p>Direct quote (Oct 12, 2023): "Prudence is only god-honest prudence if it is painful. Painful prudence will lead to outrageously good capital allocation standards. No capital/time will be deployed unless 9-10/10."</p>
+<p><strong>Why painful?</strong> Because if standards feel comfortable, you haven't raised them high enough. True high standards feel like you're being too demanding — that's how you know they're real.</p>
+<h3 id="the-will-it-make-the-boat-go-faster-principle">The "Will It Make the Boat Go Faster?" Principle</h3>
+<p>Applied to capital allocation:
+1. <strong>Raise standards</strong>
+2. <strong>Do that via painful prudence</strong> (don't compromise)
+3. <strong>Prudence will lead to less low-quality bets/activities/risk being taken</strong></p>
+<p>Direct quote: "What is the behaviour that will make the boat go faster? That is prudence."</p>
+<h3 id="operationalizing-high-standards-oct-12-2023">Operationalizing High Standards (Oct 12, 2023)</h3>
+<p>Exhibit painful prudence in:
+- <strong>Forecasts</strong> — Be prudent in estimates; err conservative
+- <strong>Frame</strong> — Be prudent in how you set thesis boundaries; don't claim more certainty than you have
+- <strong>Acknowledgement of magnitude</strong> — Accept that things can go very wrong; acknowledge downside risks explicitly
+- <strong>Capital allocation recommendations</strong> — Only recommend capital deployment when risk/reward is "fantastically skewed"
+- <strong>Standards for colleagues</strong> — What you expect and allow of team; don't compromise
+- <strong>Most primarily:</strong> Painful prudence in relation to capital being at risk. "We only 'bet' when the risk/reward is fantastically skewed. We only do that call when the risk/reward looks superb. We only spend that time if the ROI looks great in relation to our aims/objectives."</p>
+<h3 id="the-9-1010-bar">The 9-10/10 Bar</h3>
+<p>Radical raising of capital allocation standards post-2022 catastrophe.</p>
+<p><strong>Question before deploying capital or time:</strong> "Is this 9-10/10? Or is it 8/10 disguised as 9/10?"</p>
+<p>Corollary: Most opportunities are 7-8/10. Walk past them. Wait for 9-10/10 setups.</p>
+<h3 id="trading-in-the-zone-integration-oct-2023">Trading in the Zone Integration (Oct 2023)</h3>
+<p>Richard integrated Mark Douglas's "Trading in the Zone" framework, emphasizing the five primary trading fears to manage:</p>
+<ol>
+<li><strong>Being wrong</strong></li>
+<li><strong>Losing money</strong></li>
+<li><strong>Missing out</strong></li>
+<li><strong>Leaving money on the table</strong></li>
+<li><strong>Fear of future regret</strong></li>
+</ol>
+<p>Direct quote (Oct): "I don't give a hoot about anything apart from picking great stocks — I'm totally focused. Like the woman golfer and the train. The building could be falling down and I will be reading annual reports."</p>
+<p><strong>Implication:</strong> By focusing obsessively on stock quality (the one thing you control), you inoculate yourself against all five fears.</p>
+<h3 id="watson-coaching-prompts-painful-prudence">Watson Coaching Prompts — Painful Prudence</h3>
+<ol>
+<li>
+<p><strong>On capital allocation:</strong> Is this decision 9-10/10 or 8/10 disguised as 9/10? If uncertain, wait.</p>
+</li>
+<li>
+<p><strong>On standards:</strong> Are the standards you've set making you uncomfortable (painful)? If they feel natural/easy, they're not high enough.</p>
+</li>
+<li>
+<p><strong>On fear management:</strong> Which of the five trading fears is most active in your decision-making right now? How are you addressing it?</p>
+</li>
+<li>
+<p><strong>On opportunity cost:</strong> What are you NOT doing by saying no to 7-8/10 opportunities? Is the opportunity cost material?</p>
+</li>
+</ol>
+<hr>
+<h2 id="13-near-term-blindspot-critical-weakness">13. NEAR-TERM BLINDSPOT (Critical Weakness)</h2>
+<h3 id="the-pattern-richards-self-identified-major-weakness">The Pattern (Richard's Self-Identified Major Weakness)</h3>
+<p>"Most of my errors come from having to cut near-term (6-18 months) estimates and growth rates for NT/MT due to worse-than-expected operating momentum, and then realising that the near-term problem is likely to continue for multiple years. The magnitude of my loss depends on how quickly I realise that error."</p>
+<p><strong>Translation:</strong> Richard consistently underestimates the probability and magnitude of near-term earnings deterioration.</p>
+<h3 id="evidence-from-track-record">Evidence from Track Record</h3>
+<ol>
+<li><strong>Sdiptech:</strong> Near-term negatives surfaced; couldn't fall back on LT conviction because quality was mediocre.</li>
+<li><strong>Medartis (2020-23):</strong> Supply/demand momentum hard to track; multiple "surprises" that shouldn't have been.</li>
+<li><strong>XVIVO:</strong> "Too much detail, no simple ACH invalidation guide" — near-term execution issues masked by complexity.</li>
+</ol>
+<h3 id="mitigation-strategy">Mitigation Strategy</h3>
+<p><strong>Richard's stated improvement:</strong> "Size smaller and expect volatility and expect earnings misses."</p>
+<p><strong>Practical protocol:</strong>
+1. <strong>Reduced sizing on high-uncertainty near-term positions.</strong> If NT earnings are binary or hard to forecast, size 8-10% not 12-15%.
+2. <strong>Explicit near-term monitoring checklist.</strong> Weekly review of: guidance changes, sell-side estimate revisions, operational metrics (order flow, pricing, volumes), management commentary tone.
+3. <strong>Early-warning system.</strong> Define triggers that say "near-term is deteriorating" BEFORE it shows in earnings.
+4. <strong>Accept earnings misses as default.</strong> Most stocks miss 2-3 times per decade. Expect it.</p>
+<h3 id="growth-sweet-spot-20-30-range">Growth Sweet Spot (20-30% Range)</h3>
+<p>"There is definitely a goldilocks earnings/revenue growth 'sweet spot'. It's 20 to 30%. Growing to 30 to 40% (i.e. accelerating). (And less than 10% means inflection unlikely to be happening). Contrast Medartis with Xvivo and Delivery Hero. 20% growth is 10x easier (seriously) to forecast than 50 or 70%."</p>
+<p><strong>Implication:</strong> Avoid both too-slow (10%/no inflection) and too-fast (50%+/hard to forecast). Sweet spot is 20-30% where momentum is clear but not extreme.</p>
+<h3 id="watson-coaching-prompts-near-term-blindspot">Watson Coaching Prompts — Near-Term Blindspot</h3>
+<ol>
+<li>
+<p><strong>On position entry:</strong> What's the NT growth rate for this stock? If &gt;40%, are you sizing it at 8-10% max (because near-term is unpredictable)?</p>
+</li>
+<li>
+<p><strong>On position monitoring:</strong> When did you last update NT earnings estimates? Any revisions this quarter? Any early-warning indicators flashing?</p>
+</li>
+<li>
+<p><strong>On earnings shock readiness:</strong> This stock is due to report earnings in X weeks. What would be a "miss" from consensus? What's your confidence in consensus estimates?</p>
+</li>
+</ol>
+<hr>
+<h2 id="13a-lessons-from-major-mistakes">13A. LESSONS FROM MAJOR MISTAKES</h2>
+<h3 id="bff-the-cockroach-lesson-feb-26-high-priority">BFF — The Cockroach Lesson (Feb-26, HIGH PRIORITY)</h3>
+<p><strong>What happened:</strong>
+- Held position too long despite mounting evidence of deterioration
+- Endowment bias and commitment bias delayed exit decision
+- Share price fell 10-15% on SS downgrade; fear of future regret (FOFR) paralyzed action
+- Problems: bad hiring, no respect for great people, bad IR, CFO weird</p>
+<p><strong>The insight:</strong> "Problems are never isolated; first cockroach implies more. Worser, weirder, further, longer—problems compound and extend beyond initial expectations."</p>
+<p><strong>Lesson applied:</strong>
+- Trust gut (felt IR was weird in Jan-26 call)
+- ACH threshold breached = EXIT decisively; don't wait
+- When negative signals accumulate, exponential deterioration ahead
+- "Cockroach theory" — bad news is always first suppressed by actors in system; second and third cockroaches usually emerge</p>
+<p><strong>Coaching tension:</strong> Richard knew intellectually to exit but allowed emotion (FOFR) to delay action.</p>
+<h3 id="xvivo-the-complexity-trap-jan-26-high-priority">XVIVO — The Complexity Trap (Jan-26, HIGH PRIORITY)</h3>
+<p><strong>What happened:</strong>
+- Position built on "potential" without focus on execution
+- "Do the basics" — errors took too long to solve (kidney issues in US)
+- Too much detail, no simple invalidation guide; got lost in trees, missed forest
+- Errors in one organ = first cockroach; same pattern as BFF
+- "Learning all that stuff was trees not wood. Narrow frame distraction"</p>
+<p><strong>Root causes:</strong>
+- Business has legacy moat, not reinvestment moat or execution moat
+- CFO assessed as "poor — bottom quartile"; alone should invalidate
+- Case was too complex to state simply; not "hell yeah"
+- Too many moving parts; hard to monitor</p>
+<p><strong>Lesson:</strong>
+- Judge companies on what they DO (execution), not what they COULD do (potential)
+- If you can't state case simply, don't invest
+- If CFO is bottom quartile, exit; culture and execution are non-delegable
+- "Too complex" is itself an invalidation reason</p>
+<h3 id="instalco-emotional-discipline-failure-july-2021">Instalco — Emotional Discipline Failure (July 2021)</h3>
+<p><strong>What happened:</strong>
+- Trimmed 4% due to raw material inflation worries in broker note
+- SP up 30% subsequently
+- Underlying concerns were fair/justified, but execution was panicky/rushed
+- "Feels mature and calm to take risk off, but that's chimp brain tricking you"</p>
+<p><strong>Root cause:</strong>
+- Let analyst (Pedro) emotional flappiness influence independent judgment
+- Pedro didn't even know % of cost base from raw materials
+- Richard was not calm; reacted to broker note like follower, not decision-maker</p>
+<p><strong>Lesson:</strong>
+- Trust own assessment far more highly than analyst emotional state
+- Preserve independent emotional energy
+- Distinction: temporary cost worries (add on dislocation) vs. permanent structural shift (exit)
+- Chimp brain panic often disguises itself as mature risk management</p>
+<p><strong>How to prevent:</strong> Slow down. Breathe. Reorient to Observer mode. Ask: "Is this really threatening the thesis, or is it noise?"</p>
+<h3 id="greggs-abrogating-decision-making-authority-2020">Greggs — Abrogating Decision-Making Authority (2020)</h3>
+<p><strong>What happened:</strong>
+- Richard wanted to own; analyst (Pedro) was "freaked out" by pre-mortem
+- Richard deferred to analyst concern and missed 25% YTD + 15% in Nov/Dec
+- Later: "I am the decision maker. I've paid for this lesson in hard P&amp;L."</p>
+<p><strong>Root cause:</strong>
+- Analyst risk aversion ≠ PM's problem
+- Richard abdicated judgment to team member
+- Couldn't hold conviction despite uncertainty</p>
+<p><strong>Lesson:</strong>
+- Form own judgment. Force yourself to a conclusion.
+- Never abrogate responsibility for decision to analyst
+- Margin-of-safety reduces need for narrow forecasts
+- Analyst discomfort with aleatory risk is expected; don't let it override your confidence</p>
+<h3 id="protector-quality-misjudgement-march-2020">Protector — Quality Misjudgement (March 2020)</h3>
+<p><strong>What happened:</strong>
+- Bought at 40-50 NOK, sold at 25 NOK in March 2020, went to 95 NOK by June 2021
+- CEO resigned; spoke to UK team, struggled to get conviction
+- In hindsight: "They're a mediocre insurer by Scandinavian standards, on a cheap multiple"</p>
+<p><strong>Lesson:</strong>
+- Over-estimated quality at entry
+- If you're losing conviction, exit (don't stay out of sunk cost)
+- But accept sometimes you get it wrong (aleatory risk, as he notes)
+- Protector was technically oversold in March 2020, but fundamentally not compelling anyway</p>
+<h3 id="medartis-complexity-poor-strategy-2020-23">Medartis — Complexity &amp; Poor Strategy (2020-23)</h3>
+<p><strong>What happened:</strong>
+- CEO seemed good but wasn't; NSI deal in US seemed good but was actually "ideas not real products"
+- Expansion into Lower Extremities failed; company had no right to win
+- Huge change, hard to track, much of it aleatory</p>
+<p><strong>Lesson:</strong>
+- When corporate strategy involves buying "ideas" not real products, risk is high
+- Expansion into adjacent segments without proven capability = red flag
+- Keep away from high-change situations unless changes are "explosive, narrowly defined"
+- "A bunch of sexy sounding ideas that are thrown at a wall can catch a bid. But it's poor risk/reward as an investment."</p>
+<h3 id="goodwin-ir-fragility-in-small-caps-24-mar-26">Goodwin — IR Fragility in Small Caps (24-Mar-26)</h3>
+<p><strong>What happened:</strong>
+- Share price down 40% because expected contract didn't come through
+- Poor investor support + lack of IR contribution = fragility
+- Small-cap businesses are fundamentally more fragile to IR failures</p>
+<p><strong>Lesson:</strong>
+- "Reiterate the lesson and standard re. helpful and conservative investor relations"
+- In small caps, IR matters more; bad IR = silent amplifier of bad news
+- Good IR ("positive layering") prevents SP dislocations; bad IR creates them</p>
+<h3 id="adyen-predictability-timing-18-mar-26">Adyen — Predictability &amp; Timing (18-Mar-26)</h3>
+<p><strong>What happened:</strong>
+- Growth reset in Feb; SP from 1400 to 850
+- Teaches: predictability, waiting for bottom, concentration risk</p>
+<p><strong>Lesson:</strong>
+- When growth thesis breaks, resets can be severe
+- Distinguish between inflection still working (add) and inflection breaking (exit)
+- Watch for predictability loss; when it happens, growth stocks suffer most</p>
+<h3 id="watson-coaching-prompts-lessons">Watson Coaching Prompts — Lessons</h3>
+<ol>
+<li>
+<p><strong>On cockroach pattern:</strong> If this position has had one negative surprise, what's the second cockroach? Have you pre-defined what would trigger full exit?</p>
+</li>
+<li>
+<p><strong>On complexity:</strong> Can you state this investment case in 2-3 sentences? If not, simplify or exit.</p>
+</li>
+<li>
+<p><strong>On emotional discipline:</strong> When analyst raises concern, what's your process? Do you re-check the analysis, or do you let emotional tone influence your judgment?</p>
+</li>
+<li>
+<p><strong>On quality assessment:</strong> At entry, what was your quality rating (out of 10)? Has it changed? If it's &lt;7.5 now, exit is probable.</p>
+</li>
+<li>
+<p><strong>On contrarian conviction:</strong> Are you holding a position that your team hates? Are you right, or are you being stubborn? How do you distinguish?</p>
+</li>
+</ol>
+<hr>
+<h2 id="14-self-image-work-emotional-recovery-may-2023">14. SELF-IMAGE WORK &amp; EMOTIONAL RECOVERY (May 2023)</h2>
+<p><strong>Source:</strong> May 14, 2023 (15,121 characters). Pivotal moment in Richard's psychological recovery from 2022 catastrophe.</p>
+<h3 id="the-assertion-i-am-at-the-top-table">The Assertion: "I Am at the Top-Table"</h3>
+<p>After -54.75% drawdown in 2022, Richard explicitly re-asserted his capabilities (May 14, 2023):</p>
+<p><strong>Direct quotes (May 14, 2023):</strong>
+- "I am at the top-table" (compared to Gorm and others)
+- "Chicago invested in me, not anything else" (reminder of his track record)
+- "I have a world-class investment mind and process. I simply need to Frank Slootman myself" (Slootman = extreme execution discipline)
+- "The only limiter is my intensity" (not capability)</p>
+<h3 id="connection-to-with-winning-in-mind">Connection to "With Winning in Mind"</h3>
+<p>Richard actively read Lanny Bassham's foundational sports psychology book and integrated it deeply:</p>
+<p><strong>Key integration (May 14, 2023):</strong>
+- "Winners are convinced they'll finish first. Others hope to finish first"
+- <strong>Daily execution scoring:</strong> "I rate my score daily. Just like the alternative golf scoring system of rating your execution each shot out of 10, not the number of shots I take"
+- "I don't think about winning and outcomes in the middle of the investing day. I focus on executing my mental routines and my investing fundamentals"
+- "Set a goal of delivering a winning performance, not actually winning"</p>
+<h3 id="steve-ward-coaching-integration">Steve Ward Coaching Integration</h3>
+<p><strong>Micro-recharging system</strong> (from coaching):
+- 10-minute walk
+- 2 minutes of deep breathing
+- 5 minutes of meditation</p>
+<p><strong>4Cs framework:</strong> Referenced but not fully detailed; relates to commitment vs. motivation.</p>
+<h3 id="cookie-jar-principle">"Cookie Jar" Principle</h3>
+<p>From Steve Ward: Maintain running log of wins/achievements to:
+1. Combat outcome-based emotional turbulence
+2. Remind yourself of capability during drawdowns
+3. Build internal reference point independent of recent returns</p>
+<h3 id="the-mission-driven-portfolio-focus-may-14-2023">The Mission-Driven Portfolio Focus (May 14, 2023)</h3>
+<p>Emerging from May reflection: "Mapping out the potential investment universe and then high cadence parsing through them all is the key. I then unearth a handful of totally mispriced gems. BFF style companies. These are quality that do not look like quality. And invest hard."</p>
+<p><strong>This crystallizes the target thesis:</strong> Mission-driven, customer-centric companies that are undervalued because quality is hard to model in Excel.</p>
+<h3 id="watson-coaching-prompts-self-image">Watson Coaching Prompts — Self-Image</h3>
+<ol>
+<li>
+<p><strong>On intensity:</strong> What's your current intensity level (1-10)? Is it limiting your performance? What would move it?</p>
+</li>
+<li>
+<p><strong>On mental routines:</strong> Do you have pre-decision mental routines (breathing, clarity check, framework review)? Or are you deciding emotionally?</p>
+</li>
+<li>
+<p><strong>On daily scoring:</strong> Are you tracking execution quality daily? Or just tracking returns?</p>
+</li>
+<li>
+<p><strong>On capability reminder:</strong> When did you last acknowledge a win? What's in your cookie jar?</p>
+</li>
+</ol>
+<hr>
+<h2 id="15-leakage-journal-error-tracking-sept-2023">15. LEAKAGE JOURNAL &amp; ERROR TRACKING (Sept 2023)</h2>
+<p><strong>Source:</strong> September 27, 2023 (41,508 characters). Operational framework for preventing repetition of past errors.</p>
+<h3 id="core-concept">Core Concept</h3>
+<p>Direct quote (Sept 27, 2023): "A collection of errors in the past, to viscerally make me not do them again. Reminds me of Goggins and his collection of criticisms."</p>
+<p><strong>Purpose:</strong> Don't just intellectually know mistakes; viscerally feel them so they become emotional anchors preventing repetition.</p>
+<h3 id="parallel-tracking">Parallel Tracking</h3>
+<p>Maintain TWO journals simultaneously:
+1. <strong>Leakage journal</strong> — Errors, mistakes, poor decisions, P&amp;L leaks
+2. <strong>Celebration journal</strong> — Wins, great decisions, perfect executions</p>
+<p><strong>Reason:</strong> Both are important for self-calibration. Leakage prevents overconfidence; celebration prevents self-doubt.</p>
+<h3 id="specific-stocks-for-leakage-journal">Specific Stocks for Leakage Journal</h3>
+<p>Richard explicitly noted: "Write up the errors of an Entain. To remind me of what not to do."</p>
+<p>Other candidates:
+- BFF (cockroaches, exit discipline failure)
+- XVIVO (complexity trap, overestimating potential)
+- Kainos (signal escalation failure, team communication breakdown)
+- Keywords (analysis paralysis, drowning in detail)</p>
+<h3 id="pattern-recognition-via-leakage">Pattern Recognition via Leakage</h3>
+<p>Systematic review of leakage journal surfaces recurring patterns:
+1. Oversizing in volatility (position becomes too large relative to conviction)
+2. Exiting late (holding through clear red-line breaches)
+3. Team emotional contagion (letting analyst fear influence judgment)
+4. Complexity creep (case becomes too detailed to state simply)</p>
+<h3 id="watson-coaching-prompts-leakage-journal">Watson Coaching Prompts — Leakage Journal</h3>
+<ol>
+<li>
+<p><strong>On recent losses:</strong> What's the leakage lesson? What would prevent this mistake next time?</p>
+</li>
+<li>
+<p><strong>On pattern detection:</strong> Scanning your leakage journal, what's the #1 recurring theme?</p>
+</li>
+<li>
+<p><strong>On visceral learning:</strong> Can you name 3 mistakes so viscerally that thinking of them creates slight physical reaction (mild discomfort)? That's the target.</p>
+</li>
+</ol>
+<hr>
+<h2 id="16-josh-tarasoff-end-game-logic-july-2023">16. JOSH TARASOFF / END-GAME LOGIC (July 2023)</h2>
+<p><strong>Source:</strong> July 10, 2023 (35,214 characters). Watershed integration of long-termism and feedback loop thinking into investment philosophy.</p>
+<h3 id="the-self-driving-portfolio-concept">The Self-Driving Portfolio Concept</h3>
+<p>Richard reads Josh Tarasoff essay on long-termism and integrates deeply.</p>
+<p><strong>Core insight:</strong> Infinite time horizons instead of finite time frames. Ask not "can this double in 3 years?" but "will this business compound durably for decades?"</p>
+<h3 id="positive-feedback-loops-are-necessary">Positive Feedback Loops Are Necessary</h3>
+<p>Direct quote from Tarasoff (emphasized by Richard, July 10): "My point is not merely that positive feedback loops are good; it is that they are necessary for reliable and durable long-term growth."</p>
+<p><strong>Implication:</strong> Businesses without reinforcing positive feedback loops will eventually plateau or decline. Look for self-reinforcing mechanisms:
+- Customer acquisition → improved product → more customers
+- Scale → lower costs → better prices → more scale
+- Talent attraction → better product → more talent</p>
+<h3 id="the-1-companies-framework">The 1% Companies Framework</h3>
+<p>Richard articulates (July 10, 2023):
+- "10% of companies have structural ('hard') relative competitive advantages" (patents, network effects, scale)
+- "10% have ('soft') competitive advantages" (culture, brand, customer relationships)
+- <strong>"1% have both hard and soft competitive advantages. Holistic pan-system congruence between it all"</strong></p>
+<p><strong>Target universe:</strong> That 1%. Everything else is compromise.</p>
+<h3 id="mission-driven-culture-as-competitive-advantage">Mission-Driven Culture as Competitive Advantage</h3>
+<p>Major theme emerging from July: "A mission is an objective pursued for its own sake. A mission confers meaning and mastery to those who pursue it."</p>
+<p>Example given: "Wise plc is clearly, clearly mission led. Its purpose (with a clear dimension of moral imperative in it) is so clear."</p>
+<p><strong>Why it matters:</strong> Mission-driven companies:
+1. Attract talent more easily
+2. Have higher employee retention
+3. Can endure lower short-term profits for long-term mission alignment
+4. Are more resilient to disruption (purpose &gt; profit drives decisions)</p>
+<h3 id="the-overwhelming-logic-test-end-game-logic">The "Overwhelming Logic" Test (End-Game Logic)</h3>
+<p>When applying Tarasoff's framework, ask: "Is there overwhelming gravitational pull toward this company being dominant long-term?"</p>
+<p>Examples from July:
+- <strong>Trupanion:</strong> Strong organic growth, no debt, proven model; not overwhelming (could be disrupted)
+- <strong>Ryanair:</strong> Can capacity stay out? Can prices rise 3-4Y? Not obvious (could lose discipline)
+- <strong>BFF:</strong> Customer-centric, mission-driven, structural advantages, soft SRCA; could have overwhelming pull IF all three elements align</p>
+<p><strong>Non-examples (July 10):</strong>
+- <strong>Evolution:</strong> "Customers disintermediating suppliers... There is not an overwhelming gravitational pull towards a supplier being dominant over time; the opposite"</p>
+<h3 id="intelligent-fanatics-charlie-munger-medium-articles">Intelligent Fanatics (Charlie Munger / Medium Articles)</h3>
+<p>Richard references Charlie Munger's concept of "Intelligent Fanatics" (July 10, 2023):</p>
+<p><strong>Key characteristics:</strong>
+1. <strong>Customer centricity</strong> — Creation of massive surplus customer utility
+2. <strong>Shareholder value second</strong> — Focus on customer value first; shareholder returns follow
+3. <strong>Long-term patience</strong> — "Costco share price was flat for six years prior to Nomad's investment. Great business not the same as great investment at a given point"</p>
+<p>Direct quote: "Intelligent fanatics often are ridiculed until it's obvious. Bezos. Ashley [Furniture]."</p>
+<h3 id="watson-coaching-prompts-end-game-logic">Watson Coaching Prompts — End-Game Logic</h3>
+<ol>
+<li>
+<p><strong>On gravitational pull:</strong> Is there "seemingly inevitable" dominance for this company, or is it just a good business?</p>
+</li>
+<li>
+<p><strong>On mission-driven:</strong> Can you articulate the company's mission in non-financial terms? Is it native to the business or bolted on?</p>
+</li>
+<li>
+<p><strong>On positive loops:</strong> What reinforces success over time? Customer acquisition? Scale? Talent? Culture? Or does the flywheel eventually flatten?</p>
+</li>
+<li>
+<p><strong>On the 1%:</strong> Does this company have BOTH hard SRCA and soft SRCA (culture/mission)? Or just one?</p>
+</li>
+</ol>
+<hr>
+<h2 id="17-coaching-tensions-meta-patterns">17. COACHING TENSIONS &amp; META-PATTERNS</h2>
+<h3 id="tension-1-conviction-vs-exit-discipline">Tension 1: CONVICTION vs. EXIT DISCIPLINE</h3>
+<p>Richard has extraordinary conviction (strength) but struggles with exit discipline (weakness).</p>
+<p><strong>The pattern:</strong>
+1. Builds conviction quickly (pattern recognition)
+2. Oversizes on conviction
+3. Becomes vulnerable to volatility
+4. Panics or doubts when volatility manifests
+5. Either holds too long or exits at wrong time (reactive)</p>
+<p><strong>The solution:</strong> Decouple conviction from position sizing. Build explicit rules for position management that don't require constant re-conviction.</p>
+<p><strong>Practical:</strong> "I have conviction in thesis (conviction = 8/10). But I'm going to hold size to 10% because volatility bands are wide. If positives materialize, I can add to 12-15%."</p>
+<h3 id="tension-2-intuition-vs-analysis">Tension 2: INTUITION vs. ANALYSIS</h3>
+<p>Richard's pattern recognition (intuition) is exceptional, but he sometimes dismisses detailed analysis from team when it contradicts intuition (Instalco, Greggs). Yet when team analysis has merit, he misses it.</p>
+<p><strong>The solution:</strong> Develop protocol for evaluating when to override team vs. when to integrate it.</p>
+<p><strong>Likely:</strong> Override on pure judgment calls (is CEO good? Is inflection real?). Integrate on detail-oriented analysis (supply chain, costs, technical execution).</p>
+<h3 id="tension-3-speed-vs-quality">Tension 3: SPEED vs. QUALITY</h3>
+<p>Richard's strength is action and decisiveness, but April 10, 2025 trade shows cost of hurried execution. He states "good plan executed &gt; great plan in drawer" but trading logs show intra-day impulsive buying ("paid 2% too high on average").</p>
+<p><strong>The solution:</strong> Create distinction between "must decide now" decisions (portfolio allocation) and "can wait for better setup" decisions (entry price).</p>
+<p><strong>Likely:</strong> Decision speed required for allocation = fast. Entry price quality = can wait for 10-20% better opportunity.</p>
+<h3 id="tension-4-theory-vs-practice">Tension 4: THEORY vs. PRACTICE</h3>
+<p>Richard's notes show he knows the right answers (size smaller, expect earnings misses, hold through sell-offs, trust own judgment) but admits inconsistent execution.</p>
+<p><strong>This is not ignorance; it's a discipline/emotional regulation gap.</strong></p>
+<p><strong>The solution:</strong> Focus on execution consistency, not more frameworks. Richard needs behavioral protocols, not more analysis.</p>
+<p><strong>Practical:</strong> "If position falls 20%, I add 3-5%. No debate. This is pre-committed." Not "I'll see how I feel and decide."</p>
+<h3 id="tension-5-complexity-vs-simplicity">Tension 5: COMPLEXITY vs. SIMPLICITY</h3>
+<p>Richard's natural depth of analysis pulls him toward complexity, but his best investing is simple and case-centric.</p>
+<p><strong>Pattern:</strong> Generates complex insights faster than he completes simple ones. Marked with "FINISH THIS" repeatedly.</p>
+<p><strong>The solution:</strong> "Simple + completed &gt; complicated + incomplete."</p>
+<p>Create rule: "Every investment case must fit on one page. If it doesn't, it's not ready to invest."</p>
+<h3 id="tension-6-team-influence-susceptibility">Tension 6: TEAM INFLUENCE SUSCEPTIBILITY</h3>
+<p>Richard intellectually knows to ignore poor team analysis but admits being influenced by it emotionally (Instalco: Pedro's flappiness, Greggs: Pedro's fears).</p>
+<p><strong>The solution:</strong> Separate "judgment calls" (where Richard trusts own intuition) from "detailed analysis" (where Richard integrates team input).</p>
+<p>Also: Preserve emotional independence. Recognize when team emotional state is contagious; interrupt it with calm analysis.</p>
+<hr>
+<h2 id="18-team-accountability-independent-judgment-jan-may-2023">18. TEAM ACCOUNTABILITY &amp; INDEPENDENT JUDGMENT (Jan-May 2023)</h2>
+<p><strong>Source:</strong> January 10, 2023 feedback to Pedro; May 2023 refinements on team dynamics.</p>
+<h3 id="the-core-issue-jan-10-2023">The Core Issue (Jan 10, 2023)</h3>
+<p>Extensive feedback to Pedro on his performance on Marlowe project (which was negative/parked):</p>
+<p><strong>Richard's criticisms:</strong>
+- "Too emotional — lets his emotions on a day totally colour his analysis/judgement on a day; highly distortive"
+- "Too focused on information gathering, avoiding uncertainty; improvement is to focus time/effort on judgement"
+- "Too keen to do as RB asks / please RB" — adapting analysis towards what he thinks Richard wants rather than being objective
+- Not independent enough — "balance best of both worlds (being a super team player + doing as asked, in broad terms) with doing what is right"
+- Model too optimistic: 7x EBITDA multiples, too high cash conversion assumptions
+- Should have acted on red flags earlier and more forcefully
+- Didn't use checklists/mental models effectively</p>
+<h3 id="meta-feedback-from-javier-latondra-jan-10-2023">Meta-feedback from Javier Latondra (Jan 10, 2023)</h3>
+<p>Direct quote: "I feel you were very clear about your views and a bit intense with PR. I feel the way you treat PR should be different to the way you treat EW or the way you deal with me... I feel PR struggles taking the opposite view once you have made your mind about something. He feels pressured."</p>
+<p><strong>Richard's response shows integration of feedback:</strong>
+- Instill urgency where appropriate (don't lose discipline)
+- Always lay out frame and key questions
+- Speak in objective, calm language
+- Remind of need for "judgement" vs. analysis/information gathering
+- Exert time pressure as constraint (forces decision; prevents endless research)
+- Avoid pressuring by sharing conclusions — focus on KQs instead</p>
+<h3 id="team-patterns-from-2022-oct-2022-offsite">Team Patterns from 2022 (Oct 2022 Offsite)</h3>
+<p>From Dorking offsite (Sept-Oct 2022), Richard learned:</p>
+<p><strong>Psychological Safety Lesson:</strong> "We didn't cut Kainos numbers earlier because subconsciously we didn't want to acknowledge we were wrong"</p>
+<p><strong>Richard's realization:</strong> Need culture of airlines (acknowledge error) not hospitals (hide error). Psychological safety is key to empowered leadership.</p>
+<h3 id="standards-of-execution-oct-2022">Standards of Execution (Oct 2022)</h3>
+<p>"Standards of performance must be executed without being explicitly asked/directed. Common, consistent understanding of shared principles. Proactive action required."</p>
+<p><strong>Explicit unit definitions:</strong>
+- <strong>Individual:</strong> Self
+- <strong>Function:</strong> E.g., James Ferguson's function = insights
+- <strong>Team:</strong> E.g., investing
+- <strong>Firm:</strong> Viewforth</p>
+<p>Clarity prevents confusion and overlapping expectations.</p>
+<h3 id="key-insight-decision-authority-clarity-jan-10-2023">Key Insight: Decision Authority Clarity (Jan 10, 2023)</h3>
+<p>Richard notes: "I am the decision maker. ALWAYS form my own judgment on a stock. Force myself to get to a conclusion. Never abrogate responsibilities to the analyst for judgement. They're an advisory resource. I'm the Decision-maker."</p>
+<p><strong>But he also learned:</strong> "I let Pedro's lack of attention to detail and his emotional flappiness influence me. I need to trust my own assessment and judgement far, far more highly than his, and preserve my independent emotional energy."</p>
+<h3 id="integration-trust-own-judgment-integrate-details">Integration: Trust Own Judgment, Integrate Details</h3>
+<p><strong>The skill:</strong> Trust your own judgment on investment case and conviction. Don't let team nervousness or emotional contagion override your analysis.</p>
+<p><strong>But also:</strong> Integrate team analysis on details (supply chains, management quality, competitive dynamics). They're experts on those things.</p>
+<p><strong>Distinction:</strong> 
+- You: Investment thesis, conviction, allocation decisions
+- Team: Detailed analysis, red-flag detection, operational metrics</p>
+<h3 id="watson-coaching-prompts-team-dynamics">Watson Coaching Prompts — Team Dynamics</h3>
+<ol>
+<li>
+<p><strong>On analyst influence:</strong> When team member raises concern, what's your process? Do you want to dismiss and override, or integrate and reconsider? How did you decide?</p>
+</li>
+<li>
+<p><strong>On emotional contagion:</strong> Is team anxiety (or excitement) influencing your judgment? How do you recognize and interrupt it?</p>
+</li>
+<li>
+<p><strong>On red-flag escalation:</strong> Does your team have clear protocol for escalating concerns? Or do you find out about problems too late?</p>
+</li>
+<li>
+<p><strong>On independence:</strong> Have you let someone else's lack of conviction become your lack of conviction? Or are you forcing yourself to your own conclusion?</p>
+</li>
+</ol>
+<hr>
+<h2 id="19-synthesis-the-hierarchy">19. SYNTHESIS — THE HIERARCHY</h2>
+<h3 id="the-most-critical-rules-in-order-of-impact">The Most Critical Rules (in order of impact)</h3>
+<ol>
+<li>
+<p><strong>Conviction in investment case across IT/NT/MT/LT timeframes</strong> — determines sizing, holding conviction through drawdowns, and exit timing. Without this, everything else is guesswork.</p>
+</li>
+<li>
+<p><strong>Defined red-line invalidation criteria per timeframe</strong> — prevents boiling frog, enables decisive action, creates pre-commitment to exit rules.</p>
+</li>
+<li>
+<p><strong>Position sizing discipline</strong> (80% rule, max position 12-15%, tier sizing to conviction) — controls risk, prevents emotion from sizing, enables adding on dislocations.</p>
+</li>
+<li>
+<p><strong>Capital allocation decisiveness</strong> — early big bets when thesis is clear, ruthless opportunity cost discipline, willingness to exit problem children.</p>
+</li>
+<li>
+<p><strong>Emotional management &amp; fire avoidance</strong> — rehearsing bad futures, accepting drawdowns as default, distinguishing chimp brain from observer mode.</p>
+</li>
+<li>
+<p><strong>Liquidity management &amp; factor diversification</strong> — control rod principle, buffer to add, prevents correlation clustering.</p>
+</li>
+<li>
+<p><strong>Signal-to-action conversion</strong> — when monitoring detects red-line, execute action (not debate); when team flags signal, escalate immediately.</p>
+</li>
+<li>
+<p><strong>Near-term monitoring discipline</strong> — expect earnings misses, track early-warning indicators, size smaller on NT uncertainty.</p>
+</li>
+</ol>
+<hr>
+<h2 id="20-the-33-explicit-lessons-from-2022-deep-sweep">20. THE 33 EXPLICIT LESSONS FROM 2022 DEEP SWEEP</h2>
+<p><strong>Source:</strong> roam-2022-deep-sweep.md, extracted from 299 daily journal entries across full -54.75% drawdown year.</p>
+<p><strong>These are Richard's own extractions; verbatim from his journal:</strong></p>
+<ol>
+<li>
+<p><strong>Stop starting, start finishing</strong> (Jan 10, 2022) — Execution discipline matters more than ideation. Finish 10-15 ideas properly vs 50 half-baked ones.</p>
+</li>
+<li>
+<p><strong>CEO wait period: 12-18 months</strong> (Jan 10, 2022) — New leadership needs time to develop and implement strategy. Before 12m, share price too speculative.</p>
+</li>
+<li>
+<p><strong>It's all about the people</strong> (Jan 10, 2022) — People + culture critical to investment case. HQI scorecard essential. Most businesses are people businesses.</p>
+</li>
+<li>
+<p><strong>Deep industry knowledge is critical</strong> (Jan 10, 2022) — Moving away from stock-level to sector-level understanding. Build proprietary knowledge base and research network.</p>
+</li>
+<li>
+<p><strong>Goldilocks growth: 20-30%</strong> (Jan 10, 2022) — 20% growth is 10x easier to forecast than 50% or 70%. Less exposed to rate rise concerns. Sexy isn't always smart.</p>
+</li>
+<li>
+<p><strong>Avoid distant geographies</strong> (Jan 10, 2022) — Based on Paolo Mortarotti lessons. Lack holistic ecosystem understanding; false confidence from valuation.</p>
+</li>
+<li>
+<p><strong>Avoid new sectors without deep knowledge</strong> (Jan 10, 2022) — Technology and medtech high-risk zones. Haven't done medtech in 10+ years. Risk of 'locals are mugs' false confidence.</p>
+</li>
+<li>
+<p><strong>Don't swing for fences in early years</strong> (Jan 10, 2022) — Keep it simple. Survive early years. Attack complexity when you're good enough. Build to 400lb bench press.</p>
+</li>
+<li>
+<p><strong>Avoid lazy labels and vague descriptions</strong> (Jan 10, 2022) — Write 'tightly, specifically, and with high information-to-word-ratio'. Describe patterns clearly, not just categories.</p>
+</li>
+<li>
+<p><strong>Trust your gut on team</strong> (Jan 10, 2022) — The people around you are there to help you. Know you're the Michael Jordan of your organization.</p>
+</li>
+<li>
+<p><strong>More information doesn't mean higher probability</strong> (Jan 10, 2022) — Higher conviction comes from better insight, not more data. Negative info helps reduce blind spots.</p>
+</li>
+<li>
+<p><strong>Liquidity floor: &gt;$2m ADV minimum</strong> (May 21, 2022) — Discovered harshly with XVIVO and FASADGRUPPEN. Preferably $5m+. Illiquid positions force holding through stress.</p>
+</li>
+<li>
+<p><strong>Position sizing must respect liquidity</strong> (May 21, 2022) — Can't hold 10%+ of company (can't scale up). If you can only own 3%, do you really have conviction?</p>
+</li>
+<li>
+<p><strong>Portfolio must be suited for conditions</strong> (May 21, 2022) — Need nimbleness and dynamism. Can't be locked in illiquid microcaps during volatility.</p>
+</li>
+<li>
+<p><strong>Sell into strength on surprise moves</strong> (May 21, 2022) — If surprised by price move up, likely to soften next day on lower volume. Execute sizing framework immediately.</p>
+</li>
+<li>
+<p><strong>Track record on pair trades</strong> (May 21, 2022) — Most pair trading creates minimal value (LSD% p.a.). Beware of overconfidence in market timing.</p>
+</li>
+<li>
+<p><strong>Business value focus over fund returns</strong> (Jun 2022) — Focus on 1-3Y business value, not monthly/quarterly fund returns. Longer-term perspective needed.</p>
+</li>
+<li>
+<p><strong>Avoid weak IRRs with good forecasts + discipline</strong> (Jun 2022) — Two levers: accurate forecasts and valuation discipline. Both essential to avoid multiple compression losses.</p>
+</li>
+<li>
+<p><strong>Static portfolio count, dynamic sizing</strong> (Jun 2022) — Keep fixed number of stocks; let sizing framework do the work. Easier to avoid mistakes than constantly accordioning.</p>
+</li>
+<li>
+<p><strong>Business analysis is the art, portfolio construction is science</strong> (Jun 2022) — Creativity most valuable in stock research, not in portfolio construction. Use systematic approach for sizing.</p>
+</li>
+<li>
+<p><strong>Culture of airlines, not hospitals</strong> (Oct 2022) — Acknowledge errors immediately (airlines) vs hide them (hospitals). Psychological safety essential for team.</p>
+</li>
+<li>
+<p><strong>One negative team member saps whole group</strong> (Oct 2022) — High-pressure situations, one wrong attitude destroys team. Don't bring people into battle if they're wrong fit.</p>
+</li>
+<li>
+<p><strong>Subconscious avoidance of being wrong</strong> (Oct 2022) — Team didn't cut KAINOS numbers earlier because didn't want to admit being too optimistic. Confront this pattern directly.</p>
+</li>
+<li>
+<p><strong>Speak your truth without fear of judgment</strong> (Apr 1, 2022) — Core pattern work: conflict avoidance and people-pleasing. Must express feelings directly, not suppress them.</p>
+</li>
+<li>
+<p><strong>Psychological safety: foundation of empowered leadership</strong> (Oct 2022) — One of the tenets of 'expectation to lead'. People must feel safe acknowledging mistakes.</p>
+</li>
+<li>
+<p><strong>Define units explicitly: individual, function, team, firm</strong> (Oct 2022) — Clarity in roles and responsibilities prevents confusion. Avoids overlap and mixed expectations.</p>
+</li>
+<li>
+<p><strong>Execution of standards without being asked</strong> (Oct 2022) — Standards of performance must be proactively executed. Common understanding of shared principles.</p>
+</li>
+<li>
+<p><strong>Accept slower execution when delegating</strong> (Oct 2022) — Must 'bite tongue' and let others decide. Delegation inherently slower than solo execution.</p>
+</li>
+<li>
+<p><strong>Inquire Socratically, not directive</strong> (Oct 2022) — Rather than telling, ask wise people for their advice. Let them solve problem in their own way.</p>
+</li>
+<li>
+<p><strong>Never visualize meetings going wrong</strong> (Oct 2022) — Predicting failure creates negative energy visualization. Disrupts team psychology pre-meeting.</p>
+</li>
+<li>
+<p><strong>Downturns are opportunity to upgrade quality</strong> (Jun 2022) — Use multiple compression to buy better quality at depressed prices.</p>
+</li>
+<li>
+<p><strong>Breathing tools for accessing calm</strong> (Apr 1, 2022) — Wim Hof method: 2 minutes, no gaps between breaths, zero breath at end, hold. Accesses psychedelic state.</p>
+</li>
+<li>
+<p><strong>Acidity (negative thoughts) vs alkaline (positive)</strong> (Apr 1, 2022) — Mindset framework. Negative thoughts create acidity; positive create alkalinity.</p>
+</li>
+</ol>
+<hr>
+<h2 id="21-appendix-quick-reference-by-stock">21. APPENDIX: QUICK REFERENCE BY STOCK</h2>
+<p><strong>Stock examples used to illustrate lessons:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stock</th>
+<th>Lesson Type</th>
+<th>Key Quote</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BFF</strong></td>
+<td>Cockroach, ACH threshold, endowment bias</td>
+<td>"ACH threshold breached = EXIT; don't wait"</td>
+<td>lessons-and-mistakes.md</td>
+</tr>
+<tr>
+<td><strong>XVIVO</strong></td>
+<td>Complexity trap, execution over potential, "hell yeah" filter</td>
+<td>"Too complex...not hell yeah = don't invest"</td>
+<td>lessons-and-mistakes.md</td>
+</tr>
+<tr>
+<td><strong>Instalco</strong></td>
+<td>Chimp brain, emotional discipline, team influence</td>
+<td>"Feels mature but that's chimp brain tricking you"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Greggs</strong></td>
+<td>Decision-making authority, conviction, analyst over-influence</td>
+<td>"I am the decision maker"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Protector</strong></td>
+<td>Quality misjudgement, oversold opportunities, conviction loss</td>
+<td>"Market-level sell-off doesn't mean exit fundamentally weak stocks"</td>
+<td>roam-self-analysis.md</td>
+</tr>
+<tr>
+<td><strong>Medartis</strong></td>
+<td>Complexity, management quality, right to win</td>
+<td>"A bunch of sexy ideas caught a bid but poor risk/reward"</td>
+<td>roam-self-analysis.md</td>
+</tr>
+<tr>
+<td><strong>Attendo, Intertrust, Fagron, Britvic</strong></td>
+<td>Mediocre quality + weak inflection</td>
+<td>"All materially underperformed by 10-30% subsequently"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Entain</strong></td>
+<td>Oversold quality, market dislocations, opportunistic adding</td>
+<td>"I can make a lot of money buying oversold companies"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Exasol</strong></td>
+<td>Co-investor risk, management collapse, randomness acceptance</td>
+<td>"Co-investor stability is critical, underappreciated risk"</td>
+<td>roam-self-analysis.md</td>
+</tr>
+<tr>
+<td><strong>Corbion</strong></td>
+<td>Management messaging patterns, inflation skepticism</td>
+<td>"Companies say 'no drama' then admit issues"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Kainos</strong></td>
+<td>Signal escalation failure, team communication, early-warning systems</td>
+<td>"CFO said muted; we assumed he was low-balling; then blamed indicator"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Keywords</strong></td>
+<td>Analysis paralysis, drowning in detail, signal-to-action failure</td>
+<td>"Drowning in unnecessary detail/info/analysis"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Rightmove</strong></td>
+<td>Ballast position, portfolio construction</td>
+<td>"Add to RMV as ballast"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Avanza</strong></td>
+<td>Core holding, quality compounder, IR discipline</td>
+<td>"Keep IR calls financial-centric; must have model ready"</td>
+<td>lessons-and-mistakes.md</td>
+</tr>
+<tr>
+<td><strong>Hilton</strong></td>
+<td>Transformation case, cost-out, recurring revenue</td>
+<td>"Multiple catalysts; model updates required before earnings"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Ocado</strong></td>
+<td>S-curve inflection, margin of safety, humility on causation</td>
+<td>"COVID-driven moves can validate thesis when actually driven by exogenous pull-forward"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+<tr>
+<td><strong>Sdiptech</strong></td>
+<td>Mediocre business hypothesis trade, tight red lines</td>
+<td>"Must have clearly defined ex ante invalidation criteria"</td>
+<td>roam-self-analysis.md</td>
+</tr>
+<tr>
+<td><strong>BFF (2Q21 entry)</strong></td>
+<td>Textbook entry, contractual catalysts not priced</td>
+<td>"Depobank closing, capital freed up, CEO buying—not priced in"</td>
+<td>roam-stock-mentions.md</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="22-bff-framework-quality-that-doesnt-look-like-quality">22. BFF FRAMEWORK: QUALITY THAT DOESN'T LOOK LIKE QUALITY</h2>
+<p><strong>Source:</strong> May 2023 (specifically May 14, 2023, 15,121 chars). Core framework that became central to Richard's portfolio construction philosophy for 2023+.</p>
+<h3 id="the-core-insight-may-14-2023">The Core Insight (May 14, 2023)</h3>
+<p>Direct quote: "Mapping out the potential investment universe and then high cadence parsing through them all is the key. I then unearth a handful of totally mispriced gems. BFF style companies. These are quality that do not look like quality. And invest hard."</p>
+<h3 id="what-quality-that-doesnt-look-like-quality-means">What "Quality That Doesn't Look Like Quality" Means</h3>
+<p><strong>On paper, BFF looks mediocre:</strong>
+- Not a high-growth business (solid 10-12% organic growth)
+- Not a household name (small-cap financial services)
+- Not a visibly obvious competitive advantage (no network effects, patents, or scale moats)</p>
+<p><strong>In reality, BFF is exceptional because:</strong>
+- Customer-centric culture (every decision optimizes for customer value, not revenue)
+- Mission-driven (financial inclusion for working-class people)
+- Mission attracts talent naturally (people want to work there)
+- Talent quality → better execution → better customer outcomes → customer loyalty → pricing power
+- Structural advantage emerges FROM culture, not despite it</p>
+<h3 id="why-markets-misprice-bff-type-companies">Why Markets Misprice BFF-Type Companies</h3>
+<ol>
+<li><strong>Excel models miss soft SRCA</strong> — Models capture revenue/margin/growth. They miss "culture attracts talent" → "talent drives execution"</li>
+<li><strong>Sell-side misses it</strong> — Analysts follow hard factors (comps, growth rates, multiples). Miss culture signal.</li>
+<li><strong>Institutional money ignores it</strong> — Can't easily model mission-driven culture. Prefer obvious growth stories.</li>
+<li><strong>Narrative is boring</strong> — "Steady-hand operator with mission-driven culture" doesn't excite markets. But it compounds for decades.</li>
+</ol>
+<h3 id="characteristics-of-bff-type-companies-from-2023-framework">Characteristics of BFF-Type Companies (from 2023 Framework)</h3>
+<p><strong>Hard factors:</strong>
+- Clear structural advantages (even if subtle)
+- Durable competitive position
+- Resilient cash generation
+- Low capital intensity often</p>
+<p><strong>Soft factors:</strong>
+- Mission-driven culture (objective pursued for its own sake)
+- Exceptional customer relationships
+- Natural talent attraction
+- Continuous improvement mindset
+- Decision-making aligned with mission, not just profit</p>
+<p><strong>Valuation:</strong>
+- Usually trading at modest multiple (8-14x FCF, not 20x+)
+- Underappreciated because growth is steady, not explosive
+- Rich opportunity for 15-20% IRR over 3-5Y</p>
+<h3 id="where-to-find-bff-type-companies">Where to Find BFF-Type Companies</h3>
+<p>"High cadence parsing through [investment universe]" — rapid screening to find candidates, then deep analysis on handful that show BFF characteristics.</p>
+<p><strong>Not a passive strategy.</strong> Requires:
+1. Comprehensive universe knowledge
+2. Pattern recognition for soft SRCA signals
+3. Deep diligence on team/culture
+4. Conviction to buy businesses that "don't look quality"</p>
+<h3 id="richards-2023-portfolio-tilt">Richard's 2023 Portfolio Tilt</h3>
+<p>Explicit shift toward BFF-type companies in 2023, away from:
+- High-growth "scare stories" (needs extreme precision on forecasts)
+- Hyped platforms/networks (paying premium for obvious advantages)
+- Transformations (too much binary risk)</p>
+<h3 id="watson-coaching-prompts-bff-framework">Watson Coaching Prompts — BFF Framework</h3>
+<ol>
+<li>
+<p><strong>On candidate screening:</strong> When scanning your universe, what signals do you look for to identify BFF-type candidates (vs. obvious growth or value)?</p>
+</li>
+<li>
+<p><strong>On soft SRCA assessment:</strong> Can you articulate the mission/culture of this company without reference to its financials? If you can't, it's not BFF-type.</p>
+</li>
+<li>
+<p><strong>On mispricingness:</strong> Why is this company trading at 10x FCF instead of 15x? Is it temporary mispricedness or structural lack of market appreciation for soft SRCA?</p>
+</li>
+<li>
+<p><strong>On three-year case:</strong> For each BFF-type company, can you build 15-20% IRR case with modest growth assumptions? If not, it's expensive relative to opportunity.</p>
+</li>
+</ol>
+<h2 id="23-daily-execution-scoring-mental-routines-may-2023-onwards">23. DAILY EXECUTION SCORING &amp; MENTAL ROUTINES (May 2023 Onwards)</h2>
+<p><strong>Source:</strong> May 14, 2023 (integrated from "With Winning in Mind" by Lanny Bassham, foundational sports psychology).</p>
+<h3 id="the-paradigm-shift-execution-outcomes">The Paradigm Shift: Execution &gt; Outcomes</h3>
+<p>Direct quote (May 14, 2023): "I don't think about winning and outcomes in the middle of the investing day. I focus on executing my mental routines and my investing fundamentals."</p>
+<p><strong>Key principle:</strong> Obsess over the process (execution quality), not the score (returns).</p>
+<h3 id="daily-execution-scoring-system">Daily Execution Scoring System</h3>
+<p>Richard adopted Bassham's sports psychology framework:</p>
+<p><strong>The scoring:</strong> "I rate my score daily. Just like the alternative golf scoring system of rating your execution each shot out of 10, not the number of shots I take."</p>
+<p><strong>Questions for daily self-rating (after each day/decision):</strong>
+- Did I follow my decision-making process? (IAJA loop, red-line checking, conviction assessment)
+- Did I stay in Observer mode (calm, clear) or drift into Chimp mode (reactive, emotional)?
+- Did I execute my mental routines (breathing, clarity check, confidence affirmation)?
+- Did I prioritize 18-4+ thinking, or get dragged into 0-6 noise?
+- If I trimmed/exited, was it from conviction or emotion?
+- Did I communicate clearly with team on what matters?</p>
+<p><strong>Not scored:</strong> Returns that day. Only execution quality.</p>
+<p><strong>Why this works:</strong> Over weeks/months, high execution quality (9/10 days) naturally produces good returns. Returns become lagging indicator of execution, not leading target.</p>
+<h3 id="mental-routine-architecture-pre-decision">Mental Routine Architecture (Pre-Decision)</h3>
+<p>Before major allocation/sizing decision:</p>
+<ol>
+<li><strong>Breathing routine</strong> (2 minutes, Wim Hof style or simple 4-count in, 6-count out)</li>
+<li><strong>Clarity check</strong> — "Am I in Observer mode (calm, clear) or Chimp mode (emotional)?"</li>
+<li><strong>Conviction assessment</strong> — "Do I have 8/10+ conviction on 18-4+ case?"</li>
+<li><strong>Framework review</strong> — Check sizing framework, red-line criteria, conviction checklist</li>
+<li><strong>Confidence affirmation</strong> — "I have world-class investment mind. I have done my work. I trust my judgment."</li>
+</ol>
+<p><strong>Time required:</strong> 5-10 minutes. Built into daily routine at same time (e.g., 1000h market review).</p>
+<h3 id="the-cookie-jar-positive-reinforcement">The Cookie Jar (Positive Reinforcement)</h3>
+<p>From Steve Ward coaching: maintain running log of:
+- Execution wins (days scored 9-10/10)
+- Great decisions (correct conviction, perfect timing)
+- Contrarian calls that worked out
+- Team wins and breakthroughs</p>
+<p><strong>Reviewed:</strong> Weekly, to build internal reference point independent of recent returns.</p>
+<h3 id="accountability-metrics">Accountability &amp; Metrics</h3>
+<p>The system makes accountability simple:</p>
+<p><strong>Monthly review question:</strong> "What % of days did I execute at 8/10 or higher?" (Target: 70%+)</p>
+<p>If &lt;70%, it's not markets; it's process/execution.</p>
+<h3 id="watson-coaching-prompts-execution-scoring">Watson Coaching Prompts — Execution Scoring</h3>
+<ol>
+<li>
+<p><strong>On daily discipline:</strong> Did you score your execution yesterday? What was the rating? Why?</p>
+</li>
+<li>
+<p><strong>On Chimp triggers:</strong> What triggered Chimp mode this week? How will you interrupt it next time?</p>
+</li>
+<li>
+<p><strong>On mental routine:</strong> Do you have a pre-decision ritual? Are you actually doing it, or skipping when stressed?</p>
+</li>
+<li>
+<p><strong>On cookie jar:</strong> When did you last review your wins? What's your recent win that grounds your confidence?</p>
+</li>
+<li>
+<p><strong>On returns vs. execution:</strong> This week's returns were X. Your execution score was Y. Which correlates with quality of decisions?</p>
+</li>
+</ol>
+<hr>
+<h2 id="24-how-to-use-this-file-in-coaching-hpcapm">24. HOW TO USE THIS FILE IN COACHING (HPC/APM)</h2>
+<h3 id="for-daily-watson-richard-interactions">For Daily Watson-Richard Interactions</h3>
+<p><strong>Morning questions (07:00 UK daily):</strong>
+- Refer to sections on position sizing, near-term blindspot, and signal-to-action
+- Ask: "Which 2-3 rules are most relevant to your decisions this week?"</p>
+<p><strong>Trade/allocation decisions:</strong>
+- Reference specific Watson Coaching Prompts from relevant sections
+- Ask questions; don't prescribe</p>
+<p><strong>Drawdown management:</strong>
+- Remind of "key question" (would you add or protect if down 30-50%?)
+- Connect to fire avoidance SOP, emotional state management</p>
+<h3 id="for-weekly-reviews">For Weekly Reviews</h3>
+<ul>
+<li>Check adherence to hard rules (position sizing caps, exit criteria on hypothesis trades, monitoring discipline)</li>
+<li>Pattern-matching on emotional patterns (chimp brain panic, team influence, FOFR)</li>
+<li>Calibration on near-term estimate changes</li>
+</ul>
+<h3 id="for-monthly-process-audits">For Monthly Process Audits</h3>
+<ul>
+<li>Review P&amp;L attribution: Which losses came from known weaknesses (oversizing, exiting late, near-term blindspot)?</li>
+<li>Update conviction across six dimensions for each position</li>
+<li>Assess "love portfolio" test: Any position that wouldn't own at 25%?</li>
+</ul>
+<h3 id="for-quarterly-deep-dives">For Quarterly Deep Dives</h3>
+<ul>
+<li>Re-read entire file; refresh memory on all rules</li>
+<li>Assess progress on development areas (accommodation in conflict, complexity management, technical analysis)</li>
+<li>Update lessons learned from actual decisions made (not just theoretical)</li>
+</ul>
+<h3 id="for-annual-calibration">For Annual Calibration</h3>
+<ul>
+<li>Measure performance against investing goals</li>
+<li>Assess whether system changes are needed</li>
+<li>Recalibrate conviction-sizing mapping based on actual outcomes</li>
+</ul>
+<hr>
+<hr>
+<h2 id="25-appendix-a-minervini-framework-quantified-position-management-from-notion-journal-06-08-apr-2026">25. APPENDIX A: MINERVINI FRAMEWORK — QUANTIFIED POSITION MANAGEMENT (from Notion JOURNAL, 06-08 Apr 2026)</h2>
+<p><strong>Source:</strong> https://www.notion.so/33c35e90-9b0b-8087-81c9-ee55bb4853c9</p>
+<h3 id="4-slug-capital-deployment-model">4-Slug Capital Deployment Model</h3>
+<ol>
+<li>
+<p><strong>Max Acceptable Loss Per Slug: 50bps of AUM</strong>
+   - If stop is 20% from pivot, slug size = ~0.25% of AUM
+   - Determines position size mechanically — not conviction alone</p>
+</li>
+<li>
+<p><strong>Max Loss Per Investment: 2.0% of AUM</strong>
+   - Up to 4 slugs per stock (5%, 4%, 3%, 2% of AUM)
+   - With graduated stop-losses (50D, 100D, 150D MA)
+   - Realistic max loss might be 2.5% if blow-through to 200D</p>
+</li>
+<li>
+<p><strong>Graduated Stop-Losses:</strong>
+   - Slug 1: 50-day MA stop
+   - Slug 2: 100-day MA stop
+   - Slug 3: 150-day MA stop
+   - <strong>200-day MA breach = FULL EXIT of all slugs (inviolable)</strong></p>
+</li>
+<li>
+<p><strong>Pyramiding In:</strong>
+   - Add capital only after successful test of pullback on declining volume
+   - Stock rebounds/tests specific MA for that slug
+   - Each new slug gets its own wider MA stop</p>
+</li>
+<li>
+<p><strong>Pullback Counting (Trend Exhaustion Signal):</strong>
+   - 1-2 pullbacks = Green (low risk)
+   - 3rd pullback = Amber
+   - 4-5+ pullbacks = Red (high trend exhaustion risk)</p>
+</li>
+<li>
+<p><strong>De-Risking:</strong>
+   - Tighten stops (100D → 50D) if concerned
+   - OR sell the slug with widest stop to reduce total risk</p>
+</li>
+</ol>
+<p><strong>Probing Bet Slug (Pre-Minervini):</strong> One speculative entry allowed without full 8-point screen, but must have tight trailing 20D or 50D stop. Max loss 50bps. If rebound occurs, add Minervini slugs to compound.</p>
+<h3 id="van-tharp-position-sizing-as-primary-determinant">Van Tharp: Position Sizing as Primary Determinant</h3>
+<p><strong>Source:</strong> https://www.notion.so/33735e90-9b0b-819eafc8e5e803abc58b</p>
+<p><strong>"Position sizing accounts for 91.5% of variability in returns, not stock selection."</strong></p>
+<ul>
+<li>Expected return per position = expectancy × average risk per position</li>
+<li>If expectancy is +1.265R and average risk is 0.7%, expected return per cycle = 0.89%</li>
+<li><strong>The constraint is not "pick winners." The constraint is "size them correctly."</strong></li>
+</ul>
+<p>This supports the 50bps max loss rule and 4-slug structure. Size determined by: (1) Max portfolio risk per trade (1.5% AUM), (2) Stop-loss distance from entry, (3) Dollar risk constraint.</p>
+<hr>
+<h2 id="26-appendix-b-james-king-performance-architecture-from-notion-journal-05-apr-2026">26. APPENDIX B: JAMES KING PERFORMANCE ARCHITECTURE (from Notion JOURNAL, 05 Apr 2026)</h2>
+<p><strong>Source:</strong> https://www.notion.so/33935e909b0b81d5b667caff6e1b7b35</p>
+<h3 id="p-p-i-potential-minus-interference">P = p - i (Potential minus Interference)</h3>
+<ul>
+<li><strong>Potential (p):</strong> Very high — proven by 2015-2021 CAGR ~24%, COVID +34%</li>
+<li><strong>Interference (i):</strong> Identifiable, trainable, removable</li>
+</ul>
+<h3 id="three-mental-switches">Three Mental Switches</h3>
+<p><strong>1. ON Switch</strong> (Full engagement)
+- When ON, Richard is exceptional
+- Problem: not reliable or time-bounded
+- Fix: deliberate activation at right moments, for right duration</p>
+<p><strong>2. CONTROL Switch</strong> (Recognition &amp; reset) — <strong>MOST IMPORTANT FOR CURRENT STAGE</strong>
+- Missing middle gear in Richard's system
+- Maps directly to:
+  - Ostriching → "Label: 'This is ostriching.' Open dashboard. 30 seconds"
+  - Complexity creep → "Can I state thesis in one paragraph? If not → simplify or exit"
+  - Delayed exits → "Would I buy this today if I didn't own it? If no → exit clock starts"
+  - Creativity vs execution → "Have I finished executing current decision? If not → back to process"</p>
+<p><strong>3. OFF Switch</strong> (Deliberate recovery)
+- Recovery is where adaptation happens
+- Richard's OFF is reactive (crashing when depleted), not deliberate
+- Should choose it from strength
+- Micro (5-min hourly), Meso (daily evening), Macro (weekly full day), Strategic (quarterly 3-5 days)</p>
+<h3 id="concordance-assessment-critical-insight">Concordance Assessment (Critical Insight)</h3>
+<p>Richard's deepest strength (analytical depth) is <strong>misaligned</strong> with daily monitoring demands (speed). He is built for the hunt, not the maintenance. <strong>This is why ostriching happens</strong> — cognitive profile mismatch, not discipline failure.</p>
+<p><strong>King's Solution:</strong> Redesign monitoring to align with strengths: (1) Visual and pattern-based (RS Dashboard), (2) Brief and decisional (10 min, one binary question per position), (3) On-ramp to the hunt, (4) Delegate the grind to Watson.</p>
+<hr>
+<h2 id="27-appendix-c-burford-capital-additional-exit-lessons-from-notion-journal-jan-2026">27. APPENDIX C: BURFORD CAPITAL — ADDITIONAL EXIT LESSONS (from Notion JOURNAL, Jan 2026)</h2>
+<p><strong>Source:</strong> https://www.notion.so/2f635e909b0b806d8193e0aace564a9a</p>
+<p>Six lessons from Burford exit:</p>
+<ol>
+<li>
+<p><strong>OTM Call Option + Zero Edge = False Friend.</strong> Huge optionality but no competitive advantage in exploiting it.</p>
+</li>
+<li>
+<p><strong>SP OODA Loop Faster Than Yours = Red Line.</strong> Stock sentiment cycles faster than your analytical cycles. Opposite of what works (slow-to-degrade Chris Hohn cases). If stock OODA loop &gt;&gt; your analytical OODA loop, position is uneasy.</p>
+</li>
+<li>
+<p><strong>Icky IR &amp; Communications = Red Flag in Combination.</strong> Lawyerly, defensive IR signals information asymmetry.</p>
+</li>
+<li>
+<p><strong>Transmission Mechanism Critical.</strong> From strategy/drivers to EPS forecasts — if unclear or lengthy, R/R worsens.</p>
+</li>
+<li>
+<p><strong>Dual Listing = American Sentiment Exposure.</strong> US sentiment OODA loop &gt;&gt; European analytical cycles.</p>
+</li>
+<li>
+<p><strong>Boiling Frog: Paper Cuts Compound.</strong> "10s of tiny cuts from lots of degradation across foundations." Losses came from accumulated small breaks, not one big event.</p>
+</li>
+</ol>
+<hr>
+<h2 id="appendix-d-drawdown-psychology-4-phases-from-notion-journal-jan-2026">APPENDIX D: DRAWDOWN PSYCHOLOGY — 4 PHASES (from Notion JOURNAL, Jan 2026)</h2>
+<p><strong>Source:</strong> https://www.notion.so/2e635e909b0b80ae84e0c44edece8d25</p>
+<p>"A 30% drawdown often destabilises confidence for experienced professional investors, particularly fundamental stock pickers whose edge is expressed over longer horizons."</p>
+<h3 id="phase-1-denial-holding">Phase 1: Denial &amp; Holding</h3>
+<ul>
+<li>Convinced thesis is still correct; market is temporarily wrong</li>
+</ul>
+<h3 id="phase-2-anxiety-over-analysis">Phase 2: Anxiety &amp; Over-Analysis</h3>
+<ul>
+<li>Questioning positions; over-researching to find certainty; inability to let go</li>
+</ul>
+<h3 id="phase-3-depression-disengagement">Phase 3: Depression &amp; Disengagement</h3>
+<ul>
+<li>Pain becomes real (not just paper loss); ostriching as coping; routine collapses</li>
+</ul>
+<h3 id="phase-4-acceptance-slow-recovery">Phase 4: Acceptance &amp; Slow Recovery</h3>
+<ul>
+<li>Recognizing pattern; rebuilding routine; recovery takes 2-3 years minimum</li>
+</ul>
+<p><strong>Richard's context:</strong> -54.75% drawdown (Aug 2021 → Oct 2023). As of Mar 2026 (4.5 years later), still not recovered to peak. "Losses mimic emotional grief, requiring time to process pain and rebuild."</p>
+<h3 id="bull-market-richard-vs-bear-market-richard">Bull Market Richard vs Bear Market Richard</h3>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Character</th>
+<th>Avg Annual Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2015-2021</strong> (Bull)</td>
+<td>Self 2 operating at peak: trusting mindset, offensive spirit, buying oversold quality when others panicked</td>
+<td>+24%</td>
+</tr>
+<tr>
+<td><strong>2022-2025</strong> (Bear)</td>
+<td>Struggling to adapt to regime that punishes 2015-2021 playbook; not yet recovered</td>
+<td>-10.8%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The honest assessment:</strong> Risk management in bear markets is the constraint. The playbook that works in bull markets is anti-regime in bear markets. <strong>"Had 2022 drawdown been limited to -25% instead of -40%, CAGR would be closer to 12-13%."</strong></p>
+<hr>
+<h2 id="appendix-e-6-framework-coaching-assessment-summary-from-notion-journal-28-mar-2026">APPENDIX E: 6-FRAMEWORK COACHING ASSESSMENT SUMMARY (from Notion JOURNAL, 28 Mar 2026)</h2>
+<p><strong>Source:</strong> https://www.notion.so/33135e909b0b81a2aa19dccd58d22e93</p>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Strength</th>
+<th>Gap</th>
+<th>Prescription</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rotella</strong> (Training vs Trusting)</td>
+<td>Top-decile analytical work, 4-pillar framework, ACH rigour</td>
+<td>Training mindset bleeds into execution; "FINISH THIS" pattern</td>
+<td>Monthly away day = only time Training Mindset operates; rest = trust the swing</td>
+</tr>
+<tr>
+<td><strong>Ward</strong> (4Cs)</td>
+<td>Commitment B+, Concentration B, Confidence B+, <strong>Control C+</strong></td>
+<td>Control is weakest — ostriching, delayed exits, energy on things outside control</td>
+<td>Morning routine as daily control structure; Watson as routine enforcer</td>
+</tr>
+<tr>
+<td><strong>Douglas</strong> (Probabilistic)</td>
+<td>Intellectually internalised ("no certain outcomes, just probabilities")</td>
+<td>Does not consistently ACT when probability shifts against him; gap is emotional not intellectual</td>
+<td>"Your edge only works if you execute across FULL distribution — including losses"</td>
+</tr>
+<tr>
+<td><strong>Bassham</strong> (Self-Image)</td>
+<td>Exceptional positive identity ("champion investment athlete", "$1bn AUM")</td>
+<td>Under sustained stress, self-image cracks; routine abandoned when most needed</td>
+<td>Affirmations non-negotiable through bad periods; end-of-day bright spot</td>
+</tr>
+<tr>
+<td><strong>Gallwey</strong> (Self 1 vs Self 2)</td>
+<td>Self 2 outstanding (pattern recognition, game day, COVID deployment)</td>
+<td>Self 1 interferes: tinkering mid-execution, over-analysis as action substitute, complexity creep</td>
+<td>Monthly away day = Self 1 playground; rest = Self 2 from checklists</td>
+</tr>
+<tr>
+<td><strong>Peters</strong> (Chimp vs Observer)</td>
+<td>Excellent self-awareness; Buddhist vocabulary for emotional states</td>
+<td>Missing pre-trigger identification and pre-commitment protocols</td>
+<td>Morning routine as Chimp armour; CONTROL switch as reset</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>END OF COMPREHENSIVE RISK MANAGEMENT LESSONS FILE</strong></p>
+<p><strong>Status:</strong> Complete synthesis from 100+ KB of journal extractions + Notion JOURNAL database
+<strong>Actionability:</strong> High (specific rules, examples, prompts, protocols)
+<strong>Update frequency:</strong> Annually (or after major market events / significant losses)
+<strong>Last enriched:</strong> 08-Apr-26 (Notion JOURNAL integration: Minervini, Van Tharp, King, Burford, drawdown psychology, coaching assessment)</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

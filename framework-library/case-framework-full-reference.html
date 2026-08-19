@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Framework — Stream A Comprehensive V2 — 8 May 2026</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; background: #fbfaf5; color: #2a2a2a; margin: 0; padding: 24px; max-width: 1400px; margin-left: auto; margin-right: auto; line-height: 1.55; }
+  h1 { font-size: 26px; margin: 0 0 4px 0; color: #1a1a1a; }
+  h2 { font-size: 19px; margin: 32px 0 12px 0; color: #1a1a1a; border-bottom: 2px solid #c9c3b0; padding-bottom: 6px; }
+  h3 { font-size: 14px; margin: 18px 0 8px 0; color: #4a4a4a; font-weight: 600; }
+  h4 { font-size: 12px; margin: 12px 0 6px 0; color: #4a4a4a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+  p { margin: 8px 0; font-size: 13px; }
+  blockquote { background: #f5f5f0; border-left: 3px solid #c9c3b0; padding: 10px 14px; margin: 10px 0; font-size: 12px; font-style: italic; color: #4a4a4a; }
+  .subtitle { color: #6b6b6b; font-size: 12px; margin: 0 0 16px 0; }
+  .meta { background: #fff; border: 1px solid #c9c3b0; border-radius: 6px; padding: 10px 14px; font-size: 11.5px; color: #4a4a4a; margin-bottom: 16px; }
+  .panel { background: white; border: 1px solid #c9c3b0; border-radius: 6px; padding: 18px; margin-bottom: 18px; }
+  .toc { background: #fff8e1; border: 1px solid #b8a97a; border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 12px; }
+  .toc ol { margin: 4px 0; padding-left: 20px; }
+  .toc a { color: #5e35b1; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  table { border-collapse: collapse; width: 100%; font-size: 11.5px; margin: 10px 0; }
+  th, td { border: 1px solid #d4cfc0; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #f3eede; font-weight: 600; color: #4a4a4a; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+  ul, ol { font-size: 13px; margin: 6px 0; padding-left: 20px; }
+  li { margin: 2px 0; }
+  code { background: #f5f5f0; padding: 1px 5px; border-radius: 3px; font-family: "SF Mono", Consolas, monospace; font-size: 11px; color: #3b73c9; }
+  pre { background: #f5f5f0; border: 1px solid #d4cfc0; border-radius: 4px; padding: 10px; font-family: "SF Mono", Consolas, monospace; font-size: 11px; line-height: 1.5; }
+  /* Stage colours */
+  .stage-i { background: #fef3e8; }
+  .stage-ii { background: #fff8e1; }
+  .stage-iii { background: #e3f2fd; }
+  .stage-iv { background: #ede7f6; }
+  .stage-v { background: #fce4ec; }
+  .stage-vi { background: #e8f5e9; }
+  /* Matrix row colouring */
+  .row-pillar { background: #fff3e0; font-weight: 600; }
+  .row-group { background: #fffaf0; font-weight: 500; }
+  .row-summary { background: #e1f5fe; font-weight: 600; }
+  .row-master { background: #b3e5fc; font-weight: 600; }
+  .row-sep td { background: #f3eede; font-size: 9px; padding: 1px 6px; color: #4a4a4a; text-transform: uppercase; }
+  /* Cell instructions */
+  .first-pass { background: #fff8e1; color: #8d6e00; font-weight: 600; font-size: 10px; text-align: center; }
+  .second-pass { background: #ede7f6; color: #5e35b1; font-weight: 600; font-size: 10px; text-align: center; }
+  .third-pass { background: #fce4ec; color: #c62828; font-weight: 600; font-size: 10px; text-align: center; }
+  .fourth-pass { background: #e8f5e9; color: #1b5e20; font-weight: 600; font-size: 10px; text-align: center; }
+  .fifth-pass { background: #e3f2fd; color: #1565c0; font-weight: 600; font-size: 10px; text-align: center; }
+  .light { background: #fffde7; color: #8d6e00; font-weight: 600; font-size: 10px; text-align: center; }
+  .solid { background: #ede7f6; color: #5e35b1; font-weight: 600; font-size: 10px; text-align: center; }
+  .robust { background: #fce4ec; color: #c62828; font-weight: 600; font-size: 10px; text-align: center; }
+  .no-change { color: #999; font-style: italic; font-size: 10px; text-align: center; }
+  .na { background: #f5f5f0; color: #c9c3b0; font-size: 10px; text-align: center; }
+  .rated { background: #d1c4e9; color: #4527a0; font-weight: 700; font-size: 10px; text-align: center; }
+  /* Badges */
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; vertical-align: middle; margin-right: 4px; }
+  .badge-stage { background: #4f83cf; color: white; }
+  .badge-pillar { background: #7955bf; color: white; }
+  .badge-group { background: #f57c00; color: white; }
+  .badge-element { background: #4a4a4a; color: white; }
+  .badge-rr { background: #b06b1e; color: white; }
+  .badge-mr { background: #1b5e20; color: white; }
+  .badge-new { background: #c62828; color: white; }
+  .badge-deferred { background: #c9c3b0; color: #4a4a4a; }
+  /* Tree diagram */
+  .tree-wrap { background: #fbfaf5; border: 1px dashed #c9c3b0; padding: 14px; border-radius: 4px; margin: 10px 0; }
+  .tree-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; align-items: start; }
+  .tree-col { padding: 6px 8px 6px 12px; min-height: 80px; border-left: 2px solid #c9c3b0; }
+  .tree-col h5 { margin: 0 0 3px 0; font-size: 10px; color: #4a4a4a; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+  .tree-col h6 { margin: 4px 0 3px 0; font-size: 10px; color: #6b6b6b; font-weight: 600; }
+  .tree-col p { margin: 3px 0; font-size: 9.5px; color: #2a2a2a; line-height: 1.35; }
+  .tree-arrow { text-align: center; font-size: 14px; color: #4f83cf; margin: 3px 0; }
+  .upstream { background: #fef3e8; }
+  .downstream { background: #e3f2fd; }
+  .crosscut { background: #f5f5f0; padding: 6px; margin-top: 6px; border-radius: 3px; font-size: 10px; color: #4a4a4a; }
+  /* Misc */
+  .strong { font-weight: 600; color: #1a1a1a; }
+  .muted { color: #6b6b6b; font-style: italic; }
+  hr { border: 0; border-top: 1px solid #d4cfc0; margin: 24px 0; }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #6b6b6b; }
+  .legend-swatch { width: 14px; height: 14px; border: 1px solid #c9c3b0; border-radius: 2px; }
+  .key-note { background: #fff8e1; border: 2px solid #f57c00; padding: 8px 12px; border-radius: 4px; font-size: 12px; margin: 10px 0; }
+  /* Funnel view */
+  .funnel-table td.stage-name { font-weight: 700; font-size: 12px; }
+  .funnel-table td { font-size: 11px; }
+</style>
+</head>
+<body>
+
+<h1>Framework Concept Map — Comprehensive V2</h1>
+<p class="subtitle">Stream A deliverable · 8 May 2026 · Watson · Tight, signal-rich version</p>
+
+<div class="meta">
+  <strong>What this is.</strong> The single source of truth for the new investment research and APM A&amp;J system. ~12 sections, signal-rich. Watson behavioural rules extracted to <code>STREAM-A-watson-operating-rules.md</code> for Stream C absorption.<br>
+  <strong>Sign-off gate:</strong> Stage 2 (Streams C, E, B2) starts after Richard signs off this document.
+</div>
+
+<div class="toc">
+  <strong>Table of contents</strong>
+  <ol>
+    <li><a href="#funnel">Funnel view — at-a-glance (THE quick reference)</a></li>
+    <li><a href="#stages">The 6-stage funnel — purposes &amp; target conditions</a></li>
+    <li><a href="#elements">The 32 A&amp;J elements (V2 numbering)</a></li>
+    <li><a href="#rrs">The 23 Research Reports (RR1–RR23)</a></li>
+    <li><a href="#ratings">The 6 master ratings + hierarchical rating layer</a></li>
+    <li><a href="#pillars">Pillars I, II, III — the case structure</a></li>
+    <li><a href="#pillar3">Pillar III deep — Position playbook + Monitoring plan + Key drivers</a></li>
+    <li><a href="#plane">The plane analogy — operating cadence</a></li>
+    <li><a href="#sop">The A&amp;J memo writing SOP — per-row authoring matrix [LOAD-BEARING]</a></li>
+    <li><a href="#live">Stage VI Live — operating system for held positions</a></li>
+    <li><a href="#dashboard">Ratings Dashboard ↔ Reports and Memo Repository split</a></li>
+    <li><a href="#refs">Strategic context — two-engine doctrine, mediocrity-shunning, INVALIDATION ACHs, glossary</a></li>
+  </ol>
+</div>
+
+<!-- ============================ FUNNEL VIEW ============================ -->
+<h2 id="funnel">1. Funnel view — at-a-glance</h2>
+
+<div class="panel">
+  <p class="muted">Stages × focus letters × A&amp;J elements × research reports. Each stage at a glance — primary purpose, what's in scope, what's produced.</p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch stage-i"></span>Stage I Gen/screen</div>
+    <div class="legend-item"><span class="legend-swatch stage-ii"></span>Stage II Filter out</div>
+    <div class="legend-item"><span class="legend-swatch stage-iii"></span>Stage III Triage</div>
+    <div class="legend-item"><span class="legend-swatch stage-iv"></span>Stage IV ESA</div>
+    <div class="legend-item"><span class="legend-swatch stage-v"></span>Stage V DD</div>
+    <div class="legend-item"><span class="legend-swatch stage-vi"></span>Stage VI Live</div>
+    <div class="legend-item"><span class="badge badge-new">NEW</span>= new artefact</div>
+    <div class="legend-item"><span class="badge badge-deferred">DEF</span>= deferred</div>
+  </div>
+
+  <table class="funnel-table">
+    <thead>
+      <tr>
+        <th style="width:10%;">Stage</th>
+        <th style="width:22%;">Primary purpose</th>
+        <th style="width:11%;">Focus letters</th>
+        <th style="width:27%;">A&amp;J elements</th>
+        <th style="width:30%;">Research Reports (RRs)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="stage-i">
+        <td class="stage-name">I — Gen / screen</td>
+        <td>Qualify a case. <span class="muted">Sufficient technical momentum.</span></td>
+        <td><span class="badge badge-pillar">A</span> Technicals</td>
+        <td><span class="badge badge-element">E4</span> Technical momentum?</td>
+        <td><span class="badge badge-rr">RR1</span> Technical trends explainer<br><span class="badge badge-rr">RR2</span> Business description</td>
+      </tr>
+      <tr class="stage-ii">
+        <td class="stage-name">II — Filter out</td>
+        <td>Filter out cases with obvious headwinds. <span class="muted">Avoid avoidable losses.</span></td>
+        <td><span class="badge badge-pillar">B</span> Operating env</td>
+        <td><span class="badge badge-element">E5</span> Thematic fit?<br><span class="badge badge-element">E11</span> VC dynamics?</td>
+        <td><span class="badge badge-rr">RR3</span> <span class="badge badge-new">NEW</span> Fit vs current thematics<br><span class="badge badge-rr">RR4</span> Change forces (int + ext)</td>
+      </tr>
+      <tr class="stage-iii">
+        <td class="stage-name">III — Triage</td>
+        <td>Lightly triage attractiveness <em>(first A&amp;J pass)</em>. Require large positive change forces.</td>
+        <td><span class="badge badge-pillar">C</span> Case "inputs"</td>
+        <td><span class="badge badge-element">E1</span> Required input change forces?<br><span class="badge badge-element">E7</span> Case simplicity guardrails?<br><span class="badge badge-element">E8</span> Acceptable setup fit?</td>
+        <td><span class="badge badge-rr">RR5</span> <span class="muted">[re-read of RR4]</span><br><span class="badge badge-rr">RR6</span> Earnings trends vs peers (L2Y)<br><span class="badge badge-rr">RR7</span> <span class="badge badge-new">NEW</span> Six setups exploration</td>
+      </tr>
+      <tr class="stage-iv">
+        <td class="stage-name">IV — ESA</td>
+        <td>Broadly test attractiveness <em>(second A&amp;J pass)</em>. <strong>Two-engine doctrine</strong>: change must show in financials AND case must be bankable.</td>
+        <td><span class="badge badge-pillar">D</span> Foundations*<br><span class="badge badge-pillar">E</span> Outputs</td>
+        <td><span class="badge badge-element">E9</span> Great operator?<br><span class="badge badge-element">E10</span> Advantaged + SRCA?<br><span class="badge badge-element">E11</span> VC dynamics?<br><span class="badge badge-element">E12</span> Industry structure?<br><span class="badge badge-element">E13</span> Secular growth?<br><span class="badge badge-element">E2</span> Required outputs?<br><span class="badge badge-element">E20</span> Nice-to-have?<br><span class="badge badge-element">E3</span> TSR / valuation upside?</td>
+        <td><span class="badge badge-rr">RR8</span> Earnings/guidance L3Y<br><span class="badge badge-rr">RR9</span> <span class="badge badge-new">NEW</span> Expert checks<br><span class="badge badge-rr">RR10</span> BM / sector primer<br><span class="badge badge-rr">RR11</span> Value chain info map<br><span class="badge badge-rr">RR12</span> Value chain analysis<br><span class="badge badge-rr">RR13</span> Tracking vs guidance<br><span class="badge badge-rr">RR14</span> APM key drivers<br><span class="badge badge-rr">RR15</span> <span class="badge badge-new">NEW</span> Per-setup tailored<br><span class="badge badge-rr">RR16</span> <span class="badge badge-deferred">DEF</span> Fair valuation</td>
+      </tr>
+      <tr class="stage-v">
+        <td class="stage-name">V — DD</td>
+        <td>Robustly probe riskiness <em>(third A&amp;J pass)</em>. <strong>Top-decile A/B only. Mediocrity-shunning.</strong></td>
+        <td><span class="badge badge-pillar">F</span> SS momentum<br><span class="badge badge-pillar">G</span> Risks<br><span class="badge badge-pillar">H</span> Manageability</td>
+        <td><span class="badge badge-element">E6</span> SS earnings momentum?<br><span class="badge badge-element">E15</span> Invalidating attrs?<br><span class="badge badge-element">E16</span> Seek-to-avoid attrs?<br><span class="badge badge-element">E17</span> AUM-constraining?<br><span class="badge badge-element">E18</span> Clear transmission?<br><span class="badge badge-element">E19</span> Monitorable transmission?<br><span class="badge badge-element">E32</span> Trade manageability <span class="badge badge-deferred">DEF</span></td>
+        <td><span class="badge badge-rr">RR17</span> SS earnings momentum<br><span class="badge badge-rr">RR18</span> FX sensitivity<br><span class="badge badge-rr">RR19</span> Mgmt / governance<br><span class="badge badge-rr">RR20</span> Short sellers<br><span class="badge badge-rr">RR21</span> Pre-mortem<br><span class="badge badge-rr">RR22</span> CEO research</td>
+      </tr>
+      <tr class="stage-vi">
+        <td class="stage-name">VI — Live</td>
+        <td>Mitigate / avoid / reduce risk of capital loss. <span class="muted">Monthly review meeting + weekly monitoring.</span></td>
+        <td><span class="badge badge-pillar">I</span> Live (KDs + LTIs)</td>
+        <td><span class="badge badge-element">E21–E32</span> Live elements (KDs, LTIs, technicals — Pillar III layer)</td>
+        <td><span class="badge badge-rr">RR23</span> KD monitoring plan (weekly)<br><span class="muted">+ Monthly review note</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="muted">* Group D "Case foundations" is to be renamed "Core philosophy" per Richard's Round 3 instruction (D4).</p>
+</div>
+
+<!-- ============================ STAGES ============================ -->
+<h2 id="stages">2. The 6-stage funnel — purposes &amp; target conditions</h2>
+
+<div class="panel">
+  <p>The investment process moves an idea through six discrete stages. Each has its own <em>primary purpose</em> and <em>target condition</em>. Cases that fail park; cases that clear graduate.</p>
+
+  <div class="key-note"><strong>Key shift from old approach:</strong> stages are <em>sequential filters, not deepening passes</em>. The old model ("onion peeling") covered the entire case at every stage. The new model focuses on different specific elements at each stage, with cross-stage execution providing cumulative coverage.</div>
+
+  <table>
+    <thead><tr><th>#</th><th>Stage</th><th>Primary purpose</th><th>Target condition (verbatim)</th></tr></thead>
+    <tbody>
+      <tr class="stage-i"><td>I</td><td>Generation / screening</td><td>Qualify a case</td><td>Require sufficient technical momentum</td></tr>
+      <tr class="stage-ii"><td>II</td><td>Filtering out</td><td>Filter out cases with obvious headwinds</td><td>Plus … Avoid avoidable losses by side-stepping large and/or worsening 'exogenous' headwinds/risks</td></tr>
+      <tr class="stage-iii"><td>III</td><td>Triaging <em>(first A&amp;J pass)</em></td><td>Lightly triage attractiveness</td><td>Plus … Require large amounts of positive "change forces" (because stock markets react to change (2nd derivative) even more than the [vector])</td></tr>
+      <tr class="stage-iv"><td>IV</td><td>ESA <em>(second A&amp;J pass)</em></td><td>Broadly test attractiveness</td><td>Plus … (A) Change forces must manifest in financials improving — not just qualitative narrative. As measured by guidance beats and positive sell-side consensus earnings upgrade momentum (which drive algorithmic buying/selling and trend-following). (B) Sufficiently "bankable" foundation ("business quality") needed for the market to extrapolate momentum into mid/long-term and drive multiple expansion.</td></tr>
+      <tr class="stage-v"><td>V</td><td>Deep dive <em>(third A&amp;J pass)</em></td><td>Robustly probe riskiness</td><td>Plus … Avoid avoidable case failure and horrible return-on-time by (A) shunning mediocrity in management quality, business quality, case predictability, KD trackability, and (B) avoiding 'weirder, worser, further (down), for longer' and 'cockroaches' patterns; only backing simple, crisp, top decile/quartile A/B cases.</td></tr>
+      <tr class="stage-vi"><td>VI</td><td>Live</td><td>Mitigate / avoid / reduce risk of capital loss</td><td>Use the defined "case components" and the monitoring of leading tracking indicators to assess monthly/more regularly if the fundamental investment case is tracking to plan or invalidated and to be exited</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Stage TCs are NOT rated.</strong> They are qualitative alignment language. Go/no-go decisions come from the <em>combination</em> of element ratings at the stage. There are no per-element acceptance thresholds. The gate is APM judgement.</p>
+</div>
+
+<!-- ============================ ELEMENTS ============================ -->
+<h2 id="elements">3. The 32 A&amp;J elements (V2 numbering)</h2>
+
+<div class="panel">
+  <p>The case decomposes into 32 atomic A&amp;J elements. Each is a discrete question the APM answers with an A–F rating. <strong>One canonical element number per element</strong>, used both in the research-stage diagram and the A&amp;J memo authoring matrix (V2 update — Round 2).</p>
+
+  <table>
+    <thead><tr><th>E#</th><th>Question</th><th>Pillar</th><th>Group</th><th>First authored at</th></tr></thead>
+    <tbody>
+      <tr><td><strong>E1</strong></td><td>Required "input change forces" (internal/external)?</td><td>I</td><td>—</td><td>III Triage</td></tr>
+      <tr><td><strong>E2</strong></td><td>Required case "outputs"?</td><td>I</td><td>—</td><td>IV ESA</td></tr>
+      <tr><td><strong>E3</strong></td><td>Sufficient TSR / valuation upside?</td><td>I</td><td>—</td><td>IV ESA</td></tr>
+      <tr><td><strong>E4</strong></td><td>Technical momentum?</td><td>II</td><td>G1 Case momentum</td><td>I Gen/screen</td></tr>
+      <tr><td><strong>E5</strong></td><td>Fit/inverse with thematics/thematic momentum?</td><td>II</td><td>G1 Case momentum</td><td>II Filter out</td></tr>
+      <tr><td><strong>E6</strong></td><td>Strong/improving sell-side earnings momentum?</td><td>II</td><td>G1 Case momentum</td><td>V DD</td></tr>
+      <tr><td><strong>E7</strong></td><td>Required case simplicity guardrails?</td><td>II</td><td>G2 Case simplicity</td><td>III Triage</td></tr>
+      <tr><td><strong>E8</strong></td><td>Fit with acceptable case setups?</td><td>II</td><td>G2 Case simplicity</td><td>III Triage</td></tr>
+      <tr><td><strong>E9</strong></td><td>BQ — Great operator? (Management quality)</td><td>II</td><td>G3 Core philosophy</td><td>IV ESA</td></tr>
+      <tr><td><strong>E10</strong></td><td>BQ — Advantaged business + widening SRCA?</td><td>II</td><td>G3 Core philosophy</td><td>IV ESA</td></tr>
+      <tr><td><strong>E11</strong></td><td>BQ — Improving/worsening value chain dynamics?</td><td>II</td><td>G3 Core philosophy</td><td>II Filter out</td></tr>
+      <tr><td><strong>E12</strong></td><td>BQ — Supportive industry structure?</td><td>II</td><td>G3 Core philosophy</td><td>IV ESA</td></tr>
+      <tr><td><strong>E13</strong></td><td>BQ — High secular / long-term growth potential?</td><td>II</td><td>G3 Core philosophy</td><td>IV ESA</td></tr>
+      <tr><td><strong>E14</strong></td><td><em>Reserved (numbering gap from V1→V2)</em></td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><strong>E15</strong></td><td>Invalidating attributes?</td><td>II</td><td>G4 Case riskiness</td><td>V DD</td></tr>
+      <tr><td><strong>E16</strong></td><td>Strenuously seek-to-avoid attributes?</td><td>II</td><td>G4 Case riskiness</td><td>V DD</td></tr>
+      <tr><td><strong>E17</strong></td><td>AUM-constraining attributes?</td><td>II</td><td>G4 Case riskiness</td><td>V DD</td></tr>
+      <tr><td><strong>E18</strong></td><td>Clear transmission mechanism (inputs → EPS)?</td><td>II</td><td>G4 Case riskiness</td><td>IV ESA (light), V DD (solid)</td></tr>
+      <tr><td><strong>E19</strong></td><td>Monitorable transmission mechanism (LTIs → EPS)?</td><td>II</td><td>G4 Case riskiness</td><td>IV ESA (light), V DD (solid)</td></tr>
+      <tr><td><strong>E20</strong></td><td>Nice-to-have attributes? <span class="muted">[minor]</span></td><td>II</td><td>G5 Case optionality</td><td>IV ESA</td></tr>
+      <tr><td><strong>E21</strong></td><td>"Monitoring plan" (of leading tracking indicators)</td><td>III</td><td>—</td><td>IV ESA</td></tr>
+      <tr><td><strong>E22</strong></td><td>"Position management playbook"</td><td>III</td><td>—</td><td>IV ESA</td></tr>
+      <tr><td><strong>E23</strong></td><td>Key case assumptions / hygiene factors <span class="muted">[foundations]</span></td><td>III</td><td>G7 Upstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E24</strong></td><td>Primary case drivers <span class="muted">[input change forces]</span></td><td>III</td><td>G7 Upstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E25</strong></td><td>Secondary case drivers <span class="muted">[input change forces]</span></td><td>III</td><td>G7 Upstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E26</strong></td><td>Key risks/fragilities (upstream)</td><td>III</td><td>G7 Upstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E27</strong></td><td>Key positive optionality</td><td>III</td><td>G7 Upstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E28</strong></td><td>Key financial metrics <span class="muted">[financial outputs]</span></td><td>III</td><td>G8 Downstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E29</strong></td><td>Key FSOs <span class="muted">[financial outputs]</span></td><td>III</td><td>G8 Downstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E30</strong></td><td>Key risks/fragilities (downstream)</td><td>III</td><td>G8 Downstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E31</strong></td><td>Peers/sector developments</td><td>III</td><td>G8 Downstream</td><td>IV ESA</td></tr>
+      <tr><td><strong>E32</strong></td><td>Key technical developments</td><td>III</td><td>G8 Downstream</td><td>IV ESA</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">"Trade manageability" was originally tagged element 32 in xlsx Block A; in V2 we treat E32 = Key technical developments per Block C. Trade manageability remains TBD outside formal numbering. To reconcile in Stream C.</p>
+</div>
+
+<!-- ============================ RRs ============================ -->
+<h2 id="rrs">4. The 23 Research Reports (RR1–RR23)</h2>
+
+<div class="panel">
+  <p>Each RR is a stage-bound research deliverable produced by the RESEARCHER role. RRs are stage-allocated; out-of-order is exceptional and logged.</p>
+
+  <table>
+    <thead><tr><th>RR#</th><th>Title</th><th>Stage</th><th>Source</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>RR1</td><td>Technical trends explainer</td><td>I</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR2</td><td>Business description</td><td>I</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR3</td><td>Fit vs current thematics</td><td>II</td><td>C+AS</td><td><span class="badge badge-new">NEW</span> — Stream B1</td></tr>
+      <tr><td>RR4</td><td>Change forces (int + ext)</td><td>II</td><td>C+AS</td><td>Existing — moved from IG to II</td></tr>
+      <tr><td>RR5</td><td><em>[Re-read of RR4 at Triage depth]</em></td><td>III</td><td>n.a.</td><td>APM re-read</td></tr>
+      <tr><td>RR6</td><td>Earnings trends vs peers (L2Yish)</td><td>III</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR7</td><td>Six target setups exploration</td><td>III</td><td>C+AS</td><td><span class="badge badge-new">NEW</span> — Stream B1</td></tr>
+      <tr><td>RR8</td><td>Earnings/guidance delivery record (L3Yish)</td><td>IV</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR9</td><td>Expert checks</td><td>IV</td><td>AS</td><td><span class="badge badge-new">NEW</span> — Stream B1</td></tr>
+      <tr><td>RR10</td><td>BM / sector primer</td><td>IV</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR11</td><td>Value chain info map</td><td>IV</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR12</td><td>Value chain analysis</td><td>IV</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR13</td><td>Tracking vs guidance ATM</td><td>IV</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR14</td><td>APM's key drivers</td><td>IV</td><td>C+AS</td><td>Existing</td></tr>
+      <tr><td>RR15</td><td>Per-setup tailored research</td><td>IV</td><td>C+AS</td><td><span class="badge badge-new">NEW</span> — 6 sub-templates, single dashboard column</td></tr>
+      <tr><td>RR16</td><td><em>Fair valuation analysis</em></td><td>IV</td><td>—</td><td><span class="badge badge-deferred">DEFERRED</span> — low value ATM</td></tr>
+      <tr><td>RR17</td><td>SS earnings momentum</td><td>V</td><td>AS</td><td>Adapted (was SS Q6, now momentum-focused)</td></tr>
+      <tr><td>RR18</td><td>FX sensitivity</td><td>V</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR19</td><td>Management/governance</td><td>V</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR20</td><td>Short sellers</td><td>V</td><td>C+AS</td><td>Existing — moved from ESA</td></tr>
+      <tr><td>RR21</td><td>Pre-mortem</td><td>V</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR22</td><td>CEO research</td><td>V</td><td>C</td><td>Existing</td></tr>
+      <tr><td>RR23</td><td>KD monitoring plan</td><td>VI Live</td><td>C+AS</td><td><span class="badge badge-new">NEW system</span> — see § 10 Live</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Source mix and word-count targets carry forward unchanged from existing SOPs.</p>
+</div>
+
+<!-- ============================ MASTER RATINGS + HIERARCHY ============================ -->
+<h2 id="ratings">5. The 6 master ratings + hierarchical rating layer</h2>
+
+<div class="panel">
+  <p>The 6 master ratings are the highest-level ratings for a case — same subjects as the old P1–P6 pillars, renamed. <strong>Master ratings are loosely-derived qualitative summaries:</strong> APM uses element ratings as primary inputs but retains discretion to weight and override.</p>
+
+  <table>
+    <thead><tr><th>#</th><th>Master rating</th><th>What it summarises</th></tr></thead>
+    <tbody>
+      <tr><td>MR1</td><td>Technical momentum</td><td>Needed for profitable risk/rewards</td></tr>
+      <tr><td>MR2</td><td>Sell-side momentum</td><td>Needed for Stage 2 stocks to "keep going"</td></tr>
+      <tr><td>MR3</td><td>Thematic fit</td><td>When long the right thematics, picking is easy</td></tr>
+      <tr><td>MR4</td><td>Pillar I — Case change elements</td><td>Enough exciting change to drive SP up?</td></tr>
+      <tr><td>MR5</td><td>Pillar II — Case building blocks</td><td>The investment change case + bankability</td></tr>
+      <tr><td>MR6</td><td>Pillar III — Investment case components</td><td>In-flight playbook + monitoring plan</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Hierarchical rating structure</h3>
+  <p><strong>ALL Pillars + Groups + TCs + RAs + CQs are explicitly rated by APM</strong> — every layer is a separate APM judgement, informed by but not derived from lower layers.</p>
+  <pre>Master ratings (6)
+  ↓ informed by, not derived from
+Pillar ratings (I, II, III)
+  ↓
+Group ratings (Pillar II's 5 groups, Pillar III's 3 groups)
+  ↓
+Element ratings (E1–E32)
+  ↓
+Sub-question ratings (where applicable)</pre>
+  <p>The judgement layer is at every level. A Master Rating can be A even if one element is C, if the APM judges that element non-load-bearing — and vice versa. This is where APM expertise adds value above mechanical roll-up.</p>
+</div>
+
+<!-- ============================ PILLARS ============================ -->
+<h2 id="pillars">6. Pillars I, II, III — the case structure</h2>
+
+<div class="panel">
+  <p>The case is structured into three pillars. <strong>Pillars I + II = case ATTRIBUTES (the "teaching manual"). Pillar III = case COMPONENTS (the "in-flight checklist").</strong> See § 8 for the plane analogy.</p>
+
+  <h3>Pillar I — Case change elements (3 elements)</h3>
+  <p>Whether the case has enough exciting change to drive the share price.</p>
+  <ul>
+    <li><strong>E1</strong> Required "input change forces" (internal/external)?</li>
+    <li><strong>E2</strong> Required case "outputs"? <span class="muted">(financials must improve, not just narrative)</span></li>
+    <li><strong>E3</strong> Sufficient TSR / valuation upside?</li>
+  </ul>
+  <p class="muted">Linked: E1 drives E2 → market rewards via E3.</p>
+
+  <h3>Pillar II — Case building blocks (5 groups, 14 elements)</h3>
+  <p>The bankability foundations — what makes change forces extrapolable mid/long-term.</p>
+  <table>
+    <thead><tr><th>Group</th><th>Elements</th></tr></thead>
+    <tbody>
+      <tr><td><strong>G1 Case momentum</strong></td><td>E4 Technical · E5 Thematic · E6 SS earnings momentum</td></tr>
+      <tr><td><strong>G2 Case simplicity</strong></td><td>E7 Simplicity guardrails · E8 Acceptable setup fit</td></tr>
+      <tr><td><strong>G3 Core philosophy</strong> <span class="muted">(was "Foundations" — D4)</span></td><td>E9 Operator · E10 Advantaged + SRCA · E11 VC dynamics · E12 Industry structure · E13 Long-term growth</td></tr>
+      <tr><td><strong>G4 Case riskiness</strong></td><td>E15 Invalidating · E16 Seek-to-avoid · E17 AUM-constraining · E18 Clear transmission · E19 Monitorable transmission</td></tr>
+      <tr><td><strong>G5 Case optionality</strong></td><td>E20 Nice-to-have <span class="muted">[minor]</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Pillar III — Investment case components (3 groups + 2 standalone elements)</h3>
+  <p>The operational distillation — the in-flight checklist. Built post-DD; becomes operating layer at Stage VI Live.</p>
+  <table>
+    <thead><tr><th>Group/Element</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td><strong>E21 Monitoring plan</strong></td><td>Framework for monitoring once at Stage VI Live (links to RR23)</td></tr>
+      <tr><td><strong>E22 Position management playbook</strong></td><td>Entry rules, sizing, trim/add triggers, exit triggers — short, scannable</td></tr>
+      <tr><td><strong>G7 Key drivers Upstream (E23–E27)</strong></td><td>Input drivers: HFs, primary, secondary, risks, optionality</td></tr>
+      <tr><td><strong>G8 Key drivers Downstream (E28–E32)</strong></td><td>Output drivers: financial metrics, FSOs, risks, peers/sector, technical</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">See § 7 for the full Pillar III tabular spec + tree diagram.</p>
+</div>
+
+<!-- ============================ PILLAR III DEEP ============================ -->
+<h2 id="pillar3">7. Pillar III deep — Position playbook + Monitoring plan + Key drivers</h2>
+
+<div class="panel">
+  <h3>7a. Per-driver tabular spec (xlsx rows 106–125)</h3>
+  <p><strong>Canonical content production format for Pillar III Groups 7 + 8.</strong> APM produces one row per driver. Tree diagram (7b) is the rendering format.</p>
+
+  <h4>Column meanings</h4>
+  <table>
+    <thead><tr><th>Col</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>I</strong></td><td>What specifically (driver defined in general terms)</td></tr>
+      <tr><td><strong>J</strong></td><td>Best associated leading tracking indicator (LTI) to monitor</td></tr>
+      <tr><td><strong>K</strong></td><td>Number of drivers to define (e.g. "1 to 3 [tbd]")</td></tr>
+      <tr><td><strong>L</strong></td><td>What we expect in our modal case</td></tr>
+      <tr><td><strong>M</strong></td><td>What is in guidance (explicit/inferred)</td></tr>
+      <tr><td><strong>N</strong></td><td>What sell-side expects</td></tr>
+      <tr><td><strong>O</strong></td><td>Threshold for "invalidation"</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Group 7 — Key drivers Upstream</h4>
+  <table>
+    <thead><tr><th>E#</th><th>Tag</th><th>Driver</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th></tr></thead>
+    <tbody>
+      <tr class="upstream"><td>E23</td><td>HW</td><td>Key case assumptions / HFs <span class="muted">[foundations]</span></td><td>[required]</td><td>[if possible]</td><td>2 to 6 [tbd]</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+      <tr class="upstream"><td>E24</td><td>DW</td><td>Primary case drivers <span class="muted">[input change forces]</span></td><td>[required]</td><td>[required]</td><td>1 to 3 [tbd]</td><td>[required]</td><td>[required]</td><td>[required]</td><td>[required]</td></tr>
+      <tr class="upstream"><td>E25</td><td>NW</td><td>Secondary case drivers <span class="muted">[input change forces]</span></td><td>[required]</td><td>[required]</td><td>2 to 4 [tbd]</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+      <tr class="upstream"><td>E26</td><td>QW</td><td>Key risks/fragilities <span class="muted">[from any/all]</span></td><td>[required]</td><td>[required]</td><td>3 to 5</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+      <tr class="upstream"><td>E27</td><td>HW</td><td>Key positive optionality</td><td>[required]</td><td>[ideally]</td><td>0 to 3 [tbd]</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Group 8 — Key drivers Downstream</h4>
+  <table>
+    <thead><tr><th>E#</th><th>Tag</th><th>Driver</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th></tr></thead>
+    <tbody>
+      <tr class="downstream"><td>E28</td><td>QW</td><td>Key financial metrics <span class="muted">[financial outputs]</span></td><td>[required]</td><td>[required]</td><td>1 to 3</td><td>[required]</td><td>[required]</td><td>[required]</td><td>[required]</td></tr>
+      <tr class="downstream"><td>E29</td><td>QW</td><td>Key FSOs <span class="muted">[financial outputs]</span></td><td>[required]</td><td>[required]</td><td>1 to 3</td><td>[required]</td><td>[required]</td><td>[required]</td><td>[required]</td></tr>
+      <tr class="downstream"><td>E30</td><td>QW</td><td>Key risks/fragilities <span class="muted">[from any/all]</span></td><td>[required]</td><td>[required]</td><td>3 to 5</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+      <tr class="downstream"><td>E31</td><td>DW</td><td>Peers/sector developments</td><td>[required]</td><td>[required]</td><td>1 to 3</td><td>[required]</td><td>n.a.</td><td>[required]</td><td>[required]</td></tr>
+      <tr class="downstream"><td>E32</td><td>DW</td><td>Key technical developments</td><td>[required]</td><td>[required]</td><td>1 to 3</td><td>[required]</td><td>[ideally]</td><td>[ideally]</td><td>[required]</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Tag legend:</strong> <code>HW</code> hygiene/wider · <code>DW</code> driver/wider · <code>NW</code> next-step/wider · <code>QW</code> quantifiable/wider</p>
+
+  <h3>7b. Tree-diagram visualisation (Richard's preferred rendering format)</h3>
+
+  <div class="tree-wrap">
+    <div class="tree-grid">
+      <div class="tree-col upstream"><h5>UPSTREAM (IN)</h5><h6>Foundations</h6><div class="tree-arrow">→</div><p><strong>3 to 6</strong> Key case HFs/assumptions</p></div>
+      <div class="tree-col upstream"><h5>UPSTREAM (IN)</h5><h6>Case "inputs"</h6><div class="tree-arrow">→</div><p><strong>1 to 3</strong> Primary case drivers</p><p><strong>2 to 4</strong> Secondary case drivers</p><p><strong>0 to 3</strong> Key positive optionality</p></div>
+      <div class="tree-col downstream"><h5>DOWNSTREAM (OUT)</h5><h6>KFMs</h6><div class="tree-arrow">→</div><p><strong>1 to 3</strong> Key financial metrics</p></div>
+      <div class="tree-col downstream"><h5>DOWNSTREAM (OUT)</h5><h6>FSO</h6><div class="tree-arrow">→</div><p><strong>1 to 3</strong> Key FSOs</p></div>
+      <div class="tree-col downstream"><h5>DOWNSTREAM (OUT)</h5><h6>SS Δ</h6><div class="tree-arrow">→</div><p class="muted">(sell-side reaction)</p></div>
+      <div class="tree-col downstream"><h5>DOWNSTREAM (OUT)</h5><h6>SP</h6><div class="tree-arrow">→</div><p><strong>1 to 3</strong> Key technical indicators</p></div>
+    </div>
+    <div class="crosscut">
+      <strong>Cross-cutting (apply to all columns):</strong> <strong>3 to 5</strong> Key risks/fragilities · <strong>1 to 3</strong> Peers/sector developments
+    </div>
+  </div>
+  <p class="muted">Causal chain: foundations + inputs → financial outputs → sell-side reaction → share price. Tabular spec (7a) is the source of truth; tree is the visualisation.</p>
+</div>
+
+<!-- ============================ PLANE ANALOGY ============================ -->
+<h2 id="plane">8. The plane analogy — operating cadence</h2>
+
+<div class="panel">
+  <blockquote>
+    The CASE is about <strong>CHANGE</strong> (Pillar I) <strong>on a foundation base</strong> (building blocks, Pillar II). These are the case <strong>ATTRIBUTES</strong>.<br>
+    Case <strong>COMPONENTS</strong> (Pillar III) is a <strong>synthesis</strong> distilled into a position management playbook.<br><br>
+    <strong>Plane analogy:</strong> ATTRIBUTES (Pillars I + II) = a plane educational <em>teaching manual</em>. COMPONENTS (Pillar III) = simple, short <em>in-flight checklists</em>. "You need to research, analyse, judge Pillar I and II to be able to define Pillar III, then you can sort of discard all that learning — like a pilot focusing on in-flight checklists, not re-reading the teaching manual."
+  </blockquote>
+
+  <table>
+    <thead><tr><th>Pillar</th><th>Plane analogy</th><th>When APM engages</th><th>Cadence</th></tr></thead>
+    <tbody>
+      <tr><td><strong>I</strong> Case change</td><td>Aerodynamic theory</td><td>DD-stage A&amp;J; major case re-evaluations</td><td>Once per stage; rarely re-touched after DD</td></tr>
+      <tr><td><strong>II</strong> Case building blocks</td><td>Engineering specs</td><td>DD-stage A&amp;J; major events</td><td>Once per stage; rarely re-touched after DD</td></tr>
+      <tr style="background:#e8f5e9;"><td><strong>III</strong> Components / playbook</td><td><strong>Pilot's flight manual</strong></td><td>Every flight (every monitoring run)</td><td><strong>Weekly (RR23) + Monthly (review meeting)</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Cognitive efficiency:</strong> once a plane is built and the pilot is trained, the pilot never re-reads the engineering specs. Same with held positions: Pillar III is the operating layer; Pillars I + II are reference-only. <strong>This is the load-bearing concept for Stage VI throughput.</strong></p>
+</div>
+
+<!-- ============================ THE SOP ============================ -->
+<h2 id="sop">9. The A&amp;J memo writing SOP — per-row authoring matrix [LOAD-BEARING]</h2>
+
+<div class="panel">
+  <div class="key-note"><strong>THIS IS THE LOAD-BEARING SECTION.</strong> Block B of the xlsx (rows 45–83) plus the Pillar III block (rows 85–125) IS the SOP for writing the A&amp;J memo. APM walks the rows top-to-bottom AT EACH STAGE and writes/updates content per the cell instruction at (row × stage column). Replaces the old "C.II → A → D → C.I → B → E → F" within-section authoring order. New SOP = <strong>stage-row-walking</strong>.</div>
+
+  <h3>The A/B/C/D/E/F document spine survives</h3>
+  <ul>
+    <li><strong>A</strong> Financials · <strong>B</strong> Executive summary · <strong>C</strong> Attributes (Pillars I + II) · <strong>D</strong> Components (Pillar III) · <strong>E</strong> Actions · <strong>F</strong> Appendices</li>
+    <li>Section C reorganises around Pillar I/II structure. Section D reorganises around Pillar III (Position playbook + Monitoring plan + Key drivers Up+Down)</li>
+    <li><strong>HTRO V20 mockup</strong> is the visual reference: <code>https://vfhqi.github.io/ratings/memo-style-sheet3-htro.html?v=20</code></li>
+  </ul>
+
+  <h3>Cell-instruction vocabulary</h3>
+  <table>
+    <thead><tr><th>Cell value</th><th>Instruction</th></tr></thead>
+    <tbody>
+      <tr><td>(blank) / —</td><td>n.a. at this stage; topic not addressed</td></tr>
+      <tr><td>First / Second / Third / Fourth / Fifth pass</td><td>Numbered re-engagement; depth grows with each pass</td></tr>
+      <tr><td>First / Second / Third pass — light/solid/robust</td><td>Standardised depth labels for groups + pillars</td></tr>
+      <tr><td>[no change]</td><td>Carry forward; do not re-touch at this stage</td></tr>
+      <tr><td>Rated</td><td>A rating is produced (master ratings column)</td></tr>
+      <tr><td>No</td><td>Explicitly do nothing at this stage</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The full authoring matrix (verbatim from xlsx)</h3>
+  <p>Columns: I Gen/screen · II Filter out · III Triage · IV ESA · V DD · VI Live.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:5%;">Row</th>
+        <th style="width:32%;">Topic</th>
+        <th style="width:8%;">Master rating?</th>
+        <th class="stage-i" style="width:9%;">I Gen/screen</th>
+        <th class="stage-ii" style="width:9%;">II Filter out</th>
+        <th class="stage-iii" style="width:9%;">III Triage</th>
+        <th class="stage-iv" style="width:9%;">IV ESA</th>
+        <th class="stage-v" style="width:9%;">V DD</th>
+        <th class="stage-vi" style="width:9%;">VI Live</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-summary"><td>48</td><td><strong>Executive summary judgement</strong> <span class="muted">(BLUF)</span></td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="third-pass">Third pass</td><td class="fourth-pass">Fourth pass</td><td class="fifth-pass">Fifth pass</td><td class="na">(stable)</td></tr>
+      <tr class="row-master"><td>49</td><td><strong>Master ratings (the 6)</strong></td><td class="na">—</td><td class="na">No</td><td class="na">No</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">(stable)</td></tr>
+      <tr class="row-sep"><td colspan="9">Pillar I — Case change elements</td></tr>
+      <tr class="row-pillar"><td>51</td><td><strong>Pillar I — Case change elements</strong></td><td class="rated">Rated</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+      <tr><td>52</td><td><span class="badge badge-element">E1</span> Required input change forces?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="third-pass">Third pass</td><td class="na">—</td></tr>
+      <tr><td>53</td><td><span class="badge badge-element">E2</span> Required case "outputs"?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr><td>54</td><td><span class="badge badge-element">E3</span> Sufficient TSR / valuation upside?</td><td class="rated">Rated</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr class="row-sep"><td colspan="9">Pillar II — Case building blocks</td></tr>
+      <tr class="row-pillar"><td>56</td><td><strong>Pillar II — Case building blocks</strong></td><td class="rated">Rated</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">—</td></tr>
+      <tr class="row-group"><td>58</td><td><span class="badge badge-group">G1</span> Case momentum</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">—</td></tr>
+      <tr><td>59</td><td><span class="badge badge-element">E4</span> Technical momentum?</td><td class="rated">Rated</td><td class="first-pass">First pass</td><td class="no-change">[no change]</td><td class="no-change">[no change]</td><td class="second-pass">Second pass</td><td class="no-change">[no change]</td><td class="na">—</td></tr>
+      <tr><td>60</td><td><span class="badge badge-element">E5</span> Thematic fit?</td><td class="rated">Rated</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="third-pass">Third pass</td><td class="fourth-pass">Fourth pass</td><td class="na">—</td></tr>
+      <tr><td>61</td><td><span class="badge badge-element">E6</span> SS earnings momentum?</td><td class="rated">Rated</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="na">—</td></tr>
+      <tr class="row-group"><td>63</td><td><span class="badge badge-group">G2</span> Case simplicity</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">—</td></tr>
+      <tr><td>64</td><td><span class="badge badge-element">E7</span> Required simplicity guardrails?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="third-pass">Third pass</td><td class="na">—</td></tr>
+      <tr><td>65</td><td><span class="badge badge-element">E8</span> Acceptable setup fit?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="third-pass">Third pass</td><td class="na">—</td></tr>
+      <tr class="row-group"><td>67</td><td><span class="badge badge-group">G3</span> Core philosophy <span class="muted">(was Foundations)</span></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">—</td></tr>
+      <tr><td>68</td><td><span class="badge badge-element">E9</span> BQ — Great operator?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr><td>69</td><td><span class="badge badge-element">E10</span> BQ — Advantaged + SRCA?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr><td>70</td><td><span class="badge badge-element">E11</span> BQ — VC dynamics?</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr><td>71</td><td><span class="badge badge-element">E12</span> BQ — Industry structure?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr><td>72</td><td><span class="badge badge-element">E13</span> BQ — Long-term growth?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr class="row-group"><td>75</td><td><span class="badge badge-group">G4</span> Case riskiness</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td><td class="na">—</td></tr>
+      <tr><td>76</td><td><span class="badge badge-element">E15</span> Invalidating attributes?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="na">—</td></tr>
+      <tr><td>77</td><td><span class="badge badge-element">E16</span> Seek-to-avoid attributes?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="na">—</td></tr>
+      <tr><td>78</td><td><span class="badge badge-element">E17</span> AUM-constraining attributes?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="na">—</td></tr>
+      <tr><td>79</td><td><span class="badge badge-element">E18</span> Clear transmission?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="na">—</td></tr>
+      <tr><td>80</td><td><span class="badge badge-element">E19</span> Monitorable transmission?</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="na">—</td></tr>
+      <tr class="row-group"><td>82</td><td><span class="badge badge-group">G5</span> Case optionality</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+      <tr><td>83</td><td><span class="badge badge-element">E20</span> Nice-to-have attributes? <span class="muted">[minor]</span></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="first-pass">First pass</td><td class="second-pass">Second pass</td><td class="na">—</td></tr>
+      <tr class="row-sep"><td colspan="9">Pillar III — Investment case components</td></tr>
+      <tr class="row-pillar"><td>90</td><td><strong>Pillar III — Investment case components</strong></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+      <tr class="row-group"><td>91</td><td><span class="badge badge-group">G6</span> Position management playbook</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+      <tr class="row-group"><td>92</td><td><span class="badge badge-group">G7</span> Key drivers Upstream <span class="muted">→ tabular per § 7a</span></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+      <tr class="row-group"><td>93</td><td><span class="badge badge-group">G8</span> Key drivers Downstream <span class="muted">→ tabular per § 7a</span></td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+      <tr><td>102</td><td><span class="badge badge-element">E21</span> Monitoring plan (of LTIs)</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="na">—</td><td class="light">First — light</td><td class="solid">Second — solid</td><td class="robust">Third — robust</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Worked example — at Stage III (Triage)</h3>
+  <ol>
+    <li>Open the matrix at column III</li>
+    <li>Walk rows top to bottom; for each row with a non-blank cell, produce per cell instruction:
+      <ul>
+        <li>Row 48: produce <em>third pass</em> of exec summary</li>
+        <li>Row 49: produce <em>first pass — light</em> of all 6 master ratings</li>
+        <li>Row 52 E1: <em>first pass</em></li>
+        <li>Row 56 Pillar II: <em>first pass — light</em></li>
+        <li>Row 58 G1 momentum: <em>first pass — light</em></li>
+        <li>Row 60 E5 Thematics: <em>second pass</em> (was first-passed at Stage II)</li>
+        <li>...etc through G2, G3, G4 group ratings; E7, E8, E11 element ratings</li>
+      </ul>
+    </li>
+    <li>Skip blank cells (n.a. at this stage)</li>
+    <li>Carry forward all prior content unchanged unless instructed</li>
+  </ol>
+  <p><strong>That is the SOP.</strong> The matrix dictates the deliverable.</p>
+
+  <h3>The "broadly" caveat — top of the matrix, not separate</h3>
+  <p>Rows 48 + 49 (exec summary + master ratings) are the <em>top of the matrix</em>, sitting alongside the deeper element work below. They give a <em>light, full-case summary</em> at every stage from Triage onwards, even when most pillars are still under-informed. <strong>One document, one matrix:</strong> light at the top + deep for in-scope elements below.</p>
+</div>
+
+<!-- ============================ LIVE ============================ -->
+<h2 id="live">10. Stage VI Live — operating system for held positions</h2>
+
+<div class="panel">
+  <table>
+    <thead><tr><th>Step</th><th>Action</th><th>Output</th><th>Cadence</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. Define</strong></td><td>APM defines case components (Pillar III) during ESA + DD</td><td>Position playbook + per-driver invalidation thresholds</td><td>Once per case</td></tr>
+      <tr><td><strong>2. LTI research</strong></td><td>Research determines best leading tracking indicator (LTI) per driver</td><td>LTI map for the case</td><td>Once per case</td></tr>
+      <tr><td><strong>3. Weekly monitor</strong></td><td>RR23 runs: news, driver keywords, LTI movements</td><td>Weekly monitoring report (logged to Repository)</td><td><strong>Weekly</strong></td></tr>
+      <tr><td><strong>4. Monthly review</strong></td><td>Richard + APM walk through each held stock; decide hold/trim/exit/escalate</td><td>Monthly review note (logged to Repository)</td><td><strong>Monthly</strong></td></tr>
+      <tr><td><strong>5. Exit triggers</strong></td><td>10 INVALIDATION ACHs map news/data to formal exit triggers</td><td>Exit recommendation + decision</td><td>Event-triggered</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Vocabulary lock:</strong> Reports = RRs (RESEARCHER) · Memos = A&amp;J Memos (APM) · Notes = Monitoring Notes (Live)</p>
+</div>
+
+<!-- ============================ DASHBOARD SPLIT ============================ -->
+<h2 id="dashboard">11. Ratings Dashboard ↔ Reports and Memo Repository split</h2>
+
+<div class="panel">
+  <p>Two products replacing the current single dashboard.</p>
+  <table>
+    <thead><tr><th>Product</th><th>Purpose</th><th>Keeps</th><th>Adds</th><th>Removes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Ratings Dashboard</strong></td>
+        <td>Quick cross-stock ratings + drill-down</td>
+        <td>List view, Map view, ratings drill-down (MR + pillar + group + element)</td>
+        <td>Stage-in-process, timeliness, interest level</td>
+        <td>Memo view, P1–P6 click-through</td>
+      </tr>
+      <tr>
+        <td><strong>Reports and Memo Repository</strong></td>
+        <td>Long-form reading layer (replaces "RESEARCH STAGES" tab)</td>
+        <td>—</td>
+        <td>All RRs (RR1–RR23), all A&amp;J memos, all monitoring notes; stage-organised; per-stock view; RR15 = single column despite 6 sub-templates (D9)</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================ STRATEGIC CONTEXT ============================ -->
+<h2 id="refs">12. Strategic context — doctrines, INVALIDATION ACHs, glossary</h2>
+
+<div class="panel">
+  <h3>The two-engine doctrine (Stages III + IV)</h3>
+  <p>From Stage IV target condition. Investment cases need <strong>two engines working together</strong>:</p>
+  <table>
+    <thead><tr><th>Engine</th><th>Drives</th><th>Mechanism</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Engine 1 — Change momentum</strong></td><td>Near-term</td><td>Earnings beats → SS upgrade momentum → algorithmic + trend-following buying</td></tr>
+      <tr><td><strong>Engine 2 — Bankability</strong></td><td>Mid/long-term</td><td>Market extrapolates momentum → multi-year compounding → multiple expansion</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Both required.</strong> Strong change without bankability fizzles. Strong bankability without change has no fuel. The exec summary judgement explicitly evaluates both engines at every stage from Triage.</p>
+
+  <h3>Mediocrity-shunning discipline (Stage V)</h3>
+  <p>From Stage V target condition. Three load-bearing principles:</p>
+  <ol>
+    <li><strong>Mediocrity-shunning:</strong> cases scoring C/D in operator quality, BQ, predictability, KD trackability are <em>parked, not progressed</em>. Don't grind on improving mediocre judgements.</li>
+    <li><strong>"Weirder, worser, further (down), for longer" / cockroach pattern:</strong> a case keeps surfacing new issues, each worse than the last. Park immediately.</li>
+    <li><strong>Top-decile / top-quartile A/B only:</strong> only A or B grade cases clear DD. C/D/F park.</li>
+  </ol>
+  <p>Stage V is the finest mesh in the funnel.</p>
+
+  <h3>The 10 INVALIDATION ACHs (Stage VI exit-trigger framework)</h3>
+  <p>Locked 21-Apr-26. These 10 thresholds apply only while owning a position. Each is a one-strike rule — when triggered, APM escalates to Richard with sell/trim recommendation. Live in <strong>D.II.1</strong> of every memo.</p>
+  <table>
+    <thead><tr><th>#</th><th>Name</th><th>Trigger condition</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Top-line</strong></td><td>One probable/actual near-term revenue cut to SS/G caused by exogenous problem</td></tr>
+      <tr><td>2</td><td><strong>Cockroach</strong></td><td>One actual + one probable, OR three probable/likely current/near-term problems</td></tr>
+      <tr><td>3</td><td><strong>Ditherer</strong></td><td>Deterioration in operator assessment AND one or more current/near-term probable/actual problems</td></tr>
+      <tr><td>4</td><td><strong>Cyclical</strong></td><td>SP underperformance ≥15% or 3M FOLLOWED BY plausible+ near-term revenue cut from threshold+ exogenous problem</td></tr>
+      <tr><td>5</td><td><strong>NT/MT one-two</strong></td><td>SP underperformance ≥15% or 3M FOLLOWED BY any probable/actual near-term cut</td></tr>
+      <tr><td>6</td><td><strong>Wisdom of crowd</strong></td><td>SP underperformance ≥15% or 3M FOLLOWED BY any plausible+ VF or actual SM threshold+ concerns re. mid/long-term growth, margins, SRCAs</td></tr>
+      <tr><td>7</td><td><strong>Market catch-up</strong></td><td>VF (not SM) plausible+ threshold+ concerns FOLLOWED BY SP underperformance ≥15% or 3M</td></tr>
+      <tr><td>8</td><td><strong>Narrow frame</strong></td><td>Peerset underperformance ≥15% or 3M FOLLOWED BY any actual cut/problem</td></tr>
+      <tr><td>9</td><td><strong>SS EEG</strong></td><td>≥2% SS EPS cuts AND SP underperformance ≥15% or 3M (either order)</td></tr>
+      <tr><td>10</td><td><strong>Case outputs/attributes</strong></td><td>≥8 case-output thresholds at D or F</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Old vocab → new vocab glossary (migration period)</h3>
+  <table>
+    <thead><tr><th>Old</th><th>New</th><th>Context</th></tr></thead>
+    <tbody>
+      <tr><td>P1–P6 (Pillars)</td><td>MR1–MR6 (Master ratings)</td><td>Highest-level ratings — same subjects, renamed</td></tr>
+      <tr><td>RAs (Required Attributes)</td><td>E# (A&amp;J Elements)</td><td>Atomic analytical questions</td></tr>
+      <tr><td>CQs (Core Questions)</td><td>Sub-questions within an Element</td><td>No longer first-class</td></tr>
+      <tr><td>TCs (Target Conditions)</td><td>Stage TCs (qualitative, not rated)</td><td>Funnel-stage purpose</td></tr>
+      <tr><td>RESEARCH STAGES tab</td><td>Reports and Memo Repository</td><td>The dashboard tab</td></tr>
+      <tr><td>Q1–Q25 (queries)</td><td>RR1–RR23 (research reports)</td><td>Numbered research deliverables</td></tr>
+      <tr><td>5-stage funnel</td><td>6-stage funnel (with Live)</td><td>Including Stage VI Live</td></tr>
+      <tr><td>Onion-peeling model</td><td>Stage-gated sequential model</td><td>The funnel logic</td></tr>
+      <tr><td>Pillar 3 (old) — KDICs/KHFs/KCs/KRs/KPOs</td><td>Pillar III — Position playbook + Monitoring plan + Key drivers</td><td>Pillar III's 3-group structure</td></tr>
+      <tr><td>Foundations (Group 3 of Pillar II)</td><td>Core philosophy</td><td>F67 rename per D4</td></tr>
+      <tr><td>Leading indicator</td><td>Leading tracking indicator (LTI)</td><td>V2 polish</td></tr>
+      <tr><td>Managing an investment</td><td>Manageability of an investment</td><td>V2 polish</td></tr>
+      <tr><td>Six setups (always have been)</td><td>Six target setups</td><td>Setups + sub-questions in HTRO V20 mockup</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Watson operating rules — extracted</h3>
+  <p>Watson behavioural rules (rating progression discipline, "if it bubbles up" cognitive economy, ebb-and-flow element framework, etc.) are extracted to <code>STREAM-A-watson-operating-rules.md</code> for absorption into APM SKILL.md during Stream C. They are operating rules for <em>how Watson behaves</em>, not framework concepts — kept out of this document to preserve signal.</p>
+</div>
+
+<hr>
+<p class="muted" style="text-align:center;font-size:11px;margin-top:12px;">End of Stream A Comprehensive V2. Watson operating rules: <code>STREAM-A-watson-operating-rules.md</code>. Anti-compaction recovery: read <code>00-conversation-context-VERBATIM.md</code> + this file + <code>13-plan-v2-LOCKED.md</code>.</p>
+
+</body>
+</html>

@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Twice-Daily Position Review — Investment System Library</title>
+<style>:root{--accent:#9a7ac9;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Portfolio and Position Management</div>
+  <h1 class="doc">The Twice-Daily Position Review</h1>
+  <p class="desc">The standing conversation about live positions: price, volume, stops, risk and valuation reconciliation.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/apm-pms-alignment/SKILL.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 14-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<blockquote>
+<p><strong>First action on every run:</strong> read <code>memory/context/CLAUDE-CANONICAL.md</code> in full before anything else. Canonical wins over the app-loaded CLAUDE.md on any conflict.</p>
+</blockquote>
+<h1 id="apm-rb-pms-alignment-sop">APM + RB PMS alignment SOP</h1>
+<p><strong>Status:</strong> LIVE v1.6, 14-Aug-2026 (session digests read/write; chat formatting extended to the stock sweep; per-stock orientation summary; UBS reconciliation now a standing every-run step against current saved sizes; UBS daily return series rebuilt to true inception with a completeness check; end-of-session Notion digest for semi-material-plus sessions). Prior: v1.4, 12-Aug-2026 (UBS fetch decoupled from the morning label; volume-window wording made explicit).
+<strong>Owner:</strong> Assistant Portfolio Manager role.
+<strong>Project home:</strong> <code>projects/SA - Position Management System/</code>.
+<strong>Layer:</strong> sits under the Universal Communication and Presentation Guidelines. Where this SOP duplicates a universal rule, the universal layer wins.</p>
+<hr>
+<h2 id="purpose">Purpose</h2>
+<p>Close the loop between what Richard's trading rules say his positions should be and what they actually are. Two conversations a day, in chat, anchored on the Position Management System.</p>
+<p><strong>The higher intent, in Richard's words:</strong> get position sizes in line each day with the trading rules for adding capital and stop-losses for tranches of capital, and have the Assistant Portfolio Manager <em>ensure</em> it happens — tell him what to do, check he has done it, and chase him about it.</p>
+<p><strong>Drift is the enemy.</strong> Positions diverge from the rules through inaction, not decision: a stop that should have moved up, a tranche that should have been added on a pullback, a size that no longer matches intent. Drift is invisible day to day and expensive over months.</p>
+<hr>
+<h2 id="triggers">Triggers</h2>
+<p>Run this SOP when Richard says any of:</p>
+<ul>
+<li>"run the APM + RB PMS alignment SOP"</li>
+<li>"run the PMS alignment" / "run the alignment SOP" / "PMS alignment"</li>
+<li>"run the morning alignment" / "run the evening alignment" (forces the variant)</li>
+</ul>
+<p><strong>Pick the variant from the clock unless Richard names it.</strong> Before 12:00 UK run MORNING. From 12:00 UK run EVENING. State which variant is running in the first line.</p>
+<hr>
+<h2 id="the-two-variants">The two variants</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MORNING</th>
+<th>EVENING</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Typical time</td>
+<td>Richard's choosing</td>
+<td><strong>18:15 UK</strong></td>
+</tr>
+<tr>
+<td>Covers</td>
+<td>Price, volume, stops, risk, setups, relative performance, Richard's own notes, <strong>plus the UBS AMC valuation comparison if this is the first run of the UK day</strong></td>
+<td>Price, volume, stops, risk, setups, relative performance, Richard's own notes, <strong>plus the UBS AMC valuation comparison if this is the first run of the UK day</strong></td>
+</tr>
+<tr>
+<td>Core question</td>
+<td>Are my position sizes what I think they are?</td>
+<td>What moved, what is near a stop, what needs an order</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Both variants run every step except two, and neither exception is keyed to the morning/evening
+label any more.</strong> <strong>Step 2, the UBS valuation fetch and reconciliation, runs on whichever run is
+FIRST for the UK calendar day, whichever variant that happens to be, and is skipped on any second
+or third run the same day</strong> — Richard's ruling, 12-Aug-2026, superseding the original "morning
+only" gate from the 03-Aug build. The mechanism and the reasoning are in Step 2 below; do not
+re-derive it here. <strong>Step 9, the Stage 2 transition call-out on live holdings, runs ONCE A DAY in
+either variant and never in both</strong> — Richard's ruling, 10-Aug-2026; the script records which run
+reported it. Everything else runs in both, including the volume explainer, the relative analysis
+and the reading of Richard's notes.</p>
+<p><strong>Why "first run of the day," not "morning."</strong> The evening variant's clock cutoff (from 12:00 UK)
+was never meant to say the UBS data isn't wanted on an afternoon or evening first-run — it was
+simply written before this distinction existed. If Richard's first conversation with the Assistant
+Portfolio Manager on a given day happens at 13:28, that run is now the one that fetches UBS, not a
+run that never happens because the day's only conversation landed in the afternoon. This is exactly
+the gap a 12-Aug-2026 run hit: the file behind Step 8.1's fund-performance history had gone three
+trading days stale because every session between 07-Aug and 12-Aug was Systems Architect work, not
+an APM alignment run, and the one APM run that did happen on 12-Aug landed at 13:28 and, under the
+old rule, correctly but unhelpfully skipped Step 2 as "not morning."</p>
+<hr>
+<h2 id="rule-a-write-so-richard-can-read-it-no-shorthand-anywhere">Rule A — Write so Richard can read it. No shorthand, anywhere.</h2>
+<p><strong>Richard's ruling, 04-Aug-2026, after the first live run: "The SOP needs to enforce no lingo/slang.
+I cannot understand it. Speak in full, clear, plain English sentences."</strong> He asked for this to apply
+the vast majority of the time, not just when convenient. It applies to every line of every run,
+including headers, freshness reporting and open-items banners, not only the stock bullets.</p>
+<p><strong>The failing example is real. This is what went out on 04-Aug-2026 and was rejected:</strong></p>
+<blockquote>
+<p>Freshness — all three gates, plus the UBS gate
+Price build: 3-Aug 18:03 run, 978 stocks. Newest bar is Monday 3 August (Bylot only); 13 of 15
+holdings sit on Thursday 30 or Friday 31 July. Mixed dates confirmed by the engine itself.
+Every price below is dated individually.
+Position Management System save: 3-Aug 15:51 UK, one day old. Sizes are current.
+Holdings-to-universe reconciliation: GREEN. 15 live holdings, all resolved, 42.20% deployed.</p>
+</blockquote>
+<p><strong>Why it failed, defect by defect. Each one has a rule attached.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Defect in the text above</th>
+<th>The rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"all three gates" assumes Richard remembers what the gates are</td>
+<td><strong>Never refer to a check by a label alone. Say what is being checked and why it matters.</strong> Internal names for things are banned in the output</td>
+</tr>
+<tr>
+<td>"Newest bar is Monday 3 August (Bylot only)" is a compressed parenthetical</td>
+<td><strong>Write full sentences.</strong> "Only one holding, Bylot, has a price from Monday 3 August. Every other holding is older than that"</td>
+</tr>
+<tr>
+<td>"978 stocks", "13 of 15", "42.20% deployed" arrive with no explanation of significance</td>
+<td><strong>Every figure carries what it means.</strong> A number with no consequence attached is noise</td>
+</tr>
+<tr>
+<td>"GREEN" is a status code</td>
+<td><strong>No colour codes, no status words standing in for a sentence.</strong> Say "every holding was matched to the universe file, so nothing is missing from this check"</td>
+</tr>
+<tr>
+<td>"one day old. Sizes are current." asserts a conclusion without the reasoning</td>
+<td><strong>State the evidence and the inference separately</strong>, so Richard can disagree with either</td>
+</tr>
+<tr>
+<td>"the engine itself" is a reference to internal machinery</td>
+<td><strong>Never name internal scripts, files, flags or codes in the output.</strong> Richard reads conclusions, not plumbing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The rewritten version, and this is the standard:</strong></p>
+<blockquote>
+<p><strong>Freshness — can you trust today's numbers?</strong> Three things have to be current for this report to
+be worth reading, and I have checked all three.</p>
+<p><strong>First, the prices.</strong> They come from last night's build, which ran at 18:03 on Monday 3 August and
+covered 978 stocks. <strong>The prices are not all from the same day</strong>, so I have dated every one
+individually below. Only Bylot has a Monday 3 August price; 13 of your 15 holdings are still on
+Thursday 30 or Friday 31 July, because continental European exchanges consistently lag by a day in
+this data. <strong>That means a stock could have moved since the price I am quoting.</strong></p>
+<p><strong>Second, your position sizes.</strong> The Position Management System last saved at 15:51 UK on Monday 3
+August, which is one day ago. Nothing has been traded and left unsaved since, so <strong>the sizes below
+are what you actually hold.</strong></p>
+<p><strong>Third, whether anything is missing.</strong> All 15 holdings matched to a company record, so no position
+has silently dropped out of this check. You are 42.20% invested, with the rest in cash.</p>
+</blockquote>
+<p><strong>The register, stated once:</strong></p>
+<ul>
+<li><strong>Full sentences.</strong> A fragment is only acceptable inside a table cell</li>
+<li><strong>Expand every abbreviation on first use in every run.</strong> Not "MA" but "20-day moving average". Not "RS" but "relative strength". Not "PB1" but "the first probing-bet tranche". Richard reads these runs hours apart and does not carry the vocabulary between them</li>
+<li><strong>No internal codes</strong>, no version stamps, no file names, no field names, no status colours</li>
+<li><strong>Explain the significance of every number</strong>, not just its value</li>
+<li><strong>Where a term is unavoidably technical, define it in the same sentence.</strong> The engine ships a <code>glossary</code> block for exactly this; use its wording rather than re-deriving a definition</li>
+<li><strong>Richard's own abbreviations are his to use, not yours to echo back untranslated.</strong> He writes "SL", "SP", "L1W" in his notes; the output writes "stop loss", "share price", "over the last week"</li>
+<li><strong>"Probing bet" needs its own explanation when used.</strong> It is Richard's term for a small initial tranche taken to test a thesis before committing full size. Do not use the abbreviation "PB1" at all</li>
+</ul>
+<p><strong>Bullet length and emphasis — Richard's ruling, 14-Aug-2026, and it applies everywhere in this SOP's
+output, explicitly including Step 3's stock sweep.</strong> <em>"Split long paragraphs into bullets, and
+highlight, underline and italicise key points."</em> His own clarification, unprompted, heading off the
+obvious misreading: <em>"I am not saying ignore 'never pad' — I am simply saying split long paragraphs
+into bullets."</em> The two rules are compatible, not in tension:</p>
+<ul>
+<li><strong>No bullet runs longer than three sentences.</strong> Where a point would naturally run to four or more
+  sentences, break it into two or more bullets rather than one long one. This changes how many bullets
+  a stock's write-up contains; it does not change how much is said, and it is not an exception to the
+  bullet-count-scales-with-action rule — a genuinely quiet stock's four bullets may now render as five
+  or six shorter ones, and that is compliant, not a violation</li>
+<li><strong>Bold, italicise and underline more consistently than before.</strong> Bold the verdict or the load-bearing
+  figure; italicise Richard's own quoted words or a nuance; underline the single most critical clause
+  in a longer bullet. This is a heavier hand than the general canonical-rulebook default, by Richard's
+  explicit request for this SOP's output specifically</li>
+<li><strong>This governs every section of the output</strong>, not just the stock sweep: the freshness header, the
+  open-items banner, the UBS reconciliation, Step 8's four sub-sections, and Step 9 all follow the same
+  bullet-length and emphasis discipline</li>
+</ul>
+<p><strong>Scope: these bans govern what Richard READS, not what you read.</strong> Field names, script names and the
+engine's own notes are the Assistant Portfolio Manager's working vocabulary and are used freely while
+working. <strong>They must never pass through into the output.</strong> This matters because several engine
+messages are themselves non-compliant: the note explaining suppressed volume data contains a filename
+and the word "SUPPRESSED", and the note explaining a missing cohort names an internal file.
+<strong>Wherever this SOP says "quote the note", it means restate its substance in plain English, never
+reproduce its text.</strong> So write "volume data for this holding could not be trusted and has been left
+out, because the underlying price series stops before the date of the price I am quoting" — never the
+engine's own wording.</p>
+<h2 id="rule-b-every-claim-must-be-checkable-no-unsupported-assertions">Rule B — Every claim must be checkable. No unsupported assertions.</h2>
+<p><strong>Richard's ruling, 04-Aug-2026: "The analysis needs to be more rigorous - these errors shouldn't
+happen."</strong></p>
+<p><strong>The trigger case, and the lesson is subtler than it first looks.</strong> The 04-Aug run said Hexatronic's
+"pattern of lows has been getting steadily worse". Richard challenged it: the stock had just made a
+<strong>higher</strong> low. Checking the actual price series settles it, and <strong>both were right about different
+things</strong>:</p>
+<ul>
+<li>Measured as <strong>swing lows</strong> (a low that is the lowest within five sessions either side), the last
+  five were 42.18, 42.02, 39.85, 35.10 and 32.87 — <strong>five consecutive lower lows.</strong> The claim was
+  defensible on that measure</li>
+<li>Measured on <strong>the most recent daily lows</strong>, 30 July was 35.48 and 3 August was 36.93 — <strong>a higher
+  low</strong>, exactly as Richard said</li>
+<li><strong>The two disagree because a swing low cannot be confirmed until five sessions have passed after
+  it.</strong> The measure is structurally blind to the most recent week</li>
+</ul>
+<p><strong>So the defect was not sloppiness. It was an unstated measure and an unstated window, presented in
+the present perfect tense as though it described the current state.</strong> A rule saying "be more
+rigorous" would not have caught it. These rules do:</p>
+<ol>
+<li><strong>Name the measure.</strong> "Its swing lows are falling" and "its daily lows are falling" are different
+   claims. Say which one you are making</li>
+<li><strong>Name the window, and the as-of date.</strong> "Over the last five swing lows, the most recent of which
+   was 14 July"</li>
+<li><strong>Say whether the most recent data confirms or contradicts the trend.</strong> If a measure lags, say by
+   how much and what has happened since. <strong>A lagging measure stated in the present tense is a defect,
+   not a shortcut</strong></li>
+<li><strong>Quote the numbers.</strong> A trend claim without its underlying series is unverifiable and therefore
+   not allowed. Richard cannot challenge what he cannot see</li>
+<li><strong>Where two measures disagree, report the disagreement.</strong> It is a finding, not a problem to be
+   tidied away. The disagreement above is more informative than either measure alone</li>
+<li><strong>Never assert a direction from a single observation.</strong> One session is not a trend</li>
+<li><strong>If the data does not support a claim, do not make it.</strong> "I cannot tell from this data" is a
+   valid and useful answer</li>
+</ol>
+<p><strong>The standing rule underneath all seven: verify before asserting.</strong> Check the actual series before
+characterising it. This is the canonical rulebook's own standard and it binds here without exception.</p>
+<h3 id="rule-b8-and-it-is-the-one-most-likely-to-bite-silently-missing-data-is-not-good-news">Rule B8, and it is the one most likely to bite silently: MISSING DATA IS NOT GOOD NEWS</h3>
+<p><strong>A test that cannot run has not passed.</strong> Every health check in this SOP is phrased as "does this
+fail", so a measure with no data answers "no" and the holding reads as healthy. <strong>It is not healthy;
+it is unmeasured, and those are opposite findings.</strong></p>
+<p><strong>Measured on the live book, 04-Aug-2026: Bally's Intralot returns nothing for nine of eleven
+measures</strong> — no relative strength, no cohort rank, no volume tests, no lows counts, no candle
+quality. <strong>It therefore silently passes every quality gate in this document while sitting 1.11% from
+its stop</strong>, which is the second-tightest position in the book.</p>
+<p><strong>So, on every run:</strong></p>
+<ol>
+<li><strong>Before judging a holding, check which measures actually returned a value.</strong> A holding with a
+   thin data set gets that stated in its opening line, not buried</li>
+<li><strong>Never write a positive or neutral verdict off an absence.</strong> "No distribution days" is a finding;
+   "no distribution-day data" is a gap, and the two must never be phrased alike</li>
+<li><strong>Say explicitly what cannot be judged and what that means for the position.</strong> For Bally's:
+   the stop distance is known and trustworthy, and almost nothing else is</li>
+<li><strong>If a holding that previously carried data stops carrying it, escalate.</strong> One name falling back
+   is a known gap; a second is a build problem</li>
+</ol>
+<h3 id="rule-b8b-the-mirror-of-b8-an-absent-number-is-sometimes-the-strongest-reading">Rule B8b, the MIRROR of B8: an absent number is sometimes the STRONGEST reading</h3>
+<p><strong>B8 says missing data must never read as healthy. The inverse also happens, and it bit on
+11-Aug-2026: healthy data read as MISSING.</strong></p>
+<p><code>utr_updown_ratio_5d</code> is up-day volume divided by down-day volume. When there were <strong>no down-volume
+days at all</strong>, the denominator is zero and the producer returned a bare <code>null</code>. That null is not a
+computation gap — it is the strongest bullish reading the field can give. On 11-Aug it fired on
+<strong>three live holdings at once</strong>: Hilton Food after four straight up days, Theon up 9%, and Xvivo up
+15.5%. All three were reported to Richard as a probable defect. Universe-wide it was null on <strong>63 of
+982 names, 6.4%</strong>.</p>
+<p>The mirror case is just as misleading in the other direction: a clean-looking <strong><code>0.0</code> means no UP
+days</strong>, which is maximally bearish, not neutral. D'Ieteren carried 0.0 on 11-Aug after five down
+sessions.</p>
+<p><strong>Since 12-Aug-2026 the reason travels with the number.</strong> <code>utr_updown_ratio_5d_note</code> and
+<code>utr_updown_ratio_note</code> state which case applies, and the alignment engine fills in the definition
+if a build has not yet written them.</p>
+<p><strong>So:</strong> before calling any absent number a defect, ask what the producer does when the measure is
+undefined. <strong>An undefined ratio and a failed computation look identical in the output and are
+opposite findings.</strong> Read the note field; if there is none, say the reason is unknown rather than
+assuming either way.</p>
+<h3 id="on-lows-specifically-quote-both-counts-the-engine-ships-both-for-this-reason">On lows specifically, quote BOTH counts. The engine ships both for this reason.</h3>
+<p><strong><code>lower_lows_count</code> and <code>higher_lows_count</code> both exist.</strong> Quoting one without the other is exactly
+the failure above. On Hexatronic the engine reads <strong>5 lower lows and 1 higher low</strong> — the whole
+argument in two numbers, and reporting only the first is how the wrong impression was created.</p>
+<p><strong>Say both, then say which is more recent.</strong> "Five successively lower swing lows, but the most recent
+swing low is higher than the one before it, and the daily low on 3 August was above 30 July's" is a
+complete and honest statement. <strong>Anything less is a partial one.</strong></p>
+<h3 id="where-a-mechanical-check-is-possible-run-it-rather-than-eyeballing-the-chart">Where a mechanical check is possible, run it rather than eyeballing the chart</h3>
+<p>The price series is on disk. <strong>A claim about lows, highs, gaps or streaks can be computed in seconds
+and should be</strong>, rather than inferred from a moving-average reading. Two guards learned on 04-Aug:</p>
+<ul>
+<li><strong>Test the claim over more than one window.</strong> The Hexatronic swing-low result was re-run over 100,
+  140 and 250 sessions and held identically in all three. <strong>A finding that only appears in one
+  window is a finding about the window</strong></li>
+<li><strong>Prefer a second, independent source for the same fact.</strong> The hand computation above was checked
+  against the engine's own counts and agreed exactly. <strong>Two sources agreeing is worth far more than
+  one source stated confidently</strong></li>
+</ul>
+<h2 id="session-digests-added-14-aug-2026-richards-ruling">Session digests — added 14-Aug-2026, Richard's ruling</h2>
+<p><strong>The problem this solves.</strong> Every run does real analytical work — freshness reads, reconciliations,
+judgement calls like "Arteche is still dicey" — and until now none of it survived past the session
+that produced it. A fresh run either re-derived the same reasoning from scratch or missed it
+entirely. Richard's instruction, 14-Aug-2026: write a digest every session, read the last ten days of
+them automatically, optimised for Watson to read cheaply, not for Richard to read at all.</p>
+<p><strong>This is a different artefact from the end-of-session Notion page below.</strong> This digest is
+Watson-facing and dense — token-efficient shorthand, not prose. The Notion page is Richard-facing and
+readable. They serve different readers and are written separately; do not try to merge them.</p>
+<p><strong>Where it lives:</strong> <code>memory/skills/apm-pms-alignment/digests/YYYY-MM-DD-HHMM-{morning|evening}.md</code> —
+one file per run, per Richard's answer ("Q1 = Yes") to running this per-session rather than
+per-calendar-day. A day with both a morning and an evening run produces two files.</p>
+<p><strong>What it contains — dense, not prose, but judgement is the point, not just data.</strong> Richard's
+explicit instruction ("Q3 = Key is the judgements/insights, too") means this is NOT simply a copy of
+the numbers already sitting in <code>holdings-coverage.json</code> or <code>evening.json</code> — the engine outputs are
+already on disk and cheap to re-read; duplicating them into the digest would waste the exercise. What
+the digest captures instead:</p>
+<ol>
+<li><strong>The verdicts a re-read of raw data wouldn't hand you back.</strong> "Arteche still dicey, today's move
+   tilts it negative" is a judgement, not a fact — a fresh run reading tonight's price alone wouldn't
+   reconstruct that framing without also reading Richard's own notes.</li>
+<li><strong>Anything flagged as unresolved, watched, or provisional</strong>, and why — so a future run doesn't
+   silently drop a thread Richard would expect carried.</li>
+<li><strong>Any data-quality finding</strong>, one line each, with a pointer to the fuller write-up rather than the
+   full explanation repeated.</li>
+<li><strong>One line of raw context</strong> per name that had anything happen — ticker, the number, nothing more.
+   This is the part closest to "data," kept minimal on purpose.</li>
+</ol>
+<p><strong>Format — plain markdown, terse, bulleted, no prose paragraphs.</strong> A worked example:</p>
+<pre><code class="language-markdown"># Digest — 2026-08-14 1053 evening
+
+## Judgements carried
+- Arteche: still &quot;could break either way&quot; (Richard's own frame, 12-Aug). 13-Aug's -5.54% tilts it
+  negative for the first time; stop still 5.41% clear. Not escalated, watch only.
+- Alfen: 2 tranches in breach (100D), 10/10 closes below, grace period long exhausted. Richard's own
+  call pending on whether to hold through fundamental newsflow.
+
+## Data-quality findings (see handoff/session record for full detail, not repeated here)
+- Arteche chart file stale since 07-Aug (6+ days) — corrupts chg_5d/chg_20d/volume for this ticker
+  only. Stop level and chg_1d unaffected (different source file).
+- PMS freshness banner's &quot;stale (build Nh ago)&quot; is a false-positive display bug, not real staleness —
+  root cause in position-manager.html line ~3018-3034, logged for SA.
+
+## Open/watched
+- Theon PMS size may be mis-keyed (2.05% vs likely-intended ~2.9%) — flagged to Richard, unconfirmed.
+- UBS Certificate Position jumped 5000-&gt;8200 on 13-Aug — RPL move normal, looks like a genuine
+  subscription, unconfirmed by Richard.
+
+## One-liners, everything else that moved
+- Xvivo +0.5% tranche added 14-Aug (total 4.95%, still short of UBS's 5.77%)
+- [ticker: number, no elaboration] ...
+</code></pre>
+<p><strong>Reading on start — every run, before Step 1.</strong> Read every digest file dated within the last 10
+calendar days, oldest first. <strong>Track the cost, per Richard's instruction ("Q2 = I don't know, keep it
+lean and let's track")</strong> — there is no fixed token budget yet; instead, note the combined byte size of
+the last-10-days digest set at the top of tonight's own digest, so the trend is visible over time and
+a future session can decide whether a cap or a trim is warranted, mirroring how this file's own
+138KB/140KB size-hook was arrived at.</p>
+<p><strong>Writing on close — every run, as the final step, after Step 9.</strong> Keep it short: a page is a lot for
+one session; a screenful is normal. If nothing judgement-worthy happened, still write a minimal
+digest (a line saying so) rather than skipping the file — a missing file in the 10-day window reads
+as "nothing was checked," not "nothing happened," and those are different findings, per Rule B8's
+logic applied to this file's own record.</p>
+<h2 id="run-order-read-this-before-starting-the-steps-below-are-not-in-execution-order">RUN ORDER — read this before starting. The steps below are NOT in execution order.</h2>
+<p><strong>The steps are numbered for reference, not for sequence.</strong> Two of them must happen before the stock
+sweep even though they are written after it. <strong>Work in this order:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Order</th>
+<th>Do this</th>
+<th>Written at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pre-0</strong></td>
+<td><strong>Read the last 10 days of session digests</strong> (Watson-facing, dense)</td>
+<td>Session digests</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>Read the holdings coverage gate.</strong> Lead with any FAIL</td>
+<td>Step 0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Run the engine and check the three freshness questions</td>
+<td>Step 1</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Read the open-items register</strong> and age every item</td>
+<td>Step 5</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Read the notes digest</strong>, and query Notion only if the cheap staleness test says to</td>
+<td>Step 6</td>
+</tr>
+<tr>
+<td>4</td>
+<td><em>(first run of the UK day only — check <code>ubs_fetch_ledger.py --should-fetch</code> before anything else here)</em> Fetch and reconcile the UBS valuation. <strong>The current-size-vs-UBS-actual reconciliation table itself is NOT gated on a fresh fetch — run and report it every session against the most recently available UBS snapshot, per Richard's 14-Aug-2026 ruling, even on a run where Step 2 skips the fetch itself</strong></td>
+<td>Step 2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Write the open-items banner, then the portfolio judgement</td>
+<td>Steps 5, 3</td>
+</tr>
+<tr>
+<td>5.5</td>
+<td><strong>Write the per-stock orientation summary</strong> — one to two lines per holding, reusing each stock's own opening one-liner, all fifteen listed together before the individual sections begin</td>
+<td>Step 3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Write the stock-by-stock sweep, ordered by risk</td>
+<td>Step 3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Name what is not covered, then give two next actions</td>
+<td>Step 4</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Check Watson's own standing review dates</td>
+<td>Step 5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Historical performance, peer price moves, larger movers, market-relative screens. <strong>Check <code>check_rpl_series_completeness.py</code> here too — see Step 8.1</strong></td>
+<td>Step 8</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Stage 2 transitions on LIVE HOLDINGS, LAST in the note, then offer the whole-universe SOP. Once a day only, morning or evening, never both</strong></td>
+<td>Step 9</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Write this session's digest.</strong> Then, if the session was semi-material or more, post the end-of-session Notion page</td>
+<td>Session digests; End-of-session Notion digest</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why it matters.</strong> The register and the notes both change what the sweep should say: a carried item
+belongs in the banner above everything, and Richard's stated intent for a holding shapes how that
+holding is written up. <strong>Discovering them after the sweep means rewriting it.</strong></p>
+<h2 id="step-0-read-the-coverage-gate-before-anything-else">Step 0 — Read the coverage gate BEFORE anything else</h2>
+<pre><code>python3 &lt;COWORK&gt;/scripts/check_holdings_coverage.py
+</code></pre>
+<p>It also runs on the nightly build and leaves its verdict in <code>pms-data/holdings-coverage.json</code>,
+so reading that file is equivalent when you want last night's state.</p>
+<p><strong>What it answers:</strong> is every stock Richard actually holds present, and current, in every dataset
+this SOP reads — price, chart bars, peer group, Stage 2 history, cohort, cache — and is any slot
+holding capital with no ticker attached.</p>
+<p><strong>Why it exists, and why it is Step 0 rather than a footnote.</strong> Three incidents in five days had
+one cause: every dataset here is built for the UNIVERSE, or hand-built ONCE, and nothing ever asked
+whether the stocks Richard OWNS were covered by all of them.</p>
+<ul>
+<li><strong>07-Aug</strong>, Flutter's dead series masked a fired stop</li>
+<li><strong>11-Aug</strong>, Flutter again: 11-day-stale price, no peer group, no Stage 2 history, no cohort</li>
+<li><strong>11-Aug</strong>, D'Ieteren entered the book at 17:56 and had no peer group by 18:00</li>
+</ul>
+<p>Each was found by a human noticing an odd line partway down a long report, <em>after</em> the analysis had
+been written on top of it. <strong>A coverage failure invalidates the commentary built on it, so it has to
+be known before the commentary is written, not after.</strong></p>
+<p><strong>How to report it:</strong></p>
+<ul>
+<li><strong>GREEN</strong> — say so in one line and move on. Do not pad it.</li>
+<li><strong>AMBER</strong> — a warning, usually a venue still open at build time or a pending entry. State it where
+  it bears on the stock, not as a headline.</li>
+<li><strong>RED</strong> — <strong>lead the note with it, above the open-items banner.</strong> Name the holding, the dataset and
+  what it costs the reader. A missing peer group means that holding's peer table cannot run at all;
+  say that plainly rather than letting the section come back empty.</li>
+<li><strong>An orphan slot is the highest severity finding in the whole SOP.</strong> Capital with no instrument
+  means a position exists in the book that no price, no stop and no verdict can be computed for.
+  Report it first, before the portfolio judgement.</li>
+<li><strong>Exit 2 means the guard could not run.</strong> That is not a pass. Treat an unreadable guard as RED and
+  say the coverage question is unanswered this run.</li>
+</ul>
+<p><strong>Two signals the gate carries that no other check in this document covers:</strong></p>
+<p><strong><code>pipeline_freeze</code></strong> — answers "is the whole price file behind the WORLD?", where every other
+freshness test only asks "is this holding behind the others?". Both are needed. A build that stops
+running leaves every holding perfectly consistent with every other holding, so the per-stock checks
+all pass. Measured 12-Aug-2026: before this existed, a price file frozen for a <strong>full year</strong> still
+reported "every holding covered and current". <strong>A FAIL here invalidates every price statement in the
+note</strong> — say that before quoting a single number. An AMBER of one weekday is normal before the
+evening build.</p>
+<p><strong><code>slot_rebinds</code></strong> — a PMS slot that changed identity while keeping its tranche. Slots are reusable
+and re-pointing one is legitimate, but it leaves no trace: on 11-Aug slot 15 went from Flutter to
+D'Ieteren keeping the same PB1 size and stop, so <strong><code>pms-state.json</code> now holds no record that Flutter
+was ever in that slot, no exit date and no exit price</strong>, and the original 30-June entry date was
+overwritten. Every other guard is blind to it because the resulting state is perfectly valid. <strong>When
+a rebind is reported, say so plainly rather than presenting the new stock as though it had always
+been there</strong>, and note that the prior holding's exit is not recorded. Only the daily auto-backup
+preserves the old binding, one snapshot per day, so two re-points between backups lose the middle one.</p>
+<p><strong>Do not repair anything from inside this SOP.</strong> The gate reports; fixing peer groups, cohorts or
+price identity is Systems Architect work and goes to the plumbing list at the end of the note.</p>
+<h2 id="step-1-check-the-data-is-fresh-enough-to-trust">Step 1 — Check the data is fresh enough to trust</h2>
+<p>Run the engine and read its header before writing a word of commentary:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/apm_pms_alignment.py --evening
+</code></pre>
+<p>Resolve <code>&lt;COWORK&gt;</code> first: it is the mount directory containing <code>Files/</code> and <code>memory/</code>. It varies per session.</p>
+<p><strong>Three freshness gates. State the result of each in the output, do not skip them silently.</strong></p>
+<ol>
+<li><strong><code>price_data.generated</code></strong> — the nightly master-dashboard build, ~18:00-18:10 UK. If it is not from today (or the last trading day), say so plainly and label every price as of its actual date. <strong>Never present stale prices as current.</strong></li>
+<li><strong><code>state_saved_at</code></strong> — when the Position Management System last saved. If it is more than a few days old, Richard may have traded without saving, and every size in the report is suspect. Say so.</li>
+<li><strong><code>price_date</code> per stock</strong> — individual stocks can lag the build. Report any that differ from the majority.</li>
+</ol>
+<h3 id="the-fourth-freshness-question-and-it-outranks-the-other-three-is-a-stop-verdict-wrong">The fourth freshness question, and it outranks the other three: is a STOP VERDICT wrong?</h3>
+<p><strong>A stale price is not merely imprecise. It can give the wrong answer to the only question that
+matters: is this position stopped out.</strong></p>
+<p><strong>Measured on 04-Aug-2026: 14 of 16 holdings had a more recent closing price in the chart series than
+the price their stop distances were computed from</strong>, because continental exchanges lag the nightly
+build. On that day <strong>Volex was reported IN BREACH at 0.24% below its stop on a 31 July price, and was
+0.73% CLEAR on its 3 August close.</strong> It was carried on the open-items register as urgent. That is a
+wrong verdict on a live position, not a rounding difference.</p>
+<p><strong>The engine now reports this. Read <code>stop_verdict_conflicts</code> on every run and act on it:</strong></p>
+<ol>
+<li><strong>If the list is non-empty, lead with it</strong> — above the open-items banner, above everything. It
+   means a stop verdict in this very report is contradicted by a more recent price</li>
+<li><strong>State both, plainly, and do not pick a winner.</strong> "On the 31 July close this tranche is 0.24%
+   below its stop. On Monday 3 August's close, which the price build has not yet picked up, it is
+   0.73% above it. <strong>I cannot tell you which is current; the position may not be stopped at all</strong>"</li>
+<li><strong>Never silently prefer either price.</strong> The older one remains the basis for the numbers, by a
+   deliberate 03-Aug-2026 ruling against creating a third price path. <strong>The conflict is reported,
+   never resolved by Watson</strong></li>
+<li><strong>Any breach in conflict is provisional.</strong> Do not chase Richard to sell a position whose breach
+   may not exist. Say it is unresolved and why</li>
+<li><strong>Where a holding has a fresher bar but no verdict flips, say so once at portfolio level</strong> — "13
+   holdings carry prices two to five days old, so anything within a few percent of a stop is
+   provisional" — rather than repeating it on every stock</li>
+</ol>
+<p><strong>This is a reporting rule, not a data fix.</strong> The underlying cause was root-caused and fixed by
+another session on 04-Aug-2026, and tonight's build should begin closing the gap. <strong>Until a run shows
+no conflicts, keep making the check.</strong></p>
+<p><strong>Run the standing holdings check too</strong>, and report a RED immediately:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/holdings-universe-reconciliation.py
+</code></pre>
+<hr>
+<h2 id="step-2-first-run-of-the-uk-day-only-fetch-and-reconcile-the-ubs-valuation">Step 2 (FIRST RUN OF THE UK DAY only) — Fetch and reconcile the UBS valuation</h2>
+<p><strong>Richard's ruling, 12-Aug-2026, superseding the original "morning only" gate.</strong> This step is no
+longer tied to the morning/evening label. It runs on whichever alignment run is FIRST for the UK
+calendar day — morning or evening, whichever happens to come first — and is SKIPPED on any second
+or third run the same day. <strong>Check this before anything else in Step 2, before even checking
+whether a UBS email exists:</strong></p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --should-fetch
+</code></pre>
+<p>It prints <code>FETCH: ...</code> or <code>SKIP: ...</code> with a plain-English reason and exits 0 or 1 to match. <strong>If it
+says SKIP, do not attempt the fetch at all.</strong> State one line in the output confirming the valuation
+was already pulled earlier today, who last fetched it (the ledger's <code>last_fetched_at_uk</code>) and which
+trading day it covered, then move straight to Step 3 — this mirrors exactly how Step 9 reports its
+own once-a-day guard, for the same reason: silence would read as "nothing to report" rather than
+"already done."</p>
+<p><strong>If it says FETCH, run the full sub-step below, then mark it done as the very last action:</strong></p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --mark-fetched --trading-day-covered &lt;YYYY-MM-DD&gt;
+</code></pre>
+<p><strong>Mark it only after the fetch and reconciliation have genuinely completed</strong>, using the trading day
+the valuation actually covers (read from inside the workbook, not guessed from today's date — see
+the cadence rules below). A false or premature mark silently suppresses the next run's fetch, which
+is the exact failure this change exists to prevent, just moved to a new place. <strong><code>&lt;COWORK&gt;</code> here is
+the same mount directory resolved everywhere else in this SOP.</strong></p>
+<p><strong>What "the full sub-step" means when this is the first run of the day, even if that run is the
+evening variant:</strong> everything below — the fetch, the schema guard, the RPL append to
+<code>fund-rpl-history.json</code> (Step 8.1 depends on this happening every time Step 2 runs, not just on
+mornings), and the deviation-vs-target reconciliation table with its ISSUE list, run once against
+the MOST RECENT email fetched. Do not run a lighter version just because the label says evening;
+there is no longer a lighter version. This was flagged to Richard as a live design choice when the
+change was made and confirmed rather than assumed — see the Change Log entry at the end of this
+file for the full exchange.</p>
+<p>The UBS Neo AMC valuation arrives on trading days from <code>noreply@ubs.com</code>, subject <code>UBS Neo AMC Valuation - CH1560492923</code>, to <strong><code>RBlack@pacificam.co.uk</code></strong> — the Pacific Asset Management account, <strong>not</strong> the gmail one. Pass <code>acting_email</code> explicitly. <strong>Arrival time is erratic and is being monitored — see the arrival-time rules below. Do not expect a particular time and never treat a late arrival as a missing feed.</strong></p>
+<p><strong>The email body carries no figures. Everything is in the attachment.</strong></p>
+<h3 id="this-step-fetches-every-missed-valuation-since-the-last-one-not-just-the-newest-richards-ruling-12-aug-2026-kiss">This step fetches EVERY missed valuation since the last one, not just the newest — Richard's ruling, 12-Aug-2026, "KISS"</h3>
+<p><strong>The problem this solves.</strong> "First run of the day" only helps on days a run actually happens. If
+several days pass with no APM alignment run at all — exactly what happened 7 to 12 August 2026 —
+the old single-day fetch would only ever catch up the single most recent valuation and silently
+leave the gap behind it unfilled forever, because nothing ever went back for the missed days.
+Richard was offered a standalone scheduled task as a fix and explicitly rejected it: <strong>"no, not a
+scheduled one. Just get the SOP to open all the ones required since the last one. KISS."</strong> So Step
+2 itself now catches up the whole gap, in one run, whenever it fires.</p>
+<p><strong>The bookmark.</strong> <code>ubs_fetch_ledger.py --should-fetch</code>'s own output states the trading day already
+covered (<code>last_trading_day_covered</code>). That is where the catch-up starts from — never "yesterday",
+never "today", always "the day after the bookmark".</p>
+<p><strong>Follow this sequence exactly:</strong></p>
+<ol>
+<li><code>query_email_and_calendar</code> on <code>RBlack@pacificam.co.uk</code>, asking for UBS valuation emails <strong>from
+   the bookmark date onward</strong> (widen the query's date range rather than asking for "recent" and
+   hoping older ones are still included — a narrow default range is how a multi-day gap would go
+   half-caught silently).</li>
+<li>Take <code>sources[].id</code> from each result. <strong>Use it as a <code>message_id</code>.</strong> The search returns the
+   message and thread identifiers TRANSPOSED — the value labelled as a thread identifier does not
+   work, and <code>get_thread</code> on it returns an empty shell. This wasted a call on 03-Aug-2026; do not
+   repeat it.</li>
+<li><strong>Sort the matching emails chronologically, oldest first.</strong> This matters: <code>fund-rpl-history.json</code>
+   must be appended in date order, and the reconciliation table later must run against the newest
+   one, not whichever happened to be processed last by accident.</li>
+<li><strong>A safety cap: if more than 10 emails are newer than the bookmark, stop after the 10th, do NOT
+   silently keep going, and say so plainly to Richard</strong> — a gap that large means something else is
+   wrong (the SOP hasn't run in two-plus weeks, or the bookmark itself is corrupt) and deserves his
+   attention before being quietly absorbed. Report exactly how many were found and how many were
+   processed.</li>
+<li><strong>For each email, oldest first:</strong>
+   a. <code>get_message</code> with that identifier to confirm the attachment name.
+   b. <code>get_attachment</code> with the same identifier and the exact filename.
+   c. Download the signed URL with <code>curl</code> <strong>within the hour</strong> — it expires.
+   d. Open the Summary sheet, read the "RPL" cell and the "Certificate Position" cell (see Step
+      8.1 for what these mean and the cross-check on Position staying constant).
+   e. <strong>Before appending, check <code>fund-rpl-history.json</code>'s <code>series</code> for that exact date already
+      present.</strong> If it is, skip the append (do not duplicate); this makes the catch-up loop safe
+      to re-run if a prior attempt was interrupted partway through. If it is not, append
+      <code>{date, rpl}</code> in chronological order, exactly as Step 8.1 describes.
+   f. Immediately call <code>python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --mark-progress --trading-day-covered &lt;that email's trading day&gt;</code>, before moving to the next email. <strong>This is what makes an interruption mid-loop safe</strong> — the bookmark advances one email at a time, so a run that stops after email 3 of 5 leaves the ledger correctly at email 3's date, ready to resume, rather than either losing progress or wrongly marking the whole day done.</li>
+<li>
+<p><strong>Once every email in the batch is processed</strong>, run the schema guard and the full
+   deviation-vs-target reconciliation table against the <strong>most recent</strong> email's downloaded file
+   only:</p>
+<p>python3 <COWORK>/scripts/apm_pms_alignment.py --evening --ubs /tmp/ubs-latest.xlsx</p>
+</li>
+</ol>
+<p><strong>Pass whichever of <code>--morning</code> or <code>--evening</code> matches the variant actually running</strong> — the
+   script no longer gates UBS processing on which one you pass (fixed 12-Aug-2026; it used to
+   silently skip the whole reconciliation on <code>--evening --ubs</code>, which would have quietly broken
+   this very feature). Older emails in the batch fed the RPL history and nothing else; an old UBS
+   snapshot's target-vs-actual comparison is stale the moment a newer one exists, so showing more
+   than one reconciliation table
+   would be noise, not signal.
+7. <strong>Report the catch-up plainly if it covered more than one email.</strong> "Caught up 3 missed UBS
+   valuations, covering 7, 8 and 11 August, because no run had fetched since 6 August" is the
+   standard — never process a multi-day gap silently and only show the latest number, which would
+   hide the very staleness this mechanism exists to prevent Richard from experiencing again.
+8. <strong>Mark the whole run done, once, at the very end:</strong></p>
+<pre><code>   python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --mark-fetched --trading-day-covered &lt;the most recent trading day just processed&gt;
+</code></pre>
+<p>Never call <code>--mark-fetched</code> before every email in the batch has genuinely been fetched and
+   appended — a premature mark silently suppresses the rest of today's catch-up.</p>
+<p><strong>The cadence, established 03-Aug-2026 by direct query — do NOT report it as staleness.</strong>
+UBS sends <strong>Tuesday to Saturday only</strong>, each email reporting the previous trading day. Saturday's
+carries Friday's close. <strong>There is no Monday email</strong>, because Monday's would report Sunday.
+<strong>So on a Monday the freshest valuation is always Friday's, and that is correct, not stale.</strong></p>
+<h3 id="arrival-time-is-erratic-report-it-do-not-wait-on-it">Arrival time is erratic. Report it, do not wait on it.</h3>
+<p><strong>Richard's ruling, 04-Aug-2026: "The UBS AMC file came through today at 0830h UK time. It seems to
+be a bit erratic. Let's monitor it each day and look for a pattern."</strong> Asked how long to wait before
+calling it missing, he was explicit: <strong>"Unclear tbh. If I ask for the SOP the APM just needs to flag
+when last UBS email was."</strong></p>
+<p><strong>So there is no cut-off and no waiting. The rule is:</strong></p>
+<ol>
+<li><strong>Never block the run on the valuation.</strong> Do the price, stop and volume work regardless. The
+   valuation reconciliation is one section of the report, not a gate on the rest of it</li>
+<li><strong>Always state, in plain words, when the most recent valuation email arrived and which trading
+   day it covers.</strong> For example: "The most recent valuation email arrived at 08:30 UK on Tuesday 4
+   August and covers Monday 3 August's close." Give both the arrival time and the coverage date,
+   because they are different facts and the gap between them is the thing being monitored</li>
+<li><strong>If no email has arrived for the day the cadence predicts, say so plainly and carry on.</strong> Do the
+   reconciliation against the most recent valuation available, and state clearly which day it is
+   from and therefore what it cannot tell him</li>
+<li><strong>Log every arrival time on every morning run</strong>, to <code>memory/staging/ubs-valuation-arrival-log.md</code>.
+   This is a deliberate data-gathering exercise: the pattern cannot be found without a record, and
+   the log lives outside this file so that a daily append never churns the doctrine</li>
+<li><strong>After ten trading days of observations, report the pattern to Richard</strong> — the range of arrival
+   times, whether any day of the week is consistently later, and whether a sensible expectation can
+   be set. Until then, make no claim about what "usual" is. <strong>Two observations are not a pattern</strong></li>
+</ol>
+<p><strong>The search is NOT reliably ordered — verify, do not assume.</strong> Two searches in the same session on
+03-Aug-2026 disagreed about which email was newest; the second omitted an email that demonstrably
+existed and whose attachment had already been downloaded. <strong>Always ask explicitly whether an email
+exists for the date the cadence predicts</strong>, and cross-check the as-of date inside the workbook.
+A silently stale valuation produces a confident and wrong reconciliation.</p>
+<p><strong>Schema guard, non-negotiable.</strong> The engine asserts that equity weight plus cash weight sums to 100%. If <code>ubs.WARNING</code> is present, <strong>stop and report it</strong> rather than publishing a reconciliation. On 16-Jul-2026 cash sat inside the Summary sheet; by 31-Jul it had moved to its own <code>Cash</code> sheet. A parser built to the old shape understates the denominator silently. If the assertion fails, the schema has moved again.</p>
+<p><strong>Then report the reconciliation:</strong></p>
+<ul>
+<li>Deviation is PMS target size minus UBS actual weight, in percentage points of assets.</li>
+<li><strong>ISSUE at 0.3pp or more</strong>, flag below that, and any presence or absence mismatch is an ISSUE regardless of size.</li>
+<li>Compare on the <strong>union</strong> of both lists — a stock in either system appears in the table.</li>
+<li><strong>Lead with the ISSUEs.</strong> Give Richard a keying-in list: exactly what to change, in order, largest deviation first.</li>
+</ul>
+<p><strong>This is a STANDING step every run, not gated on a fresh fetch — Richard's ruling, 14-Aug-2026,
+after this exact table caught a genuine data-entry slip the same day.</strong> Compute the PMS side <strong>live
+from <code>pms-state.json</code>'s <code>EDITS</code> block, every time</strong> — the engine already does this correctly (verified
+14-Aug-2026 by reading <code>apm_pms_alignment.py</code> directly: it reads <code>state.get('EDITS')</code> fresh on every
+run, never a cached snapshot), so "current size" always means whatever is saved on disk at the moment
+this step runs, not a size frozen at trade entry. <strong>On a run where Step 2's fetch itself is skipped
+(a second or third run the same UK day), still compute and report this table, against the most
+recently fetched UBS snapshot</strong> — the reconciliation and the fetch are two different questions
+("is my book aligned with UBS" versus "has today's valuation been pulled yet") and one being stale
+by a few hours doesn't make the other one skippable.</p>
+<p><strong>This threshold is unvalidated.</strong> It was inherited from the 16-Jul-2026 snapshot and on 03-Aug-2026 fired on 5 of 14 names. If it keeps firing on a third of the book it is too tight and will be ignored. Review it after a fortnight of real use and tell Richard what the firing rate actually is.</p>
+<hr>
+<h2 id="step-3-write-the-stock-by-stock-analysis">Step 3 — Write the stock-by-stock analysis</h2>
+<p><strong>FULL SWEEP. Every live stock gets its full treatment, every session.</strong> Richard chose this explicitly on 03-Aug-2026 over an exception-led alternative. Do not quietly compress it back.</p>
+<h3 id="orientation-summary-added-14-aug-2026-sits-above-all-fifteen-stock-sections">Orientation summary — added 14-Aug-2026, sits above all fifteen stock sections</h3>
+<p><strong>Before the individual stock write-ups, list all live holdings together, one to two lines each.</strong>
+Richard's own words: <em>"take the 1 line summary per stock and replicate in a summary section above the
+stock sections… key is to orient me to what is most important."</em> This is <strong>in addition to</strong>, not a
+replacement for, presentation rule 1 below (the one-line summary that opens each stock's own section)
+— reuse the same sentence in both places rather than writing it twice in different words, so the two
+never drift apart. Order this block the same way the sweep itself is ordered: risk first (breach, then
+within 5% of a stop), then the rest by size.</p>
+<h3 id="presentation-rules-richards-amendments-03-aug-2026-these-are-binding">Presentation rules — Richard's amendments, 03-Aug-2026. These are binding.</h3>
+<p><strong>1. Open every stock with a ONE-LINE summary sentence.</strong> Risk-focused and action-focused: what the
+position is, what the risk is, what happens next. Richard reads this line first and may read nothing
+else, so it must carry the conclusion, not a description.</p>
+<p><strong>2. Prefix EVERY bullet with a signpost marker:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Marker</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[+++]</code></td>
+<td>Strongly positive</td>
+</tr>
+<tr>
+<td><code>[++]</code></td>
+<td>Positive</td>
+</tr>
+<tr>
+<td><code>[+]</code></td>
+<td>Mildly positive</td>
+</tr>
+<tr>
+<td><code>[=]</code></td>
+<td>Neutral, or a fact with no directional read</td>
+</tr>
+<tr>
+<td><code>[?]</code></td>
+<td>Unclear, conflicting, or data missing</td>
+</tr>
+<tr>
+<td><code>[-]</code></td>
+<td>Mildly negative</td>
+</tr>
+<tr>
+<td><code>[--]</code></td>
+<td>Negative</td>
+</tr>
+<tr>
+<td><code>[---]</code></td>
+<td>Strongly negative</td>
+</tr>
+</tbody>
+</table>
+<p>The marker reflects the reading for THAT bullet, not the stock overall. A stock can and should carry
+a mix. This is the fastest signal Richard has, so it must be honest, not decorative.</p>
+<p><strong>3. NAME the sector, industry and cohort whenever a relative figure is quoted against one.</strong> Never
+"99th against sector". Write "99th percentile against its sector, telecoms towers". The engine
+supplies <code>sector_label</code>, <code>industry_label</code> and <code>cohort_label</code> for exactly this. <strong>BYLOT-GR has no
+sector or industry</strong> — say so.</p>
+<p><strong>Cohort is the sharpest of the three and was missing until 03-Aug-2026.</strong> A cohort is the small
+named peer group Richard defined, typically 3 to 6 names, so a rank inside it is far more
+informative than a percentile against 978 stocks. The engine now ships <code>cohort_label</code>,
+<code>cohort_rank</code>, <code>cohort_size</code>, <code>cohort_median_rs</code> and <code>cohort_rs_excess</code>. Write it as
+<strong>"strongest of the 4 names in its cohort, power grid infrastructure equipment, 21.5 points of
+relative strength above the cohort median"</strong>, never as a bare rank.</p>
+<p><strong>Two guards on cohort, both mandatory.</strong> A cohort with <strong>fewer than three priced members is not
+ranked at all</strong> — "1 of 2" reads as precision that is not there, and the engine returns
+<code>cohort_rank: null</code> with a <code>cohort_note</code> saying why. Quote the note, do not invent a rank. And
+<strong>where a holding has no cohort recorded, say so plainly</strong> rather than silently dropping the
+comparison.</p>
+<p><strong>4. Write plain English, not shorthand.</strong> Every metric must be rendered in words with its actual
+threshold. The engine ships a <code>glossary</code> block with a read-from-source definition of each one; use
+it and do not re-derive.</p>
+<table>
+<thead>
+<tr>
+<th>Do NOT write</th>
+<th>DO write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Volume 1.55x over 5 days with up/down 0.60"</td>
+<td>"Five-day average volume is running 55% above its 20-day norm, and down-days are trading nearly twice the volume of up-days — heavy selling, not heavy buying"</td>
+</tr>
+<tr>
+<td>"Five distribution days, 3 lower lows"</td>
+<td>"Five sessions in the last 25 closed down on volume more than 1.25 times the 50-day average, which is institutional selling. Its last three pullbacks each bottomed lower than the one before"</td>
+</tr>
+<tr>
+<td>"RS 96th, 99th vs sector"</td>
+<td>"96th percentile for relative strength across the 978-stock universe, and 99th against its own sector, electrical grid capital goods — the sector is falling faster than the stock"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. Be specific and quantified, never vague.</strong> "Five distribution days" alone is banned: say how
+many sessions out of how many, what the threshold was, and what it implies. Every figure gets its
+date where dates differ across the book.</p>
+<p><strong>6. Bullet count scales with required action. This is the core rule.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Bullets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quiet, no action, comfortable distance from stop</td>
+<td><strong>4</strong>, minimum</td>
+</tr>
+<tr>
+<td>Normal, watching</td>
+<td><strong>5 to 6</strong></td>
+</tr>
+<tr>
+<td><strong>Negatives stacking up</strong> — approaching or in breach, deteriorating volume, weakening relative strength</td>
+<td><strong>8 to 10, with the supporting logic spelled out</strong></td>
+</tr>
+<tr>
+<td><strong>Opportunity for capital emerging</strong> — pullback to a rising average meeting the criteria, volatility contraction, breakout</td>
+<td><strong>8 to 10, with the supporting logic spelled out</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The logic: <strong>more bullets where action is warranted</strong>, because that is where Richard needs the
+reasoning, not just the conclusion. A quiet stock does not earn ten bullets and a stock about to be
+stopped out does not deserve four. <strong>Never pad a quiet stock to hit a number.</strong></p>
+<p><strong>7. Always give the counter-case</strong> on any stock where the conclusion is directional. State the
+strongest argument against the call and what would have to be true for it to win.</p>
+<p><strong>8. Volume is yours to watch, because Richard does not.</strong> Added 04-Aug-2026 at his request:
+<em>"The aim is for APM to communicate the volume related insights as I do not monitor them myself,
+only price and MA charts."</em> He watches price and moving-average charts. <strong>Anything volume tells you
+that price does not, he will only learn if you tell him.</strong> Treat this as a standing duty, not a
+section to fill in. See the full volume rules below.</p>
+<p><strong>9. Analyse relatively, never only absolutely.</strong> Added 04-Aug-2026: <em>"The APM should put analysis in
+the context of the cohort peers' and the sector/industry's price moves (and market relative, too),
+not just absolute analysis."</em> A stock down 5% in a cohort down 10% is a different holding from a
+stock down 5% in a cohort up 2%. See the relative-analysis rules below.</p>
+<hr>
+<h2 id="volume-analysis-the-four-tests-and-the-explainer-richard-cannot-get-elsewhere">Volume analysis — the four tests, and the explainer Richard cannot get elsewhere</h2>
+<p><em>Part of Step 3. This section and the relative-analysis section that follows expand presentation
+rules 8 and 9; the stock-bullet topic list resumes after them, under "The topics each stock's bullets
+cover". Step 4 follows that.</em></p>
+<p><strong>Why this section exists.</strong> Richard reads price and moving-average charts and does not monitor
+volume. Volume is therefore the one channel where the Assistant Portfolio Manager is not
+double-checking something he already knows — it is genuinely new information every time. <strong>Under-
+reporting it is a silent failure, because he will never notice the omission.</strong></p>
+<h3 id="the-four-tests-taken-from-the-master-dashboard">The four tests, taken from the master dashboard</h3>
+<p>These are the tests grouped as <strong>"Group 3 — healthy retest of a rising moving average"</strong> on the
+dashboard's "Stage 2 retest and breakout?" page. <strong>The thresholds below were read from the source
+code on 04-Aug-2026 and must not be re-derived from memory.</strong> Richard confirmed these three volume
+tests plus anything else the Assistant Portfolio Manager judges worth writing about.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Test</th>
+<th>Passes when</th>
+<th>Window</th>
+<th>Engine field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td><strong>Volume contracting</strong></td>
+<td>10-day average volume is <strong>below</strong> the 50-day average</td>
+<td>10 vs 50 sessions</td>
+<td><code>utr_vol_trend</code> (ratio, below 1.0 passes)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Up-day volume above down-day volume</strong></td>
+<td>ratio is <strong>1.05 or higher</strong></td>
+<td>20 sessions</td>
+<td><code>utr_updown_ratio</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Few distribution days</strong></td>
+<td><strong>3 or fewer</strong> sessions closed down on volume above <strong>1.25 times</strong> the 50-day average</td>
+<td>last 25 sessions</td>
+<td><code>utr_dist_days</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Volatility contracting</strong> <em>(not a volume test)</em></td>
+<td>10-day average range <strong>below</strong> the 20-day</td>
+<td>10 vs 20 sessions</td>
+<td><code>utr_pullback_contraction</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Two traps in the dashboard's own labelling. Do not inherit either.</strong></p>
+<ul>
+<li><strong>Test 6 is mislabelled on the live dashboard.</strong> It displays as "Up-vol &gt; down-vol" with the
+  tooltip "Up-day volume exceeds down-day volume", which implies a threshold of 1.0. <strong>The code
+  requires 1.05.</strong> Always state 1.05. A stock at 1.02 fails this test while appearing to pass the
+  label</li>
+<li><strong>Test 8 is labelled "Vol reducing" and is VOLATILITY, not volume.</strong> Never report it as a volume
+  finding. Say "volatility", in full, every time</li>
+</ul>
+<p><strong>A fourth measure is available and useful: <code>utr_updown_ratio_5d</code></strong>, the same up-versus-down
+comparison over five sessions rather than twenty. <strong>Where the 5-day and the 20-day disagree, that
+disagreement is the finding</strong> — it means the character of the buying or selling has changed
+recently. Report both, and say which way the change runs.</p>
+<h3 id="the-mandatory-explainer">The mandatory explainer</h3>
+<h3 id="every-holding-gets-a-volume-read-the-explainer-is-the-deep-treatment-not-the-only-treatment">EVERY holding gets a volume read. The explainer is the DEEP treatment, not the only treatment.</h3>
+<p><strong>Read this before the triggers, because getting it wrong defeats Richard's whole request.</strong> He does
+not monitor volume at all, so <strong>a holding that gets no volume sentence gets no volume information
+from anywhere.</strong> The triggers below decide who gets the <em>deep</em> treatment. They never decide who gets
+<em>any</em>.</p>
+<p><strong>So: every holding, every run, gets at least a one-line volume read in its bullets</strong> (sweep topic 2)
+— what volume did, and whether it confirms or contradicts the price. <strong>Including the healthy ones.</strong></p>
+<p><strong>This is not theoretical.</strong> Richard named the 04-Aug treatment of <strong>Hilton Food and Helios Towers</strong>
+as the standard he wanted. Measured on the live book: <strong>Helios trips three triggers; Hilton trips
+none, under any threshold tested.</strong> It is up 17.9% over 20 sessions, its volume is contracting, its
+up-day volume leads, and it has zero distribution days. <strong>A trigger-gated section would have written
+nothing at all about the holding he praised.</strong> The healthy read — "rising price on rising volume with
+a buying bias, which is the healthy version of this pattern" — was itself the useful part.</p>
+<h3 id="trigger-for-the-deep-explainer-mechanical-so-it-fires-identically-every-run">Trigger for the DEEP explainer, mechanical so it fires identically every run</h3>
+<p>Write the full explainer for any holding that meets <strong>any one</strong> of:</p>
+<ul>
+<li>it is <strong>in breach</strong> of a stop, on any tranche</li>
+<li>it is <strong>within 5% of a stop</strong>, on any tranche</li>
+<li>its price is <strong>down over the last 20 sessions</strong></li>
+<li><strong>any</strong> of volume tests 5, 6 or 7 fails</li>
+<li><strong>the volume data is MISSING.</strong> Absent data is a reason to write, never a reason to stay silent.
+  See the rule below, which was learned the hard way</li>
+</ul>
+<p><strong>Plus the Assistant Portfolio Manager's own judgement.</strong> Richard explicitly invited this: write the
+explainer on any holding where the volume picture is worth his attention, whatever the triggers say.</p>
+<h3 id="do-not-tighten-these-triggers-to-make-the-report-shorter-read-this-first">DO NOT TIGHTEN THESE TRIGGERS TO MAKE THE REPORT SHORTER. Read this first.</h3>
+<p><strong>A previous session tightened them and was wrong.</strong> The reasoning was that the triggers fired on 12
+of 16 holdings, and that a section firing on most of the book "will be skimmed". <strong>That argument is
+Watson's own, it was put to Richard in writing on 03-Aug-2026, and he overruled it.</strong></p>
+<p>Watson proposed an exception-led report, arguing that <em>"16 names x 8 bullets nightly is ~128 bullets,
+which does not get read"</em>. <strong>Richard chose the full sweep, on the second round of asking, knowing
+that figure.</strong> The decision record carries an explicit warning that a future session may be tempted
+to improve it back and must not.</p>
+<p><strong>What the tightening actually cost, measured on the live book:</strong> the two holdings it removed from
+volume coverage were <strong>Enav, sitting 0.84% from its stop, and Bally's Intralot, 1.11% from its stop.
+The two closest positions in the entire book to being stopped out.</strong> They dropped out because their
+volume tests were not failing, and in Bally's case because it has <strong>no volume data at all.</strong></p>
+<p><strong>So the standing rule: report length is Richard's call, not Watson's.</strong> He has never once asked for
+a shorter report. He has asked for <em>more</em> bullets where action is warranted, called a compressed
+passage <em>"too brief"</em>, and accepted longer reports elsewhere in writing. <strong>If length ever becomes a
+genuine problem, the lever is better signposting and emphasis so he can choose his own depth, never
+cutting coverage — and any move back toward exception-led requires asking him.</strong></p>
+<h3 id="explainer-depth-scales-exactly-as-bullet-count-does">Explainer depth scales, exactly as bullet count does</h3>
+<p><strong>The five parts below are what to CONSIDER, never a quota.</strong> Presentation rule 6's logic applies
+unchanged: more words where action is warranted.</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Explainer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One volume test failing, no price trouble</td>
+<td><strong>Two or three sentences.</strong> Say what is deteriorating and whether it matters yet</td>
+</tr>
+<tr>
+<td>Price weakness plus a failing test</td>
+<td><strong>A short paragraph</strong> covering the parts that have something to say</td>
+</tr>
+<tr>
+<td>In breach, or two or more tests failing, or a clear change of character</td>
+<td><strong>The full treatment</strong>, all five parts, with the inference spelled out</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A stock whose volume story is two sentences long gets two sentences.</strong> Ten holdings each given five
+mandatory paragraphs produces a document nobody reads, which is the failure this SOP was amended to
+prevent.</p>
+<h3 id="precedence-this-resolves-a-real-conflict-so-do-not-improvise-it">Precedence — this resolves a real conflict, so do not improvise it</h3>
+<p><strong>The volume explainer and the bullet-count discipline can collide.</strong> A stock can be quiet, clear of
+its stops, entitled to four bullets under presentation rule 6, and still trip a volume trigger. Rule
+6 says never pad; this section says write five parts. <strong>Both cannot be obeyed as written.</strong></p>
+<p><strong>The resolution, and it is not a compromise:</strong></p>
+<ol>
+<li><strong>The volume explainer is written as a labelled sub-block under the stock, and does NOT count
+   against the bullet ceiling.</strong> Bullets carry the position judgement; the explainer carries the
+   volume teaching Richard cannot get elsewhere. They are different products</li>
+<li><strong>A stock that trips a volume trigger is, by definition, no longer quiet.</strong> It moves from the
+   4-bullet tier to the 5-to-6 tier. If the volume picture is actively bad, it belongs in the 8-to-10
+   tier on the strength of that alone</li>
+<li><strong>Rule 6's real instruction survives intact: never pad.</strong> If the volume story is two sentences
+   long, write two sentences. <strong>The five parts below are a checklist of what to consider, not a
+   quota to fill.</strong> Where a part has nothing to say, say nothing about it</li>
+<li><strong>The relative-analysis requirement never adds bullets on its own.</strong> It is a way of writing the
+   bullets you were already writing, not an extra section</li>
+</ol>
+<p><strong>What the explainer must contain, over the last 20 sessions:</strong></p>
+<ol>
+<li><strong>What volume has actually done — name the window every time, never say "volume" alone.</strong>
+   <code>utr_vol_trend</code> is the 10-day average volume divided by the 50-day average volume, so write "the
+   last 10 sessions' average volume" or "10-day volume", never just "volume", when quoting it —
+   Richard's ruling, 12-Aug-2026, after a report said "volume is 1.93x its 50-day norm" without
+   ever stating which window was being compared to that norm. State both halves of the ratio in
+   words: "10-day average volume is running 1.93 times the 50-day average", not "volume is 1.93x"</li>
+<li><strong>Who is trading: buyers or sellers.</strong> The up-versus-down comparison over both 5 and 20 sessions,
+   in plain words, with what it implies about who is in control</li>
+<li><strong>Distribution days</strong> — how many, out of how many sessions, against what threshold, and what that
+   count means. <strong>0 to 1 is healthy, 2 is amber, 6 or more is the dashboard's invalidation signal</strong></li>
+<li><strong>Whether volume confirms or contradicts the price move.</strong> This is the whole point of the section.
+   Rising price on falling volume is a weak advance; falling price on rising volume is genuine
+   selling; falling price on falling volume is often just disinterest. <strong>Say which of these is
+   happening and what it implies for the position</strong></li>
+<li><strong>Anything unusual worth naming</strong> — a single session at a multiple of normal volume, a volume
+   spike with no price response, heavy volume on a day the stock closed flat</li>
+</ol>
+<p><strong>The standard to write to.</strong> The 04-Aug-2026 run's treatment of Hilton Food and Helios Towers was
+what Richard wanted: <em>"For reference, what the APM did in the Q&amp;A on 04-Aug at 1030ish re. Hilton
+and Helios towers was helpful."</em> The Helios passage worked because it took one strange session,
+quantified it fully, and then said what it probably meant for the holding: heaviest volume in a
+month, four times the normal level, a 6% intraday range, and yet a close barely changed from the day
+before — <strong>so the earnings result was being sold into, and the buyers were only just absorbing it.</strong>
+That final inferential step is the part Richard cannot do for himself. Never stop at the numbers.</p>
+<p><strong>Where volume data is missing, say so and stop.</strong> If a stock reports <code>vol_note</code>, the volume series
+could not be trusted and was suppressed deliberately. <strong>State that no volume data is available for
+that holding. Never fill the gap with an inference from price.</strong> Restate the reason in plain English;
+do not reproduce the engine's own wording, which names internal files.</p>
+<h3 id="volume-needs-a-memory-because-the-deterioration-is-the-signal">Volume needs a memory, because the deterioration is the signal</h3>
+<p><strong>A distribution-day count of 4 means little. A count that went 2, then 4, then 6 across three
+sessions is the finding.</strong> Richard does not watch volume at all, so <strong>he cannot supply the trend from
+his own recollection — only these runs carry it.</strong> A sequence of independent snapshots will miss the
+thing the section exists to catch.</p>
+<p><strong>So, for every holding you write a volume explainer for, state the direction of travel:</strong> whether
+the distribution-day count, the up-versus-down comparison and the volume level are <strong>better, worse or
+unchanged</strong> since the last run that covered it. Say "unchanged" explicitly when it is; silence reads
+as no data rather than no change.</p>
+<p><strong>Where the deterioration is consistent across two or more runs, say so in the stock's one-line
+summary</strong>, not buried in the explainer. <strong>A holding whose volume has worsened on three consecutive
+runs deserves the 8-to-10 bullet tier on that basis alone</strong>, even if the price has not yet moved
+enough to threaten a stop. That is early warning, which is what Richard is paying for here.</p>
+<p><strong>This does not belong in the open-items register</strong>, which is scoped to things Richard must act on. It
+belongs in the stock's own bullets until it becomes an action.</p>
+<hr>
+<h2 id="relative-analysis-cohort-sector-industry-and-the-market">Relative analysis — cohort, sector, industry, and the market</h2>
+<p><strong>Richard's ruling, 04-Aug-2026.</strong> Absolute-only analysis is not compliant. Every directional claim
+about a holding must be placed in the context of what its peers, its sector and the wider market did
+over the same period.</p>
+<p><strong>Four comparisons, in this order of usefulness:</strong></p>
+<ol>
+<li><strong>Cohort</strong> — the small named peer group, typically 3 to 6 names. <strong>The sharpest comparison and the
+   one to lead with.</strong> Engine fields: <code>cohort_label</code>, <code>cohort_rank</code>, <code>cohort_size</code>,
+   <code>cohort_median_rs</code>, <code>cohort_rs_excess</code></li>
+<li><strong>Sector</strong> — <code>rs_vs_sector</code> (percentile) and <code>rs_excess_sector</code>, with <code>sector_label</code> named</li>
+<li><strong>Industry</strong> — <code>rs_vs_industry</code> and <code>rs_excess_industry</code>, with <code>industry_label</code> named</li>
+<li><strong>The market</strong> — see the naming trap immediately below, which matters</li>
+</ol>
+<h3 id="the-market-relative-trap-read-this-before-quoting-any-market-figure">The market-relative trap. Read this before quoting any market figure.</h3>
+<p><strong>Two different fields exist and they measure different things. Confusing them puts a false statement
+in front of Richard.</strong> Verified against the source code on 04-Aug-2026:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it actually measures</th>
+<th>How to describe it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rs_composite</code></td>
+<td>Relative strength <strong>against the STOXX Europe 600 index</strong>, over 3, 6, 9 and 12 months weighted 0.4 / 0.2 / 0.2 / 0.2</td>
+<td><strong>This is the true market-relative figure.</strong> "Against the STOXX Europe 600 index"</td>
+</tr>
+<tr>
+<td><code>rs_excess_market</code></td>
+<td>Relative strength against the <strong>equal-weighted average of the roughly 978-stock universe</strong> — <em>not</em> an index</td>
+<td>"Against the average stock in the universe". <strong>Never call this market-relative or index-relative</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the distinction is real and not pedantic.</strong> The index term inside <code>rs_composite</code> is subtracted
+identically from every stock, so it <strong>cancels out completely</strong> when the universe mean is taken. What
+survives in <code>rs_excess_market</code> is purely stock-versus-universe-average. <strong>The dashboard's own column
+header reads "vs Mkt", which is wrong.</strong> Do not inherit that error.</p>
+<p><strong>Both are legitimate and they answer different questions.</strong> Use <code>rs_composite</code> for "how is this
+doing against the market", and <code>rs_excess_market</code> for "how is this doing against a typical stock in
+my universe". Name whichever you use, in full, every time.</p>
+<h3 id="how-to-write-it">How to write it</h3>
+<p><strong>Presentation rule 3 already governs this</strong> — name the comparison set, lead with the cohort where it
+disagrees, say so when a comparison is unavailable. Do not restate those here. <strong>Two additions only:</strong></p>
+<ul>
+<li><strong>Convert every raw excess figure into plain words.</strong> A figure of 0.139 is "13.9 percentage points
+  better than the average stock in the universe", never "0.139"</li>
+<li><strong>State whether the stock is leading or lagging its peers, explicitly.</strong> A holding falling less than
+  its cohort is a different proposition from one falling more, and the position implication differs</li>
+</ul>
+<hr>
+<h3 id="the-topics-each-stocks-bullets-cover">The topics each stock's bullets cover</h3>
+<p><strong>This is the topic list for the bullets counted under presentation rule 6 above — 4 to 10 per
+stock, judgement first. It is not an additional requirement and it does not raise the ceiling.</strong>
+Where a topic has nothing to say for a given holding, say nothing about it. <strong>The volume explainer,
+where it fires, sits outside this count as a labelled sub-block.</strong></p>
+<ol>
+<li><strong>Price trend</strong> over the last day and last 5 days, with the 20-day for context</li>
+<li><strong>Volume trend</strong> over the last day and 5 days, <strong>and what to infer from it</strong> — rising price on falling volume is a different story from rising price on rising volume; say which is happening and what it implies. <strong>Where the full volume explainer fires, this bullet gives the one-line conclusion and the explainer carries the detail</strong></li>
+<li><strong>Stop-loss proximity per tranche</strong> — which tranches are closest to being stopped, in order</li>
+<li><strong>Where the stop sits now and where to place the sell order</strong> — give the actual price. Stop execution is manual, so this must be a number Richard can act on</li>
+<li><strong>Relative performance</strong> — against <strong>cohort first</strong>, then sector, industry and market. Cohort is
+   the tightest comparison and carries the most signal; lead with it when it disagrees with the
+   universe percentile, because that disagreement is the finding</li>
+<li><strong>Add-capital setups</strong> — pullback to a rising moving average meeting the criteria, or a volatility contraction pattern and breakout</li>
+<li><strong>Early warning</strong> — breaking out, collapsing, negative volume trends, and the same for cohorts, sectors and industry peers</li>
+<li><strong>Anything else material</strong> to position or portfolio management, stated concisely and directly</li>
+</ol>
+<p><strong>Order the stocks by risk, not alphabetically.</strong> Anything in breach of a stop comes first, then anything within 5% of a stop, then the rest by size.</p>
+<p><strong>Reading the stop numbers correctly:</strong>
+- <code>pct_above_stop</code> is <strong>how far the stock would have to fall to reach the stop</strong>, as a percentage of the current price. This is the house convention, copied from <code>generate_position_data.py</code>. It is the number that matters because loss at risk is simply tranche size multiplied by it.
+- <code>loss_if_stopped_bps</code> is the <strong>basis points of total capital</strong> lost if that tranche stops out. Negative means a loss.
+- <strong>Grace tiers:</strong> the 150-day and 200-day moving averages are <strong>immediate</strong> exits on breach. The 20, 50 and 100-day are <strong>tactical</strong> — three daily closes below, or one weekly close.
+- <code>closes_below_stop_last10</code> counts how many of the last ten closes sat below the stop. <strong>Use it to judge whether a tactical breach has already run its course.</strong></p>
+<hr>
+<h2 id="step-4-name-what-is-not-covered">Step 4 — Name what is not covered</h2>
+<p><strong>Never silently omit a holding.</strong> A stock missing from the check is a stock whose stop nobody is watching.</p>
+<p>If <code>uncovered</code> is non-empty, list those stocks by name with the reason, and say plainly that their stops were not checked.</p>
+<p>Two known coverage issues, both handled automatically but worth stating if they recur:
+- <strong>Carlsberg</strong> — the dashboard writes <code>CARLB-DK</code>, every other system writes <code>CARL.B-DK</code>. Resolved by normalised lookup. Not a data gap.
+- <strong>Bally's Intralot</strong> — its 31-Jul-2026 bar returned null prices with a volume figure, and the nightly build drops the whole ticker rather than falling back. Served from its per-ticker chart file instead. <strong>It therefore has NO relative-strength, setup or distribution-day data at all.</strong> Say so in its bullets; do not imply parity with the other holdings. <strong>If more names start falling back, the build has a real problem — escalate it.</strong></p>
+<p><strong>Two silent-data traps, both live, both found 03-Aug-2026:</strong>
+- <strong>Chart filenames write a dot as an underscore</strong> (<code>SDIP_B-SE.js</code>, <code>CARL_B-DK.js</code>) while the registry key inside keeps the dot. A lookup on the raw ticker finds nothing and returns empty trends.
+- <strong>A stale legacy <code>CARLB-DK.js</code> (15-Jul) sits beside the current <code>CARL_B-DK.js</code> (31-Jul).</strong> Reading the wrong one gave Carlsberg volume figures 19 days out of date that looked perfectly healthy. The engine now prefers the canonical spelling and <strong>suppresses volume outright if the chart ends before the price date</strong>. If a stock reports <code>vol_note</code>, say the data is unavailable — never fill the gap with a guess.</p>
+<hr>
+<h2 id="step-5-carry-and-chase-open-items">Step 5 — Carry and chase open items</h2>
+<p><strong>The register is <code>memory/staging/apm-pms-open-items.md</code>. It EXISTS — created 03-Aug-2026 and seeded
+with the four stop breaches and the Sdiptech deviation.</strong> Read it at the <strong>START</strong> of every run,
+before the stock sweep, and report carried items in an <strong>OPEN ITEMS banner above everything else</strong>.
+Append every new action Richard is asked to take, with the date raised.</p>
+<p><strong>Only items Richard must act on belong there.</strong> Watson's own build tasks go to the project file. A
+register that mixes the two stops being readable and therefore stops being used.</p>
+<p><strong>Chasing is HARD.</strong> Richard's ruling, 03-Aug-2026. Do not soften the ladder under the impression
+that a gentler tone is more helpful; he asked to be chased and the chasing is half the product.</p>
+<p><strong>The escalation ladder:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Age</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Day 1</td>
+<td>Raise it in the session</td>
+</tr>
+<tr>
+<td>Day 2</td>
+<td>Repeat, marked as carried, with its age</td>
+</tr>
+<tr>
+<td>Day 3+</td>
+<td>Repeat, and raise it in the <em>other</em> session too</td>
+</tr>
+<tr>
+<td>Day 5+</td>
+<td>Email <code>rich.black@gmail.com</code>, subject naming the item and its age</td>
+</tr>
+<tr>
+<td>Any session</td>
+<td>An open-items banner interrupts unrelated conversations</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The ceiling: an item Richard explicitly declines is CLOSED, not re-raised.</strong> Chasing is for silence, never for disagreement. A chaser that argues becomes noise and gets ignored, which defeats the whole point.</p>
+<p><strong>Close the loop out loud.</strong> When an item clears, say so and say what changed. Richard asked to be told what to do, checked on, and chased — the checking is as much the product as the telling.</p>
+<h3 id="watsons-own-standing-review-dates-check-these-on-every-run">Watson's own standing review dates — check these on every run</h3>
+<p><strong>Three thresholds in this SOP were shipped reasoned but unmeasured, which is a known defect class.</strong>
+Each carries a review date. <strong>Without a check here they will silently never happen</strong>, which is how an
+unvalidated alarm becomes a permanent one.</p>
+<table>
+<thead>
+<tr>
+<th>Due</th>
+<th>What to report</th>
+<th>Started</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>17-Aug-2026</strong></td>
+<td>The 0.3pp valuation-deviation threshold: how often it actually fired, on how many holdings</td>
+<td>03-Aug-2026</td>
+</tr>
+<tr>
+<td><strong>18-Aug-2026</strong></td>
+<td>The volume-explainer triggers: what share of holdings tripped them, and <strong>whether the ones that did were the ones worth writing about.</strong> <em>Baseline on the live book, 04-Aug-2026: </em><em>12 of 16 holdings, 75%.</em><strong> </strong>Report the rate to Richard and let him rule on it. Do NOT tighten it on your own judgement<strong> — that was tried on 04-Aug and removed the two holdings closest to their stops. </strong>The question to answer is whether the explainers earned their space, not whether there were too many**</td>
+<td>04-Aug-2026</td>
+</tr>
+<tr>
+<td><strong>After 10 first-of-day fetches</strong></td>
+<td>The UBS valuation arrival-time pattern, from the log in Step 2. Renamed from "10 morning runs" on 12-Aug-2026 when Step 2 stopped being morning-gated; count fetches via <code>ubs_fetch_ledger.py --show</code>, not sessions labelled morning</td>
+<td>04-Aug-2026</td>
+</tr>
+<tr>
+<td><strong>24-Aug-2026</strong></td>
+<td><strong>The commentary set in the STANDALONE Stage 2 qualification SOP</strong> (<code>memory/skills/stage2-qualification/SKILL.md</code>), not this SOP's Step 9, which is small by construction. Richard accepted the "still standing today, or a live cross" rule knowing it was large: <em>"Lets try it. If it's too much text, we'll increase the threshold."</em> <strong>It measured 121 stocks on the first live run, roughly 250 to 600 bullets.</strong> <strong>Report the actual count, how much of the write-up it occupied, and how many of the commented names he acted on.</strong> Then let him rule. <strong>Do NOT tighten it on your own judgement</strong> — the same instinct was tried on the volume explainer on 04-Aug and removed the two holdings closest to their stops. <strong>The question is whether the commentary earned its space, not whether there was a lot of it.</strong> <em>Also due: whether Step 9's standing offer to run that SOP is actually being taken up, since the hunting loop now depends on it</em></td>
+<td>10-Aug-2026</td>
+</tr>
+<tr>
+<td><strong>On every run — size hook, not a date</strong></td>
+<td><strong>Check this file's own size</strong> (<code>wc -c memory/skills/apm-pms-alignment/SKILL.md</code>). <strong>If it exceeds ~140,000 bytes, run the archive-split pass</strong>: move the oldest Change Log rows and any newly-accumulated dated one-off addendum into <code>ARCHIVE.md</code>, leaving only current-state rules and a pointer in this file, exactly as done on 12-Aug-2026 (that pass took the file from 122,310 to a smaller size — record the before/after in <code>ARCHIVE.md</code>'s own change log each time). <strong>This mirrors <code>MEMORY.md</code>'s own precedent</strong> (trimmed at its 20.6KB size-hook, 11-Aug-2026) and is itself a standing rule, not a one-off tidy-up — Richard's instruction 12-Aug-2026: <em>"Make it part of the daily SOP."</em> <strong>Do not wait for a specific date; check the byte count itself every run and act only when the threshold is actually crossed.</strong></td>
+<td>12-Aug-2026</td>
+</tr>
+</tbody>
+</table>
+<p><strong>These are Watson's items, not Richard's, so they do NOT go in the open-items register</strong> — that
+register is only for things Richard must act on, and mixing the two is what makes a chase list
+unreadable. <strong>Check this table on every run; when one falls due, do the count and report it.</strong></p>
+<hr>
+<h2 id="step-6-both-variants-but-read-the-cheap-check-first-read-richards-own-position-management-notes">Step 6 (BOTH variants, but read the cheap check first) — Read Richard's own position-management notes</h2>
+<p><strong>Added 04-Aug-2026 at Richard's request.</strong> He keeps free-text notes in Notion about how he intends
+to manage live positions: where he has put each stop, what would make him add capital, what would
+invalidate a case, and questions he wants answered. <strong>Those notes are the statement of intent that
+this whole SOP exists to hold his positions against.</strong> Until now the SOP checked positions only
+against stop levels recorded in the Position Management System, which is the record of fact. Reading
+the notes closes the gap between what he means to do and what is actually set.</p>
+<h3 id="finding-the-notes">Finding the notes</h3>
+<p><strong>Filter on the note's own category, not on a text search.</strong> Richard's ruling: <em>"they will be given
+the entry 'portfolio/position management' in the field 'main focus of note'. That will help ensure no
+other notes cause token wastage/distraction."</em></p>
+<p>Query the Notion "Stock notes" data source
+(<code>collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2</code>) where <strong><code>Main focus of note</code> contains
+<code>Portfolio/position management</code></strong>, sorted newest first.</p>
+<p><strong>Two things this filter does NOT do, both verified 04-Aug-2026. Guard against both.</strong></p>
+<ol>
+<li><strong>It returns other people's and Watson's own notes too.</strong> The 04-Aug query returned a Watson macro
+   memo, three Watson analysis postings and several trade logs alongside Richard's own note.
+   <strong>Only Richard's own notes carry his intent.</strong> Prefer notes whose <code>Depth of note</code> is
+   <em>"Rough/unstructured note(s) to self"</em> and whose title does not begin with <code>[W]</code>, which marks
+   Watson-authored content. <strong>Never feed Watson's own prior output back to Richard as though it were
+   his instruction</strong></li>
+<li><strong>It reaches back years.</strong> The same query returned notes from November 2025. <strong>Read only the most
+   recent few.</strong> Richard: <em>"read the last few, but don't go further than that"</em></li>
+</ol>
+<h3 id="use-the-digest-not-the-raw-notes">Use the digest, not the raw notes</h3>
+<p>Richard writes these <strong>roughly weekly</strong>, so re-fetching and re-parsing them on every run wastes
+tokens for no gain. He left the mechanism to Watson's judgement; the decision is a cached digest.</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_notes_digest.py --show
+</code></pre>
+<p><strong>On every run:</strong> read the digest first. <strong>It is a local file and costs almost nothing.</strong></p>
+<p><strong>Then ask the script whether to look at Notion at all:</strong></p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_notes_digest.py --should-check
+</code></pre>
+<p>It answers in one line. <strong>Do what it says.</strong></p>
+<ul>
+<li><strong>If it says use the cached digest, do not query Notion.</strong> Move straight on to the sweep</li>
+<li>
+<p><strong>If it says query, run ONE query</strong> — a titles-and-dates listing filtered as above, newest first.
+  It is small. <strong>Do not fetch any note body unless the listing shows a note the digest does not
+  have.</strong> If the listing shows nothing new, record that fact so the next run does not repeat it:</p>
+<p>python3 <COWORK>/scripts/pms_notes_digest.py --mark-checked</p>
+</li>
+<li>
+<p><strong>Always query regardless, if Richard mentions having written notes</strong>, or if a holding's behaviour
+  makes his intent for it the obvious question</p>
+</li>
+</ul>
+<p><strong>The test is on when Notion was LAST CHECKED, not on how old the newest note is, and the difference
+matters.</strong> Keying off note age was the first design and it is backwards: Richard writes roughly
+weekly, so from the fourth day onward every single run would query Notion, twice a day, to find
+nothing new each time. <strong>What governs whether another look is worthwhile is when we last looked.</strong>
+The threshold is just under a day, so a morning run is never suppressed because the previous evening
+checked.</p>
+<p><strong>Fetching the note body: expect it to be too big to read directly, and do not fight that.</strong> A real
+note measured 60,872 characters and <strong>exceeded the tool output ceiling</strong>, which spilled it to a file
+on disk instead of returning it. <strong>That is the normal case, not a failure</strong>, because the chart images
+alone were 78% of the payload.</p>
+<p><strong>When the fetch reports that the output was saved to a file, use that file. Do not retry the fetch,
+and do not try to read the note in pieces.</strong> The spill path is reachable from the shell; pass it
+straight to the parser, which strips the images before anything else. <strong>Never paste a note's text
+into a tool call</strong>, which is the expensive route the standing rule on file bytes forbids.</p>
+<p>If a newer qualifying note exists, fetch it, save its text, and parse it in:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_notes_digest.py --parse &lt;file&gt; --title "&lt;title&gt;" \
+    --url &lt;url&gt; --created &lt;ISO timestamp&gt;
+</code></pre>
+<p><strong>If no newer note exists, do not fetch anything.</strong> The digest holds the four most recent notes and
+is roughly 23 kilobytes holding one note, against 60,000 characters for that same note fetched raw.</p>
+<p><strong>What the parser handles, so you do not have to.</strong> It strips the chart images, which were 78% of one
+real note's payload and carry no text; it separates Richard's own bullets from indented passages
+where he has pasted the Assistant Portfolio Manager's earlier output back into his notes; it drops
+leftover template scaffolding; and it extracts his tagged bullets into a structured list.
+<strong>Run <code>--selftest</code> if anything looks wrong before trusting the output.</strong></p>
+<h3 id="matching-a-notes-heading-to-a-holding">Matching a note's heading to a holding</h3>
+<p><strong>Richard writes company names; the engine keys on tickers.</strong> Join on the engine's <code>company_name</code>,
+which carries the short form for all 15 priced holdings — "Carlsberg", "Hilton Food", "Helios
+Towers", "CVS Group".</p>
+<p><strong>Match on the leading words, not on an exact string.</strong> His headings often carry commentary ("Xvivo -
+successful retest off the rising 150D MA") and sometimes a longer name than the engine's ("Hilton
+Food Group" against "Hilton Food"). Take the part of the heading before any dash, then match on
+whichever name is the prefix of the other.</p>
+<p><strong>Two guards.</strong> Bally's Intralot has no company name in the data at all, so it can only be matched by
+hand. <strong>And if a heading matches no holding, say so rather than dropping it</strong> — it may be a stock
+Richard is watching but does not yet own, which is worth knowing, or a holding that has fallen out of
+the price build, which is worth escalating.</p>
+<h3 id="what-richards-tags-mean">What Richard's tags mean</h3>
+<p>He suffixes bullets with his own codes: <code>#I</code> information, <code>#A</code> analysis, <code>#J</code> judgement, <code>#Q</code> a
+question, and <strong><code>#ACT</code> an action or standing instruction</strong>. The digest classifies every <code>#ACT</code> bullet
+as a stop placement, an add trigger, an invalidation condition, a monitoring instruction, or a task
+addressed to the Assistant Portfolio Manager.</p>
+<h3 id="how-to-use-the-notes-light-touch-qualitative">How to use the notes — light touch, qualitative</h3>
+<p><strong>Richard's ruling, and the scope limit is explicit: <em>"read the qualitative comments in the notes and
+any instructions... the point is simply to have my notes integrated to light level for APM analysis
+where helpful/stimulating."</em></strong></p>
+<p><strong>So:</strong></p>
+<ul>
+<li><strong>Read his notes for intent and colour, and let them inform the analysis</strong> where they add something
+  the data does not. His reasoning about why a stop sits where it does is often the most useful
+  context available on a holding</li>
+<li><strong>Surface his <code>#ACT</code> instructions</strong> where they bear on today's picture. If he wrote that capital
+  can be added on a retest of the 100-day moving average and the stock is now testing it, <strong>say so.
+  That is the loop this SOP exists to close</strong></li>
+<li><strong>Answer his <code>#Q</code> questions</strong> where the data can answer them, or say plainly that it cannot. These
+  are direct requests and leaving one unanswered is a failure</li>
+<li><strong>Add anything genuinely open to the open-items register</strong> so it gets chased like everything else</li>
+</ul>
+<p><strong>Do NOT:</strong></p>
+<ul>
+<li><strong>Do not reconcile his SIZES.</strong> Richard: <em>"Don't worry about minor errors - e.g. if I wrote
+  Carlsberg is 2.0% and it's actually 2.1%."</em> His prose sizes already disagree with his own portfolio
+  list on at least three holdings. <strong>This is expected and must never be chased.</strong> The Position
+  Management System is the authority on every number; the notes are the authority on intent</li>
+</ul>
+<h3 id="the-one-reconciliation-that-is-required-stop-levels">The one reconciliation that IS required: stop levels</h3>
+<p><strong>Sizes are noise. A stop level is not.</strong> If Richard's note says he has moved a stop to the 150-day
+moving average and the Position Management System still holds the 20-day, <strong>that is exactly the drift
+this SOP exists to catch</strong> — the gap between what he decided and what is actually set. It is the
+difference between a stop he thinks protects him and a stop that does.</p>
+<p><strong>The digest POINTS AT THE SENTENCE. It does not decide what the stop is. This distinction is
+load-bearing and was learned the hard way.</strong> Richard writes decisions, options and exclusions in the
+same register, and on his real 04-Aug note three of nine stop bullets could not be read mechanically:</p>
+<table>
+<thead>
+<tr>
+<th>His actual words</th>
+<th>The trap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"leaving the stop on the 50-day (it was 20D) — <strong>not</strong> the 150 or 200D"</td>
+<td>Names four averages, <strong>sets one, rules out two.</strong> A machine comparison raises three false alarms on a holding where he and the system already agree</td>
+</tr>
+<tr>
+<td>"moved the stop <strong>from</strong> the 50-day level <strong>to</strong> ... a 150-day"</td>
+<td>Names the level he moved <strong>away from</strong> as well as the new one</td>
+</tr>
+<tr>
+<td>"<strong>Potential to</strong> add a probing bet with a stop loss on the 20-day"</td>
+<td>An option he is weighing, <strong>not a decision taken.</strong> Raising it would report a stop change that never happened</td>
+</tr>
+</tbody>
+</table>
+<p><strong>So the digest marks every stop bullet as either safe to compare or needing to be read.</strong> Use that
+marking; it is there precisely so this comparison does not go wrong.</p>
+<p><strong>On every run, for every holding whose digest entry carries a stop bullet:</strong></p>
+<ol>
+<li><strong>Where the bullet is marked safe to compare</strong>, compare the moving average it names against the
+   one the Position Management System holds</li>
+<li><strong>Where it is marked as needing a read, read the sentence and judge.</strong> The digest states why. <strong>Do
+   not diff the named averages</strong> — the list deliberately includes ones he is excluding or moving away
+   from. If his intent is still unclear after reading, ask him rather than guessing</li>
+<li><strong>Where they genuinely differ, raise it</strong> — plainly, with both levels and the note's date. "Your
+   note of 4 August says this stop moved to the 150-day average. The system still has it on the
+   20-day, which is a tighter stop than you intended"</li>
+<li><strong>Add it to the open-items register</strong> so it gets chased like anything else</li>
+<li><strong>Where the note predates the system's last save, say so and let him rule.</strong> He may have changed
+   his mind after writing, which is his right and not an error</li>
+<li><strong>Never report a mismatch you have not read the underlying sentence for.</strong> Under Rule B a claim
+   you cannot support is a defect, and this is the most likely place in the whole SOP to produce one</li>
+</ol>
+<p><strong>Two guards.</strong> His note may be stale, so <strong>never assume the note is right and the system wrong</strong> —
+report the difference, do not correct it. And <strong>never change a stop level yourself</strong>; that is an
+investment decision and belongs to Richard under the standing hard stops.
+- <strong>Do not treat a note as current beyond its vintage.</strong> The title carries the date. He writes
+  weekly, and every note says "I moved the stop today", so <strong>a two-week-old stop level in a note is
+  history, not instruction.</strong> State the note's date whenever you quote it
+- <strong>Do not let the notes crowd out the analysis.</strong> This is a light integration. A sentence or two per
+  holding where it helps, not a recital</p>
+<h2 id="step-7-writing-to-the-position-management-system">Step 7 — Writing to the Position Management System</h2>
+<p>Richard granted write authority on 03-Aug-2026. <strong>It is bounded.</strong></p>
+<p><strong>Watson MAY fix data defects:</strong> an orphan slot with no ticker, a stale hidden flag, a ticker spelling that breaks a join.</p>
+<p><strong>Watson NEVER changes a position size or a stop level.</strong> Those are investment decisions and belong to Richard under the standing hard stops. Report them for him to key in.</p>
+<p><strong>The concurrency guard is mandatory. <code>pms-data/pms-state.json</code> is owned by the browser.</strong></p>
+<p>The dashboard holds state in memory and writes the whole file on save. If the Position Management System is open in a browser tab, it will overwrite anything Watson writes. <strong>This is not theoretical:</strong> the 17-Jul-2026 session recorded the orphan slot as "deleted entirely" and it was still on disk on 03-Aug. The file was observed saving mid-session on 03-Aug at 16:37 UK while Watson was working.</p>
+<p><strong>Before any write:</strong></p>
+<ol>
+<li>Record the file's modification time and <code>_meta.saved_at</code>.</li>
+<li><strong>Ask Richard to close the Position Management System tab.</strong> Do not write while it is open.</li>
+<li>Copy the file to <code>pms-data/</code> with a <code>.bak-pre-{change}-{date}</code> suffix.</li>
+<li>Re-read and confirm the value about to change is what you expect.</li>
+<li>Write.</li>
+<li><strong>Re-read and confirm the change landed.</strong></li>
+<li>If the modification time moved at any point, <strong>abort and report</strong> rather than fighting the browser.</li>
+</ol>
+<hr>
+<h2 id="step-8-addendum-current-state-rules-from-the-07-aug-2026-hostile-stress-test">Step 8 addendum — current-state rules from the 07-Aug-2026 hostile stress test</h2>
+<p><strong>Six real defects were found and fixed in a deliberate re-check the day after Step 8 was built —
+full journey, discarded reasoning, and evidence archived in <code>ARCHIVE.md</code>.</strong> Read that file only if you
+need the "why"; the rules below are the only part that governs live behaviour, and 8.1-8.4 describe
+the corrected state, not the original one.</p>
+<ol>
+<li><strong>RPL's meaning is inferred, never confirmed by UBS — say "likely represents", never "is".</strong></li>
+<li><strong>Certificate Position is constant at 5000 in the series checked so far. If Position ever changes
+   on a future fetch, verify that day's RPL move sits inside its normal 0.3-to-0.6-percentage-point
+   daily range before trusting it</strong> — a flow-driven step would look like a real return and would not
+   be one. <code>fund-rpl-history.json</code> captures Position alongside RPL for this reason.</li>
+<li><strong>The data-integrity guard tests for a currency-denomination-break signature (ratio within 5% of
+   an exact 100x/10x/0.1x/0.01x factor), not a blanket "reject &gt;70% moves" rule</strong> — large moves are
+   surfaced with a warning, never silently discarded.</li>
+<li><strong>The market mean is right-skewed — report the median alongside it and read a flagged name against
+   both, not the mean alone.</strong></li>
+<li><strong>Sector-peer lists are a lower bound, not exhaustive — re-check by company description, not
+   sector code, if a peer set looks thin.</strong> IDEXX/Zoetis/Dechra are absent from the whole universe;
+   that is a coverage gap, not a filing error.</li>
+<li><strong>About a third of sector peers exist in the screening universe but not the actively-priced set,
+   so some "no data" peer rows are structural — state this plainly rather than repeating it as if it
+   were a live check finding nothing.</strong></li>
+</ol>
+<p><strong>A seventh finding belongs in Step 3's portfolio-level judgement, not just the peer file: Arteche and
+Alfen share the same power-grid-infrastructure cohort (~6.6% of assets combined) — treat as one
+thematic exposure, not two independent comparisons, whenever both are covered in the same run.</strong></p>
+<hr>
+<h2 id="step-8-both-variants-historical-performance-peer-price-moves-larger-movers-and-market-relative-screens">Step 8 (BOTH variants) — Historical performance, peer price moves, larger movers, and market-relative screens</h2>
+<p><strong>Added 07-Aug-2026 at Richard's request, four sections in one ask.</strong> His own words: a
+historical-performance table for the fund against two indices; a price-move table for every live
+stock against its cohort and up to six sector peers, on an absolute basis; a "larger price movers"
+section; and tabular call-outs of large market-relative moves, both for names connected to the
+book and universe-wide. Each section carries 5 to 25 bullets of qualitative commentary, in the
+normal communication style — Rule A and Rule B govern that commentary exactly as they govern
+Step 3. <strong>Run this step after Step 3's stock sweep, in both the morning and evening variant.</strong></p>
+<p>Three scripts and two data files back this step. All are read-only against the same sources the
+rest of this SOP already uses, except the fund's own performance history, which is a new file:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_historical_performance.py
+python3 &lt;COWORK&gt;/scripts/pms_price_movers.py
+</code></pre>
+<p><code>pms-data/fund-rpl-history.json</code> holds the fund's own performance series. <code>pms-data/peer-groups.json</code>
+holds the persisted cohort-and-sector peer choice for every live holding. <strong>Neither file is
+regenerated on every run — read the sub-sections below for what changes and what does not.</strong></p>
+<h3 id="81-historical-performance-the-fund-against-euro-stoxx-600-and-euro-stoxx-50">8.1 — Historical performance: the fund against Euro Stoxx 600 and Euro Stoxx 50</h3>
+<p><strong>True inception is now CONFIRMED, not inferred — corrected 14-Aug-2026, supersedes everything this
+section said before that date.</strong> Richard downloaded UBS's own Performance Report
+(<code>UBS_Performance_Report_CH1560492923_2026-08-13.xlsx</code>) directly from the UBS portal; its "RPL
+History" sheet carries a complete daily series starting <strong>18-Jun-2026, RPL exactly 100.0</strong> — the
+certificate's real issue date. The earlier framing ("16-Jul-2026 is probably close to but not
+confirmed as inception") was never a limit on the fund's true history, only a limit on what the
+mailbox held: the daily valuation emails this SOP fetches only go back to 16-Jul in the inbox, but
+UBS's own portal report reaches all the way back, and <code>pms-data/fund-rpl-history.json</code> now carries
+the full 41-observation series, 18-Jun to 13-Aug-2026, verified to match the mailbox-sourced portion
+exactly to the fourth decimal place everywhere the two overlap.</p>
+<p><strong>Cash-period treatment — Richard's ruling, 14-Aug-2026: measure from issue, including the cash-only
+period, not from first deployment.</strong> The fund held cash only from 18-Jun to 23-Jun-2026; the first
+equity trade (Hilton Food Group) landed 24-Jun-2026, confirmed directly from UBS's Rebalance Report.
+Richard chose to start the clock at issue, matching the basis UBS's own Performance Report itself
+uses, on the grounds that this measures "since we opened the account," which is the more useful
+number. Do not re-derive a "since first deployment" variant unless asked.</p>
+<p><strong>Source of the fund's own return series, day to day: the "RPL" cell on the Summary sheet of every
+UBS Neo AMC Valuation email attachment</strong>, exactly as before — the portal report only fixed the
+<em>starting point</em>, it did not change the daily mechanism. <strong>What RPL actually stands for is still
+inferred, not confirmed</strong> — see the Step 8 addendum above; keep saying "likely represents," never
+"is." <strong>Certificate Position (units held) is no longer assumed constant.</strong> It held at 5,000 from the
+first date checked (07-Aug-2026) through 12-Aug, then jumped to 8,200 on 13-Aug-2026 — read as a
+genuine capital addition, not a data fault, because RPL moved a normal +0.11% that day rather than
+the step-change a schema break would produce (see the Step 8 addendum's guard). <code>position</code> is now
+recorded alongside <code>rpl</code> in the series <strong>for every date it has actually been read from an opened
+attachment</strong> — do not backfill a guessed value for earlier dates.</p>
+<p><strong>The two indices, per Richard's answer to Q2 ("Yahoo"): <code>^STOXX</code> for Euro Stoxx 600, cached at
+<code>master-dashboard/cache/_caret_STOXX.json</code>, and <code>^STOXX50E</code> for Euro Stoxx 50, fetched live via
+<code>yfinance</code> inside the script.</strong> Both carry years of history, so every window is always complete for
+the two indices. <strong><code>^STOXX50E</code> is not cached anywhere else in this system — it did not exist before
+07-Aug-2026 — so the script fetches it fresh every run. If that fetch fails, the script says so and
+falls back to reporting Euro Stoxx 600 alone; never silently drop the whole table.</strong> <strong>Richard's
+ruling, 14-Aug-2026: keep this benchmark pairing "as is" — no change requested.</strong></p>
+<p><strong>With the full 41-observation series, L20D is now computable</strong> (measured 14-Aug-2026: fund +2.62%
+against Euro Stoxx 600 +2.41% and Euro Stoxx 50 +4.17%). <strong>QTD and the trailing 60 days remain
+genuinely short</strong>, because the fund's own history (18-Jun) is still less than a full quarter or 60
+trading days deep — report these as "insufficient history" exactly as before, with the shortfall
+stated in trading days, and <strong>never estimate, extrapolate or silently omit a missing window.</strong></p>
+<p><strong>A related nuance, found 14-Aug-2026 in UBS's own Performance Report: their "3 Month," "6 Month,"
+"12 Month" and "YTD" figures are all identical to "Since Issue."</strong> This is not a coincidence or an
+error to chase — those windows all nominally reach back further than the fund's 18-Jun start, so
+UBS's own reporting engine appears to floor every such window at the earliest available datapoint
+without labelling it as floored. <strong>Only "1 Month" and "Since Issue" are genuinely distinct
+calculations in UBS's own report.</strong> Mention this if Richard asks why several of UBS's own headline
+numbers match exactly; do not silently treat them as independent confirmations of each other.</p>
+<p><strong>Completeness check — added 14-Aug-2026, Richard's ruling: "when we do an SOP run, it should ensure
+the series is complete, in case I don't run the SOP for a few days."</strong> Run this every time Step 8
+runs, not only on the first run of the day:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/check_rpl_series_completeness.py
+</code></pre>
+<p>It checks every weekday between the series' first and last date for a gap and exits non-zero if it
+finds one. <strong>A single isolated weekday gap may just be a public holiday</strong> — no holiday calendar exists
+in this project yet, so the script cannot suppress those automatically; use judgement. <strong>Two or more
+consecutive weekday gaps, or any gap inside the last ten trading days, is a real problem</strong> and means
+Step 2's UBS catch-up loop should be re-run against the mailbox before trusting tonight's
+reconciliation. Report the check's result in the output; a clean pass is one line, a gap is a named
+finding.</p>
+<p><strong>Extending the series day to day is otherwise unchanged:</strong> once the day's UBS attachment is already
+open for Step 2's own reconciliation, open the Summary sheet, read the "RPL" cell and the
+"Certificate Position" cell, and append <code>{date, rpl, position}</code> to <code>pms-data/fund-rpl-history.json</code>'s
+<code>series</code> list, in chronological order. <strong>Never edit or estimate a historical value — append only.</strong></p>
+<p><strong>Commentary for this section (5 to 25 bullets): say whether the fund is leading or lagging each
+index over the windows that ARE computable, by how much, and whether that gap is new this run or
+continuing.</strong> Where a window is not yet computable, say so once, plainly, rather than repeating the
+gap in every bullet.</p>
+<h3 id="82-per-holding-price-moves-against-cohort-and-sector-peers-absolute-basis">8.2 — Per-holding price moves against cohort and sector peers, absolute basis</h3>
+<p><strong>Peer choice is made ONCE and persisted, per Richard's explicit instruction not to re-derive it
+every run.</strong> <code>pms-data/peer-groups.json</code> holds, for every live holding: every other stock sharing
+its exact cohort (no cap — cohorts here run from 0 to about 4 peers), plus <strong>up to six</strong> sector
+peers hand-picked for genuine business-model comparability, not merely for sharing a sector code.
+<strong>Read that file's own <code>_meta</code> and each holding's <code>note</code> before trusting or extending it</strong> — several
+holdings carry fewer than six sector peers on purpose, where the wider sector bucket only offered
+weaker comps (for example Carlsberg's sector tag also covers mixer and bottling businesses that are
+not true global brewers, so none were added rather than padding the table). <strong>These are Watson's
+comparability judgement calls, not Richard's — flag the file for his review on first use, and treat
+any correction he gives as a standing edit to that file, not a one-off.</strong></p>
+<p><strong>When a live holding is added, removed, or changes ticker, extend <code>peer-groups.json</code> by hand.</strong>
+Do not regenerate the whole file — a fresh derivation would silently discard any correction Richard
+has already given.</p>
+<p><strong>The table itself is absolute price movement, L5D and L20D, for the holding and every one of its
+persisted peers, cohort peers first then sector peers</strong>, computed from each stock's own raw daily
+close price (not a moving average, which smooths over the very window being measured). <strong>A stale or
+frozen price series is worse than a missing one, because it produces a wrong number rather than no
+number</strong> — see the data-integrity guard in 8.4, which applies identically here. A peer excluded by
+that guard reads as "no data", never as "flat" or "no data available yet" — the two are opposite
+findings, and the guard exists specifically to keep the second one from happening. <strong>On the first
+build this guard caught Flutter itself, already known stale since 31 July from the same root cause
+documented in this project's 07-Aug session record</strong> — a real cross-check that the guard works, not
+a coincidence to wave away.</p>
+<p><strong>Commentary (5 to 25 bullets): for each holding where the persisted peers moved meaningfully
+differently, say so and say what it might mean</strong> — a holding lagging every one of its peers over
+20 sessions is a different position from one leading them, even at an identical absolute price
+change.</p>
+<h3 id="83-larger-price-movers">8.3 — Larger price movers</h3>
+<p><strong>Interpretation, stated explicitly because Richard's request did not fix the pool: this section
+ranks the largest absolute L5D and L20D moves across every live holding AND its full persisted peer
+set from 8.2 — not the whole universe, which section 8.4 already covers on a market-relative
+basis.</strong> The two are deliberately different lenses on an overlapping population: 8.3 asks "what
+moved the most, in raw terms, among names connected to the book", 8.4 asks "what moved the most
+relative to the market, restricted or unrestricted". <strong>If Richard wants a different pool for this
+section, that is a one-line change to the script, not a re-think of the approach.</strong></p>
+<p><strong>Commentary (5 to 25 bullets): name what moved and by how much, and say whether it was a live
+holding or a peer</strong> — a peer making the top of this list is early information about the holding's
+own setup or risk, which is the entire reason cohort and sector peers are tracked at all.</p>
+<h3 id="84-market-relative-screens-restricted-universe-and-whole-universe">8.4 — Market-relative screens: restricted universe and whole universe</h3>
+<p><strong>Per Richard's original ask, two screens, at two different thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Screen</th>
+<th>Population</th>
+<th>Flags if</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Restricted</td>
+<td>same sector or cohort as any live holding, <strong>or</strong> RB interest rating A, B or C, <strong>or</strong> long-list qualified (see below), <strong>or</strong> timeliness A or B</td>
+<td>|relative L5D| &gt; 8% <strong>or</strong> |relative L20D| &gt; 20%</td>
+</tr>
+<tr>
+<td>Whole universe</td>
+<td>every priced stock, no filter</td>
+<td>|relative L5D| &gt; 15% <strong>or</strong> |relative L20D| &gt; 25%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"Relative" here means excess over the equal-weighted mean of the whole universe, computed fresh
+for L5D and L20D specifically</strong> — this deliberately mirrors the convention already established in
+the relative-analysis section for <code>rs_excess_market</code>, which Richard concurred with when asked. <strong>It
+is NOT <code>rs_composite</code> and it is NOT <code>rs_excess_market</code> themselves</strong> — those are trailing multi-month
+composites built for a different purpose. The market mean is recomputed on every run from that
+run's own universe of clean price series (see 8.4's data-integrity guard), never cached, because it
+is cheap to compute and a stale market mean would silently mis-flag every single name against it.</p>
+<p><strong>The mean is right-skewed — read the median alongside it, per the Step 8 addendum above.</strong> On the
+book measured 07-Aug-2026, the L5D mean sat at +1.79% against a median of +1.08%, with 55% of names
+below the mean. <strong>A stock sitting exactly at the mean is beating a minority of the universe, not
+half of it.</strong> The script prints both every run; quote both when a flagged name's context matters.</p>
+<p><strong>Where the four qualifying conditions for the restricted screen actually live, since two of them
+took real research to locate on 07-Aug-2026:</strong></p>
+<ul>
+<li><strong>RB interest rating</strong> — <code>interest_level</code> in <code>databases/universe-master.json</code>, lettered A to F
+  with a wording suffix (for example "B. Desired (B / 1st quartile)"). Match on the leading letter.</li>
+<li><strong>Long-list qualified</strong> — <code>llq</code> in the same file, four tiers: "1. APM suggested live",
+  "2. APM suggested shortlist/bench", "3. Long-list qualified", "4. Not qualified". <strong>Watson's
+  reading, flagged for Richard's correction if wrong: tiers 1 through 3 all count as qualifying</strong>,
+  because each is a stock that has already cleared the long-list gate and moved further down a
+  promotion path — only tier 4 has not cleared it. If Richard means the literal phrase "long-list
+  qualified" as tier 3 alone, narrow the filter to that tier only.</li>
+<li><strong>Timeliness</strong> — <code>timeliness_level</code> in the same file, lettered A to D with a wording suffix (for
+  example "B - Next fortnight"). <strong>No stock in the universe currently carries an F rating on this
+  field</strong>, though the design allows one — do not read the absence as a data gap.</li>
+<li><strong>Sector or cohort of a live holding</strong> — <code>sector</code> and <code>cohort_name</code>, same file, matched exactly
+  against every live holding's own values.</li>
+</ul>
+<p><strong>All four live in <code>databases/universe-master.json</code>, which is Notion-synced</strong> (see
+<code>databases/logs/notion-llq-writeback.log</code> for the sync mechanism) <strong>— not the ratings-snapshot file
+this SOP already reads for other purposes, and not a Notion query of its own.</strong> Query that file
+directly; do not re-derive these fields from <code>stock_mapping_final.json</code>, which carries an older and
+sparser version of some of them.</p>
+<h3 id="the-data-integrity-guard-shared-by-82-83-and-84-read-this-before-trusting-any-figure-here">The data-integrity guard, shared by 8.2, 8.3 and 8.4 — read this before trusting any figure here</h3>
+<p><strong>A frozen or stale price is more dangerous than a missing one, because it produces a wrong number
+silently rather than no number at all — but excluding a real number by mistake is its own failure,
+just in the opposite direction, and the 08-Aug stress test found the guard originally did exactly
+that. Read the Step 8 addendum above; this is the corrected description.</strong></p>
+<p><code>pms_price_movers.py</code> anchors to the price build's own generated date and excludes any ticker whose
+latest cached close is more than three calendar days behind that anchor, or whose last 21 sessions
+show two or fewer distinct closing prices (frozen), or whose series contains a single-session move
+matching the actual signature of a currency-denomination break — a ratio within 5% of an exact
+100x, 10x, 0.1x or 0.01x factor, which is what a pence-to-pounds or similar unit error actually
+produces. <strong>A large move that does NOT match that signature is let through, not discarded</strong> — it is
+reported separately in the freshness header as a move to verify before trusting, because a blanket
+percentage cut-off would just as readily throw away a genuine catastrophic move as a data fault.</p>
+<p><strong>The exclusion guard is not theoretical — it caught seven real names on the first run</strong>, including
+Just Group (frozen since 1 April 2026), Aston Martin, Carnival, Roche, and two frozen European
+names, <strong>and Flutter itself, stale since 31 July</strong> — the exact same data defect already documented
+in this project's 07-Aug session record as the cause of a masked stop breach. <strong>The verify-before-
+trusting flag caught a different kind of case on the same run: Rotork's genuine +66.8% one-day
+re-rating</strong>, correctly NOT excluded once the guard was corrected. <strong>Report both lists in this step's
+freshness header, exactly as Step 1 reports the three existing freshness gates.</strong> A name excluded
+outright is worth carrying to the open-items register if it is a live holding or a peer of one — a
+frozen price feed is itself a data defect Richard should know about, independent of whatever
+direction the underlying stock actually moved. A name merely flagged for verification is not
+automatically a defect; read it before deciding.</p>
+<p><strong>Commentary for 8.4 (5 to 25 bullets, covering both screens together): lead with anything touching
+a live holding, its cohort or its sector directly</strong> — that is the connection to the book and the
+reason this screen exists. <strong>Then say what the broader flagged list implies, if anything, for
+positioning or research priority</strong> — a cluster of flagged names in one sector or cohort is more
+informative than any single name in isolation.</p>
+<hr>
+<h2 id="step-9-once-a-day-in-either-variant-never-both-stage-2-transitions-on-your-own-holdings">Step 9 (ONCE A DAY, in EITHER variant, never both) — Stage 2 transitions on YOUR OWN HOLDINGS</h2>
+<p><strong>Added 10-Aug-2026 at Richard's request, and scoped to live holdings only the same day.</strong>
+<strong>His ruling, verbatim: "for this SOP it should only be live stocks, not 'every single stock'. But,
+if I ask for the 'Stage 2 qualification SOP' or 'Stocks qualifying for Stage 2 SOP' or similar, then
+APM should do it for every single stock."</strong></p>
+<p><strong>So this step is the MONITORING half of a pair.</strong> It answers: has the technical picture on anything
+I already own just turned. <strong>The HUNTING half — the whole universe, roughly 1,000 stocks — is a
+separate SOP that Richard invokes</strong>, and it is where the detailed rules live.</p>
+<p><strong>Where it goes: at the very END of the note to Richard</strong>, after Step 8. <strong>Run it once a day, in the
+morning OR the evening alignment, never in both.</strong></p>
+<h3 id="the-rules-live-in-the-stage-2-qualification-sop-not-here">The rules live in the Stage 2 qualification SOP, not here</h3>
+<p><strong>Read <code>memory/skills/stage2-qualification/SKILL.md</code> for the trigger definitions, the window rules,
+the date-confidence rule, the oscillation rule, the missing-data rules and the bullet content spec.</strong>
+<strong>They are NOT repeated here on purpose.</strong> Two hand-maintained copies of one rule set is the defect
+shape that has bitten this project repeatedly, and this step and that SOP share every rule except the
+two named below.</p>
+<p><strong>In one line, so you know what you are looking at:</strong> a stock triggers if its Stage 2 qualification
+climbed to <strong>Plausible or Probable</strong> inside the last 20 trading days, <strong>or</strong> its <strong>150-day moving
+average crossed above its 200-day</strong> in that window. <em>A move up only as far as "Possible" does not
+count.</em></p>
+<p><strong>Do NOT use that one-liner as the selection rule for this step.</strong> It describes the whole-universe
+test, which additionally requires the stock to be <strong>still standing today</strong> — and rule 2 below
+deliberately removes that requirement here. As at 10-Aug-2026 three of the seven triggered holdings
+fail the one-liner and still belong in this section. <strong><code>in_daily_live_set</code> is the rule; the sentence
+is orientation only.</strong></p>
+<h3 id="run-it">Run it</h3>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_stage2_transitions.py --scope daily
+</code></pre>
+<h3 id="the-two-ways-this-step-differs-from-the-standalone-sop">The TWO ways this step differs from the standalone SOP</h3>
+<p><strong>1. Live holdings only.</strong> Report only stocks where <code>is_live_holding</code> is true. <strong>Read the count from
+<code>_meta.daily_live_set_count</code>; as at 10-Aug-2026 it was 7 of 14 holdings</strong>, against 292 across the
+universe. <em>That figure was 6 until a ticker-spelling defect was fixed, so do not trust a remembered
+one.</em></p>
+<p><strong>2. NO "still standing" filter. Report EVERY live holding that triggered at all.</strong> Use
+<code>in_daily_live_set</code>, <strong>not</strong> <code>in_commentary_set</code>.</p>
+<p><strong>Richard's ruling, 10-Aug-2026, asked directly whether the filter applied to both: "Still standing is
+only for the non-live SOP."</strong> The reasoning matters, because the two scopes look inconsistent
+otherwise: <strong>across a thousand stocks a rating that rose and fell back is noise he cannot afford to
+read. Across fourteen holdings it is his own money, and a position whose qualification decayed after
+improving is exactly the thing he would want to know.</strong> <strong>Read the affected count from
+<code>_meta.daily_live_not_still_standing</code>; as at 10-Aug-2026 it was two, Xvivo and Carlsberg.</strong></p>
+<p><strong>Say plainly which of the two a holding is.</strong> <code>in_commentary_set</code> tells you: true means it is still
+standing on the improved rung, false means it improved and decayed. <strong>A holding in the second group
+gets that stated in its opening line, not buried.</strong></p>
+<h3 id="what-to-publish">What to publish</h3>
+<p><strong>A table of every triggered holding</strong>, one line each: ticker, company name, what triggered and when,
+the rating on the anchor day, the rating now, whether it is still standing, and the stability read.</p>
+<p><strong>The baseline column is <code>rating_on_anchor_day</code> — the trading day BEFORE the window, not "20 trading
+days ago".</strong> Label it with <code>_meta.window_anchor_date</code>. Where <code>anchor_rating_measured</code> is false the
+stock was not measured that day and the field is null: <strong>say "not measured", never invent a
+baseline.</strong></p>
+<p><strong>Everything labelled "now" is as at <code>_meta.stage2_now_as_at</code></strong>, the window's last weekday, which on
+a Monday is the previous Friday. The log runs past that, because weekend builds exist and do move
+ratings. <strong>Never mix a fresher reading into the same bullet set.</strong></p>
+<p><strong>Then 2 to 5 bullets on each</strong>, per the content spec in the Stage 2 qualification SOP. With only a
+handful of names this is short, so <strong>there is no reason to compress it</strong> — a live holding making a
+Stage 2 transition is among the most actionable things in the whole report.</p>
+<p><strong>State the window's actual first and last date and its calendar span</strong>, and name any missing or
+degraded build days. As at 10-Aug-2026 the window ran <strong>9 July to 7 August, 20 trading days across 30
+calendar days</strong>, with no build on 27 and 30 July and degraded builds on 20 July and 3 August. <strong>On a
+Monday the window ends on the previous Friday. That is correct, not stale.</strong></p>
+<h3 id="the-standing-suggestion-this-is-the-steps-other-job-and-it-is-not-optional">The standing suggestion — this is the step's other job, and it is not optional</h3>
+<p><strong>Restricting this step to holdings means a Stage 2 transition on a name Richard does NOT yet own
+will never reach him here.</strong> He accepted that and closed the loop himself:</p>
+<blockquote>
+<p><strong>Richard, 10-Aug-2026: "Ergo, if I run the APM RB PMS Q&amp;A SOP, as part of it, ask me / suggest we
+should run the Stage 2 qualification SOP to check what setups might be interesting to prioritise."</strong></p>
+</blockquote>
+<p><strong>So end this step by offering to run the Stage 2 qualification SOP, every single run, and make the
+offer CONCRETE by naming the count.</strong> The script computes the whole universe regardless and hands you
+<code>prompt_non_held_AB_count</code> and <code>prompt_non_held_AB_new_count</code> for free.</p>
+<p><strong>Read the count fresh; as at 10-Aug-2026 it was 18 non-held interest-A and interest-B names
+currently qualifying.</strong></p>
+<p>Write it as a real question, in prose, not a box-ticking line:</p>
+<blockquote>
+<p><strong>Eighteen stocks you do not own, all rated A or B on your interest list, are currently qualifying
+for Stage 2. Do you want me to run the Stage 2 qualification SOP and write them up?</strong></p>
+</blockquote>
+<p><strong>Do NOT write those names up here.</strong> Naming the count is the whole point; listing or analysing them
+would rebuild the ~120-name section this split exists to remove. <strong>And do not skip the offer when the
+count is zero</strong> — say it is zero, because that is information too.</p>
+<p><strong>The population is NARROWER than Richard's instruction, and this is a known open item.</strong> He asked to
+be told about names rated <strong>A or B, "even C", on the Assistant Portfolio Manager short or long list,
+or discussed as a priority in the past.</strong> The offer currently counts only <strong>not-held, interest A or
+B</strong>. The script also reports the wider populations for free:</p>
+<table>
+<thead>
+<tr>
+<th>Population</th>
+<th><code>_meta</code> field</th>
+<th>10-Aug-2026</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interest A or B <em>(current default)</em></td>
+<td><code>prompt_non_held_AB_count</code></td>
+<td>18</td>
+</tr>
+<tr>
+<td>...plus shortlist and bench</td>
+<td><code>prompt_wider_bands1to3_count</code></td>
+<td>22</td>
+</tr>
+<tr>
+<td>...plus interest C and long-list qualified</td>
+<td><code>prompt_widest_bands1to4_count</code></td>
+<td>84</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Four names the Assistant Portfolio Manager itself proposed going live on or shortlisting are
+excluded by the narrow default.</strong> <strong>"Discussed as a priority in the past" has no field anywhere in
+<code>universe-master.json</code> and is NOT covered at all.</strong> <strong>Say the number you used and which definition it
+came from</strong>, so the gap is visible rather than silent. Richard rules on widening it; do not widen it
+unilaterally.</p>
+<p><strong>Ask in prose. Never use the multi-choice panel</strong>, per the canonical rulebook's standing rule.</p>
+<h3 id="once-a-day">Once a day</h3>
+<p><strong>Read <code>_meta.daily_already_reported</code> before writing anything.</strong> If true, this went out in the other
+variant today. <strong>Say one line confirming it has already run and move on</strong> — do not repeat it, and do
+not silently omit it, because silence reads as nothing having triggered.</p>
+<p>After it has gone into the note, record it:</p>
+<pre><code>python3 &lt;COWORK&gt;/scripts/pms_stage2_transitions.py --mark-reported evening
+</code></pre>
+<p><em>(or <code>--mark-reported morning</code>)</em>. <strong>Mark it only after it has genuinely gone out.</strong> This also tells
+the standalone SOP that the holdings were covered today, so it compresses them to one line rather
+than repeating full bullets.</p>
+<h3 id="missing-data-and-the-one-warning-to-carry">Missing data, and the one warning to carry</h3>
+<p><strong>A holding with no Stage 2 rating cannot trigger and so never appears here.</strong> That is a silent
+absence, exactly what Rule B8 exists to catch. <strong>Report how many holdings the engine resolved, every
+run</strong> — as at 10-Aug-2026, 14. <strong>If it ever returns zero, that is a data fault, not a quiet book.</strong></p>
+<p><strong>One occupied position slot currently resolves to no ticker</strong>, so any Stage 2 move on it is invisible
+here. The script warns on it; <strong>carry that warning into the note until it is fixed.</strong></p>
+<hr>
+<h2 id="end-of-session-notion-digest-added-14-aug-2026-richards-ruling">End-of-session Notion digest — added 14-Aug-2026, Richard's ruling</h2>
+<p><strong>Distinct from the session digest above.</strong> That one is Watson-facing and dense, written for a future
+run to read cheaply. This one is Richard-facing: a skim-refresh page he can reopen later without
+reading the full chat again. Richard's own framing, confirmed: <em>"the aim is to 'skim refresh my
+memory' when I read the note in the future, if I do."</em></p>
+<p><strong>One Notion page per session</strong> (Richard's choice, not a running accumulated page), posted to the same
+"Stock notes" data source this SOP already reads in Step 6 (<code>collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2</code>).</p>
+<p><strong>Title format:</strong> <code>[W] APM PMS alignment digest — DD-Mon-YY {morning|evening}</code>, matching the <code>[W]</code>
+convention the canonical rulebook already uses to mark Watson-authored content, and the existing
+<code>Main focus of note</code> tagging convention Step 6 relies on to filter its own queries — <strong>tag this page
+<code>Portfolio/position management</code> for exactly that reason</strong>, so it is found by, and does not pollute,
+that same filter, and set <code>Depth of note</code> to something that marks it as Watson-authored rather than
+Richard's own rough notes (do not use "Rough/unstructured note(s) to self", which Step 6 uses to
+identify Richard's own voice).</p>
+<p><strong>Only for semi-material-plus sessions — Richard's explicit ruling: "only doing it for semi-material
+ones is fine."</strong> Skip this page on a quiet run where nothing changed and nothing was found — a
+one-line "nothing material" entry in the session digest above is enough for those. Write the Notion
+page when the session included any of: a stop breach or near-miss newly found, a data-quality defect
+found, a reconciliation ISSUE, a Stage 2 transition, or any process/SOP change made.</p>
+<p><strong>Content — concise, much more so than the chat itself.</strong> Cover most of the topics the session
+touched, but briefly: a line or two per topic, not a restatement of the full write-up. Structure
+loosely as: what was checked, what was found, what changed, what's still open. The chat transcript and
+any project handoff note remain the full record; this page is the fast-scan layer above them, not a
+duplicate of either.</p>
+<ul>
+<li><strong>Chat only.</strong> No HTML, no file deliverable, no email report. Richard chose this to keep it simple.</li>
+<li>Judgement first, then analysis, then information — at every level.</li>
+<li>Short bullets, bold the load-bearing word, plain English throughout, every acronym given a descriptor.</li>
+<li><strong>State the direction explicitly</strong> on any investment-relevant view: bullish, neutral or bearish.</li>
+<li><strong>Two specific next actions</strong> after every judgement, naming what happens by when.</li>
+<li><strong>Never present a number without knowing its date.</strong> Say "as of Friday's close" when that is what it is.</li>
+</ul>
+<h2 id="hard-stops">Hard stops</h2>
+<ol>
+<li><strong>Never execute a trade or place an order.</strong> Tell Richard where the order goes; he places it.</li>
+<li><strong>Never make an investment decision.</strong> The Assistant Portfolio Manager recommends; Richard decides capital.</li>
+<li><strong>Never send an external email without approval.</strong> The day-5 chaser goes to Richard's own address and is the one standing exception, already approved.</li>
+<li><strong>Never permanently delete or overwrite.</strong> Back up before every write; superseded files go to <code>recycling-bin/</code>.</li>
+</ol>
+<h2 id="known-limitations-state-them-when-they-bite">Known limitations, state them when they bite</h2>
+<ul>
+<li><strong>Prices are end-of-day</strong>, from the nightly build. This is not an intraday tool.</li>
+<li><strong>The Position Management System stores target sizes, not executed positions.</strong> A deviation against UBS can mean a planned size not yet traded, price drift since entry, or genuine divergence. <strong>Watson reports the mechanics; Richard interprets.</strong> Do not assert which cause applies without evidence.</li>
+<li><strong>The 0.3pp threshold is unvalidated</strong> — see Step 2.</li>
+<li><strong>Cohort-relative analysis is LIVE as of 03-Aug-2026.</strong> The earlier note here said the groupings
+  "were not verified as available". They were simply never looked for: <code>master-dashboard/data/universe.json</code>
+  has carried <code>cohort</code> and <code>cohort_name</code> all along. Measured: <strong>969 of 994 universe stocks carry a
+  cohort, across 356 distinct cohorts, and every holding resolves with zero misses.</strong> The remaining
+  limit is cohort SIZE, not availability: cohorts of fewer than three priced members cannot be ranked.</li>
+<li><strong>Never hard-code the number of holdings.</strong> It changes: the book held 15 on 03-Aug-2026 and 16 on
+  04-Aug. <strong>Read the count from the engine on every run</strong> and state whatever it actually returns.</li>
+<li><strong><code>rs_excess_market</code> is NOT market-relative</strong>, despite its name and the dashboard's "vs Mkt" column
+  header. It measures the stock against the equal-weighted universe average. The true index-relative
+  figure is <code>rs_composite</code>, net of the STOXX Europe 600. See the relative-analysis section.</li>
+<li><strong>BYLOT-GR is absent from the price build entirely</strong>, so it has no relative-strength, setup,
+  distribution-day or volume-test data. It is served from its chart file for price only. <strong>Say so;
+  never imply parity with the other holdings.</strong></li>
+<li><strong>The volume-explainer triggers HAVE been measured: 12 of 16 holdings, 75%, on 04-Aug-2026.</strong>
+  Report the rate at the fortnight review and let Richard rule on it. <strong>Do not tighten it on your own
+  judgement</strong> — see the standing warning in the volume section, which explains why that was tried and
+  reversed the same day.</li>
+<li><strong>A holding with NO volume data must never read as a holding with GOOD volume data.</strong> Bally's
+  Intralot returns nothing for all three volume tests, and a version of the trigger that asked "does
+  a test fail" treated that silence as a pass, dropping it from coverage while it sat 1.11% from its
+  stop. <strong>Absent data is a finding. Say the data is missing, say what cannot therefore be judged, and
+  never let a gap satisfy a health check.</strong></li>
+<li><strong>The Notion note filter returns more than Richard's own notes.</strong> Filtering on
+  <code>Main focus of note = Portfolio/position management</code> also returns Watson-authored postings and old
+  trade logs going back to 2025. Step 6 states the guards; they are conventions, not enforced by the
+  data, so they need care on every run.</li>
+<li><strong>The fund's own historical-performance series (Step 8.1) now runs from true, confirmed inception
+  (18-Jun-2026) — corrected 14-Aug-2026, no longer "16-Jul to present, unconfirmed start."</strong> L20D
+  became computable 14-Aug-2026. QTD and trailing-60D remain genuinely short, because the fund's real
+  history is still under a quarter and under 60 trading days deep — that is a true data limit, not an
+  artefact of when the mailbox happens to start. This closes gradually as <code>pms-data/fund-rpl-history.json</code>
+  is appended to on each run that processes a UBS email — see Step 8.1 for the mechanism and the new
+  completeness checker. Do not estimate the missing windows in the meantime.</li>
+<li><strong>The "long-list qualified" filter in Step 8.4 is Watson's reading of the <code>llq</code> field, not
+  Richard's confirmed definition.</strong> Tiers 1 to 3 of 4 are treated as qualifying; only tier 4, "Not
+  qualified", is excluded. If Richard intends the literal phrase to mean tier 3 alone, narrow it.</li>
+<li><strong><code>peer-groups.json</code> (Step 8.2) is Watson's comparability judgement, not verified by Richard.</strong>
+  Flag it for his review on first use; treat any correction as a standing edit to that file.</li>
+<li><strong>Step 9 is scoped to LIVE HOLDINGS ONLY.</strong> A Stage 2 transition on a stock Richard does not own
+  will never appear in it. <strong>That is deliberate (his ruling, 10-Aug-2026) and the mitigation is the
+  standing offer at the end of the step</strong> to run the whole-universe Stage 2 qualification SOP. <strong>If
+  that offer stops being made, the hunting loop silently closes</strong> and he stops seeing new ideas
+  altogether. Treat a run that omits the offer as a defect, not a tidy-up.</li>
+<li><strong>The Stage 2 rules live in <code>memory/skills/stage2-qualification/SKILL.md</code>, not here.</strong> Step 9
+  carries only the two things that differ for holdings: the live-only scope, and the absence of the
+  "still standing" filter. <strong>The signal's noisiness, the window caveats, the date-confidence rule,
+  the empty fundamental ratings and the seed-day provenance are all documented there</strong>, and they
+  apply to Step 9 unchanged. Do not copy them back into this file.</li>
+<li><strong>Step 9's signal is noisy even on the book.</strong> As at 10-Aug-2026, <strong>6 of the 7 triggered holdings
+  had crossed up and down inside the same 20 trading days</strong> (<code>daily_live_set_unstable_count</code>). The
+  mandatory oscillation statement is what stops that reading as conviction; never quietly drop it.</li>
+<li><strong>Step 9's 20-trading-day window can span far more than 20 calendar days, and can contain days
+  that built but computed almost nothing.</strong> The build missed 27 and 30 July 2026 outright; 20 July
+  changed 4 tickers and <strong>3 August produced NO Stage 2 output at all</strong>, against a window median of
+  132. The 10-Aug-2026 window spanned <strong>30 calendar days</strong>. <strong>Always state the actual first and last
+  date, the missing days and the degraded days</strong> — never just "the last 20 days". <strong>On a Monday the
+  window ends on the previous Friday; that is correct, not stale.</strong></li>
+<li><strong>Every figure in Step 9 and in the Stage 2 qualification SOP has gone stale at least once</strong>, from
+  a Notion re-rate over a weekend and from a ticker-spelling fix. <strong>Read counts from <code>_meta</code> on the
+  day. A remembered figure is wrong by default.</strong></li>
+<li><strong>A thinly measured holding is not a healthy one.</strong> <code>live_holdings_thinly_measured</code> names holdings
+  observed on under 80% of window days — currently BYLOT-GR, which is absent from the price build.
+  <strong>Such a holding can appear quiet purely because it was barely looked at.</strong></li>
+<li><strong>If <code>live_holdings_resolution_failed</code> is true the book could not be read at all.</strong> That is a data
+  fault. <strong>Never report it as "nothing triggered".</strong></li>
+<li><strong>If <code>ledger_status</code> is anything but <code>ok</code>, the once-a-day guard and every "new since last told"
+  count are unreliable.</strong> Say so rather than quoting them.</li>
+<li><strong>The Stage 2 rating and the 150-day-above-200-day gate are computed by
+  <code>master-dashboard/scripts/generate_master_data.py</code> and logged to
+  <code>master-dashboard/data/stage-history-20d.json</code>.</strong> That log is a <strong>delta</strong> log: only changed fields
+  are written each day. <strong>Anything reading it must forward-fill from the baseline entry.</strong> Reading a
+  single day's entry directly and treating an absent field as "no value" inverts the result, because
+  an unchanged rating would read as missing rather than as steady. The Step 9 script handles this;
+  any future consumer of the same file must too.</li>
+<li><strong>The master dashboard's own "Changes" view does NOT cover Step 9's triggers, despite looking as
+  though it might.</strong> It compares three snapshots (now, roughly a week, roughly a month), it is
+  binary rather than reading the four-rung ladder, and <strong>the Stage 2 rating is not among its eight
+  filters.</strong> Checked 10-Aug-2026. Do not treat it as a second source for this step.</li>
+<li><strong>Band counts and interest ratings MOVE.</strong> <code>databases/universe-master.json</code> re-syncs from Notion
+  daily, and the priority-band split shifted measurably across one weekend as Richard re-rated
+  stocks. <strong>Read every count from the script's <code>_meta</code> on the day; never quote a remembered figure.</strong></li>
+</ul>
+<p><strong>A worked example of a compliant run is at <code>memory/skills/apm-pms-alignment/EXAMPLE-RUN.md</code>.</strong> Read
+it before writing the first sweep of any session. It demonstrates <strong>the first six</strong> presentation
+rules and the three bullet-count tiers on real holdings, and it is the fastest way to see what
+"compliant" means for a stock's bullets. <strong>It does not demonstrate rules 8 and 9, Rule A or Rule B,
+all of which postdate it.</strong>
+<strong>Note its vintage: it was written 03-Aug-2026, before the communication rules (Rule A), the
+claim-rigour rules (Rule B) and the volume and relative-analysis sections were added.</strong> Its stock
+bullets remain a good model for structure and bullet-count scaling. <strong>Its freshness header does not
+meet Rule A</strong> — use the rewritten version inside Rule A for that, not the example's.</p>
+<hr>
+<h2 id="change-log">Change Log</h2>
+<p><strong>Rows older than v1.4 moved to <code>ARCHIVE.md</code> on 12-Aug-2026 (this table was growing unbounded — see
+the size-hook standing check below). This table now keeps only the current and immediately-prior
+entry; anything older is one file away, not lost.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Change</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>← older</td>
+<td>v1.0 through v1.4 (03-Aug to 12-Aug-2026)</td>
+<td>Full detail: <code>ARCHIVE.md</code></td>
+</tr>
+<tr>
+<td>12-Aug-2026</td>
+<td>v1.5. (a) Step 2 rebuilt as a catch-up LOOP, not a single fetch — it now processes every UBS email newer than the last one successfully appended (10-email safety cap, flags to Richard rather than silently truncating), reconciling only against the most recent. The standalone-scheduled-task backstop proposed under v1.4 was explicitly rejected in favour of this. <code>ubs_fetch_ledger.py</code> rebuilt to separate the once-a-day GATE from a resumable catch-up BOOKMARK (<code>--mark-progress</code> vs <code>--mark-fetched</code>). (b) Fixed a latent bug in <code>apm_pms_alignment.py</code> (line 758) that gated ALL UBS reconciliation output on <code>mode == 'morning'</code>. (c) This Change Log's own dated one-off entries split out to an on-demand archive, <code>apm-pms-alignment/ARCHIVE.md</code>; a size-hook standing check added.</td>
+<td>Richard's ruling, 12-Aug-2026: "no, not a scheduled one... KISS", then instructing the archive split be made part of the daily SOP. Full reasoning: <code>projects/SA - Position Management System/CONVERSATION-RECORD-2026-08-12d-KISS-CATCHUP-AND-ARCHIVE-SPLIT-THE-FULL-JOURNEY.md</code>.</td>
+</tr>
+<tr>
+<td><strong>14-Aug-2026</strong></td>
+<td><strong>v1.6. Seven changes from one session, all Richard's explicit rulings. (a) Session digests: Watson-facing dense digest written every run to <code>apm-pms-alignment/digests/</code>, last 10 days read on every start. (b) Bullet-length and emphasis rule extended SOP-wide, explicitly including the stock sweep: no bullet over 3 sentences, heavier bold/italic/underline — compatible with, not a repeal of, "never pad." (c) A per-stock 1-2 line orientation summary now precedes the individual stock sections, reusing each stock's own opening line. (d) The current-size-vs-UBS-actual reconciliation is now a STANDING step every run (not gated on a fresh fetch), computed live from <code>pms-state.json</code> — verified no code bug existed (the engine already read live sizes), the real cause of a same-day sizing confusion was a trade not yet keyed in, plus a separate genuine data-entry slip on Theon this table caught. (e) The fund's daily return series was rebuilt to its TRUE confirmed inception (18-Jun-2026, RPL=100.0, sourced from UBS's own Performance Report, not the 16-Jul mailbox floor), now includes the cash-only period by Richard's choice, and gained a completeness checker (<code>scripts/check_rpl_series_completeness.py</code>) run every Step 8. Certificate Position is now tracked alongside RPL where verified; a genuine 5,000→8,200 unit jump on 13-Aug was found and flagged, unconfirmed. (f) A new end-of-session Notion <code>[W]</code>-tagged digest page, one per session, semi-material-plus only.</strong></td>
+<td><strong>Richard's rulings given directly across the 14-Aug-2026 evening session and its 14-Aug-2026 morning follow-up, after a comprehensive Three-Gaps-and-Mission-Command backbrief in which every design choice below was put to him as an explicit question before being built. Full reasoning, the questions asked, his answers, and everything considered and set aside along the way: <code>projects/SA - Position Management System/CONVERSATION-RECORD-2026-08-14-SEVEN-SOP-CHANGES-AND-THE-BACKBRIEF-JOURNEY.md</code>.</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Resolved, same day, second ruling:</strong> the standalone-scheduled-task backstop raised above was put to
+Richard and explicitly rejected — "no, not a scheduled one." His instruction instead: "just get the
+SOP to open all the ones required since the last one. KISS." Step 2 is therefore a catch-up loop, not
+a single-day fetch: it processes every UBS email newer than <code>last_trading_day_covered</code>, however many
+that is, in one run — see the rewritten Step 2 above and <code>scripts/ubs_fetch_ledger.py</code>'s module
+docstring for the full mechanism (the ledger now separates the once-a-day gate from the catch-up
+bookmark for exactly this reason). No standalone scheduled task exists or is planned; this question is
+closed, not merely parked.</p>
+<p><strong>Per the canonical rulebook's cold-restart doctrine, neither the v1.4 first-run-of-day gate nor the
+v1.5 catch-up loop has been proven in a fresh session yet.</strong> Neither should be treated as fully
+trusted until Richard opens a new chat window that loads only this file plus the canonical rulebook
+and confirms Step 2 behaves correctly there — ideally on a day where more than one email is actually
+in the catch-up queue, since that is the path the v1.5 rewrite adds and the one least exercised so far.</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

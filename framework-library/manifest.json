@@ -1,0 +1,181 @@
+{
+  "built": "19-Aug-26",
+  "pages": [
+    {
+      "slug": "investment-philosophy",
+      "name": "Investment Philosophy",
+      "desc": "The core belief about what makes money, what makes a great investment, the acceptable setups, and the definition of a false friend.",
+      "src": "AI Prompts/investment-philosophy.md",
+      "family": "F1"
+    },
+    {
+      "slug": "how-i-invest",
+      "name": "How I Invest",
+      "desc": "The four patterns behind the best ideas, right-to-left thinking, disprove-do-not-prove, and the lessons drawn from individual stocks.",
+      "src": "memory/context/richard-investing-approach.md",
+      "family": "F1"
+    },
+    {
+      "slug": "investment-strategy",
+      "name": "Investment Strategy",
+      "desc": "What to own and what to avoid: the quality-plus-inflection idea, the conviction bar, setup profiles, fragilities, sizing and exits.",
+      "src": "memory/context/investment-strategy.md",
+      "family": "F1"
+    },
+    {
+      "slug": "the-investing-system",
+      "name": "The Investing System",
+      "desc": "The whole approach described as six connected domains, from the three perpetual goals down to daily workflow.",
+      "src": "memory/context/investing-system.md",
+      "family": "F1"
+    },
+    {
+      "slug": "values-and-winning-behaviours",
+      "name": "Values and Winning Behaviours",
+      "desc": "The three perpetual goals, and the behaviours judged to create or destroy investment returns.",
+      "src": "memory/context/values-and-behaviours.md",
+      "family": "F1"
+    },
+    {
+      "slug": "mental-models-index",
+      "name": "Mental Models Library, Index",
+      "desc": "Index of the mental-model library: investing models, business-quality models and decision-making models, with the tier each sits in.",
+      "src": "wisdom-library/INDEX.md",
+      "family": "F1",
+      "note": "Roughly half the decision-making entries in this library are lessons about Watson's own software and quality-control pipelines, not about stock picking. The folder structure does not separate them."
+    },
+    {
+      "slug": "case-framework-full-reference",
+      "name": "The Case Framework, Full Reference",
+      "desc": "The 8-May framework in full: every pillar, group and element, and how they relate to one another.",
+      "src": "projects/SA - Ratings Dashboard/new-framework-08may/STREAM-A-COMPREHENSIVE-V2.html",
+      "family": "F2",
+      "passthrough": true
+    },
+    {
+      "slug": "case-framework-words-and-relationships",
+      "name": "The Case Framework, Words and Relationships",
+      "desc": "The definitions layer: what each term in the framework means and how the parts connect. This is the document that outranks the memo procedures whenever the two disagree on a concept.",
+      "src": "projects/SA - Ratings Dashboard/new-framework-08may/STREAM-A-framework-vocabulary-and-relations-V2-FULL.md",
+      "family": "F2"
+    },
+    {
+      "slug": "framework-plain-english-walkthrough",
+      "name": "Plain-English Walkthrough of the Framework",
+      "desc": "Watson's explanation of the 8-May framework written back to Richard for sign-off, in ordinary language rather than framework vocabulary.",
+      "src": "projects/SA - IA A&J Memo Batching Automation/folded-projects/SA - Investment Analyst A&J memos/briefing/03-understanding-08may-in-detail.md",
+      "family": "F2"
+    },
+    {
+      "slug": "the-question-bank",
+      "name": "The Question Bank",
+      "desc": "Every element with its required attributes and its core questions: roughly 60 attributes and 170 questions across 19 elements.",
+      "src": "projects/SA - IA A&J Memo Batching Automation/folded-projects/SA - Investment Analyst A&J memos/briefing/04-elements-with-RAs-and-CQs-integrated.md",
+      "family": "F2",
+      "note": "This file states of itself: do not treat it as complete. Five gaps flagged on 30-Jul-26 are still open and awaiting Richard's answers."
+    },
+    {
+      "slug": "memo-system-map",
+      "name": "Memo System Map",
+      "desc": "How the framework becomes a written memo: the three pillars, the six top-of-memo ratings, how deep each stage goes, and the memo's section structure.",
+      "src": "memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md",
+      "family": "F2"
+    },
+    {
+      "slug": "five-stage-research-funnel",
+      "name": "The Five-Stage Research Funnel",
+      "desc": "Ideas Generation, Triaging, Early-Stage Assessment, Deep Dive, Live. What each stage is for, what it produces, and how a stock either progresses or is parked.",
+      "src": "memory/context/investment-process.md",
+      "family": "F3"
+    },
+    {
+      "slug": "how-ideas-move-between-stages",
+      "name": "How Ideas Move Between Stages",
+      "desc": "The stage-progression procedure: who decides a stock moves, on what evidence, and how parking and reactivation work.",
+      "src": "memory/skills/stage-progression/SKILL.md",
+      "family": "F3",
+      "note": "This document still carries its original trial-period banner from 1-May-26. Whether the trial was ever formally closed is not recorded in the file."
+    },
+    {
+      "slug": "the-investment-analyst-role",
+      "name": "The Investment Analyst Role",
+      "desc": "What the analyst does, when the role activates, the standing analytical rules, and exactly where the analyst's authority stops.",
+      "src": "memory/skills/investment-analyst/SKILL.md",
+      "family": "F3"
+    },
+    {
+      "slug": "how-a-memo-is-thought-through",
+      "name": "How a Memo Is Thought Through",
+      "desc": "The step-by-step analytical procedure for each stage. The heaviest and most load-bearing document in the whole set.",
+      "src": "memory/skills/investment-analyst/aj-memo/02-THINKING-SOP.md",
+      "family": "F3"
+    },
+    {
+      "slug": "the-fundamental-change-screen",
+      "name": "The Fundamental Change Screen",
+      "desc": "The six top-level ratings used across the dashboards, the A to F grading scale, and how sub-ratings roll up into a single score.",
+      "src": "memory/skills/fundamental-change-screen/SKILL.md",
+      "family": "F3",
+      "note": "This is the home of the framework Richard has ruled should be renamed the Six Master Ratings of Capital Deployment Worthiness. The file still uses the older wording."
+    },
+    {
+      "slug": "assistant-portfolio-manager-role",
+      "name": "The Assistant Portfolio Manager Role",
+      "desc": "The portfolio-level role: sizing, exposure, correlation, cash, and how it takes the analyst's stock work and turns it into a portfolio decision.",
+      "src": "memory/skills/assistant-portfolio-manager/SKILL.md",
+      "family": "F4"
+    },
+    {
+      "slug": "portfolio-analysis-and-judgement",
+      "name": "Portfolio-Level Analysis and Judgement",
+      "desc": "The portfolio manager's own analysis and judgement procedure, including its quality gates.",
+      "src": "memory/skills/assistant-portfolio-manager/analysis-judgement-SOP-V3.md",
+      "family": "F4"
+    },
+    {
+      "slug": "position-management",
+      "name": "Position Management",
+      "desc": "Entry timing, position sizing, stop placement and exit rules, including the base-counting and stop-loss system.",
+      "src": "memory/skills/assistant-portfolio-manager/annexes/annex-01-position-management.md",
+      "family": "F4"
+    },
+    {
+      "slug": "monitoring-a-live-position",
+      "name": "Monitoring a Live Position",
+      "desc": "What is tracked once a stock is owned, and how the ten invalidation thresholds are watched.",
+      "src": "memory/skills/assistant-portfolio-manager/annexes/annex-02-live-monitoring.md",
+      "family": "F4"
+    },
+    {
+      "slug": "stress-testing-a-rating",
+      "name": "Stress-Testing a Rating",
+      "desc": "How to attack a rating the analyst has given, and how a case-level judgement is formed from the individual ratings.",
+      "src": "memory/skills/assistant-portfolio-manager/annexes/annex-05-rating-stress-test.md",
+      "family": "F4"
+    },
+    {
+      "slug": "twice-daily-position-review",
+      "name": "The Twice-Daily Position Review",
+      "desc": "The standing conversation about live positions: price, volume, stops, risk and valuation reconciliation.",
+      "src": "memory/skills/apm-pms-alignment/SKILL.md",
+      "family": "F4"
+    },
+    {
+      "slug": "risk-management-lessons",
+      "name": "Risk Management Lessons",
+      "desc": "A long synthesis of risk-management lessons drawn from Richard's own journals, track record and mistakes.",
+      "src": "memory/coaching/risk-management-lessons.md",
+      "family": "F4"
+    },
+    {
+      "slug": "the-investment-system-mapped",
+      "name": "The Investment System, Mapped",
+      "desc": "Watson's map of how the whole system fits together, the confusions found in the source documents, the decisions taken on 19-Aug-26, and what was considered and rejected.",
+      "src": "projects/ALL - Entire Investment System Mapped Out/system-map-and-session-record.md",
+      "family": "F5",
+      "authored": true,
+      "note": "Version 1, provisional. The section headed 'My current reading of the shape' is Watson's inference and has NOT yet been verified against the source documents. Version 2 replaces it once every claim has been checked."
+    }
+  ],
+  "missing": []
+}

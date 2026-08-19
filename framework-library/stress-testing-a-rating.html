@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stress-Testing a Rating — Investment System Library</title>
+<style>:root{--accent:#9a7ac9;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Portfolio and Position Management</div>
+  <h1 class="doc">Stress-Testing a Rating</h1>
+  <p class="desc">How to attack a rating the analyst has given, and how a case-level judgement is formed from the individual ratings.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/skills/assistant-portfolio-manager/annexes/annex-05-rating-stress-test.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 30-Jul-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="stress-testing-a-rating-and-a-case">Stress-testing a rating and a case</h1>
+<p><strong>Annex to</strong> <code>memory/skills/assistant-portfolio-manager/SKILL.md</code>. <strong>Cut 30-Jul-26</strong> in the lean-core restructure.</p>
+<p><strong>When to load:</strong> Loads when the APM is reviewing or challenging an Investment Analyst rating, or forming a case-level judgement.</p>
+<p><em>Verbatim from the manual except where a 29-Jul Notion ruling correction applied.</em></p>
+<hr>
+<h2 id="05-quality-of-ratings-how-ia-and-apm-produce-defensible-ratings-phase-g-v2-12-may-26">§0.5. QUALITY OF RATINGS — How IA and APM Produce Defensible Ratings [Phase G v2, 12-May-26]</h2>
+<blockquote>
+<p><strong>Why this section exists at the top of APM SKILL.md:</strong> Ratings are the operational currency of Richard's investment system. Every IA memo produces ~283 ratings (CQ + RA + Element + Group + Pillar + Master + Case-level). APM consumes those ratings for portfolio integration. Richard makes capital decisions on case-level ratings. A bad rating chain = bad investments. <strong>This section synthesises the rating-quality discipline that prior sections only referenced in fragments.</strong></p>
+</blockquote>
+<h3 id="053-how-apm-stress-tests-ias-ratings">§0.5.3 — How APM stress-tests IA's ratings</h3>
+<p>IA produces ratings. APM receives them in the memo + GNG CHECKS handoff. <strong>APM's quality role is to stress-test before integrating into portfolio context.</strong> Four standing tests, applied in order:</p>
+<p><strong>1. Concept B test — go to the most-different viewpoint.</strong>
+For each pillar-level rating IA committed, APM asks: <em>"What's the strongest argument that this rating should be one grade lower?"</em> If APM can construct that argument easily, the rating is over-stated. If APM cannot construct it after 5 minutes of stewing, the rating is robust.</p>
+<p><strong>2. Cohort consistency test.</strong>
+If the stock is part of an active cohort (e.g., Cables theme PRY/NKT/NEX/HTRO), APM compares the IA rating against cohort peers' ratings at the same stage:
+- Are the relative rankings within cohort consistent with what APM would expect?
+- If HTRO rated B+ and NKT rated C+, is the differential structural (different business quality, different paradigm fit) or arbitrary?
+- If arbitrary, the cohort hot wash (Phase 4.6) is the place to resolve</p>
+<p><strong>3. Archetype consistency test.</strong>
+APM checks <code>coaching/stock-archetypes.md</code> for the closest archetype match (Liquidity Trap / Cockroach / Consolidation Play / Cyclical / Demand-Driven EPSU / Corporate Change EPSU / etc.). For that archetype, what's the typical Pillar I/II/III rating profile? If IA's rating profile diverges materially from archetype, APM probes:
+- Has IA correctly identified the archetype?
+- If yes, what makes this case different from archetype norm?
+- If no, IA needs to re-archetype and re-rate</p>
+<p><strong>4. Pret Sandwich test (mediocrity-accumulation check).</strong>
+Per Richard's discipline: no single rating may be fatal, but the <em>collection</em> of C/D ratings can be. APM scans the C.I.1 ratings table:
+- Count of C ratings: if &gt;40% of in-scope ratings are C, the case is in mediocrity territory regardless of any individual B/A
+- Count of D ratings: even 2-3 D ratings flag the Cockroach Rule — assume 2-3 more in dark spaces
+- If both: APM recommends Park at Step 4 even if IA recommended Progress</p>
+<p>These 4 tests are APM's stress-test discipline. APM doesn't author the memo; APM CHALLENGES the memo. Quality of A&amp;J + ratings improves when both roles do their job — IA authors with rigour, APM challenges with rigour.</p>
+<h3 id="054-what-richard-looks-for-at-step-4">§0.5.4 — What Richard looks for at Step 4</h3>
+<p>At Step 4 of STAGE PROGRESSION SOP (the weekly review meeting), Richard reviews IA memo + APM stress-test + GNG CHECKS. He makes the case-level decision. The disciplines he applies:</p>
+<p><strong>1. Hell Yeah or No filter</strong> (per <code>richard-investing-approach.md</code>)
+At ESA: if honest summary is "interesting but not Hell Yeah," → Park signal. <strong>Most ESA exits should be Parks; only outlier confluence cases progress.</strong> A B+ rating without Hell-Yeah energy = Park, not Progress.</p>
+<p><strong>2. Track-record-lens parallel</strong> (per APM SKILL.md NON-NEGOTIABLE)
+Richard reads for the historical parallel. <em>"Your Fasadgruppen experience (peak 11.47%, held 34 months, lost 70 bps) shows what happens when liquidity traps aren't exited early."</em> If IA didn't cite a parallel, Richard does it himself and adjusts accordingly.</p>
+<p><strong>3. Painful Prudence 9-10/10 conviction bar</strong> (per <code>investment-strategy.md</code>)
+Only own stocks at 9/10 to 10/10 conviction. Opportunity cost of 7/10 capital is too high. <strong>Ratings A/B = potentially Hell-Yeah territory; rating C = Painful Prudence flag (capital better deployed elsewhere); ratings D/F = kill.</strong> Richard recommends accordingly.</p>
+<p><strong>4. Big Change Case + Bankability test (at ESA)</strong> (per V3 framework + 09-May reframe)
+<em>Do we have both Big Change Case (Pillar I — change momentum) AND Bankability (Pillar II — foundations, esp. BB#2)? Are they reinforcing?</em> If either is missing, the case fizzles after near-term momentum or has nothing to fuel multiple expansion. Both required.</p>
+<p><strong>5. Calibration log signal</strong>
+If Richard's decision diverges from IA's rating, APM logs to <code>memory/apm/calibration-log.md</code>. Pattern detection over 3+ months surfaces IA's systematic biases (over/under-rating which domains) AND whether APM is reading IA's memos correctly (if APM agreed with IA but Richard disagreed, APM is also miscalibrated).</p>
+<h2 id="investment-case-rating-the-highest-stakes-single-judgement-phase-g-v2-12-may-26">Investment Case Rating — The Highest-Stakes Single Judgement [Phase G v2, 12-May-26]</h2>
+<blockquote>
+<p><strong>Why this section exists at this position in the file:</strong> The Investment Case rating (Progress / Park / Kill, ~1 per memo) is THE judgement IA produces, APM stress-tests, and Richard decides at Step 4. Get it wrong = either an investable case dies (under-rate B→C) or Richard wastes time on a non-investable case (over-rate C→B). <strong>It is the single highest-stakes judgement in the entire workflow.</strong> Prior sections covered the framework + the 11 attribute families + tier escalation; this section synthesises how the case-level rating emerges from those inputs and how it gets defensibly produced + challenged + decided.</p>
+</blockquote>
+<h3 id="1-what-the-investment-case-rating-is-and-isnt">§1 — What the Investment Case rating IS (and isn't)</h3>
+<p><strong>IS:</strong>
+- A case-level integrated A/B/C/D/F judgement
+- A recommendation to Progress (next funnel stage) / Park (re-attack later when triggers re-fire) / Kill (thesis broken, no re-attack)
+- Lives in E.I of every memo from Triaging onward
+- Tagged <code>(draft for Richard's review at Step 4)</code> until Richard decides</p>
+<p><strong>ISN'T:</strong>
+- A mechanical roll-up of element/group/pillar ratings (it's INFORMED BY but not DERIVED FROM)
+- A unilateral decision by IA or APM (Richard decides at Step 4)
+- Reversible without process (calibration log entry required if revised)</p>
+<h3 id="3-how-apm-stress-tests-the-investment-case-rating">§3 — How APM stress-tests the Investment Case rating</h3>
+<p>When the IA memo + GNG CHECKS lands in <code>ia-output-queue.md</code>, APM runs the case-level rating through 5 standing tests before recommending portfolio integration:</p>
+<p><strong>Test 1 — Concept B "most-different viewpoint."</strong>
+What's the strongest argument that this case should be rated one grade lower? If APM can construct it in 5 minutes, the rating is over-stated. If APM cannot construct it after 5 minutes of stewing, the rating is robust.</p>
+<p><strong>Test 2 — Cohort consistency check.</strong>
+If the stock is in an active cohort (e.g., Cables theme), how does this case rank vs cohort peers at the same stage? Differential ranking should have structural reasons, not arbitrary.</p>
+<p><strong>Test 3 — Archetype consistency check.</strong>
+What archetype does this case match (Liquidity Trap / Cockroach / Consolidation Play / Cyclical / Demand-Driven EPSU / Corporate Change EPSU)? Does the rating profile (Pillar I/II/III) match the archetype's typical profile? If divergent: what makes this case different?</p>
+<p><strong>Test 4 — Pret Sandwich check.</strong>
+Per Richard's discipline: no single C rating may be fatal, but the <em>collection</em> of C/D ratings can be. Scan the C.I.1 ratings table:
+- &gt;40% of in-scope ratings at C? → mediocrity territory regardless of any individual A/B
+- ≥2 D ratings? → Cockroach Rule (find one, search for two more in dark spaces)
+- Both? → APM recommends Park at Step 4 even if IA recommended Progress</p>
+<p><strong>Test 5 — Hell-Yeah-or-No filter (APM-side pre-Richard).</strong>
+Could APM articulate a "Hell Yeah" case for this position? If APM can only say "interesting but not Hell Yeah," that's a Park signal — APM flags it as such in the integration handoff to Richard.</p>
+<p><strong>APM's stress-test artefact:</strong>
+- Add 1-3 paragraphs to <code>apm-output-queue.md</code> per IA memo received
+- Include: 5-test verdict (each test PASS/FAIL/CONCERN), recommended portfolio action (proceed at proposed size / proceed at smaller size / Park / Kill), specific flagged concerns
+- This feeds into Richard's Step 4 review alongside IA's GNG CHECKS</p>
+<h3 id="4-decision-logic-at-step-4-richard-decides">§4 — Decision logic at Step 4 (Richard decides)</h3>
+<p>Richard reads IA memo + APM stress-test + GNG CHECKS. He applies:</p>
+<table>
+<thead>
+<tr>
+<th>Verdict</th>
+<th>Rating range</th>
+<th>Action</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Progress to next stage</strong></td>
+<td>Case-level A or B</td>
+<td>Stock advances funnel (Triaging→ESA, ESA→DD, DD→Live position)</td>
+<td>Resources commit to next stage</td>
+</tr>
+<tr>
+<td><strong>Progress with conditions</strong></td>
+<td>Case-level B with one concern</td>
+<td>Advance + tighter monitoring + smaller sizing if Live</td>
+<td>Conditional progression</td>
+</tr>
+<tr>
+<td><strong>Park</strong></td>
+<td>Case-level C or borderline B/C</td>
+<td>Re-assessment criteria + monitoring plan; re-attack when triggers fire</td>
+<td>"Interesting but not Hell Yeah"</td>
+</tr>
+<tr>
+<td><strong>Kill</strong></td>
+<td>Case-level D or F</td>
+<td>Thesis broken; no re-attack</td>
+<td>Capital deployed elsewhere</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NO MODIFIERS at the case level.</strong> Richard doesn't grade B+ or B-. The rating is one of A/B/C/D/F. Nuance lives in the supporting prose, not the letter.</p>
+<h3 id="6-failure-recovery-what-happens-when-the-case-level-rating-turns-out-wrong">§6 — Failure-recovery: what happens when the case-level rating turns out wrong</h3>
+<p>The case-level rating is the single highest-stakes judgement. It WILL turn out wrong sometimes. The discipline is fast surface + log + learn:</p>
+<p><strong>When wrong:</strong>
+1. <strong>APM logs the revision to calibration log</strong> with structured fields (date, ticker, stage, APM-rating, Richard-revision, domain-pattern, calibration-action)
+2. <strong>IA gets notified</strong> (so IA's next memo recalibrates — e.g., "I tend to over-rate Demand-Driven EPSU; adjust by half-notch in calibration check")
+3. <strong>Pattern detection over 3+ months</strong> surfaces systematic biases (which IA + APM monthly co-review with HPC + COS)
+4. <strong>Update Wisdom Library</strong> if the failure surfaces a Silver/Gold-promotable pattern
+5. <strong>Update auto-memory</strong> if the pattern is structural</p>
+<p>This cycle is what makes the rating-quality discipline compound over time. Phase G v2 makes it explicit; the cycle was implicit but not operationalised in V14.</p>
+<hr>
+<h2 id="building-blocks-quality-bbach-mapping-when-each-family-fires-hardest-phase-g-v2-12-may-26">Building Blocks Quality — BB→ACH Mapping + When Each Family Fires Hardest [Phase G v2, 12-May-26]</h2>
+<blockquote>
+<p><strong>Why this section exists:</strong> The 11 detailed attribute family tables (IC #1/#2/#3 + BB #1-#8) preserved above are STATIC reference data. This section operationalises them — when each family fires hardest, why BB#2 carries quadruple weight, and how the BB families map to the 10 INVALIDATION ACHs. Without this section, IA + APM can read the tables but can't use them well.</p>
+</blockquote>
+<h3 id="1-bb2-foundation-quality-the-4-weight-discipline">§1 — BB#2 Foundation Quality — the 4× weight discipline</h3>
+<p>Per V3 weight system (and reflected in the Detailed Attribute Family Reference): <strong>BB#2 Foundation Quality is QUADRUPLE-WEIGHTED.</strong> This isn't decorative. It changes how IA + APM work:</p>
+<p><strong>Why BB#2 is 4×:</strong>
+- BB#2 is where most cases die at the DD gate. Operator quality + advantaged business + widening SRCA + value chain dynamics + industry structure + secular growth — these are the foundations that allow change momentum (Pillar I) to extrapolate into multi-year multiple expansion. <strong>Without BB#2 strength, change momentum fizzles; with BB#2 strength, even modest change momentum compounds.</strong>
+- The 09-May reframe ("Big Change Case + Bankability") formalises this: Pillar I = Big Change Case (the change momentum half), Pillar II core philosophy group G3 (E9-E13) = Bankability (the BB#2 territory). Both required AND both must reinforce.</p>
+<p><strong>Operating implication for IA:</strong>
+- BB#2 gets 2-4× the analytical passes of any other family at ESA + DD
+- Track BB#2 by <strong>number-of-passes-and-challenge-cycles</strong>, NOT by word count (Richard's correction 09-May)
+- Target: ≥4 separate passes on BB#2 (operator quality, business advantage, VC dynamics, industry structure, secular growth) before committing the rating
+- Concept B applies hardest here — for each BB#2 sub-element rated A/B, IA writes the strongest counter-argument and defeats it (or is defeated by it)</p>
+<p><strong>Operating implication for APM:</strong>
+- When stress-testing IA's memo (per §0.5.3), spend disproportionate time on BB#2
+- A high BB#2 rating with weak supporting evidence = single largest source of memo over-rating
+- A low BB#2 rating well-supported = the strongest Park signal, regardless of Pillar I/III strength</p>
+<p><strong>Operating implication for Richard at Step 4:</strong>
+- BB#2 rating IS the bankability test
+- Hell-Yeah-or-No filter fires hardest on BB#2 — if BB#2 is anything less than B, the case isn't compounder-quality</p>
+<h3 id="2-when-each-attribute-family-fires-hardest-by-stage">§2 — When each attribute family fires hardest by stage</h3>
+<p>Different families bite at different funnel stages. This matters because:
+- IA can't pass-through 11 families at every stage at equal depth (would explode word budgets)
+- APM stress-test focus should match the stage's bite-points
+- Richard's review at Step 4 should expect different evidence at different stages</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Triaging (III)</th>
+<th>ESA (IV)</th>
+<th>DD (V)</th>
+<th>Live (VI)</th>
+<th>Why this firing pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IC #2 Required Case Inputs</strong> (change forces)</td>
+<td><strong>PRIMARY</strong> — does the case have meaningful change momentum?</td>
+<td>Confirm + quantify</td>
+<td>Stress-test against macro/cycle</td>
+<td>Monitor for input-side deterioration</td>
+<td>The Big Change Case half of the two-engine doctrine — fires first because without change momentum, no case</td>
+</tr>
+<tr>
+<td><strong>IC #3 Required Case Setups</strong> (pattern match)</td>
+<td><strong>PRIMARY</strong> — does this fit a known setup (EPSU/EPT/CfC)?</td>
+<td>Confirm; archetype-tag</td>
+<td>Stress-test against archetype</td>
+<td>Monitor setup integrity</td>
+<td>Setup mismatch = false-friend signal at Triaging</td>
+</tr>
+<tr>
+<td><strong>IC #1 Required Case Outputs</strong> (financial outputs)</td>
+<td>Sketch</td>
+<td><strong>PRIMARY</strong> — do change forces manifest in financials (E2 outputs, E3 TSR)?</td>
+<td>Quantify modal case + Bull/Base/Bear scenarios</td>
+<td>Track delivery vs forecast</td>
+<td>The financial output is the bankable signal that mid-term EPS is moving</td>
+</tr>
+<tr>
+<td><strong>BB #1 Simplicity Guardrails</strong> (transmission mechanism)</td>
+<td>Sketch — false-friend hunt</td>
+<td><strong>PRIMARY</strong> — can we clearly explain strategy → EPS quarter by quarter?</td>
+<td>Confirm + verify monitorable</td>
+<td>Watch for complexity creep</td>
+<td>Where false-friend signature is detected (now absorbed per 09-May reframe — fires within BB#1 + E18/E19, not standalone)</td>
+</tr>
+<tr>
+<td><strong>BB #2 Foundation Quality</strong> (operator + business + VC + industry + secular) — <strong>4× weight</strong></td>
+<td>Sketch</td>
+<td><strong>PRIMARY</strong> (4× depth) — operator track record + business advantage + VC dynamics + industry structure + secular growth</td>
+<td><strong>CRITICAL</strong> (4× depth) — mediocrity-shunning gate; only top-decile/top-quartile A/B clears</td>
+<td>Monitor BB#2 erosion as exit trigger</td>
+<td>Where most cases die at DD; the bankability half of two-engine; THE single most load-bearing family</td>
+</tr>
+<tr>
+<td><strong>BB #3 Fit for Market Paradigm</strong> (thematics)</td>
+<td>Confirm thematic alignment</td>
+<td>Confirm + quantify thematic tailwind/headwind</td>
+<td>Stress-test against active thematics (T1 Bear / T2 AI / T3 Iran etc.)</td>
+<td>Re-score against thematic state</td>
+<td>Macro paradigm fit affects portfolio construction; thematic check fires at every stage</td>
+</tr>
+<tr>
+<td><strong>BB #4 Strenuously Seek-to-Avoid</strong> (red-flag attributes)</td>
+<td>Light scan</td>
+<td>Moderate scan</td>
+<td><strong>PRIMARY</strong> — invalidating attribute hunt</td>
+<td>Monitor for new red flags</td>
+<td>Where Cockroach Rule fires hardest (find one, search for two more)</td>
+</tr>
+<tr>
+<td><strong>BB #5 Small Size Constraints</strong></td>
+<td>Light — liquidity floor check</td>
+<td>Moderate — AUM constraints</td>
+<td>Confirm — sizing implications</td>
+<td>Monitor liquidity erosion</td>
+<td>Portfolio-level concern; APM-side primary</td>
+</tr>
+<tr>
+<td><strong>BB #6 Invalidating Constraints</strong></td>
+<td>Sketch — overlap with 10 ACHs</td>
+<td>Hypothesise — D.II.1 hypothesising</td>
+<td><strong>PRIMARY</strong> — fully populated D.II.1 with stock-specific thresholds</td>
+<td>Live monitoring tripwires</td>
+<td>Becomes the exit framework at Live</td>
+</tr>
+<tr>
+<td><strong>BB #7 Past Trend / Momentum</strong> (technical + SS)</td>
+<td><strong>PRIMARY</strong> — MR1 + MR2 fire here</td>
+<td>Confirm — multi-stage technical view</td>
+<td>Stress-test for technical breakdown</td>
+<td><strong>PRIMARY</strong> — Stage 2→3 transition monitoring</td>
+<td>Most actionable at entry (Triaging) and during ownership (Live)</td>
+</tr>
+<tr>
+<td><strong>BB #8 Nice-to-Have Attributes</strong> (optionality)</td>
+<td>Light</td>
+<td>Moderate</td>
+<td>Document</td>
+<td>Monitor for crystallisation</td>
+<td>Upside-only; never load-bearing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Operational principle for IA:</strong>
+At each stage, allocate analytical effort proportionally to the firing pattern. Triaging memo isn't ~7,800w of all 11 families equally; it's heavy on IC#2/IC#3/BB#7 and light on BB#2/BB#6 (which fire harder at ESA/DD).</p>
+<p><strong>Operational principle for APM:</strong>
+When stress-testing an IA memo, focus the Concept B "most-different viewpoint" on the families that should be primary for that stage. An ESA memo where BB#2 isn't the analytical centre is mis-allocated.</p>
+<h2 id="big-change-case-bankability-apm-side-translation-map-for-portfolio-action-phase-g-v2-12-may-26">Big Change Case + Bankability — APM-Side Translation Map for Portfolio Action [Phase G v2, 12-May-26]</h2>
+<blockquote>
+<p><strong>Why this section exists:</strong> Phase G v1 renamed "two-engine doctrine" to "Big Change Case + Bankability" but didn't operationalise the rename at the APM level. IA produces the Pillar I (Big Change Case) + Pillar II G3 (Bankability core philosophy) ratings. APM converts those ratings into portfolio action (sizing, hold period, exit discipline). <strong>This section is that translation map.</strong></p>
+<p><strong>The principle:</strong> strong/weak Big Change Case and strong/weak Bankability are independent dimensions. The 4 combinations have 4 different portfolio implications. APM's job is to apply the right implication.</p>
+</blockquote>
+<h3 id="1-the-four-combinations-the-22-grid">§1 — The four combinations (the 2×2 grid)</h3>
+<table>
+<thead>
+<tr>
+<th>Big Change Case (Pillar I)</th>
+<th>Bankability (Pillar II G3, especially BB#2)</th>
+<th>Portfolio Implication</th>
+<th>Case-level rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strong (A/B)</strong></td>
+<td><strong>Strong (A/B)</strong></td>
+<td><strong>HQI Hell-Yeah-or-No zone</strong></td>
+<td>A or B+ case-level</td>
+</tr>
+<tr>
+<td><strong>Strong (A/B)</strong></td>
+<td><strong>Weak (C or worse)</strong></td>
+<td><strong>Near-term momentum play</strong></td>
+<td>B or B/C borderline</td>
+</tr>
+<tr>
+<td><strong>Weak (C or worse)</strong></td>
+<td><strong>Strong (A/B)</strong></td>
+<td><strong>Compounder awaiting catalyst</strong></td>
+<td>B/C — typically Park</td>
+</tr>
+<tr>
+<td><strong>Weak</strong></td>
+<td><strong>Weak</strong></td>
+<td><strong>Automatic Park or Kill</strong></td>
+<td>C/D/F — Park or Kill</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-apm-portfolio-action-by-combination">§2 — APM portfolio action by combination</h3>
+<p><strong>Combination 1: Strong BCC + Strong Bankability (HQI zone)</strong></p>
+<p>This is the Hell-Yeah zone. Both engines firing AND reinforcing.</p>
+<table>
+<thead>
+<tr>
+<th>APM dimension</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sizing</strong></td>
+<td>12-15% target (Resilient/Intense HQI per 4-tier framework). At entry: 8-10% starter with upgrade path to full</td>
+</tr>
+<tr>
+<td><strong>Hold period</strong></td>
+<td>Multi-year compounder. Plan 18M-36M minimum, ride longer if thesis intact</td>
+</tr>
+<tr>
+<td><strong>Exit discipline</strong></td>
+<td>Standard 10 ACH framework + Stage 2→3 technical overlay + 3rd base count trigger. NOT aggressive — let the compounder compound</td>
+</tr>
+<tr>
+<td><strong>Add discipline</strong></td>
+<td>Add on constructive pullbacks to 20-day SMA on declining volume. Up to 2-3 adds, each smaller than prior. Pyramid up</td>
+</tr>
+<tr>
+<td><strong>Trim discipline</strong></td>
+<td>Trim 20-30% at all-time highs if R/R no longer compelling. Maintain core position</td>
+</tr>
+<tr>
+<td><strong>Monitoring cadence</strong></td>
+<td>Standard — fortnightly KD tracking + monthly thesis review + pre-earnings checklist</td>
+</tr>
+<tr>
+<td><strong>Painful Prudence</strong></td>
+<td>Hold at 10-12% (not 14-15% theoretical max) until BB#2 4× discipline confirms full Hell-Yeah-or-No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Combination 2: Strong BCC + Weak Bankability (Near-term momentum play)</strong></p>
+<p>The change momentum is real but the foundations don't bank the multi-year extrapolation. Case fizzles after near-term run.</p>
+<table>
+<thead>
+<tr>
+<th>APM dimension</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sizing</strong></td>
+<td>6-8% target (MQBI per 4-tier framework). Smaller than HQI</td>
+</tr>
+<tr>
+<td><strong>Hold period</strong></td>
+<td>Tactical — 12-18 months max. Plan exit by month 12-18 even if SP up (alpha decay)</td>
+</tr>
+<tr>
+<td><strong>Exit discipline</strong></td>
+<td>TIGHTER than HQI — stop-loss at 5-6% (vs 7-8% normal). Tighten on any technical violation. ACH framework fires harder (any single trigger = exit, not just escalate)</td>
+</tr>
+<tr>
+<td><strong>Add discipline</strong></td>
+<td>DO NOT add to underwater position. Add only on constructive pullbacks AND only if Pillar II G3 BB#2 has materially improved since entry</td>
+</tr>
+<tr>
+<td><strong>Trim discipline</strong></td>
+<td>Aggressive — trim 30-50% at 2x stop target. Lock in gains. Don't ride the position into the BB#2 weakness becoming visible</td>
+</tr>
+<tr>
+<td><strong>Monitoring cadence</strong></td>
+<td>WEEKLY — accelerated from fortnightly. The thesis has a clock</td>
+</tr>
+<tr>
+<td><strong>Painful Prudence</strong></td>
+<td>Always at 50-70% of theoretical max sizing. Better to be small + right than large + wrong on a fizzle</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Combination 3: Weak BCC + Strong Bankability (Compounder awaiting catalyst)</strong></p>
+<p>The business is great but nothing's driving the share price right now. Typically Park territory at ESA.</p>
+<table>
+<thead>
+<tr>
+<th>APM dimension</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sizing</strong></td>
+<td>If Live: 5-8% bench-style position. If new: typically Park, not entry</td>
+</tr>
+<tr>
+<td><strong>Hold period</strong></td>
+<td>If existing position: indefinite hold pending catalyst (could be 6M, could be 36M). If new: defer entry</td>
+</tr>
+<tr>
+<td><strong>Exit discipline</strong></td>
+<td>Standard ACH framework. BB#2 watch — if BB#2 deteriorates (operator change, business advantage erosion), exit</td>
+</tr>
+<tr>
+<td><strong>Add discipline</strong></td>
+<td>Add only when BCC catalysts emerge (new product cycle, capex commitment, sector demand inflection). Until then: hold flat</td>
+</tr>
+<tr>
+<td><strong>Trim discipline</strong></td>
+<td>Standard. Don't pre-emptively trim a compounder waiting for catalyst</td>
+</tr>
+<tr>
+<td><strong>Monitoring cadence</strong></td>
+<td>Quarterly for re-assessment criteria — has a catalyst emerged? Standard fortnightly KD tracking</td>
+</tr>
+<tr>
+<td><strong>Park trigger</strong></td>
+<td>If new candidate: explicit Park with re-assessment criteria specified (e.g., "Re-attack when DC segment organic growth &gt;15% YoY for 2 consecutive quarters")</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Combination 4: Weak BCC + Weak Bankability (Automatic Park or Kill)</strong></p>
+<p>No engine firing. Cases like this should not be in the portfolio.</p>
+<table>
+<thead>
+<tr>
+<th>APM dimension</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sizing</strong></td>
+<td>0% — exit if Live, decline if new candidate</td>
+</tr>
+<tr>
+<td><strong>Hold period</strong></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><strong>Exit discipline</strong></td>
+<td>If Live: exit on next available strength. 30-day shot clock applies if any evidence emerges that one of the engines might fire</td>
+</tr>
+<tr>
+<td><strong>Add discipline</strong></td>
+<td>N/A — never add</td>
+</tr>
+<tr>
+<td><strong>Trim discipline</strong></td>
+<td>Exit entirely, not trim</td>
+</tr>
+<tr>
+<td><strong>Re-attack</strong></td>
+<td>Only when BOTH engines re-emerge. Bankability is easier to verify than BCC, so re-attack typically waits for BCC catalyst</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-how-apm-determines-the-combination-from-ias-memo">§3 — How APM determines the combination from IA's memo</h3>
+<p>APM reads IA's memo and assigns the combination based on:</p>
+<p><strong>For Big Change Case strength:</strong>
+- IA's Pillar I rating (especially E1 Required input change forces + E2 Required case outputs)
+- Number of distinct change forces present (1 = weak; 2 = floor; 3+ = strong)
+- Are change forces internal (corporate restructuring, new product, capex commit) OR external (regulatory tailwind, sector demand shift, supply disruption) OR both?
+- Is there a Big Change Case + Bankability reinforcement explicit in the memo? (Per the 09-May reframe, this MUST be stated at ESA in B.I.1 BLUF.)</p>
+<p><strong>For Bankability strength:</strong>
+- IA's Pillar II G3 rating (especially BB#2 4× weighted: operator + business + VC + industry + secular)
+- 3-Check Declaration on BB#2 specifically — did IA's counter-hypothesis stress-test surface a credible argument that BB#2 should be one notch lower?
+- BB#2 element-level ratings: how many at A/B? How many at C or worse?
+- Track-record parallel on BB#2: does the parallel show similar BB#2 strength leading to multi-year compounding, OR did the parallel show BB#2 weakness that wasn't visible at ESA?</p>
+<h3 id="4-worked-example-htro-esa-combination-assessment">§4 — Worked example: HTRO ESA (combination assessment)</h3>
+<p><strong>IA-side ratings (hypothetical, post-ESA memo):</strong>
+- Pillar I E1: B (DC + FS + HE = 3 distinct change forces)
+- Pillar I E2: B+ (Q1-26 +41% beat, revisions positive)
+- Pillar I E3: B (TSR upside ~+97% over 33M per Richard's model)
+- Pillar II G3 BB#2: B (CEO Fröberg track record solid 14M post-pivot; HE healthcare niche moat; EU fiber secular tailwind)
+- BB#2 E9 Operator: B- (qualified — only 14M track record)
+- BB#2 E10 Capital allocation: D (recent JOWO acquisition at high-end multiple flagged)
+- BB#2 E11 VC dynamics: B (improving)
+- BB#2 E12 Industry structure: B (fragmented but consolidating)
+- BB#2 E13 Long-term growth: B+ (5-8% European fiber buildout through 2030)
+- Case-level rating IA: B+ (Progress to DD)</p>
+<p><strong>APM combination assessment:</strong>
+- BCC strength: STRONG (3 change forces, all B/B+)
+- Bankability strength: STRONG-WITH-FRICTION (BB#2 group rating B, but E10 D rating + E9 B- = mediocrity-accumulation flag per Pret Sandwich)
+- <strong>Combination: tilts toward 1 (HQI) BUT with friction signals from BB#2 E10/E9</strong></p>
+<p><strong>APM action recommendation:</strong>
+- Treat as Combination 1 (HQI zone) sizing AT REDUCED CAP: 4-6% target (not 12-15% full HQI)
+- Hold period: multi-year compounder profile per Combination 1
+- Exit discipline: standard, plus tighten on E10 capital allocation watchlist (ACH #3 Ditherer pre-armed)
+- Add discipline: hold off adding until DD addresses E10 D rating
+- Re-rate at DD: if E10 stays D, downgrade case-level to B (drop to Combination 2 sizing)</p>
+<p><strong>This is what BCC + Bankability translation looks like in operation.</strong> APM's portfolio action is not "B+ rating → 6-8% sizing per HQI table." It's "B+ rating + BB#2 friction → Combination 1 sizing with reduced cap + specific watchlist trigger."</p>
+<h3 id="5-where-this-section-connects">§5 — Where this section connects</h3>
+<ul>
+<li><strong>IA's THINKING SOP §6</strong> (Big Change Case + Bankability central thesis test at ESA) — IA produces the inputs</li>
+<li><strong>APM SKILL.md §Position Sizing Protocol (<code>annexes/annex-01-position-management.md</code>) + 4-tier HQI framework</strong> — the sizing infrastructure this section overlays</li>
+<li><strong>APM SKILL.md §Investment Case Rating — The Highest-Stakes Single Judgement</strong> — the case-level rating that drives combination assessment</li>
+<li><strong>Calibration log</strong> — captures any disagreements between IA's case-level rating + APM's combination assessment + Richard's Step 4 decision</li>
+</ul>
+<hr>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>

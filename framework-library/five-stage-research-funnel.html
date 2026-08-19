@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Five-Stage Research Funnel — Investment System Library</title>
+<style>:root{--accent:#8a66bd;}
+:root{--ink:#1c1b22;--dim:#5f5b6b;--rule:#e2dded;--bg:#ffffff;--soft:#faf8fd;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f4f2f7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px;}
+header.prov{background:var(--accent);color:#fff;padding:26px 0 22px;margin-bottom:0;}
+header.prov .wrap{padding-bottom:0;}
+.crumb{font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;opacity:.85;margin-bottom:9px;}
+.crumb a{color:#fff;text-decoration:underline;text-underline-offset:2px;}
+h1.doc{font-size:29px;line-height:1.22;margin:0 0 9px;font-weight:700;}
+p.desc{margin:0;font-size:16.5px;opacity:.95;max-width:78ch;}
+.metabar{background:var(--soft);border-bottom:1px solid var(--rule);padding:13px 0;font-size:13px;color:var(--dim);}
+.metabar .wrap{padding-bottom:0;}
+.metabar b{color:var(--ink);font-weight:600;}
+.metabar code{background:#efeaf7;padding:1px 6px;border-radius:4px;font-size:12px;word-break:break-all;}
+.fidelity{background:#fff;border-left:4px solid var(--accent);padding:11px 16px;margin:0 0 0;
+  font-size:13.5px;color:var(--dim);border-bottom:1px solid var(--rule);}
+.fidelity .wrap{padding-bottom:0;}
+.warn{background:#fff8e6;border:1px solid #e8c96a;border-left:5px solid #d99b1c;
+  padding:13px 17px;border-radius:6px;margin:24px 0 4px;font-size:14.5px;color:#6a4c05;}
+.warn b{color:#5a3f03;}
+main{background:var(--bg);border:1px solid var(--rule);border-radius:10px;
+  padding:34px 42px 46px;margin-top:26px;box-shadow:0 1px 3px rgba(40,20,80,.06);}
+main h1{font-size:25px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);}
+main h1:first-child{margin-top:0;}
+main h2{font-size:20.5px;margin:32px 0 10px;color:#2b2437;}
+main h3{font-size:17px;margin:24px 0 8px;color:#3a3247;}
+main h4,main h5,main h6{font-size:15px;margin:19px 0 6px;color:#4a4157;}
+main p{margin:0 0 13px;}
+main ul,main ol{margin:0 0 15px;padding-left:26px;}
+main li{margin-bottom:5px;}
+main hr{border:0;border-top:1px solid var(--rule);margin:30px 0;}
+main table{border-collapse:collapse;width:100%;margin:16px 0 22px;font-size:14px;}
+main th,main td{border:1px solid var(--rule);padding:8px 11px;text-align:left;vertical-align:top;}
+main th{background:var(--soft);font-weight:650;}
+main tr:nth-child(even) td{background:#fcfbfe;}
+main code{background:#f2eef8;padding:1.5px 5px;border-radius:4px;font-size:13.5px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+main pre{background:#f7f5fb;border:1px solid var(--rule);border-radius:6px;
+  padding:13px 15px;overflow-x:auto;font-size:13px;line-height:1.5;}
+main pre code{background:none;padding:0;}
+main blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);
+  background:var(--soft);color:var(--dim);}
+main a{color:#5a2f8f;}
+main img{max-width:100%;}
+footer{margin-top:34px;font-size:12.5px;color:var(--dim);text-align:center;}
+footer a{color:#5a2f8f;}
+@media(max-width:760px){main{padding:22px 20px 30px;}h1.doc{font-size:23px;}}
+</style>
+</head><body>
+<header class="prov"><div class="wrap">
+  <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; Process and the Analyst Role</div>
+  <h1 class="doc">The Five-Stage Research Funnel</h1>
+  <p class="desc">Ideas Generation, Triaging, Early-Stage Assessment, Deep Dive, Live. What each stage is for, what it produces, and how a stock either progresses or is parked.</p>
+</div></header>
+<div class="metabar"><div class="wrap">
+  <b>Source file</b> <code>memory/context/investment-process.md</code> &nbsp;&middot;&nbsp;
+  <b>Source last changed</b> 07-Aug-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 19-Aug-26
+</div></div>
+<div class="fidelity"><div class="wrap">
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+</div></div>
+<div class="wrap">
+
+<main>
+<h1 id="investment-process-5-stage-research-funnel">Investment Process — 5-Stage Research Funnel</h1>
+<p><em>Renumbered 29-Jul-26 on Richard's ruling. Triaging was previously written as "Stage 1b", which made the funnel read as four stages; it is a full stage in its own right. The canonical five are: 1 Ideas Generation, 2 Triaging, 3 Early-Stage Analysis (ESA), 4 Deep Dive (DD), 5 Live/invested.</em></p>
+<h2 id="overview">Overview</h2>
+<p>Four stages, each reflecting Richard's KNOWLEDGE level of a stock. Each stage has a Target Condition (TC) and SOP. At every stage: define work plan, do work, analyse, judge (progress or park), generate 2 downstream actions. No open loops.</p>
+<pre><code>IG → ESA → DD → LIVE
+</code></pre>
+<h2 id="two-orthogonal-dimensions-stocks-db">Two Orthogonal Dimensions (Stocks DB)</h2>
+<p>Stocks are classified on TWO independent axes:</p>
+<h3 id="knowledge-level-research-stage-reflects-depth-of-understanding">KNOWLEDGE Level (= research stage, reflects depth of understanding)</h3>
+<p>Maps to Stocks DB field "KNOWLEDGE level":
+- 1. Pre-IG
+- 2. RB generated
+- 3. Triaged
+- 4. ESA
+- 5. Deep dive</p>
+<h3 id="interest-level-watchlist-placement-reflects-convictionproximity-to-action">INTEREST Level (= watchlist placement, reflects conviction/proximity to action)</h3>
+<p>Maps to Stocks DB field "INTEREST level":
+- 1. Live (in portfolio)
+- 2. Short list
+- 3. Long-list
+- 4. Long-list
+- 5. Very long-list
+- 6. Uncategorised ATM</p>
+<h3 id="how-stocks-move-through-the-system">How Stocks Move Through the System</h3>
+<ol>
+<li>Stocks progress through the 4 stages of the research process (IG → ESA → DD → LIVE)</li>
+<li>At any stage gate, they are either progressed to the next stage or PARKED onto a watchlist</li>
+<li>If a stock is PARKED, it gets: (a) a specific INTEREST level / watchlist placement, (b) REASONS FOR PARKING, and (c) REASSESSMENT CRITERIA that define what would reactivate it</li>
+<li>If a stock completes DD and is invested in, it moves to LIVE (INTEREST level = "1. Live")</li>
+</ol>
+<h3 id="additional-stocks-db-fields">Additional Stocks DB Fields</h3>
+<ul>
+<li><strong>TIMELINESS level</strong>: High urgency (N0-3M), Middling (N3-6M), Low/unclear (N6M+)</li>
+<li><strong>Parking reason</strong>: CEO quality, Near-term risks, No clear case</li>
+</ul>
+<hr>
+<h2 id="stage-1-ideas-generation-ig">Stage 1: Ideas Generation (IG)</h2>
+<p><strong>Purpose:</strong> Surface new names for the squad. The aim is <strong>filtering OUT</strong> ideas that are not remotely acceptable. Breadth over depth.</p>
+<p><strong>KNOWLEDGE levels covered:</strong> Pre-IG → RB generated</p>
+<p><strong>Process:</strong>
+1. Run Business Description (BD) prompt through both Claude [C] AND AlphaSense [AS]
+2. Run Change Forces (CF) prompt through both Claude [C] AND AlphaSense [AS]
+3. Post 4 FULL-LENGTH outputs to Notion Stock Notes DB with [C] and [AS] tags
+4. Apply 30%+ sentiment highlighting to all outputs
+5. No IAJA synthesis at IG stage (07-Apr-26 instruction)
+6. Richard reads, forms initial view, decides: progress to Triaging or park</p>
+<p><strong>Prompt templates:</strong> <code>AI Prompts/Watson - IG - Business description - REV V03_RB.docx</code> and <code>AI Prompts/Watson - IG - Change forces - REFV04_RB.docx</code></p>
+<p><strong>Skill reference:</strong> <code>memory/skills/researcher/SKILL-V2.md</code> (master file; <code>SKILL.md</code> beside it is a redirect stub only. Archived IG skill at <code>memory/skills/ig-ideas-generation/SKILL.md</code>)</p>
+<p><strong>Universe:</strong> ~1,300 European stocks. Sweet spot: $5-50bn market cap.</p>
+<hr>
+<h2 id="stage-2-triaging">Stage 2: Triaging</h2>
+<p><strong>Purpose:</strong> Determine whether the idea is a <strong>good fit</strong> — at a LIGHT level, based on <strong>pattern recognition</strong> and <strong>"strong views, weakly held"</strong> (sensible hypotheses that need testing with more evidence). Not deep analysis — fast, disciplined filtering.</p>
+<p><strong>KNOWLEDGE level:</strong> Triaged</p>
+<p><strong>Key work products:</strong>
+- Most Recent Earnings Review (Richard must commission — not auto-produced)
+- GTA Unknown Key Drivers analysis
+- GTH Analysis + Peer GTH Analysis
+- Sell Side (SS) Analysis — <strong>SS = Sell Side, NOT Short Seller</strong>
+- IR Contact prep (returned in chat, NOT posted to Notion)
+- Business Model &amp; Sector Primer (moved from ESA, 13-Apr-26)
+- Guidance analysis (moved from ESA, 13-Apr-26)</p>
+<p><strong>Prompt templates:</strong> Multiple Triaging-stage prompts in <code>AI Prompts/Watson - Triaging - *.docx</code> plus two ESA-labelled templates (BM&amp;Sector Primer, Guidance) now used at Triaging.</p>
+<p><strong>Output:</strong> Triaging-level FCS assessment. Setup profile classification. Decision: progress to ESA or park onto a watchlist with reasons and reassessment criteria.</p>
+<hr>
+<h2 id="stage-3-early-stage-analysis-esa">Stage 3: Early-Stage Analysis (ESA)</h2>
+<p><strong>Purpose:</strong> Dual purpose: (1) interrogate the change thesis — is the change significant enough, is management dynamic enough, are the required outputs compelling; (2) breadth coverage — ensure ALL aspects of the investment case are covered at light or medium depth. ESA establishes the <strong>key risks, key questions, and key confusions</strong> that DD will focus on.</p>
+<p><strong>KNOWLEDGE level:</strong> ESA</p>
+<p><strong>Key work products:</strong>
+- History of Earnings Delivery (multi-year trajectory — distinct from Triaging's Most Recent Earnings Review)
+- Tracking vs Guidance analysis (forecast accuracy)
+- Value chain analysis / map
+- Pre-mortem (always REFV02_RB)
+- CEO/CFO question set
+- Key Questions identified and researched
+- Short Seller All 10 TEST (WIP — ask Richard before running)</p>
+<p><strong>Prompt templates:</strong> Multiple ESA-stage prompts in <code>AI Prompts/Watson - ESA - *.docx</code></p>
+<p><strong>Output:</strong> ESA memo with preliminary investment case, key risks, key confusions, and fulcrum driver thesis. The setup title crystallises at ESA. Decision: progress to DD or park onto a watchlist with reasons and reassessment criteria.</p>
+<hr>
+<h2 id="stage-4-deep-dive-dd">Stage 4: Deep Dive (DD)</h2>
+<p><strong>Purpose:</strong> Resolve the key questions. Test the fulcrum driver thesis. Fill gaps, stress test, prepare for investment committee (self). Round out the case. Encompasses both the initial deep-dive and the rounding-out phase.</p>
+<p><strong>KNOWLEDGE level:</strong> Deep dive</p>
+<p><strong>Key work products:</strong>
+- KQ research memos (Claude + AlphaSense dual-source)
+- KQ analysis memos (framework-driven judgement)
+- FX exposure analysis
+- Management deep-dive (CEO research, insider comments, governance checks)
+- Pre-mortem
+- Remaining KQs resolved
+- Case file complete
+- Position sizing framework applied
+- Monitoring plan defined</p>
+<p><strong>Prompt templates:</strong> Multiple DD-stage prompts in <code>AI Prompts/Watson - DD - *.docx</code> and <code>AI Prompts/Watson - ESA_DD - *.docx</code></p>
+<p><strong>Output:</strong> Complete investment case with all key questions answered, risks mapped, and monitoring plan. Decision: invest (move to LIVE) or park onto a watchlist with reasons and reassessment criteria.</p>
+<hr>
+<h2 id="stage-5-liveinvested">Stage 5: Live/invested</h2>
+<p><strong>Purpose:</strong> Live position in the portfolio. Shift to monitoring mode.</p>
+<p><strong>INTEREST level:</strong> "1. Live"</p>
+<p><strong>Key activities:</strong>
+- Execute entry (timing, sizing)
+- Set up monitoring cadence (driver tracking, earnings reviews)
+- Apply paranoid tilt
+- Track against 18-month lifecycle
+- Regular monitoring of Tracking Indicators (TIs) and drivers
+- Communication from Watson on status and any changes</p>
+<hr>
+<h2 id="stage-gate-logic">Stage-Gate Logic</h2>
+<p>At every stage gate:
+1. <strong>IAJA loop:</strong> Information gathered → Analysis performed → Judgement formed → Action taken
+2. <strong>2 downstream actions minimum</strong> — every judgement must generate at least 2 next steps
+3. <strong>Park protocol:</strong> If parking, log the reason and the trigger that would re-activate
+4. <strong>No open loops:</strong> Every thread must be resolved or explicitly parked with a future trigger</p>
+<h2 id="six-pillars-ic-framework-integration-15-apr-26">Six Pillars IC Framework Integration (15-Apr-26)</h2>
+<p>The Six Pillars framework defines the TARGET INVESTMENT CASE that the research process is building toward at every stage. The 4-stage funnel (IG → ESA → DD → LIVE) remains the process; the Six Pillars define what a complete investment case looks like.</p>
+<p><strong>At each stage, the APM produces a subset of 26 deliverables</strong> scaled by depth:
+- <strong>IG:</strong> Light — #4 (IC Summary sketch), #9 (initial Six Pillar ratings, mostly "—"), #10 (ICD hypothesising), #14 (Key Questions), #21-25 (Actions)
+- <strong>Triaging:</strong> Light-to-moderate — adds #1-3 (IC Analysis), #5-6 (EGP, KFMs), #11 (Risk Assessment), #20 (Monitoring Instructions)
+- <strong>ESA:</strong> Moderate — all 26 deliverables at medium depth. This is where the IC crystallises.
+- <strong>DD:</strong> Full depth — all 26 deliverables comprehensively. All KQs answered. Monitoring plan fully defined.</p>
+<p><strong>Database write step</strong> is mandatory after every APM Analysis + Judgement cycle. APM writes detail ratings to pillar JSONs, updates master, runs rollup script, rebuilds dashboard. This creates a living, versioned record of how the IC evolved through stages.</p>
+<p><strong>ICD framework (deliverable #10)</strong> classifies all drivers: Fulcrum (1-2, SP-defining) → Key (up to 4) → Secondary → Tertiary (noise). Each Fulcrum Driver gets 1-2 Leading Tracking Indicators that feed the Monitoring Plan.</p>
+<p>Cross-reference: <code>fundamental-change-screen/SKILL.md</code> (V7+), <code>assistant-portfolio-manager/SKILL.md</code>, <code>assistant-portfolio-manager/analysis-judgement-SOP.md</code> (governs memo authoring at Triaging/ESA/DD — updated 28-Apr-26 with authoring order, 70/30 time split, Notion note lookup, Opus mandate), <code>databases/</code> folder</p>
+<hr>
+<h2 id="memo-cover-sheet-standard-jan-2023">Memo Cover Sheet Standard (Jan 2023)</h2>
+<p>Every formal investment case analysis (ESA onwards) includes a standard cover sheet:
+- <strong>Stock ticker, company name, date, Watson version number</strong>
+- <strong>Investment thesis (1-2 sentences):</strong> What is the core case?
+- <strong>Key fulcrum driver:</strong> What is the single most important driver?
+- <strong>Risk/reward profile:</strong> Upside case, base case, downside case with multiples
+- <strong>3 key questions:</strong> What would change the investment case?
+- <strong>Time horizon:</strong> 18M, 4Y, "+infinity"?
+- <strong>Conviction rating (1-10):</strong> Based on 8-element framework
+- <strong>Position sizing recommendation:</strong> Based on conviction + resilience assessment
+- <strong>Monitoring plan:</strong> What is tracked fortnightly? What would trigger exit?</p>
+<p>This standardises the case and prevents analysis without conclusion.</p>
+<h2 id="team-decision-architecture-sept-2023">Team Decision Architecture (Sept 2023)</h2>
+<p>While Richard is sole decision-maker, when involving advisors/peers (Ed, James, Pedro):
+- <strong>Pre-decision:</strong> Seek challenge on key assumptions (ACH format preferred)
+- <strong>During decision:</strong> Listen to their evidence/concerns; form your own view
+- <strong>Post-decision:</strong> Communicate your logic clearly; welcome pushback</p>
+<p>Core principle: "Form your own judgment on every stock. Never abrogate to analyst." Richard has excellent track record of trusting own judgment even when disputed (Greggs example: Pedro concerned, Richard trusted analysis, stock up 25% YTD).</p>
+<h2 id="research-process-discipline-changes-2022-23">Research Process Discipline Changes (2022-23)</h2>
+<ol>
+<li>
+<p><strong>No analytical deep-dives as substitutes for exit decisions.</strong> When a stock triggers deterioration signals, the 30-day shot clock runs. Using that time to "understand the company better" is avoidance. Default is zero; can be reopened with fresh conviction only.</p>
+</li>
+<li>
+<p><strong>Complexity trap avoidance.</strong> If you need &gt;3 Excel tabs to understand the investment case, it's too complex. HQI cases are simple: what is the inflection? What drives 18M EPS? What's the fulcrum driver?</p>
+</li>
+<li>
+<p><strong>Memo discipline.</strong> Every ESA and DD must produce a formal memo (cover sheet + case). Rough notes don't count. Memo discipline forces clarity.</p>
+</li>
+</ol>
+<h2 id="conviction-assessment-8-dimension-scoring">Conviction Assessment: 8-Dimension Scoring</h2>
+<p>See <code>investment-strategy.md</code> → "Conviction Assessment — Eight Elements" for the full 8-element framework.</p>
+<h2 id="daily-execution-scoring">Daily Execution Scoring</h2>
+<p>See <code>high-performance.md</code> → "Daily Execution Scoring" for the full 5-point daily scoring system.</p>
+<h2 id="iaja-synthesis-automatic-stage-capstone-sop">IAJA Synthesis — Automatic Stage Capstone (SOP)</h2>
+<p><strong>After completing any stage's research prompts, Watson automatically produces an IAJA Synthesis page.</strong> This is non-optional and applies to every stage (IG, ESA, DD). It is the capstone of every stage's execution.</p>
+<p><strong>What it does:</strong>
+- Synthesises findings from ALL source outputs produced during that stage into a single consolidated view
+- Applies the IAJA framework: Information gathered → Analysis → Judgement → 2+ downstream actions
+- Forms Watson's preliminary view on the stock at this stage — not just restating what the outputs said, but drawing out analytical implications and forming a judgement
+- Proposes at least 2 concrete downstream actions (e.g., "progress to ESA," "park because X," "investigate KQ on Y," "run peer GTH," "schedule monitoring for Z")</p>
+<p><strong>Format:</strong>
+- Single page per stage, however long it needs to be (use chunking protocol if &gt;15K chars)
+- Naming: <code>[W] {TICKER} ({Company Name}) - {STAGE} IAJA Synthesis [W] @ DD-Mon-YY — {one-sentence judgement}</code>
+  - Example: <code>[W] OEM (OEM International) - IG IAJA Synthesis [W] @ 30-Mar-26 — Quality serial acquirer with solid Nordic niche but limited near-term catalysts; suggest park on short list pending Q1 earnings</code>
+  - Source tag is [W] (Watson's synthesis), NOT [C] or [AS]
+- Properties: IAJA = Information + Analysis + Judgement (all three)
+- 30%+ sentiment highlighting
+- Posted to Stock Notes DB (<code>collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2</code>)</p>
+<p><strong>Scope by stage:</strong>
+- <strong>IG:</strong> Synthesises BD [C], BD [AS], CF [C], CF [AS] (4 source outputs)
+- <strong>ESA:</strong> Synthesises all ESA-stage outputs (up to ~16 source outputs — sector primer, value chain, earnings history, guidance, premortem, etc.)
+- <strong>DD:</strong> Synthesises all DD-stage outputs (KQ memos, management deep-dive, FX exposure, etc. — variable number)</p>
+<h2 id="parking-protocol">Parking Protocol</h2>
+<p>Parked names get:
+- [-] prefix in Notion
+- Placed on a specific watchlist (INTEREST level: Short list through Uncategorised ATM)
+- <strong>Parking reason</strong> logged (Stocks DB field — e.g., CEO quality, Near-term risks, No clear case)
+- <strong>Reassessment criteria</strong> defined — specific, observable triggers that would reactivate the name (e.g., "revisit if share price falls below X" or "revisit post Q2 earnings")
+- Removed from active research workflow but retained in squad for monitoring
+- Watson monitors reassessment criteria on parked watchlist names and communicates status changes to Richard</p>
+<hr>
+<h2 id="initiating-investment-checklist-17-step-gate-before-entry">Initiating Investment Checklist (17-Step Gate Before Entry)</h2>
+<p><strong>Gene Pool &amp; Standards Gate:</strong>
+1. Does new stock raise average quality of portfolio (&gt;50th percentile)?
+2. Cross-check against historical investing lessons — any errors being repeated?
+3. Comfortable putting trade order to go straight to 8% (gut + head alignment)?</p>
+<p><strong>Portfolio Construction Gate:</strong>
+4. If at 10 stocks max, which stock simultaneously exits? (1-in-1-out discipline)
+5. Comfortable cannot reverse position in F3M? F6M? (conviction test)
+6. Within maximum new positions/year (4-6 max)?</p>
+<p><strong>Analytical Rigor Gate:</strong>
+7. Have you personally built a model?
+8. Have you personally written a long memo (not analyst's)?
+9. Risk memos from analyst + James (stress test views)?
+10. Pre-mortemed the idea properly with team (noodled all issues)?
+11. Re-read every memo, re-checked model, re-reviewed all primary research?
+12. Are all your key questions genuinely answered? Honestly?</p>
+<p><strong>Consensus &amp; Calibration Gate:</strong>
+13. Head-gut concordance: What does gut say? Matches head analysis?
+14. Have you resisted premature toe-holds before research is complete?
+15. Have you run metacognition checklist (15+ strategic business model considerations)?</p>
+<p><strong>Final Discipline Gate:</strong>
+16. Minimum one week percolation time after all final checks before investing (forced pause)
+17. Chris (team member) must run checklist; minimum 30-minute review meeting before new investment</p>
+<hr>
+<h2 id="position-monitoring-checklist-live-position-discipline">Position Monitoring Checklist — Live Position Discipline</h2>
+<p><strong>Thesis Simplicity (Guardrail):</strong>
+- Never want theses getting more complex. Want them getting simpler.
+- If thesis has added layers since entry, thesis is deteriorating.</p>
+<p><strong>Alignment Check (Weekly/Fortnightly):</strong>
+- All indicators pointing same direction? (Best cases: data directionally aligned, reduces forecast dependency)
+- Are most important indicators changing? (They often evolve; update tracking set quarterly)</p>
+<p><strong>Tracking Indicators Setup:</strong>
+1. What are the 4-6 core tracking indicators for this position?
+2. Are they SMART (specific, measurable, achievable, relevant, time-bound)?
+3. Are they MECE (mutually exclusive, collectively exhaustive)?
+4. Based on Superforecasting principles (observable, not analytical)?</p>
+<p><strong>Active Monitoring (Monthly):</strong>
+1. How are leading fundamental tracking indicators changing?
+2. How are leading market sentiment indicators changing?
+3. Are all indicators pointing same direction? (If yes: deep holistic trust; if no: investigate divergence)
+4. Hard Bloomberg data review monthly (earnings, guidance trends, covenant status)</p>
+<p><strong>Tools &amp; Execution:</strong>
+- Optionality plot updated quarterly
+- 3-monthly pre-mortem review (would we still buy at current price?)
+- Dashboard + Bloomberg terminal daily access
+- 30-day deterioration shot clock (if 2+ indicators RED, default is reduce unless clear counter-evidence)</p>
+<hr>
+<h2 id="exit-proposal-memo-sop-when-considering-reductionexit">Exit Proposal Memo SOP (When Considering Reduction/Exit)</h2>
+<p><strong>Step 1: All Reasons to Exit</strong>
+- Unstructured jumble initially: list all concerns comprehensively
+- Performance vs. key drivers; performance vs. expected hypothesis
+- Investigation: How might I be wrong? Is "Gentle Bull" manifesting but I'm distracted by transient issues?</p>
+<p><strong>Step 2: Metacognition Checklist Validation</strong>
+- Run all metacognition checks (15+ business model / competitive / strategic considerations)
+- Logic: "Slow is smooth. Smooth is fast" — invest thinking time upfront to avoid reactive mistakes</p>
+<p><strong>Step 3: Proposed Position Monitoring Plan</strong>
+- Specific tracking indicators to follow going forward
+- Probability of "Gentle Bull" manifesting — what would increase it?
+- Be very specific (Who, what, when, how, why); aim to allocate minimal time going forward
+- Define: Hard outcome triggers that would justify re-entry if exited</p>
+<p><strong>Step 4: Move to Monitoring List?</strong>
+- If not exiting but reducing/moving to bench: why? Reassessment criteria?</p>
+<p><strong>Step 5: Sign-Off Protocol</strong>
+- Both Richard and lead analyst sign off (like a contract)
+- Both include detailed comments on rationale and disagreements
+- Document any dissent clearly — disagreement is valuable input</p>
+<hr>
+<h2 id="metacognition-checklist-strategic-business-analysis-framework">Metacognition Checklist — Strategic Business Analysis Framework</h2>
+<p><strong>Scope:</strong> 15+ categories of business model, competitive, and strategic considerations that challenge every thesis.</p>
+<p><strong>Core Categories:</strong></p>
+<p><strong>1. Business Model &amp; Competitive Strategy</strong>
+- Incumbent dilemma (are they defending against disruption or not?)
+- Latent pricing power (can they raise prices without losing volume?)
+- Latent growth/margin opportunities (greenfield expansion?)
+- Fulcrum products (is the case dependent on one product/customer?)
+- Moat strength (trust moat vs. structural moat; durability under attack?)
+- Incentive alignment (management paid for right behaviors?)
+- Culture/execution (culture eats strategy for breakfast; is culture top-tier?)</p>
+<p><strong>2. Market Position &amp; Dynamics</strong>
+- Red Queen/Darwin's Finches (hyper-competitive or defensible?)
+- Market share change metrics (HHI; consolidation vs. fragmentation; speed of winners?)
+- Relative winner when going gets tough (defensive quality in downturns?)
+- Land of blind (weak competitors = easy wins, but is there a formidable entrant?)
+- Competitive strategy (Sun Tzu: superior position vs. direct confrontation?)</p>
+<p><strong>3. Value Chain &amp; Scale Economics</strong>
+- Value chain analysis (where are profit pools? Is company in best position?)
+- Scale economies (does bigger = better or just bigger?)
+- Physical networks (fibre, railways, platforms — embedding creates moats?)
+- Two-sided marketplace networks (buyers/sellers feedback loop?)
+- Market cap vs. TAM (can genuinely 5x from here?)</p>
+<p><strong>4. Growth &amp; Reinvestment Runway</strong>
+- Reinvestment runway length &amp; depth (how many years of compounding left?)
+- Organic vs. M&amp;A growth (can they grow organically or dependent on M&amp;A?)
+- Customer pick-and-choose vs. bundling (are they losing negotiating power?)
+- High operating leverage implications (good when up, brutal when down?)</p>
+<p><strong>5. Downside &amp; Fragility Scenarios</strong>
+- Thin margins = tough businesses (are they running to stand still?)
+- Customer concentration risk (top 3 customers &gt;40%? High risk.)
+- Regulation/patents as moat (fragile if policy changes?)
+- High leverage + cyclical = double disaster (debt serviceability stress?)
+- Strategic pivot vs. flip-flop flailing (are they adapting smartly or reactive?)</p>
+<p><strong>6. Less Obvious Risks</strong>
+- Long periods of slow growth = red flag (is compounding exhausted?)
+- Running to stand still (strong revenue, weak earnings growth?)
+- Economic chokepoints (are there bottlenecks in supply chain they don't control?)
+- Systemic risk (interconnected failures beyond their control?)
+- "Hail Mary" strategies (is management out of ideas and making crazy bets?)</p>
+</main>
+<footer>
+  <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
+  <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
+  Built 19-Aug-26
+</footer>
+</div></body></html>
