@@ -74,7 +74,7 @@ footer a{color:#5a2f8f;}
 <p><strong>First action on every run:</strong> read <code>memory/context/CLAUDE-CANONICAL.md</code> in full before anything else. Canonical wins over the app-loaded CLAUDE.md on any conflict.</p>
 </blockquote>
 <h1 id="apm-rb-pms-alignment-sop">APM + RB PMS alignment SOP</h1>
-<p><strong>Status:</strong> LIVE v1.8, 10-Sep-2026 (approved presentation exemplar; pointer only, no rule changed). Prior: v1.7, 02-Sep-2026 (moving averages now dividend-adjusted; loss at risk covers every live tranche; broad-down-day context on breaches; the mailbox is enumerated structurally, not by natural-language search; role scope stated). Prior: v1.6, 14-Aug-2026 (session digests read/write; chat formatting extended to the stock sweep; per-stock orientation summary; UBS reconciliation now a standing every-run step against current saved sizes; UBS daily return series rebuilt to true inception with a completeness check; end-of-session Notion digest for semi-material-plus sessions). Prior: v1.4, 12-Aug-2026 (UBS fetch decoupled from the morning label; volume-window wording made explicit).
+<p><strong>Status:</strong> LIVE v2.0, 11-Sep-2026 (ONE STOP RULE for every stop, in Richard's words HIT / TRIGGERED / EXIT CONFIRMED, weekly close and the immediate tier retired; the ORDER SHEET; the COACH'S NOTE). Prior: v1.9, 11-Sep-2026 (the Minervini block). Prior: v1.8, 10-Sep-2026 (approved presentation exemplar; pointer only, no rule changed). Prior: v1.7, 02-Sep-2026 (moving averages now dividend-adjusted; loss at risk covers every live tranche; broad-down-day context on breaches; the mailbox is enumerated structurally, not by natural-language search; role scope stated). Prior: v1.6, 14-Aug-2026 (session digests read/write; chat formatting extended to the stock sweep; per-stock orientation summary; UBS reconciliation now a standing every-run step against current saved sizes; UBS daily return series rebuilt to true inception with a completeness check; end-of-session Notion digest for semi-material-plus sessions). Prior: v1.4, 12-Aug-2026 (UBS fetch decoupled from the morning label; volume-window wording made explicit).
 <strong>Owner:</strong> Assistant Portfolio Manager role.
 <strong>Project home:</strong> <code>projects/SA - Position Management System/</code>.
 <strong>Layer:</strong> sits under the Universal Communication and Presentation Guidelines. Where this SOP duplicates a universal rule, the universal layer wins.</p>
@@ -463,8 +463,8 @@ sweep even though they are written after it. <strong>Work in this order:</strong
 </tr>
 <tr>
 <td>5</td>
-<td>Write the open-items banner, then the portfolio judgement</td>
-<td>Steps 5, 3</td>
+<td>Write the open-items banner, then <strong>the ORDER SHEET</strong> (every exit confirmed, chased or on watch; never omitted, "No stop actions tonight" when empty), then the portfolio judgement</td>
+<td>Steps 5, 3 (the order sheet)</td>
 </tr>
 <tr>
 <td>5.5</td>
@@ -500,6 +500,11 @@ sweep even though they are written after it. <strong>Work in this order:</strong
 <td>10</td>
 <td><strong>Stage 2 transitions on LIVE HOLDINGS, LAST in the note, then offer the whole-universe SOP. Once a day only, morning or evening, never both</strong></td>
 <td>Step 9</td>
+</tr>
+<tr>
+<td>10.5</td>
+<td><strong>The coach's note</strong> on the last run of each week (five lines) and the first run of each month (full note). Record tonight's order sheet in the ledger on every EVENING run: <code>python3 &lt;COWORK&gt;/scripts/order_sheet_ledger.py --record</code></td>
+<td>Step 3, the coach's note</td>
 </tr>
 <tr>
 <td>11</td>
@@ -657,6 +662,7 @@ deteriorated. <strong>A risk number that improves when risk rises is worse than 
   it so the reader can see nothing was dropped.</strong></li>
 </ul>
 <h3 id="a-breach-on-a-broad-down-day-richards-ruling-02-sep-2026-option-c">A breach on a broad down day — Richard's ruling, 02-Sep-2026, option C</h3>
+<p><em>Read with the one stop rule of 11-Sep-2026 (Step 3). The "immediate tier" named below no longer exists. The context now attaches to the day a stop is HIT (day 1 of a trigger): <code>first_close_below</code> is true when the tranche is TRIGGERED on day 1. The rule itself is still never softened by the context.</em></p>
 <p><strong>He was offered three ways to treat an immediate-tier stop broken on a single close: apply it
 literally; add a confirmation condition; or keep it literal and flag the market context. He chose
 the third.</strong> Verbatim: <em>"keep the rule literal but let me flag 'broke on a broad down day' as
@@ -765,6 +771,7 @@ never "today", always "the day after the bookmark".</p>
    a. <code>get_message</code> with that identifier to confirm the attachment name.
    b. <code>get_attachment</code> with the same identifier and the exact filename.
    c. Download the signed URL with <code>curl</code> <strong>within the hour</strong> — it expires.
+   c2. <strong>Archive it (v2.0, 11-Sep-2026).</strong> Copy the downloaded file into <code>&lt;COWORK&gt;/pms-data/ubs-archive/</code> under its UBS filename (<code>UBS_AMC_Valuation_CH1560492923_DD-MM-YYYY.xlsx</code>). If a file of that name is already there, skip; never overwrite. <strong>This archive is the only source of Richard's closed-trade record</strong> (the daily email carries holdings, not trades; checked 11-Sep-2026), which the coach's note is built from.
    d. Open the Summary sheet, read the "RPL" cell and the "Certificate Position" cell (see Step
       8.1 for what these mean and the cross-check on Position staying constant).
    e. <strong>Before appending, check <code>fund-rpl-history.json</code>'s <code>series</code> for that exact date already
@@ -1277,11 +1284,11 @@ must be quoted.</p>
 4-to-10 bullet count (like the volume explainer). It is in addition to topics 3 and 4 above, not a replacement.</p>
 <p><strong>The seven fixed parts, one short plain-English line each, in this order, every time</strong> (D-MMW-50):</p>
 <ol>
-<li><strong>Trend.</strong> In an advance or not, and since when, on the counter's clock; say "provisional" when the program does (an anchor under 60 trading days old)</li>
+<li><strong>Trend.</strong> In an advance or not, and since when; say "provisional" when the program does (an anchor under 60 trading days old). <strong>One meaning of Stage 2 since 11-Sep-2026</strong> (crosswalk item 9): an advance starts on the first day the price-based part of the master dashboard's Stage 2 rating passes and ends only on a close more than 3% below the 200-day; today's rating is the day's verdict within it</li>
 <li><strong>Where in the advance.</strong> The base number; "late stage" when the program flags it (base 4 or later)</li>
 <li><strong>Base quality.</strong> The base's class in his words (constructive, wide and loose, correction), its depth, and any flag: CAUTION (30% or deeper, ours), deteriorating (ours), the depth trend of completed bases</li>
-<li><strong>The slices.</strong> Each tranche by its full name (the first probing-bet tranche, the first core tranche), its gain on its entry close, whether its stop now sits above entry (risk-free), and its stop status from the engine</li>
-<li><strong>Profit protection.</strong> Whether the hard floor at entry binds (a tranche 20% or more up; ruled D-MMW-45) and, if so, the floor price to carry as the manual sell-order level; his breakeven point (three times the initial risk) reported only</li>
+<li><strong>The slices.</strong> Each tranche by its full name (the first probing-bet tranche, the first core tranche), its gain on its entry close, whether its stop now sits above entry (risk-free), and its stop state in Richard's words: clear, TRIGGERED (day 1 or 2 of 3, with the hit date) or EXIT CONFIRMED (the date, not yet sold)</li>
+<li><strong>Profit protection.</strong> Whether the hard floor at entry is active (the slice has closed 20% or more above its entry close at some point; once active it stays active; ruled D-MMW-45) and, if so, the floor price and whether it is the binding level tonight; his breakeven point (three times the initial risk) reported only</li>
 <li><strong>What changed since yesterday.</strong> From the program's events; "nothing changed since yesterday" is a valid and common line</li>
 <li><strong>What to watch.</strong> The next thing that would change the read: a depth approaching 30%, a fourth base ahead, the anchor near its 3% break line, a tranche approaching 20% up</li>
 </ol>
@@ -1292,12 +1299,34 @@ Manager's recommendation, with a size and a level where it is a trim; the counte
 orientation summary at the top naming every holding with a fired event.</p>
 <p><strong>Length discipline.</strong> Parts 1 to 5 are one line each; on a day nothing changed the whole block is seven short
 lines. It exists to be read in ten seconds, not to be complete.</p>
-<p><strong>Order the stocks by risk, not alphabetically.</strong> Anything in breach of a stop comes first, then anything within 5% of a stop, then the rest by size.</p>
+<p><strong>Order the stocks by risk, not alphabetically.</strong> Anything with an EXIT CONFIRMED comes first, then anything TRIGGERED, then anything within 5% of its binding stop level, then the rest by size.</p>
 <p><strong>Reading the stop numbers correctly:</strong>
 - <code>pct_above_stop</code> is <strong>how far the stock would have to fall to reach the stop</strong>, as a percentage of the current price. This is the house convention, copied from <code>generate_position_data.py</code>. It is the number that matters because loss at risk is simply tranche size multiplied by it.
 - <code>loss_if_stopped_bps</code> is the <strong>basis points of total capital</strong> lost if that tranche stops out. Negative means a loss.
-- <strong>Grace tiers:</strong> the 150-day and 200-day moving averages are <strong>immediate</strong> exits on breach. The 20, 50 and 100-day are <strong>tactical</strong> — three daily closes below, or one weekly close.
-- <code>closes_below_stop_last10</code> counts how many of the last ten closes sat below the stop. <strong>Use it to judge whether a tactical breach has already run its course.</strong></p>
+- <strong>THE ONE STOP RULE (Richard, 11-Sep-2026; replaces the two-speed grace tiers and the weekly close, both retired).</strong> One rule for every stop, whatever its moving average, in Richard's words: a stop is <strong>HIT</strong> on the first <strong>close</strong> at or below it (day 1); it is <strong>TRIGGERED</strong> while the price keeps closing at or below it; the <strong>EXIT is CONFIRMED</strong> on the <strong>third consecutive close</strong> at or below it, and that slice is sold the next trading day. A close back above on day 1 or day 2 ends the trigger and the count restarts at the next hit. <strong>Judged on the close only</strong>: a dip below during the day that closes above is reported as information (<code>intraday_touch_today</code>), never counted. <strong>A confirmed exit stays confirmed</strong> ("exit confirmed, not yet sold") until the slice is sold or Richard says he is keeping it; it does not clear itself if the price recovers. Each day is judged against <strong>that day's own</strong> stop level. The engine's function is <code>scripts/stop_rule.py</code>; the Position Management System page runs the same rule.
+- <strong>The binding level.</strong> The higher of the moving-average stop and, once a slice has <strong>closed 20% or more above its entry close at any point</strong>, the hard floor at the entry close (ruled D-MMW-45; once active it stays active). The three-close rule runs against the binding level. <code>binding_level</code>, <code>binding_source</code> ("moving average" or "floor at entry") and <code>pct_above_binding</code> are per tranche; <code>stop_level</code> and <code>pct_above_stop</code> remain the moving-average stop, and loss at risk is still measured to it (conservative where the floor binds).
+- <strong>The fields.</strong> <code>stop_state</code> is <code>clear</code>, <code>triggered</code> or <code>exit_confirmed</code>; <code>stop_state_label</code> is the plain line to use; <code>day_of_run</code> (1 or 2 while triggered); <code>hit_date</code>; <code>exit_confirmed_date</code>. <code>in_breach</code> now means the latest close is at or below the binding level. The engine's <code>stop_alerts</code> lists <code>exit_confirmed</code>, <code>triggered</code>, <code>in_breach</code> and <code>within_5pct</code>.
+- <strong>Beside every day of a trigger, report two facts as information, never as part of the verdict</strong> (Richard: "volume behaviour and intra-day closes etc. are very instructive"): where the close sat in that day's range (<code>close_in_range_pct</code>, 0% the low, 100% the high) and the day's volume against its 50-day average (<code>volume_x_50d</code>). Both are in <code>stop_rule.run_days</code> (or <code>confirm_run_days</code> for a confirmed exit). A close near the high on light volume reads as noise; a close near the low on heavy volume reads as real selling. Say which, in one line.
+- <strong>Say it in his words and nothing else:</strong> "TRIGGERED, day 2 of 3 (hit 9 September)", "EXIT CONFIRMED 28 August, not yet sold". Never "in breach, tactical tier", never "weekly close".</p>
+<h3 id="the-order-sheet-added-11-sep-2026-richard-build-them-and-integrate-into-the-apm-pms-qa-sop">The order sheet — added 11-Sep-2026 (Richard: "build them and integrate into the APM PMS Q&amp;A SOP")</h3>
+<p><strong>What it is.</strong> The short list of stop actions Richard has to take by hand, at the top of every note after the open-items banner. <strong>UBS does not take resting stop orders</strong> (Richard, 11-Sep-2026), so nothing sits at the broker and every line is a manual action. The engine builds it: <code>order_sheet.lines</code> in its output. Never omit the section; on a quiet day it reads "No stop actions tonight".</p>
+<p><strong>Three kinds of line, in this order:</strong>
+1. <strong>SELL</strong>: the exit was confirmed at the latest close. Sell that slice the next trading day. State the slice by its full name, its size, the three closes that confirmed it with each day's close-in-range and volume, and the binding level.
+2. <strong>CHASE</strong>: the exit was confirmed on an earlier day and the slice is still in the Position Management System. Say how many trading days it has been outstanding and whether the price has since gone back above the stop. <strong>Chase it every evening until it is sold or kept.</strong> Never soften it because the price recovered.
+3. <strong>WATCH</strong>: triggered, day 1 or 2 of 3. State the level and that the exit confirms if the next close (day 2) or the next two closes (day 1) stay at or below it.</p>
+<p><strong>How a line leaves the sheet.</strong> SOLD: Richard sells at UBS and removes the tranche in the Position Management System; the next morning's UBS reconciliation confirms the shares went. KEPT: Richard tells the Assistant Portfolio Manager he is keeping a confirmed slice and why. <strong>Record it at once</strong> in <code>pms-data/stop-overrides.json</code> (create it if absent) as <code>{"overrides": [{"ticker": "ALFEN-NL", "tranche": "MM1", "entry_date": "2026-06-29", "kept_on": "&lt;today&gt;", "reason": "&lt;his words&gt;", "confirmed_date": "&lt;the date it cleared&gt;"}]}</code> (write via a scratch copy, then copy in and check). The rule then starts afresh for that slice from the next trading day. Every override is counted in the coach's note.</p>
+<p><strong>Watson never places, amends or cancels an order.</strong> Placing an order is a hard stop in the rulebook; the sheet is information and a reminder, and the decision is Richard's.</p>
+<h3 id="the-coachs-note-added-11-sep-2026-agreed-d-mmw-49-and-d-mmw-52-richard-build-them-and-integrate-into-the-apm-pms-qa-sop">The coach's note — added 11-Sep-2026 (agreed D-MMW-49 and D-MMW-52; Richard: "build them and integrate into the APM PMS Q&amp;A SOP")</h3>
+<p><strong>What it is.</strong> The Assistant Portfolio Manager reports Richard's own risk-management numbers without being asked, compares them with Minervini's, and coaches: <strong>what he is doing well; the one gap; one change to test</strong> (that shape is Richard's ruling). It is built into this SOP so he never has to ask for it.</p>
+<p><strong>When.</strong> <strong>Five lines on the last run of each week</strong> (normally the Friday evening run), and <strong>a full note on the first run of each month</strong>. The first weekly note is due on the last run of the week ending 18-Sep-2026.</p>
+<p><strong>Where the numbers come from, and nowhere else:</strong>
+- <code>python3 &lt;COWORK&gt;/scripts/ubs_trade_record.py --stats</code>: closed trades rebuilt from the archived UBS valuations (Step 2, c2): win rate, average gain against average loss and their ratio, holding days of winners against losers, largest loss, trims. <strong>Its prices are UBS closing prices on the day a holding changed, a proxy for the fill; say so when quoting.</strong>
+- <code>python3 &lt;COWORK&gt;/scripts/order_sheet_ledger.py --summary</code>: stop discipline from the order sheet's history: exits confirmed; sold the next trading day; sold later; kept by override (each with its date and reason from <code>pms-data/stop-overrides.json</code>); still outstanding.
+- The engine's output: names live, and the largest five holdings as a share of deployed capital.
+- <code>pms-data/minervini-state.json</code>: the share of deployed capital in bases 1 and 2, in base 3, in base 4 or later (late stage), and not in an advance.
+- <strong>His benchmarks come from <code>projects/APM - Mark Minervini Wisdom/deliverables/minervini-canon.md</code>, quoted with the rule id; never from memory.</strong></p>
+<p><strong>Two separations Richard ruled.</strong> Stop overrides are counted explicitly, never folded into "sold". Sales for a <strong>fundamental target</strong> (a trim because the valuation target was reached) are counted separately from <strong>technical exits</strong> (a confirmed stop): a sale that never appeared on the order sheet as SELL or CHASE is not a technical exit; ask Richard once what it was and record his answer in the session digest.</p>
+<p><strong>Honesty about thin data.</strong> The record starts on the first archived valuation. Until there are at least ten closed trades with a known cost, give counts, not rates, and say the sample is too small to judge. Never fill a gap with an estimate.</p>
 <hr>
 <h2 id="step-4-name-what-is-not-covered">Step 4 — Name what is not covered</h2>
 <p><strong>Never silently omit a holding.</strong> A stock missing from the check is a stock whose stop nobody is watching.</p>
@@ -2108,6 +2137,11 @@ entry; anything older is one file away, not lost.</strong></p>
 <td>← older</td>
 <td>v1.0 through v1.6 (03-Aug to 14-Aug-2026), plus the v1.4/v1.5 cold-restart and catch-up addenda</td>
 <td>Full detail: <code>ARCHIVE.md</code></td>
+</tr>
+<tr>
+<td><strong>11-Sep-2026 (evening)</strong></td>
+<td><strong>v2.0. (1) THE ONE STOP RULE for every stop (Step 3, reading the stop numbers): HIT on the first close at or below, TRIGGERED while it stays there, EXIT CONFIRMED on the third consecutive close; close only; the count restarts on a close back above; a confirmed exit stays confirmed until sold or kept; each day against its own level; the floor at entry binds once a slice has closed 20% up and the same rule runs against the binding level; volume and close-in-range reported beside each day, never part of the verdict. The two-speed grace tiers (150/200-day immediate; 20/50/100-day three closes or one weekly close, D-PMS-5) and <code>closes_below_stop_last10</code> are RETIRED. Same rule in the engine (<code>scripts/stop_rule.py</code>), the Position Management System's data builder and its page. (2) THE ORDER SHEET (run order row 5; SELL, CHASE, WATCH; overrides in <code>pms-data/stop-overrides.json</code>). (3) THE COACH'S NOTE (run order row 10.5).</strong></td>
+<td><strong>Richard, verbatim: "Have all of SLs, not just some, work on the consistent approach of 3 days below = stopped. Volume behavour and intra-day closes etc. are very instructive here, too. Remove the weekyl close - its confusing and unnecessary." "Q1 - Yes, change all to what I said." "Stop is 'hit' when the SP is at or below it, and then the exit is confirmed when price stays under for 3 days. Whilst price is below stop loss level, the stop is 'triggered'." Detail answers "1 Close, 2 A, 3 Yes, 4 A, 5 Yes, 6 A"; "Q3 = Now"; "Q4 = Yes, build them and integrate into the APM PMS Q&amp;A SOP"; "Q5 = No, they dont facilitate that". Decisions D-MMW-57, 59, 62, 63 in <code>projects/APM - Mark Minervini Wisdom/decisions.md</code>.</strong></td>
 </tr>
 <tr>
 <td><strong>11-Sep-2026</strong></td>
