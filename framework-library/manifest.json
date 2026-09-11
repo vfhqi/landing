@@ -1,5 +1,5 @@
 {
-  "built": "19-Aug-26",
+  "built": "11-Sep-26",
   "pages": [
     {
       "slug": "investment-philosophy",
@@ -43,6 +43,22 @@
       "src": "wisdom-library/INDEX.md",
       "family": "F1",
       "note": "Roughly half the decision-making entries in this library are lessons about Watson's own software and quality-control pipelines, not about stock picking. The folder structure does not separate them."
+    },
+    {
+      "slug": "minervini-reference",
+      "name": "Mark Minervini's Rules, Checked and Translated",
+      "desc": "His 48 trading rules, each with a grade for how well it is sourced, his figure and the Viewforth calibration as two separate fields, why it matters to a 12 to 24 month holder, and where it touches our system. Generated from the checked canon and validated against it.",
+      "src": "projects/APM - Mark Minervini Wisdom/deliverables/minervini-canon.html",
+      "family": "F1",
+      "passthrough": true
+    },
+    {
+      "slug": "minervini-reading-key",
+      "name": "Minervini Reading Key",
+      "desc": "One page: every term the evening Minervini block can use, one plain sentence each, with his number and ours side by side.",
+      "src": "projects/APM - Mark Minervini Wisdom/deliverables/minervini-reading-key.html",
+      "family": "F1",
+      "passthrough": true
     },
     {
       "slug": "case-framework-full-reference",
@@ -166,6 +182,14 @@
       "desc": "A long synthesis of risk-management lessons drawn from Richard's own journals, track record and mistakes.",
       "src": "memory/coaching/risk-management-lessons.md",
       "family": "F4"
+    },
+    {
+      "slug": "minervini-crosswalk",
+      "name": "The Minervini Crosswalk",
+      "desc": "The eleven places where our live tools disagreed with his checked rules, each with the live value, his value and grade, the proposal and the risk, and Richard's rulings of 11-Sep-2026.",
+      "src": "projects/APM - Mark Minervini Wisdom/deliverables/CROSSWALK-2026-09-11-eleven-items-for-ruling.html",
+      "family": "F4",
+      "passthrough": true
     },
     {
       "slug": "the-investment-system-mapped",

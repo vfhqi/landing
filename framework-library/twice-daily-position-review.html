@@ -61,8 +61,8 @@ footer a{color:#5a2f8f;}
 </div></header>
 <div class="metabar"><div class="wrap">
   <b>Source file</b> <code>memory/skills/apm-pms-alignment/SKILL.md</code> &nbsp;&middot;&nbsp;
-  <b>Source last changed</b> 14-Aug-26 &nbsp;&middot;&nbsp;
-  <b>Converted</b> 19-Aug-26
+  <b>Source last changed</b> 11-Sep-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 11-Sep-26
 </div></div>
 <div class="fidelity"><div class="wrap">
   This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
@@ -74,10 +74,30 @@ footer a{color:#5a2f8f;}
 <p><strong>First action on every run:</strong> read <code>memory/context/CLAUDE-CANONICAL.md</code> in full before anything else. Canonical wins over the app-loaded CLAUDE.md on any conflict.</p>
 </blockquote>
 <h1 id="apm-rb-pms-alignment-sop">APM + RB PMS alignment SOP</h1>
-<p><strong>Status:</strong> LIVE v1.6, 14-Aug-2026 (session digests read/write; chat formatting extended to the stock sweep; per-stock orientation summary; UBS reconciliation now a standing every-run step against current saved sizes; UBS daily return series rebuilt to true inception with a completeness check; end-of-session Notion digest for semi-material-plus sessions). Prior: v1.4, 12-Aug-2026 (UBS fetch decoupled from the morning label; volume-window wording made explicit).
+<p><strong>Status:</strong> LIVE v1.8, 10-Sep-2026 (approved presentation exemplar; pointer only, no rule changed). Prior: v1.7, 02-Sep-2026 (moving averages now dividend-adjusted; loss at risk covers every live tranche; broad-down-day context on breaches; the mailbox is enumerated structurally, not by natural-language search; role scope stated). Prior: v1.6, 14-Aug-2026 (session digests read/write; chat formatting extended to the stock sweep; per-stock orientation summary; UBS reconciliation now a standing every-run step against current saved sizes; UBS daily return series rebuilt to true inception with a completeness check; end-of-session Notion digest for semi-material-plus sessions). Prior: v1.4, 12-Aug-2026 (UBS fetch decoupled from the morning label; volume-window wording made explicit).
 <strong>Owner:</strong> Assistant Portfolio Manager role.
 <strong>Project home:</strong> <code>projects/SA - Position Management System/</code>.
 <strong>Layer:</strong> sits under the Universal Communication and Presentation Guidelines. Where this SOP duplicates a universal rule, the universal layer wins.</p>
+<hr>
+<h2 id="scope-this-is-a-portfolio-role-not-a-communications-one-richards-ruling-02-sep-2026">Scope — this is a PORTFOLIO role, not a communications one (Richard's ruling, 02-Sep-2026)</h2>
+<p><strong>Verbatim: "Stay focused on being the APM, not IR. Control how you work and correspond. Your aim
+is to be the APM + add value by making great portfolio construction/position management
+decisions."</strong></p>
+<p><strong>So this SOP produces position management, and nothing else.</strong> Sizing, stops, risk, drift,
+setups, the reconciliation against the bank, and the judgement that goes with them.</p>
+<p><strong>What it does NOT produce, even if asked inside an alignment session:</strong></p>
+<ul>
+<li><strong>Investor letters, monthly performance notes, or any correspondence to third parties.</strong> That is
+  Investor Relations work with its own project and its own writing standard, and it belongs in its
+  own session. <strong>If the request arrives mid-run, say so and offer to take it separately rather than
+  drifting into it</strong>; a run that turns into a drafting exercise stops doing the job it exists for.</li>
+<li><strong>Fund-level performance reporting for an outside audience.</strong> Step 8's performance table exists to
+  tell Richard whether his own book is keeping up, which is a portfolio question. <strong>It is not the
+  raw material for a letter and must not be repurposed as one inside this SOP.</strong></li>
+</ul>
+<p><strong>The test, when it is unclear: does the output change a position, a size, a stop, or Richard's
+understanding of his own risk? If yes it belongs here. If it is written for someone else to read,
+it does not.</strong></p>
 <hr>
 <h2 id="purpose">Purpose</h2>
 <p>Close the loop between what Richard's trading rules say his positions should be and what they actually are. Two conversations a day, in chat, anchored on the Position Management System.</p>
@@ -398,6 +418,8 @@ digest (a line saying so) rather than skipping the file — a missing file in th
 as "nothing was checked," not "nothing happened," and those are different findings, per Rule B8's
 logic applied to this file's own record.</p>
 <h2 id="run-order-read-this-before-starting-the-steps-below-are-not-in-execution-order">RUN ORDER — read this before starting. The steps below are NOT in execution order.</h2>
+<p><strong>Deliver the result as ONE note, in chat, in this order, before any file, email or Notion write. Write it to the approved
+exemplar, <code>EXEMPLAR-RUN-2026-09-10-APPROVED-FORMAT.md</code> (Richard, 10-Sep-2026: "This format ... is excellent").</strong></p>
 <p><strong>The steps are numbered for reference, not for sequence.</strong> Two of them must happen before the stock
 sweep even though they are written after it. <strong>Work in this order:</strong></p>
 <table>
@@ -453,6 +475,11 @@ sweep even though they are written after it. <strong>Work in this order:</strong
 <td>6</td>
 <td>Write the stock-by-stock sweep, ordered by risk</td>
 <td>Step 3</td>
+</tr>
+<tr>
+<td>6.5</td>
+<td><strong>Run the Minervini daily program and write the Minervini block under every holding</strong> (switched on 11-Sep-2026; the block's shape is fixed, see Step 3)</td>
+<td>Step 3, the Minervini block</td>
 </tr>
 <tr>
 <td>7</td>
@@ -573,6 +600,79 @@ wrong verdict on a live position, not a rounding difference.</p>
 <p><strong>This is a reporting rule, not a data fix.</strong> The underlying cause was root-caused and fixed by
 another session on 04-Aug-2026, and tonight's build should begin closing the gap. <strong>Until a run shows
 no conflicts, keep making the check.</strong></p>
+<h3 id="the-fifth-freshness-question-added-02-sep-2026-do-the-two-price-stores-agree-about-the-same-day">The FIFTH freshness question, added 02-Sep-2026: do the two price stores agree about the SAME day?</h3>
+<p><strong>The four checks above all ask "is this price recent enough?". None of them asks "are the two
+price series on the same basis?", and that question flipped a live stop verdict.</strong></p>
+<p><strong>Richard's instruction, verbatim: "The moving averages and historical share prices need to be
+calculated to adjust for a stock going ex-dividend."</strong></p>
+<p><strong>The mechanism, established by reading both stores and the code that writes them:</strong></p>
+<ul>
+<li><strong><code>charts/&lt;TICKER&gt;.js</code> is re-fetched IN FULL from the provider every night</strong>, so its whole
+  history carries the provider's current dividend-adjusted closes. The build log says so per
+  ticker: <code>ART-ES: 1279 days (yfinance live)</code>.</li>
+<li><strong><code>master-dashboard/cache/&lt;ticker&gt;.json</code> is fetched INCREMENTALLY</strong>, appending only new bars. When
+  a stock goes ex-dividend the provider re-scales its entire history, but only the newest bars are
+  rewritten here, <strong>so every bar older than the last full re-fetch keeps the pre-dividend basis.</strong></li>
+<li>A 1-in-20 nightly re-seed rotation is supposed to bound that drift. <strong>It buckets a stock by its
+  index position in <code>universe.json</code>, which is rebuilt from Notion daily, so a stock changes bucket
+  whenever names are added or removed above it and can be skipped indefinitely with nothing
+  recording that it was missed.</strong></li>
+</ul>
+<p><strong>Measured on ART-ES, 02-Sep-2026, and this is why the check exists:</strong> twenty consecutive builds,
+every one incremental, no full re-fetch. Bars before its 13-Apr-2026 ex-dividend date sat 1.0102
+times too high. <strong>The 20, 50 and 100-day windows do not reach that far back and agreed to five
+decimal places. The 150 and 200-day windows do, and were 0.27% and 0.42% too high.</strong> That lifted
+the 200-day stop from 27.96 to 28.08 and reported a tranche sitting 0.13% ABOVE its stop as 0.29%
+BELOW it — <strong>a false breach on 2.00% of the book, on the immediate tier, where there is no grace
+period.</strong></p>
+<p><strong>What the engine now does, so do not re-derive it:</strong></p>
+<ol>
+<li><strong>Every moving average is computed from the chart series</strong>, which is the dividend-adjusted one,
+   <strong>truncated to the price record's own date</strong> so the basis changes but the as-of date does not.
+   <em>Truncation is not optional: averaging over a bar fresher than the price would re-create the
+   third price path the 03-Aug-2026 ruling rejected.</em></li>
+<li>Where a chart is missing or too short for a window, it falls back to the price cache <strong>and says
+   so</strong> in <code>ma_source</code>. <strong>A holding whose basis could not be verified must be reported as such, not
+   presented as adjusted.</strong></li>
+<li><strong>Read <code>ma_basis_conflicts</code> on every run and report any entry.</strong> It names the ticker, the window,
+   both values and the size of the gap. <strong>This is a different question from <code>stop_verdict_conflicts</code>
+   above, which only looks for a fresher bar and passed this case clean.</strong></li>
+<li>The run writes the affected tickers to <code>master-dashboard/data/force-reseed.json</code>, and the next
+   build re-fetches them in full, which is the only operation that puts a whole history back on one
+   basis. <strong>Say in the note that the repair has been requested, and check the following run that it
+   actually cleared.</strong> <em>A repair nobody verifies is a repair that quietly did not happen.</em></li>
+</ol>
+<h3 id="reporting-loss-at-risk-every-live-tranche-breached-or-not-richards-ruling-02-sep-2026">Reporting loss at risk — every live tranche, breached or not (Richard's ruling, 02-Sep-2026)</h3>
+<p><strong>Verbatim: "It should report all tranches that are live, not just ones not breached, obviously."</strong></p>
+<p><strong>The defect this replaces: the old figure counted only tranches that had NOT breached, so it FELL
+as the book got WORSE.</strong> On 02-Sep-2026 four tranches breached overnight, dropped out of the sum,
+and the headline read 251 basis points against 351 the day before while the actual position had
+deteriorated. <strong>A risk number that improves when risk rises is worse than no number at all.</strong></p>
+<p><strong>Report all three figures from <code>loss_at_risk</code>, never the total alone:</strong></p>
+<ul>
+<li><strong><code>still_to_stop_bps</code></strong> — capital still to be lost if every unbroken stop executes at its level.</li>
+<li><strong><code>already_beyond_stop_bps</code></strong> — capital already lost past the stops that have gone, which is the
+  cost of not having exited when the rule said to.</li>
+<li><strong><code>total_bps</code></strong> — the two together, over every live tranche. <strong>Quote <code>tranches_counted</code> alongside
+  it so the reader can see nothing was dropped.</strong></li>
+</ul>
+<h3 id="a-breach-on-a-broad-down-day-richards-ruling-02-sep-2026-option-c">A breach on a broad down day — Richard's ruling, 02-Sep-2026, option C</h3>
+<p><strong>He was offered three ways to treat an immediate-tier stop broken on a single close: apply it
+literally; add a confirmation condition; or keep it literal and flag the market context. He chose
+the third.</strong> Verbatim: <em>"keep the rule literal but let me flag 'broke on a broad down day' as
+context alongside it, and you judge case by case."</em></p>
+<p><strong>So the rule is unchanged and no verdict is ever softened. What is added is one fact.</strong> The engine
+reports <code>market_context</code> for the session the stops were judged on — how many stocks were priced,
+the mean and median move, the share that fell, and whether it qualifies as a broad down day
+(60% or more of the universe down AND a median of -0.4% or worse). Each breached tranche carries
+<code>first_close_below</code> and <code>broke_on_broad_down_day</code>.</p>
+<p><strong>How to write it: state the breach first and the context second, never the other way round.</strong>
+"This tranche is 0.24% below an immediate-tier stop on its first close beneath it, and it broke on
+a session when 69% of Europe fell" is compliant. <strong>"It only broke because the market fell" is not:
+that is an excuse, and the ruling explicitly did not soften the rule.</strong></p>
+<p><strong>The trigger case, 01-Sep-2026:</strong> Helios Towers and Arteche both broke immediate-tier stops on one
+close, on a day the whole book fell 2.15% weighted and 69% of the universe fell with it. <strong>Reported
+without that context both read as company-specific failures. Neither was.</strong></p>
 <p><strong>Run the standing holdings check too</strong>, and report a RED immediately:</p>
 <pre><code>python3 &lt;COWORK&gt;/scripts/holdings-universe-reconciliation.py
 </code></pre>
@@ -622,23 +722,46 @@ covered (<code>last_trading_day_covered</code>). That is where the catch-up star
 never "today", always "the day after the bookmark".</p>
 <p><strong>Follow this sequence exactly:</strong></p>
 <ol>
-<li><code>query_email_and_calendar</code> on <code>RBlack@pacificam.co.uk</code>, asking for UBS valuation emails <strong>from
-   the bookmark date onward</strong> (widen the query's date range rather than asking for "recent" and
-   hoping older ones are still included — a narrow default range is how a multi-day gap would go
-   half-caught silently).</li>
-<li>Take <code>sources[].id</code> from each result. <strong>Use it as a <code>message_id</code>.</strong> The search returns the
+<li>
+<p><strong>Enumerate the mailbox STRUCTURALLY. Do NOT use <code>query_email_and_calendar</code> for this step.</strong></p>
+<p>list_threads(acting_email='RBlack@pacificam.co.uk',
+                from=['noreply@ubs.com'], limit=25, sort='newest')</p>
+</li>
+</ol>
+<p>Then filter client-side on the <code>as of date</code> in each snippet and on the attachment filename,
+   which carries the trading day covered (<code>UBS_AMC_Valuation_CH1560492923_DD-MM-YYYY.xlsx</code>).
+   <em>A <code>split</code> of <code>AMC reports</code> also holds every one of these and is a second way in.</em></p>
+<p><strong>WHY THIS CHANGED, 02-Sep-2026, and it is the most expensive lesson in this file.</strong> The
+   natural-language search <strong>silently omits messages that demonstrably exist</strong>, and it did so twice
+   in a way that reached Richard as a false statement:</p>
+<ul>
+<li>Asked for UBS emails received on 2 September, it answered <strong>"no such email was found"</strong> and
+     added that it had searched "both semantically and with an explicit date filter". <strong>The email
+     was there, received 02:54 UK, and <code>list_threads</code> returned it as the first result.</strong></li>
+<li>Asked three separate times, across two sessions, for the valuation covering Monday 24 August,
+     it returned nothing each time. <strong>On that basis the run reported to Richard that "the email does
+     not exist" and recorded a permanent hole in the fund's return series. The email existed, with
+     its attachment, and the series hole was ours, not UBS's.</strong></li>
+</ul>
+<p><strong>The rule that follows, and it generalises beyond this step: a natural-language search returning
+   nothing is NOT evidence of absence.</strong> It is one tool's opinion. <strong>Before reporting that anything
+   is missing from the mailbox, confirm it on the structural path</strong>, because a wrongly-declared
+   absence propagates into the record and is not self-correcting: nobody goes back to look for a
+   thing they have been told is not there. <em>This is the same failure class as the standing rule that
+   a nil result from an uncalibrated tool is not an absence.</em>
+2. Take <code>sources[].id</code> from each result. <strong>Use it as a <code>message_id</code>.</strong> The search returns the
    message and thread identifiers TRANSPOSED — the value labelled as a thread identifier does not
    work, and <code>get_thread</code> on it returns an empty shell. This wasted a call on 03-Aug-2026; do not
-   repeat it.</li>
-<li><strong>Sort the matching emails chronologically, oldest first.</strong> This matters: <code>fund-rpl-history.json</code>
+   repeat it.
+3. <strong>Sort the matching emails chronologically, oldest first.</strong> This matters: <code>fund-rpl-history.json</code>
    must be appended in date order, and the reconciliation table later must run against the newest
-   one, not whichever happened to be processed last by accident.</li>
-<li><strong>A safety cap: if more than 10 emails are newer than the bookmark, stop after the 10th, do NOT
+   one, not whichever happened to be processed last by accident.
+4. <strong>A safety cap: if more than 10 emails are newer than the bookmark, stop after the 10th, do NOT
    silently keep going, and say so plainly to Richard</strong> — a gap that large means something else is
    wrong (the SOP hasn't run in two-plus weeks, or the bookmark itself is corrupt) and deserves his
    attention before being quietly absorbed. Report exactly how many were found and how many were
-   processed.</li>
-<li><strong>For each email, oldest first:</strong>
+   processed.
+5. <strong>For each email, oldest first:</strong>
    a. <code>get_message</code> with that identifier to confirm the attachment name.
    b. <code>get_attachment</code> with the same identifier and the exact filename.
    c. Download the signed URL with <code>curl</code> <strong>within the hour</strong> — it expires.
@@ -648,14 +771,12 @@ never "today", always "the day after the bookmark".</p>
       present.</strong> If it is, skip the append (do not duplicate); this makes the catch-up loop safe
       to re-run if a prior attempt was interrupted partway through. If it is not, append
       <code>{date, rpl}</code> in chronological order, exactly as Step 8.1 describes.
-   f. Immediately call <code>python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --mark-progress --trading-day-covered &lt;that email's trading day&gt;</code>, before moving to the next email. <strong>This is what makes an interruption mid-loop safe</strong> — the bookmark advances one email at a time, so a run that stops after email 3 of 5 leaves the ledger correctly at email 3's date, ready to resume, rather than either losing progress or wrongly marking the whole day done.</li>
-<li>
-<p><strong>Once every email in the batch is processed</strong>, run the schema guard and the full
+   f. Immediately call <code>python3 &lt;COWORK&gt;/scripts/ubs_fetch_ledger.py --mark-progress --trading-day-covered &lt;that email's trading day&gt;</code>, before moving to the next email. <strong>This is what makes an interruption mid-loop safe</strong> — the bookmark advances one email at a time, so a run that stops after email 3 of 5 leaves the ledger correctly at email 3's date, ready to resume, rather than either losing progress or wrongly marking the whole day done.
+6. <strong>Once every email in the batch is processed</strong>, run the schema guard and the full
    deviation-vs-target reconciliation table against the <strong>most recent</strong> email's downloaded file
    only:</p>
-<p>python3 <COWORK>/scripts/apm_pms_alignment.py --evening --ubs /tmp/ubs-latest.xlsx</p>
-</li>
-</ol>
+<pre><code>   python3 &lt;COWORK&gt;/scripts/apm_pms_alignment.py --evening --ubs /tmp/ubs-latest.xlsx
+</code></pre>
 <p><strong>Pass whichever of <code>--morning</code> or <code>--evening</code> matches the variant actually running</strong> — the
    script no longer gates UBS processing on which one you pass (fixed 12-Aug-2026; it used to
    silently skip the whole reconciliation on <code>--evening --ubs</code>, which would have quietly broken
@@ -1141,6 +1262,36 @@ where it fires, sits outside this count as a labelled sub-block.</strong></p>
 <li><strong>Early warning</strong> — breaking out, collapsing, negative volume trends, and the same for cohorts, sectors and industry peers</li>
 <li><strong>Anything else material</strong> to position or portfolio management, stated concisely and directly</li>
 </ol>
+<h3 id="the-minervini-block-added-11-sep-2026-richards-rulings-d-mmw-42-d-mmw-49-and-d-mmw-50-in-projectsapm-mark-minervini-wisdomdecisionsmd">The Minervini block — added 11-Sep-2026 (Richard's rulings D-MMW-42, D-MMW-49 and D-MMW-50 in <code>projects/APM - Mark Minervini Wisdom/decisions.md</code>)</h3>
+<p><strong>Run the program, then write the block. Every holding, every evening run.</strong> After Step 1's engine run, run
+<code>python3 "projects/APM - Mark Minervini Wisdom/deliverables/minervini_daily_lens.py"</code> from that deliverables
+folder. It reads the same engine output, refuses to run on a stale evening build (its freshness guard), writes
+its run file into <code>deliverables/lens-runs/</code> and its memory into <code>pms-data/minervini-state.json</code>, and prints, for
+each holding, a compact state line plus any fired trigger. <strong>The compact line is machine output. Never paste it
+into the note</strong> (Richard's ruling D-MMW-50). Translate it into the block below, in plain English, with every
+term expanded on first use per Rule A. The vocabulary, with his number and ours side by side, is the reading
+key: <code>projects/APM - Mark Minervini Wisdom/deliverables/minervini-reading-key.md</code>; the full rules are in
+<code>minervini-canon.md</code> in the same folder. Read the key once per run; open the full document only when a rule
+must be quoted.</p>
+<p><strong>Where it sits.</strong> A labelled sub-block, "Minervini read", at the end of each holding's section, outside the
+4-to-10 bullet count (like the volume explainer). It is in addition to topics 3 and 4 above, not a replacement.</p>
+<p><strong>The seven fixed parts, one short plain-English line each, in this order, every time</strong> (D-MMW-50):</p>
+<ol>
+<li><strong>Trend.</strong> In an advance or not, and since when, on the counter's clock; say "provisional" when the program does (an anchor under 60 trading days old)</li>
+<li><strong>Where in the advance.</strong> The base number; "late stage" when the program flags it (base 4 or later)</li>
+<li><strong>Base quality.</strong> The base's class in his words (constructive, wide and loose, correction), its depth, and any flag: CAUTION (30% or deeper, ours), deteriorating (ours), the depth trend of completed bases</li>
+<li><strong>The slices.</strong> Each tranche by its full name (the first probing-bet tranche, the first core tranche), its gain on its entry close, whether its stop now sits above entry (risk-free), and its stop status from the engine</li>
+<li><strong>Profit protection.</strong> Whether the hard floor at entry binds (a tranche 20% or more up; ruled D-MMW-45) and, if so, the floor price to carry as the manual sell-order level; his breakeven point (three times the initial risk) reported only</li>
+<li><strong>What changed since yesterday.</strong> From the program's events; "nothing changed since yesterday" is a valid and common line</li>
+<li><strong>What to watch.</strong> The next thing that would change the read: a depth approaching 30%, a fourth base ahead, the anchor near its 3% break line, a tranche approaching 20% up</li>
+</ol>
+<p><strong>When a trigger fires</strong> (the program prints it under "Exceptions"), write a fuller event block under that
+holding, six parts, plain English, one to two lines each: <strong>what happened; his rule, with its source grade and
+rule id from the key; our calibration, labelled ours; what it means for Richard; the Assistant Portfolio
+Manager's recommendation, with a size and a level where it is a trim; the counter-case.</strong> Add one line to the
+orientation summary at the top naming every holding with a fired event.</p>
+<p><strong>Length discipline.</strong> Parts 1 to 5 are one line each; on a day nothing changed the whole block is seven short
+lines. It exists to be read in ten seconds, not to be complete.</p>
 <p><strong>Order the stocks by risk, not alphabetically.</strong> Anything in breach of a stop comes first, then anything within 5% of a stop, then the rest by size.</p>
 <p><strong>Reading the stop numbers correctly:</strong>
 - <code>pct_above_stop</code> is <strong>how far the stock would have to fall to reach the stop</strong>, as a percentage of the current price. This is the house convention, copied from <code>generate_position_data.py</code>. It is the number that matters because loss at risk is simply tranche size multiplied by it.
@@ -1924,8 +2075,14 @@ duplicate of either.</p>
   daily, and the priority-band split shifted measurably across one weekend as Richard re-rated
   stocks. <strong>Read every count from the script's <code>_meta</code> on the day; never quote a remembered figure.</strong></li>
 </ul>
-<p><strong>A worked example of a compliant run is at <code>memory/skills/apm-pms-alignment/EXAMPLE-RUN.md</code>.</strong> Read
-it before writing the first sweep of any session. It demonstrates <strong>the first six</strong> presentation
+<p><strong>THE APPROVED PRESENTATION STANDARD — Richard's ruling, 10-Sep-2026, verbatim: "This format of presentation to me is
+excellent. Please continue it in future sessions."</strong> The note he approved is reproduced verbatim, with its errata, at
+<code>memory/skills/apm-pms-alignment/EXEMPLAR-RUN-2026-09-10-APPROVED-FORMAT.md</code>. <strong>Read it before writing the first note of
+any session and write to it: one note, in chat, in the RUN ORDER above, before any file, email or Notion write.</strong> The same
+session's first pass, written to files, email and Notion first, out of order and padded with side analysis, was rejected:
+<em>"What you have done is absolutely not the SOP. Run the actual SOP here, now."</em></p>
+<p><strong>An older worked example is at <code>memory/skills/apm-pms-alignment/EXAMPLE-RUN.md</code></strong> (03-Aug; stock-bullet structure only). Read
+it only for bullet-count scaling. It demonstrates <strong>the first six</strong> presentation
 rules and the three bullet-count tiers on real holdings, and it is the fastest way to see what
 "compliant" means for a stock's bullets. <strong>It does not demonstrate rules 8 and 9, Rule A or Rule B,
 all of which postdate it.</strong>
@@ -1949,38 +2106,30 @@ entry; anything older is one file away, not lost.</strong></p>
 <tbody>
 <tr>
 <td>← older</td>
-<td>v1.0 through v1.4 (03-Aug to 12-Aug-2026)</td>
+<td>v1.0 through v1.6 (03-Aug to 14-Aug-2026), plus the v1.4/v1.5 cold-restart and catch-up addenda</td>
 <td>Full detail: <code>ARCHIVE.md</code></td>
 </tr>
 <tr>
-<td>12-Aug-2026</td>
-<td>v1.5. (a) Step 2 rebuilt as a catch-up LOOP, not a single fetch — it now processes every UBS email newer than the last one successfully appended (10-email safety cap, flags to Richard rather than silently truncating), reconciling only against the most recent. The standalone-scheduled-task backstop proposed under v1.4 was explicitly rejected in favour of this. <code>ubs_fetch_ledger.py</code> rebuilt to separate the once-a-day GATE from a resumable catch-up BOOKMARK (<code>--mark-progress</code> vs <code>--mark-fetched</code>). (b) Fixed a latent bug in <code>apm_pms_alignment.py</code> (line 758) that gated ALL UBS reconciliation output on <code>mode == 'morning'</code>. (c) This Change Log's own dated one-off entries split out to an on-demand archive, <code>apm-pms-alignment/ARCHIVE.md</code>; a size-hook standing check added.</td>
-<td>Richard's ruling, 12-Aug-2026: "no, not a scheduled one... KISS", then instructing the archive split be made part of the daily SOP. Full reasoning: <code>projects/SA - Position Management System/CONVERSATION-RECORD-2026-08-12d-KISS-CATCHUP-AND-ARCHIVE-SPLIT-THE-FULL-JOURNEY.md</code>.</td>
+<td><strong>11-Sep-2026</strong></td>
+<td><strong>v1.9. The Minervini block switched on (run-order row 6.5; Step 3 sub-section "The Minervini block"): the daily program <code>minervini_daily_lens.py</code> runs after Step 1 and a seven-part plain-English block is written under every holding, with a six-part event block when a trigger fires; the program's compact line is never pasted. The stale <code>pullback-data.json</code> load pointer in the APM role file retired the same day (crosswalk item 5). Grace-tier text (Step 3, reading the stop numbers) awaits Richard's item-11 detail rulings.</strong></td>
+<td><strong>Richard's rulings 11-Sep-2026: D-MMW-49 (1A, the daily status inside this SOP), D-MMW-50 (the presentation standard), and the crosswalk sitting ruling "Then I can run the SOP with the APM in a fresh window".</strong></td>
 </tr>
 <tr>
-<td><strong>14-Aug-2026</strong></td>
-<td><strong>v1.6. Seven changes from one session, all Richard's explicit rulings. (a) Session digests: Watson-facing dense digest written every run to <code>apm-pms-alignment/digests/</code>, last 10 days read on every start. (b) Bullet-length and emphasis rule extended SOP-wide, explicitly including the stock sweep: no bullet over 3 sentences, heavier bold/italic/underline — compatible with, not a repeal of, "never pad." (c) A per-stock 1-2 line orientation summary now precedes the individual stock sections, reusing each stock's own opening line. (d) The current-size-vs-UBS-actual reconciliation is now a STANDING step every run (not gated on a fresh fetch), computed live from <code>pms-state.json</code> — verified no code bug existed (the engine already read live sizes), the real cause of a same-day sizing confusion was a trade not yet keyed in, plus a separate genuine data-entry slip on Theon this table caught. (e) The fund's daily return series was rebuilt to its TRUE confirmed inception (18-Jun-2026, RPL=100.0, sourced from UBS's own Performance Report, not the 16-Jul mailbox floor), now includes the cash-only period by Richard's choice, and gained a completeness checker (<code>scripts/check_rpl_series_completeness.py</code>) run every Step 8. Certificate Position is now tracked alongside RPL where verified; a genuine 5,000→8,200 unit jump on 13-Aug was found and flagged, unconfirmed. (f) A new end-of-session Notion <code>[W]</code>-tagged digest page, one per session, semi-material-plus only.</strong></td>
-<td><strong>Richard's rulings given directly across the 14-Aug-2026 evening session and its 14-Aug-2026 morning follow-up, after a comprehensive Three-Gaps-and-Mission-Command backbrief in which every design choice below was put to him as an explicit question before being built. Full reasoning, the questions asked, his answers, and everything considered and set aside along the way: <code>projects/SA - Position Management System/CONVERSATION-RECORD-2026-08-14-SEVEN-SOP-CHANGES-AND-THE-BACKBRIEF-JOURNEY.md</code>.</strong></td>
+<td><strong>10-Sep-2026</strong></td>
+<td><strong>v1.8. Pointer to the approved presentation exemplar (<code>EXEMPLAR-RUN-2026-09-10-APPROVED-FORMAT.md</code>) placed ahead of the older EXAMPLE-RUN pointer. No rule, threshold or step changed. The cold-restart check once noted here is closed: Richard retired that test on 11-Sep-2026 (rulebook Winning Behaviour 9 now names the fresh-context self-check instead).</strong></td>
+<td><strong>Richard, verbatim: "This format of presentation to me is excellent. Please continue it in future sessions."</strong></td>
+</tr>
+<tr>
+<td><strong>02-Sep-2026</strong></td>
+<td><strong>v1.7. Five changes, four of them Richard's explicit rulings in one exchange. (a) SCOPE: this SOP is a portfolio role, not a communications one — no investor letters or performance notes are produced inside an alignment run ("Stay focused on being the APM, not IR"). (b) MOVING AVERAGES ARE NOW DIVIDEND-ADJUSTED: <code>apm_pms_alignment.py</code> computes every average from the live-refetched chart series, truncated to the price record's own date, instead of the incrementally-fetched price cache; a new <code>ma_basis_conflicts</code> block reports any store disagreement, and <code>master-dashboard/data/force-reseed.json</code> asks the next build to repair the cache at source (<code>_load_forced_reseeds</code> added to <code>generate_master_data.py</code>, fail-safe and capped at 200 tickers). Root cause: the re-seed rotation buckets a stock by its index position in a file rebuilt daily, so ART-ES went twenty consecutive builds without a full re-fetch and its 200-day average was 0.42% too high, manufacturing a false immediate-tier breach on 2.00% of the book. (c) LOSS AT RISK now covers every live tranche, breached or not, split into <code>still_to_stop_bps</code> and <code>already_beyond_stop_bps</code> — the old figure counted only unbroken tranches and therefore FELL as the book got worse. (d) BREACHES carry <code>market_context</code> and a <code>broke_on_broad_down_day</code> flag; the rule itself is unchanged (Richard chose option C of three). (e) The UBS mailbox is enumerated with <code>list_threads</code>, never the natural-language search, which twice returned "no such email" for messages that existed and put a false absence into the return series. Twelve new self-test guards, all passing.</strong></td>
+<td><strong>Richard's rulings, 02-Sep-2026, given as numbered answers with "any issues, confusion, questions or suggestions" attached to each. The dividend instruction verbatim: "The moving averages and historical share prices need to be calculated to adjust for a stock going ex-dividend." The risk instruction verbatim: "It should report all tranches that are live, not just ones not breached, obviously."</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Resolved, same day, second ruling:</strong> the standalone-scheduled-task backstop raised above was put to
-Richard and explicitly rejected — "no, not a scheduled one." His instruction instead: "just get the
-SOP to open all the ones required since the last one. KISS." Step 2 is therefore a catch-up loop, not
-a single-day fetch: it processes every UBS email newer than <code>last_trading_day_covered</code>, however many
-that is, in one run — see the rewritten Step 2 above and <code>scripts/ubs_fetch_ledger.py</code>'s module
-docstring for the full mechanism (the ledger now separates the once-a-day gate from the catch-up
-bookmark for exactly this reason). No standalone scheduled task exists or is planned; this question is
-closed, not merely parked.</p>
-<p><strong>Per the canonical rulebook's cold-restart doctrine, neither the v1.4 first-run-of-day gate nor the
-v1.5 catch-up loop has been proven in a fresh session yet.</strong> Neither should be treated as fully
-trusted until Richard opens a new chat window that loads only this file plus the canonical rulebook
-and confirms Step 2 behaves correctly there — ideally on a day where more than one email is actually
-in the catch-up queue, since that is the path the v1.5 rewrite adds and the one least exercised so far.</p>
 </main>
 <footer>
   <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
   <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
-  Built 19-Aug-26
+  Built 11-Sep-26
 </footer>
 </div></body></html>

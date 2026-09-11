@@ -1,0 +1,342 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The crosswalk: eleven places where our live tools disagree with Mark Minervini's checked rules, for Richard's ruling in one sitting</title><style>
+:root{--navy:#1f3a5f;--mid:#2f5d8f;--light:#dbe7f5;--pale:#eef2f7;--ink:#1a1a1a;--muted:#5b6470;--purple:#5b2d8e;--blue:#1f5fa8;--green:#1f7a3e;--amber:#9a6b00;--red:#a12a2a}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font:13px/1.5 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 24px 60px}
+h1{font-size:28px;font-weight:700;margin:0 0 4px;color:var(--navy)}
+h2{font-size:22px;font-weight:700;margin:34px 0 10px;color:#fff;background:var(--navy);display:inline-block;padding:4px 12px;border-radius:6px}
+h3{font-size:18px;font-weight:700;margin:26px 0 6px;color:var(--navy)}
+.sub{color:var(--muted);font-style:italic;margin:0 0 18px}
+.bluf p{font-style:italic;font-size:14px;margin:6px 0}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:10px;margin-right:6px;background:var(--pale);color:var(--muted);border:1px solid #d9dee6}
+.badge.core{background:#e6f4ea;color:var(--green);border-color:#bfe0c9}.badge.trig{background:var(--light);color:var(--mid);border-color:#b9cfe8}
+.badge.g-primary{background:#e6f4ea;color:var(--green)}.badge.g-secondary{background:var(--light);color:var(--mid)}.badge.g-other{background:#fff4dd;color:var(--amber)}.badge.g-viewforth{background:#efe6f7;color:var(--purple)}.badge.g-unverified{background:#fbe5e5;color:var(--red)}
+.rule{border-left:4px solid var(--light);padding:2px 0 2px 14px;margin:0 0 18px}
+.rule .row{margin:5px 0}
+.lab{font-weight:700}.lab.his{color:var(--blue)}.lab.ours{color:var(--purple)}.lab.why{color:var(--purple)}.lab.bites{color:var(--green)}
+.status{font-weight:400;color:var(--muted)}
+.small{font-size:12px;color:var(--muted);font-style:italic}
+.tablewrap{overflow-x:auto;margin:10px 0 20px}table{border-collapse:collapse;width:100%;font-size:12.5px;margin:0}th,td{border:1px solid #d9dee6;padding:6px 8px;vertical-align:top;text-align:left}th{background:var(--pale)}td:first-child{font-weight:700;min-width:120px}
+ul.howto li{margin:4px 0}.toc li{margin:2px 0}
+b.num{font-weight:700}
+.family-intro{margin:0 0 14px;font-size:13.5px}
+@media (max-width:600px){.wrap{padding:16px 16px 40px}h1{font-size:22px}h2{font-size:18px}h3{font-size:16px}.rule{padding-left:10px}}
+@media print{.wrap{max-width:none;padding:0}.rule{page-break-inside:avoid}h2{page-break-after:avoid}}
+</style></head><body><div class="wrap"><h1>The crosswalk: eleven places where our live tools disagree with Mark Minervini's checked rules, for Richard's ruling in one sitting</h1>
+<p><em>Build step 8 of the project "APM - Mark Minervini Wisdom". Written 11-Sep-2026 (session 7). Every live value below was read from the named file and line on 11-Sep-2026, not from the project's notes. Nothing in any live tool has been changed. Governing rule: invariant 3, "never silently change a live SOP, screen or dashboard definition; differences are recorded as findings for Richard's ruling".</em></p>
+<h2>Richard's rulings, 11-Sep-2026, about 13:20 UK (the sitting)</h2>
+<p><em>Recorded verbatim in the project transcript; summarised here so the published copy carries the outcome. Items marked "applied" were changed the same afternoon; items marked "queued" are written as proposals to the owning project and wait for the named condition.</em></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Ruling</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Change the MM99 screen's test 7 to 25%, <strong>but not while another window is editing the master dashboard</strong> (the valuation charts); wait until it completes</td>
+<td>Queued, proposal written to the master dashboard project</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>The MM 8-Point Notion tags are outdated and deprecated</strong></td>
+<td>Applied: the tag SOP carries a dated deprecation banner; the Notion tags are left as they are and no longer maintained</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Agreed: the Stage 2 rating is <strong>not</strong> amended ("I think it gets to his target 95%+ of the time")</td>
+<td>Closed; the full eight-criterion template will be carried by the nightly computation</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Confirmed: the eight-week hold relabelled O'Neil's and kept</td>
+<td>Applied (in the item-10 edit)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Concur: repoint the APM role file's load table to the daily program's outputs</td>
+<td>Applied</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Not accepted as proposed.</strong> "We need to align with Minervini's approach; that is the point of the master dashboard." The dashboard's base counts are to be changed to his method</td>
+<td>Queued as a build for the next dashboard window (after the valuation window), merged with the nightly whole-universe computation (concept 11); detail questions put to Richard</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Confirmed: leave the legacy placeholder, mark it legacy</td>
+<td>Queued with item 1 (same file)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Keep all eight violations; annotate the two not recognised</strong> (7, full retracement; 8, close below the pivot)</td>
+<td>Applied: violations 7 and 8 and the count rule carry dated annotations saying they are the April chat's, not his</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>"It is not meant to have two meanings; converge them."</strong> Risks to be flagged</td>
+<td>Queued for the next dashboard window with item 6; the convergence design (start on the rating's price-based tests, end only on the 200-day break) put to Richard with its risks</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Confirmed</td>
+<td>Applied: the APM role file and annex 01 edited per D-MMW-51; originals snapshotted</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>All stops, not just some, on one rule: three daily closes below the stop = stopped. Remove the weekly close.</strong> Volume behaviour and intra-day closes are instructive and should inform the read</td>
+<td>Being applied: the engine, the APM Q&amp;A PMS SOP text, the daily program's wording and the canon's record; three detail questions put to Richard (consecutive closes or not; whether the hard floor at entry follows the same rule; volume and intra-day information as reporting or as a rule modifier)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The detail rulings that followed (about 14:20 UK), closing every open design question.</strong> <strong>Item 11:</strong> three CONSECUTIVE daily closes below the stop level means stopped, one rule for every stop; the hard floor at entry follows the same rule; volume behaviour and where the close sat in the day's range are reported beside each breach day but are not part of the rule; the weekly close is removed. Specification: <code>ITEM-11-IMPLEMENTATION-SPEC-2026-09-11.md</code>; not applied in session 7 because verifying a live stop-engine change needed the machine that was about to restart. <strong>Item 6:</strong> replace the dashboard's two swing-high counts outright; show base number, class, depth, advance start and the late-stage and caution flags; the Stage 3 screen's base test becomes "base 4 or later"; the one-day rating discontinuity is accepted with the change date shown. <strong>Item 9:</strong> an advance starts when the price-based part of the Stage 2 rating first passes and ends only on a close more than 3% below the 200-day; the rating is untouched; re-baselining accepted with a before-and-after report. Richard also asked Watson to check his belief that the historical relative-strength ranking already exists in the dashboard: <strong>it does</strong> (the month-end history builder computes it cross-stock at each historical date), at twelve month-end snapshots twelve months deep, so the build reuses that function on the dates the counter needs.</p>
+<p><strong>Also ruled the same sitting:</strong> the Richard-run "cold restart" fresh-session test is retired from the operating doctrine (the rulebook already carries a self-check Watson runs itself); this reference document, the reading key and this crosswalk are published on the landing page; the evening APM Q&amp;A PMS SOP now carries the Minervini block (step 9 applied).</p>
+<h2>The bottom line</h2>
+<p><em>Eleven items. Three are already ruled and need only a "confirm" (items 4, 10 and, in part, 1 and 2, where the 25% figure is ruled and only the change itself is being authorised). Two are material to live money or to a live rating that other procedures depend on (items 3 and 11); read those properly. The rest are housekeeping in files this project does not own, where the proposal is mostly "label it correctly and leave it".</em></p>
+<p><em>My picks, in one line: 1 A, 2 A, 3 C, 4 confirm, 5 A, 6 A, 7 A, 8 A, 9 A, 10 confirm, 11 A.</em></p>
+<h2>How to answer</h2>
+<ul>
+<li>Reply with the item number and a letter, for example: <strong>"1 A, 2 A, 3 C, 4 yes, 5 A, 6 A, 7 A, 8 A, 9 A, 10 yes, 11 A"</strong></li>
+<li><strong>"W"</strong> on any item means "Watson decides"; I will take my pick and say so in the record</li>
+<li>Every item is answerable on its own; none depends on another, except that item 11 also shapes the order sheet (concept 6 in the ideas register), which is not being asked today</li>
+<li>After the sitting I apply the rulings that touch this project's own files and the APM role file, and write each ruling that touches another project's file (the master dashboard, the Stage 2 qualification SOP, the MM 8-Point Notion tags, the Position Management System) into that project as a proposal with the exact edit, so it goes through that project's own change discipline and quality check</li>
+</ul>
+<h2>Summary table</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Where</th>
+<th>Live value</th>
+<th>Minervini (grade)</th>
+<th>Ruled Viewforth value</th>
+<th>My pick</th>
+<th>Materiality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Master dashboard, MM99 screen, test 7</td>
+<td>20% above the 52-week low</td>
+<td>30% (2013) or 25% (2017) (secondary)</td>
+<td>25% (D-MMW-46)</td>
+<td>A: change to 25%</td>
+<td>MODERATE</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MM 8-Point Notion tag SOP and its script</td>
+<td>30%; no relative-strength test; last run 31-May-2026</td>
+<td>25% or 30%; relative strength is criterion 8 (secondary)</td>
+<td>25%</td>
+<td>A: change to 25%, keep eight tags</td>
+<td>MINOR</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Master dashboard, Stage 2 rating gates</td>
+<td>No 52-week-low test; no rising-200-day test</td>
+<td>Both are template criteria (secondary)</td>
+<td>25% for the low test; no ruling on the 200-day slope</td>
+<td>C: leave the live rating; carry the full template in the nightly computation</td>
+<td>MATERIAL</td>
+</tr>
+<tr>
+<td>4</td>
+<td>APM annex 01, line 143</td>
+<td>"8-week hold rule" as Minervini's</td>
+<td>O'Neil's (other-practitioner)</td>
+<td>Relabel and keep (D-MMW-51 Q5)</td>
+<td>confirm</td>
+<td>MINOR</td>
+</tr>
+<tr>
+<td>5</td>
+<td>APM role file load table, line 226</td>
+<td>Points at pullback-data.json (20-Apr-2026, stale) for base count</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>A: repoint to the daily program's output</td>
+<td>MINOR</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Master dashboard base-count fields</td>
+<td>Two swing-high counts, one feeding the Stage 3 screen</td>
+<td>His count is by pivots cleared (IBD convention)</td>
+<td>n/a</td>
+<td>A: project counter authoritative; dashboard fields untouched, relabelled in context</td>
+<td>MODERATE</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Master dashboard, legacy vcp stub</td>
+<td>A placeholder object that can never qualify; its Stage 2 flag is read by the page</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>A: leave, mark legacy</td>
+<td>MINOR</td>
+</tr>
+<tr>
+<td>8</td>
+<td>APM annex 01, lines 51 to 64, 152, 309</td>
+<td>Eight violations; "3+ = exit"</td>
+<td>Six violations, no count rule (secondary)</td>
+<td>n/a</td>
+<td>A: replace with his six; strike the count rule</td>
+<td>MODERATE</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Everywhere "Stage 2" appears</td>
+<td>One phrase, two meanings</td>
+<td>One meaning (the template)</td>
+<td>Two, deliberately (D-MMW-44 A7)</td>
+<td>A: the program says "advance since"; "Stage 2" stays for the rating</td>
+<td>MODERATE</td>
+</tr>
+<tr>
+<td>10</td>
+<td>APM role file and annex 01, seven corrections</td>
+<td>April-chat figures presented as his</td>
+<td>His figures, graded</td>
+<td>All seven ruled (D-MMW-51)</td>
+<td>confirm the prepared edit</td>
+<td>MODERATE</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Position Management System stop tiers</td>
+<td>150/200-day immediate; 20/50/100-day three closes or one weekly close</td>
+<td>Judged on the close, zero grace (secondary)</td>
+<td>None yet</td>
+<td>A: keep the tiers as ours, untested; test in the evidence project</td>
+<td>MATERIAL</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>Item 1. The master dashboard's MM99 screen tests 20% above the 52-week low; the ruled figure is 25%</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> Slightly fewer stocks pass MM99 test 7, and the MM99 monthly-history dots for the past twelve months recompute on the same rule. Nothing else on the dashboard moves.</li>
+<li><strong>The live tool, in plain English.</strong> The MM99 screen is the master dashboard's version of Minervini's Trend Template: eight tests (T1 to T8) plus three relative-strength tests (T9 to T11), computed nightly for every stock.</li>
+<li><strong>Exact place.</strong> <code>master-dashboard/scripts/generate_master_data.py</code>, line 2576: <code>mm_t7 = above(p, l52 * 1.20)  # P &gt; 20% above 52W low</code>; and line 1679, the monthly-history version: <code>h_t7 = (h_l52 &gt; 0 and snap_p &gt; h_l52 * 1.20)</code>.</li>
+<li><strong>Live value.</strong> 20% above the 52-week low.</li>
+<li><strong>Minervini's value.</strong> 30% in the 2013 book, 25% in the 2017 book; both his (rule MM-TT-02, grade minervini-secondary, register S-005). 20% matches neither.</li>
+<li><strong>Ruled Viewforth value.</strong> 25% (D-MMW-46, 11-Sep-2026).</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): change both lines from 1.20 to 1.25</strong>, as a proposal to the master dashboard project, applied through that project's patch discipline with the nightly build's own checks. <strong>B: leave at 20%</strong> and record the divergence.</li>
+<li><strong>Risk of changing it.</strong> Low. The count of MM99 passes drops by whatever number of stocks sit between 20% and 25% above their low (measurable on the night of the change: I would report the before-and-after counts). The monthly history is recomputed every night from the same rule, so it stays self-consistent rather than mixing two thresholds. The Stage 3 and probing-bet screens do not use test 7, so there is no knock-on.</li>
+<li><strong>Note.</strong> The MM99 screen also uses the split form of the template (price above the 200-day and price above the 150-day as two tests, no "50-day above the 200-day" test) and reads relative strength as excess return rather than a percentile rank. Those are not proposed for change today; the nightly Minervini computation (concept 11) will carry the exact eight criteria separately.</li>
+<li><strong>Your answer: A or B.</strong></li>
+</ul>
+<h2>Item 2. The MM 8-Point Notion tag SOP and its script test 30% above the 52-week low, with no relative-strength test; the ruled figure is 25%; the refresh last ran on 31-May-2026</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> The Notion tag "7: &gt;30% from low" becomes "7: &gt;25% from low" on the next weekly refresh, and a few more stocks carry it. Nothing changes until that refresh runs, and it has not run since 31 May.</li>
+<li><strong>The live tool, in plain English.</strong> A weekly procedure that scores every stock in the Notion STOCKS database against eight Minervini tests from Richard's FactSet export and writes the passes as tags, so the universe can be filtered inside Notion.</li>
+<li><strong>Exact place.</strong> <code>memory/skills/mm-8-point-refresh/SKILL.md</code>, line 80 (the criteria table: "Price &gt;30% above 52-week low") and line 122 (the tag name <code>7: &gt;30% from low</code>); <code>generate_dashboard.py</code>, line 976: <code>passes.append((p - lo) / lo * 100 &gt; 30)</code> and line 1315 (the monthly-history copy of the same test). Freshness: <code>snapshots/minervini-history.json</code> latest date 2026-05-31, so the tags in Notion are three months stale.</li>
+<li><strong>Live value.</strong> 30%, the 2013 book's figure. The tag set uses the split form of the template (criterion 1 split into two, "200D rising" as criterion 2) and so has no relative-strength test.</li>
+<li><strong>Minervini's value.</strong> 30% (2013) or 25% (2017) (MM-TT-02); relative strength of at least 70 is criterion 8 in both books (MM-TT-03, minervini-secondary).</li>
+<li><strong>Ruled Viewforth value.</strong> 25%.</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): change the threshold to 25% in the script (both lines) and the SOP, rename the Notion option in place so existing pages keep their tag, and leave the eight-tag structure as it is</strong> (the tags are a breadth overlay, not a qualification verdict; adding a relative-strength tag needs data the FactSet export does not carry). <strong>B: leave at 30%.</strong> A separate, later question once concept 11 exists: whether the weekly tag refresh should be retired and the tags fed from the nightly Minervini computation instead, which would remove the dependence on a manual FactSet export.</li>
+<li><strong>Risk of changing it.</strong> Low, with one check: renaming a Notion multi-select option must be done as a rename of the existing option (which keeps every page's tag), not by creating a new option (which would strand the old tag on every page). I would verify the API behaviour on one page before the run.</li>
+<li><strong>Your answer: A or B.</strong></li>
+</ul>
+<h2>Item 3. The master dashboard's Stage 2 rating tests neither the 52-week low nor whether the 200-day is rising</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> Under my pick, nothing on the dashboard changes today; the full eight-criterion template appears as its own field once the nightly Minervini computation exists.</li>
+<li><strong>The live tool, in plain English.</strong> The Stage 2 rating (None, Possible, Plausible, Probable) is the master dashboard's pass-or-fail verdict on whether a stock is in an uptrend. The Stage 2 qualification SOP reads it to report transitions across the whole universe, the APM Q&amp;A PMS SOP's Step 9 reads it for live holdings, the weekly portfolio-and-bench SOP will read it for the Friday page, and the Stage 2 rating-history grid shows it at five points in time.</li>
+<li><strong>Exact place.</strong> <code>master-dashboard/scripts/generate_master_data.py</code>, lines 3419 to 3423: the four gates are price above the 200-day, price above the 150-day, the 150-day above the 200-day, and price within 25% of the 52-week high; lines 3437 to 3445: the five tests are the 50-day above the 150-day, the 50-day above the 200-day, and three relative-strength percentile tests at 70 or better. The Stage 2 qualification SOP (<code>memory/skills/stage2-qualification/SKILL.md</code>, lines 278 to 281) describes the same nine.</li>
+<li><strong>Live value.</strong> No test of distance above the 52-week low (Minervini's criterion 6). No test of whether the 200-day is rising (his criterion 3; the MM99 screen tests it, the Stage 2 rating does not).</li>
+<li><strong>Minervini's value.</strong> Criterion 3: the 200-day trending up for at least one month, preferably four to five (MM-TT-01). Criterion 6: at least 25% (2017) or 30% (2013) above the 52-week low (MM-TT-02). Both minervini-secondary.</li>
+<li><strong>Ruled Viewforth value.</strong> 25% for the low test (D-MMW-46). No ruling exists on the 200-day slope for the rating.</li>
+<li><strong>Proposal.</strong> <strong>A: add both as gates</strong> (a 200-day above its value 21 trading days earlier; price at least 25% above the 52-week low). Stricter; the rating would fall to None for every stock failing either, on the day of the change. <strong>B: add both as tests</strong> (T10 and T11), which keeps the gates and re-bases the thresholds (Possible, Plausible, Probable would need new counts out of seven). <strong>C (my pick): leave the live rating exactly as it is, and carry the full eight-criterion template as a separate nightly field from the project's counter (concept 11), which the dashboard, the Stage 2 qualification SOP and the Friday page can show beside the rating.</strong></li>
+<li><strong>Why C.</strong> The Stage 2 rating is a live series that three procedures and the rating-history grid depend on; changing its definition puts a step in that series on the day of the change, so every "rose from Possible to Probable" call-out around that date would be an artefact. Carrying the template separately gives the same information with no discontinuity, and it computes once, in one place, with the ruled numbers.</li>
+<li><strong>Risk of C.</strong> A known gap stays in a live gate: a stock can be rated Probable while sitting less than 25% above its 52-week low or with a flat 200-day. Disclosed here and in the reference document; closed as information the day concept 11 runs.</li>
+<li><strong>Your answer: A, B or C.</strong></li>
+</ul>
+<h2>Item 4. The eight-week hold rule in annex 01 is O'Neil's, presented as Minervini's (already ruled: relabel and keep)</h2>
+<ul>
+<li><strong>Exact place.</strong> <code>memory/skills/assistant-portfolio-manager/annexes/annex-01-position-management.md</code>, line 143: "8-week hold rule: If stock advances 20%+ in first 3 weeks → hold minimum 8 weeks." Line 144, the time stop ("No 5%+ advance within 5 to 10 trading days → setup likely failed"), was not found in any report of his (MM-SL-07).</li>
+<li><strong>Minervini's value.</strong> The eight-week hold is O'Neil and Investor's Business Daily's (register S-002, other-practitioner). No time stop of his was found.</li>
+<li><strong>Ruled.</strong> D-MMW-51 Q5: relabel the eight-week hold as O'Neil's and keep it.</li>
+<li><strong>Prepared edit.</strong> In the item-10 edit: the line is relabelled "O'Neil / IBD's rule, kept"; the time-stop line is labelled "the April chat's, unsourced; not adopted".</li>
+<li><strong>Your answer: confirm (yes), or say otherwise.</strong></li>
+</ul>
+<h2>Item 5. The APM role file still points at a stale base-count file</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> Nothing visible; the APM stops being told to load a five-month-old file.</li>
+<li><strong>Exact place.</strong> <code>memory/skills/assistant-portfolio-manager/SKILL.md</code>, line 226, in the load table: "<code>COWORK/pullback-data.json</code> | Pullback monitor: 10-signal depth, base count, violations, red flags (supplementary, temporary)". The file is dated 2026-04-20 and is 48 MB. The master dashboard's integrity guard (<code>master-dashboard/scripts/data_integrity_guard.py</code>, line 371) also checks that the file exists.</li>
+<li><strong>Live value.</strong> A base count and violation read from April, still offered to the APM as a load.</li>
+<li><strong>Minervini's value.</strong> n/a; the authoritative base count is the project counter (item 6).</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): replace the row with the project's live outputs</strong> (<code>projects/APM - Mark Minervini Wisdom/deliverables/lens-runs/</code> for the daily read and <code>pms-data/minervini-state.json</code> for the state), and leave the integrity guard's entry alone, since it belongs to the master dashboard project and checks a file that still exists. <strong>B: also move the 48 MB file to the recycling bin and drop the guard entry</strong>, as a proposal to the dashboard project. <strong>C: leave.</strong></li>
+<li><strong>Risk of changing it.</strong> Near zero for A. B removes a file the guard expects; sequencing needed.</li>
+<li><strong>Your answer: A, B or C.</strong></li>
+</ul>
+<h2>Item 6. Which base count is authoritative</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> Nothing on the dashboard. In any Minervini reading, "base count" means the project counter's count, and the dashboard's two fields are called swing-high counts.</li>
+<li><strong>The live tool, in plain English.</strong> The master dashboard computes two base counts of its own: one since the 52-week low, one over two years. They walk pairs of adjacent swing highs, so they read zero for almost every stock (session 2's stress test). The two-year count feeds the Stage 3 screen's test 3.</li>
+<li><strong>Exact place.</strong> <code>master-dashboard/scripts/generate_master_data.py</code>, lines 1928 to 1964 (<code>base_count_since_52wl</code>) and 2207 to 2240 (<code>base_count_504d</code>); line 3487 to 3501 (the Stage 3 screen reads <code>base_count_504d</code>); <code>master-dashboard/index.html</code> shows both.</li>
+<li><strong>Minervini's value.</strong> His count is by pivots cleared, on Investor's Business Daily's convention (MM-BC-04, MM-BC-05); the project counter implements it (MM-BC-07).</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): a governance ruling: the project counter (<code>base_counter_v2.py</code>) is the only Minervini base count; the dashboard's fields stay untouched, and are referred to as swing-high counts wherever a Minervini reading is being made; when concept 11 exists, the dashboard project may show the project count beside them.</strong> <strong>B: replace the dashboard's fields with the project counter now</strong> (a large change to a live screen and to the Stage 3 test).</li>
+<li><strong>Risk of A.</strong> None to live tools. The reader of both will see two different numbers until concept 11; the reading key already says which is which.</li>
+<li><strong>Your answer: A or B.</strong></li>
+</ul>
+<h2>Item 7. A legacy placeholder in the master dashboard's VCP block</h2>
+<ul>
+<li><strong>Exact place.</strong> <code>master-dashboard/scripts/generate_master_data.py</code>, lines 2624 to 2633: a <code>vcp</code> object whose <code>pattern_detected</code> is always false, whose <code>stage</code> is always None, and whose note reads "VCP pattern detection pending, Phase 2". Its one live field, <code>stage_2_uptrend</code>, is read by <code>master-dashboard/index.html</code> at lines 4811 and 4829. The real four-test VCP screen is a different block (<code>vcp_deploy_s2</code>, from line 4129).</li>
+<li><strong>Live value.</strong> A stub that can never qualify, sitting beside the real screen under a similar name.</li>
+<li><strong>Minervini's value.</strong> n/a (MM-VCP-01 notes it).</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): leave it, add a one-line comment naming it legacy, and retire it when the dashboard project next touches that block</strong>, because the page reads its Stage 2 flag and removing it means two edits in the page plus a full quality check for no user-visible gain. <strong>B: remove now.</strong></li>
+<li><strong>Your answer: A or B.</strong></li>
+</ul>
+<h2>Item 8. Annex 01 lists eight violations with "three at once = exit"; his list has six and no count rule</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> The APM's post-entry checklist reads his six warning signs and judges their accumulation, instead of counting to three.</li>
+<li><strong>Exact place.</strong> <code>memory/skills/assistant-portfolio-manager/annexes/annex-01-position-management.md</code>, lines 51 to 64 (the eight-row table and the cumulative rule), line 72 ("close below = Violation #1"), line 152 ("run through 8-violation checklist"), line 309 ("3 simultaneous violations = exit immediately").</li>
+<li><strong>Live value.</strong> Eight violations; "1 = warning, 2 = serious concern, 3+ simultaneously = exit immediately regardless of stop distance; violation #8 automatically critical".</li>
+<li><strong>Minervini's value.</strong> Six, as two reports of the 2017 book list them (MM-VL-01, minervini-secondary, register S-014): low volume out with high volume back in; three to four lower lows; more down days than up; more bad closes than good; a close below the 20-day; a close below the 50-day on heavy volume. They accumulate, more is worse, and no count rule is published. The annex's #7 (full retracement) and #8 (close below the pivot on volume) are not listed violations; #8 is a stop event.</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): replace the table with his six, graded; move #7 and #8 beneath it as "stop events, not violations (the April chat's)"; strike the count rule visibly (dated) and replace it with "violations accumulate; more is worse; no count rule; the APM judges, and the stop and the floor remain the executing rules"; point the checklist lines at the daily program's T5 moment (two signs computed now, four waiting for volume data).</strong> <strong>B: keep the eight-row table, label #7, #8 and the count rule as the chat's.</strong> <strong>C: leave.</strong></li>
+<li><strong>Risk of A.</strong> The APM loses a mechanical exit it has used as a rule of thumb. Mitigated: the moving-average stop, the hard floor once 20% up, and the largest-decline signal are all still executing rules; the violations were always an early-warning layer.</li>
+<li><strong>Your answer: A, B or C.</strong></li>
+</ul>
+<h2>Item 9. "Stage 2" means two things in our system; name them</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> The daily program's state line would read "advance since 2025-06-18" instead of "Stage 2 since 2025-06-18"; "Stage 2" would then always mean the master dashboard's rating and the Stage 2 qualification SOP's verdict.</li>
+<li><strong>The two meanings.</strong> (1) The base counter's anchor: the clock the base count runs on, starting on the first close above a rising 200-day and ending on a close more than 3% below it, built to survive a 25% pullback (MM-ST-03, ours). (2) The Stage 2 rating: the master dashboard's pass-or-fail verdict (item 3), used by the Stage 2 qualification SOP, the APM Q&amp;A PMS SOP's Step 9, the rating-history grid and the weekly portfolio-and-bench SOP. Both are deliberate (D-MMW-44 A7); the risk is a reader taking one for the other.</li>
+<li><strong>Exact places.</strong> The program: <code>deliverables/minervini_daily_lens.py</code>, line 183 (<code>Minervini read: Stage 2 since {date}</code>); its state file field <code>stage2_start</code>; the reading key's first two rows. The rating: <code>generate_master_data.py</code> line 3413 onward; the two SOPs named above.</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): change the program's printed phrase to "advance since {date}" (with "(the counter's anchor)" the first time it appears in a note), keep the field names, and leave "Stage 2" to the rating.</strong> The ideas register already uses "advance start date" for this. <strong>B: keep "Stage 2 since" and rely on the reading key.</strong> <strong>C: rename the rating instead</strong> (touches three SOPs and the dashboard; not recommended).</li>
+<li><strong>Risk of A.</strong> One line of code and the reading key; the state file is unchanged so no history breaks.</li>
+<li><strong>Your answer: A, B or C.</strong></li>
+</ul>
+<h2>Item 10. The APM role file and annex 01: the seven corrections you ruled on 11-Sep (D-MMW-51), prepared as an edit and not yet applied</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> In the annex, each April-chat figure is struck through visibly with the date and kept readable, with his figure (graded) and ours beside it; the four-slug ladder and the per-base table stay, labelled ours and untested; risk per trade reads "1.5%, within his 1.25 to 2.5%"; a one-line "Minervini check" appears at the three decision points (new entry, adding, exit), with the fuller block only when a rule is breached; the eight-week hold is relabelled O'Neil's; the emotional-cycle references are untouched. In the role file, the "Pending" pointer block of 11-Sep is replaced by a short standing pointer to the canon, the reading key and the daily program.</li>
+<li><strong>Exact places (annex).</strong> Line 19 (the 1.5% risk illustration, the 25% maximum, the stop placement); line 21 (average loss 3 to 5%); line 23 (maximum 10%, typical 5 to 8%); line 25 (sell half at twice the stop; breakeven; trailing); line 36 (career average loss 3 to 5%); lines 43 to 48 (the +7%, +10 to 15%, +20% stop ladder); line 81 to 88 (sell half; staggered stops 30/30/30/10); lines 108 to 114 (the per-base table); lines 118 to 134 and 201 to 210 (the four-slug model); line 143 to 144 (eight-week hold; time stop); lines 302 to 309 (the Part E checklist). <strong>Exact place (role file).</strong> <code>memory/skills/assistant-portfolio-manager/SKILL.md</code>, lines 814 to 830 (the pending block).</li>
+<li><strong>Not in this edit, on purpose.</strong> The violations table (lines 51 to 64) waits for item 8's ruling. The chase-zone line (line 306, "within 5% of pivot") is Investor's Business Daily's (MM-VCP-06); it is labelled so in this edit but kept, since you ruled the ladder and tables stay as ours.</li>
+<li><strong>The prepared edit.</strong> <code>deliverables/crosswalk-item-10/</code> holds the patched copies of both files and a line-by-line diff (<code>item-10.diff</code>), produced by <code>prepare_item10_edit.py</code> from the live files, so you can read exactly what changes. The originals are snapshotted. Nothing is applied until you say yes here; then the fresh-session test follows (bundled with the lessons-digest line, as agreed).</li>
+<li><strong>Your answer: confirm (yes) to apply after this sitting, or name the change you want.</strong></li>
+</ul>
+<h2>Item 11. The Position Management System's stop-grace tiers against his closing-basis, zero-grace stop</h2>
+<ul>
+<li><strong>What Richard will see change.</strong> Under my pick, nothing today; the tiers stay, labelled ours, and the question moves to the evidence tests.</li>
+<li><strong>The live rule, in plain English.</strong> When a holding closes below its stop, the Position Management System's 150- and 200-day stops act at once, but its 20-, 50- and 100-day "tactical" stops wait for three daily closes below, or one weekly close, before the breach counts. The daily program reports this as "IN BREACH (tactical tier, engine verdict)".</li>
+<li><strong>Exact place.</strong> <code>memory/skills/apm-pms-alignment/SKILL.md</code>, line 1125: "Grace tiers: the 150-day and 200-day moving averages are immediate exits on breach. The 20, 50 and 100-day are tactical: three daily closes below, or one weekly close." Line 1126: the engine's <code>closes_below_stop_last10</code> count.</li>
+<li><strong>Minervini's value.</strong> The stop is judged on the close, with no grace days, and heavy volume on the break makes it worse, never better; when the stop is hit the whole position is exited (MM-RK-05, minervini-secondary, registers S-010, S-011, S-014). No report gives grace days.</li>
+<li><strong>Ruled Viewforth value.</strong> None yet. The canon carries the tiers as "reconciliation pending".</li>
+<li><strong>Proposal.</strong> <strong>A (my pick): keep the tiers as the Viewforth calibration, labelled ours and untested, and test them in the evidence project.</strong> Reason: his stops are fixed percentages below a structural level; ours are moving averages less 2%, which the price crosses far more often (the Gate-4 backtest's 78.5% touch rate), and the tactical tiers exist to filter that noise on the shorter averages. Zero grace on a 20-day stop would stop out most holdings on ordinary pullbacks. <strong>B: zero grace on every tier</strong> (his rule as written). <strong>C: zero grace on the 100-day, three closes on the 20- and 50-day.</strong></li>
+<li><strong>Risk of A.</strong> A breach can run three days before it counts, and on the third day the loss can be larger than it was on the first; that is the price of the filter, and it is the thing the evidence test should measure.</li>
+<li><strong>What this decides later.</strong> The order sheet (concept 6): a resting stop order at the broker fires on the first touch, so it can only ever represent an immediate-tier stop; tactical stops can only be alerts. I will ask how your stops are actually held at UBS when that item is reached, not today.</li>
+<li><strong>Your answer: A, B or C.</strong></li>
+</ul>
+<hr />
+<h2>What is deliberately not in this crosswalk</h2>
+<ul>
+<li><strong>Already ruled and applied in the canon:</strong> the hard floor at entry once a tranche is 20% up (D-MMW-45); the 52-week-low calibration at 25% (D-MMW-46); the caution flag at 30% (D-MMW-47). The floor's implementation inside the Position Management System app is concept 7 in the ideas register, a separate ruling when you choose.</li>
+<li><strong>Recorded in the canon, no live tool involved:</strong> his sell-half rule, not adopted (D-MMW-42); the base-counting convention being IBD's (item A of this session re-graded MM-BC-04); the volume-based rules deferred until consolidated volume exists (W2).</li>
+<li><strong>The MM99 screen's other differences from the template</strong> (the split first criterion; no "50-day above the 200-day"; relative strength as excess return): noted under item 1, not proposed for change; the nightly computation will carry the exact template.</li>
+</ul>
+<p><em>Generated by hand from the live files on 11-Sep-2026; the companion HTML is rendered from this file. If a line number above no longer matches, the file has changed since the read and the item should be re-verified before ruling.</em></p></div></body></html>
