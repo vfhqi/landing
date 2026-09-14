@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EA work-email routine, explained (v6, 14-Sep-26)</title>
+<title>EA work-email routine, explained (v6.1, 14-Sep-26)</title>
 <style>
 :root{--ink:#1f2a33;--muted:#5c6770;--rule:#d9d4c3;--bg:#fbf8f0;--accent:#7a6f47;--purple:#5b3f8f;}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
@@ -14,10 +14,10 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 </style></head><body><main>
 
 
-<div class="stamp">COWORK &middot; EA - Email Management &middot; explainer page generated from EA-EMAIL-SOP-EXPLAINER.md &middot; 14-Sep-26</div>
+<div class="stamp">COWORK &middot; EA - Email Management &middot; explainer page generated from EA-EMAIL-SOP-EXPLAINER.md &middot; 14-Sep-26, v6.1 (session 10)</div>
 <h1>The work-email routine, explained from your chair</h1>
 <p><strong>What the EA email SOP (v6) does for you, start to finish. Written 14-Sep-26 so you can re-read it in a month and understand the whole thing in five minutes.</strong>
-<strong>Status when written: designed and tested once under supervision; not yet scheduled. The go-live sequence is at the end.</strong></p>
+<strong>Status: signed off by you on 14-Sep-26 and amended the same day (v6.1). The go-live sequence, with where it stands, is at the end.</strong></p>
 <hr />
 <h2>1. The one-paragraph version</h2>
 <p>Every weekday morning, before you start, a short automatic run makes sure that <strong>every genuine email waiting on you has a reply drafted in your voice, sitting in Superhuman</strong>, that <strong>anything important is flagged with a reason</strong>, and that <strong>nothing has quietly slipped</strong>, including mail that Superhuman's own filing has hidden from your inbox. You open Superhuman, read the drafts, and send, edit or discard. You do not have to prompt anything, reply to anything, or read a report to make it work. The report (a short "receipt") exists so you can see what was done and why, not because you must act on it.</p>
@@ -49,8 +49,8 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 </tr>
 <tr>
 <td>Draft a reply to each new email that needs one, in your voice</td>
-<td><strong>Superhuman</strong></td>
-<td>Auto Drafts for Responses, available on your plan, to be switched on (Section 7)</td>
+<td><strong>Watson, for now</strong> (through Superhuman's writer, so it is still your voice)</td>
+<td>Superhuman's own automatic reply-drafting stays off: it writes one draft on one path the moment mail arrives, with no options, so you would not be in the choice. Trial later, measured (Section 7)</td>
 </tr>
 <tr>
 <td>Find everything waiting on you, <strong>including the archived mail your inbox view does not show</strong></td>
@@ -63,9 +63,9 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <td>from who sent it, what it is labelled, how old it is, whether it is an LP, investor or IR contact, whether a date is close</td>
 </tr>
 <tr>
-<td>Check Superhuman's drafts, fix the stale or over-agreeable ones, write the missing ones</td>
+<td>Check existing drafts, fix the stale or over-agreeable ones, write the missing ones</td>
 <td><strong>Watson</strong></td>
-<td>Superhuman's writer is good but too agreeable to pitches and does not fix passed dates</td>
+<td>on anything important, Watson first buys a summary and three materially different reply options, picks one, and tells you which and why</td>
 </tr>
 <tr>
 <td>Add what Superhuman cannot know on the important items: your position, your project, what you promised</td>
@@ -92,13 +92,13 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <p>Watson <strong>never sends</strong> an email, never deletes or discards a draft it did not create, and never touches Gmail or WhatsApp.</p>
 <h2>3. A day in the life</h2>
 <ul>
-<li><strong>Overnight.</strong> Mail arrives. Superhuman labels it. If Auto Drafts for Responses is on, a reply is drafted at once for anything needing one. Reminders fire on your unanswered sent mail and chasers are drafted.</li>
+<li><strong>Overnight.</strong> Mail arrives. Superhuman labels it. Reminders fire on your unanswered sent mail and chasers are drafted.</li>
 <li><strong>About 07:15, weekdays.</strong> Watson's run starts in a fresh session on the cheapest adequate model, loading one short instruction file (not the whole rulebook). It takes roughly ten minutes and fifteen to twenty tool calls.</li>
 <li>Pulls every thread labelled <code>Respond</code> in the last 35 days, archived or not, plus the list of existing drafts, plus the ledger.</li>
 <li>Removes, by fixed rules, anything that is not a real ask: threads where you replied last, out-of-office replies, no-reply and helpdesk senders, cold pitches from strangers, one-way broker circulars. Every exclusion is counted with its reason.</li>
-<li>Sorts what is left into HIGH (an LP, investor or IR contact; a live position; a date inside five working days; older than a week; already escalated) and LOW (everything else). Sell-side research notes that carry a <code>Respond</code> label by mistake are set aside as "no reply needed".</li>
-<li>For LOW items: checks the draft Superhuman wrote, or writes one from a one-line instruction. For HIGH items: buys a per-thread summary and three reply options from Superhuman, picks one, adds your context, drafts it, and flags it "confirm the angle".</li>
-<li>Never drafts an invitation you have not decided on (a roadshow meeting, a "shall we meet?"): those go on the receipt with the offered slots, as a question to you.</li>
+<li>Sorts what is left into HIGH (an LP, investor or IR contact; a C-suite colleague; a live position; a date inside five working days; an external item older than a week; already escalated) and LOW (everything else, including colleagues' admin whatever its age). Sell-side research notes that carry a <code>Respond</code> label by mistake are set aside as "no reply needed".</li>
+<li>For LOW items: checks any existing draft, or writes one from a one-line instruction. For HIGH items, always: buys a per-thread summary and three materially different reply options from Superhuman, picks one, adds your context, drafts it (or brings an existing draft into line with the chosen option), and flags it "confirm the angle" with the three options on the receipt. Where a routine reply is really a choice (agree or decline, commit or defer), it drafts the path it would pick and names the alternative.</li>
+<li>Never drafts an invitation you have not decided on (a roadshow meeting, a "shall we meet?"): those go on the receipt with the offered slots, as a question to you. Never drafts a reply that turns on a fact only you hold (an investor's status, a document only you have): those go on the receipt under "needs your answer", one line each, and the thread is starred. At most 15 drafts a run; the rest carry over.</li>
 <li>Updates the ledger and writes the receipt.</li>
 <li><strong>When you open Superhuman.</strong> The drafts are there, on the right threads. Send, edit or discard. That is the whole job on your side.</li>
 <li><strong>The receipt</strong> arrives as the scheduled run's own completion summary (with push and email notification as options) and is appended to the run-log. It reads: HIGH items first (subject, who, how old, what Watson recommends, "confirm the angle"), LOW items one line each, questions needing your yes or no, drafts older than two weeks or naming a passed date, and the counts of what was excluded and why.</li>
@@ -125,7 +125,7 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <li><strong>Auto Archive:</strong> take <code>Company filings</code> out of the auto-archived categories. That label misfires on human mail and, with high conviction, is why live correspondence (an LP's meeting request among it) vanished from your inbox.</li>
 <li><strong>The <code>Company filings</code> label:</strong> add exclusions (colleagues at pacificam.co.uk, anything labelled <code>LPs</code> or <code>Investors</code>, anything asking you a question).</li>
 <li><strong>Decide</strong> whether <code>Corporate access</code> should keep auto-archiving. The daily run now catches personally addressed invites regardless.</li>
-<li><strong>Auto Drafts for Responses:</strong> switch on. Replies drafted in your voice the moment mail arrives; Watson checks rather than writes.</li>
+<li><strong>Auto Drafts for Responses:</strong> leave off for now (your instinct was right: it picks a path for you). After two clean weeks of the daily run we trial it for a fortnight and count how many of its drafts Watson had to revise, how many you discarded, and what it saved.</li>
 <li><strong>Auto Reminders on Watson's own status emails:</strong> stop them (send those from Gmail, or Watson discards them each run).</li>
 <li><strong>Sign-off:</strong> re-assert "Much appreciated, Richard" in the personalization profile; today's test signed "Cheers".</li>
 </ol>
@@ -133,11 +133,13 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <p>Watson never sends. Watson never deletes or discards a draft it did not create in that run. A run that fails says so in the first line of the receipt, and a heartbeat on the existing watchdog notices a run that never started (a silent non-run is how an LP's request was missed in August). Stale drafts (over two weeks old, or naming a passed date) are listed every run because one of those is one click from an embarrassing send.</p>
 <h2>9. Where things live</h2>
 <ul>
-<li>The instruction file the run loads: <code>memory/skills/ea-email/FIRE-PACK.md</code></li>
-<li>The design, cost map and reasoning: <code>projects/EA - Email Management/PROPOSED-SOP-2026-09-14-work-email-daily-v6.md</code></li>
-<li>The ledger: <code>projects/EA - Email Management/ea-work-email-ledger.json</code></li>
-<li>The run-log (every receipt): <code>projects/EA - Email Management/run-log-v6.md</code></li>
-<li>The parser (the deterministic part): <code>scripts/ea/v6_parse.py</code></li>
+<li>The instruction file the run loads: <code>memory/skills/ea-email/FIRE-PACK.md</code> (v6.1)</li>
+<li>The design, cost map and reasoning: <code>projects/EA - Email Management/SOP-2026-09-14-work-email-daily-v6.1.md</code> (v6 kept beside it as the record)</li>
+<li>The scheduled task's prompt text: <code>projects/EA - Email Management/SCHEDULED-TASK-PROMPT-ea-work-email-daily.md</code></li>
+<li>The ledger: <code>projects/EA - Email Management/ea-work-email-ledger.json</code>, with a dated copy per run under <code>ledger-history/</code></li>
+<li>The receipts, one file per run: <code>projects/EA - Email Management/run-log/receipt-&lt;date&gt;.md</code> (the supervised test of 14-Sep is in <code>run-log-v6.md</code>)</li>
+<li>The backlog disposition list: <code>projects/EA - Email Management/BACKLOG-DISPOSITIONS-2026-09-14.md</code></li>
+<li>The two deterministic scripts: <code>scripts/ea/v6_parse.py</code> (the queue) and <code>scripts/ea/v6_ledger.py</code> (the ledger)</li>
 <li>This explainer: <code>projects/EA - Email Management/EA-EMAIL-SOP-EXPLAINER.md</code> and, as a page, <code>ea-email-sop-explainer.html</code> at the COWORK root, linked from the landing page</li>
 </ul>
 <h2>10. Plain-English glossary</h2>
@@ -153,6 +155,6 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <li><strong>HIGH / LOW:</strong> importance tier, decided from sender, labels, age and dates before anything is spent.</li>
 </ul>
 <h2>11. Go-live sequence (where we are)</h2>
-<p>Design signed off by you → Superhuman settings switched on (Section 7) → the backlog cleared in batches of nine with a check-in after each → ledger seeded → heartbeat registered → daily run scheduled (weekdays, about 07:15 UK, cheapest adequate model) → Friday Doublecheck scheduled. The daily run keeps a cleared queue clear; it cannot clear one, which is why the backlog goes first.</p>
-<p><em>[W] Watson / SA. 14-Sep-26.</em></p>
+<p>Design signed off by you (done, 14-Sep) → the backlog re-baselined live and a disposition list put to you (done, 14-Sep: 133 threads since 1 May, 33 needing you, the 23 IR drafts tabled) → Superhuman settings adjusted (Section 7, your hand) → ledger seeded (done) → heartbeat registered and the daily run scheduled (weekdays, about 07:15 UK, Sonnet, the Friday Doublecheck folded into Friday's run; one approval from you on the task card) → first fire supervised, every draft it makes read by Watson → your answers on the disposition list turned into fresh notes and re-dated IR drafts.</p>
+<p><em>[W] Watson / SA. 14-Sep-26; amended to v6.1 the same day (session 10).</em></p>
 </main></body></html>
