@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EA work-email routine, explained (v6, 14-Sep-26)</title>
+<style>
+:root{--ink:#1f2a33;--muted:#5c6770;--rule:#d9d4c3;--bg:#fbf8f0;--accent:#7a6f47;--purple:#5b3f8f;}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:880px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 6px}h2{font-size:19px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--rule);color:var(--accent)}
+p{margin:8px 0}strong{font-weight:700}em{color:var(--purple)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}th,td{border:1px solid var(--rule);padding:7px 9px;vertical-align:top;text-align:left}th{background:#efe9d6}
+ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;border-radius:3px;font-size:13px}
+.stamp{color:var(--muted);font-size:12.5px;margin-bottom:18px}
+@media print{body{background:#fff}}
+</style></head><body><main>
+<div class="stamp">COWORK &middot; EA - Email Management &middot; explainer page generated from EA-EMAIL-SOP-EXPLAINER.md &middot; 14-Sep-26</div>
+<h1>The work-email routine, explained from your chair</h1>
+<p><strong>What the EA email SOP (v6) does for you, start to finish. Written 14-Sep-26 so you can re-read it in a month and understand the whole thing in five minutes.</strong>
+<strong>Status when written: designed and tested once under supervision; not yet scheduled. The go-live sequence is at the end.</strong></p>
+<hr />
+<h2>1. The one-paragraph version</h2>
+<p>Every weekday morning, before you start, a short automatic run makes sure that <strong>every genuine email waiting on you has a reply drafted in your voice, sitting in Superhuman</strong>, that <strong>anything important is flagged with a reason</strong>, and that <strong>nothing has quietly slipped</strong>, including mail that Superhuman's own filing has hidden from your inbox. You open Superhuman, read the drafts, and send, edit or discard. You do not have to prompt anything, reply to anything, or read a report to make it work. The report (a short "receipt") exists so you can see what was done and why, not because you must act on it.</p>
+<h2>2. Who does what</h2>
+<p>Three parties do the work. The design puts as much as possible on Superhuman, because it already reads every email, it improves on its own, and it costs nothing in Watson tokens.</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Who does it</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read every email and label it (needs a reply, waiting on them, meeting, pitch, investor, roadshow…)</td>
+<td><strong>Superhuman</strong></td>
+<td>its automatic labels, already on</td>
+</tr>
+<tr>
+<td>Notice when something you sent has had no reply, and remind you</td>
+<td><strong>Superhuman</strong></td>
+<td>Auto Reminders, already on, fires 07:00 and 16:00 UK</td>
+</tr>
+<tr>
+<td>Draft a chaser for those</td>
+<td><strong>Superhuman</strong></td>
+<td>Auto Drafts for follow-ups, already on</td>
+</tr>
+<tr>
+<td>Draft a reply to each new email that needs one, in your voice</td>
+<td><strong>Superhuman</strong></td>
+<td>Auto Drafts for Responses, available on your plan, to be switched on (Section 7)</td>
+</tr>
+<tr>
+<td>Find everything waiting on you, <strong>including the archived mail your inbox view does not show</strong></td>
+<td><strong>Watson</strong></td>
+<td>one query on the <code>Respond</code> label across the last five weeks, archive included</td>
+</tr>
+<tr>
+<td>Decide what is important and what is routine, before spending anything</td>
+<td><strong>Watson</strong></td>
+<td>from who sent it, what it is labelled, how old it is, whether it is an LP, investor or IR contact, whether a date is close</td>
+</tr>
+<tr>
+<td>Check Superhuman's drafts, fix the stale or over-agreeable ones, write the missing ones</td>
+<td><strong>Watson</strong></td>
+<td>Superhuman's writer is good but too agreeable to pitches and does not fix passed dates</td>
+</tr>
+<tr>
+<td>Add what Superhuman cannot know on the important items: your position, your project, what you promised</td>
+<td><strong>Watson</strong></td>
+<td>the ledger and your files</td>
+</tr>
+<tr>
+<td>Remember what was asked, escalate what is ageing, never drop an item silently</td>
+<td><strong>Watson</strong></td>
+<td>a small ledger file, one row per live item</td>
+</tr>
+<tr>
+<td>A weekly independent sweep that does not trust any label or AI search</td>
+<td><strong>Watson</strong></td>
+<td>the Doublecheck Sweep, also on demand</td>
+</tr>
+<tr>
+<td>Decide, send, edit, discard, say "drop it"</td>
+<td><strong>You</strong></td>
+<td>in Superhuman, as now</td>
+</tr>
+</tbody>
+</table>
+<p>Watson <strong>never sends</strong> an email, never deletes or discards a draft it did not create, and never touches Gmail or WhatsApp.</p>
+<h2>3. A day in the life</h2>
+<ul>
+<li><strong>Overnight.</strong> Mail arrives. Superhuman labels it. If Auto Drafts for Responses is on, a reply is drafted at once for anything needing one. Reminders fire on your unanswered sent mail and chasers are drafted.</li>
+<li><strong>About 07:15, weekdays.</strong> Watson's run starts in a fresh session on the cheapest adequate model, loading one short instruction file (not the whole rulebook). It takes roughly ten minutes and about fifteen tool calls.</li>
+<li>Pulls every thread labelled <code>Respond</code> in the last 35 days, archived or not, plus the list of existing drafts, plus the ledger.</li>
+<li>Removes, by fixed rules, anything that is not a real ask: threads where you replied last, out-of-office replies, no-reply and helpdesk senders, cold pitches from strangers, one-way broker circulars. Every exclusion is counted with its reason.</li>
+<li>Sorts what is left into HIGH (an LP, investor or IR contact; a live position; a date inside five working days; older than a week; already escalated) and LOW (everything else). Sell-side research notes that carry a <code>Respond</code> label by mistake are set aside as "no reply needed".</li>
+<li>For LOW items: checks the draft Superhuman wrote, or writes one from a one-line instruction. For HIGH items: buys a per-thread summary and three reply options from Superhuman, picks one, adds your context, drafts it, and flags it "confirm the angle".</li>
+<li>Never drafts an invitation you have not decided on (a roadshow meeting, a "shall we meet?"): those go on the receipt with the offered slots, as a question to you.</li>
+<li>Updates the ledger and writes the receipt.</li>
+<li><strong>When you open Superhuman.</strong> The drafts are there, on the right threads. Send, edit or discard. That is the whole job on your side.</li>
+<li><strong>The receipt</strong> arrives as the scheduled run's own completion summary (with push and email notification as options) and is appended to the run-log. It reads: HIGH items first (subject, who, how old, what Watson recommends, "confirm the angle"), LOW items one line each, questions needing your yes or no, drafts older than two weeks or naming a passed date, and the counts of what was excluded and why.</li>
+<li><strong>Friday.</strong> The Doublecheck Sweep lists every thread in every split and the inbox by date, works out who is waiting on whom from the message headers alone, and reports anything unanswered that carries no <code>Respond</code> label. You can run it any day with the phrase <em>"Run the Watson Doublecheck Sweep of the mailbox for any outstanding emails needing discussion."</em></li>
+</ul>
+<h2>4. What you actually see</h2>
+<ul>
+<li><strong>In Superhuman:</strong> drafts on threads that need a reply. Superhuman's own auto-drafts and Watson's look the same; Watson's HIGH ones are named in the receipt.</li>
+<li><strong>In the receipt:</strong> a few lines per item, most important first, and a plain yes-or-no question wherever a decision is yours (attend a roadshow, keep a subscription, accept a time).</li>
+<li><strong>Flags to look for:</strong> "confirm the angle" on anything consequential; "confirm" on any draft that commits money, a time, a position or a promise, whatever its tier.</li>
+</ul>
+<h2>5. What you do, and what you can say</h2>
+<ul>
+<li>Send, edit or discard drafts in Superhuman.</li>
+<li>To drop an item for good: remove its <code>Respond</code> label in Superhuman, or tell Watson "drop X". The ledger records it and it never resurfaces.</li>
+<li>To handle something outside email (a phone call): tell Watson, or remove the label. Otherwise the run will keep seeing an unanswered thread.</li>
+<li>Answer the yes-or-no questions on the receipt when you want to; the run repeats them until you do.</li>
+<li>Ask for the Doublecheck by phrase whenever Superhuman "could not find" something.</li>
+</ul>
+<h2>6. What it costs, and why it is cheap enough to leave on</h2>
+<p>One supervised run on 14-Sep-26 used <strong>168,419 platform-reported tokens, 22 tool calls, under ten minutes, on Sonnet</strong>, roughly <strong>15-25 US cents (about 10-20p)</strong> at today's published prices. The August version cost 135,000-167,000 tokens a fire in its sub-agents alone, before its never-measured main window, on Opus, and it was switched off. What made the difference: the cheapest adequate model; one small instruction file instead of the 18,500-token rulebook re-read on every step; two collection calls instead of twenty; Superhuman doing the reading and drafting; and depth scaled to importance, so the expensive thinking is spent on the few items that carry consequence.</p>
+<h2>7. The Superhuman settings that make this work (your hand, five minutes)</h2>
+<ol>
+<li><strong>Auto Archive:</strong> take <code>Company filings</code> out of the auto-archived categories. That label misfires on human mail and, with high conviction, is why live correspondence (an LP's meeting request among it) vanished from your inbox.</li>
+<li><strong>The <code>Company filings</code> label:</strong> add exclusions (colleagues at pacificam.co.uk, anything labelled <code>LPs</code> or <code>Investors</code>, anything asking you a question).</li>
+<li><strong>Decide</strong> whether <code>Corporate access</code> should keep auto-archiving. The daily run now catches personally addressed invites regardless.</li>
+<li><strong>Auto Drafts for Responses:</strong> switch on. Replies drafted in your voice the moment mail arrives; Watson checks rather than writes.</li>
+<li><strong>Auto Reminders on Watson's own status emails:</strong> stop them (send those from Gmail, or Watson discards them each run).</li>
+<li><strong>Sign-off:</strong> re-assert "Much appreciated, Richard" in the personalization profile; today's test signed "Cheers".</li>
+</ol>
+<h2>8. Safety rails</h2>
+<p>Watson never sends. Watson never deletes or discards a draft it did not create in that run. A run that fails says so in the first line of the receipt, and a heartbeat on the existing watchdog notices a run that never started (a silent non-run is how an LP's request was missed in August). Stale drafts (over two weeks old, or naming a passed date) are listed every run because one of those is one click from an embarrassing send.</p>
+<h2>9. Where things live</h2>
+<ul>
+<li>The instruction file the run loads: <code>memory/skills/ea-email/FIRE-PACK.md</code></li>
+<li>The design, cost map and reasoning: <code>projects/EA - Email Management/PROPOSED-SOP-2026-09-14-work-email-daily-v6.md</code></li>
+<li>The ledger: <code>projects/EA - Email Management/ea-work-email-ledger.json</code></li>
+<li>The run-log (every receipt): <code>projects/EA - Email Management/run-log-v6.md</code></li>
+<li>The parser (the deterministic part): <code>scripts/ea/v6_parse.py</code></li>
+<li>This explainer: <code>projects/EA - Email Management/EA-EMAIL-SOP-EXPLAINER.md</code> and, as a page, <code>ea-email-sop-explainer.html</code> at the COWORK root, linked from the landing page</li>
+</ul>
+<h2>10. Plain-English glossary</h2>
+<ul>
+<li><strong><code>Respond</code> label:</strong> Superhuman's own AI tag meaning "this thread is waiting on you". Accurate, but it stays on a thread after you reply, so the run also checks who wrote last.</li>
+<li><strong>Auto Drafts / Auto Reminders / Auto Archive / Auto Labels:</strong> Superhuman's built-in automations: draft replies and chasers in your voice; resurface unanswered sent mail; file labelled categories out of the inbox; tag mail by type.</li>
+<li><strong>Ask AI (<code>query_email_and_calendar</code>):</strong> Superhuman's natural-language search. Good for summarising one thread; unreliable for finding mail (it missed Jamie Carter's), so the run never uses it to search.</li>
+<li><strong>Split:</strong> a Superhuman inbox section (Inbox, Roadshows, Fellow investors…). Listing a split is deterministic and complete, so the weekly sweep uses splits.</li>
+<li><strong>Spill file:</strong> when a tool returns more than fits in the conversation, the result is written to a file that a script reads for free.</li>
+<li><strong>Fire-pack:</strong> the one short file the scheduled run loads instead of the whole rulebook.</li>
+<li><strong>Ledger:</strong> the small JSON file that remembers each live item, its age, its draft state, and what you decided.</li>
+<li><strong>Doublecheck Sweep:</strong> the weekly, label-free, AI-free completeness check.</li>
+<li><strong>HIGH / LOW:</strong> importance tier, decided from sender, labels, age and dates before anything is spent.</li>
+</ul>
+<h2>11. Go-live sequence (where we are)</h2>
+<p>Design signed off by you → Superhuman settings switched on (Section 7) → the backlog cleared in batches of nine with a check-in after each → ledger seeded → heartbeat registered → daily run scheduled (weekdays, about 07:15 UK, cheapest adequate model) → Friday Doublecheck scheduled. The daily run keeps a cleared queue clear; it cannot clear one, which is why the backlog goes first.</p>
+<p><em>[W] Watson / SA. 14-Sep-26.</em></p>
+</main></body></html>
