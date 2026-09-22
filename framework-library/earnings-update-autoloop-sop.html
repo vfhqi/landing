@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Earnings Update Autoloop SOP</title>
+<style>
+:root{--ink:#1f2a33;--muted:#5c6770;--rule:#d9d4c3;--bg:#fbf8f0;--accent:#7a6f47;--purple:#5b3f8f;--green:#2f6b3a;--blue:#2f5a8a}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+main{max-width:900px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:27px;line-height:1.25;margin:0 0 6px}
+h2{font-size:19px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--rule);color:var(--accent)}
+p{margin:8px 0}strong{font-weight:700}em{color:var(--purple)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid var(--rule);padding:7px 9px;vertical-align:top;text-align:left}th{background:#efe9d6}
+ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;border-radius:3px;font-size:12.5px;word-break:break-all}
+.stamp{color:var(--muted);font-size:12.5px;margin-bottom:18px}
+.box{border:1px solid var(--rule);background:#fff;border-radius:8px;padding:12px 16px;margin:14px 0}
+.judge{border-left:4px solid var(--purple)}.obs{border-left:4px solid var(--blue)}.act{border-left:4px solid var(--green)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0;font-size:13.5px}
+.flow span{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:6px 9px}
+.flow b{color:var(--muted);font-weight:400}
+footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--rule);padding-top:10px}
+@media (max-width:600px){main{padding:20px 14px 48px}h1{font-size:23px}table{font-size:13px}}
+@media print{body{background:#fff}}
+</style></head><body><main>
+
+<div class="stamp">Viewforth &middot; Standard Operating Procedure &middot; written by Watson for Richard &middot; v1.0, 22-Sep-26 &middot; Chief of Staff project "COS - Earnings Update Autoloop SOP" (folder not yet renamed: <code>projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/</code>)</div>
+
+<h1>The Earnings Update Autoloop SOP</h1>
+<p><strong>When a company in scope reports results, the system reads the results, decides whether our investment case moved, and rebuilds the memo when it did, without you having to start anything.</strong> This page says what runs, when, what it spends, what needs you, and how you would know if it stopped.</p>
+
+<div class="box judge"><strong>The one-paragraph version.</strong> Every morning the earnings calendar is refreshed from FactSet. When a company in scope reports, an Earnings Review is ordered from the research production line. Once the review exists, and only if we already have an investment case memo for that stock, the Investment Analyst writes a short Implications piece: what these results mean for our case. A rule called <em>the gate</em> then decides whether the full memo is worth rebuilding. Live holdings are always rebuilt; other stocks only when the results clearly improve the case. A rebuild becomes a request card for the memo production line, which writes the new memo. Separately, research reports older than three months are refreshed every quarter. Everything is reported on the All-Team Briefing page, and anything you need to know reaches you in the Daily Digest email.</div>
+
+<h2>1. The chain, step by step</h2>
+<div class="flow"><span>Earnings calendar</span><b>&rarr;</b><span>Earnings Review ordered</span><b>&rarr;</b><span>Implications piece</span><b>&rarr;</b><span>The gate</span><b>&rarr;</b><span>Memo request card</span><b>&rarr;</b><span>Rebuilt memo</span><b>&rarr;</b><span>Briefing page and Daily Digest</span></div>
+<table>
+<thead><tr><th>Step</th><th>When (UK time)</th><th>What happens</th><th>Runs on</th></tr></thead>
+<tbody>
+<tr><td>1. Earnings calendar refresh</td><td>05:15 daily</td><td>Pulls every company's next results date from FactSet. If FactSet sends nothing (usually a sign-in), the last good calendar is kept, never overwritten.</td><td>Your PC, free</td></tr>
+<tr><td>2. The results-day walk</td><td>05:45 and 13:15 daily</td><td>Orders the Earnings Review for each company reporting. <strong>Live holdings, Ideas Bench, Shortlist and interest level A:</strong> on the morning of the results, plus a repeat review four working days later. <strong>Ideas Longlist and interest level B:</strong> one working day after the results. Only confirmed dates are acted on. A missed morning is caught up for three working days; later than that it is reported as missed, never ordered.</td><td>Your PC, free</td></tr>
+<tr><td>3. The Implications pack</td><td>Same walk, 05:45 and 13:15</td><td>Once the review has been produced, gathers what the writer reads: the new review, the memo, its ratings and the stock's data. <strong>No memo on file, no piece</strong> (your ruling of 22-Sep-26); the page names the stock instead.</td><td>Your PC, free</td></tr>
+<tr><td>4. The Implications piece</td><td>12:30 and 18:30 on weekdays</td><td>A scheduled Claude task, one copy on each of your three logins, writes the piece with the Fable model and ends it with a verdict: which direction the case moved, and how much.</td><td>Claude, paid</td></tr>
+<tr><td>5. The gate</td><td>Straight after the piece</td><td>Decides whether the memo is rebuilt (section 2) and passes any rebuild through the spend controls.</td><td>Free</td></tr>
+<tr><td>6. The memo request card</td><td>Next memo production run: 07:45, 11:45, 15:45 or 19:45</td><td>The memo project's card writer turns each rebuild into a standard request card. Each piece is only ever ordered once.</td><td>Free</td></tr>
+<tr><td>7. The rebuilt memo</td><td>As the memo production line works</td><td>The Stock-specific Investment Case A&amp;J Memo is rebuilt and published as usual.</td><td>Claude, paid</td></tr>
+<tr><td>8. The quarterly research refresh</td><td>Inside the walk, 05:45 and 13:15</td><td>Re-orders any Change Forces report or Earnings Review older than three months, undated, or missing for a stock you named.</td><td>Your PC, free</td></tr>
+<tr><td>9. Reporting</td><td>Briefing 06:00 and 16:00 daily, weekly edition Sunday 16:30; Daily Digest once a day</td><td>The All-Team Briefing page shows everything. The Daily Digest carries only what you should hear about (section 4).</td><td>Your PC, free</td></tr>
+</tbody></table>
+
+<h2>2. The rules that decide what happens</h2>
+<table>
+<thead><tr><th>The stock is</th><th>The memo is rebuilt when</th></tr></thead>
+<tbody>
+<tr><td><strong>A live holding</strong></td><td>Always, after every results event, whatever the verdict</td></tr>
+<tr><td><strong>Top of the Ideas lists</strong> (Bench, Shortlist, interest level A)</td><td>The case moved positively, by a semi-material or material amount</td></tr>
+<tr><td><strong>The wider Ideas list</strong> (Longlist, interest level B)</td><td>The case moved positively by a material amount</td></tr>
+<tr><td>Anything else</td><td>Never</td></tr>
+</tbody></table>
+<ul>
+<li><strong>Negative results never trigger a rebuild</strong> for a stock we do not own: a candidate that got worse is simply not a candidate. The piece is still written and still reported.</li>
+<li><strong>These routines never write a first memo.</strong> They only rebuild one that exists. (First memos for stocks on the Ideas lists come from the Ideas commissioner, a separate route.)</li>
+<li><strong>Spend limits:</strong> at most 10 automatic memos a UK week, counted by the memo production line; live-holding rebuilds sit outside the 10. Research: 20 orders a day, 30 on results days. Nothing is ever ordered twice.</li>
+</ul>
+
+<h2>3. What it costs</h2>
+<ul>
+<li><strong>Free:</strong> the calendar refresh, the walk, the packs, the gate, the card writer and the briefing all run as scripts on your PC with no language model.</li>
+<li><strong>Paid:</strong> each Implications piece is one Fable run. Each rebuilt memo is roughly 645,000 Fable tokens, which is why the gate exists. Fifteen live holdings reporting two to four times a year means roughly 30 to 60 rebuilds a year.</li>
+<li><strong>Hidden cost:</strong> every Claude scheduled run uses a little of a fixed session disk that is never emptied. That is why only one step here runs in Claude.</li>
+</ul>
+
+<h2>4. How you would know it is working, or has stopped</h2>
+<div class="box obs">
+<ul>
+<li><strong>The Daily Digest email</strong> tells you:
+  <ul>
+  <li>when an Implications piece was written, and what the gate decided;</li>
+  <li>when a results-day review was missed;</li>
+  <li>when a ticker on your lists cannot be matched;</li>
+  <li>when any of these jobs fails.</li>
+  </ul>
+  A known duplicate record is never put to you as a question.</li>
+<li><strong>Every job writes an "I ran" file</strong>, including on quiet days. A free watchdog checks them every thirty minutes and puts a stale or failed job in the Daily Digest. The Implications task is allowed 72 hours, because it does not run at weekends.</li>
+<li><strong>The All-Team Briefing page</strong> (locked with your passphrase) shows every order, every piece, every held or missed item and every job's health. It hides anything that looks like a password or access token.</li>
+<li><strong>A Stand-Up</strong> you start in a chat window reads the latest briefing first.</li>
+</ul>
+</div>
+
+<h2>5. What needs you</h2>
+<div class="box act">
+<ul>
+<li><strong>Nothing routine.</strong> Results, reviews, pieces, the gate and rebuild requests all run without you.</li>
+<li><strong>Once per login:</strong> each copy of the Implications task must be tied to your computer in its settings. A task only reaches your PC while its own login is signed in. While you are on one login, the platform switches off the other logins' copies at their run times; a small routine switches them back on (being tested on the Ricky login first, from 22-Sep-26).</li>
+<li><strong>Occasionally:</strong> answer a question the Daily Digest puts to you.</li>
+<li><strong>Your call only:</strong> any change to the rules in section 2 or the spend limits.</li>
+</ul>
+</div>
+
+<h2>6. The switches</h2>
+<table>
+<thead><tr><th>To</th><th>Do this</th></tr></thead>
+<tbody>
+<tr><td>Stop all automatic ordering at once</td><td>Create the file <code>briefings/autoloop/STOP-ALL-COMMISSIONING.txt</code> (any text). Remove it to restart.</td></tr>
+<tr><td>Let the results-day walk decide but order nothing</td><td>Create <code>briefings/autoloop/WALK-DRY-RUN-ONLY.md</code></td></tr>
+<tr><td>Let the quarterly refresh decide but order nothing</td><td>Create <code>briefings/autoloop/REFRESH-DRY-RUN-ONLY.md</code></td></tr>
+<tr><td>Stop any Fable run from a schedule</td><td>The memo production line's spend hold, <code>briefings/memo-conveyor/FABLE-SPEND-HOLD.md</code>, is honoured here too</td></tr>
+</tbody></table>
+
+<h2>7. Where it stands (22-Sep-26)</h2>
+<ul>
+<li><strong>Running and healthy since 17-Sep-26:</strong> the calendar refresh, the walk, the quarterly refresh and the briefing.</li>
+<li><strong>The Implications task</strong> exists on all three logins; the Ricky and main copies are tied to your computer.</li>
+<li><strong>No Implications piece has been written yet.</strong> The first are expected on or after Thursday 24-Sep-26:
+  <ul>
+  <li>CVS Group, a live holding, so it will be rebuilt;</li>
+  <li>Boku and Renishaw, both interest level B, so their reviews are ordered the day after their 23-Sep results.</li>
+  </ul></li>
+<li><strong>"Done", in your words of 22-Sep-26:</strong> one full real round trip (results, review, piece, gate, card, rebuilt memo) plus a week in which you never look and everything still happens.</li>
+</ul>
+
+<footer>Source: <code>projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/EARNINGS-UPDATE-AUTOLOOP-SOP.html</code> &middot; decisions behind every rule: that project's <code>decisions.md</code> &middot; <a href="index.html">Investment System Library</a> &middot; <a href="../">Viewforth landing page</a></footer>
+</main></body></html>

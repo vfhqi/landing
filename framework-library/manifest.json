@@ -1,6 +1,14 @@
 {
-  "built": "11-Sep-26",
+  "built": "22-Sep-26",
   "pages": [
+    {
+      "slug": "earnings-update-autoloop-sop",
+      "name": "The Earnings Update Autoloop SOP",
+      "desc": "What happens by itself when a company reports: the review, the Implications piece, the gate that decides a memo rebuild, the quarterly research refresh, what it costs and how you would know it stopped.",
+      "src": "projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/EARNINGS-UPDATE-AUTOLOOP-SOP.html",
+      "family": "F6",
+      "passthrough": true
+    },
     {
       "slug": "investment-philosophy",
       "name": "Investment Philosophy",
