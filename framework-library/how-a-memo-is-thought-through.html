@@ -65,7 +65,7 @@ footer a{color:#5a2f8f;}
   <b>Converted</b> 22-Sep-26
 </div></div>
 <div class="fidelity"><div class="wrap">
-  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed. <b>One exception, 30-Sep-26, approved by Richard:</b> the passages about the rating set now describe the Eight Master Ratings. Everything else is as converted.
 </div></div>
 <div class="wrap">
 
@@ -90,10 +90,10 @@ footer a{color:#5a2f8f;}
 <p>Two structural guarantees make the memo right-by-construction, so a simple brief ("write the {TICKER} Triaging A&amp;J memo to a very high standard") reliably yields a compliant memo:</p>
 <ol>
 <li>
-<p><strong>Start from the canonical skeleton.</strong> Copy <code>skeletons/TRIAGING-skeleton.md</code> (ESA/Deep-Dive skeletons follow the same shape with their added Sections). The skeleton already carries the exact required structure: Section A — Summary Snapshot (R3 fields only), Section B Executive Summary B.1–B.6 in full, the six Master-Rating headings, Section C Pillar I/II with blockquote summaries and inline <code>[A]</code>–<code>[F]</code> grade slots, Section D (Pillar III — note-only at Triaging), Section E, Section F, and a reminder to author the paired Go-No-Go Checks one-pager. Do not delete any heading; fill them in.</p>
+<p><strong>Start from the canonical skeleton.</strong> Copy <code>skeletons/TRIAGING-skeleton.md</code> (ESA/Deep-Dive skeletons follow the same shape with their added Sections). The skeleton already carries the exact required structure: Section A — Summary Snapshot (R3 fields only), Section B Executive Summary B.1–B.6 in full, the Master Rating headings (eight from 30-Sep-26: the four Bottom-up/Stock-driven ratings, then the four Top Down/Exogenously-driven readings pinned from the ratings store), Section C Pillar I/II with blockquote summaries and inline <code>[A]</code>–<code>[F]</code> grade slots, Section D (Pillar III — note-only at Triaging), Section E, Section F, and a reminder to author the paired Go-No-Go Checks one-pager. Do not delete any heading; fill them in.</p>
 </li>
 <li>
-<p><strong>The QC gate now enforces the structure.</strong> <code>generate_qc_audit.py</code> (run in Phase 4, per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6) HARD-fails — and blocks close-out — on a missing/non-canonical Section A heading, any missing B.1–B.6 subsection, fewer than six MR headings, any major Section lacking a <code>&gt;</code> blockquote summary, a banned <code>**JUDGEMENT SUMMARY</code> label, or an absent paired Go-No-Go file. A memo built on the old skeleton, or one that stops at B.3, cannot pass. Run the script in-loop until it returns exit 0 before declaring the memo done.</p>
+<p><strong>The QC gate now enforces the structure.</strong> <code>generate_qc_audit.py</code> (run in Phase 4, per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6) HARD-fails — and blocks close-out — on a missing/non-canonical Section A heading, any missing B.1–B.6 subsection, fewer than six Master Rating headings (the count becomes eight when the skeleton and this gate are updated to the Eight Master Ratings), any major Section lacking a <code>&gt;</code> blockquote summary, a banned <code>**JUDGEMENT SUMMARY</code> label, or an absent paired Go-No-Go file. A memo built on the old skeleton, or one that stops at B.3, cannot pass. Run the script in-loop until it returns exit 0 before declaring the memo done.</p>
 </li>
 </ol>
 <hr>
@@ -109,7 +109,7 @@ footer a{color:#5a2f8f;}
 <li><strong>Research Report coverage and identity check</strong> — are the required 4-report family reports for this stage present, fresh, and the right family? Read each family folder (<code>Files/{TICKER}/41-change-forces/</code>, <code>42-business-foundations/</code>, <code>43-leadership-foundations/</code>, <code>44-risks/</code>) and verify the content matches the claimed family (AlphaSense occasionally returns the wrong family). Stage minimums: Triaging = Change Forces; ESA = Change Forces + Business Foundation; Deep Dive = all four. If a required report is missing or fails identity, brief the Chief of Staff to generate it, front-of-queue (do not fall back to legacy reports for the subject stock). Full gate and the semantic Element→report map: <code>06-RESEARCH-SOURCE-MAP.md</code>.</li>
 <li><strong>Wisdom Library consult</strong> — query <code>wisdom-library/INDEX.json</code> for matching models by industry, sector, business-model, setup-archetype, risk profile. <strong>Load 10-30 models (floor 10, cap 30)</strong> [Richard 2026-07-22: raised from 5-10 — richer lesson context; models are ~200 words each so 10-30 = ~2-10k words, efficient].</li>
 <li><strong>Standing inputs hunt</strong> — current share price (TODAY, not stale), Richard's Notion notes on the stock, existing Excel model if any, recent catalysts (last 60 days), peer multiples.
-   - <strong>Live price is mandatory at every stage, including Triaging (D-IA-4RR-08).</strong> Load the current share price, the 52-week range, and the sell-side target range now; do not defer to Early-Stage Assessment. The recent share-price move feeds E1 RA2 (robust base / low multiple) and the Master Ratings (technical momentum, the entry-point read). A Triaging memo that omits the price grades the base too generously.
+   - <strong>Live price is mandatory at every stage, including Triaging (D-IA-4RR-08).</strong> Load the current share price, the 52-week range, and the sell-side target range now; do not defer to Early-Stage Assessment. The recent share-price move feeds E1 RA2 (robust base / low multiple) and the Master Ratings (Technical Momentum, the entry-point read). A Triaging memo that omits the price grades the base too generously.
    - <strong>Data source — canonical internal-ONLY (D-IA-4RR-17, updated 05-Jun-26; tightened to internal-only by Richard 28-Jul-26):</strong> read the local master-dashboard data files, and <strong>only</strong> those. Three files: <code>master-dashboard/data/prices.json</code> (price, 52-week range, MAs, RS percentile, technical signals), <code>master-dashboard/data/factset-valuation.json</code> (current P/E, P/E percentile vs 10Y, forward EPS), <code>master-dashboard/data/factset-ssem.json</code> (sell-side revision counts 1M–12M). All three are JSON keyed by full geographic ticker. <strong>There is NO web-fetch fallback.</strong> If a file is absent or stale, or the stock is not covered, declare the gap (<code>n/a — not in master-dashboard data</code>), mark dependent grades ungradeable with the reason, and flag the ticker for universe coverage. Never substitute an external source, never estimate, never carry a peer's figure across. Never use <code>filter-results.json</code> or pipeline intermediate files. Full detail, staleness thresholds, and memo-use map: <code>06-RESEARCH-SOURCE-MAP.md</code> section 4c.
    - <strong>Stock Notes case notes read — MANDATORY at Early-Stage Assessment and Deep Dive [D-AJ-30, 2026-07-03].</strong> Richard: "IA is to go to Stock Notes database in Notion and read all my notes, particularly ones tagged as 'case notes'; they should include my requested specific request questions and my general view on the investment case." Query the Stock Notes database (<code>collection://24e35e90-9b0b-80cd-a9de-000bda6b24c2</code>) filtered to this stock, and read every note. <strong>Tag-mapping note (unconfirmed, flag to Richard if it matters for a specific memo):</strong> the database schema as it exists today has no property literally named "case notes". The closest matches are the <code>Depth of note</code> option <strong>"RB investment case file"</strong> and the <code>Case component</code> property (which tags a note as Financial outputs / Inputs-change forces / Foundations / Key confusions / Key risks / Monitoring activities / Case ratings and judgements). Until Richard confirms which of these (or a differently-named tag not yet seen) is what he means by "case notes", read ALL notes for the stock rather than filtering — under-reading a signal from Richard is worse than over-reading. Give particular weight to any note carrying his own specific questions or his general view on the case; carry these into Phase 0.5's back-brief and, where they bear on a specific Element, into that Element's analysis. Not required at Triaging (Triaging is a light first pass; this full-notes read is reserved for ESA and Deep Dive where the depth justifies it).</li>
 <li><strong>Briefing dials</strong> — confirm the three calibration dials (RR-trust/scepticism, cohort integration, sector integration) with Richard as one lightweight line, defaults balanced/normal/normal. They set how hard to lean on the reports and how strongly to weight cohort and sector peers; the cohort/sector dials modulate the D-BATCH-25 injection below. Record the settings at the memo top. Detail: <code>06-RESEARCH-SOURCE-MAP.md</code> section 3.</li>
@@ -169,17 +169,21 @@ The same paragraph forbids the memo pipeline reusing the word "park" for a mecha
 <hr>
 <h2 id="step-1-section-b-executive-summary-page-level-bluf-third-pass">Step 1 — Section B Executive Summary (page-level BLUF) — third pass</h2>
 <p>Write the page-level Bottom Line Up Front at the top of Section B. Three to five judgement bullets immediately after the title. Each captures one element of the case. No data, no hedging, no padding.</p>
-<p>Master Ratings fold in here as part of the BLUF opening. The six Master Ratings get a short summary line each (first pass — light at Triaging) — e.g.:</p>
+<p>Master Ratings fold in here as part of the BLUF opening. The Eight Master Ratings get a short summary line each (first pass — light at Triaging) — e.g.:</p>
 <blockquote>
 <p>Master Ratings (first pass — light at Triaging):
-- Technical momentum: [grade] — [one-sentence rationale]
-- Sell-side earnings momentum: [grade] — [one-sentence rationale]
-- Thematic fit: [grade] — [one-sentence rationale]
-- Pillar I Case change elements: [grade] — [one-sentence rationale]
-- Pillar II Case building blocks: [grade] — [one-sentence rationale]
-- Pillar III Investment case components: not applicable at this stage</p>
+Bottom-up/Stock-driven, set by the Investment Analyst at this memo:
+- Thesis's Change Forces' Strength: [grade]: [one-sentence rationale]
+- Foundations' Robustness: [grade]: [one-sentence rationale]
+- Setups' Fit/Crispness: [grade]: [one-sentence rationale]
+- Case Riskiness (A = simple and low-risk): [grade]: [one-sentence rationale]
+Top Down/Exogenously-driven, shown in the new Element 5 of Building Block 4 as at the memo date, with the owner and as-at date shown:
+- Sell-side Momentum: [grade]: [the Investment Analyst's one-line comment on whether the reading fits the research]
+- Thematic Fit/Momentum: [grade]: [the Investment Analyst's one-line comment on whether the reading fits the research]
+- Technical Momentum: [grade]: [the Investment Analyst's one-line comment on whether the reading fits the research]
+- TSR/Valuation: [grade]: [the Investment Analyst's one-line comment on whether the reading fits the research]</p>
 </blockquote>
-<p>Master Ratings are loosely-derived qualitative summaries. They are informed by underlying ratings but the Investment Analyst retains discretion to weight and override.</p>
+<p>The Momentum Element leaves Building Block 2 (Foundations), where it was Element 3, and becomes a new Element 5 of Building Block 4 (the Case) (Richard, 30-Sep-26). That Element shows the four Top Down/Exogenously-driven ratings as at the memo date, each with the Investment Analyst's one-line comment on whether the reading fits the research. After it comes the Eight Master Ratings summary, which replaces the old six-rating Element, then the peer table on the eight. Nothing else moves: the Investment Thesis's "Sell-side upgrades" Rating Area (Building Block 1, Element 2), the analyst's forward view of upgrades, stays where it is. The four Bottom-up/Stock-driven ratings are loosely-derived qualitative summaries. They are informed by underlying ratings but the Investment Analyst retains discretion to weight and override. The four Top Down/Exogenously-driven ratings are set by script every night or week and reassessed weekly by the Assistant Portfolio Manager, overriding by exception; they are not hand-graded in the memo. Every rating shows its weight, owner and as-at date, and a missing one shows as missing.</p>
 <p><strong>Section B target length at Triaging:</strong> ~700 words minimum.</p>
 <h2 id="step-2-section-c1-pillar-i-body-e1-required-input-change-forces-first-pass-2-double-weight">Step 2 — Section C.1 Pillar I body (E1 Required input change forces — FIRST PASS, ×2 double-weight)</h2>
 <p>Open Section C, sub-section 1 (Pillar I body). E1 is the only Pillar I Element in scope at Triaging.</p>
@@ -298,7 +302,7 @@ full reasoning: <code>projects/SA - IA A&amp;J Memo Batching Automation/SESSION-
 <p>Sources, process notes. Excluded from word-count targets. ~400 words. Section F also carries a one-line pointer to the §7 Quality Control Audit, which lives in the self-review debrief file (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6).</p>
 <h2 id="triaging-memo-completion-checklist">Triaging memo completion checklist</h2>
 <ul>
-<li>Section B BLUF written with six Master Ratings folded in (light)</li>
+<li>Section B BLUF written with the Eight Master Ratings folded in (light)</li>
 <li>Section C.1 — E1 written at 6-bullet floor (×2 double-weight)</li>
 <li>Section C.2 — E5, E7, E8, E11 written per their floors (E5 and E7 at ×2 double-weight; E8 at 3-bullet carve-out floor)</li>
 <li>All other Elements explicitly noted as "not applicable at this stage"</li>
@@ -483,7 +487,7 @@ full reasoning: <code>projects/SA - IA A&amp;J Memo Batching Automation/SESSION-
 <p>Update with new sources and process notes from the Early-Stage Assessment work. Section F carries a one-line pointer to the §7 Quality Control Audit in the self-review debrief file (per <code>05-IA-EXECUTION-DISCIPLINE.md</code> §6).</p>
 <h2 id="early-stage-assessment-memo-completion-checklist">Early-Stage Assessment memo completion checklist</h2>
 <ul>
-<li>Section B BLUF re-written at second pass — solid; Master Ratings at second pass — solid (Pillar III rating now appears)</li>
+<li>Section B BLUF re-written at second pass — solid; Master Ratings at second pass — solid (until 30-Sep-26 the Pillar III rating first appeared here)</li>
 <li>Section C.1 — E1 deepened at second pass — solid; E2 and E3 first-written</li>
 <li>Section C.2 — E4 second pass — solid; E5 third pass; E7 second pass — solid; E8 carve-out (1-2 fit setups deepened); E9 first pass; E10 first pass with carve-out; E11 first pass at solid; E12 first pass with RA1 ×4 multiplier; E13 first pass; E18 + E19 first pass — light; E20 first pass</li>
 <li>Section D first appears with D.I, D.II (including 10 Invalidation thresholds verbatim), D.III (7-column tables for upstream and downstream)</li>

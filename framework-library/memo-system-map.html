@@ -57,7 +57,7 @@ footer a{color:#5a2f8f;}
 <header class="prov"><div class="wrap">
   <div class="crumb"><a href="index.html">Investment System Library</a> &nbsp;&rsaquo;&nbsp; The Investment Case Framework</div>
   <h1 class="doc">Memo System Map</h1>
-  <p class="desc">How the framework becomes a written memo: the three pillars, the six top-of-memo ratings, how deep each stage goes, and the memo&#x27;s section structure.</p>
+  <p class="desc">How the framework becomes a written memo: the three pillars, the Eight Master Ratings, how deep each stage goes, and the memo&#x27;s section structure.</p>
 </div></header>
 <div class="metabar"><div class="wrap">
   <b>Source file</b> <code>memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md</code> &nbsp;&middot;&nbsp;
@@ -65,7 +65,7 @@ footer a{color:#5a2f8f;}
   <b>Converted</b> 22-Sep-26
 </div></div>
 <div class="fidelity"><div class="wrap">
-  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed. <b>One exception, 30-Sep-26, approved by Richard:</b> the passages about the rating set now describe the Eight Master Ratings. Everything else is as converted.
 </div></div>
 <div class="wrap">
 
@@ -130,7 +130,7 @@ footer a{color:#5a2f8f;}
 <p>The Investment Analyst is the role Watson activates whenever the task is stock-specific Analysis and Judgement work:</p>
 <ul>
 <li>Authoring or revising an Analysis-and-Judgement memo at the Triaging, Early-Stage Assessment, or Deep Dive stages of the funnel</li>
-<li>Producing or revising Master Ratings (the six top-of-memo summary ratings) for a stock</li>
+<li>Producing or revising the Eight Master Ratings summary for a stock (the Investment Analyst sets the four Bottom-up/Stock-driven ratings; the four Top Down/Exogenously-driven readings are pinned from the ratings store)</li>
 <li>Producing or revising Pillar / Group / Element ratings within a memo</li>
 <li>Building or stress-testing an investment case (Pillar I Case Change Elements + Pillar II Case Building Blocks + Pillar III Investment Case Components)</li>
 <li>Peer / cohort comparison work at the stock level</li>
@@ -215,51 +215,73 @@ footer a{color:#5a2f8f;}
 </ul>
 <p>The full per-driver 7-column tabular spec and tree diagram live in STREAM-A V2 §7; the memo rendering format is <code>04-PRESENTING-SOP.md</code> (driver tables).</p>
 <hr>
-<h2 id="the-six-master-ratings">The six Master Ratings</h2>
-<p>At the top of every memo from Triaging onwards, six Master Ratings give the full-case picture at the current level of confidence. They fold into the Section B Executive Summary opening (the BLUF).</p>
+<h2 id="the-eight-master-ratings">The Eight Master Ratings</h2>
+<p>At the top of every memo from Triaging onwards, the Eight Master Ratings give the full-case picture at the current level of confidence. They fold into the Section B Executive Summary opening (the Bottom Line Up Front).</p>
+<p>The Momentum Element leaves Building Block 2 (Foundations), where it was Element 3, and becomes a new Element 5 of Building Block 4 (the Case) (Richard, 30-Sep-26). That Element shows the four Top Down/Exogenously-driven ratings as at the memo date, each with the Investment Analyst's one-line comment on whether the reading fits the research. After it comes the Eight Master Ratings summary, which replaces the old six-rating Element, then the peer table on the eight. Nothing else moves: the Investment Thesis's "Sell-side upgrades" Rating Area (Building Block 1, Element 2), the analyst's forward view of upgrades, stays where it is.</p>
+<p>Of the eight, four are <strong>Bottom-up/Stock-driven</strong>, set by the Investment Analyst when the memo is written. Four are <strong>Top Down/Exogenously-driven</strong>: a script sets them every night or week, and the Assistant Portfolio Manager reassesses them weekly, overriding by exception. The four Bottom-up/Stock-driven ratings weigh 1.75, 1.00, 1.75 and 1.75; the four Top Down/Exogenously-driven ratings weigh equally; the blend is the Assistant Portfolio Manager's weekly tilt. Every rating shows its weight, its owner and its as-at date. A rating is never invented: a missing one shows as missing, and one mapped from an old memo is marked "mapped from the old memo, not re-judged".</p>
 <table>
 <thead>
 <tr>
 <th>#</th>
 <th>Master Rating</th>
-<th>What it summarises</th>
+<th>Family, weight and owner</th>
+<th>What it points at</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td>Technical momentum</td>
-<td>Needed for profitable risk-and-reward. <strong>Scope [D-AJ-28, 2026-07-03]: share-price technicals only — moving-average position, RS percentile, momentum signal. NOT sell-side price targets, DCF-derived fair value, broker coverage, or consensus TP (that content belongs to MR2 or the Valuation Context in Section A). The Hexatronic and NKT ESA memos both filled this rating with broker-target commentary and zero price-action content — a confirmed 2+ pattern, fixed in the authoring skeletons (<code>aj-memo/skeletons/*.md</code>) as of this date.</strong> <strong>Grade source [locked 09-Jul-26, Richard]: the MR1 Technical Momentum grade = the stock's Timeliness rating (Richard's canonical source is the Master Dashboard #combos / timeliness view, <code>https://vfhqi.github.io/master/#combos</code>), the same value shown in the Ratings Dashboard's Technical-momentum column and stored as <code>p1_technical_momentum</code> in <code>ratings-snapshot.json</code>. Every stock should carry one; where the pipeline has no timeliness value the dashboard shows "ERROR" (a flag for Richard to investigate, not a real grade). Data-pinned, not analyst discretion — same treatment as MR2 SSEM.</strong></td>
+<td>Thesis's Change Forces' Strength</td>
+<td>Bottom-up/Stock-driven, weight 1.75. Set by the Investment Analyst at the memo.</td>
+<td>The Investment Analyst's stated judgement over Building Block 1's Change Forces and Financial Outputs Elements (the Modal return is left out because TSR/Valuation carries it; default, pending Richard). Building Block 1's own rating is unchanged.</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Sell-side earnings momentum</td>
-<td>Needed for a Stage-2 technical-momentum stock to "keep going". <strong>Grade source [locked 09-Jul-26, Richard]: the MR2 (and E6) Sell-Side Earnings Momentum grade must equal the Master Dashboard's SSEM grade for the stock — the bell-curve percentile grade (A=top decile, B=next 15%, C=next 25%, D=next 25%, F=bottom quartile) computed from the FactSet revision data, the same value shown in the Ratings Dashboard's "SS earnings" column and stored as <code>p5_ssem</code> in <code>ratings-snapshot.json</code>. It is NOT a free analyst judgement and NOT a hand-graded read of the raw momentum score: source it from the dashboard. Canonical implementations: <code>ssemAssignRatings</code> / <code>ssemDimScore</code> in <code>master-dashboard/index.html</code>, and the faithful Python port <code>build_ssem_index_bellcurve()</code> in <code>databases/scripts/build-ratings-snapshot.py</code>. Root cause 09-Jul-26: an earlier absolute-threshold hand-grade disagreed with the dashboard on ~two-thirds of the universe (BT was graded C in-memo vs the dashboard's correct D). The "loosely-derived / analyst-discretion" note below does NOT apply to this pillar — MR2's SSEM grade is data-pinned.</strong></td>
+<td>Foundations' Robustness</td>
+<td>Bottom-up/Stock-driven, weight 1.00. Set by the Investment Analyst at the memo.</td>
+<td>The Building Block 2 rating (Value chain and industry, and Business Elements, now that the Momentum Element has left).</td>
 </tr>
 <tr>
 <td>3</td>
-<td>Thematic fit</td>
-<td>Right thematics = stock picking easy</td>
+<td>Setups' Fit/Crispness</td>
+<td>Bottom-up/Stock-driven, weight 1.75. Set by the Investment Analyst at the memo.</td>
+<td>The Building Block 3 rating.</td>
 </tr>
 <tr>
 <td>4</td>
-<td>Pillar I — Case change elements</td>
-<td>Big Change Case</td>
+<td>Case Riskiness (A = simple and low-risk)</td>
+<td>Bottom-up/Stock-driven, weight 1.75. Set by the Investment Analyst at the memo.</td>
+<td>Building Block 4's Riskiness and Simplicity Elements.</td>
 </tr>
 <tr>
 <td>5</td>
-<td>Pillar II — Case building blocks</td>
-<td>Building Blocks (bankability)</td>
+<td>Sell-side Momentum</td>
+<td>Top Down/Exogenously-driven, equal weight. Set by script, re-read nightly; reassessed weekly by the Assistant Portfolio Manager.</td>
+<td>Earnings momentum, in the new Element 5 of Building Block 4 (as at the memo date); the Investment Thesis's "Sell-side upgrades" rating (Building Block 1, Element 2) is shown beside it as a reference (default, pending Richard). <strong>Data-pinned, not hand-graded [locked 09-Jul-26, Richard]:</strong> the bell-curve percentile grade (A = top decile, B = next 15%, C = next 25%, D = next 25%, F = bottom quartile) computed from the FactSet revision data, the same value the Ratings Dashboard shows in its sell-side earnings column.</td>
 </tr>
 <tr>
 <td>6</td>
-<td>Pillar III — Investment case components</td>
-<td>In-flight playbook + monitoring plan</td>
+<td>Thematic Fit/Momentum</td>
+<td>Top Down/Exogenously-driven, equal weight. Set by script and reassessed weekly by the Assistant Portfolio Manager.</td>
+<td>Thematic momentum, in the new Element 5 of Building Block 4 (as at the memo date), with the memo's thematic tailwind and external forces. Right thematics make stock picking easy.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Technical Momentum</td>
+<td>Top Down/Exogenously-driven, equal weight. Set by script, re-read nightly; reassessed weekly by the Assistant Portfolio Manager.</td>
+<td>Technical momentum, in the new Element 5 of Building Block 4 (as at the memo date). <strong>Scope [D-AJ-28, 2026-07-03]:</strong> share-price technicals only (moving-average position, relative-strength percentile, momentum signal), never sell-side price targets, DCF-derived fair value, broker coverage or consensus target price. <strong>Grade source [locked 09-Jul-26, Richard]:</strong> the stock's Timeliness rating on the Master Dashboard (<code style="word-break:break-all">https://vfhqi.github.io/master/#combos</code>); where the pipeline has no value the dashboard shows "ERROR", a flag to investigate, not a grade.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>TSR/Valuation</td>
+<td>Top Down/Exogenously-driven, equal weight. Set by script, re-based nightly; reassessed weekly by the Assistant Portfolio Manager.</td>
+<td>The new Element 5 of Building Block 4 (as at the memo date): the Modal return (Building Block 1, Element 3) re-based nightly to today's price, else the valuation reading.</td>
 </tr>
 </tbody>
 </table>
-<p>Master Ratings are <strong>loosely-derived qualitative summaries</strong> — informed by the underlying topic ratings but not programmatically derived. The Investment Analyst retains discretion to weight and override. <strong>Exception [09-Jul-26]: MR2 Sell-Side Earnings Momentum is data-pinned to the Master Dashboard bell-curve SSEM value (see the MR2 row above), not discretionary — the other five Master Ratings remain analyst-weighted.</strong></p>
-<p><strong>Terminology equivalence, locked 09-Jul-26 (Richard, verbatim: "MR3 Thematic fit = market paradigm fit. They are equivalent."):</strong> MR3 "Thematic fit" above is the same underlying concept as <strong>Pillar II — Market Paradigm Fit</strong> in Richard's personal Six Pillars of a Target Investment Case framework (<code>memory/context/investing-system.md</code>, Investment Strategy section — Pillar II, Thematic/Qualitative, APM judgement) and the same field as the Ratings Dashboard's <code>p2_market_paradigm_fit</code> column. The two names are additive, not competing: "Thematic fit" is the memo-internal Master Rating label (MR-numbering, 1-6, ordered by where it sits in the memo), "Market Paradigm Fit" is Richard's personal-framework label for the same content (Roman-numeral Pillar ordering, I-VI, which maps 1:1 to the dashboard's p1-p6 columns). This is an <strong>equivalence/glossary note, not a rename</strong> — existing memo headings keep saying "Thematic fit" (MR3); do not batch-rename ~40+ published memo files on the strength of this note alone. The dashboard's <code>p2_market_paradigm_fit</code> field is sourced from MR3 wherever the primary IC-rating join is null (see <code>databases/scripts/build-ratings-snapshot.py</code>, MRFB patch, 09-Jul-26).</p>
+<p>The Building Block numbers above are those of the per-stock investment framework. Ratings 5 to 8 are read from Element 5 of Building Block 4 as at the memo date, then re-read by script every night and reassessed weekly by the Assistant Portfolio Manager. Until 30-Sep-26 the memo carried six Master Ratings instead (Technical momentum, Sell-side earnings momentum, Thematic fit, then one each for Pillar I, Pillar II and Pillar III); the eight replace them.</p>
+<p>The four Bottom-up/Stock-driven ratings are judgements by the Investment Analyst, informed by the underlying Element ratings and not derived by formula. The four Top Down/Exogenously-driven ratings are observations, pinned from the ratings store by script and not hand-graded in the memo; the Investment Analyst comments on whether each pin fits.</p>
+<p><strong>Terminology equivalence, locked 09-Jul-26 (Richard, verbatim: "MR3 Thematic fit = market paradigm fit. They are equivalent."):</strong> the old Master Rating 3, "Thematic fit", is the same underlying concept as <strong>Pillar II, Market Paradigm Fit</strong> in Richard's personal Six Pillars of a Target Investment Case framework (<code>memory/context/investing-system.md</code>, Investment Strategy section), and the same field as the Ratings Dashboard's <code>p2_market_paradigm_fit</code> column. Master Rating 6, Thematic Fit/Momentum, carries that concept forward. This is an <strong>equivalence/glossary note, not a rename</strong>: existing memo headings keep saying "Thematic fit" and the ratings store keeps its <code>p1</code> to <code>p6</code> fields for the retired six; do not batch-rename published memo files on the strength of this note alone.</p>
 <hr>
 <h2 id="the-memo-document-spine">The memo document spine</h2>
 <p>The memo is structured A through F. Section A and Section F are excluded from word-count targets.</p>
@@ -280,7 +302,7 @@ footer a{color:#5a2f8f;}
 <tr>
 <td><strong>B</strong></td>
 <td>Investment case — Executive summary</td>
-<td>Bottom Line Up Front. The six Master Ratings live here at the top of the BLUF. Three layers: page-level (3-5 bullets after the title), section-level (1-2 sentences at the top of each major section), section-closing (one-sentence summary at the bottom of each major section).</td>
+<td>Bottom Line Up Front. The Eight Master Ratings live here at the top of the BLUF. Three layers: page-level (3-5 bullets after the title), section-level (1-2 sentences at the top of each major section), section-closing (one-sentence summary at the bottom of each major section).</td>
 </tr>
 <tr>
 <td><strong>C</strong></td>
@@ -354,7 +376,7 @@ footer a{color:#5a2f8f;}
 <td>(continues)</td>
 </tr>
 <tr>
-<td>Master ratings (the 6 ratings)</td>
+<td>Master ratings (the Eight Master Ratings; six before 30-Sep-26)</td>
 <td>No</td>
 <td>No</td>
 <td>First pass — light</td>
