@@ -1,0 +1,487 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remaining Work Map</title><style>
+:root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5b55;--line:#dedbd2;--card:#fff;--accent:#2f5d8a;--head:#f1efe8}
+@media (prefers-color-scheme: dark){:root{--bg:#161615;--fg:#ecebe6;--muted:#a9a69c;--line:#3a3935;--card:#1f1f1d;--accent:#8db4dd;--head:#262624}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:1.6rem;line-height:1.25;margin:0 0 8px}h2{font-size:1.2rem;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+p,li{max-width:80ch}em{color:var(--muted)}strong{font-weight:650}code{font-size:.85em;background:var(--head);padding:1px 4px;border-radius:4px;word-break:break-all}
+.tw{overflow-x:auto;margin:10px 0 18px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{background:var(--head);font-weight:650}tr:last-child td{border-bottom:none}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem}
+</style></head><body><main><h1>The Remaining Work Map: implementing the adapted Investment System (2-Oct-2026)</h1>
+<p><em>Assistant Portfolio Manager, Remaining Work Overview window, Richie login. Built after re-reading every message of Richard's in the APM - Stage 2 Gate-4 Backtest project (every file of his words, read in full, and his turns in the project transcript). Section 8 lists his requests checked one by one. Updated by the windows that do the work; this file is the one place the restart prompts point to.</em></p>
+<h2>1. The judgement</h2>
+<ul>
+<li><strong>The design of the Uptrend system is signed off. The system is not yet running.</strong><ul>
+<li>Live: the Pool (monthly); the six Sell Criteria read every weekday evening</li>
+<li>Being built today: the weekly Pool; the APM PMS Q&amp;A SOP version 3.3</li>
+<li>Not yet built: how the Lists are made from the Pool (signed today, due Friday 9-Oct)</li>
+</ul>
+</li>
+<li><strong>This month, the limit on returns is getting invested, not more analysis.</strong> The binding constraints:<ul>
+<li>memos on Pool stocks near the top of the Lists</li>
+<li>your entry decisions</li>
+<li>the swaps out of the old holdings</li>
+</ul>
+</li>
+<li><strong>What remains falls into three groups:</strong><ul>
+<li>build and run the Uptrend system (October)</li>
+<li>design the Turning/Inflecting part (week of 12-Oct) and the Topping and Downtrend frameworks (week of 26-Oct)</li>
+<li>measure and check it (November onward)</li>
+</ul>
+</li>
+</ul>
+<h2>2. The system map: what is signed, built and live, and what remains</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Part of the system (your words)</th>
+<th>Signed</th>
+<th>Built</th>
+<th>Live</th>
+<th>What remains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exclude:</strong> the Pool of Stocks Eligible for Middle Innings Portfolio Selection</td>
+<td>Yes (28 and 29-Sep; weekly reading added 2-Oct)</td>
+<td>Monthly yes; weekly being built today</td>
+<td>Monthly, October Pool of 173 stocks</td>
+<td>The weekly Pool with three Fridays in a row to enter or leave (separate window, today); the Pool's size shown as a reading of market conditions</td>
+</tr>
+<tr>
+<td><strong>Stack-rank:</strong> how the Lists are made from the Pool</td>
+<td>Yes (2-Oct)</td>
+<td>No</td>
+<td>Tonight's Lists are made from the Pool on the old ranking</td>
+<td>The eight build steps (section 6); live from the Friday 9-Oct run after a side-by-side trial</td>
+</tr>
+<tr>
+<td><strong>Buy:</strong> a memo before every first tranche, memos commissioned down the Lists</td>
+<td>Yes (30-Sep and 2-Oct)</td>
+<td>Yes (the Memo Commissioning Autoloop SOP; Pool stocks only)</td>
+<td>Yes</td>
+<td>Enough memos on the right stocks: checked each week against the 'Fully Invested Portfolio' Key Result</td>
+</tr>
+<tr>
+<td><strong>Exit:</strong> the six Sell Criteria for Core Investments (Framework 14)</td>
+<td>Yes (30-Sep; analyst check dropped)</td>
+<td>Yes (reader, record of every signal, Daily Digest items)</td>
+<td>Read daily; acted on from Tuesday 6-Oct</td>
+<td>The old holdings: sold only as swaps (one-off link); the tranche combinations; Helios Towers' first tranche date (the session that runs the APM PMS Q&amp;A SOP)</td>
+</tr>
+<tr>
+<td><strong>Add:</strong> add tranches while no Sell Criterion fires (your judgement; up to 4 tranches of 1.67% of capital)</td>
+<td>Yes (1-Oct)</td>
+<td>In the APM PMS Q&amp;A SOP</td>
+<td>From 6-Oct</td>
+<td>Unmeasured, by your choice ("I don't want a back test")</td>
+</tr>
+<tr>
+<td><strong>Trim</strong></td>
+<td>Your discretion (2-Oct)</td>
+<td>Not applicable</td>
+<td>Not applicable</td>
+<td>Nothing: an open discretionary choice for you</td>
+</tr>
+<tr>
+<td><strong>The weekly session:</strong> the APM PMS Q&amp;A SOP</td>
+<td>Version 3.2 and test 2 signed; version 3.3 designed and answered</td>
+<td>Version 3.3 being built (window open)</td>
+<td>First live run Tuesday 6-Oct</td>
+<td>Each piece of version 3.3 goes live only when verified on its own (your 2-Oct answer); anything not verified by Monday 18:00 stays on version 3.2</td>
+</tr>
+<tr>
+<td><strong>Portfolio construction:</strong> about 20 stocks; about two-thirds Core Investments, about one-third Early Innings Probing Bets; industries and sectors roughly like the Stoxx Europe 600, subject to the Portfolio Fitness for Fighting tilts</td>
+<td>Yes as targets (30-Sep)</td>
+<td>Partly: the 30% industry cap on capital deployed; "portfolio fit" in the Lists' judgement</td>
+<td>Partly</td>
+<td>No rule yet compares the book's industry and sector mix with the Stoxx Europe 600 (section 4); the industry, sector and geography page belongs in the weekly Portfolio Fitness for Fighting work (handed to the Ideas project)</td>
+</tr>
+<tr>
+<td><strong>Early Innings Probing Bets:</strong> the Turning/Inflecting Pool process</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>The six Target Setup Profiles, the Pool of Stocks Eligible for Turning/Inflecting Portfolio Selection, entry, size (up to 2 tranches) and exit rules: signed off in the week of 12-Oct; purchases in November</td>
+</tr>
+<tr>
+<td><strong>Other Market Cycle Phases:</strong> Topping and Downtrend</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>For each Market Cycle Phase, your order: the Filter Criteria, then the Sell Criteria, then the List compilation; completed in the week of 26-Oct</td>
+</tr>
+<tr>
+<td><strong>The tracking:</strong> does each layer add value</td>
+<td>The monthly Ideas Bench against random Pool picks: yes (2-Oct)</td>
+<td>No</td>
+<td>No</td>
+<td>Build that comparison with the Lists (first report to you at three months); the wider monthly tracking stays a low-priority Proposed Deliverable (your 1-Oct words)</td>
+</tr>
+<tr>
+<td><strong>The checks:</strong> does the evidence hold</td>
+<td>Agreed (28 and 30-Sep)</td>
+<td>2001 to 2004 done</td>
+<td>Not applicable</td>
+<td>The checks Formation Day (dates other than month-ends), the 91 missing companies, failed companies, the Stoxx Europe 600, Framework 14's neighbouring thresholds; plus the weekly Pool against month-end (beside the build)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>3. The dated critical path</h2>
+<p><strong>This week and next (detailed):</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>When</th>
+<th>What</th>
+<th>Who</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fri 2-Oct, today</td>
+<td>The weekly Pool built and switched in (live tonight if proven before the Lists run, otherwise from the next run)</td>
+<td>Weekly Pool window</td>
+</tr>
+<tr>
+<td>Fri 2-Oct, about 18:30</td>
+<td>The weekly ideas run: Lists made from the Pool, old ranking</td>
+<td>Unattended run</td>
+</tr>
+<tr>
+<td>Sat 3-Oct</td>
+<td>The Saturday install is turned off: nothing installs</td>
+<td>Done</td>
+</tr>
+<tr>
+<td>Mon 5-Oct, 18:00</td>
+<td>Version 3.3 of the APM PMS Q&amp;A SOP: each verified piece live; the rest stays on version 3.2</td>
+<td>The APM PMS Q&amp;A SOP build window</td>
+</tr>
+<tr>
+<td>Mon 5-Oct, 23:00</td>
+<td>The Tuesday data pack built</td>
+<td>Windows job</td>
+</tr>
+<tr>
+<td><strong>Tue 6-Oct</strong></td>
+<td><strong>The first live APM PMS Q&amp;A SOP:</strong> the order sheet; the swaps; the first entry decisions on Pool stocks that have a memo</td>
+<td>You and the Assistant Portfolio Manager</td>
+</tr>
+<tr>
+<td>Tue 6 to Thu 8-Oct</td>
+<td>The Lists build finished; the side-by-side trial shown to you</td>
+<td>Lists build window</td>
+</tr>
+<tr>
+<td><strong>Fri 9-Oct</strong></td>
+<td><strong>The new Lists live</strong> (the Technical Momentum Rating system-wide; the Lists' weights; the "average, to fill the gap" and "would be sold if bought" marks); <strong>'First Entry Decisions': 2 to 3 decided</strong></td>
+<td>Lists build window; you</td>
+</tr>
+<tr>
+<td>Week of 12-Oct</td>
+<td><strong>'Turning/Inflecting Pool Signed'; 'Two More Entries'</strong>; Tuesday 13-Oct session; the memo-delivery check</td>
+<td>Turning/Inflecting window; you</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The rest of October (outline):</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>When</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Week of 19-Oct</td>
+<td>Your holiday. How the Tuesday 20-Oct session is handled is open (section 4)</td>
+</tr>
+<tr>
+<td>Week of 26-Oct</td>
+<td><strong>'Down-Market Frameworks Done':</strong> the Topping and Downtrend frameworks completed; Tuesday 27-Oct session</td>
+</tr>
+<tr>
+<td>Sat 31-Oct</td>
+<td>The October Key Results checked: 8 to 10 Core Investments; the 'Down-Market Plans' Key Result, 2 of 2; the 'Weekly APM PMS Q&amp;A' Key Result, 4 of 4 (in conflict with the holiday); the 'Everything Autolooped' Key Result, 100%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>November and December (blocks):</strong></p>
+<ul>
+<li><strong>November:</strong><ul>
+<li>12 to 15 Core Investments by 30-Nov</li>
+<li>2 to 3 Probing Bets bought</li>
+<li>the 'Down-Market Lists Ready' and 'Down-Market Road-Test' placeholders by 30-Nov</li>
+<li>the PMS Per-stock Dashboard and the Position Management System page without profit and loss (designed last, after the 'Fully Invested Portfolio' work)</li>
+<li>the checks</li>
+</ul>
+</li>
+<li><strong>December:</strong> the framework proven by eight weeks of consistent running (running by 3-Nov at the latest); the first three-month Ideas Bench report in early January</li>
+</ul>
+<h2>4. The decisions that are yours (strategic only; none needed today)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>When it is needed</th>
+<th>My default if you say nothing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How the Tuesday 20-Oct session runs while you are on holiday, and what that means for the 4-of-4 target</td>
+<td>Before Fri 16-Oct</td>
+<td>Raised again in the week of 12-Oct; not solved now, by your instruction</td>
+</tr>
+<tr>
+<td>How the Turning/Inflecting Pool process is built (the six Target Setup Profiles are yours to set)</td>
+<td>When its window opens, about Wed 7-Oct</td>
+<td>Not solved now, by your instruction; that window backbriefs you</td>
+</tr>
+<tr>
+<td>Whether the 30% industry cap and the "portfolio fit" judgement in the Lists are enough for now, against your target of an industry and sector mix roughly like the Stoxx Europe 600</td>
+<td>Before November</td>
+<td>Enough for October; revisit with the Portfolio Fitness for Fighting work</td>
+</tr>
+<tr>
+<td>The short names in the OKRs: 'First Entry Decisions', 'Turning/Inflecting Pool Signed', 'Two More Entries', 'Down-Market Frameworks Done'</td>
+<td>Any time</td>
+<td>Used as proposed until you change them</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>Your own work outside this project that the Lists depend on:</em></p>
+<ul>
+<li>your review of the Investment Analyst's judgement on total shareholder return (TSR) (your words of 1-Oct: "I will do that separately")</li>
+<li>the bottom-up grades not yet spread on the A to F curve</li>
+</ul>
+<h2>5. Risks, what is untested, and how each is measured going forward</h2>
+<ul>
+<li><strong>Memo supply</strong> is the main risk to the 'Fully Invested Portfolio' Key Result. <em>Measured weekly:</em> memos delivered on Pool stocks in the Lists' top 40. The plan's fallback: if by 13-Oct too few memos have arrived, I tell you and propose a first tranche on Pool membership, List position and your read, with the memo before tranche 2.</li>
+<li><strong>Three changes land in one week</strong> (the weekly Pool, the APM PMS Q&amp;A SOP version 3.3, the new Lists), and all three touch shared scripts.<ul>
+<li><em>Controls:</em> each build window verifies before switching; never a half-built script; the Lists build switches its readers only after the weekly Pool window has switched its own.</li>
+</ul>
+</li>
+<li><strong>Untested by choice, measured going forward:</strong><ul>
+<li>the Lists' ranking (monthly Ideas Bench against random Pool picks)</li>
+<li>the Technical Momentum Rating's ladder</li>
+<li>the weekly Pool with three Fridays in a row (the history check alongside the build)</li>
+<li>the add rule, the 30% industry cap, the 30% fall read per tranche (unmeasured; your choice)</li>
+</ul>
+</li>
+<li><strong>Known weak spots:</strong><ul>
+<li>the Stock RS L12M Composite's blind spot when a stock's recent fall is masked by an earlier rise (AIXTRON, Verbio)</li>
+<li>Thematic Fit/Momentum bunched on C until the first live week's review</li>
+<li>Technical Momentum B broad inside the Pool</li>
+</ul>
+</li>
+<li><strong>A change of Market Cycle Phase in October</strong> has a stated default but no tested rule. The Topping and Downtrend frameworks close this in the week of 26-Oct.</li>
+<li><strong>The Pool is 173 stocks</strong>, above the 150 you called "too many" on 25-Sep. Your 28-Sep rule stands: the Pool's size never changes the entry criteria without a discussion with you. Shown as information.</li>
+</ul>
+<h2>6. The window plan</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Status</th>
+<th>Its job</th>
+<th>Restart prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The APM PMS Q&amp;A SOP version 3.3 build</td>
+<td>Open (Richie)</td>
+<td>Build by Monday; the 18:00 fallback</td>
+<td><code>handoffs/handoff-2026-10-02-1320-...md</code></td>
+</tr>
+<tr>
+<td>The weekly Pool build</td>
+<td>Prompt given, to open today</td>
+<td>The weekly Pool live today; every reader switched; the history check beside it</td>
+<td><code>handoffs/handoff-2026-10-02-1400-RESTART-PROMPT-build-the-weekly-pool-today.md</code></td>
+</tr>
+<tr>
+<td>The Lists build</td>
+<td>Prompt ready (updated today)</td>
+<td>The eight steps of the signed statement, plus the weekly run's new instructions (the themes register), reconciled; the trial; live 9-Oct</td>
+<td><code>handoffs/handoff-2026-10-02-1235-lists-review-window-closed-RESTART-build-the-signed-lists-procedure.md</code></td>
+</tr>
+<tr>
+<td>The Daily Standup</td>
+<td>Its own project and window</td>
+<td>The morning routine in Autoloop form ('Everything Autolooped' Key Result)</td>
+<td>In <code>projects/Regular Team Interaction Routines/</code></td>
+</tr>
+<tr>
+<td>The Turning/Inflecting Pool process</td>
+<td>To open about Wed 7-Oct</td>
+<td>Backbrief you, then design and sign off by 16-Oct</td>
+<td>Written when you ask</td>
+</tr>
+<tr>
+<td>The Topping and Downtrend frameworks</td>
+<td>To open about the week of 12-Oct</td>
+<td>Research and draft before your holiday ends; sign-off in the week of 26-Oct</td>
+<td>Written when you ask</td>
+</tr>
+<tr>
+<td>Later</td>
+<td>November</td>
+<td>The PMS Per-stock Dashboard; the Bench-against-random comparison; the checks</td>
+<td>To be written</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The steps of the Lists build:</strong></p>
+<ol>
+<li>Rebase the counts on the October Pool, then the weekly Pool</li>
+<li>The Technical Momentum Rating, one definition read everywhere</li>
+<li>The Lists' scoring and presentation</li>
+<li>Thematic Fit/Momentum and its review by exception</li>
+<li>The written instructions pointing to the signed statement (one rule, one place)</li>
+<li>The two open checks:<ul>
+<li>the 365-day memo rule</li>
+<li>the price-to-earnings ratio against its own ten-year range as TSR/Valuation for stocks with no memo</li>
+</ul>
+</li>
+<li>The monthly Ideas Bench against random Pool picks</li>
+<li>The side-by-side trial</li>
+</ol>
+<h2>7. What I need from you</h2>
+<ul>
+<li><strong>Today:</strong> open the weekly Pool build window (prompt above), and the Lists build window when you choose</li>
+<li><strong>Tuesday 6-Oct:</strong> your entry decisions at the APM PMS Q&amp;A SOP</li>
+<li><strong>Nothing else is owed by you this week.</strong> The four items in section 4 are flagged early, not asked</li>
+</ul>
+<h2>8. Your requests and thoughts, checked against the system (from the full re-read)</h2>
+<p><em>Every request or idea of yours found in the project's records, with where it stands. "Done" means built or answered; "open" means it is in the map above; "parked" means you said not now.</em></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Your request or thought (date, message)</th>
+<th>Where it stands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exclude duds into a Pool, then stack-rank, then add, trim and exit indicators (every brief)</td>
+<td>The system above</td>
+</tr>
+<tr>
+<td>Market Cycle Phases front and centre; a system for each, Uptrend and Downtrend first (26-Sep)</td>
+<td>Uptrend done; Topping and Downtrend in the week of 26-Oct; Bottoming: your judgement for now (your 26-Sep words)</td>
+</tr>
+<tr>
+<td>Test against the Stoxx Europe 600 as well as the typical stock (28-Sep)</td>
+<td>Open, in the checks</td>
+</tr>
+<tr>
+<td>Formation Day check; the 91 missing companies; failed companies (25 and 28-Sep)</td>
+<td>Open, in the checks</td>
+</tr>
+<tr>
+<td>Monthly cross-checks: recommended 20 against random Pool draws; your live book against the recommended 20; sized against equal-weighted (25-Sep)</td>
+<td>Bench-against-random signed (2-Oct); the rest a low-priority Proposed Deliverable (your 1-Oct words)</td>
+</tr>
+<tr>
+<td>Sector Clocks and market breadth as readings of the market (25 and 26-Sep)</td>
+<td>Tested in the Market Cycle Phase work (agreed 26-Sep); carried into the Topping and Downtrend frameworks</td>
+</tr>
+<tr>
+<td>Bear markets by type, event-driven against macroeconomic, as a side investigation "at the end" (27-Sep)</td>
+<td>Open: an input to the Topping and Downtrend frameworks</td>
+</tr>
+<tr>
+<td>Portfolio constraints for the left tail, such as a cap on smaller companies (25-Sep)</td>
+<td>An idea, not commissioned; only the 30% industry cap exists</td>
+</tr>
+<tr>
+<td>A screen predictive of takeover bids, "separate workstream" (25-Sep)</td>
+<td>Parked; not this project</td>
+</tr>
+<tr>
+<td>Tail contributors against analyst data, to refine the Investment Analyst's judgement (25-Sep)</td>
+<td>Planned on 25-Sep; no record of it being run; parked</td>
+</tr>
+<tr>
+<td>Stock-specific price movement falling over time, your hunch (29-Sep)</td>
+<td>Done: industry and sector share rose; stock-specific share flat ("half right")</td>
+</tr>
+<tr>
+<td>Adding after a drawdown: healthy retest, volatility contraction, analyst upgrades (24-Sep)</td>
+<td>Superseded: the add rule on your judgement; the adds analysis not run ("I don't want a back test")</td>
+</tr>
+<tr>
+<td>The Pool's size as a reading of market conditions (28-Sep)</td>
+<td>Open: shown as the weekly Pool's count; a test is open question 166</td>
+</tr>
+<tr>
+<td>Sell Criteria by industry, sector, volatility and analyst profile; market-wide against stock-specific falls; daily and weekly readings (28 and 29-Sep)</td>
+<td>Done: Framework 14</td>
+</tr>
+<tr>
+<td>Everything on a relative basis (29-Sep)</td>
+<td>Done</td>
+</tr>
+<tr>
+<td>Weight the last ten years more; twelve-month focus (29-Sep)</td>
+<td>Done</td>
+</tr>
+<tr>
+<td>FactSet: daily latest reading; history saved once, never re-pulled (30-Sep)</td>
+<td>Done (checked 30-Sep)</td>
+</tr>
+<tr>
+<td>Routines and habits so you follow the rules; coaching that removes friction; the Daily Standup in the morning only (30-Sep)</td>
+<td>Open: the Daily Standup window</td>
+</tr>
+<tr>
+<td>The PMS Per-stock Dashboard; the Position Management System page without profit and loss (30-Sep)</td>
+<td>Open: designed last (your 1-Oct words)</td>
+</tr>
+<tr>
+<td>The dashboards renamed to the Middle Innings Pool name (1-Oct)</td>
+<td>Done (1-Oct)</td>
+</tr>
+<tr>
+<td>Relative strength on the Composite everywhere (1-Oct)</td>
+<td>Done (1-Oct)</td>
+</tr>
+<tr>
+<td>The industry, sector and geography page in the weekly Portfolio Fitness for Fighting work (1-Oct)</td>
+<td>Handed to the Ideas project; open there</td>
+</tr>
+<tr>
+<td>The tranche combinations, for example Hexatronic 4 into 2 (1-Oct)</td>
+<td>Proposed and accepted; entered by the session that runs the APM PMS Q&amp;A SOP</td>
+</tr>
+<tr>
+<td>Charts drawn by the PMS Per-stock Dashboard, shown by the APM PMS Q&amp;A SOP (1-Oct)</td>
+<td>Open, with the dashboard</td>
+</tr>
+<tr>
+<td>Your review of the Investment Analyst's TSR judgement (1-Oct)</td>
+<td>Yours, separate</td>
+</tr>
+<tr>
+<td>"One rule, one place" (2-Oct)</td>
+<td>Applied in every build prompt</td>
+</tr>
+<tr>
+<td>The weekly Pool with three Fridays in a row (2-Oct)</td>
+<td>Building today</td>
+</tr>
+<tr>
+<td>Stopping to check what still holds up the 'Fully Invested Portfolio' Key Result (1-Oct)</td>
+<td>This map, sections 1, 3 and 5</td>
+</tr>
+</tbody>
+</table></div>
+<footer>Source: COWORK/projects/APM - Stage 2 Gate-4 Backtest/REMAINING-WORK-MAP-2026-10-02-implementing-the-adapted-investment-system.md. Written 2-Oct-2026 by Watson, Assistant Portfolio Manager. <a href="../">Back to the landing page</a></footer></main></body></html>
