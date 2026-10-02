@@ -10,7 +10,7 @@ p,li{max-width:80ch}em{color:var(--muted)}strong{font-weight:650}code{font-size:
 table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
 th{background:var(--head);font-weight:650}tr:last-child td{border-bottom:none}
 footer{margin-top:40px;color:var(--muted);font-size:.85rem}
-</style></head><body><main><h1>The Remaining Work Map: implementing the adapted Investment System (2-Oct-2026)</h1>
+</style></head><body><main><h1>The Remaining Work Map: implementing the adapted Investment System (2-Oct-2026, version 1.1 after the re-check)</h1>
 <p><em>Assistant Portfolio Manager, Remaining Work Overview window, Richie login. Built after re-reading every message of Richard's in the APM - Stage 2 Gate-4 Backtest project (every file of his words, read in full, and his turns in the project transcript). Section 8 lists his requests checked one by one. Updated by the windows that do the work; this file is the one place the restart prompts point to.</em></p>
 <h2>1. The judgement</h2>
 <ul>
@@ -32,6 +32,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <li>measure and check it (November onward)</li>
 </ul>
 </li>
+<li><strong>Re-check finding (version 1.1): the weekly Pool as ruled is, on average, no faster than the month-end Pool.</strong> With three failing Fridays to leave, a stock that breaks a test stays in about 2.5 weeks on average (at most 3), against about 2.2 weeks (at most about 4.3) at the month-end reading. It smooths and caps the delay; it does not cut it. Question in section 4</li>
 </ul>
 <h2>2. The system map: what is signed, built and live, and what remains</h2>
 <div class="tw"><table>
@@ -47,10 +48,10 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <tbody>
 <tr>
 <td><strong>Exclude:</strong> the Pool of Stocks Eligible for Middle Innings Portfolio Selection</td>
-<td>Yes (28 and 29-Sep; weekly reading added 2-Oct)</td>
+<td>Yes (28 and 29-Sep; weekly reading ruled 2-Oct)</td>
 <td>Monthly yes; weekly being built today</td>
 <td>Monthly, October Pool of 173 stocks</td>
-<td>The weekly Pool with three Fridays in a row to enter or leave (separate window, today); the Pool's size shown as a reading of market conditions</td>
+<td>The weekly Pool (separate window, today); its counts built as settings; no stock can enter or leave before Friday 16-Oct unless the build back-fills earlier Fridays (no stored daily history of the four tests was found); the Pool's size shown as a reading of market conditions</td>
 </tr>
 <tr>
 <td><strong>Stack-rank:</strong> how the Lists are made from the Pool</td>
@@ -78,7 +79,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <td>Yes (1-Oct)</td>
 <td>In the APM PMS Q&amp;A SOP</td>
 <td>From 6-Oct</td>
-<td>Unmeasured, by your choice ("I don't want a back test")</td>
+<td>Not measured: your 30-Sep "I don't want a back test" stopped the analysis that would have measured it; 'Interim Rules Checked' stays a Proposed Deliverable</td>
 </tr>
 <tr>
 <td><strong>Trim</strong></td>
@@ -250,6 +251,11 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <td>Enough for October; revisit with the Portfolio Fitness for Fighting work</td>
 </tr>
 <tr>
+<td><strong>The weekly Pool's exit count.</strong> A: enter after three Fridays, leave after the first failing Friday (my pick: your complaint is breached stocks lingering; leaving costs nothing because a holding is never sold for leaving, and needing three Fridays to come back stops the flicker). B: enter three, leave two. C: three both ways, as built (smoothing over speed). <em>Counter-case to my pick:</em> one noisy Friday reading, say the analysts' sales breadth dipping once below zero, drops a good stock for three weeks; untested against the month-end Pool</td>
+<td>Before Friday 16-Oct, when the first stocks can move</td>
+<td>C, as you wrote, until you answer</td>
+</tr>
+<tr>
 <td>The short names in the OKRs: 'First Entry Decisions', 'Turning/Inflecting Pool Signed', 'Two More Entries', 'Down-Market Frameworks Done'</td>
 <td>Any time</td>
 <td>Used as proposed until you change them</td>
@@ -281,6 +287,8 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <li>Technical Momentum B broad inside the Pool</li>
 </ul>
 </li>
+<li><strong>TSR/Valuation for stocks with no memo (the signed statement's open check, OQ-LR-10), measured in this re-check:</strong> the live reading is the right measure, the price-to-earnings ratio's percentile against the stock's own ten-year history (<code>scripts/memo-pipeline/refresh_quant_pillars.py</code>). But it is graded on fixed fifths (A at or below the 20th percentile, then 40, 60, 80, F above), not on the universe A to F curve (10/15/25/25/25) the statement names. The Lists build grades it as signed, once, in one place</li>
+<li><strong>The Friday OKR list</strong> (a scheduled Chief of Staff task, 14:52 on Fridays) may send you proposed Deliverables for next week although you have set the week's Key Deliverable. Treat it as information</li>
 <li><strong>A change of Market Cycle Phase in October</strong> has a stated default but no tested rule. The Topping and Downtrend frameworks close this in the week of 26-Oct.</li>
 <li><strong>The Pool is 173 stocks</strong>, above the 150 you called "too many" on 25-Sep. Your 28-Sep rule stands: the Pool's size never changes the entry criteria without a discussion with you. Shown as information.</li>
 </ul>
@@ -481,6 +489,14 @@ footer{margin-top:40px;color:var(--muted);font-size:.85rem}
 <tr>
 <td>Stopping to check what still holds up the 'Fully Invested Portfolio' Key Result (1-Oct)</td>
 <td>This map, sections 1, 3 and 5</td>
+</tr>
+<tr>
+<td>Track monthly which principles of List creation added value, "very careful of adjusting based on a few data points" (30-Sep)</td>
+<td>With the monthly tracking (low priority)</td>
+</tr>
+<tr>
+<td>The APM PMS Q&amp;A SOP on Tuesday mornings, because Monday is your London Buffer Day (30-Sep)</td>
+<td>Done</td>
 </tr>
 </tbody>
 </table></div>
