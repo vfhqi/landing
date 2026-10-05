@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Latest: Ideas weekly: the Ideas Bench, Ideas Shortlist and Ideas Longlist, with the Ideas Generation Weekly Report</title>
+<!-- latest-redirect-page -->
+<style>
+:root{--bg:#fbfaf7;--fg:#1b1a17;--muted:#6b6760;--accent:#5b3fa8;--rule:#e2ded6}
+@media (prefers-color-scheme:dark){:root{--bg:#15140f;--fg:#eceae4;--muted:#a8a49a;--accent:#b39cf0;--rule:#33302a}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.w{max-width:640px;margin:0 auto;padding:40px 16px}
+h1{font-size:1.2rem;line-height:1.35;margin:0 0 10px}
+p{margin:8px 0}.s{color:var(--muted);font-size:.9rem}a{color:var(--accent)}
+</style>
+</head><body><div class="w">
+<h1>Ideas weekly: the Ideas Bench, Ideas Shortlist and Ideas Longlist, with the Ideas Generation Weekly Report</h1>
+<p id="msg">Opening the newest week&hellip;</p>
+<noscript><p>This page needs JavaScript to find the newest week. <a href="ideas-weekly.html">Open the archive of weeks</a>.</p></noscript>
+<p class="s">An unchanging link: it always opens the newest published week of this page. Bookmark this address, not the dated one.</p>
+</div>
+<script>
+(function(){
+  var PREFIX = "ideas-weekly-", SUFFIX = ".html", ARCHIVE = "ideas-weekly.html", DAYS = 120, STEP = 7;
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function name(d){ return PREFIX + d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + SUFFIX; }
+  function exists(url){
+    return fetch(url, {method: "HEAD", cache: "no-store"})
+      .then(function(r){ return r.ok; })
+      .catch(function(){ return false; });
+  }
+  var start = new Date(); start.setHours(12, 0, 0, 0); start.setDate(start.getDate() + 1);
+  function batch(offset){
+    if (offset > DAYS) {
+      var m = document.getElementById("msg");
+      m.textContent = "No published week was found in the last " + DAYS + " days. ";
+      if (ARCHIVE) { var a = document.createElement("a"); a.href = ARCHIVE; a.textContent = "Open the archive of weeks"; m.appendChild(a); }
+      return;
+    }
+    var names = [];
+    for (var i = 0; i < STEP; i++) { var d = new Date(start); d.setDate(start.getDate() - offset - i); names.push(name(d)); }
+    Promise.all(names.map(exists)).then(function(found){
+      for (var j = 0; j < names.length; j++) { if (found[j]) { window.location.replace(names[j]); return; } }
+      batch(offset + STEP);
+    });
+  }
+  batch(0);
+})();
+</script>
+</body></html>
