@@ -3,48 +3,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Latest: Information Sources weekly: the newsletter pitches and the six world-read categories</title>
+<title>Information Sources weekly is now two notes</title>
 <!-- latest-redirect-page -->
 <style>
-:root{--bg:#fbfaf7;--fg:#1b1a17;--muted:#6b6760;--accent:#5b3fa8;--rule:#e2ded6}
-@media (prefers-color-scheme:dark){:root{--bg:#15140f;--fg:#eceae4;--muted:#a8a49a;--accent:#b39cf0;--rule:#33302a}}
+:root{--bg:#fbfaf7;--fg:#1b1a17;--muted:#6b6760;--accent:#5b3fa8;--rule:#e2ded6;--card:#ffffff}
+@media (prefers-color-scheme:dark){:root{--bg:#15140f;--fg:#eceae4;--muted:#a8a49a;--accent:#b39cf0;--rule:#33302a;--card:#1d1b16}}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.w{max-width:640px;margin:0 auto;padding:40px 16px}
+.w{max-width:680px;margin:0 auto;padding:40px 16px}
 h1{font-size:1.2rem;line-height:1.35;margin:0 0 10px}
 p{margin:8px 0}.s{color:var(--muted);font-size:.9rem}a{color:var(--accent)}
+ul{padding-left:0;list-style:none}li{margin:10px 0}
+li a{display:block;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--card);text-decoration:none}
 </style>
 </head><body><div class="w">
-<h1>Information Sources weekly: the newsletter pitches and the six world-read categories</h1>
-<p id="msg">Opening the newest week&hellip;</p>
-<noscript><p>This page needs JavaScript to find the newest week. </p></noscript>
-<p class="s">An unchanging link: it always opens the newest published week of this page. Bookmark this address, not the dated one.</p>
+<h1>Information Sources weekly is now two notes</h1>
+<p>This address is kept so that an old bookmark still works. From the week of Friday 2-Oct-2026 this page was split into two notes, each with its own unchanging link:</p>
+<ul>
+<li><a href="ig-screening-researcher-weekly.html">Ideas Generation - Screening - Researcher Weekly AL Info Note of IG Screens and Stock Write-ups</a></li>
+<li><a href="fff-environment-inputs-researcher-weekly.html">FfF - Environment Inputs - Researcher Weekly AL Info Note of Input Information Sources on Macro, Themes, Industries, Sectors and Geographies</a></li>
+</ul>
+<p class="s">Each link above is an unchanging link: it always opens the newest published week of that note. Bookmark it rather than this page. The old weeks are in the <a href="ideas-weekly.html">archive of the weekly notes</a>.</p>
 </div>
-<script>
-(function(){
-  var PREFIX = "information-sources-weekly-", SUFFIX = ".html", ARCHIVE = "", DAYS = 120, STEP = 7;
-  function pad(n){ return (n < 10 ? "0" : "") + n; }
-  function name(d){ return PREFIX + d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + SUFFIX; }
-  function exists(url){
-    return fetch(url, {method: "HEAD", cache: "no-store"})
-      .then(function(r){ return r.ok; })
-      .catch(function(){ return false; });
-  }
-  var start = new Date(); start.setHours(12, 0, 0, 0); start.setDate(start.getDate() + 1);
-  function batch(offset){
-    if (offset > DAYS) {
-      var m = document.getElementById("msg");
-      m.textContent = "No published week was found in the last " + DAYS + " days. ";
-      if (ARCHIVE) { var a = document.createElement("a"); a.href = ARCHIVE; a.textContent = "Open the archive of weeks"; m.appendChild(a); }
-      return;
-    }
-    var names = [];
-    for (var i = 0; i < STEP; i++) { var d = new Date(start); d.setDate(start.getDate() - offset - i); names.push(name(d)); }
-    Promise.all(names.map(exists)).then(function(found){
-      for (var j = 0; j < names.length; j++) { if (found[j]) { window.location.replace(names[j]); return; } }
-      batch(offset + STEP);
-    });
-  }
-  batch(0);
-})();
-</script>
 </body></html>
