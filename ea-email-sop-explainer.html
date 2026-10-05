@@ -20,7 +20,7 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <strong>Status: signed off by you on 14-Sep-26 and amended the same day (v6.1). The go-live sequence, with where it stands, is at the end.</strong></p>
 <hr />
 <h2>1. The one-paragraph version</h2>
-<p>Every weekday morning, before you start, a short automatic run makes sure that <strong>every genuine email waiting on you has a reply drafted in your voice, sitting in Superhuman</strong>, that <strong>anything important is flagged with a reason</strong>, and that <strong>nothing has quietly slipped</strong>, including mail that Superhuman's own filing has hidden from your inbox. You open Superhuman, read the drafts, and send, edit or discard. You do not have to prompt anything, reply to anything, or read a report to make it work. The report (a short "receipt") exists so you can see what was done and why, not because you must act on it.</p>
+<p>Every afternoon from Sunday to Friday, ready for when you next sit down, a short automatic run makes sure that <strong>every genuine email waiting on you has a reply drafted in your voice, sitting in Superhuman</strong>, that <strong>anything important is flagged with a reason</strong>, and that <strong>nothing has quietly slipped</strong>, including mail that Superhuman's own filing has hidden from your inbox. You open Superhuman, read the drafts, and send, edit or discard. You do not have to prompt anything, reply to anything, or read a report to make it work. The report (a short "receipt") exists so you can see what was done and why, not because you must act on it.</p>
 <h2>2. Who does what</h2>
 <p>Three parties do the work. The design puts as much as possible on Superhuman, because it already reads every email, it improves on its own, and it costs nothing in Watson tokens.</p>
 <table>
@@ -93,7 +93,7 @@ ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;
 <h2>3. A day in the life</h2>
 <ul>
 <li><strong>Overnight.</strong> Mail arrives. Superhuman labels it. Reminders fire on your unanswered sent mail and chasers are drafted.</li>
-<li><strong>About 07:15, weekdays.</strong> Watson's run starts in a fresh session on the cheapest adequate model, loading one short instruction file (not the whole rulebook). It takes roughly ten minutes and fifteen to twenty tool calls.</li>
+<li><strong>About 16:45, Sunday to Friday.</strong> Watson's run starts in a fresh session on the cheapest adequate model, loading one short instruction file (not the whole rulebook). It takes roughly ten minutes and fifteen to twenty tool calls.</li>
 <li>Pulls every thread labelled <code>Respond</code> in the last 35 days, archived or not, plus the list of existing drafts, plus the ledger.</li>
 <li>Removes, by fixed rules, anything that is not a real ask: threads where you replied last, out-of-office replies, no-reply and helpdesk senders, cold pitches from strangers, one-way broker circulars. Every exclusion is counted with its reason.</li>
 <li>Sorts what is left into HIGH (an LP, investor or IR contact; a C-suite colleague; a live position; a date inside five working days; an external item older than a week; already escalated) and LOW (everything else, including colleagues' admin whatever its age). Sell-side research notes that carry a <code>Respond</code> label by mistake are set aside as "no reply needed".</li>
