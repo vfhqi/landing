@@ -1,160 +1,404 @@
 <!DOCTYPE html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EA work-email routine, explained (v6.1, 14-Sep-26)</title>
+<title>How Harry runs your email, explained (Email SOP, version 12.2)</title>
 <style>
-:root{--ink:#1f2a33;--muted:#5c6770;--rule:#d9d4c3;--bg:#fbf8f0;--accent:#7a6f47;--purple:#5b3f8f;}
+:root{--ink:#1f2a33;--muted:#5c6770;--rule:#d9d4c3;--bg:#fbf8f0;--accent:#7a6f47;--purple:#5b3f8f;--panel:#efe9d6;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e8e6df;--muted:#a9b0b6;--rule:#3a3f44;--bg:#16191c;--accent:#cdbd85;--purple:#b9a2ee;--panel:#242a2f;}}
+*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
-main{max-width:880px;margin:0 auto;padding:32px 20px 64px}
-h1{font-size:26px;line-height:1.25;margin:0 0 6px}h2{font-size:19px;margin:34px 0 10px;padding-top:12px;border-top:1px solid var(--rule);color:var(--accent)}
-p{margin:8px 0}strong{font-weight:700}em{color:var(--purple)}
-table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}th,td{border:1px solid var(--rule);padding:7px 9px;vertical-align:top;text-align:left}th{background:#efe9d6}
-ul,ol{padding-left:22px}li{margin:4px 0}code{background:#efe9d6;padding:1px 4px;border-radius:3px;font-size:13px}
-.stamp{color:var(--muted);font-size:12.5px;margin-bottom:18px}
-@media print{body{background:#fff}}
+main{max-width:880px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:26px;line-height:1.25;margin:0 0 6px}
+h2{font-size:20px;margin:40px 0 10px;padding-top:14px;border-top:2px solid var(--rule);color:var(--accent)}
+h3{font-size:16.5px;margin:26px 0 6px}
+p{margin:8px 0}strong{font-weight:700}em{color:var(--purple);font-style:italic}
+ul,ol{padding-left:22px}li{margin:4px 0}
+code{background:var(--panel);padding:1px 5px;border-radius:3px;font-size:13px;word-break:break-word}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--rule);padding:7px 9px;vertical-align:top;text-align:left}th{background:var(--panel)}
+.stamp{color:var(--muted);font-size:12.5px;margin-bottom:16px}
+.box{background:var(--panel);border-radius:6px;padding:10px 14px;margin:14px 0}
+.src{font-size:12.5px;color:var(--muted);border-left:3px solid var(--rule);padding-left:9px;margin:8px 0 16px}
+.toc{columns:2;column-gap:28px;font-size:14px}
+.toc li{break-inside:avoid}
+a{color:var(--purple)}
+@media (max-width:600px){.toc{columns:1}}
+@media print{body{background:#fff;color:#000}}
 </style></head><body><main>
 
+<div class="stamp">Plain-English explainer of the Email SOP &middot; checked against the Email SOP on 5 October 2026 &middot; versions are listed at the foot of the page</div>
+<h1>How Harry runs your email, explained</h1>
+<p><strong>This page tells you, in plain English, what the email assistant does every day, what you see, what you do, and what it will never do.</strong> Every section ends with a <em>Source</em> line naming the Email SOP file and section it comes from, so you can check any sentence yourself.</p>
 
-<div class="stamp">COWORK &middot; EA - Email Management &middot; explainer page generated from EA-EMAIL-SOP-EXPLAINER.md &middot; 14-Sep-26, v6.1 (session 10)</div>
-<h1>The work-email routine, explained from your chair</h1>
-<p><strong>What the EA email SOP (v6) does for you, start to finish. Written 14-Sep-26 so you can re-read it in a month and understand the whole thing in five minutes.</strong>
-<strong>Status: signed off by you on 14-Sep-26 and amended the same day (v6.1). The go-live sequence, with where it stands, is at the end.</strong></p>
-<hr />
-<h2>1. The one-paragraph version</h2>
-<p>Every afternoon from Sunday to Friday, ready for when you next sit down, a short automatic run makes sure that <strong>every genuine email waiting on you has a reply drafted in your voice, sitting in Superhuman</strong>, that <strong>anything important is flagged with a reason</strong>, and that <strong>nothing has quietly slipped</strong>, including mail that Superhuman's own filing has hidden from your inbox. You open Superhuman, read the drafts, and send, edit or discard. You do not have to prompt anything, reply to anything, or read a report to make it work. The report (a short "receipt") exists so you can see what was done and why, not because you must act on it.</p>
-<h2>2. Who does what</h2>
-<p>Three parties do the work. The design puts as much as possible on Superhuman, because it already reads every email, it improves on its own, and it costs nothing in Watson tokens.</p>
+<div class="box">
+<p><strong>Words used on this page</strong></p>
+<ul>
+<li><strong>Email SOP</strong> (Standard Operating Procedure): the eight written instruction files Harry follows. Three describe the daily run, the answer loop and the page layout; one is the Friday sweep; one is the Key Results file; three are channel profiles</li>
+<li><strong>Harry</strong>: the name of the email assistant. Harry finds what needs you, judges what matters, writes your options, keeps the record, writes the daily page and turns your answers into drafts</li>
+<li><strong>Superhuman</strong>: the email app Harry works through. It reads and labels mail, raises reminders, and writes the wording of every draft in your voice from its stored profile</li>
+<li><strong>Channel</strong>: one place messages arrive. There are three: work email (Outlook), personal email (Gmail) and WhatsApp. Each has a profile file holding only what is specific to it</li>
+<li><strong>The run</strong>: Harry's once-a-day unattended pass, which produces the briefing page</li>
+<li><strong>Item</strong>: one message or conversation that needs a decision from you. Every item has a number that never changes and is never reused</li>
+<li><strong>The answer loop</strong>: the moment you reply in a chat window with a message starting <code>Harry:</code></li>
+</ul>
+<p>Here, <em>you</em> means Richard, the portfolio manager Harry works for.</p>
+</div>
+
+<ul class="toc">
+<li><a href="#five">The five-minute version</a></li>
+<li><a href="#steps">The daily run, step by step</a></li>
+<li><a href="#answer">When you answer: the answer loop</a></li>
+<li><a href="#friday">The Friday sweep</a></li>
+<li><a href="#keyresults">Key Results</a></li>
+<li><a href="#channels">The three channels compared</a></li>
+<li><a href="#rails">Safety rails in one place</a></li>
+<li><a href="#limits">What is deliberately not built</a></li>
+<li><a href="#keeping">How this page is kept current</a></li>
+<li><a href="#versions">Versions this page was checked against</a></li>
+</ul>
+
+<h2 id="five">The five-minute version</h2>
+
+<h3>What Harry is for</h3>
+<p>Harry keeps you replying to every genuine message from a person, in every channel, <strong>within one to two days, without you having to prompt it, and never chooses your reply for you.</strong> For every message that needs a reply, Harry shows you <strong>four to seven paths and a recommendation</strong>. You pick one, and may add a comment. Only then is a draft written. The wording of that draft is written by Superhuman in your voice.</p>
+<p>Underneath that sits a higher aim you set on 17 September 2026: proactively drive and organise everything that should be done, you included, so that your stated goals are accomplished. Where a rule is silent, Harry does what serves that aim. Where a rule seems to conflict with it, Harry follows the rule and raises the point once on the page for your ruling.</p>
+<p class="src">Source: FIRE-PACK.md, section B</p>
+
+<h3>The day in six lines</h3>
+<ol>
+<li><strong>The run starts by itself at 16:45 UK time, Sunday to Friday.</strong> Saturday has no run. Nobody is watching, so it never asks a question: it decides, and puts anything needing you on the page</li>
+<li><strong>It collects</strong> the last weeks of mail for each channel, <strong>finds what is waiting on you</strong>, checks whether you have already dealt with it, <strong>judges how important it is</strong>, and writes your options</li>
+<li><strong>It builds one briefing page</strong> covering all three channels. A small free program on your computer (it uses no AI) locks the page behind a passphrase and publishes it, checking every 30 minutes</li>
+<li><strong>You read it and answer.</strong> In any chat window, start a message with <code>Harry:</code> and give the numbers and letters, or use the answer form on the page, which writes that message for you</li>
+<li><strong>Harry turns each answer into a draft</strong> in Superhuman, then checks every draft three ways before telling you it is ready</li>
+<li><strong>You press send.</strong> You press it on every draft, with two narrow exceptions described below</li>
+</ol>
+<p class="src">Source: FIRE-PACK.md, sections B, D (Steps 1 to 7) and E; DOUBLECHECK.md, last section (Sunday to Friday, no Saturday run); ANSWER-LOOP.md, sections 1 and 2; BRIEFING-FORMAT.md, section 1; the 30-minute publishing check is in <code>scripts/pipeline/jobs/ea_briefing_publish.py</code></p>
+
+<h3>What you see</h3>
+<ul>
+<li><strong>Summary first.</strong> One block at the top for the whole page: how many items need you, how many are overdue, how heavy the day is, what matters most, money and dates at stake, what is blocked and on whom, what changed since the last page, and what was done without asking</li>
+<li><strong>Most important today, in full.</strong> The items that most need you, printed once in full so you can act without scrolling</li>
+<li><strong>One part per channel,</strong> with items grouped as overdue, new choices, drafts ready, still waiting, your own notes to self, and what closed since the last page</li>
+<li><strong>Every item opens with a number, a marker, a reason and the person.</strong> The marker is one of four: <em>Urgent and important</em>, <em>Important</em>, <em>Urgent</em>, or none. It is the only importance scale in the system</li>
+<li><strong>Every item is five short bullets:</strong> who, what has happened, what they said (quoted), what this asks of you, and what Harry checked. Every date is written in full with the weekday and time, never "today" or "tomorrow"</li>
+<li><strong>No reply needed</strong> sits at the bottom of the page, in full, so you can overturn any judgement Harry made</li>
+</ul>
+<p class="src">Source: BRIEFING-FORMAT.md, sections 0 to 5 and 8; FIRE-PACK.md, Step 3</p>
+
+<h3>What you do</h3>
+<ul>
+<li><strong>Pick a letter</strong> to take that option. Add words if you want them folded into the reply</li>
+<li><strong>Say <code>later</code></strong> to leave an item waiting, or <strong><code>drop</code></strong> to close it for good</li>
+<li><strong>For a question only you can answer,</strong> write the fact</li>
+<li>A typical message: <code>Harry: 47b, 48a (mention the timing), 50 drop, 52 later</code></li>
+</ul>
+<p class="src">Source: BRIEFING-FORMAT.md, section 10; ANSWER-LOOP.md, section 1</p>
+
+<h3>What Harry never does</h3>
+<ul>
+<li><strong>It never sends mail to anyone outside, so you press send on every draft.</strong> You ruled on 16 September 2026 that this is the permanent design, not a stage to be grown out of</li>
+<li>It never permanently deletes or overwrites a file, never trashes mail on its own judgement, and never makes an investment or trading decision</li>
+<li>It never asks you a question during the run and waits for the answer</li>
+<li>It never edits its own rules: your feedback on the procedure goes into the Email SOP in the session where you give it</li>
+</ul>
+<p><strong>Exactly two narrow exceptions exist,</strong> and nothing else Harry produces is ever sent:</p>
+<ol>
+<li>Meeting-preparation profiles that the run emails to you alone</li>
+<li>Routine replies to one person the personal profile names, only while a switch is on (it starts off), only for logistics or acknowledgements whose every fact Harry already holds, never money, a decision, a promise or a date you have not fixed, and only up to a daily cap</li>
+</ol>
+<p><strong>WhatsApp is separate.</strong> A WhatsApp message goes out only from the answer loop, on your pick, with two switches both on and four gates passed (see Sending, after your pick, below).</p>
+<p class="src">Source: FIRE-PACK.md, sections A, F and G; ANSWER-LOOP.md, section 2; profiles/whatsapp.md, "Sends, and the gates"</p>
+
+<h3>How it keeps itself honest</h3>
+<ul>
+<li><strong>Three checks on every draft</strong> before you are told it exists</li>
+<li><strong>A drafts register</strong> records who wrote every draft, so Harry never revises or discards one it did not write</li>
+<li><strong>A "Checked" line on every item</strong> says what was searched in your sent mail and diary, and what was found, so you can overturn it</li>
+<li><strong>A Friday sweep</strong> looks wider than the daily run, for anything the daily windows could not see</li>
+<li><strong>A cost line</strong> on the page shows tool turns, summaries bought, items numbered and sends made</li>
+</ul>
+<p class="src">Source: FIRE-PACK.md, section C; BRIEFING-FORMAT.md, sections 0, 11 and 12; DOUBLECHECK.md</p>
+
+<h2 id="steps">The daily run, step by step</h2>
+<p>The run is a fixed sequence. Each step below says <strong>what Harry does</strong>, <strong>why</strong>, and where the rule is written. The aim is about 10 to 14 tool turns for one mailbox and about 16 to 22 for two. Quality comes before speed.</p>
+
+<h3>Step 0: read the profiles and your Key Results</h3>
+<p><strong>What:</strong> Harry reads each channel's profile that is switched on, in order: work, personal, WhatsApp. It also reads the Key Results file and runs a small script that reports this week's Key Deliverable, the agreed deliverables, and the Executive Assistant lines from the Daily Standup. It then asks Superhuman which accounts are linked on this login.</p>
+<p><strong>Why:</strong> a mailbox whose account is not linked on this login cannot be read, so it is <em>skipped</em> and the page says so in one line ("personal mailbox not linked on this login; nothing done"). WhatsApp has no account: its queue arrives as a file written by a free job at 16:30. If that file is older than the profile allows it is still judged and shown, with its age. If collection is not working (the file says so, it holds no chats, or the bridge's own heartbeat says stalled) the page says <em>"WhatsApp collection is not working"</em>, never "nothing waiting on you".</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 0; profiles/whatsapp.md, "What the values mean"; KEY-RESULTS.md</p>
+
+<h3>Step 1: collect</h3>
+<p><strong>What:</strong> in one batch, for every active mailbox, Harry gathers:</p>
+<ul>
+<li>every conversation carrying the "respond" label over the last 35 days</li>
+<li>the inbox from the day of the last successful run to today, never a fixed three days, because three calendar days does not bridge a weekend and this window exists precisely because Superhuman's labelling is not trusted</li>
+<li>every unsent draft, and every active reminder</li>
+<li><strong>the sent sweep:</strong> everything you sent over the last 35 days, in seven-day windows</li>
+<li><strong>the Deleted Items sweep,</strong> in the same windows, because deleting a conversation on Outlook also deletes your sent reply with it, and a reply you gave can exist only there</li>
+<li>the label list, so labels are only tested if they exist</li>
+<li><strong>your diary:</strong> one question to the work calendar for the previous three and next seven days. For every invitation or proposed date, Harry also finds the date and time and checks that single day for clashes, up to eight dates a run, nearest first</li>
+</ul>
+<p><strong>Why:</strong> a search that returns 50 results has been cut off, so Harry narrows the window until each returns fewer than 50 (shorter span, then single days, then half-days). Every time on the page is UK time. If the diary call fails, the page says the diary check did not run, and nothing about a meeting is guessed.</p>
+<p class="src">Source: FIRE-PACK.md, section C (tool rules) and section D, Step 1 (a) to (h)</p>
+
+<h3>Step 2: build the reply queue (a script, not judgement)</h3>
+<p><strong>What:</strong> a program decides which conversations are waiting on you. A conversation enters the queue only if <strong>all</strong> of these hold:</p>
+<ul>
+<li>the last message is not yours</li>
+<li>the subject is not an automatic reply, out-of-office, or an accept, decline or tentative response</li>
+<li>the sender is not a no-reply, helpdesk, notification or digest address</li>
+<li>it is not a one-way circular without the reply label</li>
+<li>you have not told Harry to drop it</li>
+</ul>
+<p>A profile can name a domain that is <em>never excluded</em> on sender shape, because mail from it looks automated but is a real two-way conversation. On the personal channel, an email you sent to yourself becomes a <strong>note to self</strong>, not an exclusion.</p>
+<p><strong>Why a script:</strong> the same rules must give the same answer every day, so they are code, not mood. A conversation carrying two drafts is reported, never tidied.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 2; profiles/work.md and profiles/personal.md (the lists that vary)</p>
+
+<h3>Step 2b: the cross-thread check, and who spoke last</h3>
+<p><strong>What:</strong> people write about one topic across several email chains with different subjects. The program looks across chains and mailboxes in the 35-day sent and deleted sweeps, <strong>by person</strong> (a later message of yours to that person) and <strong>by topic</strong> (shared distinctive subject words). Where it finds a later message of yours, <strong>Harry reads that message</strong> and decides one of three things:</p>
+<ol>
+<li><strong>It covers the item:</strong> the item is set aside, with your message named as the reason</li>
+<li><strong>It is a different matter:</strong> the item stays a choice, with one sentence on why</li>
+<li><strong>Unsure:</strong> the item stays a choice, option a is "No reply. You covered this on that date; archive it", and the doubt is stated</li>
+</ol>
+<p>Harry never decides this from a subject line or a snippet alone.</p>
+<p><strong>Your last correspondence line.</strong> On every item that asks you to act, the page states your last correspondence with that person (when, the subject, where it was found, what you said), or "none found" with the date the sweep started. You asked for this on 3 October 2026 so that both of you can see Harry has seen it.</p>
+<p><strong>Limits stated openly:</strong> the sweeps see only mail sent from mailboxes the run covers, so a reply from any other address is invisible. A thread older than the sweep gets one extra, capped search (ten people, oldest first). Anything not covered is named on the page as unchecked.</p>
+<p><strong>Re-measure, never carry:</strong> before sorting, every item still waiting on you is re-tested. A context written on an earlier day, or on a thread with a newer message, is re-read and rewritten. The cap is the ten oldest per mailbox per run, and any beyond the cap are marked "not re-read on this run".</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 2b and the re-measure rule</p>
+
+<h3>Step 3: importance, and what an item says</h3>
+<p><strong>What:</strong> every queue item gets exactly one marker, from a fixed table, before any paid call:</p>
 <table>
-<thead>
-<tr>
-<th>Job</th>
-<th>Who does it</th>
-<th>How</th>
-</tr>
-</thead>
+<thead><tr><th>Marker</th><th>When</th></tr></thead>
 <tbody>
-<tr>
-<td>Read every email and label it (needs a reply, waiting on them, meeting, pitch, investor, roadshow…)</td>
-<td><strong>Superhuman</strong></td>
-<td>its automatic labels, already on</td>
-</tr>
-<tr>
-<td>Notice when something you sent has had no reply, and remind you</td>
-<td><strong>Superhuman</strong></td>
-<td>Auto Reminders, already on, fires 07:00 and 16:00 UK</td>
-</tr>
-<tr>
-<td>Draft a chaser for those</td>
-<td><strong>Superhuman</strong></td>
-<td>Auto Drafts for follow-ups, already on</td>
-</tr>
-<tr>
-<td>Draft a reply to each new email that needs one, in your voice</td>
-<td><strong>Watson, for now</strong> (through Superhuman's writer, so it is still your voice)</td>
-<td>Superhuman's own automatic reply-drafting stays off: it writes one draft on one path the moment mail arrives, with no options, so you would not be in the choice. Trial later, measured (Section 7)</td>
-</tr>
-<tr>
-<td>Find everything waiting on you, <strong>including the archived mail your inbox view does not show</strong></td>
-<td><strong>Watson</strong></td>
-<td>one query on the <code>Respond</code> label across the last five weeks, archive included</td>
-</tr>
-<tr>
-<td>Decide what is important and what is routine, before spending anything</td>
-<td><strong>Watson</strong></td>
-<td>from who sent it, what it is labelled, how old it is, whether it is an LP, investor or IR contact, whether a date is close</td>
-</tr>
-<tr>
-<td>Check existing drafts, fix the stale or over-agreeable ones, write the missing ones</td>
-<td><strong>Watson</strong></td>
-<td>on anything important, Watson first buys a summary and three materially different reply options, picks one, and tells you which and why</td>
-</tr>
-<tr>
-<td>Add what Superhuman cannot know on the important items: your position, your project, what you promised</td>
-<td><strong>Watson</strong></td>
-<td>the ledger and your files</td>
-</tr>
-<tr>
-<td>Remember what was asked, escalate what is ageing, never drop an item silently</td>
-<td><strong>Watson</strong></td>
-<td>a small ledger file, one row per live item</td>
-</tr>
-<tr>
-<td>A weekly independent sweep that does not trust any label or AI search</td>
-<td><strong>Watson</strong></td>
-<td>the Doublecheck Sweep, also on demand</td>
-</tr>
-<tr>
-<td>Decide, send, edit, discard, say "drop it"</td>
-<td><strong>You</strong></td>
-<td>in Superhuman, as now</td>
-</tr>
+<tr><td><strong>Urgent and important</strong></td><td>both tests below hold</td></tr>
+<tr><td><strong>Important</strong></td><td>the importance test only</td></tr>
+<tr><td><strong>Urgent</strong></td><td>the urgency test only</td></tr>
+<tr><td>none</td><td>neither</td></tr>
 </tbody>
 </table>
-<p>Watson <strong>never sends</strong> an email, never deletes or discards a draft it did not create, and never touches Gmail or WhatsApp.</p>
-<h2>3. A day in the life</h2>
 <ul>
-<li><strong>Overnight.</strong> Mail arrives. Superhuman labels it. Reminders fire on your unanswered sent mail and chasers are drafted.</li>
-<li><strong>About 16:45, Sunday to Friday.</strong> Watson's run starts in a fresh session on the cheapest adequate model, loading one short instruction file (not the whole rulebook). It takes roughly ten minutes and fifteen to twenty tool calls.</li>
-<li>Pulls every thread labelled <code>Respond</code> in the last 35 days, archived or not, plus the list of existing drafts, plus the ledger.</li>
-<li>Removes, by fixed rules, anything that is not a real ask: threads where you replied last, out-of-office replies, no-reply and helpdesk senders, cold pitches from strangers, one-way broker circulars. Every exclusion is counted with its reason.</li>
-<li>Sorts what is left into HIGH (an LP, investor or IR contact; a C-suite colleague; a live position; a date inside five working days; an external item older than a week; already escalated) and LOW (everything else, including colleagues' admin whatever its age). Sell-side research notes that carry a <code>Respond</code> label by mistake are set aside as "no reply needed".</li>
-<li>For LOW items: checks any existing draft, or writes one from a one-line instruction. For HIGH items, always: buys a per-thread summary and three materially different reply options from Superhuman, picks one, adds your context, drafts it (or brings an existing draft into line with the chosen option), and flags it "confirm the angle" with the three options on the receipt. Where a routine reply is really a choice (agree or decline, commit or defer), it drafts the path it would pick and names the alternative.</li>
-<li>Never drafts an invitation you have not decided on (a roadshow meeting, a "shall we meet?"): those go on the receipt with the offered slots, as a question to you. Never drafts a reply that turns on a fact only you hold (an investor's status, a document only you have): those go on the receipt under "needs your answer", one line each, and the thread is starred. At most 15 drafts a run; the rest carry over.</li>
-<li>Updates the ledger and writes the receipt.</li>
-<li><strong>When you open Superhuman.</strong> The drafts are there, on the right threads. Send, edit or discard. That is the whole job on your side.</li>
-<li><strong>The receipt</strong> arrives as the scheduled run's own completion summary (with push and email notification as options) and is appended to the run-log. It reads: HIGH items first (subject, who, how old, what Watson recommends, "confirm the angle"), LOW items one line each, questions needing your yes or no, drafts older than two weeks or naming a passed date, and the counts of what was excluded and why.</li>
-<li><strong>Friday.</strong> The Doublecheck Sweep lists every thread in every split and the inbox by date, works out who is waiting on whom from the message headers alone, and reports anything unanswered that carries no <code>Respond</code> label. You can run it any day with the phrase <em>"Run the Watson Doublecheck Sweep of the mailbox for any outstanding emails needing discussion."</em></li>
+<li><strong>Importance test (any one):</strong> the sender or domain is in one of the profile's important contact lists; the message commits or questions money, a position, a promise, a dated obligation or a document only you hold; a named person you know personally wrote it; the record shows an escalation; or you started the thread and a named person answered. <strong>Never important on a label alone</strong></li>
+<li><strong>Urgency test (any one):</strong> a dated meeting, deadline or decision inside five working days; an outside sender and age over seven days; or a second or later chase</li>
 </ul>
-<h2>4. What you actually see</h2>
+<p>Each marker carries a reason of three or four words. <strong>The marker decides how much analysis to buy, the order of work and the reading order. It never decides whether a draft may exist.</strong> The words "starred", "tier", "high" and "low" are never used to you. Harry may star a conversation in your mailbox as plumbing (see Step 4), but it is never presented as a second importance scale.</p>
+<p><strong>Every item is read from the message itself,</strong> never from the preview line. A message that accepts something you offered, or sets you a dated deliverable, is not a closing note: the next move is yours. A message with any ask, however small, is never "no reply needed".</p>
+<p><strong>Whose draft is it.</strong> Only a draft recorded in the drafts register, or created by the run or the answer loop, is described as "written by the run". "You wrote" is said only of a message actually found in your sent mail.</p>
+<p><strong>Absolute time everywhere.</strong> Nothing stored or printed says "today", "yesterday", "tomorrow", "this week" or a bare weekday, because a context is carried forward for days and a relative word is true once and false every day after. Every time is a weekday, a date and a time.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 3; BRIEFING-FORMAT.md, sections 0 and 5</p>
+
+<h3>Step 3b: the sort</h3>
+<p><strong>What:</strong> Harry puts every item into exactly one kind:</p>
+<table>
+<thead><tr><th>Kind</th><th>What it means</th></tr></thead>
+<tbody>
+<tr><td><strong>Choose</strong> (the default)</td><td>Harry writes the five-bullet context and four to seven options, each opening with what it does. You pick</td></tr>
+<tr><td><strong>Answer</strong></td><td>the reply turns on a fact only you hold. Harry writes the context, the question in one line, and the paths your answer would open</td></tr>
+<tr><td><strong>Graduated</strong></td><td>a category you have approved for automatic drafting, and only where the cross-thread check really covered the item. Harry drafts the recommended path and flags it for confirmation. If in doubt it is a choice</td></tr>
+<tr><td><strong>Send</strong></td><td>a routine reply to the one recipient a profile names, under the strict rule in "What Harry never does". If in doubt it is a choice</td></tr>
+<tr><td><strong>Note</strong></td><td>an email you sent to yourself. Harry proposes one next step, and only you close it</td></tr>
+<tr><td>No reply needed</td><td>a judgement call, numbered and printed in full with a real explanation, so you can overturn it</td></tr>
+</tbody>
+</table>
+<p>An item may be <strong>filed under another item</strong> only when that other item is open and carries the same decision, and nobody separate is waiting for an answer of their own.</p>
+<p><strong>The fixed openings.</strong> Every option opens with one of a short list of phrases, because the answer script decides what a picked letter does from those opening words and from nothing else. A script that cannot classify an option refuses it rather than guessing:</p>
+<table>
+<thead><tr><th>Opening</th><th>What picking it does</th></tr></thead>
+<tbody>
+<tr><td>"Reply to X saying ..."</td><td>becomes a draft</td></tr>
+<tr><td>"No reply. ..."</td><td>files the thread ("No reply. Archive it" is the standard third path)</td></tr>
+<tr><td>"No reply yet; wait until ..."</td><td>leaves it open; nothing written</td></tr>
+<tr><td>"Put it in your work calendar as a hold, no message to anyone"</td><td>puts a hold in your calendar</td></tr>
+<tr><td>"I draft a new email to X ..."</td><td>a new email, only where the item stores a proposal</td></tr>
+<tr><td>"Call X ...", "Speak to X ...", "Handle it in person ..."</td><td>closes the item; nothing written</td></tr>
+<tr><td>"Forward to X ..."</td><td>a forward draft with only your introduction in the body</td></tr>
+<tr><td>"Send the draft ...", "Revise the draft: ...", "Discard the draft"</td><td>for an item that already has a draft</td></tr>
+</tbody>
+</table>
+<p>No two options in one set may have the same outward effect, and all of them must say how the reply will read (tone, length, request or question).</p>
+<p><strong>Where the options come from.</strong> Harry writes them itself from the table and the snippets, which costs nothing. For every choice and answer item it buys Superhuman's per-thread summary within a per-run cap, spent on the highest marker first. An item beyond the cap is marked "from snippet only".</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 3b and "Where the options come from"; BRIEFING-FORMAT.md, sections 4, 5 and 7</p>
+
+<h3>Step 3b-W: WhatsApp items</h3>
+<p><strong>What:</strong> every WhatsApp row is judged exactly like an email item, with these additions: the item line carries the <strong>tone tier in two words</strong> (the profile has five tiers, from Business to Very-informal), and each choice item carries the literal message for the <strong>recommended option only</strong>. No Superhuman call is ever made for it, and nothing on the phone is starred, archived or marked. <strong>The run never sends on this channel.</strong></p>
+<p><strong>What counts as an item:</strong> an inbound message, in a chat where the last message is not yours, older than the last run. A reply or reaction of yours closes the chat. Voice notes and missed calls are items with no guessed content. Group messages count only when they mention you, quote you or contain your first name. Named chats you have chosen to exclude are matched by chat address, not name.</p>
+<p class="src">Source: FIRE-PACK.md, Step 3b-W; profiles/whatsapp.md, "What the values mean" and "Register"</p>
+
+<h3>Step 3c: meeting confirmations (deliberately not built)</h3>
+<p>Three bolt-on attempts at two-day-ahead meeting confirmations failed, so Harry does not improvise it. The per-item diary check at Step 1 is live and is a different thing.</p>
+<p class="src">Source: FIRE-PACK.md, Step 3c</p>
+
+<h3>Step 4: mark the mailbox</h3>
+<p><strong>What:</strong> in one batch of calls per mailbox:</p>
 <ul>
-<li><strong>In Superhuman:</strong> drafts on threads that need a reply. Superhuman's own auto-drafts and Watson's look the same; <strong>the threads that carry a "confirm" or "confirm the angle" flag are starred</strong>, so the cue is visible where you work, not only on the receipt.</li>
-<li><strong>In the receipt:</strong> a few lines per item, most important first, and a plain yes-or-no question wherever a decision is yours (attend a roadshow, keep a subscription, accept a time).</li>
-<li><strong>Flags to look for:</strong> "confirm the angle" on anything consequential; "confirm" on any draft that commits money, a time, a position or a promise, whatever its tier.</li>
+<li><strong>Star</strong> every choice, answer and graduated conversation, and <strong>unstar</strong> any that no longer needs you, but only a star the run itself set. Any other star is yours and stays. A conversation with an unsent draft keeps its star. A star means exactly one thing: this item is waiting on you</li>
+<li><strong>File spent reminders:</strong> a conversation a reminder brought back, with nothing outstanding, is archived and listed in housekeeping</li>
+<li><strong>Label "To be Autoarchived"</strong> (while that setting is on) on every set-aside counting down to its seventh-day archive, removed if you answer or a new message arrives</li>
+<li><strong>Archive when actioned:</strong> after you sent the chosen reply, after you dropped it, or when a set-aside reaches its seventh calendar day. A conversation with an unsent draft is never archived</li>
+<li><strong>Archive obvious noise</strong> (auto-replies, calendar responses, machine notifications and receipts of the kinds the profile names, and already-read newsletters the profile does not protect), only while that policy is switched on, and every one is written to a record as it is archived so nothing leaves silently</li>
 </ul>
-<h2>5. What you do, and what you can say</h2>
+<p><strong>Never archived on Harry's own judgement:</strong> anything the profile's never-archive list names, anything unread that a human wrote, and any thread carrying an unsent draft. This list governs Harry's automatic tidying only. <strong>It never overrides you:</strong> when you say drop or archive, the thread is archived, except one carrying an unsent draft. Harry applies no label you have not approved.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 4, and section G; ANSWER-LOOP.md, section 2 ("Archiving precedence")</p>
+
+<h3>Step 5: the ledger</h3>
+<p><strong>What:</strong> the ledger is one file that holds every item across all three channels. Harry writes each item's marker, kind, context, options, recommendation and last-correspondence line, and a script then:</p>
 <ul>
-<li>Send, edit or discard drafts in Superhuman.</li>
-<li>To drop an item for good: remove its <code>Respond</code> label in Superhuman, or tell Watson "drop X". The ledger records it and it never resurfaces.</li>
-<li>To handle something outside email (a phone call): tell Watson, or remove the label. Otherwise the run will keep seeing an unanswered thread.</li>
-<li>Answer the yes-or-no questions on the receipt when you want to; the run repeats them until you do.</li>
-<li>Ask for the Doublecheck by phrase whenever Superhuman "could not find" something.</li>
+<li>gives each item a <strong>number that never changes and is never reused</strong>, from one sequence shared by every channel</li>
+<li>flags anything waiting on you for <strong>two or more working days as overdue</strong>, counted from when the message arrived, and restarts the clock if they write again</li>
+<li>counts set-asides toward the seventh-day archive, except those the profile says may never be archived, which stay until you say</li>
+<li>parks the old backlog and releases it a few items a day only when you ask</li>
+<li>counts the run's sends against the daily cap</li>
+<li><strong>proposes graduating a category</strong> when 10 or more of its items have been answered and 90% or more of your picks matched the recommendation. Nothing graduates without your word</li>
+<li>extends the contact lists only with firms and domains the profile lists for that, never individuals. A list the profile marks never-auto-extended is only ever added to on your word</li>
 </ul>
-<h2>6. What it costs, and why it is cheap enough to leave on</h2>
-<p>One supervised run on 14-Sep-26 used <strong>168,419 platform-reported tokens, 22 tool calls, under ten minutes, on Sonnet</strong>, roughly <strong>15-25 US cents (about 10-20p)</strong> at today's published prices. The August version cost 135,000-167,000 tokens a fire in its sub-agents alone, before its never-measured main window, on Opus, and it was switched off. What made the difference: the cheapest adequate model; one small instruction file instead of the 18,500-token rulebook re-read on every step; two collection calls instead of twenty; Superhuman doing the reading and drafting; and depth scaled to importance, so the expensive thinking is spent on the few items that carry consequence.</p>
-<h2>7. The Superhuman settings that make this work (your hand, five minutes)</h2>
+<p><strong>Your edits.</strong> For every draft that has since left the mailbox and shows in your sent mail, Harry compares what it wrote with what you sent. Where you changed the wording, it records the lesson (capped at ten comparisons a run) and raises any lesson that contradicts a drafting rule as a proposed rule change, never applied silently.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 5 and "Richard's edits"; the ledger script is <code>scripts/ea/v10_ledger.py</code></p>
+
+<h3>Step 6: the briefing page, publishing, the heartbeat</h3>
+<p><strong>What:</strong> a script builds the page from the item record. The run writes only one small file of judgement lines (the summary-first lines, which items are most important, what each draft says and commits you to, housekeeping, cost, and the inbox summaries). The script then checks the page and refuses it if it finds a weekday that does not match its date, a relative word outside a quotation, a bare address as a name, an option with an unrecognised opening, a draft without a description, or a one-paragraph context. Harry fixes each problem at its source and renders again, at most three times. Anything still failing is printed on the page as a check that failed, and <strong>the page is published regardless</strong>.</p>
+<p><strong>The page's frame</strong> (all drawn by the script):</p>
+<ul>
+<li><strong>Left:</strong> a contents panel with counts that act as filters (needs you, overdue, waiting on them, drafts to send, no reply needed), then every part and item, coloured by importance</li>
+<li><strong>Right:</strong> the answer tray, which collects your picks and produces the <code>Harry:</code> text, saving it to a private answers store when the page carries its key</li>
+<li><strong>Under every item that asks you to act:</strong> the answer form, with a button per option letter plus later and drop, and a box for added words. At the foot: boxes for new emails to write, procedure feedback, and anything else</li>
+<li><strong>Top:</strong> the Key Results strip (see below) and the inbox inbound summary, a trial that summarises each new email in two to eight lines according to importance, with receipts, notifications and marketing as one count line. WhatsApp is not included in that summary</li>
+<li>A bar down each item's edge shows its importance, with a faint tint by channel. The header carries the run's start time and the page's build time, and a link back to this explainer</li>
+</ul>
+<p><strong>Publishing.</strong> The run never publishes to the web itself, because the page names investors, family and live business. It commits the ledger and the page to your computer. A free Windows job locks the page behind the passphrase and publishes it, checking every 30 minutes.</p>
+<p><strong>Then:</strong> one line per mailbox goes to the Daily Standup, followed by one line for every overdue item marked Important or Urgent and important. The run writes a heartbeat so that a missing run is noticed, and its final message is a headline-only receipt. If the format file cannot be read, no briefing is written, the failure is stated in the first line, the ledger is still committed, and the heartbeat records the failure so tomorrow starts from today's state.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 6; BRIEFING-FORMAT.md, sections 1, 1b, 2b and 10 to 13; the page is built by <code>scripts/ea/v10_render.py</code> and published by <code>scripts/pipeline/jobs/ea_briefing_publish.py</code></p>
+
+<h3>Step 7: meeting profiles</h3>
+<p><strong>What:</strong> a free job at 06:05 each day reads your published calendar and leaves a card for every external meeting in the next seven days that needs a profile (a new person, or one whose profile is more than 90 days old). This step starts only after Step 6 has finished and written its heartbeat. With no cards, nothing happens except one log line, so there is evidence the step ran. With cards, Harry skips any whose meeting has already passed and writes at most two profiles, earliest meeting first, at light depth. It reads public information only and stays read-only on every platform. It never types a password, and a profile never includes anything on health, family members' private lives, religion or politics. The finished profile is emailed to you alone. If one fails, the others are finished and its card stays for tomorrow.</p>
+<p><strong>Why it lives here:</strong> writing a profile needs a model and the run is already running, so it costs no extra start-up. This is one of the two narrow send exceptions: an email addressed to you alone is internal.</p>
+<p class="src">Source: FIRE-PACK.md, section D, Step 7, and section A</p>
+
+<h2 id="answer">When you answer: the answer loop</h2>
+<p><strong>What starts it:</strong> a message beginning <code>Harry:</code> (or <code>EA email:</code>) in any Cowork chat window or in the Daily Standup. <strong>It is interactive on any login, and the daily run never runs it.</strong> It loads only the answer-loop file, two sections of the daily-run file (the hard stops and the tool rules) and the profiles, so that turning your numbered answers into drafts takes two tool turns.</p>
+<p><strong>First, a script</strong> matches each number to its thread and mailbox, builds the drafting instruction from the option you picked plus any words you added, records your pick against Harry's recommendation (for the graduation statistics), and reports anything it could not match, <strong>in plain words, never silently dropped</strong>. Every instruction names which mailbox it is for.</p>
+<p><strong>Then Harry carries out each answer</strong>, one call per thread because several drafts requested together can collapse onto a single draft:</p>
+<table>
+<thead><tr><th>Your answer</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>A reply option</td><td>a draft is created in Superhuman (or an existing one revised), recorded in the drafts register, and the thread is starred and kept in the inbox</td></tr>
+<tr><td>"No reply. Archive it", <code>drop</code>, <code>archive</code></td><td>no draft; the item closes and the thread is filed (never one with an unsent draft)</td></tr>
+<tr><td>Call, speak, handle in person, "by WhatsApp"</td><td>no draft and no archive; the item closes with what you chose and the thread stays visible</td></tr>
+<tr><td>"Send the draft"</td><td>nothing to write; you press send in Superhuman</td></tr>
+<tr><td><code>revise</code> / <code>discard</code></td><td>revises a draft; discards it only if the register shows Harry wrote it</td></tr>
+<tr><td><code>hold</code></td><td>copies the date into your work calendar with no attendees, so nobody is messaged. If no date and time can be found, nothing is created</td></tr>
+<tr><td>Forward</td><td>a forward draft holding only your introduction, never a reply to the sender</td></tr>
+<tr><td><code>done</code> / <code>draft</code> on a note</td><td>closes the note, or writes the email it asked for</td></tr>
+<tr><td><code>later</code> / <code>keep</code></td><td>ledger only; nothing touched in the mailbox</td></tr>
+<tr><td><code>reply</code></td><td>reopens a set-aside as a choice and un-archives it</td></tr>
+</tbody>
+</table>
+<p>A reply that accepts or confirms a date <strong>also books it:</strong> a hold in your work calendar, no attendees, marked provisional until both sides have confirmed. Whenever an answer acts on an invitation, the report states the date, the time (UK) and the place, and whether there is a diary clash, and says "diary not checked" with the reason if the check could not run.</p>
+
+<h3>How a draft is worded</h3>
+<p><strong>Harry does not write the body of an email. Superhuman does.</strong> Harry controls only three things: Superhuman's stored personalisation, the instruction it gives, and the read-back check that forces a re-issue. Your rules live in those, and the principal ones are:</p>
+<ul>
+<li><strong>Warm is the default,</strong> in the verbs and adjectives ("is great, thank you", never "fine", "OK" or "noted"). Pressing someone is written as a favour asked, not a reprimand</li>
+<li><strong>Layout:</strong> a greeting, a blank line, one short paragraph per idea, and two blank lines before the sign-off, never "Cheers"</li>
+<li><strong>No first name inside the body,</strong> and thanks or praise is one sentence, never stacked</li>
+<li><strong>Days are written as a person says them on the day of sending</strong> ("on Friday", "tomorrow"), with a date added only for a day more than about a week away. The page, by contrast, keeps absolute dates</li>
+<li><strong>A decline makes no counter-offer:</strong> warm, brief, thanks, a reason, and an ask to stay on the list</li>
+<li><strong>Never reference repeating or re-asking.</strong> A re-ask is written fresh, as if for the first time, because naming it reads as rude</li>
+<li><strong>Meeting times follow your Day Types:</strong> the profile sets which weekdays are for calls, which for in-person meetings, and which are Focus Days with no meetings offered</li>
+<li><strong>Every instruction ends with a fixed closing sentence</strong> telling the writer to use only the facts given, because the writer invented content in 9 of about 20 drafts when first measured</li>
+</ul>
+<p><strong>How your feedback on wording is absorbed:</strong> in the same session, the rule is added to Superhuman's writing style on both accounts, a dated master copy is saved, one test draft goes to your own address, and the example is recorded with the lesson. Before writing any instruction Harry reads the record of how you edited earlier drafts.</p>
+<p><strong>Stale drafts.</strong> A draft that names a day or date that is now today or past is flagged for revise-or-discard. Harry never silently keeps or silently discards one.</p>
+
+<h3>The three checks</h3>
+<p>Any turn that creates drafts ends with all three, in this order:</p>
 <ol>
-<li><strong>Auto Archive:</strong> take <code>Company filings</code> out of the auto-archived categories. That label misfires on human mail and, with high conviction, is why live correspondence (an LP's meeting request among it) vanished from your inbox.</li>
-<li><strong>The <code>Company filings</code> label:</strong> add exclusions (colleagues at pacificam.co.uk, anything labelled <code>LPs</code> or <code>Investors</code>, anything asking you a question).</li>
-<li><strong>Decide</strong> whether <code>Corporate access</code> should keep auto-archiving. The daily run now catches personally addressed invites regardless.</li>
-<li><strong>Auto Drafts for Responses:</strong> leave off for now (your instinct was right: it picks a path for you). After two clean weeks of the daily run we trial it for a fortnight and count how many of its drafts Watson had to revise, how many you discarded, and what it saved.</li>
-<li><strong>Auto Reminders on Watson's own status emails:</strong> stop them (send those from Gmail, or Watson discards them each run).</li>
-<li><strong>Sign-off:</strong> re-assert "Much appreciated, Richard" in the personalization profile; today's test signed "Cheers".</li>
+<li><strong>List the drafts:</strong> did every intended thread get its own, distinct draft?</li>
+<li><strong>For any missing draft, check its send status first, and only then re-issue,</strong> and only if the status is idle. The status call comes before the re-issue, because you may have sent that very draft a minute ago and a re-issue would send a second copy. If any status is other than idle, Harry stops drafting and tells you</li>
+<li><strong>Read every draft back</strong> for a banned sign-off, a broken tag, and any claim of fact it cannot point to. A script also refuses a weekday that does not match its date, a flat acceptance word, a clause ending on "this", and any phrase naming a re-ask</li>
 </ol>
-<h2>8. Safety rails</h2>
-<p>Watson never sends. Watson never deletes or discards a draft it did not create in that run. A run that fails says so in the first line of the receipt, and a heartbeat on the existing watchdog notices a run that never started (a silent non-run is how an LP's request was missed in August). Stale drafts (over two weeks old, or naming a passed date) are listed every run because one of those is one click from an embarrassing send.</p>
-<h2>9. Where things live</h2>
+<p>Then Harry says how many drafts were created and that the batch is complete, so you are never sending the first of five while three are still being written. The close of every batch is a running table of every answer you have given in the session, with its live state.</p>
+
+<h3>Sending, after your pick</h3>
+<p><strong>Your pick is not authority to send.</strong> The draft waits for you in Superhuman. The single exception is a routine reply to the one recipient the personal profile names, and only while that profile's switch is on. It starts off, and the first such draft you send yourself is the wording check that earns the switch turning on. Every send is confirmed from the send status and listed on the page.</p>
+<p><strong>WhatsApp has its own rule.</strong> Picking the recommended letter with <strong>no added words</strong> sends exactly the text shown under "If you pick", once WhatsApp sending is switched on. Any other letter, any added words, or a fact answer makes Harry write the message, print it, and wait for <code>&lt;n&gt; send</code>. <strong>Nothing is ever sent that you have not read word for word.</strong> Four gates must all pass: the switch is on; the send comes from the answer loop, never the unattended run; the chat address is the one stored for that item; and the bridge has not seen the same key before. The bridge also refuses on its own if you have written, reacted or called in that chat since the message, under either of the person's two addresses, and refuses every send unless a separate permission file exists on your computer. Where the two switches disagree, the file has the last word. Suggested words are never sent on a pick when they were written more than three days earlier or name a weekday and date that has passed; they are rewritten and shown first.</p>
+
+<h3>Control phrases</h3>
+<p><code>release the backlog</code>, <code>archive noise on|off</code>, <code>labels on|off</code>, <code>graduate &lt;category&gt;</code> and <code>ungraduate &lt;category&gt;</code>, the two send switches, <code>process my form answers</code> (reads the newest submitted form and treats its text as if you had typed it), <code>draft Key Results proposal &lt;n&gt;</code>, and phrases that move an address from the proposed list to a named contact list.</p>
+<p class="src">Source: ANSWER-LOOP.md, sections 1 to 4; FIRE-PACK.md, section C ("The three checks", "The drafts register"); BRIEFING-FORMAT.md, section 10; profiles/whatsapp.md, "Sends, and the gates"</p>
+
+<h2 id="friday">The Friday sweep</h2>
+<p><strong>What:</strong> once a week, for every mailbox, Harry looks wider than the daily run can, because anything outside the daily windows is otherwise invisible to it for ever. It reads every Superhuman split, the inbox for 14 days, the respond and waiting labels over 90 days, all reminders, all drafts, and the sent mail over 90 days. It reports <strong>unanswered threads carrying no reply label</strong>, <strong>mail you sent more than seven days ago with no reply and no reminder</strong>, <strong>items the daily window no longer reaches</strong>, and, where the profile has notes to self, open notes older than 30 days.</p>
+<p><strong>It writes no options and no drafts.</strong> The findings replace the previous week's block in the ledger, are shown in the next page's housekeeping, and are then deleted once that page is written. It can also be run on request.</p>
+<p class="src">Source: DOUBLECHECK.md, all sections; FIRE-PACK.md, section E and Step 6</p>
+
+<h2 id="keyresults">Key Results</h2>
+<p><strong>What:</strong> the daily run is tied to your goals, so that email drives them proactively. The Key Results file tells Harry to:</p>
+<ol>
+<li><strong>Tag</strong> an item that serves a Key Result with the Key Result's name and the Deliverable</li>
+<li><strong>Rank</strong> an item that serves this week's Key Deliverable at Important at least, with the reason stated</li>
+<li><strong>Recommend</strong> with the Deliverable in mind (for example, take a management meeting before an entry decision)</li>
+<li><strong>Propose</strong>, at most three a run, a new email where an agreed Deliverable needs someone outside and nothing is in flight. <strong>Nothing is drafted until you ask.</strong> You can then say <code>Harry: draft Key Results proposal &lt;n&gt;</code></li>
+<li><strong>List promises</strong> you made by email that fall due within seven days and are not yet kept</li>
+<li>Show <strong>this week's Key Results strip</strong> at the top of the page: this week's Key Deliverable, what the inbox did for it, and what waits on you for it</li>
+<li><strong>Feed the Daily Standup</strong> with at most four lines</li>
+</ol>
+<p class="src">Source: KEY-RESULTS.md, items 1 to 7; BRIEFING-FORMAT.md, section 1b</p>
+
+<h2 id="channels">The three channels compared</h2>
+<p>One procedure, three channels: <strong>everything about how the run works lives in the shared files, and only what is specific to a channel lives in its profile.</strong> A rule true of every channel never goes in a profile, and a fact about one channel never goes in the shared files.</p>
+<table>
+<thead><tr><th></th><th>Work email</th><th>Personal email</th><th>WhatsApp</th></tr></thead>
+<tbody>
+<tr><td><strong>Where it comes from</strong></td><td>Outlook, through Superhuman</td><td>Gmail, through Superhuman</td><td>a file written at 16:30 by a free job from the phone's local message store; no account, no Superhuman call</td></tr>
+<tr><td><strong>Inbox window per call</strong></td><td>one day</td><td>three days (a quieter inbox)</td><td>not applicable</td></tr>
+<tr><td><strong>Notes to self</strong></td><td>off</td><td>on</td><td>off</td></tr>
+<tr><td><strong>Search quirk</strong></td><td>a date window cannot be combined with a text filter</td><td>it can</td><td>not applicable</td></tr>
+<tr><td><strong>Sends</strong></td><td>never; you press send on every draft</td><td>only routine replies to one named recipient, under a switch that starts off and a daily cap</td><td>on your pick of shown text, from the answer loop only, with two switches and four gates</td></tr>
+<tr><td><strong>Register</strong></td><td>replies to a bank's corporate access staff are warm and two to four sentences; the standing reason for declining a dated in-person invitation is that you are not in London then</td><td>warmest register for family; ordinary warm professional for tradespeople, agents and solicitors; a decline gives the real reason or none; school mail has one standard response, a forward to the household member the profile names</td><td>the email voice with about a quarter less formality, one of five tiers, no sign-off, and the tier is named on the item line</td></tr>
+<tr><td><strong>Never archived on Harry's judgement</strong></td><td>unread sell-side research, broker or company invitations, corporate access mail, anything unread a human wrote, anything with an unsent draft, and mail from the information technology provider</td><td>anything unread a human wrote, family, house team, school and close people, investing newsletters, receipts and order confirmations, any thread with an unsent draft, and notes to self</td><td>nothing on the phone is ever changed except messages you choose to send</td></tr>
+</tbody>
+</table>
+<p class="src">Source: FIRE-PACK.md, header comment and section D, Step 0; profiles/work.md, profiles/personal.md and profiles/whatsapp.md, each "What the values mean"</p>
+
+<h2 id="rails">Safety rails in one place</h2>
 <ul>
-<li>The instruction file the run loads: <code>memory/skills/ea-email/FIRE-PACK.md</code> (v6.1)</li>
-<li>The design, cost map and reasoning: <code>projects/EA - Email Management/SOP-2026-09-14-work-email-daily-v6.1.md</code> (v6 kept beside it as the record)</li>
-<li>The scheduled task's prompt text: <code>projects/EA - Email Management/SCHEDULED-TASK-PROMPT-ea-work-email-daily.md</code></li>
-<li>The ledger: <code>projects/EA - Email Management/ea-work-email-ledger.json</code>, with a dated copy per run under <code>ledger-history/</code></li>
-<li>The receipts, one file per run: <code>projects/EA - Email Management/run-log/receipt-&lt;date&gt;.md</code> (the supervised test of 14-Sep is in <code>run-log-v6.md</code>)</li>
-<li>The backlog disposition list: <code>projects/EA - Email Management/BACKLOG-DISPOSITIONS-2026-09-14.md</code></li>
-<li>The two deterministic scripts: <code>scripts/ea/v6_parse.py</code> (the queue) and <code>scripts/ea/v6_ledger.py</code> (the ledger)</li>
-<li>This explainer: <code>projects/EA - Email Management/EA-EMAIL-SOP-EXPLAINER.md</code> and, as a page, <code>ea-email-sop-explainer.html</code> at the COWORK root, linked from the landing page</li>
+<li><strong>No external send.</strong> Two narrow exceptions only, plus WhatsApp under its gates</li>
+<li><strong>No deletion.</strong> Nothing permanently deleted or overwritten, mail never trashed on Harry's judgement</li>
+<li><strong>Nothing silent.</strong> Everything archived is written to a record as it happens and listed on the next page, so nothing you might act on can vanish unreported</li>
+<li><strong>Live state is checked before anything is reported as waiting on you.</strong> A draft to send, a fix, a reply owed: checked in the same turn, never repeated from a file or an earlier turn. A draft that has gone and has a message from you dated after it was last updated is reported as sent</li>
+<li><strong>The item record moves with the mailbox.</strong> Any session that acts on a numbered item records it in the ledger in the same turn, or the daily page will print it as overdue</li>
+<li><strong>Nothing is ever guessed.</strong> A check that did not run is named plainly on the page, and a question Harry cannot match is asked, never answered by assumption</li>
 </ul>
-<h2>10. Plain-English glossary</h2>
+<p class="src">Source: FIRE-PACK.md, sections A, C, F and G; ANSWER-LOOP.md, section 2</p>
+
+<h2 id="limits">What is deliberately not built</h2>
 <ul>
-<li><strong><code>Respond</code> label:</strong> Superhuman's own AI tag meaning "this thread is waiting on you". Accurate, but it stays on a thread after you reply, so the run also checks who wrote last.</li>
-<li><strong>Auto Drafts / Auto Reminders / Auto Archive / Auto Labels:</strong> Superhuman's built-in automations: draft replies and chasers in your voice; resurface unanswered sent mail; file labelled categories out of the inbox; tag mail by type.</li>
-<li><strong>Ask AI (<code>query_email_and_calendar</code>):</strong> Superhuman's natural-language search. Good for summarising one thread; unreliable for finding mail (it missed Jamie Carter's), so the run never uses it to search.</li>
-<li><strong>Split:</strong> a Superhuman inbox section (Inbox, Roadshows, Fellow investors…). Listing a split is deterministic and complete, so the weekly sweep uses splits.</li>
-<li><strong>Spill file:</strong> when a tool returns more than fits in the conversation, the result is written to a file that a script reads for free.</li>
-<li><strong>Fire-pack:</strong> the one short file the scheduled run loads instead of the whole rulebook.</li>
-<li><strong>Ledger:</strong> the small JSON file that remembers each live item, its age, its draft state, and what you decided.</li>
-<li><strong>Doublecheck Sweep:</strong> the weekly, label-free, AI-free completeness check.</li>
-<li><strong>HIGH / LOW:</strong> importance tier, decided from sender, labels, age and dates before anything is spent.</li>
+<li><strong>Two-day-ahead meeting confirmations</strong> (Step 3c): three attempts failed, so it is not improvised</li>
+<li><strong>Voice-note transcription</strong> on WhatsApp: not in this version, so a voice note is shown as a voice note with its length</li>
+<li><strong>Automatic sending to correspondents</strong>: permanently not the design, not a stage to grow out of</li>
+<li><strong>Replies Harry cannot see:</strong> mail sent from an address with no active profile is invisible to the cross-thread check</li>
 </ul>
-<h2>11. Go-live sequence (where we are)</h2>
-<p>Design signed off by you (done, 14-Sep) → the backlog re-baselined live and a disposition list put to you (done, 14-Sep: 133 threads since 1 May, 33 needing you, the 23 IR drafts tabled) → Superhuman settings adjusted (Section 7, your hand) → ledger seeded (done) → heartbeat registered and the daily run scheduled (weekdays, about 07:15 UK, Sonnet, the Friday Doublecheck folded into Friday's run; one approval from you on the task card) → first fire supervised, every draft it makes read by Watson → your answers on the disposition list turned into fresh notes and re-dated IR drafts.</p>
-<p><em>[W] Watson / SA. 14-Sep-26; amended to v6.1 the same day (session 10).</em></p>
+<p class="src">Source: FIRE-PACK.md, section A and Steps 2b and 3c; profiles/whatsapp.md, "What the values mean"</p>
+
+<h2 id="keeping">How this page is kept current</h2>
+<p>This page describes the Email SOP as it stood on the date shown at the foot. <strong>The rule is one sentence: whenever the Email SOP is updated, this page is updated in the same session.</strong> Each Email SOP file carries a one-line reminder at the top, and the project's rulebook (rule 10) states it. The page deliberately leaves out anything that changes day to day (which switches are on, the last run, today's counts), because a page that stated those would be wrong by itself.</p>
+<p>Your feedback on the procedure is written into the Email SOP in the session where you give it, so the next run carries it, and then this page is updated to match.</p>
+
+<h2 id="versions">Versions this page was checked against</h2>
+<table>
+<thead><tr><th>Email SOP file</th><th>Version and last edit</th></tr></thead>
+<tbody>
+<tr><td>FIRE-PACK.md (the daily run)</td><td>version 12.2, 3 October 2026</td></tr>
+<tr><td>ANSWER-LOOP.md</td><td>version 3.1, 3 October 2026</td></tr>
+<tr><td>BRIEFING-FORMAT.md</td><td>version 3.1, 3 October 2026</td></tr>
+<tr><td>DOUBLECHECK.md (the Friday sweep)</td><td>version 2, edited 5 October 2026 (run now Sunday to Friday)</td></tr>
+<tr><td>KEY-RESULTS.md</td><td>3 October 2026</td></tr>
+<tr><td>profiles/work.md</td><td>version 1, 21 September 2026</td></tr>
+<tr><td>profiles/personal.md</td><td>version 1, 21 September 2026</td></tr>
+<tr><td>profiles/whatsapp.md</td><td>version 1.3, 3 October 2026</td></tr>
+</tbody>
+</table>
+<p class="stamp">Each file also carries a one-line reminder, added on 5 October 2026, to update this page when it changes. The older email rulebook (<code>SKILL.md</code>) is not a source for this page, because it describes an earlier design and disagrees with the Email SOP in places.</p>
+
 </main></body></html>
