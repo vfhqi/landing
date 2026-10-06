@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generated-date" content="2026-10-05">
+<meta name="data-timestamp" content="2026-10-05 17:45">
+<title>Technical Momentum Rating A, B and C — Viewforth</title>
+<style>
+:root {
+  --bg:#fbf9f1; --ink:#1c1c1c; --ink-dim:#4a4a4a; --muted:#8a8a8a;
+  --line:#e0ddd4; --tile:#fffdf6; --tile-b:#f5f3ec;
+  --yellow:#b88a00; --blue:#3f66b5;
+  --font:'Aptos','Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'Consolas','JetBrains Mono',monospace;
+  --radius:4px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:12px;line-height:1.45}
+
+/* header */
+header{
+  background:#1c1c1c;color:#f0ece0;
+  padding:12px 24px;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;
+}
+.header-title h1{font-size:1rem;font-weight:700;letter-spacing:.02em}
+.header-title .subtitle{font-size:.72rem;color:#9a9386;margin-top:2px}
+.header-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#archive-select{
+  background:#2a2a2a;color:#cec8ba;border:1px solid #484848;
+  border-radius:var(--radius);padding:4px 8px;font-size:.72rem;cursor:pointer;
+  font-family:var(--font);
+}
+#archive-select:hover{border-color:#888}
+.copy-btn{
+  background:#2e2e2e;color:#d8d0c2;border:1px solid #555;
+  border-radius:var(--radius);padding:4px 10px;font-size:.72rem;cursor:pointer;
+  font-family:var(--font);white-space:nowrap;transition:background .15s,color .15s;
+}
+.copy-btn:hover{background:#444;border-color:#888}
+.copy-btn.copied{background:#2a5c2a;border-color:#3a8a3a;color:#b0e0b0}
+.back-link{color:#c8b96a;text-decoration:none;font-size:.78rem}
+.back-link:hover{text-decoration:underline}
+.archive-banner{
+  background:#fff8e6;border-bottom:2px solid #e6c84a;
+  padding:6px 24px;font-size:.78rem;color:#7a5c00;
+}
+
+/* main */
+main{max-width:1800px;margin:0 auto;padding:18px 16px 50px}
+
+/* summary counts row */
+.summary-row{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:2px solid var(--line);
+}
+.summary-badge{
+  display:flex;align-items:center;gap:5px;
+  font-size:.78rem;font-weight:600;
+}
+.badge-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+}
+.badge-dot-a{background:#2e7d32}
+.badge-dot-b{background:#b37a00}
+.badge-dot-c{background:#7b1fa2}
+
+/* industry panel — full-width card per industry */
+.industry-panel{
+  --ihue: 200;
+  margin-bottom:10px;
+  border:1px solid hsl(var(--ihue),28%,82%);
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+
+/* dark industry header bar */
+.industry-header-row{
+  background:hsl(var(--ihue),28%,22%);
+  color:hsl(var(--ihue),30%,92%);
+  padding:5px 12px;
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.ind-count{
+  font-size:.68rem;font-weight:400;opacity:.65;margin-left:6px;
+}
+
+/* three-column layout */
+.three-col{
+  display:flex;
+  min-height:0;
+}
+.col-a,.col-b,.col-c{
+  flex:1;
+  min-width:0;
+}
+.col-a,.col-b{
+  border-right:1px solid hsl(var(--ihue),28%,85%);
+}
+
+/* column grade headers */
+.col-header{
+  padding:4px 8px;
+  font-size:.68rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.col-a .col-header{
+  background:#e8f5e9;
+  color:#2e7d32;
+  border-bottom:1px solid #c8e6c9;
+}
+.col-b .col-header{
+  background:#fff8e1;
+  color:#b37a00;
+  border-bottom:1px solid #ffe082;
+}
+.col-c .col-header{
+  background:#f3e5f5;
+  color:#7b1fa2;
+  border-bottom:1px solid #e1bee7;
+}
+.grade-count{
+  font-size:.62rem;font-weight:400;opacity:.75;margin-left:5px;
+}
+
+/* stock list */
+.stock-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+/* stock row — CSS grid so all three cells align independently of content width */
+.stock-item{
+  display:grid;
+  grid-template-columns:190px 1fr auto;
+  align-items:baseline;
+  gap:6px;
+  padding:3px 8px;
+  border-bottom:1px solid var(--line);
+  background:var(--tile);
+}
+.stock-item:last-child{border-bottom:none}
+.stock-item:nth-child(even){background:var(--tile-b)}
+.col-a .stock-item:hover{background:#f1f8f1}
+.col-b .stock-item:hover{background:#fffaed}
+.col-c .stock-item:hover{background:#f8f0fb}
+
+/* empty column placeholder */
+.empty-col{
+  padding:8px 10px;
+  font-size:.72rem;
+  color:var(--muted);
+  font-style:italic;
+}
+
+/* company name — fixed 190px grid track, ellipsis for overflow */
+.name-cell{
+  min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-size:.74rem;font-weight:500;color:var(--ink);
+}
+
+/* sector label — takes remaining space after name; left edge always at ~190px */
+.sector-cell{
+  min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-size:.68rem;color:var(--muted);font-style:italic;
+  padding:0 6px;
+}
+
+/* column sub-header row — same grid template as stock-item */
+.stock-header-row{
+  display:grid;
+  grid-template-columns:190px 1fr auto;
+  align-items:baseline;
+  gap:6px;
+  padding:3px 8px;
+  background:hsl(var(--ihue),18%,96%);
+  border-bottom:1px solid hsl(var(--ihue),25%,90%);
+  font-size:.6rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);
+}
+.sh-sector{padding:0 6px}
+.sh-timeliness{white-space:nowrap;text-align:right}
+
+/* qualification label + rating qualifier chip */
+.row-label{
+  font-size:.68rem;font-weight:600;
+  white-space:nowrap;
+  text-align:right;
+}
+.col-a .row-label{color:#2e7d32}
+.col-b .row-label{color:#b37a00}
+.col-c .row-label{color:#7b1fa2}
+.qual-tag{
+  font-size:.6rem;font-weight:400;font-style:italic;
+  opacity:.72;margin-left:3px;
+}
+
+/* footer */
+footer{
+  border-top:1px solid var(--line);padding:12px 24px;
+  font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:6px;
+}
+footer a{color:var(--blue);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-title">
+    <h1>Technical Momentum Rating: the A, B and C stocks</h1>
+    <div class="subtitle">Data as at 2026-10-05 17:45 &nbsp;&middot;&nbsp; 137 Grade A &nbsp;&middot;&nbsp; 326 Grade B &nbsp;&middot;&nbsp; 179 Grade C</div>
+  </div>
+  <div class="header-controls"><select id="archive-select" onchange="if(this.value)window.open(this.value,'_blank')"><option value="">Archive: select date…</option><option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2126-08-24.html">2126-08-24</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-10-04.html">2026-10-04</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-10-03.html">2026-10-03</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-10-02.html">2026-10-02</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-10-01.html">2026-10-01</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-30.html">2026-09-30</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-29.html">2026-09-29</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-28.html">2026-09-28</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-27.html">2026-09-27</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-26.html">2026-09-26</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-25.html">2026-09-25</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-24.html">2026-09-24</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-23.html">2026-09-23</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-22.html">2026-09-22</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-21.html">2026-09-21</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-20.html">2026-09-20</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-19.html">2026-09-19</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-18.html">2026-09-18</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-17.html">2026-09-17</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-16.html">2026-09-16</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-15.html">2026-09-15</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-14.html">2026-09-14</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-13.html">2026-09-13</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-12.html">2026-09-12</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-11.html">2026-09-11</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-10.html">2026-09-10</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-09.html">2026-09-09</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-08.html">2026-09-08</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-07.html">2026-09-07</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-06.html">2026-09-06</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-05.html">2026-09-05</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-04.html">2026-09-04</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-03.html">2026-09-03</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-02.html">2026-09-02</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-09-01.html">2026-09-01</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-27.html">2026-08-27</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-25.html">2026-08-25</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-21.html">2026-08-21</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-20.html">2026-08-20</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-19.html">2026-08-19</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-18.html">2026-08-18</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-17.html">2026-08-17</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-16.html">2026-08-16</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-15.html">2026-08-15</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-14.html">2026-08-14</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-13.html">2026-08-13</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-12.html">2026-08-12</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-11.html">2026-08-11</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-10.html">2026-08-10</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-09.html">2026-08-09</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-08.html">2026-08-08</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-07.html">2026-08-07</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-04.html">2026-08-04</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-03.html">2026-08-03</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-02.html">2026-08-02</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-08-01.html">2026-08-01</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-31.html">2026-07-31</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-30.html">2026-07-30</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-29.html">2026-07-29</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-28.html">2026-07-28</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-27.html">2026-07-27</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-26.html">2026-07-26</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-25.html">2026-07-25</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-24.html">2026-07-24</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-23.html">2026-07-23</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-22.html">2026-07-22</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-19.html">2026-07-19</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-18.html">2026-07-18</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-17.html">2026-07-17</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-15.html">2026-07-15</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-14.html">2026-07-14</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-12.html">2026-07-12</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-11.html">2026-07-11</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-10.html">2026-07-10</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-09.html">2026-07-09</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-07.html">2026-07-07</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-06.html">2026-07-06</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-05.html">2026-07-05</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-04.html">2026-07-04</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-03.html">2026-07-03</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-02.html">2026-07-02</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-07-01.html">2026-07-01</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-30.html">2026-06-30</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-29.html">2026-06-29</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-26.html">2026-06-26</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-25.html">2026-06-25</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-24.html">2026-06-24</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-23.html">2026-06-23</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-22.html">2026-06-22</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-21.html">2026-06-21</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-20.html">2026-06-20</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-19.html">2026-06-19</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-18.html">2026-06-18</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-17.html">2026-06-17</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-16.html">2026-06-16</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-15.html">2026-06-15</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-14.html">2026-06-14</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-13.html">2026-06-13</option>
+<option value="https://vfhqi.github.io/landing/archive/timeliness-qualified-2026-06-12.html">2026-06-12</option></select><button id="copy-btn-A" class="copy-btn" onclick="copyNames('A')" title="Copy all Grade A tickers">Copy A tickers</button><button id="copy-btn-B" class="copy-btn" onclick="copyNames('B')" title="Copy all Grade B tickers">Copy B tickers</button><button id="copy-btn-C" class="copy-btn" onclick="copyNames('C')" title="Copy all Grade C tickers">Copy C tickers</button></div>
+</header>
+<main>
+<div class="summary-row"><div class="summary-badge"><span class="badge-dot badge-dot-a"></span>137 Grade A (a setup now)</div><div class="summary-badge"><span class="badge-dot badge-dot-b"></span>326 Grade B (Stage 2)</div><div class="summary-badge"><span class="badge-dot badge-dot-c"></span>179 Grade C (early)</div><span style="font-size:.72rem;color:var(--muted);">16 industries</span></div>
+<div class="industry-panel" style="--ihue:38"><div class="industry-header-row">A. Consumer staples <span class="ind-count">(24)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(3)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">B&amp;M European Value Retail</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Hilton Food</span><span class="sector-cell">A.6. Food production</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Lotus Bakeries</span><span class="sector-cell">A.6. Food production</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(11)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Haypp</span><span class="sector-cell">A.2. Tobacco</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Inter Cars</span><span class="sector-cell">A.3. Automotive repair</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Karelia Tobacco Company</span><span class="sector-cell">A.2. Tobacco</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Distribuidora Internacional de Alimentacion</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Greggs</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Kesko Oyj</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Louis Hachette</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Pepco</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Philip Morris Czech Republic</span><span class="sector-cell">A.2. Tobacco</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sonae</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Suedzucker</span><span class="sector-cell">A.6. Food production</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(10)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Coca-Cola Enterprises</span><span class="sector-cell">A.1. Beverages - beer</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Marks and Spencer</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Tesco</span><span class="sector-cell">A.5. Food retail</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">AG Barr</span><span class="sector-cell">A.1. Beverages - beer</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Danone</span><span class="sector-cell">A.6. Food production</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Diageo</span><span class="sector-cell">A.8. Beverages - spirits</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Europris</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Jumbo</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Lagardere</span><span class="sector-cell">A.7. General retail</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Remy</span><span class="sector-cell">A.8. Beverages - spirits</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:200"><div class="industry-header-row">B. Healthcare <span class="ind-count">(51)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(7)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">argenx</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bachem</span><span class="sector-cell">B.4. CDMO or CRO</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Chemical Works of Gedeon Richter</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Lundbeck</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Orion</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Vimian</span><span class="sector-cell">B.2. Animal healthcare</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Gerresheimer</span><span class="sector-cell">B.10. Medtech - components</span><span class="row-label">VCP, Stage 1 to 2<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(19)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ambea</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Attendo</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Careium</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Demant</span><span class="sector-cell">B.8. Medtech - distributors / retail</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">El.En.</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">GVS</span><span class="sector-cell">B.10. Medtech - components</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Humana</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Medicover</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Oxford Instruments</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SCHOTT Pharma</span><span class="sector-cell">B.10. Medtech - components</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Spire Healthcare</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Tecan</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Addlife</span><span class="sector-cell">B.8. Medtech - distributors / retail</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Draegerwerk</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Fresenius Medical Care</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Getinge</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Krka</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sandoz</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sonova</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(25)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Bayer</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Bonesupport</span><span class="sector-cell">B.9. Medtech - consumables - growth</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Merck</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Recordati</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Ypsomed Holding</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Aevis Victoria</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Amplifon</span><span class="sector-cell">B.8. Medtech - distributors / retail</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Bavarian Nordic</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Camurus</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Carl Zeiss Meditec</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Chemometec</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Clariane</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Convatec</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">CVS Group</span><span class="sector-cell">B.2. Animal healthcare</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Diagnostyka</span><span class="sector-cell">B.3. Hospitals, clinics and care homes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">DiaSorin</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Eckert &amp; Ziegler</span><span class="sector-cell">B.10. Medtech - components</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Grifols</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Hikma Pharmaceuticals</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Lonza</span><span class="sector-cell">B.4. CDMO or CRO</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Nolato</span><span class="sector-cell">B.10. Medtech - components</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sanofi</span><span class="sector-cell">B.7. Pharma/biotech</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sartorius Stedim Biotech</span><span class="sector-cell">B.4. CDMO or CRO</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">SKAN</span><span class="sector-cell">B.6. Medtech - capital goods</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Straumann</span><span class="sector-cell">B.5. Medtech - consumables - mature</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:205"><div class="industry-header-row">C. Telecoms <span class="ind-count">(12)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(2)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">NOS</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Gamma Communications</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(6)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cyfrowy Polsat</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Digi Communications</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hellenic Telecom</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Orange Polska</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Telia Lietuva</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Vodafone</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(4)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Helios Towers</span><span class="sector-cell">C.2. Telecoms - towers</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Orange Belgium</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Cellnex</span><span class="sector-cell">C.2. Telecoms - towers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Telefonica</span><span class="sector-cell">C.1. Telecoms - MNOs</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:140"><div class="industry-header-row">D. Infrastructure <span class="ind-count">(6)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(0)</span></div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(4)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Piraeus Port Authority</span><span class="sector-cell">D.2. Infrastructure - ports</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Vopak</span><span class="sector-cell">D.2. Infrastructure - ports</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Athens International Airport</span><span class="sector-cell">D.1. Infrastructure - airports/trains</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Getlink</span><span class="sector-cell">D.1. Infrastructure - airports/trains</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(2)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aeroports de Paris</span><span class="sector-cell">D.1. Infrastructure - airports/trains</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Flughafen Wien</span><span class="sector-cell">D.1. Infrastructure - airports/trains</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:28"><div class="industry-header-row">E. Utilities <span class="ind-count">(28)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(4)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">EDP</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">GELSENWASSER</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Public Power</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">RWE</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(19)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">C.N.T.E.E. Transelectrica</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">CEZ as</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Endesa</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Fortum</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Iberdrola</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Infortar AS</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Metlen Energy &amp; Metals</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Naturgy</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">PGE</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Romande Energie</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Societatea Energetica Electrica</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Uniper</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">United Utilities</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">EVN</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Gek Terna</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hidroelectrica</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Ignitis Grupe</span><span class="sector-cell">E.1. Utilities - Integrated power</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Severn Trent</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">VERBUND</span><span class="sector-cell">E.3. Utilities - Water and other non-power</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(5)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Acciona Energias Renovables</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Orsted</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Polenergia</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Redeia</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Voltalia</span><span class="sector-cell">E.2. Utilities - green focused</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:250"><div class="industry-header-row">F. Defence <span class="ind-count">(7)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(1)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">MilDef</span><span class="sector-cell">F.2. Defence - Non-primes</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(3)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Exail Technologies</span><span class="sector-cell">F.2. Defence - Non-primes</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Rolls-Royce</span><span class="sector-cell">F.1. Defence - Primes</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Safran</span><span class="sector-cell">F.1. Defence - Primes</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(3)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Chemring</span><span class="sector-cell">F.1. Defence - Primes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">QinetiQ</span><span class="sector-cell">F.1. Defence - Primes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Thales</span><span class="sector-cell">F.1. Defence - Primes</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:175"><div class="industry-header-row">G. Financials <span class="ind-count">(148)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(56)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ageas</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Amundi</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Banco di Desio e della Brianza</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back, Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">Banco Sabadell</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bank Millennium</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bank of Cyprus Holdings</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bank of Ireland</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bank Polska K Opieki</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Bure Equity</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Commerzbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Erste Bank Polska</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Georgia Capital</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">IP Group</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Jyske Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">KBC Group</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Man Group</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">mBank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">National Bank of Greece</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Raiffeisen Bank International</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">SpareBank 1 Nord-Norge</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">SpareBank 1 Ostlandet</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">SpareBank 1 Sor-Norge</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Sparebanken Norge</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Standard Chartered</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Swedbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Talanx</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">TBC Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Van Lanschot Kempen</span><span class="sector-cell">G.10. Traditional wealth managers (B2C)</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Vontobel</span><span class="sector-cell">G.10. Traditional wealth managers (B2C)</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">ABN AMRO</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">AIB Group</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Aker</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; + Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">Alpha Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">ASR Nederland</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Avarda Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Azimut Holding</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Banca Mediolanum</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Banco Comercial Portugues</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Banco Santander</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Bawag</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">BBVA</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Credito Emiliano</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Danske Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">DNB Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Erste</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Eurobank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Hiscox</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">ING Bank Slaski</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">ING Groep</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Lion Finance Group</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Piraeus Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">PKO Bank Polski</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Skandinaviska Enskilda Banken</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">SpareBank 1 SMN</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Svenska Handelsbanken</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Unicaja Banco</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(73)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aberdeen Group</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Admiral</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Aegon</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AJ Bell</span><span class="sector-cell">G.5. Online savings platform (D2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AL Sydbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Alior Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Allfunds</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Allianz</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ANIMA Holding</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Avanza</span><span class="sector-cell">G.5. Online savings platform (D2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Aviva</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AXA</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banca Generali</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banca Monte dei Paschi di Siena</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banca Transilvania</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banco BPM</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bank Handlowy w Warszawie</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bankinter</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banque Cantonale Vaudoise</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Beazley</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Berner Kantonalbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BNP Paribas Bank Polska Spolka Akcyjna</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BPER Banca</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bridgepoint</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BTV Vier Lander Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">CaixaBank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Coface</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Deutsche Borse</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DWS Group</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Euronext</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Generali</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Graubuendner Kantonalbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hannover Re</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Helvetia Baloise</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">HSBC</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Intesa Sanpaolo</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Julius Baer</span><span class="sector-cell">G.10. Traditional wealth managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Legal &amp; General</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Liechtensteinische Landesbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Luzerner Kantonalbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Mapfre</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Mediobanca - Banca di Credito Finanziario</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Metro Bank Holdings</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">NN Group</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nordea</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nordnet</span><span class="sector-cell">G.5. Online savings platform (D2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nuernberger Beteiligungs</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Oberbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Optima Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Ringkjobing Landbobank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Schroders</span><span class="sector-cell">G.11. Traditional asset managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SCOR</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">St.Galler Kantonalbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Standard Life</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Storebrand</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Swiss Life</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Swiss Re</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">TP ICAP</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">UBS</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">UniCredit</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Unipol</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">UNIQA Insurance</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Viel &amp; Cie</span><span class="sector-cell">G.10. Traditional wealth managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">VZ Holding</span><span class="sector-cell">G.10. Traditional wealth managers (B2C)</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Walliser Kantonalbank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Zurich Insurance</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Banque Cantonale de Geneve</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BB Biotech</span><span class="sector-cell">G.12. Specialty finance and other</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Creades</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Industrivarden</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Integrafin</span><span class="sector-cell">G.6. Asset management software (B2B)</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Investor</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">L E Lundbergforetagen</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(19)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Gimv</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Alm. Brand</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Brederode</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Caledonia Investments</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Compagnie de l&#x27;Odet</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">EXOR</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">ICG Enterprise Trust</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Italmobiliare</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Linea Directa Aseguradora</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">London Stock Exchange</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Munich Re</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Norion Bank</span><span class="sector-cell">G.13. Banks</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Pollen Street</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Ratos</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sampo</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sofina</span><span class="sector-cell">G.4. Holding companies</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Tikehau Capital</span><span class="sector-cell">G.3. Alternative investment managers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Tradegate</span><span class="sector-cell">G.2. Exchanges and brokers</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Tryg</span><span class="sector-cell">G.1. Insurance</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:5"><div class="industry-header-row">H. Consumer discretionary <span class="ind-count">(61)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(7)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">BIC</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Brembo</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Clas Ohlson</span><span class="sector-cell">H.3. Retail - general/physical</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Ferrari</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Grupa Pracuj</span><span class="sector-cell">H.12. Online classifieds/platforms</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Valeo</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Cairn Homes</span><span class="sector-cell">H.16. Homebuilders</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(30)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Allegro.eu</span><span class="sector-cell">H.4. Retail - online</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ASOS</span><span class="sector-cell">H.4. Retail - online</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">InterContinental Hotels</span><span class="sector-cell">H.10. Hotels/Land-based Casinos</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Monte-Carlo SBM</span><span class="sector-cell">H.10. Hotels/Land-based Casinos</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Puuilo</span><span class="sector-cell">H.3. Retail - general/physical</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Asmodee</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Beauty Tech</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Benefit Systems</span><span class="sector-cell">H.9. Leisure</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bilia</span><span class="sector-cell">H.14. Automotive - sales/rentals</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Cheffelo</span><span class="sector-cell">H.13. Food delivery</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Continental</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Delivery Hero</span><span class="sector-cell">H.13. Food delivery</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Easyjet</span><span class="sector-cell">H.11. Airlines and travel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Evoke</span><span class="sector-cell">H.6. Gambling - B2C OSB, Casino-led</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Frasers</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Glenveagh Properties</span><span class="sector-cell">H.16. Homebuilders</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Groupe SEB</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Jet2</span><span class="sector-cell">H.11. Airlines and travel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">LPP</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Michelin</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Mips</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nokian Renkaat</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">OVS</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Pandora</span><span class="sector-cell">H.1. Luxury goods</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Pirelli &amp; C.</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Richemont</span><span class="sector-cell">H.1. Luxury goods</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sanlorenzo</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">tonies</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Watches of Switzerland</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ZIGUP</span><span class="sector-cell">H.14. Automotive - sales/rentals</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(24)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Ballys Intralot</span><span class="sector-cell">H.7. Gambling - B2C - Lottery-led</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">HUGO BOSS</span><span class="sector-cell">H.1. Luxury goods</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Next</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Sixt</span><span class="sector-cell">H.14. Automotive - sales/rentals</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">adidas</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Apotea</span><span class="sector-cell">H.4. Retail - online</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Autoneum</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Baltic Classifieds</span><span class="sector-cell">H.12. Online classifieds/platforms</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">FDJ United</span><span class="sector-cell">H.7. Gambling - B2C - Lottery-led</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Fielmann</span><span class="sector-cell">H.1. Luxury goods</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">FirstGroup</span><span class="sector-cell">H.11. Airlines and travel</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Gestamp Automocion</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Hella</span><span class="sector-cell">H.15. Automotive - OEM or supplier</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">HORNBACH Holding</span><span class="sector-cell">H.3. Retail - general/physical</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Howdens</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">JM</span><span class="sector-cell">H.16. Homebuilders</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Mitchells &amp; Butlers</span><span class="sector-cell">H.9. Leisure</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Moncler</span><span class="sector-cell">H.1. Luxury goods</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">MONY</span><span class="sector-cell">H.12. Online classifieds/platforms</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Rightmove</span><span class="sector-cell">H.12. Online classifieds/platforms</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Thule</span><span class="sector-cell">H.17. Consumer products</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Wetherspoons</span><span class="sector-cell">H.9. Leisure</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Zalando</span><span class="sector-cell">H.2. Retail - apparel</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">ZEAL Network</span><span class="sector-cell">H.7. Gambling - B2C - Lottery-led</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:158"><div class="industry-header-row">I. Transportation <span class="ind-count">(15)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(3)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Clarkson</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Kuehne &amp; Nel International</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Posti</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(11)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">CMB.TECH</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Dampskibsselskabet NORDEN</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DHL</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hapag-Lloyd</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hoegh Autoliners</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Inpost</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Irish Continental</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Logista</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Maersk</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Wallenius Wilhelmsen</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Wilhelmsen</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(1)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">STEF</span><span class="sector-cell">I.1. Logistics</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:215"><div class="industry-header-row">J. Technology <span class="ind-count">(54)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(7)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Hacksaw</span><span class="sector-cell">J.5. Software - VMS</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back, Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">Kainos</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">OVH Groupe</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Playtech</span><span class="sector-cell">J.5. Software - VMS</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back, Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">PLUXEE</span><span class="sector-cell">J.3. Fintech/payment processing</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back, Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">Chapters</span><span class="sector-cell">J.5. Software - VMS</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Sinch</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(34)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">74Software</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AMS Osram</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ASM International</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ASML</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AT &amp; S Austria Technologie &amp; Systemtechnik Aktiengesellschaft</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Atea</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bytes</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">COMET</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Computacenter</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Embracer</span><span class="sector-cell">J.7. Software - Computer games</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Evolution</span><span class="sector-cell">J.5. Software - VMS</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">HMS Networks</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Indra</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">INFICON Holding</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">IONOS</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Kambi</span><span class="sector-cell">J.5. Software - VMS</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Logitech International</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Mycronic</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Pfeiffer Vacuum Technology</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Planisware</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sectra</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sensirion Holding</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sesa</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Siltronic</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Softcat</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SoftwareOne</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Soitec</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sopra Steria</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Technoprobe</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">VAT Group</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Kitron</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Modern Times</span><span class="sector-cell">J.7. Software - Computer games</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nexi</span><span class="sector-cell">J.3. Fintech/payment processing</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nordic Semiconductor</span><span class="sector-cell">J.9. Semiconductors</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(13)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">ALSO</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Amadeus</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Asseco South Eastern Europe</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Bechtle</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">CD Projekt</span><span class="sector-cell">J.7. Software - Computer games</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Dustin</span><span class="sector-cell">J.2. IT services - reselling</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Kontron</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Neurones</span><span class="sector-cell">J.1. IT services - consulting</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Paradox Interactive</span><span class="sector-cell">J.7. Software - Computer games</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">secunet Security Networks</span><span class="sector-cell">J.8. Hardware</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Truecaller</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Wise</span><span class="sector-cell">J.3. Fintech/payment processing</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Yubico</span><span class="sector-cell">J.4. Software - B2B Enterprise</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:235"><div class="industry-header-row">K. Professional, business and consumer services <span class="ind-count">(26)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(8)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Edenred</span><span class="sector-cell">K.8. Outsourcing, admin and other services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">JCDecaux</span><span class="sector-cell">K.5. Advertising and consulting services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">MITIE</span><span class="sector-cell">K.8. Outsourcing, admin and other services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Publicis</span><span class="sector-cell">K.5. Advertising and consulting services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Teleperformance</span><span class="sector-cell">K.8. Outsourcing, admin and other services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Eurofins</span><span class="sector-cell">K.3. Testing and inspection services</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Brockhause Technologies</span><span class="sector-cell">K.8. Outsourcing, admin and other services</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Randstad</span><span class="sector-cell">K.9. Recruitment services</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(6)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Intertek</span><span class="sector-cell">K.3. Testing and inspection services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Havas</span><span class="sector-cell">K.5. Advertising and consulting services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ISS</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Loomis</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SGS</span><span class="sector-cell">K.3. Testing and inspection services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Stroeer</span><span class="sector-cell">K.5. Advertising and consulting services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(12)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Befesa</span><span class="sector-cell">K.10. Waste management services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Pearson</span><span class="sector-cell">K.11. Information services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Prosegur</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Prosegur Cash</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Sodexo</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Springer Nature</span><span class="sector-cell">K.11. Information services</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Compass Group</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">DO &amp; CO</span><span class="sector-cell">K.1. Security and facilities services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Informa</span><span class="sector-cell">K.11. Information services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Seche Environnement</span><span class="sector-cell">K.10. Waste management services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">WPP</span><span class="sector-cell">K.5. Advertising and consulting services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">YouGov</span><span class="sector-cell">K.11. Information services</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:55"><div class="industry-header-row">L. Media <span class="ind-count">(4)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(0)</span></div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(2)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Atresmedia</span><span class="sector-cell">L.1. Content, TV and other media</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sonaecom</span><span class="sector-cell">L.1. Content, TV and other media</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(2)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Banijay</span><span class="sector-cell">L.1. Content, TV and other media</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">ITV</span><span class="sector-cell">L.1. Content, TV and other media</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:22"><div class="industry-header-row">M. Materials <span class="ind-count">(54)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(15)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">AF Gruppen</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Azelis</span><span class="sector-cell">M.2. Chemicals - Distributors</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Balfour Beatty</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">BASF</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Corbion</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Corticeira Amorim</span><span class="sector-cell">M.7. Forestry and paper products</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Metsa Board</span><span class="sector-cell">M.7. Forestry and paper products</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Novonesis</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + VCP, Stage 1 to 2, Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Sika</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">SSAB</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">STRABAG</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Symrise</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Umicore</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Veidekke</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">ArcelorMittal</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(25)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Acerinox</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Alleima</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Clariant</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Croda</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DKSH</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DSM-Firmenich</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Elkem</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">EMS Chemie</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Evonik</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Fuchs SE</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Granges</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Grupa Kety</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hexpol</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">IMCD</span><span class="sector-cell">M.2. Chemicals - Distributors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Interparfums</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Tate &amp; Lyle</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Viohalco</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">voestalpine</span><span class="sector-cell">M.9. Steel and metals</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Air Liquide</span><span class="sector-cell">M.8. Chemicals - Gases</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BAM Groep</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Brenntag</span><span class="sector-cell">M.2. Chemicals - Distributors</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Givaudan</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Keller</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Kerry</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Puig Brands</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(14)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Peab</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Skanska</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Akzo Nobel</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Elementis</span><span class="sector-cell">M.3. Chemicals - Specialty</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Grafton Group</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Holmen</span><span class="sector-cell">M.7. Forestry and paper products</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Imerys</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Industrie De Nora</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Lenzing</span><span class="sector-cell">M.7. Forestry and paper products</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Mota-Engil</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Robertet</span><span class="sector-cell">M.1. Chemicals - Fragrances/ingredients</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">SOLVAC</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sweco</span><span class="sector-cell">M.6. Basic materials and construction</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Syensqo</span><span class="sector-cell">M.4. Chemicals - Base</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:95"><div class="industry-header-row">N. Real assets <span class="ind-count">(25)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(0)</span></div><div class="empty-col">&mdash; no Grade A stocks</div></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(3)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Argan</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Frey</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Segro</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(22)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Cibus Real Estate</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Colonial SFL SOCIMI</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">CPI Europe</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">CPI PROPERTY GROUP</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Dar Global</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Entra</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Fabege</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Gecina</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Gmp Property SOCIMI</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Great Portland Estates</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Hufvudstaden</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Icade</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Jeudan</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">LAMDA Development</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">LondonMetric Property</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Shaftesbury Capital</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Sirius Real Estate</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">T Immobilien</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Vivenio Residencial SOCIMI</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Wallenstam</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Wihlborgs Fastigheter</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Xior Student Housing</span><span class="sector-cell">N.1. TBD</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:42"><div class="industry-header-row">O. Industrials and capital goods <span class="ind-count">(85)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(6)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">OEM International</span><span class="sector-cell">O.15. Distributors</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Andritz</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Bodycote</span><span class="sector-cell">O.1. Industrial services</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">thyssenkrupp</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Vestas Wind Systems</span><span class="sector-cell">O.13. Renewables</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">2G Energy</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Basing<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(57)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Aalberts</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ABB</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Addtech</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AQ Group</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Arcadis</span><span class="sector-cell">O.1. Industrial services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Arteche</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Atlas Copco</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">AutoStore</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Beijer Alma</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bossard Holding</span><span class="sector-cell">O.15. Distributors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bravida</span><span class="sector-cell">O.1. Industrial services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bufab</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Bunzl</span><span class="sector-cell">O.15. Distributors</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">CAF</span><span class="sector-cell">O.16. Capital goods - trucks, rail and heavy vehicles</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Cembre</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Cenergy</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Diploma</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DiscoverIE</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Fastned</span><span class="sector-cell">O.10. Capital goods - EV</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hexatronic</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hiab</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hill &amp; Smith</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">IMI</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Indus Holding</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Instalco</span><span class="sector-cell">O.1. Industrial services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Inwido</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Iveco</span><span class="sector-cell">O.16. Capital goods - trucks, rail and heavy vehicles</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Jenoptik</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Kingspan</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Lu-ve</span><span class="sector-cell">O.9. Capital goods - HVAC</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Nibe</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">OC Oerlikon</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Renishaw</span><span class="sector-cell">O.6. Capital goods - measurement</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Roko</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Rotork</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Schouw &amp; Co</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sdiptech</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Senior</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SFS Group</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Siemens</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SKF</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SMA Solar Technology</span><span class="sector-cell">O.13. Renewables</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Smiths Group</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Stadler Rail</span><span class="sector-cell">O.16. Capital goods - trucks, rail and heavy vehicles</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">TKH Group</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Trelleborg</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">TT Electronics</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Vaisala</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Volex</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Alfa Laval</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Carel Industries</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Epiroc</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">FLSmidth</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">GEA</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Lagercrantz</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Prysmian</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">SIG Group</span><span class="sector-cell">O.11. Products - packaging</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(22)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Legrand</span><span class="sector-cell">O.4. Capital goods - grid</span><span class="row-label">Stage 2 Possible<span class="qual-tag"> &middot; early</span></span></li>
+<li class="stock-item"><span class="name-cell">Alimak</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Beijer Ref</span><span class="sector-cell">O.15. Distributors</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">BELIMO</span><span class="sector-cell">O.7. Capital goods - factory equipment</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">dormakaba Holding</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Georg Fischer</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Huhtamaki</span><span class="sector-cell">O.11. Products - packaging</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Idun Industrier</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Interpump</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Kardex</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Lectra</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Lifco</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">MTU Aero Engines</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Rational</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Rosebank Industries</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Schindler Holding Pref</span><span class="sector-cell">O.8. Capital goods - misc.</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Signify</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Storskogen</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Systemair</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Vidrala</span><span class="sector-cell">O.11. Products - packaging</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Volution</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li>
+<li class="stock-item"><span class="name-cell">Wacker Neuson</span><span class="sector-cell">O.2. Products - various [SPLIT]</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+<div class="industry-panel" style="--ihue:345"><div class="industry-header-row">P. Energy, commodities and metals mining <span class="ind-count">(42)</span></div><div class="three-col"><div class="col-a"><div class="col-header">Grade A &mdash; a setup now <span class="grade-count">(18)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">BlueNord</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">DOF</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Equinor</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Galp</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Ithaca Energy</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">MOL Hungarian Oil &amp; Gas</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">MOTOR OIL (HELLAS) CORINTH REFINERIES</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Neste</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Odfjell Drilling</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Rubis</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">SBM Offshore</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">TGS</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Var Energi</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Healthy Retest<span class="qual-tag"> &middot; + Pulling Back</span></span></li>
+<li class="stock-item"><span class="name-cell">Aker BP</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Gaztransport &amp; Technigaz</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Repsol</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li>
+<li class="stock-item"><span class="name-cell">Seplat Energy</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; + Basing</span></span></li>
+<li class="stock-item"><span class="name-cell">TotalEnergies</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Pulling Back<span class="qual-tag"> &middot; setup</span></span></li></ul></div><div class="col-b"><div class="col-header">Grade B &mdash; Stage 2 Plausible or Probable <span class="grade-count">(23)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Anglo American</span><span class="sector-cell">P.5. Metals and mining</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Antofagasta</span><span class="sector-cell">P.5. Metals and mining</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">B.F.</span><span class="sector-cell">P.4. Agriculture</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BP</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">BW LPG</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DCC</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">DNO</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Eni</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Glencore</span><span class="sector-cell">P.5. Metals and mining</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Hafnia</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">HELLENiQ Energy</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">KGHM</span><span class="sector-cell">P.5. Metals and mining</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">OMV</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">OMV Petrom</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">ORLEN Spolka Akcyjna</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Romgaz</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Saipem</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Shell</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Subsea 7</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">TORM</span><span class="sector-cell">P.1. Energy - downstream distribution</span><span class="row-label">Stage 2 Probable<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Harbour Energy</span><span class="sector-cell">P.2. Energy - upstream E&amp;P</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Sildarvinnslan</span><span class="sector-cell">P.4. Agriculture</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li>
+<li class="stock-item"><span class="name-cell">Tenaris</span><span class="sector-cell">P.3. Energy - upstream support services</span><span class="row-label">Stage 2 Plausible<span class="qual-tag"> &middot; no setup today</span></span></li></ul></div><div class="col-c"><div class="col-header">Grade C &mdash; Stage 2 Possible, or Stage 1 Probable <span class="grade-count">(1)</span></div><div class="stock-header-row"><span class="sh-name">Company</span><span class="sh-sector">Sector</span><span class="sh-timeliness">Why this grade</span></div><ul class="stock-list"><li class="stock-item"><span class="name-cell">Bakkafrost</span><span class="sector-cell">P.4. Agriculture</span><span class="row-label">Stage 1 Probable<span class="qual-tag"> &middot; not yet Stage 2</span></span></li></ul></div></div></div>
+</main>
+<footer>
+  <span>Viewforth Watson &nbsp;&middot;&nbsp; generated 2026-10-05</span>
+  <span><a href="https://vfhqi.github.io/landing/">← Back to landing</a></span>
+</footer>
+<script>
+var TQ_NAMES_A=["2GB.DE", "A5G.IE", "ABN.NL", "AFG.NO", "AGS.BE", "AKER.NO", "AKRBP.NO", "ALPHA.GR", "AMUN.FR", "ANDR.AT", "ARGX.BE", "ASRNL.NL", "AVARDA.SE", "AZE.BE", "AZM.IT", "BANB.CH", "BAS.DE", "BB.FR", "BBVA.ES", "BBY.GB", "BCP.PT", "BDB.IT", "BG.AT", "BGEO.GB", "BIRG.IE", "BKHT.DE", "BME.GB", "BMED.IT", "BNOR.NO", "BOCHGR.GR", "BOY.GB", "BRE.IT", "BURE.SE", "C5H.IE", "CBK.DE", "CE.IT", "CGEO.GB", "CHG.DE", "CKN.GB", "CLAS.B.SE", "COR.PT", "CRBN.NL", "DANSKE.DK", "DEC.FR", "DNB.NO", "DOFG.NO", "EBP.PL", "EBS.AT", "EDEN.FR", "EDP.PT", "EMG.GB", "EQNR.NO", "ERF.FR", "ETE.GR", "EUROB.GR", "FR.FR", "GALP.PT", "GAMA.GB", "GPP.PL", "GTT.FR", "GXI.DE", "HACK.SE", "HFG.GB", "HLUN.B.DK", "HSX.GB", "ING.PL", "INGA.NL", "IPO.GB", "ITH.GB", "JYSK.DK", "KBC.BE", "KNIN.CH", "KNOS.GB", "LOTB.BE", "MBK.PL", "METSB.FI", "MIL.PL", "MILDEF.SE", "MING.NO", "MOH.GR", "MOL.HU", "MT.NL", "MTO.GB", "NESTE.FI", "NONG.NO", "NOS.PT", "NSIS.B.DK", "ODL.NO", "OEM.B.SE", "ORNBV.FI", "OVH.FR", "PEO.PL", "PKO.PL", "PLX.FR", "POSTI.FI", "PPC.GR", "PTEC.GB", "PUB.FR", "RACE.IT", "RAND.NL", "RBI.AT", "REP.ES", "RICHT.HU", "RUI.FR", "RWE.DE", "SAB.ES", "SAN.ES", "SB1NO.NO", "SBMO.NL", "SBNOR.NO", "SEB.A.SE", "SEPL.GB", "SHB.A.SE", "SIKA.CH", "SINCH.SE", "SPOL.NO", "SSAB.B.SE", "STAN.GB", "STR.AT", "SWED.SE", "SY1.DE", "TBCG.GB", "TEP.FR", "TGS.NO", "TKA.DE", "TLX.DE", "TPEIR.GR", "TTE.FR", "UMI.BE", "UNI.ES", "VAR.NO", "VEI.NO", "VIMIAN.SE", "VLK.NL", "VONN.CH", "VWS.DK", "WWG.DE"];
+var TQ_NAMES_B=["1SXP.DE", "74SW.FR", "A3M.ES", "AAL.GB", "AALB.NL", "ABBN.CH", "ABDN.GB", "ACX.ES", "ADDT.B.SE", "ADM.GB", "AGN.NL", "AI.FR", "AIA.GR", "AJB.GB", "ALE.PL", "ALFA.SE", "ALHG.FR", "ALIF.B.SE", "ALLEI.SE", "ALLFG.NL", "ALR.PL", "ALSYDB.DK", "ALV.DE", "AMBEA.SE", "AMS.CH", "ANIM.IT", "ANTO.GB", "AQ.SE", "ARCAD.NL", "ARG.FR", "ART.ES", "ASC.GB", "ASM.NL", "ASMDEE.B.SE", "ASML.NL", "ATCO.A.SE", "ATEA.NO", "ATS.AT", "ATT.SE", "AUTO.NO", "AV.GB", "AZA.SE", "BAER.CH", "BAIN.FR", "BAMI.IT", "BAMNB.NL", "BCGE.CH", "BCVN.CH", "BEIA.B.SE", "BEKN.CH", "BEZ.GB", "BFG.IT", "BFT.PL", "BGN.IT", "BHW.PL", "BILI.A.SE", "BION.CH", "BKT.ES", "BMPS.IT", "BNP.PL", "BNR.DE", "BNZL.GB", "BOSN.CH", "BP.GB", "BPE.IT", "BPT.GB", "BRAV.SE", "BTS.AT", "BUFAB.SE", "BWLPG.NO", "BYIT.GB", "CABK.ES", "CAF.ES", "CAR.PL", "CARE.SE", "CCC.GB", "CENER.GR", "CEZ.CZ", "CFR.CH", "CHEF.SE", "CLN.CH", "CMB.IT", "CMBT.BE", "COFA.FR", "CON.DE", "COTN.CH", "CPS.PL", "CRDA.GB", "CRED.A.SE", "CRL.IT", "CS.FR", "DB1.DE", "DCC.GB", "DEMANT.DK", "DHER.DE", "DHL.DE", "DIA.ES", "DIGI.RO", "DKSH.CH", "DNO.NO", "DNORD.DK", "DPLM.GB", "DRW3.DE", "DSCV.GB", "DSFIR.NL", "DWS.DE", "EL.RO", "ELE.ES", "ELK.NO", "ELN.IT", "ELPE.GR", "EMBRAC.B.SE", "EMSN.CH", "ENI.IT", "ENX.FR", "EPI.A.SE", "EVK.DE", "EVN.AT", "EVO.SE", "EVOK.GB", "EXA.FR", "EZJ.GB", "FAST.NL", "FLS.DK", "FME.DE", "FORTUM.FI", "FPE3.DE", "FRAS.GB", "FREY.FR", "G.IT", "G1A.DE", "GEKTERNA.GR", "GET.FR", "GETI.B.SE", "GIVN.CH", "GLEN.GB", "GRG.GB", "GRKP.CH", "GRNG.SE", "GVR.IE", "GVS.IT", "H2O.RO", "HAFNI.NO", "HAUTO.NO", "HAVAS.NL", "HAYPP.SE", "HBR.GB", "HELN.CH", "HIAB.FI", "HILS.GB", "HLAG.DE", "HMS.SE", "HNR1.DE", "HPOL.B.SE", "HSBA.GB", "HTO.GR", "HTRO.SE", "HUM.SE", "IBE.ES", "IDR.ES", "IFCN.CH", "IGN1L.LT", "IHG.GB", "IHP.GB", "IMCD.NL", "IMI.GB", "INDU.A.SE", "INF1T.EE", "INH.DE", "INPST.NL", "INSTAL.SE", "INVEB.SE", "INWI.SE", "IOS.DE", "IR5B.IE", "ISP.IT", "ISS.DK", "ITP.FR", "ITRK.GB", "IVG.IT", "JEN.DE", "JET2.GB", "KAMBI.SE", "KARE.GR", "KESKOB.FI", "KGH.PL", "KIT.NO", "KLR.GB", "KRKG.SI", "KRX.IE", "KRZ.IE", "KTY.PL", "LAGR.B.SE", "LGEN.GB", "LLBN.CH", "LOG.ES", "LOGN.CH", "LOOMIS.SE", "LPP.PL", "LUKN.CH", "LUND.B.SE", "LUVE.IT", "MAERSK.B.DK", "MAP.ES", "MB.IT", "MCOV.B.SE", "MIPS.SE", "ML.FR", "MTG.B.SE", "MTLN.GB", "MTRO.GB", "MYCR.SE", "NBG6.DE", "NDA.FI.FI", "NEXI.IT", "NIBE.B.SE", "NN.NL", "NOD.NO", "NTGY.ES", "OBS.AT", "OERL.CH", "OMV.AT", "OPL.PL", "OPTIMA.GR", "OVS.IT", "OXIG.GB", "PCO.PL", "PFV.DE", "PGE.PL", "PHNX.GB", "PIRC.IT", "PKN.PL", "PLNW.FR", "PNDORA.DK", "PPA.GR", "PRY.IT", "PUIG.ES", "PUUILO.FI", "REHN.CH", "RILBA.DK", "ROKO.B.SE", "ROR.GB", "RR.GB", "RSW.GB", "S92.DE", "SAF.FR", "SAVE.SE", "SAX.DE", "SCHO.DK", "SCR.FR", "SCT.GB", "SDIP.B.SE", "SDR.GB", "SDZ.CH", "SECT.B.SE", "SENS.CH", "SES.IT", "SFSN.CH", "SGKN.CH", "SGRO.GB", "SGSN.CH", "SHEL.GB", "SIE.DE", "SIGN.CH", "SK.FR", "SKF.B.SE", "SL.IT", "SLHN.CH", "SMIN.GB", "SNC.PT", "SNG.RO", "SNP.RO", "SNR.GB", "SOI.FR", "SON.PT", "SOON.CH", "SOP.FR", "SPI.GB", "SPM.IT", "SRAIL.CH", "SREN.CH", "STB.NO", "SUBC.NO", "SVN.IS", "SVT.GB", "SWON.CH", "SZU.DE", "TABAK.CZ", "TATE.GB", "TBTG.GB", "TCAP.GB", "TECN.CH", "TEL.RO", "TEL1L.LT", "TEN.IT", "TLV.RO", "TNIE.DE", "TPRO.IT", "TREL.B.SE", "TRMD.A.DK", "TTG.GB", "TWEKA.NL", "TYRES.FI", "UBSG.CH", "UCG.IT", "UN0.DE", "UNI.IT", "UQA.AT", "UU.GB", "VACN.CH", "VAIAS.FI", "VER.AT", "VIL.FR", "VIO.BE", "VLX.GB", "VOD.GB", "VOE.AT", "VPK.NL", "VZN.CH", "WAF.DE", "WAWI.NO", "WKBN.CH", "WOSG.GB", "WWI.NO", "ZIG.GB", "ZURN.CH"];
+var TQ_NAMES_C=["ADP.FR", "ADS.DE", "AEVS.CH", "AFX.DE", "AKZA.NL", "ALIG.SE", "ALMB.DK", "ALSN.CH", "AMP.IT", "AMS.ES", "ANE.ES", "APOTEA.SE", "ASE.PL", "AUTN.CH", "BAG.GB", "BAKKA.NO", "BAVA.DK", "BAYN.DE", "BC8.DE", "BCG.GB", "BEAN.CH", "BEIJ.B.SE", "BELA.GR", "BFSA.DE", "BN.FR", "BNJ.NL", "BONEX.SE", "BOSS.DE", "BREB.BE", "BYLOT.GR", "CAMX.SE", "CASH.ES", "CCEP.US", "CDR.PL", "CHEMM.DK", "CHG.GB", "CIBUS.SE", "CLARI.FR", "CLDN.GB", "CLNX.ES", "COL.ES", "CPG.GB", "CPI.AT", "CTEC.GB", "CVSG.GB", "DAR.GB", "DGE.GB", "DIA.IT", "DIA.PL", "DIM.FR", "DNR.IT", "DOC.AT", "DOKA.CH", "DUST.SE", "EGL.PT", "ELM.GB", "ENTRA.NO", "EPR.NO", "EUZ.DE", "EXO.NL", "FABG.SE", "FAN.GB", "FDJU.FR", "FGP.GB", "FIE.DE", "FLU.AT", "GEST.ES", "GF.CH", "GFC.FR", "GFTU.GB", "GIMB.BE", "GPE.GB", "GRF.ES", "HBH.DE", "HIK.GB", "HLE.DE", "HO.FR", "HOLM.B.SE", "HTWS.GB", "HUFV.A.SE", "HUH1V.FI", "HWDN.GB", "ICAD.FR", "ICGT.GB", "IDUN.B.SE", "INF.GB", "IP.IT", "ITM.IT", "ITV.GB", "JDAN.DK", "JDW.GB", "JM.SE", "KARN.CH", "KTN.DE", "LAMDA.GR", "LDA.ES", "LIFCO.B.SE", "LIGHT.NL", "LMP.GB", "LNZ.AT", "LONN.CH", "LR.FR", "LSEG.GB", "LSS.FR", "MAB.GB", "MKS.GB", "MMB.FR", "MONC.IT", "MONY.GB", "MRK.DE", "MTX.DE", "MUV2.DE", "NK.FR", "NOLA.B.SE", "NORION.SE", "NRO.FR", "NXT.GB", "O5G.DE", "OBEL.BE", "ODET.FR", "ORSTED.DK", "PDX.SE", "PEAB.B.SE", "PEP.PL", "POLN.GB", "PSG.ES", "PSON.GB", "QQ.GB", "RAA.DE", "RATO.B.SE", "RBT.FR", "RCO.FR", "REC.IT", "RED.ES", "RMV.GB", "ROSE.GB", "SAMPO.FI", "SAN.FR", "SCHP.CH", "SCHP.FR", "SHC.GB", "SIX2.DE", "SKA.B.SE", "SKAN.CH", "SOF.BE", "SOLV.BE", "SPG.DE", "SRE.GB", "STF.FR", "STMN.CH", "STOR.B.SE", "SW.FR", "SWEC.B.SE", "SYENS.BE", "SYSR.SE", "T2G.DE", "TEF.ES", "TEG.DE", "THULE.SE", "TIMA.DE", "TKO.FR", "TRUE.B.SE", "TRYG.DK", "TSCO.GB", "VID.ES", "VLTSA.FR", "WAC.DE", "WALL.B.SE", "WIHL.SE", "WISE.GB", "WPP.GB", "XIOR.BE", "YGMP.ES", "YOU.GB", "YPSN.CH", "YSN.DE", "YUBICO.SE", "YVIV.ES", "ZAL.DE"];
+function copyNames(g){
+  var btn=document.getElementById("copy-btn-"+g);
+  var names=g==="A"?TQ_NAMES_A:g==="B"?TQ_NAMES_B:TQ_NAMES_C;
+  navigator.clipboard.writeText(names.join(", "))
+    .then(function(){
+      btn.textContent="✓ Copied "+names.length+" tickers";
+      btn.classList.add("copied");
+      setTimeout(function(){btn.textContent="Copy "+g+" tickers";btn.classList.remove("copied");},2500);
+    })
+    .catch(function(){btn.textContent="Error — try again";setTimeout(function(){btn.textContent="Copy "+g+" tickers";},2000);});
+}
+</script>
+</body>
+</html>
