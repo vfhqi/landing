@@ -1,5 +1,5 @@
 {
-  "built": "22-Sep-26",
+  "built": "09-Oct-26",
   "pages": [
     {
       "slug": "earnings-update-autoloop-sop",
@@ -101,7 +101,7 @@
     {
       "slug": "memo-system-map",
       "name": "Memo System Map",
-      "desc": "How the framework becomes a written memo: the three pillars, the six top-of-memo ratings, how deep each stage goes, and the memo's section structure.",
+      "desc": "How the framework becomes a written memo: the three pillars, the Eight Master Ratings, how deep each stage goes, and the memo's section structure.",
       "src": "memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md",
       "family": "F2"
     },
@@ -137,10 +137,10 @@
     {
       "slug": "the-fundamental-change-screen",
       "name": "The Fundamental Change Screen",
-      "desc": "The six top-level ratings used across the dashboards, the A to F grading scale, and how sub-ratings roll up into a single score.",
+      "desc": "The Eight Master Ratings used across the dashboards, the A to F grading scale, and how sub-ratings roll up into a single score.",
       "src": "memory/skills/fundamental-change-screen/SKILL.md",
       "family": "F3",
-      "note": "This is the home of the framework Richard has ruled should be renamed the Six Master Ratings of Capital Deployment Worthiness. The file still uses the older wording."
+      "note": "This is the home of the rating framework that is now the Eight Master Ratings of Capital Deployment Worthiness (six until 30-Sep-26). The table of top-level ratings below now shows the eight; the attribute detail further down still uses the April 2026 wording."
     },
     {
       "slug": "assistant-portfolio-manager-role",
@@ -196,6 +196,14 @@
       "name": "The Minervini Crosswalk",
       "desc": "The eleven places where our live tools disagreed with his checked rules, each with the live value, his value and grade, the proposal and the risk, and Richard's rulings of 11-Sep-2026.",
       "src": "projects/APM - Mark Minervini Wisdom/deliverables/CROSSWALK-2026-09-11-eleven-items-for-ruling.html",
+      "family": "F4",
+      "passthrough": true
+    },
+    {
+      "slug": "middle-innings-master-summary",
+      "name": "Middle Innings Master Summary",
+      "desc": "What we have agreed for Middle Innings Core Investments, and why: the Pool Filter Criteria, Framework 14 (the exit holding criteria), the APM List Compilation and the other agreements, from the signed statements.",
+      "src": "projects/APM - Stage 2 Gate-4 Backtest/MASTER-SUMMARY-2026-10-09-what-we-agreed-for-middle-innings-core-investments-and-why-LOCKED-for-the-site.html",
       "family": "F4",
       "passthrough": true
     },

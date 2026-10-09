@@ -61,11 +61,11 @@ footer a{color:#5a2f8f;}
 </div></header>
 <div class="metabar"><div class="wrap">
   <b>Source file</b> <code>memory/skills/investment-analyst/aj-memo/01-SYSTEM-OVERVIEW.md</code> &nbsp;&middot;&nbsp;
-  <b>Source last changed</b> 11-Aug-26 &nbsp;&middot;&nbsp;
-  <b>Converted</b> 22-Sep-26
+  <b>Source last changed</b> 09-Oct-26 &nbsp;&middot;&nbsp;
+  <b>Converted</b> 09-Oct-26
 </div></div>
 <div class="fidelity"><div class="wrap">
-  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed. <b>One exception, 30-Sep-26, approved by Richard:</b> the passages about the rating set now describe the Eight Master Ratings. Everything else is as converted.
+  This page is an <b>unedited conversion</b> of the source file named above. Nothing has been summarised, reordered or reworded. Only the presentation has changed.
 </div></div>
 <div class="wrap">
 
@@ -216,6 +216,7 @@ footer a{color:#5a2f8f;}
 <p>The full per-driver 7-column tabular spec and tree diagram live in STREAM-A V2 §7; the memo rendering format is <code>04-PRESENTING-SOP.md</code> (driver tables).</p>
 <hr>
 <h2 id="the-eight-master-ratings">The Eight Master Ratings</h2>
+<p>Updated 1-Oct-26 (SA - Eight Master Ratings, D-EMR-89): the rating set is the Eight Master Ratings; the conveyor memo writes them as specified in projects/A&amp;J Memo Merge - New Structure plus Conveyor Production - Sep-26/01-FRAMEWORK-DEFINITION-v0.7.md.</p>
 <p>At the top of every memo from Triaging onwards, the Eight Master Ratings give the full-case picture at the current level of confidence. They fold into the Section B Executive Summary opening (the Bottom Line Up Front).</p>
 <p>The Momentum Element leaves Building Block 2 (Foundations), where it was Element 3, and becomes a new Element 5 of Building Block 4 (the Case) (Richard, 30-Sep-26). That Element shows the four Top Down/Exogenously-driven ratings as at the memo date, each with the Investment Analyst's one-line comment on whether the reading fits the research. After it comes the Eight Master Ratings summary, which replaces the old six-rating Element, then the peer table on the eight. Nothing else moves: the Investment Thesis's "Sell-side upgrades" Rating Area (Building Block 1, Element 2), the analyst's forward view of upgrades, stays where it is.</p>
 <p>Of the eight, four are <strong>Bottom-up/Stock-driven</strong>, set by the Investment Analyst when the memo is written. Four are <strong>Top Down/Exogenously-driven</strong>: a script sets them every night or week, and the Assistant Portfolio Manager reassesses them weekly, overriding by exception. The four Bottom-up/Stock-driven ratings weigh 1.75, 1.00, 1.75 and 1.75; the four Top Down/Exogenously-driven ratings weigh equally; the blend is the Assistant Portfolio Manager's weekly tilt. Every rating shows its weight, its owner and its as-at date. A rating is never invented: a missing one shows as missing, and one mapped from an old memo is marked "mapped from the old memo, not re-judged".</p>
@@ -279,6 +280,9 @@ footer a{color:#5a2f8f;}
 </tr>
 </tbody>
 </table>
+<p><strong>Detail carried over from the six (still true, now for ratings 7 and 5):</strong>
+- <strong>Technical Momentum (rating 7):</strong> the grade is the stock's Timeliness rating (locked 09-Jul-26, Richard; canonical view <code>https://vfhqi.github.io/master/#combos</code>), stored as <code>p1_technical_momentum</code> in <code>ratings-snapshot.json</code>. Where the pipeline has no Timeliness value the dashboard shows "ERROR", a flag to investigate, never a grade. The Hexatronic and NKT ESA memos once filled this rating with broker-target commentary and no price action (D-AJ-28); the skeletons were fixed for that on 3-Jul-26.
+- <strong>Sell-side Momentum (rating 5):</strong> the grade is the Master Dashboard's bell-curve grade from the FactSet revision data (locked 09-Jul-26, Richard), stored as <code>p5_ssem</code>. Canonical implementations: <code>ssemAssignRatings</code> / <code>ssemDimScore</code> in <code>master-dashboard/index.html</code>, and <code>build_ssem_index_bellcurve()</code> in <code>databases/scripts/build-ratings-snapshot.py</code>; from 1-Oct-26 a company that reports no EBITDA is graded on the other four measures (D-EMR-70), and from 9-Oct-26 so is every stock in the "G. Financials" industry, whether or not FactSet reports an EBITDA figure (Richard: "For the SSEMs for Financials, EBITDA ... is not relevant"; D-EMR-100). The four-measure score is scaled by 15/12 to the same -15 to +15 range, so the grade stays comparable with a five-measure one. Root cause of the lock: an earlier hand-grade disagreed with the dashboard on about two-thirds of the universe (BT was graded C in the memo against the dashboard's correct D).</p>
 <p>The Building Block numbers above are those of the per-stock investment framework. Ratings 5 to 8 are read from Element 5 of Building Block 4 as at the memo date, then re-read by script every night and reassessed weekly by the Assistant Portfolio Manager. Until 30-Sep-26 the memo carried six Master Ratings instead (Technical momentum, Sell-side earnings momentum, Thematic fit, then one each for Pillar I, Pillar II and Pillar III); the eight replace them.</p>
 <p>The four Bottom-up/Stock-driven ratings are judgements by the Investment Analyst, informed by the underlying Element ratings and not derived by formula. The four Top Down/Exogenously-driven ratings are observations, pinned from the ratings store by script and not hand-graded in the memo; the Investment Analyst comments on whether each pin fits.</p>
 <p><strong>Terminology equivalence, locked 09-Jul-26 (Richard, verbatim: "MR3 Thematic fit = market paradigm fit. They are equivalent."):</strong> the old Master Rating 3, "Thematic fit", is the same underlying concept as <strong>Pillar II, Market Paradigm Fit</strong> in Richard's personal Six Pillars of a Target Investment Case framework (<code>memory/context/investing-system.md</code>, Investment Strategy section), and the same field as the Ratings Dashboard's <code>p2_market_paradigm_fit</code> column. Master Rating 6, Thematic Fit/Momentum, carries that concept forward. This is an <strong>equivalence/glossary note, not a rename</strong>: existing memo headings keep saying "Thematic fit" and the ratings store keeps its <code>p1</code> to <code>p6</code> fields for the retired six; do not batch-rename published memo files on the strength of this note alone.</p>
@@ -745,6 +749,6 @@ footer a{color:#5a2f8f;}
 <footer>
   <a href="index.html">&larr; Back to the Investment System Library</a> &nbsp;&middot;&nbsp;
   <a href="../">Viewforth landing page</a> &nbsp;&middot;&nbsp;
-  Built 22-Sep-26
+  Built 09-Oct-26
 </footer>
 </div></body></html>
