@@ -1,8 +1,13 @@
 window.PMS_NOTES=[
 {
+"file": "2026-10-10-saturday.html",
+"label": "Sat 10 Oct 2026, the weekly session run on Saturday (on Friday 9 Oct closes)",
+"latest": true
+},
+{
 "file": "2026-10-06-tuesday.html",
 "label": "Tue 6 Oct 2026, the weekly session (on Monday 5 Oct closes)",
-"latest": true
+"latest": false
 },
 {
 "file": "2026-09-23-proposed-changes.html",
