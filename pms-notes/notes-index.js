@@ -1,8 +1,13 @@
 window.PMS_NOTES=[
 {
+"file": "2026-10-17-saturday-rewrite.html",
+"label": "Sat 17 Oct 2026, the 15 Oct session rewritten for chat (on Wednesday 14 Oct closes, with Friday's changes)",
+"latest": true
+},
+{
 "file": "2026-10-15-thursday.html",
 "label": "Thu 15 Oct 2026, the weekly session run on Thursday (on Wednesday 14 Oct closes)",
-"latest": true
+"latest": false
 },
 {
 "file": "2026-10-10-saturday.html",
