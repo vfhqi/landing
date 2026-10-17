@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Capture an idea</title>
+<style>body{font-family:Georgia,serif;max-width:720px;margin:6vh auto;padding:0 16px;color:#222;background:#faf9f6}
+input{font-size:1.1em;padding:.4em .6em;width:60%}button{font-size:1em;padding:.45em 1em;margin-left:.5em}
+.note{color:#666;font-size:.9em}#err{color:#a00}iframe{width:100%;height:92vh;border:0;background:#fff}</style></head><body>
+<div id="gate"><h2>Capture an idea</h2><p class="note">Locked page, produced Sat 17 Oct 2026, 19:17. Enter the passphrase to read it. Nothing is sent anywhere; the page unlocks in your browser.</p>
+<form id="f"><input id="p" type="password" autocomplete="current-password" placeholder="passphrase" autofocus><button type="submit">Open</button>
+<p class="note"><label><input type="checkbox" id="remember"> remember on this device</label></p><p id="err"></p></form></div>
+<div id="out"></div>
+<script>
+const SALT="Gr/BDMo7iBbLHJBBPEMFnw==",CT="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",TAG="uugUuCzAdqld4bM0p6yPhwY9ptEDeOQg19p3jqfm3C0=",ROUNDS=200000;
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function hmacKey(raw){return crypto.subtle.importKey("raw",raw,{name:"HMAC",hash:"SHA-256"},false,["sign"]);}
+async function unlock(pass){
+  const salt=b64(SALT),ct=b64(CT),tag=b64(TAG),enc=new TextEncoder();
+  const base=await crypto.subtle.importKey("raw",enc.encode(pass),"PBKDF2",false,["deriveBits"]);
+  const master=new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:ROUNDS,hash:"SHA-256"},base,256));
+  const mk=await hmacKey(master);
+  const encKey=await hmacKey(new Uint8Array(await crypto.subtle.sign("HMAC",mk,enc.encode("enc"))));
+  const macKey=await hmacKey(new Uint8Array(await crypto.subtle.sign("HMAC",mk,enc.encode("mac"))));
+  const msg=new Uint8Array(salt.length+ct.length);msg.set(salt);msg.set(ct,salt.length);
+  const t2=new Uint8Array(await crypto.subtle.sign("HMAC",macKey,msg));
+  let diff=0;for(let i=0;i<32;i++)diff|=t2[i]^tag[i];
+  if(diff!==0)throw new Error("wrong passphrase");
+  const out=new Uint8Array(ct.length);const ctr=new Uint8Array(4);
+  for(let i=0,off=0;off<ct.length;i++){ctr[0]=i>>>24;ctr[1]=(i>>>16)&255;ctr[2]=(i>>>8)&255;ctr[3]=i&255;
+    const ks=new Uint8Array(await crypto.subtle.sign("HMAC",encKey,ctr));
+    for(let j=0;j<32&&off<ct.length;j++,off++)out[off]=ct[off]^ks[j];}
+  return new TextDecoder().decode(out);
+}
+// s36 (7-Oct-26): the out-of-date warning. The publish job stalled for 25 hours on 6-7 Oct and Monday's page stayed
+// online, old answers and all, with nothing on it to say so. Runs are Sunday to Friday at 16:45 UK, built within about
+// an hour. If the page was built before the latest such run that started over two hours ago, a red bar says so.
+function ukMs(d){const p={};for(const x of new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d))p[x.type]=x.value;
+  return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute);}
+function staleNote(html,nowMs){
+  const dm=html.match(/<meta name="ea-page-date" content="(\d{4})-(\d{2})-(\d{2})">/),bm=html.match(/page built at (\d{2})(\d{2})h/);
+  if(!dm||!bm)return "";
+  const built=Date.UTC(+dm[1],+dm[2]-1,+dm[3],+bm[1],+bm[2]),now=ukMs(new Date(nowMs)),day=86400000;
+  const nice=t=>new Date(t).toLocaleDateString("en-GB",{timeZone:"UTC",weekday:"long",day:"numeric",month:"long"});
+  for(let k=0,base=now-(now%day);k<9;k++,base-=day){const s=base+(16*60+45)*60000;
+    if(new Date(s).getUTCDay()===6||s+2*3600000>now)continue;
+    if(built>=s)return "";
+    return "OUT OF DATE: this page was built on "+nice(built)+" at "+bm[1]+bm[2]+"h UK time. The 16:45 run of "+nice(s)+
+      " should have replaced it by 1845h, and has not reached this page. Answers given here belong to this older page. "+
+      "Tell Harry in any Cowork window: \"Harry: the briefing page is out of date\".";}
+  return "";}
+function showStale(html){const run=()=>{const t=staleNote(html,Date.now());let b=document.getElementById("stale");
+  if(!t){if(b&&b.remove)b.remove();return;}
+  if(!b){b=document.createElement("div");b.id="stale";b.style.cssText="background:#b00020;color:#fff;font:bold 15px system-ui,sans-serif;padding:10px 14px";
+    const o=document.getElementById("out");o.insertBefore(b,o.firstChild);}
+  b.textContent=t;};
+  run();setInterval(run,600000);}   // re-checked every 10 minutes, so a tab left open overnight turns red too
+async function go(pass,remember){
+  try{let html=await unlock(pass);
+    if(remember){try{localStorage.setItem("ea-pass",pass)}catch(e){}}
+    document.getElementById("gate").style.display="none";
+    document.body.style.cssText="margin:0;padding:0;max-width:none";
+    // s30 (D-319): the answers key travels INSIDE the encrypted briefing; it is lifted out here and never shown to the frame
+    const km=html.match(/<meta name="ea-answers" content="([^"]*)">/);if(km){const kv=km[1].split("|");REPO=kv[0];TOK=kv[1];html=html.replace(km[0],"");}
+    const dm=html.match(/<meta name="ea-page-date" content="([^"]*)">/);PAGEDATE=dm?dm[1]:"";KEY="ea-answers-"+PAGEDATE;
+    const fr=document.createElement("iframe");fr.setAttribute("sandbox",/http-equiv="Content-Security-Policy"/.test(html)?"allow-scripts":"");fr.style.height="100vh";fr.srcdoc=html;
+    // s40b (13-Oct-26; Richard: the boxes are hard to reach on a phone): a one-line bar above the page links the daily
+    // page and the requests page to each other (links inside the sandboxed frame cannot leave it)
+    const bar=document.createElement("div");bar.style.cssText="font:600 15px system-ui,sans-serif;padding:8px 14px;background:#2e6b3a";
+    const ln=document.createElement("a");ln.style.color="#fff";ln.style.textDecoration="none";
+    if(PAGEDATE==="requests"){ln.href="../";ln.textContent="\u2190 Today's page";}else if(PAGEDATE==="ideas"){ln.href="../";ln.textContent="\u2190 The OKR page";}else{ln.href="requests/";ln.textContent="+ Add a request (new email, feedback, anything else)";}
+    bar.appendChild(ln);document.getElementById("out").appendChild(bar);
+    document.getElementById("out").appendChild(fr);FR=fr;try{showStale(html)}catch(_){}
+  }catch(e){document.getElementById("err").textContent="That passphrase did not open it.";try{localStorage.removeItem("ea-pass")}catch(_){}}
+}
+// 17-Oct-26 (OKRs project, D-OKR-37): PAGEDATE "ideas" is the OKR idea capture page (projects/OKRs/tools/build_ideas_page.py);
+// it gets its own bar link, pop-up heading and email subject; every other page is unchanged.
+// s30 (D-319, D-335): the briefing's answer form talks to this page; this page keeps the answers (in this browser, and in
+// the private answers store when the briefing carries a key) and offers the "Harry:" text to copy or email to Richard.
+let FR=null,TOK=null,REPO=null,PAGEDATE="",KEY="ea-answers",SHA={},PT=null;
+const b64u=s=>btoa(unescape(encodeURIComponent(s)));
+async function gh(name,obj){if(!TOK||!REPO)return false;const path="answers/"+(PAGEDATE||"undated")+"/"+name+".json",url="https://api.github.com/repos/"+REPO+"/contents/"+path;
+  const h={"Authorization":"Bearer "+TOK,"Accept":"application/vnd.github+json"};
+  try{for(let t=0;t<2;t++){if(!(path in SHA)){const g=await fetch(url,{headers:h,cache:"no-store"});SHA[path]=g.ok?(await g.json()).sha:null;}
+    const body={message:"EA answers "+name,content:b64u(JSON.stringify(obj,null,1))};if(SHA[path])body.sha=SHA[path];
+    const r=await fetch(url,{method:"PUT",headers:h,body:JSON.stringify(body)});if(r.ok){SHA[path]=(await r.json()).content.sha;return true;}
+    if(r.status!==409&&r.status!==422)return false;delete SHA[path];}return false;}catch(e){return false;}}
+function tell(w){try{FR.contentWindow.postMessage({type:"ea-saved",where:w},"*")}catch(e){}}
+function overlay(text,stored){let o=document.getElementById("ov");if(!o){o=document.createElement("div");o.id="ov";
+  o.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:9";document.body.appendChild(o);}
+  const when=new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  o.innerHTML='<div style="background:#fff;max-width:680px;width:92%;padding:18px;border-radius:6px;font:14px system-ui,sans-serif">'+
+   '<h3 style="margin-top:0">'+(PAGEDATE==="ideas"?'Your idea':'Your answers')+'</h3><p>'+(stored?'Saved to the answers store at '+when+'. Watson files it in your next OKR session.':'Copy this into any Cowork window, or email it to yourself.')+'</p>'+
+   '<textarea id="ovt" style="width:100%;height:180px;box-sizing:border-box" readonly></textarea>'+
+   '<p><button id="ovc">Copy</button> <a id="ovm" href="#">Email it to myself</a> <button id="ovx" style="float:right">Close</button></p></div>';
+  document.getElementById("ovt").value=text||"(no answers picked)";
+  document.getElementById("ovm").href="mailto:RBlack@pacificam.co.uk?subject="+encodeURIComponent(PAGEDATE==="ideas"?"Idea for the OKR ideas list":"Harry: answers to the page of "+PAGEDATE)+"&body="+encodeURIComponent(text||"");
+  document.getElementById("ovc").onclick=()=>{try{navigator.clipboard.writeText(text);document.getElementById("ovc").textContent="Copied"}catch(e){}};
+  document.getElementById("ovx").onclick=()=>o.remove();}
+window.addEventListener("message",async e=>{if(!FR||e.source!==FR.contentWindow)return;const m=e.data||{};
+  if(m.type==="ea-ready"){let s=null;try{s=JSON.parse(localStorage.getItem(KEY)||"null")}catch(_){}FR.contentWindow.postMessage({type:"ea-restore",state:s},"*");
+    tell(TOK?"Each answer is saved as you click, on every device.":"Answers are kept in this browser until you submit.");}
+  if(m.type==="ea-state"){try{localStorage.setItem(KEY,JSON.stringify(m.state))}catch(_){}
+    if(TOK){clearTimeout(PT);PT=setTimeout(async()=>{const ok=await gh("latest",{state:m.state,saved:new Date().toISOString()});tell(ok?"Saved to the answers store.":"Saved in this browser (the answers store did not answer).");},1500);}
+    else tell("Saved in this browser.");}
+  if(m.type==="ea-submit"){let ok=false;if(TOK){ok=await gh("submitted-"+Date.now(),{text:m.text,state:m.state,submitted:new Date().toISOString()});}overlay(m.text,ok);}
+});
+document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();go(document.getElementById("p").value,document.getElementById("remember").checked);});
+try{const s=localStorage.getItem("ea-pass");if(s){document.getElementById("remember").checked=true;go(s,true);}}catch(e){}
+</script></body></html>
