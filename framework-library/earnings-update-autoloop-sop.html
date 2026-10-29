@@ -22,24 +22,24 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 @media print{body{background:#fff}}
 </style></head><body><main>
 
-<div class="stamp">Viewforth &middot; Standard Operating Procedure &middot; written by Watson for Richard &middot; v1.0, 22-Sep-26 &middot; Chief of Staff project "COS - Earnings Update Autoloop SOP" (folder not yet renamed: <code>projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/</code>)</div>
+<div class="stamp">Viewforth &middot; Standard Operating Procedure &middot; written by Watson for Richard &middot; v1.1, 28-Oct-26 (v1.0, 22-Sep-26) &middot; Chief of Staff project "COS - Earnings Update Autoloop SOP" (folder not yet renamed: <code>projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/</code>)</div>
 
 <h1>The Earnings Update Autoloop SOP</h1>
 <p><strong>When a company in scope reports results, the system reads the results, decides whether our investment case moved, and rebuilds the memo when it did, without you having to start anything.</strong> This page says what runs, when, what it spends, what needs you, and how you would know if it stopped.</p>
 
-<div class="box judge"><strong>The one-paragraph version.</strong> Every morning the earnings calendar is refreshed from FactSet. When a company in scope reports, an Earnings Review is ordered from the research production line. Once the review exists, and only if we already have an investment case memo for that stock, the Investment Analyst writes a short Implications piece: what these results mean for our case, published to the Reports &amp; Memos Repository within minutes whatever the verdict (added 25-Sep-26). A rule called <em>the gate</em> then decides whether the full memo is worth rebuilding. Live holdings are always rebuilt; other stocks only when the results clearly improve the case. A rebuild becomes a request card for the memo production line, which writes the new memo. Separately, research reports older than three months are refreshed every quarter. Everything is reported on the All-Team Briefing page, and anything you need to know reaches you in the Daily Digest email.</div>
+<div class="box judge"><strong>The one-paragraph version.</strong> Every morning the earnings calendar is refreshed from FactSet. When a company in scope reports, an Earnings Review is ordered from the research production line. Once the review exists, and only if we already have an investment case memo for that stock, the Investment Analyst writes your <em>Initial Summary Implications to Investment Thesis/Case</em>: what these results mean for our case, published to the Reports &amp; Memos Repository within minutes whatever the verdict (added 25-Sep-26). <strong>For live holdings, Ideas Bench, Ideas Shortlist and interest level A, the Earnings Review is run again four working days later and the Initial Summary Implications to Investment Thesis/Case is re-done on it, replacing the day-one one on the Repository (added 28-Oct-26).</strong> A rule called <em>the gate</em> then decides whether the full memo is worth rebuilding; for those stocks it decides on the re-done one, after the sell-side has responded. Live holdings are always rebuilt; other stocks only when the results clearly improve the case. A rebuild becomes a request card for the memo production line, which writes the new memo. Separately, research reports older than three months are refreshed every quarter. Everything is reported on the All-Team Briefing page, and anything you need to know reaches you in the Daily Digest email.</div>
 
 <h2>1. The chain, step by step</h2>
-<div class="flow"><span>Earnings calendar</span><b>&rarr;</b><span>Earnings Review ordered</span><b>&rarr;</b><span>Implications piece</span><b>&rarr;</b><span>The gate</span><b>&rarr;</b><span>Memo request card</span><b>&rarr;</b><span>Rebuilt memo</span><b>&rarr;</b><span>Briefing page and Daily Digest</span></div>
+<div class="flow"><span>Earnings calendar</span><b>&rarr;</b><span>Earnings Review ordered</span><b>&rarr;</b><span>Initial Summary Implications to Investment Thesis/Case</span><b>&rarr;</b><span>Repeat Earnings Review and the re-done Initial Summary Implications to Investment Thesis/Case (same-day group)</span><b>&rarr;</b><span>The gate</span><b>&rarr;</b><span>Memo request card</span><b>&rarr;</b><span>Rebuilt memo</span><b>&rarr;</b><span>Briefing page and Daily Digest</span></div>
 <table>
 <thead><tr><th>Step</th><th>When (UK time)</th><th>What happens</th><th>Runs on</th></tr></thead>
 <tbody>
 <tr><td>1. Earnings calendar refresh</td><td>05:15 daily</td><td>Pulls every company's next results date from FactSet. If FactSet sends nothing (usually a sign-in), the last good calendar is kept, never overwritten.</td><td>Your PC, free</td></tr>
 <tr><td>2. The results-day walk</td><td>05:45 and 13:15 daily</td><td>Orders the Earnings Review for each company reporting. <strong>Live holdings, Ideas Bench, Shortlist and interest level A:</strong> on the morning of the results, plus a repeat review four working days later. <strong>Ideas Longlist and interest level B:</strong> one working day after the results. Only confirmed dates are acted on. A missed morning is caught up for three working days; later than that it is reported as missed, never ordered.</td><td>Your PC, free</td></tr>
-<tr><td>3. The Implications pack</td><td>Same walk, 05:45 and 13:15</td><td>Once the review has been produced, gathers what the writer reads: the new review, the memo, its ratings and the stock's data. <strong>No memo on file, no piece</strong> (your ruling of 22-Sep-26); the page names the stock instead.</td><td>Your PC, free</td></tr>
-<tr><td>4. The Implications piece</td><td>12:30 and 18:30 on weekdays</td><td>A scheduled Claude task, one copy on each of your three logins, writes the piece with the Fable model and ends it with a verdict: which direction the case moved, and how much. The finishing step then mirrors the piece into the Reports &amp; Memos Repository automatically, labelled "IA Earnings Summary", whatever the verdict (added 25-Sep-26).</td><td>Claude, paid</td></tr>
-<tr><td>5. The gate</td><td>Straight after the piece</td><td>Decides whether the memo is rebuilt (section 2) and passes any rebuild through the spend controls.</td><td>Free</td></tr>
-<tr><td>6. The memo request card</td><td>Next memo production run: 07:45, 11:45, 15:45 or 19:45</td><td>The memo project's card writer turns each rebuild into a standard request card. Each piece is only ever ordered once.</td><td>Free</td></tr>
+<tr><td>3. The reading folder</td><td>Same walk, 05:45 and 13:15</td><td>Once the review has been produced, gathers what the writer reads: the new review, the memo, its ratings and the stock's data. <strong>No memo on file, no Initial Summary Implications to Investment Thesis/Case</strong> (your ruling of 22-Sep-26); the page names the stock instead. <strong>When the repeat review lands</strong> (a different review, produced on or after its due date), a second folder is built for the re-done one: it adds the day-one Initial Summary Implications to Investment Thesis/Case, so the re-done one can answer what the day-one one left open (added 28-Oct-26). Not built on a review more than ten days old.</td><td>Your PC, free</td></tr>
+<tr><td>4. The Initial Summary Implications to Investment Thesis/Case</td><td>12:30 and 18:30 on weekdays</td><td>A scheduled Claude task, one copy on each of your logins, writes it with the Fable model and ends it with a verdict: which direction the case moved, and how much. The finishing step then mirrors it into the Reports &amp; Memos Repository automatically, labelled "IA Earnings Summary", whatever the verdict (added 25-Sep-26). <strong>The re-done one is filed under the day it is written, so it becomes the stock's IA Earnings Summary page; the day-one one stays reachable as the older version</strong> (added 28-Oct-26).</td><td>Claude, paid</td></tr>
+<tr><td>5. The gate</td><td>Straight after each one is written</td><td>Decides whether the memo is rebuilt (section 2) and passes any rebuild through the spend controls. <strong>Same-day group: the decision is taken on the re-done one, never the day-one one</strong>, so a rebuilt memo reads the repeat review (your 15-Sep-26 brief: "After that, a full update of the Memo can be commissioned"; added 28-Oct-26). If no re-done one can follow (the repeat review was missed, the re-done one could not be written, the review landed too late, or it has not arrived: five working days after its due date when its order has stalled, fifteen at most), the day-one decision is released so a rebuild is never lost. <strong>At most one rebuild per results event.</strong></td><td>Free</td></tr>
+<tr><td>6. The memo request card</td><td>Next memo production run: 07:45, 11:45, 15:45 or 19:45</td><td>The memo project's card writer turns each rebuild into a standard request card on the new Memo conveyor. Each order is acted on once.</td><td>Free</td></tr>
 <tr><td>7. The rebuilt memo</td><td>As the memo production line works</td><td>The Stock-specific Investment Case A&amp;J Memo is rebuilt and published as usual.</td><td>Claude, paid</td></tr>
 <tr><td>8. The quarterly research refresh</td><td>Inside the walk, 05:45 and 13:15</td><td>Re-orders any Change Forces report or Earnings Review older than three months, undated, or missing for a stock you named.</td><td>Your PC, free</td></tr>
 <tr><td>9. Reporting</td><td>Briefing 06:00 and 16:00 daily, weekly edition Sunday 16:30; Daily Digest once a day</td><td>The All-Team Briefing page shows everything. The Daily Digest carries only what you should hear about (section 4).</td><td>Your PC, free</td></tr>
@@ -55,7 +55,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 <tr><td>Anything else</td><td>Never</td></tr>
 </tbody></table>
 <ul>
-<li><strong>Negative results never trigger a rebuild</strong> for a stock we do not own: a candidate that got worse is simply not a candidate. The piece is still written and still reported.</li>
+<li><strong>Negative results never trigger a rebuild</strong> for a stock we do not own: a candidate that got worse is simply not a candidate. The Initial Summary Implications to Investment Thesis/Case is still written and still reported.</li>
+<li><strong>Which one decides (added 28-Oct-26):</strong> for live holdings, Ideas Bench, Ideas Shortlist and interest level A, the re-done Initial Summary Implications to Investment Thesis/Case, written on the repeat review, decides; the day-one one is reported but orders nothing. For the Ideas Longlist and interest level B there is no repeat, so the one written a working day after the results decides.</li>
 <li><strong>These routines never write a first memo.</strong> They only rebuild one that exists. (First memos for stocks on the Ideas lists come from the Ideas commissioner, a separate route.)</li>
 <li><strong>Spend limits:</strong> at most 10 automatic memos a UK week, counted by the memo production line; live-holding rebuilds sit outside the 10. Research: 20 orders a day, 30 on results days. Nothing is ever ordered twice.</li>
 </ul>
@@ -63,7 +64,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 <h2>3. What it costs</h2>
 <ul>
 <li><strong>Free:</strong> the calendar refresh, the walk, the packs, the gate, the card writer and the briefing all run as scripts on your PC with no language model.</li>
-<li><strong>Paid:</strong> each Implications piece is one Fable run. Each rebuilt memo is roughly 645,000 Fable tokens, which is why the gate exists. Fifteen live holdings reporting two to four times a year means roughly 30 to 60 rebuilds a year.</li>
+<li><strong>Paid:</strong> each Initial Summary Implications to Investment Thesis/Case is one Fable run (two per results event for the same-day group from 28-Oct-26). Each rebuilt memo is roughly 645,000 Fable tokens, which is why the gate exists. Fifteen live holdings reporting two to four times a year means roughly 30 to 60 rebuilds a year.</li>
 <li><strong>Hidden cost:</strong> every Claude scheduled run uses a little of a fixed session disk that is never emptied. That is why only one step here runs in Claude.</li>
 </ul>
 
@@ -72,13 +73,13 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 <ul>
 <li><strong>The Daily Digest email</strong> tells you:
   <ul>
-  <li>when an Implications piece was written, and what the gate decided;</li>
+  <li>when an Initial Summary Implications to Investment Thesis/Case was written (it says when it is the re-done one), and what the gate decided;</li>
   <li>when a results-day review was missed;</li>
   <li>when a ticker on your lists cannot be matched;</li>
   <li>when any of these jobs fails.</li>
   </ul>
   A known duplicate record is never put to you as a question.</li>
-<li><strong>Every job writes an "I ran" file</strong>, including on quiet days. A free watchdog checks them every thirty minutes and puts a stale or failed job in the Daily Digest. The Implications task is allowed 72 hours, because it does not run at weekends.</li>
+<li><strong>Every job writes an "I ran" file</strong>, including on quiet days. A free watchdog checks them every thirty minutes and puts a stale or failed job in the Daily Digest. The task that writes the Initial Summary Implications to Investment Thesis/Case is allowed 72 hours, because it does not run at weekends.</li>
 <li><strong>The All-Team Briefing page</strong> (locked with your passphrase) shows every order, every piece, every held or missed item and every job's health. It hides anything that looks like a password or access token.</li>
 <li><strong>A Stand-Up</strong> you start in a chat window reads the latest briefing first.</li>
 </ul>
@@ -87,8 +88,8 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 <h2>5. What needs you</h2>
 <div class="box act">
 <ul>
-<li><strong>Nothing routine.</strong> Results, reviews, pieces, the gate and rebuild requests all run without you.</li>
-<li><strong>Once per login:</strong> each copy of the Implications task must be tied to your computer in its settings. A task only reaches your PC while its own login is signed in. While you are on one login, the platform switches off the other logins' copies at their run times; a small routine switches them back on (being tested on the Ricky login first, from 22-Sep-26).</li>
+<li><strong>Nothing routine.</strong> Results, reviews, the Initial Summary Implications to Investment Thesis/Case, the gate and rebuild requests all run without you.</li>
+<li><strong>Once per login:</strong> each copy of the writing task must be tied to your computer in its settings. A task only reaches your PC while its own login is signed in. While you are on one login, the platform switches off the other logins' copies at their run times; a small routine switches them back on (being tested on the Ricky login first, from 22-Sep-26).</li>
 <li><strong>Occasionally:</strong> answer a question the Daily Digest puts to you.</li>
 <li><strong>Your call only:</strong> any change to the rules in section 2 or the spend limits.</li>
 </ul>
@@ -104,16 +105,11 @@ footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid 
 <tr><td>Stop any Fable run from a schedule</td><td>The memo production line's spend hold, <code>briefings/memo-conveyor/FABLE-SPEND-HOLD.md</code>, is honoured here too</td></tr>
 </tbody></table>
 
-<h2>7. Where it stands (22-Sep-26)</h2>
+<h2>7. Where it stands (28-Oct-26)</h2>
 <ul>
-<li><strong>Running and healthy since 17-Sep-26:</strong> the calendar refresh, the walk, the quarterly refresh and the briefing.</li>
-<li><strong>The Implications task</strong> exists on all three logins; the Ricky and main copies are tied to your computer.</li>
-<li><strong>No Implications piece has been written yet.</strong> The first are expected on or after Thursday 24-Sep-26:
-  <ul>
-  <li>CVS Group, a live holding, so it will be rebuilt;</li>
-  <li>Boku and Renishaw, both interest level B, so their reviews are ordered the day after their 23-Sep results.</li>
-  </ul></li>
-<li><strong>"Done", in your words of 22-Sep-26:</strong> one full real round trip (results, review, piece, gate, card, rebuilt memo) plus a week in which you never look and everything still happens.</li>
+<li><strong>Running since 17-Sep-26:</strong> the calendar refresh, the walk, the quarterly refresh and the briefing. 22 Initial Summary Implications to Investment Thesis/Case written by 28-Oct-26.</li>
+<li><strong>Fixed 28-Oct-26 (decision D-AUTO-41):</strong> until then the Initial Summary Implications to Investment Thesis/Case was never re-done after the repeat review, and the memo rebuild was ordered on the day-one one. Avanza showed it: its day-one one (16-Oct) was written on a review from before the print; the repeat review landed 22-Oct and nothing was re-done. Re-done ones for Avanza, ASML and OEM International follow at the next writing run; CVS Group's results (24-Sep) are too old to re-do.</li>
+<li><strong>Open, for your ruling:</strong> results-day Earnings Reviews wait behind memo research in the research queue (your 23-Sep-26 ruling puts memo research first), so with a long queue they arrive days late.</li>
 </ul>
 
 <footer>Source: <code>projects/COS - Autoloop SOPs - memo refresh, earnings updates, briefings/EARNINGS-UPDATE-AUTOLOOP-SOP.html</code> &middot; decisions behind every rule: that project's <code>decisions.md</code> &middot; <a href="index.html">Investment System Library</a> &middot; <a href="../">Viewforth landing page</a></footer>
