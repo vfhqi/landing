@@ -1,5 +1,5 @@
 {
-  "built": "29-Oct-26",
+  "built": "02-Nov-26",
   "pages": [
     {
       "slug": "earnings-update-autoloop-sop",
@@ -158,9 +158,9 @@
     },
     {
       "slug": "position-management",
-      "name": "Position Management",
-      "desc": "Entry timing, position sizing, stop placement and exit rules, including the base-counting and stop-loss system.",
-      "src": "memory/skills/assistant-portfolio-manager/annexes/annex-01-position-management.md",
+      "name": "Position Entry and Exit Rules",
+      "desc": "The one statement of the position entry and exit rules in force (Richard, 2-Nov-2026): holding types, entry, sizing, adds, the six Sell Criteria, the 10-day stop-loss rule for Probing Bets, execution.",
+      "src": "memory/skills/assistant-portfolio-manager/POSITION-ENTRY-AND-EXIT-RULES.md",
       "family": "F4"
     },
     {
