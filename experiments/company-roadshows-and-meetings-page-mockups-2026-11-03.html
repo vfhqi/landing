@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activity Overview for Company Roadshows and Meetings: mock-up version 2, 3 Nov 2026</title>
+<style>
+:root{--navy:#13294b;--mid:#2a5d9f;--light:#e8f0fa;--pale:#f4f6f9;--line:#d9dfe8;
+--judge:#6b2fa8;--obs:#18599c;--act:#17784a;--red:#b3261e;--amber:#8a6100;--green:#17784a;
+--greenbg:#e9f5ee;--amberbg:#fdf4e3;--redbg:#fdecea;--ink:#1a1d21;--grey:#5b6472;}
+*{box-sizing:border-box}
+body{margin:0;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:1320px;margin:0 auto;padding:16px 14px 70px}
+h1{font-size:28px;font-weight:700;color:var(--navy);margin:0 0 4px;line-height:1.2}
+.sub{color:var(--grey);font-size:12px;margin:0 0 16px}
+h3{font-size:18px;font-weight:700;color:#fff;background:var(--mid);padding:5px 10px;border-radius:4px;margin:20px 0 9px;display:inline-block}
+h4{font-size:15.5px;font-weight:700;color:var(--navy);background:var(--light);padding:4px 9px;border-radius:4px;margin:16px 0 8px;display:inline-block}
+p{margin:0 0 9px}ul{margin:0 0 10px;padding-left:19px}li{margin:0 0 5px}
+.j{color:var(--judge);font-weight:600}.o{color:var(--obs)}.a{color:var(--act);font-weight:600}
+.bluf{background:var(--pale);border-left:4px solid var(--judge);padding:9px 12px;border-radius:0 5px 5px 0;margin:0 0 14px}
+.note{background:#fffdf2;border:1px solid #e9dca8;padding:9px 12px;border-radius:5px;margin:10px 0;font-size:12.5px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:2px solid var(--navy);margin:0 0 14px;background:#fff;padding-top:6px}
+.tabs button{font:600 12.5px/1 inherit;padding:9px 12px;border:1px solid var(--line);border-bottom:none;background:var(--pale);color:var(--grey);border-radius:5px 5px 0 0;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pane{display:none}.pane.on{display:block}
+.opts{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;align-items:center}
+.opts button{font:600 12px/1 inherit;padding:8px 13px;border:1px solid var(--mid);background:#fff;color:var(--mid);border-radius:20px;cursor:pointer}
+.opts button.on{background:var(--mid);color:#fff}
+.opt{display:none}.opt.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:0 0 12px}
+th{background:var(--navy);color:#fff;text-align:left;padding:6px 7px;font-weight:600;font-size:11.5px}
+td{padding:6px 7px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfd}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:9px;white-space:nowrap}
+.p-live{background:#dde8f7;color:var(--navy)}.p-peer{background:#eef1f5;color:var(--grey)}
+.p-a{background:#e6eef9;color:var(--mid)}.p-now{background:var(--redbg);color:var(--red)}
+.p-soon{background:var(--amberbg);color:var(--amber)}.p-ok{background:var(--greenbg);color:var(--green)}
+.p-you{background:#f0e6fa;color:var(--judge)}
+.peers{font-size:11px;line-height:1.45;color:var(--grey)}
+.peers b{color:var(--ink);font-weight:600}
+.pd{color:var(--mid);font-weight:600}
+.nodate{color:var(--red);font-weight:600}
+.tl{border-left:3px solid var(--line);margin-left:8px;padding-left:14px}
+.tlw{margin:0 0 16px;position:relative}
+.tlw:before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--mid)}
+.tlw.hot:before{background:var(--red)}
+.tlw h5{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.tlrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px dotted var(--line);flex-wrap:wrap;font-size:12px}
+.tlrow b{min-width:130px;color:var(--navy)}
+.small{font-size:11.5px;color:var(--grey)}
+.ok{color:var(--green);font-weight:600}.bad{color:var(--red);font-weight:600}
+@media(max-width:620px){h1{font-size:22px}}
+</style></head><body><div class="wrap">
+
+<h1>Activity Overview for Company Roadshows and Meetings</h1>
+<p class="sub">Mock-up version 2, rebuilt 3 November 2026 05:45 UK on your feedback. Every row is real data read this session. Nothing here is live yet.</p>
+
+<div class="bluf">
+<p><span class="j">What changed from version 1, on your instruction:</span> the dense table is now the default and the timeline sits behind a button beside it; the card view is gone; every peer carries its own next earnings date; and the "what has happened" and "what happens next" columns now name who, what and when precisely.</p>
+<p style="margin:0"><span class="o">Language rule applied throughout:</span> the page never tells you to do something by a date. It says when a thing is ready for you, and leaves the timing to you.</p>
+</div>
+
+<div class="note">
+<b>Three live items that no system was tracking.</b>
+<ul style="margin:6px 0 0">
+<li><b>Xvivo.</b> Kristoffer Nordstrom, Chief Financial Officer, replied to you at 14:53 UK on 2 November offering times and flagging limited availability next week. The thread is unread. Xvivo is a Live Stock</li>
+<li><b>Volex has no earnings date in the FactSet calendar</b>, nor do three of its four peers. Its half-year results are on 12 November. A loop driven only by that calendar would pass over the whole cohort in silence</li>
+<li><b>No single-company inbound offer in the last two weeks named a top-four-tier company.</b> Eleven offers, none of merit. Provisional: the two multi-company diaries are unopened</li>
+<li><b>The Vodafone email of 2 November used the cold template, with the full fund introduction, although we held Vodafone until January 2017.</b> Found by the previously-owned list located today. Under your warmth rule it should have had no fund introduction. Six of your sixteen Live Stocks were also held before</li>
+</ul>
+</div>
+
+<div class="tabs" id="tabs">
+<button class="on" data-t="t1">1. Activity per Relevant Stock</button>
+<button data-t="t2">2. Outbound Activity</button>
+<button data-t="t3">3. Inbound Offers</button>
+<button data-t="t4">4. How this works</button>
+<button data-t="t5">Content inventory</button>
+</div>
+
+<!-- TAB 1 -->
+<div class="pane on" id="t1">
+<div class="opts" id="opts">
+<span class="small" style="margin-right:4px">View:</span>
+<button class="on" data-o="oA">Table</button>
+<button data-o="oC">Season timeline</button>
+</div>
+
+<div class="opt on" id="oA">
+<div class="scroll"><table>
+<thead><tr><th style="min-width:112px">Stock</th><th>Tier</th><th style="min-width:230px">Peers, with their next earnings</th><th style="min-width:88px">Its earnings</th><th style="min-width:210px">What has happened</th><th>State</th><th style="min-width:210px">What happens next</th><th style="min-width:96px">Input from RB</th></tr></thead>
+<tbody>
+
+<tr><td><b>Xvivo</b><br><span class="small">XVIVO-SE</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Ambu</b> <span class="pd">05-Nov</span>, <b>Surgical Science</b> <span class="pd">12-Nov</span>, <b>Bonesupport</b> <span class="pd">16-Feb</span>, <b>Tissue Regenix</b> <span class="pd">23-Mar</span>, <b>Vitrolife</b> <span class="pd">28-Jan</span></td>
+<td>28-Jan-27<br><span class="small">Confirmed</span></td>
+<td>RB to Kristoffer Nordstrom, Chief Financial Officer: investor relations call request, 02-Nov 12:52.<br><b>Nordstrom to RB: reply offering times, 02-Nov 14:53. Unread</b></td>
+<td><span class="pill p-now">Reply in</span></td>
+<td>Watson to draft RB's reply naming available Thursday slots from the diary. <span class="a">Draft ready for your review</span></td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>Helios Towers</b><br><span class="small">HTWS-GB</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Cellnex</b> <span class="pd">06-Nov</span>, <b>Inwit</b> <span class="pd">10-Nov</span>, <b>Rai Way</b> <span class="pd">11-Nov</span></td>
+<td>05-Nov-26<br><span class="small">Confirmed</span></td>
+<td>No contact on file. No investor relations contact identified yet</td>
+<td><span class="pill p-now">Window open</span></td>
+<td>Watson to identify the investor relations contact, then draft a roadshow and call request. <span class="a">Draft ready for your review once the contact is confirmed</span></td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>IMCD</b><br><span class="small">IMCD-NL</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Brenntag</b> <span class="pd">11-Nov</span>, <b>Azelis</b> <span class="pd">18-Feb</span></td>
+<td>05-Nov-26<br><span class="small">Confirmed</span></td>
+<td>No contact on file. No investor relations contact identified yet</td>
+<td><span class="pill p-now">Window open</span></td>
+<td>Watson to identify the investor relations contact, then draft a roadshow and call request. <span class="a">Draft ready for your review once the contact is confirmed</span></td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>Volex</b><br><span class="small">VLX-GB</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Huber + Suhner</b> <span class="pd">16-Mar</span>, <b>DiscoverIE</b> <span class="nodate">no date</span>, <b>Solid State</b> <span class="nodate">no date</span>, <b>TT Electronics</b> <span class="nodate">no date</span></td>
+<td class="nodate">no date<br><span class="small">Half-year is 12-Nov</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-now">Data gap</span></td>
+<td>Watson to set the 12-Nov date by hand and raise the four missing dates as a data fault, then draft. <span class="a">Draft ready for your review once the date is set</span></td>
+<td>None</td></tr>
+
+<tr><td><b>Hellenic Telecom</b><br><span class="small">HTO-GR</span></td><td><span class="pill p-a">Interest A</span></td>
+<td class="peers">Peer of no Live Stock</td>
+<td>25-Feb-27<br><span class="small">Projected. Reported 30-Oct</span></td>
+<td>RB to Evrikos Sarsentis and Sofia Ziavra: management meeting on the London roadshow, else a group video call, plus a call with three slots offered, 02-Nov 16:34. No reply in 3 days.<br><span class="small">Held until May-2015; you wrote it warm yourself, correctly</span></td>
+<td><span class="pill p-now">Sent, silent</span></td>
+<td>Watson to draft a short warm chaser re-pasting the two asks only. <span class="a">Chaser ready for your review on 05-Nov.</span> Separately: the three slots you offered carry no diary holds</td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>Vodafone</b><br><span class="small">VOD-GB</span></td><td><span class="pill p-a">Interest A</span></td>
+<td class="peers">Peer of no Live Stock</td>
+<td>10-Nov-26<br><span class="small">Confirmed</span></td>
+<td>RB to the investor relations mailbox, copying Victoria Garnham, Corporate Access Manager: roadshow place plus a call, 02-Nov 16:35. No reply in 3 days.<br><b class="bad">Sent on the cold template, but we held Vodafone until Jan-2017, so it should have been warm</b></td>
+<td><span class="pill p-now">Sent, silent</span></td>
+<td>Watson to draft a short warm chaser re-pasting the two asks only, timed to land before the 10-Nov results. <span class="a">Chaser ready for your review on 05-Nov</span></td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>Ballys Intralot</b><br><span class="small">BYLOT-GR</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Lottomatica</b> <span class="pd">02-Nov</span>, <b>Betsson</b> <span class="pd">04-Feb</span>, <b>Bally's</b> <span class="pd">25-Feb</span>, <b>Entain</b> <span class="pd">11-Mar</span>, <b>Evoke</b> <span class="pd">31-Mar</span>, <b>Flutter</b> <span class="nodate">no date</span></td>
+<td>27-Nov-26<br><span class="small">Projected</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-now">Window open</span></td>
+<td>Window opened 30-Oct. Watson to verify the Projected date on the company's own investor page, then draft. <span class="a">Draft ready for your review once the date is verified</span></td>
+<td><span class="pill p-you">Review and send</span></td></tr>
+
+<tr><td><b>Sdiptech</b><br><span class="small">SDIP.B-SE</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Indus Holding</b> <span class="pd">12-Nov</span>, <b>Storskogen</b> <span class="pd">10-Feb</span>, <b>Volati</b> <span class="pd">11-Feb</span></td>
+<td>10-Feb-27<br><span class="small">Confirmed</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 13-Jan-27. Peer Indus Holding's window is open now</td>
+<td>None</td></tr>
+
+<tr><td><b>Hexatronic</b><br><span class="small">HTRO-SE</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Adtran Networks</b> <span class="pd">03-Nov</span>, <b>Nokia Oyj</b> <span class="pd">28-Jan</span>, <b>Ericsson</b> <span class="nodate">no date</span></td>
+<td>04-Feb-27<br><span class="small">Confirmed</span></td>
+<td>RB to Hexatronic investor relations: outreach 09-Apr-26. No reply received</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 07-Jan-27. The 2026 approach went unanswered, so the next one goes to a named person rather than a mailbox</td>
+<td>None</td></tr>
+
+<tr><td><b>Avanza</b><br><span class="small">AZA-SE</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Fineco</b> <span class="pd">04-Nov</span>, <b>AJ Bell</b> <span class="pd">03-Dec</span>, <b>Integrafin</b> <span class="pd">09-Dec</span>, <b>Nordnet</b> <span class="pd">27-Jan</span>, <b>Swissquote</b> <span class="pd">18-Mar</span>, <b>Flatex</b> <span class="pd">01-Mar</span></td>
+<td>22-Jan-27<br><span class="small">Confirmed</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 25-Dec-26. Three peers report between 04-Nov and 09-Dec</td>
+<td>None</td></tr>
+
+<tr><td><b>Carlsberg</b><br><span class="small">CARL.B-DK</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Heineken</b> <span class="pd">10-Feb</span>, <b>Royal Unibrew</b> <span class="pd">03-Mar</span>, <b>AB InBev</b> <span class="pd">04-Mar</span></td>
+<td>09-Feb-27<br><span class="small">Confirmed</span></td>
+<td>Roadshow offer received Sep-26 through a broker</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 12-Jan-27</td>
+<td>None</td></tr>
+
+<tr><td><b>Alfen</b><br><span class="small">ALFEN-NL</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Cembre</b> <span class="pd">18-Nov</span>, <b>Pfisterer</b> <span class="pd">18-Nov</span>, <b>R&amp;S Group</b> <span class="pd">01-Apr</span>, <b>Landis+Gyr</b> <span class="pd">05-May</span>, <b>Arteche</b> <span class="pd">24-Mar</span></td>
+<td>17-Feb-27<br><span class="small">Projected</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 20-Jan-27. <b>Shares cohort 08.175 with Arteche</b>, so two Live Stocks share these five peers</td>
+<td>None</td></tr>
+
+<tr><td><b>Arteche</b><br><span class="small">ART-ES</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Cembre</b> <span class="pd">18-Nov</span>, <b>Pfisterer</b> <span class="pd">18-Nov</span>, <b>R&amp;S Group</b> <span class="pd">01-Apr</span>, <b>Landis+Gyr</b> <span class="pd">05-May</span>, <b>Alfen</b> <span class="pd">17-Feb</span></td>
+<td>24-Mar-27<br><span class="small">Projected</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 24-Feb-27. Pfisterer, a peer, reports 18-Nov and has open key questions in the Investment Analyst's work</td>
+<td>None</td></tr>
+
+<tr><td><b>Hilton Food</b><br><span class="small">HFG-GB</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Cranswick</b> <span class="pd">24-Nov</span>, <b>LDC</b> <span class="pd">25-Nov</span>, <b>Greencore</b> <span class="pd">01-Dec</span>, <b>Bell Food Group</b> <span class="pd">05-Feb</span></td>
+<td>07-Apr-27<br><span class="small">Projected</span></td>
+<td>Investor update Jun-26, automatic meeting note on file. Martyn Espley contacted 02-Nov about a call</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 10-Mar-27. Three peers report between 24-Nov and 01-Dec</td>
+<td>None</td></tr>
+
+<tr><td><b>CVS Group</b><br><span class="small">CVSG-GB</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Medicover</b> <span class="pd">04-Nov</span>, <b>Diagnostyka</b> <span class="pd">26-Nov</span>, <b>Terveystalo</b> <span class="pd">12-Feb</span>, <b>Spire Healthcare</b> <span class="pd">04-Mar</span>, <b>Aevis Victoria</b> <span class="pd">07-Apr</span></td>
+<td>04-Mar-27<br><span class="small">Projected</span></td>
+<td>Investor relations update Jun-26, automatic meeting note on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 04-Feb-27</td>
+<td>None</td></tr>
+
+<tr><td><b>Fevertree</b><br><span class="small">FEVR-GB</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Coca-Cola HBC</b> <span class="pd">18-Feb</span>, <b>Coca-Cola Europacific</b> <span class="pd">18-Feb</span>, <b>AG Barr</b> <span class="pd">30-Mar</span></td>
+<td>30-Mar-27<br><span class="small">Projected</span></td>
+<td>Investor update call Jun-26 with Richard and Steve, automatic meeting note on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 02-Mar-27</td>
+<td>None</td></tr>
+
+<tr><td><b>Theon</b><br><span class="small">THEON-NL</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers"><b>Hensoldt</b> <span class="pd">05-Nov</span>, <b>MilDef</b> <span class="pd">04-Feb</span>, <b>Exosens</b> <span class="pd">22-Feb</span>, <b>Exail Technologies</b> <span class="pd">23-Mar</span>, <b>Ovzon</b> <span class="pd">25-Feb</span></td>
+<td>19-Mar-27<br><span class="small">Projected</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 19-Feb-27. Hensoldt, a peer, reports 05-Nov</td>
+<td>None</td></tr>
+
+<tr><td><b>D'Ieteren</b><br><span class="small">DIE-BE</span></td><td><span class="pill p-live">Live</span></td>
+<td class="peers">None. Sole member of cohort 09.591</td>
+<td>10-Mar-27<br><span class="small">Confirmed</span></td>
+<td>No contact on file</td>
+<td><span class="pill p-ok">Nothing due</span></td>
+<td>Window opens 10-Feb-27</td>
+<td>None</td></tr>
+
+</tbody></table></div>
+<p class="small">All 16 Live Stocks plus the two companies with live outbound threads. The real page adds the 56 peers as their own rows, collapsible under their Live Stock, and the research-queue companies.</p>
+<div class="note"><b>What the peer dates show at a glance, which is why you asked for them.</b> <span class="j">Eleven peers report between 03-Nov and 09-Dec while only three Live Stocks do.</span> So in this window the peers, not the holdings, are where the access is. Helios Towers and its three peers all report inside six days, which is one approach to a cohort rather than four unrelated ones.</div>
+</div>
+
+<div class="opt" id="oC">
+<div class="tl">
+<div class="tlw hot"><h5>This week, 3 to 9 November</h5>
+<div class="tlrow"><b>Xvivo</b><span class="pill p-live">Live</span><span>Chief Financial Officer replied 02-Nov 14:53, unread</span><span class="a">reply draft ready for your review</span></div>
+<div class="tlrow"><b>Adtran Networks</b><span class="pill p-peer">peer of Hexatronic</span><span>reports 03-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Fineco</b><span class="pill p-peer">peer of Avanza</span><span>reports 04-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Medicover</b><span class="pill p-peer">peer of CVS Group</span><span>reports 04-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Helios Towers</b><span class="pill p-live">Live</span><span>reports 05-Nov</span><span class="a">draft ready once the contact is confirmed</span></div>
+<div class="tlrow"><b>IMCD</b><span class="pill p-live">Live</span><span>reports 05-Nov</span><span class="a">draft ready once the contact is confirmed</span></div>
+<div class="tlrow"><b>Ambu</b><span class="pill p-peer">peer of Xvivo</span><span>reports 05-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Hensoldt</b><span class="pill p-peer">peer of Theon</span><span>reports 05-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Cellnex</b><span class="pill p-peer">peer of Helios Towers</span><span>reports 06-Nov</span><span>window open</span></div>
+<div class="tlrow"><b>Vodafone</b><span class="pill p-a">Interest A</span><span>silent since 02-Nov, reports 10-Nov</span><span class="a">chaser ready 05-Nov</span></div>
+<div class="tlrow"><b>Hellenic Telecom</b><span class="pill p-a">Interest A</span><span>silent since 02-Nov, three slots unheld</span><span class="a">chaser ready 05-Nov</span></div>
+</div>
+<div class="tlw hot"><h5>Next week, 10 to 16 November</h5>
+<div class="tlrow"><b>Inwit</b><span class="pill p-peer">peer of Helios Towers</span><span>reports 10-Nov</span><span>window open now</span></div>
+<div class="tlrow"><b>Brenntag</b><span class="pill p-peer">peer of IMCD</span><span>reports 11-Nov</span><span>window open now</span></div>
+<div class="tlrow"><b>Rai Way</b><span class="pill p-peer">peer of Helios Towers</span><span>reports 11-Nov</span><span>window open now</span></div>
+<div class="tlrow"><b>Volex</b><span class="pill p-live">Live</span><span class="bad">half-year 12-Nov, missing from the calendar</span><span class="a">draft ready once the date is set</span></div>
+<div class="tlrow"><b>Surgical Science</b><span class="pill p-peer">peer of Xvivo</span><span>reports 12-Nov</span><span>window open now</span></div>
+<div class="tlrow"><b>Indus Holding</b><span class="pill p-peer">peer of Sdiptech</span><span>reports 12-Nov</span><span>window open now</span></div>
+</div>
+<div class="tlw"><h5>17 to 30 November</h5>
+<div class="tlrow"><b>Cembre</b><span class="pill p-peer">peer of Alfen and Arteche</span><span>reports 18-Nov, Projected</span><span>verify, then draft</span></div>
+<div class="tlrow"><b>Pfisterer</b><span class="pill p-peer">peer of Alfen and Arteche</span><span>reports 18-Nov</span><span>draft ready 11-Nov</span></div>
+<div class="tlrow"><b>Cranswick</b><span class="pill p-peer">peer of Hilton Food</span><span>reports 24-Nov</span><span>draft ready 17-Nov</span></div>
+<div class="tlrow"><b>LDC</b><span class="pill p-peer">peer of Hilton Food</span><span>reports 25-Nov, Projected</span><span>verify, then draft</span></div>
+<div class="tlrow"><b>Diagnostyka</b><span class="pill p-peer">peer of CVS Group</span><span>reports 26-Nov</span><span>draft ready 19-Nov</span></div>
+<div class="tlrow"><b>Ballys Intralot</b><span class="pill p-live">Live</span><span>reports 27-Nov, Projected</span><span>verify, then draft ready 06-Nov</span></div>
+</div>
+<div class="tlw"><h5>December, then the season closes</h5>
+<div class="tlrow"><b>Greencore</b><span class="pill p-peer">peer of Hilton Food</span><span>reports 01-Dec</span><span>draft ready 24-Nov</span></div>
+<div class="tlrow"><b>AJ Bell</b><span class="pill p-peer">peer of Avanza</span><span>reports 03-Dec</span><span>draft ready 26-Nov</span></div>
+<div class="tlrow"><b>Integrafin</b><span class="pill p-peer">peer of Avanza</span><span>reports 09-Dec</span><span>draft ready 02-Dec</span></div>
+<div class="tlrow"><b class="j">Then the season stops</b><span class="small">13 of your 16 Live Stocks next report between 22-Jan and 07-Apr-2027</span></div>
+</div>
+</div>
+<div class="note"><b>Why this view earns its place beside the table.</b> It is the only one that makes the <span class="j">shape of the next eight weeks</span> visible without reading a row: a dense fortnight driven almost entirely by peers rather than holdings, a thinner late November, and then nothing until late January when most of your book reports at once.</div>
+</div>
+</div>
+
+<!-- TAB 2 -->
+<div class="pane" id="t2">
+<p><span class="j">Purpose:</span> every outbound approach in flight, organised by the approach rather than by the company.</p>
+<div class="scroll"><table>
+<thead><tr><th>Company</th><th>Tier</th><th>Ask made</th><th>Sent, and by whom</th><th>To</th><th>Reply</th><th>What happens next</th><th>Input from RB</th></tr></thead>
+<tbody>
+<tr><td><b>Xvivo</b></td><td><span class="pill p-live">Live</span></td><td>An investor relations call</td><td>02-Nov 12:52, by RB</td><td>Kristoffer Nordstrom, Chief Financial Officer</td><td class="ok">Yes, 02-Nov 14:53, offering times. <b>Unread</b></td><td>Watson to draft the reply naming free Thursday slots, then place the hold once he picks. <span class="a">Draft ready for your review</span></td><td><span class="pill p-you">Review and send</span></td></tr>
+<tr><td><b>Vodafone</b></td><td><span class="pill p-a">Interest A</span></td><td>Roadshow place, London group meeting or group video call, plus a call</td><td>02-Nov 16:35, by RB</td><td>Investor relations mailbox, copying Victoria Garnham, Corporate Access Manager</td><td>None in 3 days</td><td>Watson to draft chaser 1 of 3, short and warm, re-pasting the two asks only. <span class="a">Ready for your review 05-Nov</span></td><td><span class="pill p-you">Review and send</span></td></tr>
+<tr><td><b>Hellenic Telecom</b></td><td><span class="pill p-a">Interest A</span></td><td>Management meeting on the London roadshow, else a group video call, plus a call with three named slots</td><td>02-Nov 16:34, by RB, his own text</td><td>Evrikos Sarsentis and Sofia Ziavra</td><td>None in 3 days</td><td>Watson to draft chaser 1 of 3. <span class="a">Ready for your review 05-Nov.</span> Separately, the three slots offered carry no diary holds</td><td><span class="pill p-you">Review and send</span></td></tr>
+<tr><td><b>Instalco</b></td><td><span class="pill p-peer">Interest B level</span></td><td>Agreed with you 07-Oct: a one-on-one if there is a London roadshow, else a group place</td><td class="bad">Never sent</td><td>No contact was ever identified</td><td>n/a</td><td>It reported 23-Oct with no approach made, so the ask changes to a standalone investor relations call. <span class="a">Draft ready for your review once the contact is found</span></td><td><span class="pill p-you">Review and send</span></td></tr>
+<tr><td><b>Bravida</b></td><td><span class="pill p-a">Interest A</span></td><td>Agreed with you 07-Oct: as Instalco</td><td class="bad">Never sent</td><td>No contact was ever identified</td><td>n/a</td><td>As Instalco. <span class="a">Draft ready for your review once the contact is found</span></td><td><span class="pill p-you">Review and send</span></td></tr>
+</tbody></table></div>
+<div class="note"><b>What this tab is really for.</b> Two of the five rows are failures of the old design rather than of a company: Instalco and Bravida were agreed with you on 07-Oct and no email was ever written. <span class="j">A row sitting in "never sent" for three weeks is the clearest single sign the loop has stopped.</span></div>
+<h4>Counters proposed for the top of this tab</h4>
+<ul>
+<li><b>Sent this week, and this season,</b> against your guideline of 6 to 10 a week in earnings season</li>
+<li><b>Waiting on a reply,</b> and how many are past their chaser date</li>
+<li><b>Drafts waiting on you, oldest first,</b> since nothing moves until you send, so this queue predicts whether the loop is working</li>
+<li><b>Meetings and calls held against emails sent,</b> the only honest measure of whether any of this works</li>
+</ul>
+</div>
+
+<!-- TAB 3 -->
+<div class="pane" id="t3">
+<p><span class="j">My proposal for this tab, which you left to me.</span> Inbound is mostly a suppression problem, so the tab is built to prove it is suppressing correctly rather than to present offers.</p>
+<div class="note"><b>Measured from your own mailbox, 22 October to 2 November.</b> Eleven threads carried a roadshow or corporate access label. <b>Not one single-company offer named a company in your top four tiers.</b> The best was Imperial Brands, in RB Interest List C, your eighth tier. <span class="j">So inbound should cost you almost no attention, and outbound is where the value is.</span> Provisional: the two multi-company diaries below are unopened, and are the likeliest place a tier company hides.</div>
+<div class="scroll"><table>
+<thead><tr><th>Offer</th><th>From</th><th>Company</th><th>Highest tier</th><th>When</th><th>Proposed handling</th></tr></thead>
+<tbody>
+<tr><td>Fluidra management roadshow, London</td><td>CaixaBank BPI</td><td>Fluidra</td><td class="small">In none of your lists</td><td>3 to 4 Nov</td><td class="ok">Declined by you 02-Nov, "not in London then". Correct</td></tr>
+<tr><td>Imperial Brands virtual group meeting</td><td>Capital Access</td><td>Imperial Brands</td><td><span class="pill p-peer">Tier 8, Interest C</span></td><td>23 Nov</td><td>Shown as a choice with a recommendation to decline, since tier 8 warrants an investor relations call at most</td></tr>
+<tr><td>British American Tobacco virtual group meeting</td><td>Capital Access</td><td>British American Tobacco</td><td class="small">In none of your lists</td><td>12 Nov</td><td>No item, no reply. Counted in the housekeeping line</td></tr>
+<tr><td>EDP Chief Financial Officer virtual group meeting</td><td>CaixaBank BPI</td><td>EDP</td><td class="small">Not in the universe at all</td><td>13 Nov</td><td>No item, no reply</td></tr>
+<tr><td>Investec Events Diary</td><td>Investec</td><td class="bad">Many, body unopened</td><td class="bad">Unknown</td><td>29 Oct</td><td class="a">Open the body, match every company named, then decide. This is the gap</td></tr>
+<tr><td>Forthcoming roadshow events</td><td>Deutsche Numis</td><td class="bad">Many, body unopened</td><td class="bad">Unknown</td><td>week of 26 Oct</td><td class="a">As above</td></tr>
+<tr><td>German companies conference</td><td>Kepler Cheuvreux</td><td>Many, Germany</td><td class="small">Unknown</td><td>18 to 20 Jan</td><td>Abroad, so shown only if two or more top-four-tier companies attend</td></tr>
+<tr><td>Serial Acquirers Conference 2027</td><td>Redeye</td><td>Many, Nordic</td><td class="small">Unknown</td><td>2027</td><td><span class="pill p-you">Your call</span>: it needs a paid ticket, so it is a spending decision rather than an access one</td></tr>
+<tr><td>Emerging markets conference</td><td>Shore Capital</td><td>Thematic, no companies</td><td class="small">None</td><td>10 Nov</td><td>No item, no reply</td></tr>
+<tr><td>EME New York conference</td><td>WOOD</td><td>Many, emerging Europe</td><td class="small">Unknown</td><td>Apr 2027</td><td>Abroad and far off. No item</td></tr>
+<tr><td>Wartsila news conference comments</td><td>DNB Carnegie</td><td class="small">Not an offer</td><td>n/a</td><td>27 Oct</td><td class="bad">Mislabelled "Corporate access" by your own mail rules. Proves the classifier needs an explicit "not an offer" test</td></tr>
+</tbody></table></div>
+<h4>What this tab carries, and why</h4>
+<ul>
+<li><b>Offers of merit first,</b> meaning any naming a top-four-tier company, with the deadline and the diary fit. Expected to be short, often empty</li>
+<li><b>Everything suppressed, in one collapsed line,</b> so you can audit the judgement without reading it. <span class="o">A filter whose output you cannot see is one you cannot trust</span></li>
+<li><b>The multi-company diaries as a named queue,</b> because they are the one place a good offer can hide and they are currently unopened</li>
+<li><b>Conference decisions separately,</b> because they cost Focus Days or money rather than an hour</li>
+<li><b>A yield counter:</b> offers received, offers of merit, meetings taken</li>
+</ul>
+</div>
+
+<!-- TAB 4 -->
+<div class="pane" id="t4">
+<p><span class="j">My proposal for the "How To", which you also left to me.</span> One short tab so the page explains itself in six months.</p>
+<h4>The loop</h4>
+<ul>
+<li><b>Observe.</b> A free script reads the earnings calendar, your holdings, the cohorts and your mailbox every 30 minutes. No tokens</li>
+<li><b>Orient.</b> It sets each company's state, whether the window is open, whether a reply or a chaser is owed, and how warm the email should be</li>
+<li><b>Decide.</b> It derives the ask from your rules: market capitalisation, ownership, and what is realistically on offer. Nothing waits for you to approve a list</li>
+<li><b>Act.</b> Superhuman writes each draft from a short instruction. The drafts appear in the Company Roadshows and Meetings tab of your daily Executive Assistant page</li>
+<li><b>You.</b> Review and send. That is the only step that is yours</li>
+<li><b>Then.</b> Replies, slots and bookings run through your existing daily email run and calendar rules</li>
+</ul>
+<h4>Where each thing reaches you</h4>
+<ul>
+<li><b>This page:</b> status only. It never asks you for anything</li>
+<li><b>Your daily Executive Assistant page:</b> every draft, question and choice, in its own tab</li>
+<li><b>The requests page:</b> a new box for this workstream</li>
+<li><b>The Daily Digest:</b> only when something has broken</li>
+</ul>
+<h4>What the states mean</h4>
+<ul>
+<li><b>Nothing due:</b> results more than 4 weeks away</li>
+<li><b>Window open:</b> from 4 weeks before results to 3 weeks before, your ruling of 3 November. Every "window opens" date on this page is the results date less 4 weeks</li>
+<li><b>Contact needed:</b> no named investor relations contact yet, so the draft waits</li>
+<li><b>Drafted:</b> written and ready for your review</li>
+<li><b>Sent:</b> out. The chaser clock runs from this date, never from the date it was drafted</li>
+<li><b>Chased 1, 2, 3 of 3:</b> then it stops and shows as no reply</li>
+<li><b>Reply in, booked, held:</b> the good path</li>
+<li><b>Window missed:</b> results passed with no approach, so the ask changes from a roadshow place to a standalone call</li>
+</ul>
+<h4>The guideline this is sized against, in your words</h4>
+<p><i>"6-10 a week in 'earnings season' is acceptable/normal. And 1/4 to 1/3 that amount normally. These are v. rough guidelines, not rules."</i> The page shows the week's count against that as information, never as a limit it enforces.</p>
+</div>
+
+<!-- TAB 5 -->
+<div class="pane" id="t5">
+<p><span class="j">What content can be included, and what each item costs.</span> Free means derived from a file already kept, so it costs nothing and cannot drift.</p>
+<div class="scroll"><table>
+<thead><tr><th>Content</th><th>Source</th><th>Cost</th><th>In the mock-up?</th></tr></thead>
+<tbody>
+<tr><td>Company, ticker, tier</td><td>The eight-tier lookup</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td><b>Peers, each with its own next earnings date</b></td><td>The cohort map and the earnings calendar</td><td class="ok">Free</td><td>Yes, as you asked</td></tr>
+<tr><td>Its own earnings date, confirmed or projected</td><td>The earnings calendar</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>What has happened: who, what, when</td><td>The mailbox, by its existing roadshow label</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>What happens next: who, what, when</td><td>The loop's state file</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>Input needed from you</td><td>The loop</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>Market capitalisation, which sets the ask</td><td>The FactSet market capitalisation file</td><td class="ok">Free</td><td>Not yet, easy to add</td></tr>
+<tr><td>Whether a meeting note exists for this company</td><td>The automatic Notion meeting notes</td><td class="ok">Free</td><td>Yes, for four companies</td></tr>
+<tr><td>Live memo or Deep Dive in flight, your priority A</td><td>The memo conveyor's cards</td><td class="ok">Free</td><td>No, and <span class="j">I think it should go in</span>, because it is half your targeting rule</td></tr>
+<tr><td>Yield: meetings held against emails sent</td><td>The loop's state file</td><td class="ok">Free</td><td>Proposed on the outbound tab</td></tr>
+<tr><td>The eight master ratings</td><td>The canonical ratings file</td><td class="ok">Free</td><td>No. <span class="j">My view: leave out,</span> it is one tap away elsewhere and would crowd this page</td></tr>
+<tr><td>The named investor relations contact, and a link to the thread</td><td>The mailbox, then the company's own site</td><td class="bad">One lookup per company, then cached forever</td><td>Yes, now that you have said the page stays open rather than locked, contact names are shown only as a role and surname, never an email address</td></tr>
+</tbody></table></div>
+</div>
+
+<p class="small" style="margin-top:26px;border-top:1px solid var(--line);padding-top:10px">Built by Watson, Systems Architect, 3 November 2026, version 2. Project <b>EA - Company Roadshows and Meetings</b>. Sources read this session: the eight-tier lookup, the FactSet earnings calendar as at 2 November, the cohort map, the Superhuman work mailbox, and the automatic Notion meeting notes. Nothing on this page is live or scheduled.</p>
+</div>
+<script>
+(function(){
+ function wire(sel,paneSel,attr){
+  document.querySelectorAll(sel+" button").forEach(function(b){
+   b.addEventListener("click",function(){
+    document.querySelectorAll(sel+" button").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");
+    document.querySelectorAll(paneSel).forEach(function(p){p.classList.remove("on")});
+    var el=document.getElementById(b.getAttribute(attr)); if(el) el.classList.add("on");
+   });
+  });
+ }
+ wire("#tabs",".pane","data-t");
+ wire("#opts",".opt","data-o");
+})();
+</script>
+</body></html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activity Overview for Company Roadshows and Meetings: visual mock-ups, 3 Nov 2026</title>
+<style>
+:root{
+ --navy:#13294b; --mid:#2a5d9f; --light:#e8f0fa; --pale:#f4f6f9; --line:#d9dfe8;
+ --judge:#6b2fa8; --obs:#18599c; --act:#17784a;
+ --red:#b3261e; --amber:#8a6100; --green:#17784a; --greenbg:#e9f5ee; --amberbg:#fdf4e3; --redbg:#fdecea;
+ --ink:#1a1d21; --grey:#5b6472;
+}
+*{box-sizing:border-box}
+body{margin:0;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 14px 70px}
+h1{font-size:28px;font-weight:700;color:var(--navy);margin:0 0 4px;line-height:1.2}
+.sub{color:var(--grey);font-size:12px;margin:0 0 16px}
+h2{font-size:22px;font-weight:700;color:#fff;background:var(--navy);padding:7px 11px;border-radius:5px;margin:26px 0 10px}
+h3{font-size:18px;font-weight:700;color:#fff;background:var(--mid);padding:5px 10px;border-radius:4px;margin:20px 0 9px;display:inline-block}
+h4{font-size:15.5px;font-weight:700;color:var(--navy);background:var(--light);padding:4px 9px;border-radius:4px;margin:16px 0 8px;display:inline-block}
+p{margin:0 0 9px}
+ul{margin:0 0 10px;padding-left:19px}
+li{margin:0 0 5px}
+.j{color:var(--judge);font-weight:600}
+.o{color:var(--obs)}
+.a{color:var(--act);font-weight:600}
+.bluf{background:var(--pale);border-left:4px solid var(--judge);padding:9px 12px;border-radius:0 5px 5px 0;margin:0 0 14px}
+.note{background:#fffdf2;border:1px solid #e9dca8;padding:9px 12px;border-radius:5px;margin:10px 0;font-size:12.5px}
+/* tabs */
+.tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:2px solid var(--navy);margin:0 0 14px;position:sticky;top:0;background:#fff;padding-top:6px;z-index:5}
+.tabs button{font:600 12.5px/1 inherit;padding:9px 12px;border:1px solid var(--line);border-bottom:none;background:var(--pale);color:var(--grey);border-radius:5px 5px 0 0;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pane{display:none}.pane.on{display:block}
+/* option selector */
+.opts{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.opts button{font:600 12px/1 inherit;padding:8px 11px;border:1px solid var(--mid);background:#fff;color:var(--mid);border-radius:20px;cursor:pointer}
+.opts button.on{background:var(--mid);color:#fff}
+.opt{display:none}.opt.on{display:block}
+/* table */
+table{width:100%;border-collapse:collapse;font-size:12px;margin:0 0 12px}
+th{background:var(--navy);color:#fff;text-align:left;padding:6px 7px;font-weight:600;font-size:11.5px}
+td{padding:6px 7px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fafbfd}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* pills */
+.pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:9px;white-space:nowrap}
+.p-live{background:#dde8f7;color:var(--navy)}
+.p-peer{background:#eef1f5;color:var(--grey)}
+.p-a{background:#e6eef9;color:var(--mid)}
+.p-now{background:var(--redbg);color:var(--red)}
+.p-soon{background:var(--amberbg);color:var(--amber)}
+.p-ok{background:var(--greenbg);color:var(--green)}
+.p-you{background:#f0e6fa;color:var(--judge)}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+.card{border:1px solid var(--line);border-radius:7px;padding:10px 11px;background:#fff}
+.card.now{border-left:4px solid var(--red)}
+.card.soon{border-left:4px solid var(--amber)}
+.card.ok{border-left:4px solid var(--green)}
+.card .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:5px}
+.card .nm{font-weight:700;font-size:14px;color:var(--navy)}
+.card dl{margin:0;font-size:12px}
+.card dt{color:var(--grey);font-size:10.5px;text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
+.card dd{margin:0}
+.grp{font-weight:700;color:var(--navy);margin:16px 0 8px;font-size:14px;border-bottom:1px solid var(--line);padding-bottom:4px}
+/* timeline */
+.tl{border-left:3px solid var(--line);margin-left:8px;padding-left:14px}
+.tlw{margin:0 0 16px;position:relative}
+.tlw:before{content:"";position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--mid)}
+.tlw.hot:before{background:var(--red)}
+.tlw h5{margin:0 0 6px;font-size:13.5px;font-weight:700;color:var(--navy)}
+.tlrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px dotted var(--line);flex-wrap:wrap;font-size:12px}
+.tlrow b{min-width:120px;color:var(--navy)}
+.small{font-size:11.5px;color:var(--grey)}
+.ok{color:var(--green);font-weight:600}
+.bad{color:var(--red);font-weight:600}
+@media(max-width:620px){h1{font-size:22px}.card .nm{font-size:13.5px}}
+</style></head><body><div class="wrap">
+
+<h1>Activity Overview for Company Roadshows and Meetings</h1>
+<p class="sub">Visual mock-ups for selection, built 3 November 2026, 05:10 UK. Every figure and every row below is <b>real data read this session</b>, not placeholder text. Nothing here is live yet.</p>
+
+<div class="bluf">
+<p><span class="j">What I need from you on this page:</span> pick one of the three visual treatments for the per-stock view (Option A, B or C below), and tell me what content to add or drop from the inventory at the end.</p>
+<p style="margin:0"><span class="o">What this page is for, in your words:</span> <i>"the 'Activity Overview for Company Roadshows and Meetings' page is for me to eye-ball status/progress."</i> So it never asks you for anything. Every action and question reaches you in the Company Roadshows and Meetings tab of your daily Executive Assistant page instead.</p>
+</div>
+
+<div class="note">
+<b>Three things this mock-up surfaced that you do not yet know about.</b>
+<ul style="margin:6px 0 0">
+<li><b>Xvivo's Chief Financial Officer replied yesterday and the message is still unread.</b> You wrote to Kristoffer Nordstrom at 12:52 UK on 2 November; he answered at 14:53 UK offering times. Xvivo is a Live Stock. <span class="a">This is the most valuable thing on the page.</span></li>
+<li><b>Volex carries no earnings date in the FactSet calendar</b>, although its half-year results are on 12 November. Any loop driven by that calendar would skip Volex silently.</li>
+<li><b>Not one single-company inbound offer in the last two weeks named a company in your top four tiers.</b> Eleven offers, none of merit. Provisional: the two multi-company diaries have not been opened.</li>
+</ul>
+</div>
+
+<div class="tabs" id="tabs">
+<button class="on" data-t="t1">1. Activity per Relevant Stock</button>
+<button data-t="t2">2. Outbound Activity</button>
+<button data-t="t3">3. Inbound Offers</button>
+<button data-t="t4">4. How this works</button>
+<button data-t="t5">Content inventory</button>
+</div>
+
+<!-- ============ TAB 1 ============ -->
+<div class="pane on" id="t1">
+<p><span class="j">Purpose, from your brief:</span> <i>"what stocks, what the 'peers' to each stock are (the linkage), when earnings are, what actions should be done, what has been done, what will be done next, what input is needed from me if any"</i>. All three options below carry exactly that, with the same real data. They differ in what they make easy.</p>
+
+<div class="opts" id="opts">
+<button class="on" data-o="oA">Option A: dense table</button>
+<button data-o="oB">Option B: cards by urgency</button>
+<button data-o="oC">Option C: season timeline</button>
+</div>
+
+<!-- Option A -->
+<div class="opt on" id="oA">
+<h4>Option A: one dense sortable table</h4>
+<p><span class="o">Best at:</span> scanning all 72 essential-tier companies in one pass on a desktop, and sorting by earnings date. <span class="bad">Weakest at:</span> reading on a phone, where it becomes a sideways scroll.</p>
+<div class="scroll"><table>
+<thead><tr><th>Stock</th><th>Tier</th><th>Peers (the linkage)</th><th>Next earnings</th><th>Last contact</th><th>State</th><th>Next action, and when</th><th>Needs you?</th></tr></thead>
+<tbody>
+<tr><td><b>Xvivo</b><br><span class="small">XVIVO-SE</span></td><td><span class="pill p-live">Live</span></td><td>5 <span class="small">(Getinge, Ambu, Medicover, Surgical Science, Diagnostyka)</span></td><td>28 Jan 2027<br><span class="small">Confirmed</span></td><td>Reply from Chief Financial Officer<br><span class="small">2 Nov 14:53</span></td><td><span class="pill p-now">Reply waiting</span></td><td class="a">Answer with your Thursday slots. Today</td><td><span class="pill p-you">Press send</span></td></tr>
+<tr><td><b>Helios Towers</b><br><span class="small">HTWS-GB</span></td><td><span class="pill p-live">Live</span></td><td>3 <span class="small">(Cellnex, Inwit, Rai Way)</span></td><td>5 Nov 2026<br><span class="small">Confirmed</span></td><td>None on file</td><td><span class="pill p-now">Due now</span></td><td class="a">Draft roadshow and call ask. Today</td><td><span class="pill p-you">Press send</span></td></tr>
+<tr><td><b>IMCD</b><br><span class="small">IMCD-NL</span></td><td><span class="pill p-live">Live</span></td><td>2 <span class="small">(Brenntag, Azelis)</span></td><td>5 Nov 2026<br><span class="small">Confirmed</span></td><td>None on file</td><td><span class="pill p-now">Due now</span></td><td class="a">Draft roadshow and call ask. Today</td><td><span class="pill p-you">Press send</span></td></tr>
+<tr><td><b>Volex</b><br><span class="small">VLX-GB</span></td><td><span class="pill p-live">Live</span></td><td>4 <span class="small">(cohort 04.063)</span></td><td class="bad">No date in calendar<br><span class="small">Half-year is 12 Nov</span></td><td>None on file</td><td><span class="pill p-now">Data gap</span></td><td class="a">Set the date by hand, then draft. Today</td><td>No</td></tr>
+<tr><td><b>Ballys Intralot</b><br><span class="small">BYLOT-GR</span></td><td><span class="pill p-live">Live</span></td><td>6</td><td>27 Nov 2026<br><span class="small">Projected</span></td><td>None on file</td><td><span class="pill p-soon">Due in 3 weeks</span></td><td>Verify the date on the company's own site, then draft 13 Nov</td><td>No</td></tr>
+<tr><td><b>Hilton Food</b><br><span class="small">HFG-GB</span></td><td><span class="pill p-live">Live</span></td><td>4 <span class="small">(Cranswick, Greencore, LDC)</span></td><td>7 Apr 2027<br><span class="small">Projected</span></td><td>Investor update<br><span class="small">Jun 2026, note on file</span></td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens late Mar 2027</td><td>No</td></tr>
+<tr><td><b>Carlsberg</b><br><span class="small">CARL.B-DK</span></td><td><span class="pill p-live">Live</span></td><td>3</td><td>9 Feb 2027<br><span class="small">Confirmed</span></td><td>Roadshow offer Sep 2026</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens late Jan 2027</td><td>No</td></tr>
+<tr><td><b>Fevertree</b><br><span class="small">FEVR-GB</span></td><td><span class="pill p-live">Live</span></td><td>3</td><td>30 Mar 2027<br><span class="small">Projected</span></td><td>Investor update call<br><span class="small">Jun 2026, note on file</span></td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens mid Mar 2027</td><td>No</td></tr>
+<tr><td><b>CVS Group</b><br><span class="small">CVSG-GB</span></td><td><span class="pill p-live">Live</span></td><td>5</td><td>4 Mar 2027<br><span class="small">Projected</span></td><td>Investor relations update<br><span class="small">Jun 2026, note on file</span></td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens mid Feb 2027</td><td>No</td></tr>
+<tr><td><b>Alfen</b><br><span class="small">ALFEN-NL</span></td><td><span class="pill p-live">Live</span></td><td>5 <span class="small">(shares cohort 08.175 with Arteche)</span></td><td>17 Feb 2027<br><span class="small">Projected</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens early Feb 2027</td><td>No</td></tr>
+<tr><td><b>Arteche</b><br><span class="small">ART-ES</span></td><td><span class="pill p-live">Live</span></td><td>5 <span class="small">(shares cohort 08.175 with Alfen)</span></td><td>24 Mar 2027<br><span class="small">Projected</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens mid Mar 2027</td><td>No</td></tr>
+<tr><td><b>Avanza</b><br><span class="small">AZA-SE</span></td><td><span class="pill p-live">Live</span></td><td>6 <span class="small">(incl. Fineco, AJ Bell, Integrafin)</span></td><td>22 Jan 2027<br><span class="small">Confirmed</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens early Jan 2027</td><td>No</td></tr>
+<tr><td><b>D'Ieteren</b><br><span class="small">DIE-BE</span></td><td><span class="pill p-live">Live</span></td><td class="small">None (sole member of cohort 09.591)</td><td>10 Mar 2027<br><span class="small">Confirmed</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens late Feb 2027</td><td>No</td></tr>
+<tr><td><b>Hexatronic</b><br><span class="small">HTRO-SE</span></td><td><span class="pill p-live">Live</span></td><td>3</td><td>4 Feb 2027<br><span class="small">Confirmed</span></td><td>Outreach Apr 2026<br><span class="small">no reply</span></td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens late Jan 2027</td><td>No</td></tr>
+<tr><td><b>Sdiptech</b><br><span class="small">SDIP.B-SE</span></td><td><span class="pill p-live">Live</span></td><td>3</td><td>10 Feb 2027<br><span class="small">Confirmed</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens late Jan 2027</td><td>No</td></tr>
+<tr><td><b>Theon</b><br><span class="small">THEON-NL</span></td><td><span class="pill p-live">Live</span></td><td>5 <span class="small">(incl. Hensoldt)</span></td><td>19 Mar 2027<br><span class="small">Projected</span></td><td>None on file</td><td><span class="pill p-ok">Nothing due</span></td><td>Next window opens early Mar 2027</td><td>No</td></tr>
+<tr><td><b>Hellenic Telecom</b><br><span class="small">HTO-GR</span></td><td><span class="pill p-a">Interest A</span></td><td class="small">Peer of no Live Stock</td><td>25 Feb 2027<br><span class="small">Projected; reported 30 Oct</span></td><td>You wrote 2 Nov 16:34</td><td><span class="pill p-now">Sent, no reply</span></td><td class="a">Chaser due 5 Nov; your 3 offered slots have no diary holds</td><td><span class="pill p-you">Press send</span></td></tr>
+<tr><td><b>Vodafone</b><br><span class="small">VOD-GB</span></td><td><span class="pill p-a">Interest A</span></td><td class="small">Peer of no Live Stock</td><td>10 Nov 2026<br><span class="small">Confirmed</span></td><td>Sent 2 Nov 16:35</td><td><span class="pill p-now">Sent, no reply</span></td><td class="a">Chaser due 5 Nov, before results</td><td><span class="pill p-you">Press send</span></td></tr>
+</tbody></table></div>
+<p class="small">Shown: the 16 Live Stocks plus the two companies with live outbound threads. The real page would carry all 72 essential-tier companies, with the 56 peers collapsible under their Live Stock.</p>
+</div>
+
+<!-- Option B -->
+<div class="opt" id="oB">
+<h4>Option B: a card per company, grouped by what is owed</h4>
+<p><span class="o">Best at:</span> reading on your phone, and answering "what do I actually need to do" in two seconds. <span class="bad">Weakest at:</span> comparing 72 companies at once, and sorting.</p>
+
+<div class="grp">Needs you now (4)</div>
+<div class="cards">
+<div class="card now"><div class="top"><span class="nm">Xvivo</span><span class="pill p-live">Live</span></div>
+<dl><dt>Peers</dt><dd>Getinge, Ambu, Medicover, Surgical Science, Diagnostyka</dd>
+<dt>Next earnings</dt><dd>28 Jan 2027 (Confirmed)</dd>
+<dt>Done so far</dt><dd>You wrote to the Chief Financial Officer 2 Nov 12:52. <b>He replied 14:53 with times. Still unread.</b></dd>
+<dt>Next</dt><dd class="a">Answer naming your Thursday slots</dd>
+<dt>From you</dt><dd><span class="pill p-you">Press send on the reply</span></dd></dl></div>
+
+<div class="card now"><div class="top"><span class="nm">Helios Towers</span><span class="pill p-live">Live</span></div>
+<dl><dt>Peers</dt><dd>Cellnex, Inwit, Rai Way</dd>
+<dt>Next earnings</dt><dd><b>5 Nov 2026</b> (Confirmed), in 2 days</dd>
+<dt>Done so far</dt><dd>Nothing on file</dd>
+<dt>Next</dt><dd class="a">Draft the roadshow and call ask today, inside the window</dd>
+<dt>From you</dt><dd><span class="pill p-you">Press send</span></dd></dl></div>
+
+<div class="card now"><div class="top"><span class="nm">Vodafone</span><span class="pill p-a">Interest A</span></div>
+<dl><dt>Peers</dt><dd>Peer of no Live Stock</dd>
+<dt>Next earnings</dt><dd><b>10 Nov 2026</b> (Confirmed)</dd>
+<dt>Done so far</dt><dd>Sent 2 Nov 16:35 to the investor relations mailbox, copying the Corporate Access Manager. No reply</dd>
+<dt>Next</dt><dd class="a">Chaser 5 Nov, so it lands before results</dd>
+<dt>From you</dt><dd><span class="pill p-you">Press send on the chaser</span></dd></dl></div>
+
+<div class="card now"><div class="top"><span class="nm">Hellenic Telecom</span><span class="pill p-a">Interest A</span></div>
+<dl><dt>Peers</dt><dd>Peer of no Live Stock</dd>
+<dt>Next earnings</dt><dd>Reported 30 Oct; next 25 Feb 2027</dd>
+<dt>Done so far</dt><dd>You wrote 2 Nov 16:34 to both investor relations contacts, offering three call slots</dd>
+<dt>Next</dt><dd class="a">Chaser 5 Nov. <b>Your three offered slots carry no diary holds</b></dd>
+<dt>From you</dt><dd><span class="pill p-you">Press send, and confirm the slots</span></dd></dl></div>
+</div>
+
+<div class="grp">In flight, nothing owed by you (2)</div>
+<div class="cards">
+<div class="card soon"><div class="top"><span class="nm">Volex</span><span class="pill p-live">Live</span></div>
+<dl><dt>Next earnings</dt><dd class="bad">No date in the calendar. Half-year results are 12 Nov</dd>
+<dt>Next</dt><dd class="a">I set the date by hand, then draft</dd>
+<dt>From you</dt><dd>Nothing</dd></dl></div>
+<div class="card soon"><div class="top"><span class="nm">Ballys Intralot</span><span class="pill p-live">Live</span></div>
+<dl><dt>Next earnings</dt><dd>27 Nov 2026 (Projected, so unverified)</dd>
+<dt>Next</dt><dd class="a">Verify on the company's own site, draft 13 Nov</dd>
+<dt>From you</dt><dd>Nothing</dd></dl></div>
+</div>
+
+<div class="grp">Nothing due until their next results (10 of the 16 Live Stocks)</div>
+<div class="cards">
+<div class="card ok"><div class="top"><span class="nm">Avanza</span><span class="pill p-live">Live</span></div><dl><dt>Window opens</dt><dd>Early Jan 2027 (results 22 Jan)</dd><dt>Peers</dt><dd>6, including Fineco, AJ Bell, Integrafin</dd></dl></div>
+<div class="card ok"><div class="top"><span class="nm">Hexatronic</span><span class="pill p-live">Live</span></div><dl><dt>Window opens</dt><dd>Late Jan 2027 (results 4 Feb)</dd><dt>History</dt><dd>One outreach Apr 2026, no reply</dd></dl></div>
+<div class="card ok"><div class="top"><span class="nm">Carlsberg</span><span class="pill p-live">Live</span></div><dl><dt>Window opens</dt><dd>Late Jan 2027 (results 9 Feb)</dd></dl></div>
+<div class="card ok"><div class="top"><span class="nm">Hilton Food</span><span class="pill p-live">Live</span></div><dl><dt>Window opens</dt><dd>Late Mar 2027</dd><dt>History</dt><dd>Investor update Jun 2026, note on file</dd></dl></div>
+</div>
+<p class="small">Four of the ten shown. The real page would list all of them, collapsed by default.</p>
+</div>
+
+<!-- Option C -->
+<div class="opt" id="oC">
+<h4>Option C: a timeline spine down the reporting season</h4>
+<p><span class="o">Best at:</span> seeing the shape of the season, planning which Mondays and Thursdays fill up, and noticing a quiet fortnight before it arrives. <span class="bad">Weakest at:</span> per-company detail, which has to sit behind a tap.</p>
+<div class="tl">
+<div class="tlw hot"><h5>This week, 3 to 9 November</h5>
+<div class="tlrow"><b>Xvivo</b><span class="pill p-live">Live</span><span>Chief Financial Officer replied 2 Nov, unread</span><span class="a">answer today</span></div>
+<div class="tlrow"><b>Helios Towers</b><span class="pill p-live">Live</span><span>results Thu 5 Nov</span><span class="a">draft today, in the window</span></div>
+<div class="tlrow"><b>IMCD</b><span class="pill p-live">Live</span><span>results Thu 5 Nov</span><span class="a">draft today, in the window</span></div>
+<div class="tlrow"><b>Vodafone</b><span class="pill p-a">Interest A</span><span>results Tue 10 Nov, silent since 2 Nov</span><span class="a">chaser Thu 5 Nov</span></div>
+<div class="tlrow"><b>Hellenic Telecom</b><span class="pill p-a">Interest A</span><span>silent since 2 Nov; 3 slots offered, no holds</span><span class="a">chaser Thu 5 Nov</span></div>
+</div>
+<div class="tlw hot"><h5>Next week, 10 to 16 November</h5>
+<div class="tlrow"><b>Volex</b><span class="pill p-live">Live</span><span class="bad">half-year 12 Nov, missing from the calendar</span><span class="a">draft by 5 Nov</span></div>
+<div class="tlrow"><b>Inwit</b><span class="pill p-peer">peer of Helios Towers</span><span>results 10 Nov</span><span class="a">draft 4 Nov</span></div>
+<div class="tlrow"><b>Brenntag</b><span class="pill p-peer">peer of IMCD</span><span>results 11 Nov</span><span class="a">draft 4 Nov</span></div>
+<div class="tlrow"><b>Rai Way</b><span class="pill p-peer">peer of Helios Towers</span><span>results 11 Nov</span><span class="a">draft 4 Nov</span></div>
+<div class="tlrow"><b>Surgical Science</b><span class="pill p-peer">peer of Xvivo</span><span>results 12 Nov</span><span class="a">draft 5 Nov</span></div>
+</div>
+<div class="tlw"><h5>17 to 30 November</h5>
+<div class="tlrow"><b>Pfisterer</b><span class="pill p-peer">peer of Alfen and Arteche</span><span>results 18 Nov</span><span>draft 11 Nov</span></div>
+<div class="tlrow"><b>Cembre</b><span class="pill p-peer">peer of Alfen and Arteche</span><span>results 18 Nov, Projected</span><span>verify, then draft</span></div>
+<div class="tlrow"><b>Cranswick</b><span class="pill p-peer">peer of Hilton Food</span><span>results 24 Nov</span><span>draft 17 Nov</span></div>
+<div class="tlrow"><b>Ballys Intralot</b><span class="pill p-live">Live</span><span>results 27 Nov, Projected</span><span>verify, then draft 13 Nov</span></div>
+<div class="tlrow"><b>Diagnostyka</b><span class="pill p-peer">peer of Xvivo</span><span>results 26 Nov</span><span>draft 19 Nov</span></div>
+</div>
+<div class="tlw"><h5>December, then the season stops</h5>
+<div class="tlrow"><b>Greencore</b><span class="pill p-peer">peer of Hilton Food</span><span>results 1 Dec</span><span>draft 24 Nov</span></div>
+<div class="tlrow"><b>AJ Bell</b><span class="pill p-peer">peer of Avanza</span><span>results 3 Dec</span><span>draft 26 Nov</span></div>
+<div class="tlrow"><b>Integrafin</b><span class="pill p-peer">peer of Avanza</span><span>results 9 Dec</span><span>draft 2 Dec</span></div>
+<div class="tlrow"><b class="j">Then nothing until January</b><span class="small">13 of your 16 Live Stocks next report between 22 Jan and 7 Apr 2027</span></div>
+</div>
+</div>
+<div class="note"><b>Why this option may matter most.</b> It is the only one of the three that makes the <span class="j">central fact of the next eight weeks</span> visible without reading a single row: the third quarter window is nearly shut, and the real prize is being ready for late January, when most of your book reports.</div>
+</div>
+</div>
+
+<!-- ============ TAB 2 ============ -->
+<div class="pane" id="t2">
+<p><span class="j">Purpose:</span> every outbound approach in flight, what was asked, what came back, and what happens next. Same content goals as the per-stock tab, organised by the approach rather than by the company.</p>
+<div class="scroll"><table>
+<thead><tr><th>Company</th><th>Tier</th><th>Ask made</th><th>Sent</th><th>To</th><th>Reply</th><th>Chaser</th><th>Next step</th></tr></thead>
+<tbody>
+<tr><td><b>Xvivo</b></td><td><span class="pill p-live">Live</span></td><td>Investor relations call</td><td>2 Nov 12:52</td><td>Chief Financial Officer</td><td class="ok">Yes, 2 Nov 14:53, offering times. <b>Unread</b></td><td>Not needed</td><td class="a">Reply with your Thursday slots, then book and hold</td></tr>
+<tr><td><b>Vodafone</b></td><td><span class="pill p-a">Interest A</span></td><td>Roadshow place, London group meeting or group video call; plus a call</td><td>2 Nov 16:35</td><td>Investor relations mailbox, copying the Corporate Access Manager</td><td>None after 3 days</td><td><span class="pill p-now">Due 5 Nov</span></td><td class="a">Warm, short chaser re-pasting the two asks, before the 10 Nov results</td></tr>
+<tr><td><b>Hellenic Telecom</b></td><td><span class="pill p-a">Interest A</span></td><td>Management meeting on the London roadshow, else group video call; plus a call with three named slots</td><td>2 Nov 16:34<br><span class="small">written by you</span></td><td>Two investor relations contacts</td><td>None after 3 days</td><td><span class="pill p-now">Due 5 Nov</span></td><td class="a">Chaser, and decide whether to hold the three slots you offered</td></tr>
+<tr><td><b>Instalco</b></td><td><span class="pill p-peer">Interest B level</span></td><td>Agreed 7 Oct: one-on-one if a London roadshow, else a group place</td><td class="bad">Never sent</td><td>Contact never found</td><td>n/a</td><td>n/a</td><td class="a">Window missed, it reported 23 Oct. Switch the ask to a standalone call</td></tr>
+<tr><td><b>Bravida</b></td><td><span class="pill p-a">Interest A</span></td><td>Agreed 7 Oct: same as Instalco</td><td class="bad">Never sent</td><td>Contact never found</td><td>n/a</td><td>n/a</td><td class="a">Window missed, it reported 23 Oct. Switch the ask to a standalone call</td></tr>
+</tbody></table></div>
+<div class="note"><b>What this tab is really for.</b> Two of the five rows are failures of the old design rather than of a company: Instalco and Bravida were agreed with you on 7 October and no email was ever written. <span class="j">A row that sits in "never sent" for three weeks is the single clearest sign the loop has stopped</span>, which is why this tab exists at all.</div>
+<h4>Proposed counters at the top of this tab</h4>
+<ul>
+<li><b>Sent this week, and this season:</b> against your guideline of 6 to 10 a week in earnings season</li>
+<li><b>Waiting on a reply:</b> and how many are past their chaser date</li>
+<li><b>Drafts waiting on your send, oldest first:</b> because under your answer to question 4 nothing moves until you click, so this is the queue that predicts whether the loop is working</li>
+<li><b>Meetings and calls held:</b> against emails sent, which is the only honest measure of whether any of this works</li>
+</ul>
+</div>
+
+<!-- ============ TAB 3 ============ -->
+<div class="pane" id="t3">
+<p><span class="j">My proposal for this tab, which you left to me.</span> Inbound is mostly a suppression problem, not an opportunity problem, so the tab is built to prove it is suppressing correctly rather than to present offers. The evidence below is why.</p>
+<div class="note"><b>The measured finding, from your own mailbox, 22 October to 2 November.</b> Eleven threads carried a roadshow or corporate access label. <b>Not one single-company offer named a company in your top four tiers.</b> The best was Imperial Brands, which sits in RB Interest List C, your eighth tier. <span class="j">So inbound should cost you almost no attention, and outbound is where the value is.</span> Provisional: the two multi-company diaries below have not been opened, and they are the most likely place a tier company hides.</div>
+<div class="scroll"><table>
+<thead><tr><th>Offer</th><th>From</th><th>Companies</th><th>Highest tier</th><th>When</th><th>Proposed handling</th></tr></thead>
+<tbody>
+<tr><td>Fluidra management roadshow, London</td><td>CaixaBank BPI</td><td>Fluidra</td><td class="small">In none of your lists</td><td>3 to 4 Nov</td><td class="ok">Declined by you, 2 Nov, "not in London then". Correct</td></tr>
+<tr><td>Imperial Brands virtual group meeting</td><td>Capital Access</td><td>Imperial Brands</td><td><span class="pill p-peer">Tier 8, Interest C</span></td><td>23 Nov</td><td>Show as a choice, recommend declining. Your rules put tier 8 at an investor relations call or nothing</td></tr>
+<tr><td>British American Tobacco virtual group meeting</td><td>Capital Access</td><td>British American Tobacco</td><td class="small">In none of your lists</td><td>12 Nov</td><td>No item, no reply. Counted in the housekeeping line</td></tr>
+<tr><td>EDP Chief Financial Officer virtual group meeting</td><td>CaixaBank BPI</td><td>EDP</td><td class="small">Not in the universe at all</td><td>13 Nov</td><td>No item, no reply</td></tr>
+<tr><td>Investec Events Diary</td><td>Investec</td><td class="bad">Many, body not yet read</td><td class="bad">Unknown</td><td>29 Oct</td><td class="a">Open the body, match every company, then decide. This is the gap</td></tr>
+<tr><td>Deutsche Numis forthcoming roadshow events</td><td>Deutsche Numis</td><td class="bad">Many, body not yet read</td><td class="bad">Unknown</td><td>week of 26 Oct</td><td class="a">Same</td></tr>
+<tr><td>Kepler German companies conference</td><td>Kepler Cheuvreux</td><td>Many, Germany</td><td class="small">Unknown</td><td>18 to 20 Jan</td><td>Abroad, so show only if two or more top-four-tier companies attend</td></tr>
+<tr><td>Redeye Serial Acquirers Conference 2027</td><td>Redeye</td><td>Many, Nordic</td><td class="small">Unknown</td><td>2027</td><td><span class="pill p-you">Your call</span>: it needs a paid ticket, so it is a spending decision, not an access one</td></tr>
+<tr><td>Shore Capital emerging markets conference</td><td>Shore Capital</td><td>Thematic, no companies</td><td class="small">None</td><td>10 Nov</td><td>No item, no reply</td></tr>
+<tr><td>WOOD EME New York conference</td><td>WOOD</td><td>Many, emerging Europe</td><td class="small">Unknown</td><td>Apr 2027</td><td>Abroad and far off. No item</td></tr>
+<tr><td>Wartsila news conference comments</td><td>DNB Carnegie</td><td class="small">Not an offer</td><td>n/a</td><td>27 Oct</td><td class="bad">Mislabelled "Corporate access" by your own mail rules. Proves the classifier needs an explicit "not an offer" test</td></tr>
+</tbody></table></div>
+<h4>What this tab carries, and why</h4>
+<ul>
+<li><b>Offers of merit first,</b> meaning any naming a company in your top four tiers, with the deadline and the diary fit. Expected to be a short list, often empty</li>
+<li><b>Everything suppressed, in one collapsed line,</b> so you can audit the judgement without reading it. <span class="o">You cannot trust a filter you cannot see the output of</span></li>
+<li><b>The multi-company diaries as a named queue,</b> because they are the one place a good offer can hide and they are currently unopened</li>
+<li><b>Conference decisions separately,</b> because they cost Focus Days or money rather than an hour</li>
+<li><b>A yield counter:</b> offers received, offers of merit, meetings taken. If a bank sends 40 offers and none is ever of merit, that is worth knowing</li>
+</ul>
+</div>
+
+<!-- ============ TAB 4 ============ -->
+<div class="pane" id="t4">
+<p><span class="j">My proposal for the "How To", which you also left to me.</span> One short tab that answers "what is this thing and where do I act", so the page explains itself in six months when neither of us remembers.</p>
+<h4>The loop, in one line each</h4>
+<ul>
+<li><b>Observe.</b> A free script reads the earnings calendar, your live holdings, the cohorts and your mailbox, every 30 minutes. No tokens</li>
+<li><b>Orient.</b> It works out each company's state, whether its window is open, whether a reply or a chaser is owed, and how warm the email should be, from whether you own it, have owned it, or have written to them</li>
+<li><b>Decide.</b> It derives the ask from your rules: market capitalisation, ownership, and the type you are realistically offered. Nothing waits for you to approve a list</li>
+<li><b>Act.</b> Superhuman writes each draft from a short instruction carrying those facts. The drafts land in the Company Roadshows and Meetings tab of your daily Executive Assistant page</li>
+<li><b>You.</b> Press send. That is the only step that is yours</li>
+<li><b>Then.</b> Replies, slots and bookings run through your existing daily email run and the calendar rules, as they do today</li>
+</ul>
+<h4>Where each thing reaches you</h4>
+<ul>
+<li><b>This page:</b> status only. It never asks you anything</li>
+<li><b>Your daily Executive Assistant page:</b> every draft to send, every question, every choice, in its own tab</li>
+<li><b>The requests page:</b> a new box for this workstream, so "email Instalco's investor relations team" works the way it worked for Vodafone on Sunday</li>
+<li><b>The Daily Digest:</b> only when something has broken</li>
+</ul>
+<h4>What the states mean</h4>
+<ul>
+<li><b>Nothing due:</b> the company's results are more than two weeks away</li>
+<li><b>Window open:</b> from about two weeks before results to about one week after, which is when investor relations teams allocate roadshow slots</li>
+<li><b>Drafted:</b> written and waiting on your send</li>
+<li><b>Sent:</b> out, and the chaser clock runs from this date, never from the date it was drafted</li>
+<li><b>Chased once, chased twice:</b> then it stops and shows as no reply</li>
+<li><b>Booked, held:</b> in the diary, then done</li>
+<li><b>Window missed:</b> results passed with no approach, so the ask switches from a roadshow place to a standalone call</li>
+</ul>
+<h4>The guideline this is sized against, in your words</h4>
+<p><i>"6-10 a week in 'earnings season' is acceptable/normal. And 1/4 to 1/3 that amount normally. These are v. rough guidelines, not rules."</i> The page shows the week's count against that, as information and never as a limit it enforces.</p>
+</div>
+
+<!-- ============ TAB 5 ============ -->
+<div class="pane" id="t5">
+<p><span class="j">What content can be included, and what each item costs.</span> Everything marked free is derived from a file we already keep, so it costs nothing to show and cannot go stale. Tell me what to add and what to drop.</p>
+<div class="scroll"><table>
+<thead><tr><th>Content</th><th>Where it comes from</th><th>Cost</th><th>In the mock-up?</th></tr></thead>
+<tbody>
+<tr><td>Company, ticker, tier</td><td>The eight-tier lookup</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td><b>Peers of each Live Stock, named</b></td><td>The cohort map</td><td class="ok">Free</td><td>Yes, and this is the "linkage" you asked for</td></tr>
+<tr><td>Next earnings date, and whether it is confirmed or projected</td><td>The FactSet earnings calendar</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>Market capitalisation, which sets the ask</td><td>The FactSet market capitalisation file</td><td class="ok">Free</td><td>Not yet, easy to add</td></tr>
+<tr><td>State, and the next action with its date</td><td>The loop's own state file</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>What has been done, and when</td><td>The mailbox, by its existing roadshow label</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>What you need to do</td><td>The loop</td><td class="ok">Free</td><td>Yes</td></tr>
+<tr><td>Whether a meeting note exists for this company</td><td>The automatic Notion meeting notes</td><td class="ok">Free</td><td>Yes, for four companies</td></tr>
+<tr><td>Sector, industry, cohort code</td><td>The universe file</td><td class="ok">Free</td><td>Partly</td></tr>
+<tr><td>The stock's eight master ratings</td><td>The canonical ratings file</td><td class="ok">Free</td><td>No. <span class="j">My view: leave it out.</span> It is one tap away on the per-stock dashboard and would crowd this page</td></tr>
+<tr><td>Live memo or Deep Dive in flight, which is your priority A</td><td>The memo conveyor's cards</td><td class="ok">Free</td><td>No, and <span class="j">I think it should go in</span>, because it is half your targeting rule</td></tr>
+<tr><td>Yield: meetings held against emails sent</td><td>The loop's state file</td><td class="ok">Free</td><td>Proposed on the outbound tab</td></tr>
+<tr><td>The named investor relations contact</td><td>The mailbox, then the company's own site</td><td class="bad">Costs a lookup once per company, then cached</td><td class="bad">Deliberately not shown. See the question below</td></tr>
+<tr><td>A link straight to the mail thread</td><td>The mailbox</td><td class="ok">Free</td><td>Not yet, easy to add</td></tr>
+</tbody></table></div>
+<div class="note"><b>One question I need you to settle about this page, before I build the real one.</b><br>
+The landing site is public. This page would carry your holdings, your pipeline and your outreach status, and if I added contact names it would carry other people's names and email addresses too. <span class="j">My recommendation: build it like your daily Executive Assistant page, locked behind the same passphrase, and then it can safely carry contact names and thread links.</span> The alternative is an open page with no personal contact details on it, which is what this mock-up shows.</div>
+</div>
+
+<p class="small" style="margin-top:26px;border-top:1px solid var(--line);padding-top:10px">Built by Watson, Systems Architect, 3 November 2026. Project <b>EA - Company Roadshows and Meetings</b>. Data read this session: the eight-tier lookup, the FactSet earnings calendar as at 2 November, the cohort map, the Superhuman work mailbox, and the automatic Notion meeting notes. Nothing on this page is live or scheduled.</p>
+</div>
+<script>
+(function(){
+ function wire(sel, paneSel, attr){
+  document.querySelectorAll(sel+" button").forEach(function(b){
+   b.addEventListener("click",function(){
+    document.querySelectorAll(sel+" button").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");
+    document.querySelectorAll(paneSel).forEach(function(p){p.classList.remove("on")});
+    var el=document.getElementById(b.getAttribute(attr)); if(el) el.classList.add("on");
+   });
+  });
+ }
+ wire("#tabs",".pane","data-t");
+ wire("#opts",".opt","data-o");
+})();
+</script>
+</body></html>
